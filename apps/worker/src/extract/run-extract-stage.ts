@@ -7,10 +7,12 @@ import {
   loadClusterSources,
   loadCommentThreads,
   loadRawItems,
+  resolveClusterSources,
   type PendingStory,
 } from './extract-stage-data';
 import { runExtractMaintenance } from './extract-stage-maintenance';
 import { extractWithLLM } from './haiku-client';
+import { reresolveHeldImages } from './held-image-pass';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import {
@@ -38,6 +40,8 @@ export interface ExtractStageResult {
   dedupeMerged: number;
   dedupeDiscarded: number;
   dedupeHeld: number;
+  heldImagesChecked: number;
+  heldImagesPublished: number;
   errors: string[];
 }
 
@@ -54,6 +58,8 @@ function emptyResult(): ExtractStageResult {
     dedupeMerged: 0,
     dedupeDiscarded: 0,
     dedupeHeld: 0,
+    heldImagesChecked: 0,
+    heldImagesPublished: 0,
     errors: [],
   };
 }
@@ -85,7 +91,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
     try {
       const [items, sources] = await Promise.all([
         loadRawItems(db, story.id),
-        loadClusterSources(db, story.id),
+        loadClusterSources(db, story.id).then((loaded) => resolveClusterSources(db, story.id, loaded)),
       ]);
       const clusterItems = items.length > 0
         ? items.map(({ title, snippet }) => ({ title, snippet }))
@@ -276,5 +282,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   result.abandonedTheories = maintenance.abandonedTheories;
   result.countdownsResolved = maintenance.countdownsResolved;
   errors.push(...maintenance.errors);
+  const held = await reresolveHeldImages(db);
+  result.heldImagesChecked = held.checked;
+  result.heldImagesPublished = held.published;
+  errors.push(...held.errors);
   return result;
 }

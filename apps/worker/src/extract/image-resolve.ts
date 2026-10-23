@@ -26,11 +26,12 @@
 
 import { extractYouTubeId, isAllowlistedImageHost } from '@swift2/shared';
 import { PHOTO_HOST_LEGACY, hostOf } from '../../../../scripts/lib/photo-host-gate.mjs';
+import { runStats } from '../run-stats';
 import type { ClusterSource } from './write-knowledge';
 
 const USER_AGENT = 'Swift2-ContentFix/1.0 (+https://github.com/JW-Incorporated/swift2)';
 const FETCH_TIMEOUT_MS = 15_000;
-const PAGE_FETCH_BYTES = 600_000;
+const PAGE_FETCH_BYTES = 1_500_000;
 const SOURCE_TIER_ORDER = ['official', 'established', 'fan', 'unverified'] as const;
 const GOOGLE_NEWS_HOST = /^https?:\/\/news\.google\.com\//i;
 
@@ -66,47 +67,77 @@ export function extractPageImage(html: string, pageUrl: string): string | null {
   }
 }
 
-/** Reads at most `maxBytes` of a response body as text, cancelling the stream once the cap is hit. */
+/** Reads a response body as text, cancelling the stream at `</head>` (case-insensitive) or once `maxBytes` is hit, whichever comes first. */
 async function readCapped(res: Response, maxBytes: number): Promise<string> {
   if (!res.body) return (await res.text()).slice(0, maxBytes);
   const reader = res.body.getReader();
-  const chunks: Uint8Array[] = [];
+  const decoder = new TextDecoder();
   let total = 0;
+  let text = '';
   while (total < maxBytes) {
     const { done, value } = await reader.read();
     if (done) break;
-    chunks.push(value);
     total += value.byteLength;
+    const piece = decoder.decode(value, { stream: true });
+    text += piece;
+    if (/<\/head\s*>/i.test(text.slice(Math.max(0, text.length - piece.length - 8)))) break;
   }
   await reader.cancel().catch(() => {});
-  return Buffer.concat(chunks).subarray(0, maxBytes).toString('utf8');
+  return text;
 }
 
-/** Fetches an article page and returns its og:image/twitter:image, or `null`
- * on any failure — best-effort, must never throw into the extract stage. */
-export async function fetchPageImage(
+type PageImageOutcome = { image: string | null; failed: boolean };
+
+async function fetchPageImageOutcome(
   articleUrl: string,
-  fetchImpl: typeof fetch = fetch,
-): Promise<string | null> {
+  fetchImpl: typeof fetch,
+): Promise<PageImageOutcome> {
   try {
     const res = await fetchImpl(articleUrl, {
       headers: { 'User-Agent': USER_AGENT, Accept: 'text/html' },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
-    if (!res.ok) return null;
+    if (!res.ok) return { image: null, failed: true };
     if (!/text\/html|application\/xhtml/i.test(res.headers.get('content-type') ?? '')) {
       await res.body?.cancel();
-      return null;
+      return { image: null, failed: true };
     }
-    return extractPageImage(await readCapped(res, PAGE_FETCH_BYTES), articleUrl);
+    return { image: extractPageImage(await readCapped(res, PAGE_FETCH_BYTES), articleUrl), failed: false };
   } catch {
-    return null;
+    return { image: null, failed: true };
   }
 }
 
+/** Fetches an article page and returns its og:image/twitter:image, or `null`
+ * on any failure — best-effort, must never throw into the extract stage. Reads
+ * only up to `</head>` (or 1.5MB), where the meta tags live. */
+export async function fetchPageImage(
+  articleUrl: string,
+  fetchImpl: typeof fetch = fetch,
+): Promise<string | null> {
+  return (await fetchPageImageOutcome(articleUrl, fetchImpl)).image;
+}
+
+/** Fetches a page image and tallies the outcome into the run stats. */
+async function fetchAllowedPageImage(
+  articleUrl: string,
+  fetchImpl: typeof fetch,
+): Promise<string | undefined> {
+  const { image, failed } = await fetchPageImageOutcome(articleUrl, fetchImpl);
+  if (failed) runStats.imageFetchFailed++;
+  else if (!image) runStats.imageNoOg++;
+  else if (!isAllowedImageHost(image)) runStats.imageHostNotAllowlisted++;
+  else {
+    runStats.imageResolved++;
+    return image;
+  }
+  return undefined;
+}
+
 /** The best (highest-tier) cluster source whose URL is a real publisher link
- * — never a news.google redirect (those are already resolved away at ingest
- * by resolve-google-news.ts, but this is defensive, not load-bearing). */
+ * — never a news.google link (resolved to the publisher by
+ * resolve-google-news.ts at ingest and again before extract; an unresolved
+ * one has no page worth fetching). */
 export function bestSourceForImage(sources: readonly ClusterSource[]): ClusterSource | undefined {
   const citable = sources.filter((s) => !GOOGLE_NEWS_HOST.test(s.url));
   if (citable.length === 0) return undefined;
@@ -143,17 +174,18 @@ export async function resolveFallbackImage(
 
   const trusted = bestTrustedSourceForImage(sources);
   if (trusted) {
-    const image = await fetchPageImage(trusted.url, fetchImpl);
-    if (image && isAllowedImageHost(image)) return image;
+    const image = await fetchAllowedPageImage(trusted.url, fetchImpl);
+    if (image) return image;
   }
 
   // Preserve the earlier best-effort path for lower-tier items so the new
   // critical-news fallback cannot create new held rows elsewhere.
   const best = bestSourceForImage(sources.filter((source) => source !== trusted));
-  if (!best) return undefined;
-  const image = await fetchPageImage(best.url, fetchImpl);
-  if (!image || !isAllowedImageHost(image)) return undefined;
-  return image;
+  if (!best) {
+    if (sources.some((source) => GOOGLE_NEWS_HOST.test(source.url))) runStats.imageGnewsUnresolved++;
+    return undefined;
+  }
+  return fetchAllowedPageImage(best.url, fetchImpl);
 }
 
 /** The single entry point run-extract-stage.ts calls before writeCurrentItem:

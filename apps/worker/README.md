@@ -51,7 +51,10 @@ npm run news --workspace @swift2/worker
 - Google News redirect links are resolved to the real publisher URL at
   ingest and re-tiered from `packages/shared/src/news/outlet-tiers.ts`'s
   domain→tier map (`src/sources/resolve-google-news.ts`); unresolved items
-  stay `unverified`.
+  stay `unverified`. Google News no longer HTTP-redirects, so links are decoded
+  (old ids: embedded protobuf URL; new ids: signed `batchexecute`). Sources are
+  re-resolved before extract, and `held-image-pass.ts` retries recent
+  `missing_image` holds each cycle; the `cycle complete` log carries `gnews*`/`image*` counters.
 
 - Extract stage (`src/extract/`, PLAN.md Stage 3): Claude Code runs
   `claude-haiku-5-5` through the subscription wrapper with structured output.

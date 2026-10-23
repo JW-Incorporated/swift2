@@ -1141,6 +1141,13 @@ jobs:
             exit "$STATUS"
           fi
 
+      - name: Normalize ambiguous desk labels (zero AI)
+        if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node --use-env-proxy scripts/ops/normalize-desk-labels.mjs --apply
+
       - name: Work-ownership check (zero AI)
         if: (!cancelled()) && ((github.event_name != 'schedule' && inputs.hourly != true) || github.event.schedule == '35 14 * * *')
         env:

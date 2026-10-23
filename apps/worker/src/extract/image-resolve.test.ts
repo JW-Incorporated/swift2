@@ -8,6 +8,7 @@ import {
   resolveFallbackImage,
   resolveImageUrl,
 } from './image-resolve';
+import { resetRunStats, runStats } from '../run-stats';
 import type { ClusterSource } from './write-knowledge';
 
 describe('isAllowedImageHost', () => {
@@ -214,5 +215,82 @@ describe('resolveImageUrl', () => {
   it('resolves to undefined when nothing yields an allowlisted image', async () => {
     const fetchImpl = vi.fn().mockResolvedValue(new Response('', { status: 500 }));
     expect(await resolveImageUrl(undefined, sources, fetchImpl as unknown as typeof fetch)).toBeUndefined();
+  });
+});
+
+describe('fetchPageImage head handling', () => {
+  it('finds an og:image that sits past the old 600KB cap', async () => {
+    const filler = '<script>' + 'x'.repeat(700_000) + '</script>';
+    const html = `<html><head>${filler}<meta property="og:image" content="https://cdn.example.com/late.jpg"></head><body></body></html>`;
+    const fetchImpl = vi.fn().mockResolvedValue(htmlResponse(html));
+    expect(await fetchPageImage('https://news.example.com/a', fetchImpl as unknown as typeof fetch)).toBe(
+      'https://cdn.example.com/late.jpg',
+    );
+  });
+
+  it('cancels the stream once </head> has been seen', async () => {
+    const encoder = new TextEncoder();
+    let pulled = 0;
+    const body = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        pulled++;
+        if (pulled === 1) controller.enqueue(encoder.encode('<head><meta property="og:image" content="https://cdn.example.com/h.jpg"></HEAD>'));
+        else controller.enqueue(encoder.encode('<body>' + 'y'.repeat(1000)));
+      },
+    });
+    const res = new Response(body, { status: 200, headers: { 'content-type': 'text/html' } });
+    const fetchImpl = vi.fn().mockResolvedValue(res);
+    expect(await fetchPageImage('https://news.example.com/a', fetchImpl as unknown as typeof fetch)).toBe(
+      'https://cdn.example.com/h.jpg',
+    );
+    expect(pulled).toBeLessThanOrEqual(2);
+  });
+});
+
+describe('Google News source handling', () => {
+  it('fetches the publisher page once a Google News source has been resolved', async () => {
+    const resolved: ClusterSource[] = [
+      { outletName: 'unknown', url: 'https://www.billboard.com/music/story/', tier: 'established' },
+    ];
+    const fetchImpl = vi.fn().mockResolvedValue(
+      htmlResponse('<meta property="og:image" content="https://www.billboard.com/wp-content/og.jpg">'),
+    );
+    const image = await resolveImageUrl(null, resolved, fetchImpl as unknown as typeof fetch);
+    expect(image).toBe('https://www.billboard.com/wp-content/og.jpg');
+    expect(fetchImpl).toHaveBeenCalledWith('https://www.billboard.com/music/story/', expect.anything());
+  });
+
+  it('counts an unresolved Google-News-only story in the run stats', async () => {
+    resetRunStats();
+    const fetchImpl = vi.fn();
+    const image = await resolveImageUrl(
+      null,
+      [{ outletName: 'unknown', url: 'https://news.google.com/rss/articles/AU_yqLx', tier: 'unverified' }],
+      fetchImpl as unknown as typeof fetch,
+    );
+    expect(image).toBeUndefined();
+    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(runStats.imageGnewsUnresolved).toBe(1);
+  });
+
+  it('tallies fetch failure, missing og, disallowed host and success', async () => {
+    resetRunStats();
+    const sources: ClusterSource[] = [{ outletName: 'B', url: 'https://www.billboard.com/x', tier: 'established' }];
+    await resolveFallbackImage(sources, vi.fn().mockRejectedValue(new Error('x')) as unknown as typeof fetch);
+    await resolveFallbackImage(sources, vi.fn().mockResolvedValue(htmlResponse('<p>none</p>')) as unknown as typeof fetch);
+    await resolveFallbackImage(
+      sources,
+      vi.fn().mockResolvedValue(htmlResponse('<meta property="og:image" content="https://evil-cdn.example.com/a.jpg">')) as unknown as typeof fetch,
+    );
+    await resolveFallbackImage(
+      sources,
+      vi.fn().mockResolvedValue(htmlResponse('<meta property="og:image" content="https://www.billboard.com/a.jpg">')) as unknown as typeof fetch,
+    );
+    expect(runStats).toMatchObject({
+      imageFetchFailed: 1,
+      imageNoOg: 1,
+      imageHostNotAllowlisted: 1,
+      imageResolved: 1,
+    });
   });
 });
