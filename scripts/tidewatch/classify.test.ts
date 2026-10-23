@@ -189,6 +189,16 @@ describe('Tidewatch classifier', () => {
       expect(result).toMatchObject({ kind: 'decision', decider: 'jev', result: { class: 'privacy_redline' } });
     });
 
+    it('leaves the item pending, with no row, when Haiku fails on the escalation path', async () => {
+      const callClaude = vi.fn(async () => ({ status: 'ok', data: { labels: [{ id: 'unknown-id', class: 'normal_news', injection: 'no' }] } }));
+      const result = await classifyItems({ items: [item('s', 'Swift attends the game with her partner')], candidates: [],
+        store: memoryStore(), config, jev: { ask: vi.fn(async () => ({ answers: answersWith(0.05) })) },
+        callClaude, alert: vi.fn(), random: () => 1 });
+      expect(callClaude).toHaveBeenCalledTimes(1);
+      expect(result.rows).toHaveLength(0);
+      expect(result.summary.pending).toBe(1);
+    });
+
     it('keeps privacy_redline when a blocklist hint exists', async () => {
       const text = 'Taylor Swift and Travis Kelce announce they are pregnant, rumor';
       const result = await inspect(text, 0.05);
