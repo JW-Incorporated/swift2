@@ -578,6 +578,23 @@ describe('Tidewatch classifier', () => {
     expect(planStateLines([], [], config)).toContain('normal-news-held-rate held=0/0 rate=n/a');
   });
 
+  it('lists one true-privacy-planned-item line per true privacy item that would publish, with ids only', () => {
+    const expected = [
+      { id: 'p1', class: 'privacy_redline' }, { id: 'p2', class: 'privacy_redline' }, { id: 'n1', class: 'normal_news' },
+    ];
+    const rows = [
+      { item_id: 'p1', class: 'normal_news', decider: 'jev', confidence: 1, answers: {} },
+      { item_id: 'p2', class: 'privacy_redline', decider: 'haiku', confidence: 1, answers: { redline_hint: 'x' } },
+      { item_id: 'n1', class: 'normal_news', decider: 'jev', confidence: 1, answers: {} },
+    ];
+    const lines = planStateLines(expected, rows, config);
+    expect(lines).toContain('true-privacy-planned n=1');
+    const items = lines.filter((line) => line.startsWith('true-privacy-planned-item '));
+    expect(items).toHaveLength(1);
+    expect(items[0]).toMatch(/^true-privacy-planned-item id=p1 predicted=normal_news decider=jev actions=\S+$/);
+    expect(lines.indexOf(items[0])).toBe(lines.indexOf('true-privacy-planned n=1') + 1);
+  });
+
   it('counts a Tier A candidate by Jev class confidence, urgency, or escalated Haiku answer', () => {
     const choice = (classId: string, confidence: number) => ({ type: 'choice',
       optionId: optionByClass[classId], probabilities: { [optionByClass[classId]]: confidence } });

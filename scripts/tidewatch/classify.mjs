@@ -195,6 +195,7 @@ export function planStateLines(expected, rows, config) {
   const byClass = new Map(CLASS_IDS.map((classId) => [classId, { planned: 0, held: 0, dropped: 0 }]));
   const heldActions = new Map();
   let truePrivacyPlanned = 0;
+  const truePrivacyPlannedItems = [];
   for (const row of rows) {
     const expectedClass = expectedById.get(row.item_id);
     if (!expectedClass) continue;
@@ -204,7 +205,10 @@ export function planStateLines(expected, rows, config) {
     if (plan.state === 'held') {
       for (const action of plan.actions) heldActions.set(action, (heldActions.get(action) ?? 0) + 1);
     }
-    if (expectedClass === 'privacy_redline' && bucket === 'planned') truePrivacyPlanned += 1;
+    if (expectedClass === 'privacy_redline' && bucket === 'planned') {
+      truePrivacyPlanned += 1;
+      truePrivacyPlannedItems.push(`true-privacy-planned-item id=${row.item_id} predicted=${row.class} decider=${row.decider} actions=${plan.actions.join('+')}`);
+    }
   }
   const lines = CLASS_IDS.map((classId) => {
     const { planned, held, dropped } = byClass.get(classId);
@@ -213,6 +217,7 @@ export function planStateLines(expected, rows, config) {
   const heldTally = [...heldActions].sort(([a], [b]) => a.localeCompare(b)).map(([name, count]) => `${name}=${count}`);
   lines.push(`held-actions ${heldTally.join(' ') || 'none'}`);
   lines.push(`true-privacy-planned n=${truePrivacyPlanned}`);
+  lines.push(...truePrivacyPlannedItems);
   const normal = byClass.get('normal_news');
   const normalTotal = normal.planned + normal.held + normal.dropped;
   lines.push(`normal-news-held-rate held=${normal.held}/${normalTotal} rate=${normalTotal ? (normal.held / normalTotal).toFixed(3) : 'n/a'}`);
