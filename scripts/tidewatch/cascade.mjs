@@ -97,22 +97,7 @@ export const answerConfidence = (answer) => answer?.probabilities?.[answer.optio
 
 const isYes = (answer) => answer?.type === 'noul' && answer.probability >= 0.5;
 
-// High q_speculation with no personal-life subject and no blocklist hint is too weak to
-// publish-block on Jev alone; it escalates to the Haiku fallback instead of deciding.
-export function speculationNeedsFallback(answers, config, hint = null) {
-  const speculation = answers.q_speculation;
-  return speculation?.type === 'noul'
-    && speculation.probability >= config.classes.privacy_redline.thresholds.act
-    && !isYes(answers.q_personal) && !hint;
-}
-
-export function classFromAnswers(answers, config, hint = null) {
-  const speculation = answers.q_speculation;
-  if (speculation?.type === 'noul'
-    && speculation.probability >= config.classes.privacy_redline.thresholds.act
-    && !speculationNeedsFallback(answers, config, hint)) {
-    return { class: 'privacy_redline', confidence: speculation.probability };
-  }
+export function classFromAnswers(answers, config) {
   const same = answers.q_same_story;
   if (same?.type === 'choice' && same.optionId !== 'none'
     && answerConfidence(same) >= config.classes.duplicate.thresholds.act) {
@@ -155,17 +140,15 @@ export async function inspectWithJev(item, candidates, {
     }
     return { kind: 'fallback', reason: 'jev_error' };
   }
-  const hint = redlineHint(item);
-  if (speculationNeedsFallback(response.answers, config, hint)) {
-    return {
-      kind: 'fallback', reason: 'below_threshold', modelId: config.jevModel,
-      answers: { jev: response.answers, injection: (response.answers.q_injection?.probability ?? 0) >= 0.5 },
-    };
-  }
-  const result = classFromAnswers(response.answers, config, hint);
+  const result = classFromAnswers(response.answers, config);
   if (!result) return { kind: 'fallback', reason: 'jev_invalid_response' };
   const injectionProbability = response.answers.q_injection?.probability ?? 0;
   const answers = { jev: response.answers, injection: injectionProbability >= 0.5 };
+  const speculation = response.answers.q_speculation;
+  if ((speculation?.type === 'noul' && speculation.probability >= config.classes.privacy_redline.thresholds.act)
+    || isYes(response.answers.q_personal)) {
+    return { kind: 'fallback', reason: 'personal_escalation', result, answers, modelId: config.jevModel };
+  }
   const fallbackBelow = config.classes[result.class].thresholds.fallbackBelow;
   if (result.confidence < fallbackBelow) {
     return { kind: 'fallback', reason: 'below_threshold', result, answers, modelId: config.jevModel };

@@ -179,14 +179,28 @@ describe('Tidewatch classifier', () => {
     it('escalates high speculation without a personal subject or hint to the fallback, never a Jev decision', async () => {
       const result = await inspect('Swift attends the game with her partner', 0.05);
       expect(result.kind).toBe('fallback');
-      expect(result.reason).toBe('below_threshold');
-      expect(result.result).toBeUndefined();
-      expect(classFromAnswers(answersWith(0.05), config)?.class).not.toBe('privacy_redline');
+      expect(result.reason).toBe('personal_escalation');
     });
 
-    it('keeps privacy_redline when q_personal is yes', async () => {
-      const result = await inspect('Swift attends the game with her partner', 0.9);
-      expect(result).toMatchObject({ kind: 'decision', decider: 'jev', result: { class: 'privacy_redline' } });
+    it('never returns privacy_redline from classFromAnswers, even at q_speculation 0.99', () => {
+      const answers = { ...answersWith(0.9), q_speculation: { type: 'noul', probability: 0.99 } };
+      expect(classFromAnswers(answers, config)?.class).not.toBe('privacy_redline');
+    });
+
+    it('escalates to the fallback when q_personal is yes', async () => {
+      const result = await inspect('Swift attends the game with her partner', 0.6);
+      expect(result).toMatchObject({ kind: 'fallback', reason: 'personal_escalation' });
+    });
+
+    it('does not escalate when q_personal is missing and speculation is low', async () => {
+      const result = await inspectWithJev(item('s', 'Swift attends the game'), [], {
+        config, now: Date.now(), random: () => 1,
+        jev: { ask: vi.fn(async () => ({ answers: {
+          q_speculation: { type: 'noul', probability: 0.1 },
+          q_class: { type: 'choice', optionId: 'general_news', probabilities: { general_news: 0.9 }, confidence: 0.9 },
+        } })) },
+      });
+      expect(result).toMatchObject({ kind: 'decision', decider: 'jev' });
     });
 
     it('leaves the item pending, with no row, when Haiku fails on the escalation path', async () => {
@@ -199,10 +213,10 @@ describe('Tidewatch classifier', () => {
       expect(result.summary.pending).toBe(1);
     });
 
-    it('keeps privacy_redline when a blocklist hint exists', async () => {
+    it('escalates a blocklist-hint item to the fallback rather than a Jev decision', async () => {
       const text = 'Taylor Swift and Travis Kelce announce they are pregnant, rumor';
       const result = await inspect(text, 0.05);
-      expect(result).toMatchObject({ kind: 'decision', result: { class: 'privacy_redline' } });
+      expect(result).toMatchObject({ kind: 'fallback', reason: 'personal_escalation' });
       const row = decisionRow(item('s', text), result, null, config);
       expect((row.answers as Record<string, unknown>).redline_hint).toBeTruthy();
     });
