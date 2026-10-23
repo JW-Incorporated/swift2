@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## New Theories Emerge Within the Swiftie Community About Taylor Swift
+
+- first seen: 2026-10-23 12:44 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Swiftie community is generating excitement with new theories about Taylor Swift, drawing attention across social media. Fans are known for their imaginative interpretations of her work and personal life.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/swifties-known-wild-theories-m-181840221.html
+
+## Taylor Swift's Website Update Suggests Possible 'Debut TV' Announcement
+
+- first seen: 2026-10-23 12:44 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's official website has received an update, hinting at a potential announcement regarding 'Debut TV'. Fans are speculating about what this could mean for her music releases.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74228832/taylor-swift-archive-website-update-debut-tv/
 
 ## Taylor Swift Updates Website After 20 Years
 
@@ -698,11 +714,3 @@ Stories: 85
 - summary: Actor Jason Segel has married Kayla Radomski, who previously worked as a backup dancer for Taylor Swift. The wedding marks a new chapter for the couple.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPbks5QTJTX1hwNDhlUkljME55czh3S1hMN3VkWF9kbXFKaE5jclcwSi1UV1JKeWZvNDlnRjkyZ0F1bnFWQlZFSi1GcXAxZjdmSGQ2X3BxS1FnZ3FLQldMTXBhX3ZTSW9lcHNKNTlvTTlHMFNyaHhCTnd1ZVFtS0lMRUNuQVNjOXhpZncwVzVxWGZJVVZwSXpBZS1xTWQ5dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Appears Frustrated with Fan at Chiefs Game
-
-- first seen: 2026-10-20 11:56 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A video surfaced showing Taylor Swift appearing to express frustration with a fan while attending a Chiefs game. The incident has sparked discussions among fans and observers.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPUkdYYzdLTWpQTG5MalVEUEJtdmVsNHpvOEtscFRkeFNLQ3k5MXhDR3JmZGk2d3RDZE0yc1BPcjNkMWVkMENmbzRtY2FSVFRESFRTanJULVh5cjctUVlQT0NJYkVES0Q0M0hwbkVwRlQ4LWFXNzR0R19fOHd4Nnplb0ZucFhncWFKN01mMHk4TENuWnNiazhJZzV1YkJDZGwwUEsyVHY0Zw?oc=5&hl=en-US&gl=US&ceid=US:en
