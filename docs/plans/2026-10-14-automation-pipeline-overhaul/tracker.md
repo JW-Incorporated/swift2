@@ -423,6 +423,33 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
   - PR-A #6235 and PR-B #6236 MERGED. The #6236 conflict was imports only; both sides kept.
   - PR-C (D-c and exemplars in the prompts) in flight on fix/tidewatch-prompts-dc.
   - Handoff block written in STATE.md.
+- 2026-10-23 07:36 PDT OWNER DECISION, D-c addendum, answered in chat: "1 yes 2 yes 3 yes".
+  - A new concert film, a one-night-only global livestream event, and headlining a major festival are all critical_breaking.
+  - The replay already labels all three critical_breaking, so no relabel is needed. The Q_CLASS and FALLBACK_SYSTEM prompts are getting the addendum.
+  - Eval 4 (run 39961955486, Haiku working for the first time): Tier A candidate recall 17/26 (0.654); privacy_redline over-called by both models. Two untitled replay leads → excludeFromEval; the award item → normal_news per D-c (in flight).
+- 2026-10-23 16:31 PDT P2-01 STATUS:
+  - Merged today:
+    - #6241: Haiku label id-match; the wrapUntrustedText underscore bug.
+    - #6247: replay exclusions plus the award relabel.
+    - #6248: D-c addendum.
+    - #6251, #6262, #6269: eval misses, plan state, privacy ids.
+    - #6255: privacy narrowing.
+    - #6263: ARCHITECT #17. Jev never decides privacy; personal_escalation goes to Haiku; hold_invariant; decision entry.
+    - #6265: hold_redline_primary.
+    - #6239: decision-sample --since.
+    - #6240: wrapper reasons.
+  - Issue #6264: the Baby Watch blocklist gap.
+  - EVAL 8 (run 40027410750):
+    - ✅ Tier A candidate recall 23/23, the hard bar MET.
+    - Jev privacy 0; hold_invariant 0; normal_news held 7.2%.
+    - ❌ Privacy predicted 48 (Haiku) vs ≤28, and true-privacy-planned 3.
+  - Likely cause: D-c "home/property = privacy" vs the narrowed Haiku text "home address/whereabouts". The 3 are probably the "former Beverly Hills home listed $8M" items.
+  - OWNER QUESTION PENDING in chat: 1 = all property hidden / 2 = only current-whereabouts.
+  - NEXT:
+    1. On the answer, update FALLBACK_SYSTEM's home line plus the decision-sample D-c text, then eval 9 (goal: true-privacy-planned 0, privacy ≤28).
+    2. After 2026-10-24 10:00Z: `gh workflow run tidewatch-decision-sample.yml -R JW-Incorporated/swift2 --ref main -f seed=2 -f since=2026-10-23T09:31Z` (live precision under the new code; read collapsed and Tier A false-critical).
+    3. Owner gold set (~20 live rows where a decider said critical/privacy and Sonnet disagreed), then re-run the #15 gate, then the calibration doc (item 5), then P2-12 (verify a candidate→verifier path in route.mjs first).
+  - Duplicate code path: 30-pair PM spot-check still owed. #6231 open.
 
 ## Next actions
 
