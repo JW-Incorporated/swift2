@@ -434,7 +434,7 @@ Stories: 94
 - verification_status: rumor | source_count: 1
 - summary: According to a report, Taylor Swift has been recognized with an Oscar ahead of attending a game featuring Travis Kelce. Details surrounding the award and the event remain unspecified.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOSmNXa2Z2X2dFc0dEaGUwSTRZblQwSE1yOGFHZmx3eEN6Nk1ubzRKY3QwZHFoTnFQaG5QRDJzX3F5X2JzeDczRXFtejFLVWhPLXRCMVhpSi1pdzZocTYxYkxscWZZd3BiZmxfeUtoVGlORS1nMUVmSkl2S1p5MDRGVHBVejRYZERBODRMNk1tVVZHV0FwOUo4emEydkRfZw?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-gala-travis-kelce/
 
 ## Taylor Swift Involved in Incident with Fan at Chiefs Game
 
