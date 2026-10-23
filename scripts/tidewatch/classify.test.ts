@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { toRequest } from '@swift2/shared/jev/client';
 import type { JevQuestion } from '@swift2/shared/jev/questions';
 import { callFallback, classFromAnswers, codePrefilter, decisionRow, inspectWithJev, stateFor } from './cascade.mjs';
-import { classifyItems, evalReport, evaluateReplay, isCandidate, main } from './classify.mjs';
+import { classifyItems, evalReport, evaluateReplay, isCandidate, main, planStateLines } from './classify.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, questionsFor } from './questions.mjs';
 
@@ -179,14 +179,28 @@ describe('Tidewatch classifier', () => {
     it('escalates high speculation without a personal subject or hint to the fallback, never a Jev decision', async () => {
       const result = await inspect('Swift attends the game with her partner', 0.05);
       expect(result.kind).toBe('fallback');
-      expect(result.reason).toBe('below_threshold');
-      expect(result.result).toBeUndefined();
-      expect(classFromAnswers(answersWith(0.05), config)?.class).not.toBe('privacy_redline');
+      expect(result.reason).toBe('personal_escalation');
     });
 
-    it('keeps privacy_redline when q_personal is yes', async () => {
-      const result = await inspect('Swift attends the game with her partner', 0.9);
-      expect(result).toMatchObject({ kind: 'decision', decider: 'jev', result: { class: 'privacy_redline' } });
+    it('never returns privacy_redline from classFromAnswers, even at q_speculation 0.99', () => {
+      const answers = { ...answersWith(0.9), q_speculation: { type: 'noul', probability: 0.99 } };
+      expect(classFromAnswers(answers, config)?.class).not.toBe('privacy_redline');
+    });
+
+    it('escalates to the fallback when q_personal is yes', async () => {
+      const result = await inspect('Swift attends the game with her partner', 0.6);
+      expect(result).toMatchObject({ kind: 'fallback', reason: 'personal_escalation' });
+    });
+
+    it('does not escalate when q_personal is missing and speculation is low', async () => {
+      const result = await inspectWithJev(item('s', 'Swift attends the game'), [], {
+        config, now: Date.now(), random: () => 1,
+        jev: { ask: vi.fn(async () => ({ answers: {
+          q_speculation: { type: 'noul', probability: 0.1 },
+          q_class: { type: 'choice', optionId: 'general_news', probabilities: { general_news: 0.9 }, confidence: 0.9 },
+        } })) },
+      });
+      expect(result).toMatchObject({ kind: 'decision', decider: 'jev' });
     });
 
     it('leaves the item pending, with no row, when Haiku fails on the escalation path', async () => {
@@ -199,10 +213,10 @@ describe('Tidewatch classifier', () => {
       expect(result.summary.pending).toBe(1);
     });
 
-    it('keeps privacy_redline when a blocklist hint exists', async () => {
+    it('escalates a blocklist-hint item to the fallback rather than a Jev decision', async () => {
       const text = 'Taylor Swift and Travis Kelce announce they are pregnant, rumor';
       const result = await inspect(text, 0.05);
-      expect(result).toMatchObject({ kind: 'decision', result: { class: 'privacy_redline' } });
+      expect(result).toMatchObject({ kind: 'fallback', reason: 'personal_escalation' });
       const row = decisionRow(item('s', text), result, null, config);
       expect((row.answers as Record<string, unknown>).redline_hint).toBeTruthy();
     });
@@ -354,6 +368,26 @@ describe('Tidewatch classifier', () => {
     expect(callClaude).toHaveBeenCalledTimes(1);
     expect(callClaude.mock.calls[0][0]).toMatchObject({ priority: 'P2', maxCalls: 1,
       caller: 'tidewatch-fallback', model: 'claude-haiku-5-5' });
+  });
+
+  it('treats personal_escalation as an optional fallback: no Jev failure, no fallback alert', async () => {
+    const rows = ['a', 'b'].map((id) => item(id));
+    const base = jevFor(Object.fromEntries(rows.map(({ id }) => [id, { class: 'noise', confidence: 0.9 }])));
+    const jev = { ask: vi.fn(async (input) => {
+      const response = await base.ask(input);
+      return { answers: { ...response.answers, q_personal: { type: 'noul', probability: 0.99 } } };
+    }) };
+    const alert = vi.fn();
+    const callClaude = vi.fn(async () => ({ status: 'ok', data: { labels: rows
+      .map(({ id }) => ({ id, class: 'noise', injection: 'no' })) } }));
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev, callClaude, alert, random: () => 1 });
+    expect(result.summary.fallbackAttempted).toBe(2);
+    expect(result.summary.jevUnavailable).toBe(0);
+    expect(result.summary.jevAttempts).toBe(2);
+    expect(result.rows.every((row) => row.decider === 'haiku')).toBe(true);
+    expect(callClaude).toHaveBeenCalledTimes(1);
+    expect(alert).not.toHaveBeenCalled();
   });
 
   it('writes a visible shadow_hold_budget row for Tier A items when the daily fallback cap is exhausted', async () => {
@@ -517,6 +551,31 @@ describe('Tidewatch classifier', () => {
     expect(report).toContain('tier-a-missed critical_personal id=p1 predicted=privacy_redline decider=haiku jevClass=none jevConf=0.00 urgency=none redlineHint=none');
     expect(report).toContain('privacy-predicted-by-expected critical_breaking=1 critical_personal=1');
     expect(report).toContain('privacy-predicted-by-decider jev=1 haiku=1 with-hint=1');
+  });
+
+  it('tallies plan state per true class, true-privacy-planned and the normal_news held rate', () => {
+    const expected = [
+      { id: 'n1', class: 'normal_news' }, { id: 'n2', class: 'normal_news' },
+      { id: 'n3', class: 'normal_news' }, { id: 'n4', class: 'normal_news' },
+      { id: 'p1', class: 'privacy_redline' }, { id: 'p2', class: 'privacy_redline' },
+    ];
+    const rows = [
+      { item_id: 'n1', class: 'normal_news', confidence: 1, answers: {} },
+      { item_id: 'n2', class: 'normal_news', confidence: 1, answers: { redline_hint: 'x' } },
+      { item_id: 'n3', class: 'normal_news', confidence: 1, answers: { injection: true } },
+      { item_id: 'n4', class: 'privacy_redline', confidence: 1, answers: {} },
+      { item_id: 'p1', class: 'normal_news', confidence: 1, answers: {} },
+      { item_id: 'p2', class: 'privacy_redline', confidence: 1, answers: {} },
+    ];
+    const lines = planStateLines(expected, rows, config);
+    expect(lines).toContain('plan-state-by-expected normal_news planned=1 held=3 dropped=0');
+    expect(lines).toContain('plan-state-by-expected privacy_redline planned=1 held=1 dropped=0');
+    expect(lines).toContain('held-actions hold_injection=1 hold_redline=3');
+    expect(lines).toContain('true-privacy-planned n=1');
+    expect(lines).toContain('normal-news-held-rate held=3/4 rate=0.750');
+    expect(evalReport(expected, rows, { jevAttempts: 0, fallbackAttempted: 0 }, { config }))
+      .toContain('true-privacy-planned n=1');
+    expect(planStateLines([], [], config)).toContain('normal-news-held-rate held=0/0 rate=n/a');
   });
 
   it('counts a Tier A candidate by Jev class confidence, urgency, or escalated Haiku answer', () => {
