@@ -11,8 +11,8 @@
   "total": 771,
   "byClass": {
    "normal_news": 303,
-   "official_drop": 13,
-   "critical_breaking": 19,
+   "official_drop": 14,
+   "critical_breaking": 18,
    "rumor": 33,
    "fan_discussion": 160,
    "tour_ticket": 8,
@@ -32,7 +32,7 @@
    "merch": 60,
    "theory_bundle": 40
   },
-  "critical": 19,
+  "critical": 18,
   "personal": 6,
   "synthetic": 21,
   "belowFloor": false
@@ -12198,7 +12198,7 @@
     ]
    },
    "synthetic": false,
-   "class": "critical_breaking",
+   "class": "official_drop",
    "answers": {
     "q_class": "official_video_or_music_drop",
     "q_official": false,
