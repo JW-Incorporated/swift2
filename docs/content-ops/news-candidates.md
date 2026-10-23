@@ -27,6 +27,22 @@ so far".
 
 Stories: 94
 
+## Taylor Swift Showcases 'Gold Fairy Dust' Nails as Fall Manicure Alternative
+
+- first seen: 2026-10-23 20:01 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is turning heads with her 'Gold Fairy Dust' nails, a stylish alternative to the darker manicures often seen in fall. This chic nail design has been highlighted by ELLE as a trendy choice for the season.
+- sources:
+  - [established] Elle — https://www.elle.com/beauty/makeup-skin-care/a74232956/taylor-swift-gold-fairy-dust-nails/
+
+## Taylor Swift Mentioned in Discussion of Meta’s New Terms
+
+- first seen: 2026-10-23 20:01 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is referenced in an article addressing the implications of Meta's new terms for publishers. The piece suggests her situation may exemplify broader issues within the industry.
+- sources:
+  - [unverified] A Media Operator — https://www.amediaoperator.com/news/metas-new-terms-arent-just-a-publisher-problem-ask-taylor-swift/
+
 ## Chris Stapleton Achieves Rare Spotify Milestone with Taylor Swift
 
 - first seen: 2026-10-23 18:01 UTC | category: music | importance: 5
@@ -764,19 +780,3 @@ Stories: 94
 - summary: A recent analysis of Taylor Swift's extensive catalog of lyrics has uncovered hidden patterns within her 123,553 lyrics. This exploration provides insights into her songwriting style and recurring themes.
 - sources:
   - [unverified] Global Comment — https://news.google.com/rss/articles/CBMinAFBVV95cUxQODVyZ3lIVTVCaEd0djNZcUNORkJDQ19zRkplMlN0WE44NVU5SlJDdmVnVDlVaGIxMkF2SVFHWTg1ei1ZZVBaWnhqNi1KSmVvMXdtYWVNSm16dXRDZ1lNQndmZ3NQalIwb1lUTTZuM0xLNWw4eVBfeEI3VFBTZHpUam8wWGJWZHM3aEJnQ3h1d1pNcXBtaEt3NFVIbTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears Cinderella-Inspired Dior Gown
-
-- first seen: 2026-10-20 19:06 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases a striking resemblance to Grace Kelly while wearing a Cinderella-inspired gown by Dior. The fashion choice is noted for its elegance and classic appeal.
-- sources:
-  - [unverified] Grazia — https://news.google.com/rss/articles/CBMikwFBVV95cUxQbTY0MU9QZFM5a01tZWVtSnh3bGUwbi14YWxUOUFUbGdBTlBRSVM0d3VXdm5aYnVocmdlRVprWTViTXUxaW5jemJiTHdKT3NyVlFNUXQxNVRHWGlRbEdDVmVOTkgzU05jb3NHZHlCdDdsY0pmTnFGMVRjVmVjU0JFZmJpdHp2dlBrRWlMWmd4dG9tUGs?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'Showgirl' Reaches No. 1 for 15 Weeks
-
-- first seen: 2026-10-20 19:06 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's album 'Showgirl' has achieved 15 consecutive weeks at No. 1 on the charts. The article discusses other albums that have reached this milestone.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxNeGR6OTNaS29MYU1iVVRCc1RUS3hDMjV5R3BoU1VTYi03TklYQzRrSnlCc0J1ai1VdHRfRG8tNVNPYmNFVmpjMzRYcU5WbS1xdGlTWnh4VHdwcHdNZ1pISS1uS3VHT1pLSmZiZkQ1TVpRcTJfSlctY3BKajNhSVNvNU9BeXlzTVdpTHkxMjJNV2JTTlc5SGdHM1ZfLUM?oc=5&hl=en-US&gl=US&ceid=US:en
