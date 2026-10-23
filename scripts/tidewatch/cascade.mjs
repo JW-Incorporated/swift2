@@ -162,6 +162,10 @@ function fallbackUser(entries) {
     wrapUntrustedText(stateFor(item, candidates))).join('\n\n')}`;
 }
 
+// Duplicates the markdown-char replacement in wrapUntrustedText
+// (packages/shared/src/jev/client.ts), which alters ids sent to Haiku.
+const normalizeId = (s) => String(s).replace(/[`*_~#>|]/g, ' ').replace(/\s+/g, ' ').trim();
+
 export async function callFallback(entries, { callClaude, config, maxCalls }) {
   if (!callClaude || entries.length === 0) return { ok: false, reason: 'Claude wrapper unavailable' };
   const cap = config.dailyCaps['tidewatch-fallback'];
@@ -185,10 +189,16 @@ export async function callFallback(entries, { callClaude, config, maxCalls }) {
     capped: response.status === 'capped',
   };
   const expected = new Set(entries.map(({ item }) => item.id));
+  const byNorm = new Map();
+  for (const id of expected) {
+    const key = normalizeId(id);
+    byNorm.set(key, byNorm.has(key) ? null : id);
+  }
   const labels = new Map();
   for (const label of response.data?.labels ?? []) {
-    if (!expected.has(label.id) || labels.has(label.id)) return { ok: false, reason: 'Claude wrapper invalid labels' };
-    labels.set(label.id, label);
+    const real = expected.has(label.id) ? label.id : byNorm.get(normalizeId(label.id));
+    if (!real || labels.has(real)) return { ok: false, reason: 'Claude wrapper invalid labels' };
+    labels.set(real, { ...label, id: real });
   }
   if (labels.size !== expected.size) return { ok: false, reason: 'Claude wrapper incomplete labels' };
   return { ok: true, labels };
