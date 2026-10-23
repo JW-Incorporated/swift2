@@ -370,6 +370,26 @@ describe('Tidewatch classifier', () => {
       caller: 'tidewatch-fallback', model: 'claude-haiku-5-5' });
   });
 
+  it('treats personal_escalation as an optional fallback: no Jev failure, no fallback alert', async () => {
+    const rows = ['a', 'b'].map((id) => item(id));
+    const base = jevFor(Object.fromEntries(rows.map(({ id }) => [id, { class: 'noise', confidence: 0.9 }])));
+    const jev = { ask: vi.fn(async (input) => {
+      const response = await base.ask(input);
+      return { answers: { ...response.answers, q_personal: { type: 'noul', probability: 0.99 } } };
+    }) };
+    const alert = vi.fn();
+    const callClaude = vi.fn(async () => ({ status: 'ok', data: { labels: rows
+      .map(({ id }) => ({ id, class: 'noise', injection: 'no' })) } }));
+    const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,
+      jev, callClaude, alert, random: () => 1 });
+    expect(result.summary.fallbackAttempted).toBe(2);
+    expect(result.summary.jevUnavailable).toBe(0);
+    expect(result.summary.jevAttempts).toBe(2);
+    expect(result.rows.every((row) => row.decider === 'haiku')).toBe(true);
+    expect(callClaude).toHaveBeenCalledTimes(1);
+    expect(alert).not.toHaveBeenCalled();
+  });
+
   it('writes a visible shadow_hold_budget row for Tier A items when the daily fallback cap is exhausted', async () => {
     const rows = [item('tier-a'), item('plain')];
     const result = await classifyItems({ items: rows, candidates: [], store: memoryStore(), config,

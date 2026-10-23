@@ -57,7 +57,7 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   }
   const direct = inspected.filter((entry) => entry.inspected.kind === 'decision');
   const requiredFallback = inspected.filter((entry) => entry.inspected.kind === 'fallback'
-    && !['below_threshold', 'drift_sample'].includes(entry.inspected.reason));
+    && !['below_threshold', 'drift_sample', 'personal_escalation'].includes(entry.inspected.reason));
   const fallbackEntries = inspected.filter((entry) => entry.inspected.kind === 'fallback');
   const rows = direct.map(({ item, inspected: result }) => decisionRow(item, result, null, config));
   const batchSize = config.fallbackBatchSize;
