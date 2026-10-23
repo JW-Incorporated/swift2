@@ -29,5 +29,16 @@
     ],
     "revision": 1
   },
-  "why": "X sibling of on-this-day:debut-20th-anniversary:2026-10-24 (Calendar 2026-10-24 23:00Z heartbeat:on-this-day beat). Subject = the 20th anniversary of the self-titled debut, released Oct 24, 2006 — the genuine Oct-24 dated Vault moment (seed debut.mjs 'Taylor Swift, the album, arrives', item vault-debut-taylor-swift-the-album-arrives). Pure factual anniversary; deliberately does NOT touch the live debut-TV re-record rumor (speculation stays off this beat). Confirmed facts only: eleven tracks, her name on every writing credit, released at 16. Hook = the number (twenty years), not a bare date-stamp and not starting 'the <thread>'. Photo reddit-taylorswiftpictures-1pphafw (xOriginal .png of the IG -ig45 variant) handed by the prepare job, never-used; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+  "why": "X sibling of on-this-day:debut-20th-anniversary:2026-10-24 (Calendar 2026-10-24 23:00Z heartbeat:on-this-day beat). Subject = the 20th anniversary of the self-titled debut, released Oct 24, 2006 — the genuine Oct-24 dated Vault moment (seed debut.mjs 'Taylor Swift, the album, arrives', item vault-debut-taylor-swift-the-album-arrives). Pure factual anniversary; deliberately does NOT touch the live debut-TV re-record rumor (speculation stays off this beat). Confirmed facts only: eleven tracks, her name on every writing credit, released at 16. Hook = the number (twenty years), not a bare date-stamp and not starting 'the <thread>'. Photo reddit-taylorswiftpictures-1pphafw (xOriginal .png of the IG -ig45 variant) handed by the prepare job, never-used; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-23T15:48:42.777Z",
+    "pr": 6250,
+    "message": "social-tree-approve run 39981339129",
+    "contentHash": "sha256:b3c8b932cfd78437c6d6cd0269814454d810b28c9a1ccc967b7c1803b0584339",
+    "mediaDigest": "sha256:aca3f9edaab52921f699a0045ab93ba63b641c413c4a048ce43b3e12f8965e55",
+    "sig": "hmac-sha256:15e5aa1742a0cac4e283a6b06d5e941592a6698ba57552cedec6cc2c360c1a30"
+  }
 }

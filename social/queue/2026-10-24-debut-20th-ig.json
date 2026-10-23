@@ -29,5 +29,16 @@
     ],
     "revision": 1
   },
-  "why": "IG sibling of on-this-day:debut-20th-anniversary:2026-10-24 (Calendar 2026-10-24 23:00Z heartbeat:on-this-day beat). Subject = the 20th anniversary of the self-titled debut, released Oct 24, 2006 — the genuine Oct-24 dated Vault moment (seed debut.mjs 'Taylor Swift, the album, arrives', item vault-debut-taylor-swift-the-album-arrives). Pure factual anniversary; deliberately does NOT touch the live debut-TV re-record rumor. Confirmed facts only (debut.mjs moment): wrote 40+ songs at 16, kept eleven, her name on every writing credit, three ('The Outside'/'Should've Said No'/'Our Song') written alone, entered Billboard 200 at No. 19 and stayed 157 weeks (longest run of any 2000s album), hidden-capital-letter liner-note code started here. Mandatory heartbeat share-design pass: genuine tag hook grounded in the debut era ('since the curls-and-cowboy-boots days'). Hook = the number (twenty years), not a date-stamp. Photo reddit-taylorswiftpictures-1pphafw-ig45 handed by the prepare job (never-used, Instagram-sized), xOriginal .png on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+  "why": "IG sibling of on-this-day:debut-20th-anniversary:2026-10-24 (Calendar 2026-10-24 23:00Z heartbeat:on-this-day beat). Subject = the 20th anniversary of the self-titled debut, released Oct 24, 2006 — the genuine Oct-24 dated Vault moment (seed debut.mjs 'Taylor Swift, the album, arrives', item vault-debut-taylor-swift-the-album-arrives). Pure factual anniversary; deliberately does NOT touch the live debut-TV re-record rumor. Confirmed facts only (debut.mjs moment): wrote 40+ songs at 16, kept eleven, her name on every writing credit, three ('The Outside'/'Should've Said No'/'Our Song') written alone, entered Billboard 200 at No. 19 and stayed 157 weeks (longest run of any 2000s album), hidden-capital-letter liner-note code started here. Mandatory heartbeat share-design pass: genuine tag hook grounded in the debut era ('since the curls-and-cowboy-boots days'). Hook = the number (twenty years), not a date-stamp. Photo reddit-taylorswiftpictures-1pphafw-ig45 handed by the prepare job (never-used, Instagram-sized), xOriginal .png on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-23T15:48:42.777Z",
+    "pr": 6250,
+    "message": "social-tree-approve run 39981339129",
+    "contentHash": "sha256:6df739bcd30ae25fd47d8128fe948fc9df44c945320b170c69221fe5c26aa8d2",
+    "mediaDigest": "sha256:77afb2d9c3d2c9048100a1a43c0db230cd54237946ffbb0ec5bda85a26e7e77e",
+    "sig": "hmac-sha256:36536db5bc2a239748ecdfc7af38522a43adadf18284c99d0a315986e1fd233b"
+  }
 }
