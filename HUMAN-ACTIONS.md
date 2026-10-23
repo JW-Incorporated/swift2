@@ -2,9 +2,21 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #145 🟡 [DECIDE] #6086 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-23 -->
+<!-- marjorie-chase: 96h issue=6086 -->
+<!-- ha verify: issue-closed 6086 -->
+
+**Why:** Marjorie dispatched it on 2026-10-18 (Marjorie → Tree: Get awareness-reply leads back to 10 or more a day, sending only threads…). Nothing has moved since 2026-10-18. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #6086 under stalled.
 
 ## #144 🔴 [BLOCKING] Run or repair this week's automated Facebook export (~10 min)
 <!-- ha filed=2026-10-22 -->
