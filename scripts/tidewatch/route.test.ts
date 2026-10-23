@@ -214,23 +214,30 @@ describe('Tidewatch shadow action router', () => {
     expect(result.failures).toEqual([]);
   });
 
-  it('holds a decided normal_news row whose Jev answers show speculation about a personal subject', async () => {
-    const speculative = { jev: { q_speculation: { type: 'noul', probability: 0.9 },
-      q_personal: { type: 'noul', probability: 0.4 } }, haiku: { class: 'normal_news' } };
-    for (const [other, expected] of [[0.05, false], [0.4, true]] as const) {
-      const answers = structuredClone(speculative);
-      answers.jev.q_personal.probability = other;
-      expect(planActions('normal_news', answers, 1, null, config).actions.includes('hold_redline')).toBe(expected);
+  it('holds a Jev-decided row that should have escalated as a hold_invariant bug alarm', () => {
+    for (const jev of [
+      { q_speculation: { type: 'noul', probability: 0.9 } },
+      { q_speculation: { type: 'noul', probability: 0.05 }, q_personal: { type: 'noul', probability: 0.6 } },
+    ]) {
+      expect(planActions('normal_news', { jev }, 1, null, config))
+        .toMatchObject({ state: 'held', actions: ['hold_invariant'] });
     }
-    const enabledConfig = structuredClone(config);
-    enabledConfig.classes.normal_news.enabled = true;
-    const normal = vi.fn(async () => true);
-    const result = await routeDecisions({
-      decisions: [decision({ id: 'mislabelled', class: 'normal_news', confidence: 1, answers: speculative })],
-      store: memoryStore(), config: enabledConfig, live: true,
-      actionHandlers: { normal_flow: normal }, actionRunners: {} });
-    expect(result.plans[0]).toMatchObject({ state: 'held', actions: ['hold_redline'] });
-    expect(normal).not.toHaveBeenCalled();
+    expect(planActions('normal_news', { jev: { q_speculation: { type: 'noul', probability: 0.05 } } }, 1, null, config)
+      .actions).not.toContain('hold_invariant');
+  });
+
+  it('holds a drift-audited Haiku row with Jev speculation as hold_invariant', () => {
+    const jev = { q_speculation: { type: 'noul', probability: 0.9 } };
+    expect(planActions('normal_news', { jev, haiku: { drift: true, class: 'normal_news' } }, 1, null, config))
+      .toMatchObject({ state: 'held', actions: ['hold_invariant'] });
+  });
+
+  it('does not hold a Haiku-decided non-privacy row on Jev speculation, but holds a Haiku privacy_redline row', () => {
+    const jev = { q_speculation: { type: 'noul', probability: 0.9 }, q_personal: { type: 'noul', probability: 0.9 } };
+    expect(planActions('normal_news', { jev, haiku: { class: 'normal_news' } }, 1, null, config).actions)
+      .not.toEqual(expect.arrayContaining(['hold_redline']));
+    expect(planActions('privacy_redline', { jev, haiku: { class: 'privacy_redline' } }, 1, null, config).actions)
+      .toEqual(['hold_redline']);
   });
 
   it('vetoes publish for a redline-hinted item or a privacy_redline class even when enabled at high confidence', async () => {
@@ -289,9 +296,9 @@ describe('Tidewatch shadow action router', () => {
     const rumorConflict = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.9 },
     } } }, 1, null, config);
-    const redlineConflict = planActions('normal_news', { jev: { q_speculation: {
-      type: 'noul', probability: 0.9,
-    }, q_personal: { type: 'noul', probability: 0.9 } } }, 1, null, config);
+    const redlineConflict = planActions('normal_news', { jev: { q_class: {
+      type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.95 },
+    } } }, 1, null, config);
     const lowConfidenceHaikuEscalation = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.4 },
     } }, haiku: { class: 'normal_news' } }, 1, null, config);
