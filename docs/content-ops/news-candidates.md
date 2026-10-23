@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 93
 
 ## Travis Kelce Seen With NWSL Players During Bye Week
 
@@ -772,11 +772,3 @@ Stories: 94
 - summary: Taylor Swift, a Knicks fan, posted on social media during the team's ring ceremony, despite not attending the opening game. Her absence from the game was noted alongside her support for the team.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQSWpzRzA2M0sxSGhoNkVaT0RSTEF5VV9HMTZIbWtjdVZCNzhqeE1OQUhaU19lejloUEJnNkNxUVlWaDVqcXB1V1VKcWN6Ym9HaE9RTjdzQTJyeUtEamlNb29pcW82QnZDb0lBeGRoTTRMYkE4bllTYlRYa3dOQWx1Rm45NG54VzhZOUEyMFJaNld0cWItRGVFd2U5QzBKS2RrRFE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Overview of Taylor Swift’s Oscars-Grammy Campaign Timeline
-
-- first seen: 2026-10-20 23:49 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Gold Derby provides a detailed timeline outlining Taylor Swift's activities and campaign related to the Oscars and Grammys. This comprehensive overview highlights the significant events and efforts made by the artist in preparation for these awards.
-- sources:
-  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMilAFBVV95cUxPM0MzZ1FXUF9zRTdINVlEM0NKanNKUWJxWmRGaVlpMjN0bU1mN0E4TUpXVVFtbEI0UVkyczE4Sm01STlYUGJPbm9TeFFGeUhYMjI0dzZjbDc1ZjM1ZFhNdHlLWGVSNThwZU1JZVBncVNXZHVKU3lNVnRRRGdPRTFDQVBKajBUMjlQZGJhei0xb1RyVk1a?oc=5&hl=en-US&gl=US&ceid=US:en
