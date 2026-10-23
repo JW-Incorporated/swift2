@@ -414,6 +414,11 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
     - Re-run the #15 gate.
   - Status: A, B and D in flight.
   - Before P2-12: verify that route.mjs has a candidate→verifier path.
+- 2026-10-22 23:39 PDT: all three PRs from the #16 work list are done (each had 1–2 review rounds).
+  - Merged: PR-D #6234.
+  - Armed: PR-A #6235 (eval candidate recall and decider split, artifact upload) and PR-B #6236 (blocklist → hint plus the planActions veto, matcher bypass closed, decision entry).
+  - Correction to #16: replay.json has no recorded outputs, so every eval is live (~771 Jev calls, ~77 Haiku batches) and there is no separate re-record step.
+  - Next: PR-C (prompts) after A and B merge, then an eval run plus a decision-sample run, then the owner gold set.
 
 ## Next actions
 
