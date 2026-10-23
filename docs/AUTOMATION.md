@@ -113,7 +113,7 @@ thing watching Tier 2. In file order: brief exists → brief was mailed → aler
 founders → brief recovered → degraded answer propagation → **hourly prod smoke
 check** → Vercel production deploy → latest `db-migrate.yml` run on `main`
 (self-closing failure alert) → scheduled-workflow cadence view → PRs stuck on failing/missing
-checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) → work-ownership →
+checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) → `scripts/ops/normalize-desk-labels.mjs --apply` (keeps only the newest `desk:*` label on any open issue carrying 2+, so re-routes never read as `ambiguous`) → work-ownership →
 Karen post-repair confirmation → news-worker rotation confirmation →
 content-lane liveness (`vault/`, 36h) → Facebook export freshness →
 knowledge-engine freshness. Those two confirmations are expired scaffolding
