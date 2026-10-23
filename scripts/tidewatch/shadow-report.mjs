@@ -250,11 +250,14 @@ export async function fetchRows(client, start, columns = SHADOW_COLUMNS) {
   for (let page = 0; page < MAX_PAGES; page += 1) {
     const { data, error } = await client.from('watch_decision')
       .select(columns)
-      .eq('shadow', true).gte('decided_at', start).order('decided_at', { ascending: true })
+      .eq('shadow', true).gte('decided_at', start).order('decided_at', { ascending: true }).order('id', { ascending: true })
       .range(page * PAGE, page * PAGE + PAGE - 1);
     if (error) throw error;
     rows.push(...(data ?? []));
     if ((data ?? []).length < PAGE) break;
+  }
+  if (columns !== SHADOW_COLUMNS && rows.length === MAX_PAGES * PAGE) {
+    throw new Error(`fetchRows: hit MAX_PAGES (${rows.length} rows) — results truncated`);
   }
   return rows;
 }

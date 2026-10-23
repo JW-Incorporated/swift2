@@ -57,6 +57,16 @@ describe('computeCalibration', () => {
     expect(news.injectionHolds).toBe(1);
   });
 
+  it('buckets rows without usable jev answers under _no_jev', () => {
+    const out = computeCalibration({
+      rows: [row({ decider: 'haiku', answers: { haiku: { class: 'normal_news', injection: 'no', drift: false } } })],
+      now: NOW,
+      config,
+    });
+    expect(out.classes._no_jev.deciders).toEqual({ code: 0, jev: 0, haiku: 1 });
+    expect(out.classes.normal_news).toBeUndefined();
+  });
+
   it('leaks no text, urls or ids', () => {
     const noisy = row({
       id: 'secret-id', title: 'Secret Title', url: 'https://example.com/x', excerpt: 'private text',

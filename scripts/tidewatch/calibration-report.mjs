@@ -56,7 +56,7 @@ export function computeCalibration({ rows, now, config }) {
   const get = (name) => (classes[name] ??= bucket());
   for (const row of rows) {
     const jev = row.decider === 'code' ? null : jevOf(row, config);
-    const b = get(jev?.class ?? row.class);
+    const b = get(jev ? jev.class : row.decider === 'code' ? row.class : '_no_jev');
     if (row.decider in b.deciders) b.deciders[row.decider] += 1;
     if (row.action === HOLD_ACTION) b.injectionHolds += 1;
     if (!jev) continue;
