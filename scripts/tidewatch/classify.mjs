@@ -6,7 +6,7 @@ import { createJevClient } from '../lib/jev.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { createClaudeCaller } from '../lib/claude-call.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
-import { callFallback, decisionRow, inspectWithJev } from './cascade.mjs';
+import { answerConfidence, callFallback, decisionRow, inspectWithJev } from './cascade.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, CLASS_IDS } from './questions.mjs';
 
@@ -165,8 +165,26 @@ function recordedModels(entries) {
   };
 }
 
-export function evalReport(expected, rows, summary) {
+const DECIDERS = ['code', 'jev', 'haiku'];
+const CRITICAL_CLASSES = [...TIER_A_CLASSES];
+
+// candidate/candidateUrgency come from classes.critical_breaking.thresholds and apply to all Tier A classes.
+function jevCandidate(jev, config) {
+  const thresholds = config?.classes?.critical_breaking?.thresholds ?? {};
+  const jevClass = jev?.q_class?.type === 'choice' ? CLASS_BY_OPTION[jev.q_class.optionId] : null;
+  if (TIER_A_CLASSES.has(jevClass) && answerConfidence(jev.q_class) >= (thresholds.candidate ?? 0.3)) return true;
+  return typeof jev?.q_urgency?.value === 'number' && jev.q_urgency.value >= (thresholds.candidateUrgency ?? 4);
+}
+
+const haikuCandidate = (row) => row?.decider === 'haiku' && TIER_A_CLASSES.has(row.answers?.haiku?.class);
+
+export function isCandidate(row, config) {
+  return jevCandidate(row.answers?.jev, config) || haikuCandidate(row);
+}
+
+export function evalReport(expected, rows, summary, { config, recorded, jevAnswers } = {}) {
   const predicted = new Map(rows.map((row) => [row.item_id, row.class]));
+  const rowById = new Map(rows.map((row) => [row.item_id, row]));
   const lines = [];
   for (const classId of CLASS_IDS) {
     const actual = expected.filter((entry) => entry.class === classId).length;
@@ -180,6 +198,27 @@ export function evalReport(expected, rows, summary) {
   const rate = summary.jevAttempts ? summary.fallbackAttempted / summary.jevAttempts : 0;
   lines.push(`jev-to-haiku escalation rate=${rate.toFixed(3)} (${summary.fallbackAttempted}/${summary.jevAttempts})`);
   lines.push(`decisions=${rows.length}/${expected.length} pending=${expected.length - rows.length}`);
+  for (const classId of CLASS_IDS) {
+    const split = DECIDERS.map((decider) => `${decider}=${rows.filter((row) => row.class === classId
+      && row.decider === decider).length}`);
+    const pending = expected.filter((entry) => entry.class === classId && !rowById.has(entry.id)).length;
+    lines.push(`decider-split ${classId} ${split.join(' ')} pending=${pending}`);
+  }
+  const combined = { candidates: 0, support: 0 };
+  for (const classId of CRITICAL_CLASSES) {
+    const members = expected.filter((entry) => entry.class === classId);
+    const candidates = members.filter((entry) => jevCandidate(jevAnswers?.get(entry.id)
+      ?? rowById.get(entry.id)?.answers?.jev, config) || haikuCandidate(rowById.get(entry.id))).length;
+    combined.candidates += candidates;
+    combined.support += members.length;
+    lines.push(`tier-a-candidate-recall ${classId} candidates=${candidates}/${members.length} recall=${members.length ? (candidates / members.length).toFixed(3) : 'n/a'}`);
+  }
+  lines.push(`tier-a-candidate-recall combined candidates=${combined.candidates}/${combined.support} recall=${combined.support ? (combined.candidates / combined.support).toFixed(3) : 'n/a'}`);
+  if (recorded) {
+    const unresolved = expected.length - rows.length;
+    lines.push(`recorded-outputs jev=${recorded.jev}/${recorded.total} haiku=${recorded.haiku}/${recorded.total}`);
+    lines.push(`pending breakdown: wrapperFailures=${summary.wrapperFailures} fallbackCapHeld=${summary.fallbackCapHeld} heldForCap=${summary.heldForCap}${recorded.haiku === 0 && unresolved > 0 ? ' (no recorded fallback: live Haiku required)' : ''}`);
+  }
   return lines.join('\n');
 }
 
@@ -192,13 +231,35 @@ export async function evaluateReplay(replay, { config, jev, callClaude, random =
   if (replay.items.every((entry) => entry.modelOutputs?.jev)) {
     ({ jev, callClaude } = recordedModels(replay.items));
   }
+  const recorded = {
+    total: replay.items.length,
+    jev: replay.items.filter((entry) => entry.modelOutputs?.jev).length,
+    haiku: replay.items.filter((entry) => entry.modelOutputs?.fallback).length,
+  };
+  const uncapped = {
+    ...config,
+    maxEscalationRate: 1,
+    dailyCaps: {
+      ...config.dailyCaps,
+      'tidewatch-fallback': { ...config.dailyCaps['tidewatch-fallback'], calls: Number.MAX_SAFE_INTEGER },
+    },
+  };
+  const jevAnswers = new Map();
+  const askJev = jev && {
+    ask: async (request) => {
+      const response = await jev.ask(request);
+      const id = /^item id: (.+)$/m.exec(request.state)?.[1];
+      if (id && response?.answers) jevAnswers.set(id, response.answers);
+      return response;
+    },
+  };
   const store = {
     existingDecisionIds: async () => new Set(),
     insertDecisions: async () => undefined,
   };
-  const result = await classifyItems({ items, candidates: [], store, config, jev, callClaude,
+  const result = await classifyItems({ items, candidates: [], store, config: uncapped, jev: askJev, callClaude,
     random, now: Date.parse('2026-10-15T00:00:00.000Z') });
-  return { ...result, report: evalReport(expected, result.rows, result.summary) };
+  return { ...result, report: evalReport(expected, result.rows, result.summary, { config, recorded, jevAnswers }) };
 }
 
 export async function main(argv = process.argv.slice(2), deps = {}) {
