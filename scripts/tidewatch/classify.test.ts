@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { toRequest } from '@swift2/shared/jev/client';
 import type { JevQuestion } from '@swift2/shared/jev/questions';
 import { callFallback, codePrefilter } from './cascade.mjs';
-import { classifyItems, evaluateReplay, main } from './classify.mjs';
+import { classifyItems, evalReport, evaluateReplay, isCandidate, main } from './classify.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, questionsFor } from './questions.mjs';
 
@@ -349,6 +349,61 @@ describe('Tidewatch classifier', () => {
     expect(result.report).toContain('normal_news precision=0.500 recall=1.000');
     expect(result.report).toContain('rumor precision=n/a recall=0.000');
     expect(result.report).toContain('jev-to-haiku escalation rate=0.250 (2/8)');
+  });
+
+  it('splits eval predictions per class by decider and counts unresolved items as pending', () => {
+    const rows = [
+      { item_id: 'a', class: 'critical_breaking', decider: 'jev' },
+      { item_id: 'b', class: 'critical_breaking', decider: 'haiku' },
+      { item_id: 'c', class: 'critical_breaking', decider: 'code' },
+    ];
+    const expected = ['a', 'b', 'c', 'd'].map((id) => ({ id, class: 'critical_breaking' }));
+    const summary = { jevAttempts: 2, fallbackAttempted: 1, wrapperFailures: 1, fallbackCapHeld: 0, heldForCap: 0 };
+    const report = evalReport(expected, rows, summary,
+      { config, recorded: { total: 4, jev: 0, haiku: 0 } });
+    expect(report).toContain('decider-split critical_breaking code=1 jev=1 haiku=1 pending=1');
+    expect(report).toContain('recorded-outputs jev=0/4 haiku=0/4');
+    expect(report).toContain('(no recorded fallback: live Haiku required)');
+    expect(report).toContain('decisions=3/4 pending=1');
+  });
+
+  it('counts a Tier A candidate by Jev class confidence, urgency, or escalated Haiku answer', () => {
+    const choice = (classId: string, confidence: number) => ({ type: 'choice',
+      optionId: optionByClass[classId], probabilities: { [optionByClass[classId]]: confidence } });
+    const row = (jev: Record<string, unknown>, extra: Record<string, unknown> = {}) =>
+      ({ decider: 'jev', answers: { jev }, ...extra });
+    expect(isCandidate(row({ q_class: choice('critical_personal', 0.3) }), config)).toBe(true);
+    expect(isCandidate(row({ q_class: choice('critical_personal', 0.29) }), config)).toBe(false);
+    expect(isCandidate(row({ q_class: choice('normal_news', 0.99) }), config)).toBe(false);
+    expect(isCandidate(row({ q_urgency: { type: 'score', value: 4 } }), config)).toBe(true);
+    expect(isCandidate(row({ q_urgency: { type: 'score', value: 3 } }), config)).toBe(false);
+    expect(isCandidate(row({ q_class: choice('normal_news', 0.5) },
+      { decider: 'haiku', answers: { jev: { q_class: choice('normal_news', 0.5) }, haiku: { class: 'critical_breaking' } } }), config)).toBe(true);
+    expect(isCandidate({ decider: 'haiku', answers: { haiku: { class: 'normal_news' } } }, config)).toBe(false);
+    const report = evalReport([{ id: 'a', class: 'critical_breaking' }, { id: 'b', class: 'critical_personal' }],
+      [{ item_id: 'a', class: 'normal_news', decider: 'jev',
+        answers: { jev: { q_urgency: { type: 'score', value: 5 } } } }],
+      { jevAttempts: 1, fallbackAttempted: 0 }, { config });
+    expect(report).toContain('tier-a-candidate-recall critical_breaking candidates=1/1 recall=1.000');
+    expect(report).toContain('tier-a-candidate-recall critical_personal candidates=0/1 recall=0.000');
+    expect(report).toContain('tier-a-candidate-recall combined candidates=1/2 recall=0.500');
+  });
+
+  it('runs eval uncapped so every escalation resolves past the daily fallback call cap', async () => {
+    const total = 650;
+    const ids = Array.from({ length: total }, (_, index) => `u${index}`);
+    const replay = { items: ids.map((id) => ({ id, kind: 'news_story', title: id, class: 'normal_news' })) };
+    const jev = jevFor(Object.fromEntries(ids.map((id) => [id, { class: 'normal_news', confidence: 0.5 }])));
+    const callClaude = vi.fn(async ({ user, maxCalls }: { user: string; maxCalls: number }) => {
+      if (callClaude.mock.calls.length > maxCalls) return { status: 'capped' };
+      const asked = [...user.matchAll(/item id: (u\d+)/g)].map((match) => match[1]);
+      return { status: 'ok', data: { labels: asked.map((id) => ({ id, class: 'normal_news', injection: 'no' })) } };
+    });
+    const result = await evaluateReplay(replay, { config, jev, callClaude });
+    expect(config.dailyCaps['tidewatch-fallback'].calls).toBeLessThan(total / config.fallbackBatchSize);
+    expect(result.rows).toHaveLength(total);
+    expect(result.summary).toMatchObject({ pending: 0, fallbackCapHeld: 0, wrapperFailures: 0 });
+    expect(result.report).toContain(`decisions=${total}/${total} pending=0`);
   });
 
   it('keeps the real eval workflow manual, aggregate-only, and step-scoped', async () => {

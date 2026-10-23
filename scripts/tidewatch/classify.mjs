@@ -165,8 +165,23 @@ function recordedModels(entries) {
   };
 }
 
-export function evalReport(expected, rows, summary) {
+const DECIDERS = ['code', 'jev', 'haiku'];
+const CRITICAL_CLASSES = ['critical_breaking', 'critical_personal', 'correction_debunk'];
+const answerConfidence = (answer) => answer?.probabilities?.[answer.optionId]
+  ?? answer?.confidence ?? answer?.probability ?? 0;
+
+export function isCandidate(row, config) {
+  const thresholds = config?.classes?.critical_breaking?.thresholds ?? {};
+  const jev = row.answers?.jev;
+  const jevClass = jev?.q_class?.type === 'choice' ? CLASS_BY_OPTION[jev.q_class.optionId] : null;
+  if (jevClass?.startsWith('critical_') && answerConfidence(jev.q_class) >= (thresholds.candidate ?? 0.3)) return true;
+  if (typeof jev?.q_urgency?.value === 'number' && jev.q_urgency.value >= (thresholds.candidateUrgency ?? 4)) return true;
+  return row.decider === 'haiku' && String(row.answers?.haiku?.class ?? '').startsWith('critical_');
+}
+
+export function evalReport(expected, rows, summary, { config, recorded } = {}) {
   const predicted = new Map(rows.map((row) => [row.item_id, row.class]));
+  const rowById = new Map(rows.map((row) => [row.item_id, row]));
   const lines = [];
   for (const classId of CLASS_IDS) {
     const actual = expected.filter((entry) => entry.class === classId).length;
@@ -180,6 +195,27 @@ export function evalReport(expected, rows, summary) {
   const rate = summary.jevAttempts ? summary.fallbackAttempted / summary.jevAttempts : 0;
   lines.push(`jev-to-haiku escalation rate=${rate.toFixed(3)} (${summary.fallbackAttempted}/${summary.jevAttempts})`);
   lines.push(`decisions=${rows.length}/${expected.length} pending=${expected.length - rows.length}`);
+  for (const classId of CLASS_IDS) {
+    const split = DECIDERS.map((decider) => `${decider}=${rows.filter((row) => row.class === classId
+      && row.decider === decider).length}`);
+    const pending = expected.filter((entry) => entry.class === classId && !rowById.has(entry.id)).length;
+    lines.push(`decider-split ${classId} ${split.join(' ')} pending=${pending}`);
+  }
+  const combined = { candidates: 0, support: 0 };
+  for (const classId of CRITICAL_CLASSES) {
+    const members = expected.filter((entry) => entry.class === classId);
+    const candidates = members.filter((entry) => rowById.has(entry.id)
+      && isCandidate(rowById.get(entry.id), config)).length;
+    combined.candidates += candidates;
+    combined.support += members.length;
+    lines.push(`tier-a-candidate-recall ${classId} candidates=${candidates}/${members.length} recall=${members.length ? (candidates / members.length).toFixed(3) : 'n/a'}`);
+  }
+  lines.push(`tier-a-candidate-recall combined candidates=${combined.candidates}/${combined.support} recall=${combined.support ? (combined.candidates / combined.support).toFixed(3) : 'n/a'}`);
+  if (recorded) {
+    const unresolved = expected.length - rows.length;
+    lines.push(`recorded-outputs jev=${recorded.jev}/${recorded.total} haiku=${recorded.haiku}/${recorded.total}`);
+    lines.push(`pending breakdown: wrapperFailures=${summary.wrapperFailures} fallbackCapHeld=${summary.fallbackCapHeld} heldForCap=${summary.heldForCap}${recorded.haiku === 0 && unresolved > 0 ? ' (no recorded fallback: live Haiku required)' : ''}`);
+  }
   return lines.join('\n');
 }
 
@@ -192,13 +228,26 @@ export async function evaluateReplay(replay, { config, jev, callClaude, random =
   if (replay.items.every((entry) => entry.modelOutputs?.jev)) {
     ({ jev, callClaude } = recordedModels(replay.items));
   }
+  const recorded = {
+    total: replay.items.length,
+    jev: replay.items.filter((entry) => entry.modelOutputs?.jev).length,
+    haiku: replay.items.filter((entry) => entry.modelOutputs?.fallback).length,
+  };
+  const uncapped = {
+    ...config,
+    maxEscalationRate: 1,
+    dailyCaps: {
+      ...config.dailyCaps,
+      'tidewatch-fallback': { ...config.dailyCaps['tidewatch-fallback'], calls: Number.MAX_SAFE_INTEGER },
+    },
+  };
   const store = {
     existingDecisionIds: async () => new Set(),
     insertDecisions: async () => undefined,
   };
-  const result = await classifyItems({ items, candidates: [], store, config, jev, callClaude,
+  const result = await classifyItems({ items, candidates: [], store, config: uncapped, jev, callClaude,
     random, now: Date.parse('2026-10-15T00:00:00.000Z') });
-  return { ...result, report: evalReport(expected, result.rows, result.summary) };
+  return { ...result, report: evalReport(expected, result.rows, result.summary, { config, recorded }) };
 }
 
 export async function main(argv = process.argv.slice(2), deps = {}) {

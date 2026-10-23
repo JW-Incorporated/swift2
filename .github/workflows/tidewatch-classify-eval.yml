@@ -42,3 +42,11 @@ jobs:
             echo "Classifier eval failed before producing complete aggregates." >> "$GITHUB_STEP_SUMMARY"
           fi
           exit "$status"
+      - name: Upload the aggregate eval text
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: tidewatch-classify-eval
+          path: ${{ runner.temp }}/tidewatch-eval.txt
+          if-no-files-found: error
+          retention-days: 14
