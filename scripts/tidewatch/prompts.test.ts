@@ -1,4 +1,3 @@
-import { execFileSync } from 'node:child_process';
 import { describe, expect, it } from 'vitest';
 import { FALLBACK_SYSTEM } from './cascade.mjs';
 import { CLASS_BY_OPTION, CLASS_OPTIONS, questionsFor } from './questions.mjs';
@@ -26,12 +25,33 @@ describe('Tidewatch D-c prompt text', () => {
     expect(q.instructions).toContain('not speculation');
   });
 
-  it('option ids match origin/main', () => {
-    const old = execFileSync('git', ['show', 'origin/main:scripts/tidewatch/questions.mjs'], { encoding: 'utf8' });
-    const oldOptionIds = [...old.matchAll(/^\s*\['([a-z_]+)', '/gm)].map((m) => m[1]).slice(0, 13);
-    expect(CLASS_OPTIONS.map((o: { id: string }) => o.id)).toEqual(oldOptionIds);
-    expect(classQuestion.options.map((o) => o.id).sort()).toEqual([...oldOptionIds].sort());
-    const oldMap = Object.fromEntries([...old.slice(old.indexOf('CLASS_BY_OPTION')).matchAll(/^\s*([a-z_]+): '([a-z_]+)',/gm)].slice(0, 13).map((m) => [m[1], m[2]]));
-    expect(CLASS_BY_OPTION).toEqual(oldMap);
+  it('Q_CLASS does not claim rumor covers privacy_redline', () => {
+    expect(classQuestion.instructions).not.toContain('covers privacy_redline');
+    expect(classQuestion.instructions).toContain('privacy_redline is not an option here');
+  });
+
+  it('option ids and class map are unchanged', () => {
+    const ids = [
+      'critical_work_news', 'personal_life_milestone', 'official_video_or_music_drop', 'tour_or_ticket_update',
+      'general_news', 'official_merch', 'fan_made_merch', 'identifiable_outfit', 'easter_egg_or_theory',
+      'fan_discussion', 'rumor_or_unconfirmed', 'correction_or_debunk', 'off_topic_noise',
+    ];
+    expect(CLASS_OPTIONS.map((o: { id: string }) => o.id)).toEqual(ids);
+    expect(classQuestion.options.map((o) => o.id)).toEqual(ids);
+    expect(CLASS_BY_OPTION).toEqual({
+      critical_work_news: 'critical_breaking',
+      personal_life_milestone: 'critical_personal',
+      official_video_or_music_drop: 'official_drop',
+      tour_or_ticket_update: 'tour_ticket',
+      general_news: 'normal_news',
+      official_merch: 'merch_official',
+      fan_made_merch: 'merch_fan',
+      identifiable_outfit: 'merch_outfit',
+      easter_egg_or_theory: 'theory_material',
+      fan_discussion: 'fan_discussion',
+      rumor_or_unconfirmed: 'rumor',
+      correction_or_debunk: 'correction_debunk',
+      off_topic_noise: 'noise',
+    });
   });
 });
