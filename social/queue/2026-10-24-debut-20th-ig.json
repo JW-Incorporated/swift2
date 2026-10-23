@@ -1,0 +1,33 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "twenty years ago tomorrow. that's how long we've had this album 🤍\n\nshe was 16. she wrote over 40 songs for it, kept eleven, and put her name on every single writing credit — three of them (\"the outside,\" \"should've said no,\" \"our song\") written completely alone.\n\nand then it just… refused to leave. it entered the billboard 200 at no. 19 and stayed 157 weeks — the longest chart run of any album of the 2000s.\n\neven the liner notes were hiding things: read only the capital letters in each printed lyric and they spell out a little secret message per song. the easter eggs started right here, in 2006.\n\ntwenty years of this one. tag the friend who's loved her since the curls-and-cowboy-boots days → longlivets.com/?item=vault-debut-taylor-swift-the-album-arrives&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pphafw-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pphafw-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pphafw/loving_the_look/",
+  "scheduledAt": "2026-10-24T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Loving the look"
+  ],
+  "campaign": "on-this-day:debut-20th-anniversary:2026-10-24",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "Tomorrow is the 20th anniversary of Taylor's self-titled debut (Oct 24, 2006) — the exact Oct-24 moment the heartbeat slot asked for, and a milestone. Confirmed facts only: 40+ songs written at 16, eleven kept, 157 weeks on the Billboard 200, the hidden-capitals liner-note code. Number hook, not a date-stamp.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of on-this-day:debut-20th-anniversary:2026-10-24 (Calendar 2026-10-24 23:00Z heartbeat:on-this-day beat). Subject = the 20th anniversary of the self-titled debut, released Oct 24, 2006 — the genuine Oct-24 dated Vault moment (seed debut.mjs 'Taylor Swift, the album, arrives', item vault-debut-taylor-swift-the-album-arrives). Pure factual anniversary; deliberately does NOT touch the live debut-TV re-record rumor. Confirmed facts only (debut.mjs moment): wrote 40+ songs at 16, kept eleven, her name on every writing credit, three ('The Outside'/'Should've Said No'/'Our Song') written alone, entered Billboard 200 at No. 19 and stayed 157 weeks (longest run of any 2000s album), hidden-capital-letter liner-note code started here. Mandatory heartbeat share-design pass: genuine tag hook grounded in the debut era ('since the curls-and-cowboy-boots days'). Hook = the number (twenty years), not a date-stamp. Photo reddit-taylorswiftpictures-1pphafw-ig45 handed by the prepare job (never-used, Instagram-sized), xOriginal .png on the X half per W8; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+}

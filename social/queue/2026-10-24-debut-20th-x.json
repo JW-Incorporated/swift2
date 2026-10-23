@@ -1,0 +1,33 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "twenty years ago tomorrow, a 16-year-old put out eleven songs with her name on every single writing credit. that's the whole origin story right there 🤍 the self-titled debut landed oct 24, 2006 → longlivets.com/?item=vault-debut-taylor-swift-the-album-arrives&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pphafw.png"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pphafw",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pphafw/loving_the_look/",
+  "scheduledAt": "2026-10-24T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Loving the look"
+  ],
+  "campaign": "on-this-day:debut-20th-anniversary:2026-10-24",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "Tomorrow is the 20th anniversary of Taylor's self-titled debut (Oct 24, 2006) — the exact Oct-24 moment the heartbeat slot asked for, and a milestone. Confirmed facts only: eleven songs, her name on every writing credit, released at 16. Number hook, not a date-stamp.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "X sibling of on-this-day:debut-20th-anniversary:2026-10-24 (Calendar 2026-10-24 23:00Z heartbeat:on-this-day beat). Subject = the 20th anniversary of the self-titled debut, released Oct 24, 2006 — the genuine Oct-24 dated Vault moment (seed debut.mjs 'Taylor Swift, the album, arrives', item vault-debut-taylor-swift-the-album-arrives). Pure factual anniversary; deliberately does NOT touch the live debut-TV re-record rumor (speculation stays off this beat). Confirmed facts only: eleven tracks, her name on every writing credit, released at 16. Hook = the number (twenty years), not a bare date-stamp and not starting 'the <thread>'. Photo reddit-taylorswiftpictures-1pphafw (xOriginal .png of the IG -ig45 variant) handed by the prepare job, never-used; uncredited reddit pick so no credit line. Image is an LFS pointer in this checkout — relied on the prepare job's vetting."
+}
