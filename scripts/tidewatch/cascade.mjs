@@ -88,7 +88,7 @@ export function stateFor(item, candidates = [], now = Date.now()) {
   ].join('\n');
 }
 
-const answerConfidence = (answer) => answer?.probabilities?.[answer.optionId]
+export const answerConfidence = (answer) => answer?.probabilities?.[answer.optionId]
   ?? answer?.confidence ?? answer?.probability ?? 0;
 
 export function classFromAnswers(answers, config) {
