@@ -226,6 +226,12 @@ describe('Tidewatch shadow action router', () => {
       .actions).not.toContain('hold_invariant');
   });
 
+  it('holds a drift-audited Haiku row with Jev speculation as hold_invariant', () => {
+    const jev = { q_speculation: { type: 'noul', probability: 0.9 } };
+    expect(planActions('normal_news', { jev, haiku: { drift: true, class: 'normal_news' } }, 1, null, config))
+      .toMatchObject({ state: 'held', actions: ['hold_invariant'] });
+  });
+
   it('does not hold a Haiku-decided non-privacy row on Jev speculation, but holds a Haiku privacy_redline row', () => {
     const jev = { q_speculation: { type: 'noul', probability: 0.9 }, q_personal: { type: 'noul', probability: 0.9 } };
     expect(planActions('normal_news', { jev, haiku: { class: 'normal_news' } }, 1, null, config).actions)

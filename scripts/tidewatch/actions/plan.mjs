@@ -28,7 +28,7 @@ function isYes(answer) {
 
 function jevDecidedShouldHaveEscalated(answers, config) {
   const raw = jevAnswers(answers);
-  if (!raw || answers.haiku) return false;
+  if (!raw || (answers.haiku && !answers.haiku.drift)) return false;
   return (raw.q_speculation?.type === 'noul'
     && raw.q_speculation.probability >= config.classes.privacy_redline.thresholds.act)
     || isYes(raw.q_personal);

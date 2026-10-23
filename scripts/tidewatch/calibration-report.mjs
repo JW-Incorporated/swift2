@@ -38,7 +38,7 @@ function jevOf(row, config) {
   const answers = row.answers?.jev;
   if (!answers || typeof answers !== 'object') return null;
   try {
-    return classFromAnswers(answers, config, row.answers?.redline_hint);
+    return classFromAnswers(answers, config);
   } catch {
     return null;
   }
