@@ -2,6 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { getAdapter } from '../sources/registry';
 import { filterRelevantItems } from '../sources/relevance';
 import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
+import { isUpstreamError } from '../sources/retry';
 import type { SourceAdapter } from '../sources/types';
 
 export interface CycleOptions {
@@ -13,7 +14,13 @@ interface IngestResult {
   sourcesPolled: number;
   itemsIngested: number;
   errors: string[];
+  /** Upstream HTTP/network failures of a single source — logged, never exit 1. */
+  warnings: string[];
 }
+
+// last_polled_at is only written after a successful fetch, so it is the
+// per-source last-success timestamp.
+const STALE_SOURCE_MS = 48 * 3_600_000;
 
 /** Ingests one cycle and returns selected source ids, or null when source loading fails. */
 export async function runIngestStage(
@@ -21,7 +28,7 @@ export async function runIngestStage(
   options: CycleOptions,
   result: IngestResult,
 ): Promise<string[] | null> {
-  let query = db.from('news_source').select('id, name, source_type, config');
+  let query = db.from('news_source').select('id, name, source_type, config, last_polled_at');
   if (!options.primary) query = query.eq('is_enabled', true);
   const { data: sources, error } = await query;
   if (error) {
@@ -33,6 +40,7 @@ export async function runIngestStage(
     ? (sources ?? []).filter((source) => source.config?.primary === true)
     : (sources ?? []);
   const adapterFor = options.adapterFor ?? getAdapter;
+  let failedFetches = 0;
   for (const source of selected) {
     const adapter = adapterFor(source.source_type);
     if (!adapter) {
@@ -41,13 +49,27 @@ export async function runIngestStage(
       );
       continue;
     }
+    let fetched: Awaited<ReturnType<SourceAdapter['fetch']>>;
     try {
-      const fetched = await adapter.fetch({
+      fetched = await adapter.fetch({
         id: source.id,
         name: source.name,
         sourceType: source.source_type,
         config: source.config ?? {},
       });
+    } catch (fetchError) {
+      const message = `ingest failed for "${source.name}": ${(fetchError as Error).message}`;
+      const lastOk = source.last_polled_at ? Date.parse(source.last_polled_at) : NaN;
+      const stale = !(Date.now() - lastOk < STALE_SOURCE_MS);
+      if (!isUpstreamError(fetchError) || stale) {
+        result.errors.push(stale && isUpstreamError(fetchError) ? `${message} (no success in >48h)` : message);
+      } else {
+        result.warnings.push(message);
+      }
+      failedFetches++;
+      continue;
+    }
+    try {
       const relevant = filterRelevantItems(source.config ?? {}, fetched);
       if (relevant.length > 0) {
         const items = source.source_type === 'google_news' && !options.primary
@@ -83,6 +105,9 @@ export async function runIngestStage(
     } catch (stageError) {
       result.errors.push(`ingest failed for "${source.name}": ${(stageError as Error).message}`);
     }
+  }
+  if (selected.length > 0 && failedFetches === selected.length) {
+    result.errors.push(`all ${selected.length} source(s) failed to fetch this run`);
   }
   return selected.map((source) => source.id);
 }

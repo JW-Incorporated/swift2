@@ -8,6 +8,7 @@
 
 import Parser from 'rss-parser';
 import type { NormalizedNewsItem } from '@swift2/shared/news';
+import { withRetry } from './retry';
 import type { NewsSourceRow, SourceAdapter } from './types';
 
 /**
@@ -56,7 +57,7 @@ export const rssAdapter: SourceAdapter = {
     if (typeof url !== 'string' || !url) {
       throw new Error(`rss source "${source.name}" has no config.url`);
     }
-    const feed = await parser.parseURL(url);
+    const feed = await withRetry(() => parser.parseURL(url));
     return (feed.items ?? [])
       .slice(0, MAX_ITEMS_PER_SOURCE)
       .map((item): NormalizedNewsItem => ({
