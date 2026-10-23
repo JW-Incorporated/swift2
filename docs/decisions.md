@@ -9252,3 +9252,17 @@ P1-26; this change does not install it. The existing drafter's thread-JSON
 switch remains default-off through the shadow week (about 2026-10-23), and no
 Tidewatch classifier or `config/tidewatch.json` behavior changes. Removing the
 task or reverting this change restores the RSS-only system.
+
+## 2026-10-23 — Tidewatch keeps the Jev-first cascade; the redline blocklist is a hint, not a decider
+
+**Decision.** Tidewatch keeps the Jev-first cascade, but Jev's role is narrowed to candidate detection and low-stakes routing; nothing Jev says alone decides a Tier A class or privacy_redline. The deterministic topic blocklist is demoted from a pre-model decider to a hint carried into the model prompt plus an action-layer veto; it never classifies. If, after the eval, prefilter and prompt fixes and one replay re-record, Tier A candidate recall on the D-c replay is below 1.0 or Jev-vs-Sonnet agreement on any Tier B class is below 0.80 at n≥30, Jev is replaced by Haiku-primary without a further architect consult. (Architect #16; P2-01.)
+
+**Veto mechanics.** The hint persists as `answers.redline_hint` on the `watch_decision` row. The action-layer veto plans `hold_redline` (in `scripts/tidewatch/actions/plan.mjs`). Direct readers of `watch_decision` that bypass `planActions` (e.g. `scripts/merch-engine/build-matcher-input.mjs`) must also exclude hinted rows; that reader now filters `answers->redline_hint` is null in the query and again in JS. privacy_redline's `drop_hash_only` plan is deliberately retired for now (always held; revisit at P2-13).
+
+## 2026-10-23 — Tidewatch critical_breaking also covers a new concert film, a one-night-only global livestream event, and headlining a major festival
+
+**Decision.** A new concert film, a one-night-only global livestream event, and headlining a major festival are critical_breaking for Tidewatch (owner, in chat; addendum to D-c of 2026-10-17). Prompt text in `Q_CLASS`, `FALLBACK_SYSTEM` and the decision-sample yardstick is extended to match; no option ids or classification logic change.
+
+## 2026-10-23 — Jev no longer decides privacy_redline
+
+**Decision.** Any Jev answer indicating personal subject or speculation escalates to Haiku, which is the sole model-side privacy authority; the action layer holds on blocklist, Haiku privacy, or a Jev-decided item that should have escalated (invariant). Model-decided privacy on a primary-source item is held for the verifier, not dropped (follow-up). Full Haiku-primary remains pre-authorised, re-evaluated per source family when a Tier A miss is a confident Jev decision. Reverse by restoring the privacy branch in classFromAnswers. (Architect #17.) The earlier Jev-answer net on Haiku-decided rows (speculativePersonal) was removed deliberately: Haiku's label is final for escalated items; stored pre-change Jev-decided rows with high personal answers will plan as hold_invariant (safe direction).

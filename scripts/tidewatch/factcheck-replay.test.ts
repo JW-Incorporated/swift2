@@ -67,22 +67,22 @@ describe('fact-check replay acceptance', () => {
     });
 
     expect(original).toMatchObject({
-      critical: { confirmed: 18, total: 21 },
-      criticalWork: { confirmed: 12, total: 15 },
+      critical: { confirmed: 22, total: 23 },
+      criticalWork: { confirmed: 16, total: 17 },
       criticalPersonal: { confirmed: 6, total: 6 },
-      rumor: { confirmed: 0, total: 35 },
-      singleSource: { confirmed: 0, total: 371 },
+      rumor: { confirmed: 0, total: 33 },
+      singleSource: { confirmed: 1, total: 371 },
     });
     expect(relabelled).toMatchObject({
-      critical: { confirmed: 13, total: 14 },
-      criticalWork: { confirmed: 7, total: 8 },
+      critical: { confirmed: 17, total: 18 },
+      criticalWork: { confirmed: 11, total: 12 },
       criticalPersonal: { confirmed: 6, total: 6 },
-      rumor: { confirmed: 0, total: 34 },
-      singleSource: { confirmed: 0, total: 371 },
+      rumor: { confirmed: 0, total: 33 },
+      singleSource: { confirmed: 1, total: 371 },
     });
     expect(forcedCriticalControls).toMatchObject({
       total: { confirmed: 0 },
-      rumor: { confirmed: 0, total: 35 },
+      rumor: { confirmed: 0, total: 33 },
       singleSource: { confirmed: 0, total: 371 },
     });
   });

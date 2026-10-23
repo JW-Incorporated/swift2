@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **10 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #146 🟡 [DECIDE] PR #5662 (expo bump) stuck red 10 days (~5 min)
+<!-- ha filed=2026-10-23 -->
+
+**Why:** Watchdog alert #6210 flags `dependabot/npm_and_yarn/expo-58.0.7` (PR #5662) blocked on failing checks (`Build (b) DOM entry,build,build-full,parity-gate`) for 10 days, past the 7-day threshold with no agent returning to fix it; auto-merge correctly refuses to land it red.
+**Steps:**
+1. Open https://github.com/JW-Incorporated/swift2/pull/5662 and review the failing checks.
+2. Decide: `fix` — assign a session to repair the expo 58 upgrade; `close` — abandon this bump for now; `wait` — leave it, Dependabot may supersede it.
+**Worked if:** PR #5662 is closed, merged, or superseded by a newer Dependabot PR.
 
 ## #144 🔴 [BLOCKING] Run or repair this week's automated Facebook export (~10 min)
 <!-- ha filed=2026-10-22 -->

@@ -102,14 +102,14 @@ export function validateBatch(data, batch) {
 const stopReason = (res) => res.status === 'unavailable' && /limit|token/i.test(res.reason ?? '');
 
 /** Label every unlabelled item. Resumable; never exceeds `maxCalls` calls in total. */
-export async function labelAll({ items, progress, call, save, maxCalls = HARD_CAP, batchSize = BATCH_SIZE, log = () => {} }) {
+export async function labelAll({ items, progress, call, save, maxCalls = HARD_CAP, batchSize = BATCH_SIZE, log = () => {}, system = SYSTEM, caller = CALLER }) {
   const cap = Math.min(maxCalls, HARD_CAP);
   let stopped = null;
   const attempt = async (batch) => {
     if (progress.calls >= cap) { stopped = 'call cap reached'; return false; }
     progress.calls += 1;
     await save(progress);
-    const res = await call({ caller: CALLER, priority: PRIORITY, model: MODEL, system: SYSTEM,
+    const res = await call({ caller, priority: PRIORITY, model: MODEL, system,
       user: renderBatch(batch), schema: SCHEMA, maxCalls: cap });
     if (res.status === 'ok') {
       const check = validateBatch(res.data, batch);

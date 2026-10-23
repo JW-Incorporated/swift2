@@ -197,9 +197,12 @@ beforeEach(async () => {
     '2026-10-14T12:00:00.000Z',
   ]);
   client = pgliteClient(db);
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(NOW);
 });
 
 afterEach(async () => {
+  vi.useRealTimers();
   await db.close();
 });
 

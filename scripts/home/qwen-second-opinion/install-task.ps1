@@ -17,11 +17,12 @@ $repoRoot = Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\..\..')
 $wrapperPath = Join-Path $repoRoot.Path 'scripts\home\reddit-reader\run-task.ps1'
 $null = Get-Command node.exe -ErrorAction Stop
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+. (Join-Path $env:USERPROFILE 'bin\hidden\HiddenTask.ps1')
 
 # The env path is its own argument; run-task.ps1 builds --env-file= itself.
-$action = New-ScheduledTaskAction `
+$action = New-HiddenTaskAction `
   -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$wrapperPath`" -EnvFilePath `"$($envFile.Path)`" -Script scripts\home\qwen-second-opinion\poller.mjs -LogName home-qwen-poller" `
+  -Argument @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', $wrapperPath, '-EnvFilePath', $envFile.Path, '-Script', 'scripts\home\qwen-second-opinion\poller.mjs', '-LogName', 'home-qwen-poller') `
   -WorkingDirectory $repoRoot.Path
 
 $repeat = New-ScheduledTaskTrigger -Daily -At '12:00 AM'

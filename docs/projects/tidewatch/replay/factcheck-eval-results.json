@@ -5,12 +5,12 @@
   "original": {
     "total": 771,
     "critical": {
-      "confirmed": 18,
-      "total": 21
+      "confirmed": 22,
+      "total": 23
     },
     "criticalWork": {
-      "confirmed": 12,
-      "total": 15
+      "confirmed": 16,
+      "total": 17
     },
     "criticalPersonal": {
       "confirmed": 6,
@@ -18,22 +18,22 @@
     },
     "rumor": {
       "confirmed": 0,
-      "total": 35
+      "total": 33
     },
     "singleSource": {
-      "confirmed": 0,
+      "confirmed": 1,
       "total": 371
     }
   },
   "relabelled": {
     "total": 771,
     "critical": {
-      "confirmed": 13,
-      "total": 14
+      "confirmed": 17,
+      "total": 18
     },
     "criticalWork": {
-      "confirmed": 7,
-      "total": 8
+      "confirmed": 11,
+      "total": 12
     },
     "criticalPersonal": {
       "confirmed": 6,
@@ -41,10 +41,10 @@
     },
     "rumor": {
       "confirmed": 0,
-      "total": 34
+      "total": 33
     },
     "singleSource": {
-      "confirmed": 0,
+      "confirmed": 1,
       "total": 371
     }
   },
@@ -57,7 +57,7 @@
     },
     "rumor": {
       "confirmed": 0,
-      "total": 35
+      "total": 33
     },
     "singleSource": {
       "confirmed": 0,

@@ -7,10 +7,12 @@ const mocks = vi.hoisted(() => ({
   extractWithLLM: vi.fn(),
   fetchPostComments: vi.fn(),
   refreshSymbolActivity: vi.fn(),
+  reresolveHeldImages: vi.fn(),
   resolveVanishedCountdowns: vi.fn(),
   supabaseExtractUsageDb: vi.fn(),
 }));
 
+vi.mock('./held-image-pass', () => ({ reresolveHeldImages: mocks.reresolveHeldImages }));
 vi.mock('./haiku-client', () => ({ extractWithLLM: mocks.extractWithLLM }));
 vi.mock('../sources/reddit-rss', () => ({ fetchPostComments: mocks.fetchPostComments }));
 vi.mock('../sources/site-diff', () => ({ resolveVanishedCountdowns: mocks.resolveVanishedCountdowns }));
@@ -68,6 +70,7 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.extractWithLLM.mockReset().mockResolvedValue({ kind: 'skip', redlineFlags: [] });
     mocks.fetchPostComments.mockReset();
     mocks.refreshSymbolActivity.mockReset().mockResolvedValue(undefined);
+    mocks.reresolveHeldImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
     mocks.resolveVanishedCountdowns.mockReset().mockResolvedValue(0);
     mocks.supabaseExtractUsageDb.mockReset().mockReturnValue({});
   });
@@ -162,5 +165,14 @@ describe('runExtractStage Reddit comment context', () => {
 
     expect(mocks.fetchPostComments).not.toHaveBeenCalled();
     expect(mocks.extractWithLLM.mock.calls[0]?.[1]).not.toHaveProperty('commentThreads');
+  });
+
+  it('runs the bounded held-image pass and reports its counts', async () => {
+    mocks.reresolveHeldImages.mockResolvedValue({ checked: 3, published: 2, errors: ['held-image x'] });
+    const result = await runExtractStage(fakeDb([]));
+    expect(mocks.reresolveHeldImages).toHaveBeenCalledOnce();
+    expect(result.heldImagesChecked).toBe(3);
+    expect(result.heldImagesPublished).toBe(2);
+    expect(result.errors).toContain('held-image x');
   });
 });

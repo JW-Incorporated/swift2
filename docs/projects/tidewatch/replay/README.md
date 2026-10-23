@@ -31,7 +31,7 @@ new song, album, tour or film. Premiere times, pre-orders, schedules, track
 lists, merch drops and festival line-ups become `official_drop`. Blank titles
 remain unchanged. The generated `replay-relabelled.json` contains only ids and
 labels. `replay-relabel-report.json` lists every old-to-new label; on this
-frozen set, the property rule changes 8 and the critical-work rule 7.
+frozen set, the property rule changes 0 and the critical-work rule 5.
 
 Run `npx tsx scripts/tidewatch/factcheck-eval.mjs` for the network-free replay.
 It reads recorded source-page fixtures and uses fake Jev and Sonnet judgments;
@@ -40,12 +40,12 @@ it makes no model or outlet calls. Aggregate results are written to
 
 | Labels | Critical | Critical work | Critical personal | Rumor confirmed | Single-source confirmed |
 |---|---:|---:|---:|---:|---:|
-| Original | 18/21 | 12/15 | 6/6 | 0/35 | 0/371 |
-| Relabelled | 13/14 | 7/8 | 6/6 | 0/34 | 0/371 |
+| Original | 22/23 | 16/17 | 6/6 | 0/33 | 1/371 |
+| Relabelled | 17/18 | 11/12 | 6/6 | 0/33 | 1/371 |
 
 The forced-critical control sends the union of every original rumor and
 non-official single-source item through `critical_breaking` using recorded
-outlets only: 0/376 confirmed overall, including 0/35 rumors and 0/371
+outlets only: 0/376 confirmed overall, including 0/33 rumors and 0/371
 single-source items (the two categories overlap).
 
 The public inert checker is `scripts/tidewatch/factcheck.mjs`; invoke it with

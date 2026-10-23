@@ -106,7 +106,7 @@ async function transitiveLocalImports(entry: string) {
 }
 
 describe('Tidewatch shadow action router', () => {
-  it.each(Object.entries(ROUTE_BY_CLASS))('routes %s through the approved %s path', (classId, route) => {
+  it.each(Object.entries(ROUTE_BY_CLASS).filter(([classId]) => classId !== 'privacy_redline'))('routes %s through the approved %s path', (classId, route) => {
     const plan = planActions(classId, {}, 1, verified, config);
     expect(plan).toMatchObject({ classId, impliedClass: classId, state: 'planned' });
     expect(plan.actions).toEqual([route]);
@@ -200,6 +200,81 @@ describe('Tidewatch shadow action router', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
+  it('holds shadow_hold decisions with no live action even above the act threshold', async () => {
+    const enabledConfig = structuredClone(config);
+    enabledConfig.classes.critical_breaking.enabled = true;
+    const handler = vi.fn(async () => true);
+    const store = memoryStore();
+    const result = await routeDecisions({
+      decisions: [decision({ class: 'critical_breaking', confidence: 1, action: 'shadow_hold_budget' })],
+      store, config: enabledConfig, live: true,
+      actionHandlers: { critical_fast_path: handler }, actionRunners: {} });
+    expect(result.plans[0]).toMatchObject({ state: 'held', actions: ['hold_shadow'] });
+    expect(handler).not.toHaveBeenCalled();
+    expect(result.failures).toEqual([]);
+  });
+
+  it('holds a Jev-decided row that should have escalated as a hold_invariant bug alarm', () => {
+    for (const jev of [
+      { q_speculation: { type: 'noul', probability: 0.9 } },
+      { q_speculation: { type: 'noul', probability: 0.05 }, q_personal: { type: 'noul', probability: 0.6 } },
+    ]) {
+      expect(planActions('normal_news', { jev }, 1, null, config))
+        .toMatchObject({ state: 'held', actions: ['hold_invariant'] });
+    }
+    expect(planActions('normal_news', { jev: { q_speculation: { type: 'noul', probability: 0.05 } } }, 1, null, config)
+      .actions).not.toContain('hold_invariant');
+  });
+
+  it('holds a drift-audited Haiku row with Jev speculation as hold_invariant', () => {
+    const jev = { q_speculation: { type: 'noul', probability: 0.9 } };
+    expect(planActions('normal_news', { jev, haiku: { drift: true, class: 'normal_news' } }, 1, null, config))
+      .toMatchObject({ state: 'held', actions: ['hold_invariant'] });
+  });
+
+  it('does not hold a Haiku-decided non-privacy row on Jev speculation, but holds a Haiku privacy_redline row', () => {
+    const jev = { q_speculation: { type: 'noul', probability: 0.9 }, q_personal: { type: 'noul', probability: 0.9 } };
+    expect(planActions('normal_news', { jev, haiku: { class: 'normal_news' } }, 1, null, config).actions)
+      .not.toEqual(expect.arrayContaining(['hold_redline']));
+    expect(planActions('privacy_redline', { jev, haiku: { class: 'privacy_redline' } }, 1, null, config).actions)
+      .toEqual(['hold_redline']);
+  });
+
+  it('holds a model-decided privacy_redline on a primary source for the verifier, never publishable', () => {
+    expect(planActions('privacy_redline', {}, 1, null, config, 'official'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline_primary'] });
+    expect(planActions('privacy_redline', { jev: { q_official: { type: 'noul', probability: 0.9 } } }, 1, null, config, 'news'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline_primary'] });
+    expect(planActions('privacy_redline', {}, 1, null, config, 'news'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(planActions('privacy_redline', {}, 1, null, config))
+      .toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(planActions('critical_personal', { redline_hint: 'body' }, 1, null, config, 'official'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(planActions('privacy_redline', { redline_hint: 'body' }, 1, null, config, 'official').actions)
+      .toEqual(['hold_redline']);
+  });
+
+  it('vetoes publish for a redline-hinted item or a privacy_redline class even when enabled at high confidence', async () => {
+    const enabledConfig = structuredClone(config);
+    enabledConfig.classes.critical_personal.enabled = true;
+    enabledConfig.classes.privacy_redline.enabled = true;
+    const personal = vi.fn(async () => true);
+    const drop = vi.fn(async () => true);
+    const store = memoryStore();
+    const result = await routeDecisions({
+      decisions: [
+        decision({ id: 'hinted', class: 'critical_personal', confidence: 1, answers: { redline_hint: 'body' } }),
+        decision({ id: 'redline', class: 'privacy_redline', confidence: 1, answers: {} }),
+      ],
+      store, config: enabledConfig, live: true,
+      actionHandlers: { critical_personal_path: personal, drop_hash_only: drop }, actionRunners: {} });
+    expect(result.plans.map((plan) => plan.actions)).toEqual([['hold_redline'], ['hold_redline']]);
+    expect(result.plans.every((plan) => plan.state === 'held')).toBe(true);
+    expect(personal).not.toHaveBeenCalled();
+    expect(drop).not.toHaveBeenCalled();
+  });
+
   it('records a stable action_ref once when the same decision is rerun', async () => {
     const store = memoryStore();
     const first = await routeDecisions({ decisions: [decision()], store, config });
@@ -236,8 +311,8 @@ describe('Tidewatch shadow action router', () => {
     const rumorConflict = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.9 },
     } } }, 1, null, config);
-    const redlineConflict = planActions('normal_news', { jev: { q_speculation: {
-      type: 'noul', probability: 0.9,
+    const redlineConflict = planActions('normal_news', { jev: { q_class: {
+      type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.95 },
     } } }, 1, null, config);
     const lowConfidenceHaikuEscalation = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.4 },
@@ -245,6 +320,12 @@ describe('Tidewatch shadow action router', () => {
     const agreements = Array.from({ length: 18 }, () => planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'general_news', probabilities: { general_news: 0.9 },
     } } }, 1, null, config));
+    const unflaggedSpeculation = planActions('normal_news', { jev: { q_speculation: {
+      type: 'noul', probability: 0.9,
+    }, q_personal: { type: 'noul', probability: 0.05 } } }, 1, null, config);
+    expect(unflaggedSpeculation.actions).not.toEqual(['hold_redline']);
+    expect(disagreementMetric([unflaggedSpeculation, ...agreements]))
+      .toEqual({ count: 0, total: 18, rate: 0, stop: false });
     const metric = disagreementMetric([rumorConflict, redlineConflict,
       lowConfidenceHaikuEscalation, ...agreements]);
     expect(metric).toEqual({ count: 2, total: 20, rate: 0.1, stop: false });
@@ -262,7 +343,8 @@ describe('Tidewatch shadow action router', () => {
     expect(result.mode).toBe('route-table-smoke-test');
     expect(result.recordedInputs).toBe(0);
     expect(result.plans).toHaveLength(600);
-    expect(result.plans.every((plan: { state: string }) => plan.state === 'planned')).toBe(true);
+    expect(result.plans.every((plan: { state: string; classId: string }) =>
+      plan.state === (plan.classId === 'privacy_redline' ? 'held' : 'planned'))).toBe(true);
     expect(summaryMarkdown(result)).toContain('Tidewatch route-table smoke test');
   });
 

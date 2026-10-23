@@ -49,8 +49,12 @@ export function createClaudeCaller(options = {}) {
     }
     let tempDir;
     let outcome;
+    let lastRun;
     const complete = (value) => {
       outcome = value;
+      if (value.status !== 'ok') {
+        console.error(`[claude-call] status=${value.status} reason=${value.reason ?? 'none'} exitCode=${lastRun?.code ?? 'none'} timedOut=${lastRun?.timedOut === true}`);
+      }
       if (value.status === 'ok') {
         consecutiveUnavailable = 0;
       } else if (value.status === 'unavailable' && value.reason !== 'limit') {
@@ -186,6 +190,7 @@ export function createClaudeCaller(options = {}) {
           userPrompt,
           timeoutMs,
         );
+        lastRun = completed;
         const result = resultOf(completed?.stdout);
         let usage = usageOf(result);
         const limited = completed?.code !== 0 || result?.is_error === true
