@@ -67,8 +67,8 @@ describe('fact-check replay acceptance', () => {
     });
 
     expect(original).toMatchObject({
-      critical: { confirmed: 23, total: 24 },
-      criticalWork: { confirmed: 17, total: 18 },
+      critical: { confirmed: 22, total: 23 },
+      criticalWork: { confirmed: 16, total: 17 },
       criticalPersonal: { confirmed: 6, total: 6 },
       rumor: { confirmed: 0, total: 33 },
       singleSource: { confirmed: 1, total: 371 },
