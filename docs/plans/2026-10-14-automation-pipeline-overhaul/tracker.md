@@ -360,6 +360,32 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
 - 2026-10-21 22:35 PDT HB: #6179 (P2-10) MERGED → done as an inert build; its 7-day ≥30% acceptance is measured after the duplicate class goes live in P2-13 (add to the P2-13 checklist). Worktree removed. #6180 (P3-04) RED on build-full: the 2,500-row test ran a real `git diff <sha>^` and CI's shallow checkout lacks history → Codex (low) making the test hermetic (inject/stub the git runner; the production fatal path unchanged). Quen: #6181 merged (#6081 closed); now on #6113.
 - 2026-10-21 23:35 PDT HB: #6180 hermetic-test fix (f5d8644d2) cleared the test, but build-full now fails check-workflow-deps: ops-ledger.yml measure job never installs deps while weekly-scorecard.mjs imports @supabase/supabase-js (the Monday run would have crashed). Codex (low) adding setup-repo npm-ci. LESSON for review briefs: reviewers must also run `node scripts/check-workflow-deps.mjs` when a workflow runs a new script. Quen: #6183 merged (#6113 closed); now on #5522 then #6082.
 - 2026-10-22 00:35 PDT HB: #6180 (P3-04) MERGED with 971ca3f09 (setup-repo npm-ci in the measure job; check-workflow-deps 0 problems). Status stays `review` until the first Monday ops-ledger run (10-26) produces scorecard.json with 11 goals → then done. Worktree removed. Quen: #6185 (#5522) merged; #6082 not yet opened. No other pipeline items runnable (P3-08 ~10-31, P3-02 needs ≥30 outcomes, P2-09 after P2-13; P2-01 at shadow end ~10-23 02:49Z).
+- 2026-10-22 20:31 PDT HB: Shadow week ended 02:49Z → P2-01 started. A researcher is building the calibration packet: the gate (7d + ≥500 decisions), per-class agreement and fallback, spot-check notes and open owner questions. Then the per-class go/no-go with an architect consult (§4). Off-plan: news Google-News fix #6225 and desk-label normalizer #6224 merged and verified live.
+  - 20:33 P2-01 packet (report run 39802513147, 336 decisions; ≥500 projected ~10-24; the D-d per-class sufficiency rule applies):
+    - Volume: normal_news 139, duplicate 107, privacy_redline 50, noise 15; all other classes ≤9. Zero for critical_breaking, official_drop, tour_ticket and retraction.
+    - Haiku fallback is 60.7% against a 0.25 target. Not yet diagnosed; a researcher is mining the sweep logs.
+    - The report's "disagreement 0/33" figure is NOT Jev-vs-Haiku agreement (route.mjs:79-84).
+    - Owner questions D-a, D-b and D-c are all answered; tracker lines 442/462 are stale on VMA.
+    - Still to do: the 100-item Sonnet sample and per-class precision/recall against replay; the calibration doc `docs/projects/tidewatch/calibration-<date>.md`; the architect consult with the minimum-sample rule.
+    - PM leaning: conditional GO into P2-12 for normal_news, duplicate and privacy_redline (after the home-location relabel). Everything else stays shadow-only. Nothing flips until fallback is explained.
+  - 20:40 Fallback explained, and ARCHITECT #15 (P2-01 gate) has ruled.
+    - Cause: below_threshold, with jevUnavailable=0 across 48 sweeps. The 60.7% is a metric artifact (held items are excluded and the per-sweep cap is floored with max(1, …)); against attempts the share is ~34%.
+    - GO rule, by tier:
+      - Tier A (critical_breaking, critical_personal, correction_debunk): replay recall 1.0, fact-check precision 1.0 and the P2-12 drill. Never lower their thresholds.
+      - Tier B: n≥30 model-decided rows and labeled precision ≥0.90.
+      - Tier C (code-prefilter path for duplicate and privacy_redline): a 30-row spot-check at ≥0.95.
+    - Status now:
+      - normal_news: GO pending steps 2 and 4.
+      - duplicate and privacy_redline: code path GO pending spot-check; model path NO-GO.
+      - All others: NO-GO, with re-review at n≥30.
+    - Ordered work:
+      1. Read-only `tidewatch-calibration-report.yml`, plus a per-class Jev-confidence histogram and Jev-vs-Haiku agreement. In flight.
+      2. Cap fix: remove the per-sweep cap, and write a Tier A item as shadow_hold_budget instead of holding it. In flight. Must land BEFORE P2-12.
+      3. Reconcile replay against D-c, then run classify-eval once. If recall is below 1.0, stop and file DEBUG.md.
+      4. Sonnet 100-item sample.
+      5. calibration-2026-10-2x.md, with fallbackBelow set to act−0.15 only where agreement is ≥0.90 at n≥20.
+      6. P2-12.
+    - Wrong-call signals: normal_news Haiku share stays >40% after the cap fix and Jev confidence is bimodal; or drift agreement drops below 0.80 on any class.
 
 ## Next actions
 
