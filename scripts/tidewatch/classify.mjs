@@ -233,18 +233,20 @@ export function evalReport(expected, rows, summary, { config, recorded, jevAnswe
 }
 
 export async function evaluateReplay(replay, { config, jev, callClaude, random = () => 1 } = {}) {
-  const items = replay.items.map(replayItem);
-  const expected = replay.items.map((entry, index) => ({
+  const evalItems = replay.items.filter((entry) => entry.excludeFromEval !== true);
+  const excludedCount = replay.items.length - evalItems.length;
+  const items = evalItems.map(replayItem);
+  const expected = evalItems.map((entry, index) => ({
     id: items[index].id, class: entry.class ?? entry.expectedClass,
   }));
   if (expected.some((entry) => !CLASS_IDS.includes(entry.class))) throw new Error('replay item has no valid class label');
-  if (replay.items.every((entry) => entry.modelOutputs?.jev)) {
-    ({ jev, callClaude } = recordedModels(replay.items));
+  if (evalItems.every((entry) => entry.modelOutputs?.jev)) {
+    ({ jev, callClaude } = recordedModels(evalItems));
   }
   const recorded = {
-    total: replay.items.length,
-    jev: replay.items.filter((entry) => entry.modelOutputs?.jev).length,
-    haiku: replay.items.filter((entry) => entry.modelOutputs?.fallback).length,
+    total: evalItems.length,
+    jev: evalItems.filter((entry) => entry.modelOutputs?.jev).length,
+    haiku: evalItems.filter((entry) => entry.modelOutputs?.fallback).length,
   };
   const uncapped = {
     ...config,
@@ -269,7 +271,8 @@ export async function evaluateReplay(replay, { config, jev, callClaude, random =
   };
   const result = await classifyItems({ items, candidates: [], store, config: uncapped, jev: askJev, callClaude,
     random, now: Date.parse('2026-10-15T00:00:00.000Z') });
-  return { ...result, report: evalReport(expected, result.rows, result.summary, { config, recorded, jevAnswers }) };
+  const report = evalReport(expected, result.rows, result.summary, { config, recorded, jevAnswers });
+  return { ...result, report: `${report}\nexcluded-from-eval n=${excludedCount}` };
 }
 
 export async function main(argv = process.argv.slice(2), deps = {}) {
