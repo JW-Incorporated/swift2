@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 94
 
 ## Travis Kelce Seen With NWSL Players During Bye Week
 
@@ -780,11 +780,3 @@ Stories: 95
 - summary: Gold Derby provides a detailed timeline outlining Taylor Swift's activities and campaign related to the Oscars and Grammys. This comprehensive overview highlights the significant events and efforts made by the artist in preparation for these awards.
 - sources:
   - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMilAFBVV95cUxPM0MzZ1FXUF9zRTdINVlEM0NKanNKUWJxWmRGaVlpMjN0bU1mN0E4TUpXVVFtbEI0UVkyczE4Sm01STlYUGJPbm9TeFFGeUhYMjI0dzZjbDc1ZjM1ZFhNdHlLWGVSNThwZU1JZVBncVNXZHVKU3lNVnRRRGdPRTFDQVBKajBUMjlQZGJhei0xb1RyVk1a?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Songwriters Hall of Fame Picks Highlight Her Craft
-
-- first seen: 2026-10-20 22:31 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's selections for the Songwriters Hall of Fame illuminate her musical style and influences. The piece explores the insights these choices provide into her songwriting process.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMizAFBVV95cUxNaW9UVmFIVXdickVIbXJUdmJUZFdGV3BzZm9pSDdaUmFGNWxQQ2JZZHhVUXF1ZmlzQ3hWcHJkNTlmNHpBbnlHWlpmQVZjNl93c1UyLVRjUkNJa1ZhVmh4SVZOa0VjWDdzUjZWLXZIUHp4d2drODJUMDg1cER6R0tBS3p5Zms2X0FNeFBqcUNkWmNOR0xpQ1hPSGFTRG11bW1EQmRaOFpXUFpqaFBkZTl2dGdzRWVlQ0c1WHRsXzdBNW5OYl85RjJVRzF0ZkE?oc=5&hl=en-US&gl=US&ceid=US:en
