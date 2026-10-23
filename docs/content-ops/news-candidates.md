@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 88
+
+## Taylor Swift Celebrates 20th Anniversary of Debut Album and Reclaims Masters
+
+- first seen: 2026-10-23 15:09 UTC | category: release | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's debut album marks its 20th anniversary, coinciding with her successful reclamation of her masters. This milestone highlights her enduring impact in the music industry.
+- sources:
+  - [unverified] Noise11 — https://www.noise11.com/news/taylor-swift-debut-album-20-years-20261024
+
+## Taylor Swift Critiques Jason Kelce Amid Family Feud Reports
+
+- first seen: 2026-10-23 15:09 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest Taylor Swift has called out Jason Kelce over a perceived 'f— up move' following claims of tension between their families. Additionally, a source indicated Swift is concerned about fans' feelings towards her and Travis Kelce.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-allegedly-called-jason-145800046.html
 
 ## Taylor Swift's Awkward Moments Featured in Yahoo List
 
@@ -577,7 +593,7 @@ Stories: 86
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift was spotted in a high-cut Louis Vuitton bodysuit while attending a game. The stylish outfit has drawn significant attention from fans and fashion enthusiasts alike.
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOS1hSVHZTMGtVc0dUQmVuQWlQdVduNC1NWW1aMHZXNkRqcUtzejNkQThBbGlldjZtRXZHTElNZlBHY3duV2hHNmNJSGRLTXpocldqR0pPRGMyeXpESzhOdXBVdnZ0TGFlTE5CR2dpYVEtWi1uNXNVWEl5c0w1WVFCMUdwU0tIX1BUTndIODEwSV9kaG5VcHNualRQMFNvSk1WaWdCMmRHcEQ?oc=5&hl=en-US&gl=US&ceid=US:en
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-louis-vuitton-bodysuit-045425815.html
 
 ## Taylor Swift's Rhode Island mansion purchased for $80,000 in 1948
 
