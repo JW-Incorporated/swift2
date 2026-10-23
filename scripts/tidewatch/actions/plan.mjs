@@ -48,7 +48,11 @@ function answerRoute(answers, config) {
   return ROUTE_BY_CLASS[result.class];
 }
 
-export function planActions(classId, answers, confidence, storyTimeline, config) {
+function isPrimarySource(answers, source) {
+  return source === 'official' || isYes(jevAnswers(answers)?.q_official);
+}
+
+export function planActions(classId, answers, confidence, storyTimeline, config, source = null) {
   const classConfig = config.classes[classId];
   if (!classConfig || ROUTE_BY_CLASS[classId] !== classConfig.action.route) {
     throw new Error(`unapproved Tidewatch class or route: ${classId}`);
@@ -58,6 +62,10 @@ export function planActions(classId, answers, confidence, storyTimeline, config)
   if (answers?.injection === true || answers?.haiku?.injection === 'yes') {
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_injection'] };
+  }
+  if (!answers?.redline_hint && classId === 'privacy_redline' && isPrimarySource(answers, source)) {
+    return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+      answerRoute: routeFromAnswers, state: 'held', actions: ['hold_redline_primary'] };
   }
   if (answers?.redline_hint || classId === 'privacy_redline') {
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,

@@ -240,6 +240,21 @@ describe('Tidewatch shadow action router', () => {
       .toEqual(['hold_redline']);
   });
 
+  it('holds a model-decided privacy_redline on a primary source for the verifier, never publishable', () => {
+    expect(planActions('privacy_redline', {}, 1, null, config, 'official'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline_primary'] });
+    expect(planActions('privacy_redline', { jev: { q_official: { type: 'noul', probability: 0.9 } } }, 1, null, config, 'news'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline_primary'] });
+    expect(planActions('privacy_redline', {}, 1, null, config, 'news'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(planActions('privacy_redline', {}, 1, null, config))
+      .toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(planActions('critical_personal', { redline_hint: 'body' }, 1, null, config, 'official'))
+      .toMatchObject({ state: 'held', actions: ['hold_redline'] });
+    expect(planActions('privacy_redline', { redline_hint: 'body' }, 1, null, config, 'official').actions)
+      .toEqual(['hold_redline']);
+  });
+
   it('vetoes publish for a redline-hinted item or a privacy_redline class even when enabled at high confidence', async () => {
     const enabledConfig = structuredClone(config);
     enabledConfig.classes.critical_personal.enabled = true;
