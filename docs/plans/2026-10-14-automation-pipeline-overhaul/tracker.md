@@ -386,6 +386,11 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
       5. calibration-2026-10-2x.md, with fallbackBelow set to act−0.15 only where agreement is ≥0.90 at n≥20.
       6. P2-12.
     - Wrong-call signals: normal_news Haiku share stays >40% after the cap fix and Jev confidence is bimodal; or drift agreement drops below 0.80 on any class.
+- 2026-10-22 21:31 PDT HB:
+  - Item 1 MERGED: #6228, the calibration report. It ran once: run 39900803738.
+  - Item 2 MERGED: #6229, the cap fix plus the router `shadow_hold*` hold. Two review rounds. Documented limits: the fallback cap is per run, with no cross-run ledger until P0-07.
+  - Item 3a in flight: replay relabel against D-c (fix/tidewatch-replay-dc-labels), then classify-eval after review.
+  - Next: read the report artifact, then the item 4 Sonnet sample.
 
 ## Next actions
 

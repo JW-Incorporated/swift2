@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "types": ["node"],
-    "allowJs": true
-  },
-  "include": ["src", "../../scripts/content-engine/config.mjs", "../../scripts/lib/photo-host-gate.mjs"]
-}
