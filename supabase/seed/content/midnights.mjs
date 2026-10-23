@@ -4548,6 +4548,18 @@ export default {
             caption: 'Opening night at the TCL Chinese Theatre in Hollywood — the costumed, dancing audiences that drove the box office.',
             kind: 'archival',
           },
+          // Photo pass 2026-10-23: CC0 Commons photo (14GTR), curl-verified
+          // HTTP 200 image/jpeg (3190x4606), downloaded and vision-confirmed:
+          // a pale-blue appliqué floral gown on a mannequin in a museum case.
+          // The Commons description names it as the gown Swift wore to the film
+          // premiere, on show at the V&A Songbook Trail.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_Songbook_Trail_Eras_Tour_film_premiere_01.jpg',
+            focalPoint: '50% 45%',
+            credit: '14GTR, CC0, via Wikimedia Commons',
+            caption: 'For reference: the Oscar de la Renta gown Swift wore to the film\'s premiere, displayed in the Taylor Swift Songbook Trail at London\'s V&A.',
+            kind: 'reference',
+          },
         ],
       },
     },
