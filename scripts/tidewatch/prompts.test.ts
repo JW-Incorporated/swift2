@@ -31,6 +31,21 @@ describe('Tidewatch D-c prompt text', () => {
     expect(q.instructions).toContain('not speculation');
   });
 
+  it('privacy wording is narrowed with negatives and the presale line is present', () => {
+    const q = questionsFor('news').find((x: { id: string }) => x.id === 'q_speculation') as { instructions: string };
+    expect(q.instructions).toContain('UNCONFIRMED claims or speculation about her private life');
+    expect(q.instructions).toContain('A correction, retraction or debunk of such a claim is not speculation.');
+    expect(FALLBACK_SYSTEM).not.toContain('always wins');
+    expect(FALLBACK_SYSTEM).toContain('Stories revealing her home address or tracking her whereabouts');
+    expect(FALLBACK_SYSTEM).not.toContain('Home/property/location stories');
+    for (const phrase of ['Not privacy_redline:', 'public appearance with her partner at a game or event (normal_news)',
+      'concert or tour city news (tour_ticket/normal_news)', 'outfit or merch items (merch_*)',
+      'a correction debunking a rumor (correction_debunk)']) expect(FALLBACK_SYSTEM).toContain(phrase);
+    expect(FALLBACK_SYSTEM).toContain('presale or added dates for newly added shows is critical_breaking');
+    expect(classQuestion.instructions).toContain('presale or added dates for newly added shows is critical_work_news');
+    expect(classQuestion.instructions).toContain('ticket logistics for existing shows is tour_or_ticket_update');
+  });
+
   it('Q_CLASS does not claim rumor covers privacy_redline', () => {
     expect(classQuestion.instructions).not.toContain('covers privacy_redline');
     expect(classQuestion.instructions).toContain('privacy_redline is not an option here');

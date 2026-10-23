@@ -272,7 +272,7 @@ describe('Tidewatch shadow action router', () => {
     } } }, 1, null, config);
     const redlineConflict = planActions('normal_news', { jev: { q_speculation: {
       type: 'noul', probability: 0.9,
-    } } }, 1, null, config);
+    }, q_personal: { type: 'noul', probability: 0.9 } } }, 1, null, config);
     const lowConfidenceHaikuEscalation = planActions('normal_news', { jev: { q_class: {
       type: 'choice', optionId: 'rumor_or_unconfirmed', probabilities: { rumor_or_unconfirmed: 0.4 },
     } }, haiku: { class: 'normal_news' } }, 1, null, config);

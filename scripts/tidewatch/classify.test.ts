@@ -3,7 +3,7 @@ import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { toRequest } from '@swift2/shared/jev/client';
 import type { JevQuestion } from '@swift2/shared/jev/questions';
-import { callFallback, codePrefilter, decisionRow, stateFor } from './cascade.mjs';
+import { callFallback, classFromAnswers, codePrefilter, decisionRow, inspectWithJev, stateFor } from './cascade.mjs';
 import { classifyItems, evalReport, evaluateReplay, isCandidate, main } from './classify.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, questionsFor } from './questions.mjs';
@@ -164,6 +164,38 @@ describe('Tidewatch classifier', () => {
     expect((result.rows[0].answers as Record<string, unknown>).redline_hint).toBeTruthy();
     expect((decisionRow(pregnant, { kind: 'fallback' }, { class: 'noise', injection: 'no' }, config)
       .answers as Record<string, unknown>).redline_hint).toBeTruthy();
+  });
+
+  describe('q_speculation privacy gating', () => {
+    const answersWith = (personal: number) => ({
+      q_speculation: { type: 'noul', probability: 0.9 },
+      q_personal: { type: 'noul', probability: personal },
+      q_class: { type: 'choice', optionId: 'general_news', probabilities: { general_news: 0.9 }, confidence: 0.9 },
+    });
+    const inspect = (excerpt: string, personal: number) => inspectWithJev(item('s', excerpt), [], {
+      config, jev: { ask: vi.fn(async () => ({ answers: answersWith(personal) })) }, now: Date.now(), random: () => 1,
+    });
+
+    it('escalates high speculation without a personal subject or hint to the fallback, never a Jev decision', async () => {
+      const result = await inspect('Swift attends the game with her partner', 0.05);
+      expect(result.kind).toBe('fallback');
+      expect(result.reason).toBe('below_threshold');
+      expect(result.result).toBeUndefined();
+      expect(classFromAnswers(answersWith(0.05), config)?.class).not.toBe('privacy_redline');
+    });
+
+    it('keeps privacy_redline when q_personal is yes', async () => {
+      const result = await inspect('Swift attends the game with her partner', 0.9);
+      expect(result).toMatchObject({ kind: 'decision', decider: 'jev', result: { class: 'privacy_redline' } });
+    });
+
+    it('keeps privacy_redline when a blocklist hint exists', async () => {
+      const text = 'Taylor Swift and Travis Kelce announce they are pregnant, rumor';
+      const result = await inspect(text, 0.05);
+      expect(result).toMatchObject({ kind: 'decision', result: { class: 'privacy_redline' } });
+      const row = decisionRow(item('s', text), result, null, config);
+      expect((row.answers as Record<string, unknown>).redline_hint).toBeTruthy();
+    });
   });
 
   it('prefilters story ids, URLs, and near-identical titles in code', () => {
@@ -417,7 +449,7 @@ describe('Tidewatch classifier', () => {
     const result = await evaluateReplay(replay, { config });
     expect(result.report).toContain('normal_news precision=0.500 recall=1.000');
     expect(result.report).toContain('rumor precision=n/a recall=0.000');
-    expect(result.report).toContain('jev-to-haiku escalation rate=0.250 (2/8)');
+    expect(result.report).toContain('jev-to-haiku escalation rate=0.375 (3/8)');
   });
 
   it('skips items marked excludeFromEval and reports the excluded count', async () => {
