@@ -987,6 +987,21 @@
       "sha256": "67fa6768ddbee2b9eeb5ae6486539281d0553699d45870b58d54d419e496b726"
     },
     {
+      "id": "official-video-RsEZmictANA-maxres3",
+      "mediaPath": "/social/library/photos/official-video-RsEZmictANA-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RsEZmictANA",
+      "alt": "Still from Taylor Swift's official \"willow\" music video.",
+      "tags": [
+        "official-video",
+        "evermore"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 39030,
+      "sha256": "49f854d67b541a26733a59ef4e256f786b114c1e64e53f5cb40b293fff90473b"
+    },
+    {
       "id": "official-video-s8h0tZy0HqA-maxres2",
       "mediaPath": "/social/library/photos/official-video-s8h0tZy0HqA-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1193,6 +1208,20 @@
       "sha256": "2e7707bd5cc1f8dffabbfd3586d07470ba283b98477f4bbb9d234e3d472c1b58"
     },
     {
+      "id": "openverse-304c6472-604b-415d-8ab0-12bb0eefd78c",
+      "mediaPath": "/social/library/photos/openverse-304c6472-604b-415d-8ab0-12bb0eefd78c.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/9309089@N05/53109764406",
+      "alt": "Taylor Swift photo: Taylor Swift Eras 08092023-532",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 684,
+      "height": 1024,
+      "bytes": 72214,
+      "sha256": "97ca9a6d302c486d5b8c91d2ee2113d52b4538bd06a6c636b63807e240363f77"
+    },
+    {
       "id": "openverse-42552e62-533b-46a8-854d-3bbdcc59c062",
       "mediaPath": "/social/library/photos/openverse-42552e62-533b-46a8-854d-3bbdcc59c062.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
@@ -1361,6 +1390,20 @@
       "sha256": "d1573d14c64c73768c9c6e1aab1b6459e4c152ca21e0a5b5119a963ef488bb8b"
     },
     {
+      "id": "openverse-ac13a25d-9c9c-47f1-9a07-ab6514c283e6",
+      "mediaPath": "/social/library/photos/openverse-ac13a25d-9c9c-47f1-9a07-ab6514c283e6.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/9309089@N05/53110178305",
+      "alt": "Taylor Swift photo: Taylor Swift Eras 08092023-530",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 698,
+      "height": 1024,
+      "bytes": 76648,
+      "sha256": "aa9a6a0066b77d3837c3db967ac898bf7336a70e48e8321b513f2cdcd6d5a759"
+    },
+    {
       "id": "openverse-ad005a75-71c3-4bb0-9306-bbb74d5ffa66",
       "mediaPath": "/social/library/photos/openverse-ad005a75-71c3-4bb0-9306-bbb74d5ffa66.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
@@ -1389,6 +1432,34 @@
       "sha256": "67272677fc73afe68e1a0dc5592b9d64c955f05e355b334c8f73b3e1b111ace2"
     },
     {
+      "id": "openverse-b06f196d-5c75-42f0-9ed1-ea2cddd852e8",
+      "mediaPath": "/social/library/photos/openverse-b06f196d-5c75-42f0-9ed1-ea2cddd852e8.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/9309089@N05/53110179005",
+      "alt": "Taylor Swift photo: Taylor Swift Eras 08092023-512",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 627,
+      "height": 1024,
+      "bytes": 90137,
+      "sha256": "de6e6e5065c33ec3055b82cbdcc1f918f2f27cdc72890caa4873c8fefba5560c"
+    },
+    {
+      "id": "openverse-b0bcb00a-4cc9-49f8-b416-cbf738136512",
+      "mediaPath": "/social/library/photos/openverse-b0bcb00a-4cc9-49f8-b416-cbf738136512.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/9309089@N05/53109971784",
+      "alt": "Taylor Swift photo: Taylor Swift Eras 08092023-526",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 718,
+      "height": 1024,
+      "bytes": 59798,
+      "sha256": "36e0af2a982d949140847ac432b53ad11c8e2673fe683b9ce23cb2f6f92a0143"
+    },
+    {
       "id": "openverse-bd372a1f-7ef7-44d3-b9f6-0b0b91d7aba8",
       "mediaPath": "/social/library/photos/openverse-bd372a1f-7ef7-44d3-b9f6-0b0b91d7aba8.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
@@ -1401,6 +1472,20 @@
       "height": 1024,
       "bytes": 50573,
       "sha256": "fa8669e21d317c7edcf610af87fb49e520961fbe6970f06fe69c2e4a0465acdc"
+    },
+    {
+      "id": "openverse-be37ebe5-d4ed-43d7-8770-b1a8dea01b5d",
+      "mediaPath": "/social/library/photos/openverse-be37ebe5-d4ed-43d7-8770-b1a8dea01b5d.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/9309089@N05/53109193422",
+      "alt": "Taylor Swift photo: Taylor Swift Eras 08092023-500",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 620,
+      "height": 1023,
+      "bytes": 78394,
+      "sha256": "959b4e8cdd8b444ace506e673684f2027f40c4ef39096f5530a3513dbee81bf3"
     },
     {
       "id": "openverse-c0f0a14d-5c5e-4c4f-bc88-be2af4c4ebaf",
@@ -1457,6 +1542,20 @@
       "height": 1024,
       "bytes": 62755,
       "sha256": "cf7e19f02f22f08744f769ac17fe5ff97e58612a0ecd2457075a2d8040dff244"
+    },
+    {
+      "id": "openverse-fe7b9bad-dde4-4180-8696-646c163dda1e",
+      "mediaPath": "/social/library/photos/openverse-fe7b9bad-dde4-4180-8696-646c163dda1e.jpg",
+      "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/9309089@N05/53109186752",
+      "alt": "Taylor Swift photo: Taylor Swift Eras 08092023-589",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 601,
+      "height": 1024,
+      "bytes": 90473,
+      "sha256": "37f10d6926e2734c6798b47b8aa7c33dc58fdd99cec135fbb7f3cac65eb29bf2"
     },
     {
       "id": "press-2aed23b54ae7",
@@ -3817,6 +3916,54 @@
       "sha256": "69173c2d8dc16b1921265014c84e164c4a68d144e757fe7001e6ade1a2b0c636"
     },
     {
+      "id": "wikimedia-131816533",
+      "mediaPath": "/social/library/photos/wikimedia-131816533.jpg",
+      "credit": "Ronald Woan from Redmond, WA, USA (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_(cropped).jpg",
+      "alt": "American singer-songwriter Taylor Swift on her Reputation Stadium Tour at CenturyLink Field (Seattle), May 22, 2018",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "reputation"
+      ],
+      "width": 1357,
+      "height": 2001,
+      "bytes": 237723,
+      "sha256": "09c51fd3eb8cb76819eae74ea225fa01f4f2434ed8db870655da73f94682af2f"
+    },
+    {
+      "id": "wikimedia-135862786",
+      "mediaPath": "/social/library/photos/wikimedia-135862786.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_08092023-576.jpg",
+      "alt": "Taylor Swift performing the Folklore act in a blue dress",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "folklore"
+      ],
+      "width": 1292,
+      "height": 2048,
+      "bytes": 189803,
+      "sha256": "53419201e06cb1b0985e6a6154a5962ef9e02e7bc9da67c2b0378ffd06eccbe1"
+    },
+    {
+      "id": "wikimedia-135862790",
+      "mediaPath": "/social/library/photos/wikimedia-135862790.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_08092023-573.jpg",
+      "alt": "Taylor Swift performing the Folklore act in a blue dress",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "folklore"
+      ],
+      "width": 1289,
+      "height": 2048,
+      "bytes": 164833,
+      "sha256": "37f8505ebb4fa43c234996c8afa4173f0cebaba8ef3cad4d6af1898c2bd278dc"
+    },
+    {
       "id": "wikimedia-135944483",
       "mediaPath": "/social/library/photos/wikimedia-135944483.jpg",
       "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
@@ -3941,6 +4088,22 @@
       "height": 2048,
       "bytes": 415495,
       "sha256": "76931374c52f6f58424687bf38f655eba5672797236c4f8314940e359aae48cc"
+    },
+    {
+      "id": "wikimedia-135976563",
+      "mediaPath": "/social/library/photos/wikimedia-135976563.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_(53109824134).jpg",
+      "alt": "American singer-songwriter Taylor Swift on the Eras Tour concert at Sofi Stadium in Inglewood, CA, Aug 9 2023",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "midnights"
+      ],
+      "width": 1282,
+      "height": 2048,
+      "bytes": 265355,
+      "sha256": "6191f8b9c2749aac9382478d010c7290174edcebc9ce0e4e386b85764df0b20d"
     },
     {
       "id": "wikimedia-135976591",
@@ -5479,6 +5642,96 @@
       "sha256": "1670d640ad7d38ced5267b3a904b9a5d873a906eda6f5204f0873ad6f2c7ca6c"
     },
     {
+      "id": "wikimedia-56883632",
+      "mediaPath": "/social/library/photos/wikimedia-56883632.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0684_edited_(33118008516).jpg",
+      "alt": "IMG_0684_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 168886,
+      "sha256": "d3177770f1e5204d4ef9e43a818c088e8c71ed2c882bf96df9f604ac752a92f1"
+    },
+    {
+      "id": "wikimedia-56883633",
+      "mediaPath": "/social/library/photos/wikimedia-56883633.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0757_edited_(32776594640).jpg",
+      "alt": "IMG_0757_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 74522,
+      "sha256": "4a9b1bfd66e6bffcbad651892ad9b3aefb01f538d237f7fba3aa6f4c2f4a5f0d"
+    },
+    {
+      "id": "wikimedia-56883637",
+      "mediaPath": "/social/library/photos/wikimedia-56883637.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0687_edited_(32314194704).jpg",
+      "alt": "IMG_0687_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 118771,
+      "sha256": "ccf46f9c5a13590959bec0f2f13f31bd6f6b4bf3703ba86dec75cb1c6c637309"
+    },
+    {
+      "id": "wikimedia-56883641",
+      "mediaPath": "/social/library/photos/wikimedia-56883641.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0735_edited_(32314192664).jpg",
+      "alt": "IMG_0735_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 177251,
+      "sha256": "828880b3a92f90066eb8a7f0fc241d1688cdf42d149b0cff9339a3c84d4c327c"
+    },
+    {
+      "id": "wikimedia-56883647",
+      "mediaPath": "/social/library/photos/wikimedia-56883647.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0791_edited_(32776592350).jpg",
+      "alt": "IMG_0791_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 124160,
+      "sha256": "6bfdf81e53f3da18dfe7fd3dbec47bed9e7dcec599d06333294195eeb67a2914"
+    },
+    {
+      "id": "wikimedia-56883683",
+      "mediaPath": "/social/library/photos/wikimedia-56883683.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0822_edited_(32776589860).jpg",
+      "alt": "IMG_0822_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 2048,
+      "height": 1152,
+      "bytes": 82443,
+      "sha256": "b44eae1718a9f382bdb6b5b8cd2d7fa8ab701af7bd0aad18e63f8279487462c2"
+    },
+    {
       "id": "wikimedia-56883689",
       "mediaPath": "/social/library/photos/wikimedia-56883689.jpg",
       "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
@@ -5492,6 +5745,100 @@
       "height": 1152,
       "bytes": 147144,
       "sha256": "bbaa4d53bf1346e690fb56c7cf8c1cdb67fc7869f36e90a2ac2214aa05200df9"
+    },
+    {
+      "id": "wikimedia-57930047",
+      "mediaPath": "/social/library/photos/wikimedia-57930047.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_1732_edited_(33159471775)_(cropped).jpg",
+      "alt": "IMG_1732_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 968,
+      "height": 1109,
+      "bytes": 113159,
+      "sha256": "4882e7b90c5b7a5f48e31ec5da4d516850b749594a498e9c9211eae4056c79e9"
+    },
+    {
+      "id": "wikimedia-68630329",
+      "mediaPath": "/social/library/photos/wikimedia-68630329.jpg",
+      "credit": "makaiyla willis (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_NOW_Super_Saturday_Night_IMG_0956_edited_(32776582660)_(cropped).jpg",
+      "alt": "IMG_0956_edited",
+      "tags": [
+        "fan-photo",
+        "eras-tour"
+      ],
+      "width": 899,
+      "height": 1060,
+      "bytes": 66347,
+      "sha256": "59ca1338d4c6f858d8e45ea12aa5bc527aa60da3cc4e62aa425f508dd60e62ae"
+    },
+    {
+      "id": "wikimedia-69659585",
+      "mediaPath": "/social/library/photos/wikimedia-69659585.jpg",
+      "credit": "UltimateWarrior13 (CC BY-SA 4.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Reputation_Tour3.jpg",
+      "alt": "Swift performing on her Reputation Stadium Tour in May 2018",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "reputation"
+      ],
+      "width": 1472,
+      "height": 2048,
+      "bytes": 264330,
+      "sha256": "8588e21513a79a67da94973a03db32efb8ae1079b59980856796e33eaeadb9b3"
+    },
+    {
+      "id": "wikimedia-69659586",
+      "mediaPath": "/social/library/photos/wikimedia-69659586.jpg",
+      "credit": "UltimateWarrior13 (CC BY-SA 4.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Reputation_Tour1.jpg",
+      "alt": "Swift performing on her Reputation Stadium Tour in May 2018",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "reputation"
+      ],
+      "width": 1829,
+      "height": 2048,
+      "bytes": 370869,
+      "sha256": "a5af5bb911fc5189ede89362b39f184f3680f96323b0711e0f71e831480ff7fa"
+    },
+    {
+      "id": "wikimedia-69890864",
+      "mediaPath": "/social/library/photos/wikimedia-69890864.jpg",
+      "credit": "UltimateWarrior13 (CC BY-SA 4.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Reputation_Tour31.jpg",
+      "alt": "Swift performing on her Reputation Stadium Tour in May 2018",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "reputation"
+      ],
+      "width": 1032,
+      "height": 1429,
+      "bytes": 256118,
+      "sha256": "f5fdc4cd94f7a92a2118635c7d6154e3b11b6339a38f5f6dbc966aaddfee589f"
+    },
+    {
+      "id": "wikimedia-76078340",
+      "mediaPath": "/social/library/photos/wikimedia-76078340.jpg",
+      "credit": "Melodies1917 (CC BY-SA 4.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey,_2018.jpg",
+      "alt": "Taylor Swift performing \"Fearless\" on her Reputation Stadium Tour in New Jersey.",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "fearless"
+      ],
+      "width": 1536,
+      "height": 2048,
+      "bytes": 300484,
+      "sha256": "2143bddb9c579445e85bc5a9793d934b67c3072ac91d169fd0c29a4c5e398c3c"
     },
     {
       "id": "wikimedia-77897880",
