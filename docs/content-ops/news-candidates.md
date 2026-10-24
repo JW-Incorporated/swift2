@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 89
 
 ## Prince William Discusses Viral Taylor Swift Photo with Travis Kelce
 
@@ -744,11 +744,3 @@ Stories: 90
 - summary: In a recent article, Taylor Swift is mentioned in relation to a family quirk of Travis Kelce's that she finds bothersome. The piece discusses how this quirk has impacted their relationship.
 - sources:
   - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxOeDhhVC0yWE91UVhza2NPY3JMbHpPRldxVkZRQllISWFNTmZGS0tNOV90QXNULXhvMHBVVjRtNWxRR3htdVRnX3BPczN4NjVLYWp2dmxUOEFaOVczbTNhM19MMHFQM0NaOVNDVXlmYW1fMkVqWE0xQ0M0TEZYT1pwZDNMb3d4bUI5Y3ZxS1hfbW4ySDZzc0tLQ2ZvdXdWZGhsM3dQX1B4eGlaeGJpNDRxQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Cara Delevingne Discusses Role in Taylor Swift's 'Patient Zero' Music Video
-
-- first seen: 2026-10-21 19:23 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Cara Delevingne shares insights about her involvement in Taylor Swift's music video for 'Patient Zero'. The actress highlights the creative friendship between her and Swift.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNMVBSQnNVb2tESXlHRUUydzF5b2RpQXExUjJ1SWZQY1ZXZHRyVU8xQXNYdFJXZ3M0LUNnUmRSSVBnOUROdmwwN0dNMG9TYXkxMDByMzlYY3otcXRDUnhZWTZFeEZBd1M1eHpoMVh5a0dWRDNwdnpDMFo0bkJFdWZsUFRmNkhpMVpjRThWRXRxODlZRmc1ZldyMFBR?oc=5&hl=en-US&gl=US&ceid=US:en
