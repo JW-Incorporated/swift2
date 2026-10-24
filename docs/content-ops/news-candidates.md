@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 93
 
 ## Taylor Swift and Kate Middleton Sport Dainty Fall Shoes
 
@@ -771,11 +771,3 @@ Stories: 94
 - summary: A report reveals that Taylor Swift's Rhode Island mansion was bought for $80,000 in 1948. The historical context of the property's purchase sheds light on its long-standing value.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcVZiOGE0Y1RPdjFQdGs4dXdyWC12MjBuRGsxUWZhdzVpaGNYQkRrZVpOdkFvYXlBVHhiRV9JMWVKNC1RbF9sdXNGMXpLTUdVb2h2YkFNTXhkRThfNnFwUHZEMVM2MGpmNEVWODFKX0tLSXMwVldDUkJhaXR3WlFYeXVsZDJHUjAtMGRaZkp1WHVvR2ViZUJPTkYzbHVXeG9udFJIanBn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's song featured in court case involving Beau Lamarre-Condon
-
-- first seen: 2026-10-21 04:43 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: In a recent court case, it was reported that Beau Lamarre-Condon allegedly played Taylor Swift's song 'No Body, No Crime' during a body disposal incident. The information was presented during the proceedings, drawing attention to the case's details.
-- sources:
-  - [unverified] The Guardian — https://news.google.com/rss/articles/CBMisgFBVV95cUxORTZEMjhPMk9kTTVFeGJLdFA5S2k1TXVpcW5YWnBpdllDX3hNT25pZ2dCUElTbFpCc2ZlbHV3S0RWYUhHUzFkcExPT01YTjFVb1hVem5oajRRTGdsSXIxM3huS01HaHVIdExEV2Q2bXZuVFJmUEtyLVZkX3dQTnQ5eWVkZ2xPTkhTVEV6RzN1ZzAxTDZKU2NWWWd4SGVudFlDOC1mZ0E5eUZYMUFOTEtUcUVn?oc=5&hl=en-US&gl=US&ceid=US:en
