@@ -1638,12 +1638,12 @@ export default {
               "A month on, TicketNews — citing Rob Shuter's 'Naughty But Nice' newsletter — reported Taylor was weighing a concert residency insiders valued at up to $1 billion, with venues in two different metro areas said to be competing for it. Neither Taylor nor her reps confirmed anything.",
             reportedBy: "TicketNews (citing Rob Shuter's Naughty But Nice newsletter)",
             reportedOn: "2026-07-08",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.ticketnews.com/2026/07/report-taylor-swift-could-be-considering-billion-dollar-concert-residency/",
             sourceTier: "tabloid",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "A gossip-newsletter tip carried by the ticketing trade press; the billion-dollar figure is insider speculation, not a disclosed deal. The underlying report named specific competing arenas, coarsened here to 'two metro areas' per the location matrix since nothing is announced. Resolves confirmed on an official residency announcement; fades if the talk goes quiet.",
+              "A gossip-newsletter tip carried by ticketing trade press; the billion-dollar figure is insider speculation. The competing arenas are coarsened to two metro areas per the location matrix. Faded 2026-10-24: no residency announced by Taylor or any venue, and no fresh reporting since July. Never confirmed or denied.",
           },
         ],
       },
@@ -3156,12 +3156,12 @@ export default {
               "The album's lone feature kept the 'who will Taylor work with next' question alive. One name fans have watched since March 2025: SZA, who told Rolling Stone she'd offered to write with Taylor and that Taylor 'was open to it.' More than a year on, no Taylor–SZA track has been announced or released.",
             reportedBy: "Rolling Stone",
             reportedOn: "2025-03-21",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.rollingstone.com/music/music-news/sza-taylor-swift-collaboration-kendrick-lamar-superbowl-1235301403/",
             sourceTier: "established",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "SZA's own on-record comment about a possible collaboration — an unannounced-music question, explicitly Always-OK. Re-checked Aug 2026: still no announced or released Taylor–SZA track. Resolves on a credited release or a public denial; fades if it stays talk. No location.",
+              "SZA’s own on-record comment about a possible collaboration, an unannounced-music question (Always-OK). Faded 2026-10-24: re-checked, still no announced or released Taylor–SZA track and no new reporting since March 2025. Never confirmed or denied, gone quiet. No location.",
           },
         ],
       },
@@ -3834,13 +3834,13 @@ export default {
               "As the Eras Tour's filmed finale arrived, fan accounts claimed Taylor was 'in talks' for European dates on a future tour. Reality Tea, aggregating the chatter in late July 2026, noted Taylor herself had said she wasn't touring 'any time soon' — leaving the timing unsettled.",
             reportedBy: "Reality Tea",
             reportedOn: "2026-07-30",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.realitytea.com/2026/07/30/taylor-swift-tour-date-2027-rumors-fans-react/",
             sourceTier: "social",
             locationSpecificity: "region",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "Fan-account speculation, not a reported booking, carried by a gossip aggregator. Location kept at region level (a continent, no country or city) per the matrix. Resolves confirmed on any official European tour date; fades if it stays chatter.",
+              "Fan-account speculation, not a reported booking, carried by a gossip aggregator. Location kept at region level (a continent, no country or city) per the matrix. Resolves confirmed on any official European tour date; fades if it stays chatter. Faded 2026-10-24: re-checked, no tour dates announced anywhere and the fan-account talk produced no further reporting. Never confirmed or denied, gone quiet.",
           },
           {
             claim:
@@ -3850,9 +3850,9 @@ export default {
             status: "unconfirmed",
             url: "https://www.deuxmoi.world/news/taylor-swift-stuns-super-bowl-2026-2027-tour",
             sourceTier: "social",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent.",
+              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent. Re-checked 2026-10-24: no tour announced for 2026 or 2027 yet. Still live while 2027 is ahead.",
           },
           {
             // Rumor Desk 2026-08-25: a fresh data point on the same "when does
@@ -3868,8 +3868,8 @@ export default {
             url: 'https://www.nme.com/news/music/emily-eavis-confirms-glastonbury-2027-headliners-booked-as-she-responds-to-madonna-rumours-3962795',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            note: 'Forward-looking tour speculation. Location held at region level (a country, no named festival or city) per the matrix — the underlying report names a specific festival, coarsened here because an unannounced future booking is speculative provenance. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser herself cautioned most such rumours are wrong.',
-            lastCheckedOn: '2026-08-26',
+            note: 'Forward-looking tour speculation. Held at region level (a country, no named festival or city) per the matrix, coarsened from the source. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser cautioned most such rumours are wrong. Re-checked 2026-10-24: line-up not announced yet. Still live.',
+            lastCheckedOn: '2026-10-24',
           },
         ],
       },
@@ -12891,6 +12891,22 @@ export default {
           { outlet: 'The Hollywood Reporter', url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-jimmy-fallon-tonight-show-life-of-a-showgirl-1236394527/' },
           { outlet: 'NBC Insider', url: 'https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview' },
           { outlet: 'YouTube — The Tonight Show Starring Jimmy Fallon', url: 'https://www.youtube.com/watch?v=GzjZqH0WRwE' },
+        ],
+        // Rumor Desk 2026-10-24: the same halftime question, a year on. Tiered
+        // tabloid: read via Heavy's Yahoo syndication, which relays Puck; Puck
+        // itself was not read from this run.
+        rumors: [
+          {
+            claim:
+              'A year after she addressed it on Fallon, the halftime question came back for Super Bowl LXI in February 2027. Puck\'s Dave Brooks reported on Oct. 20, 2026, citing multiple sources, that Jay-Z, who picks the halftime act, had chosen himself, which entertainment coverage read as ruling out a Taylor halftime show for another year. The NFL had not announced the headliner.',
+            reportedBy: 'Heavy (via Yahoo Entertainment), citing Puck',
+            reportedOn: '2026-10-21',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/nfl-taylor-swift-decision-leaked-213302955.html',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-10-24',
+            note: 'Read directly 2026-10-24 (Heavy, Oct. 21, 2026, quoting Puck\'s Oct. 20 story "Jay-Z Picks Jay-Z for Super Bowl LXI"). Resolves when the NFL announces the Super Bowl LXI halftime headliner: confirmed if it is Jay-Z with no Taylor set, debunked if Taylor headlines. A separate anonymous-insider read on why she would pass was left out as a non-claim about her private plans. No location.',
+          },
         ],
         // Photo pass #762 (2026-08-14): the YouTube thumbnail above is a
         // title-card graphic, not an actual video still. This NBC press photo
