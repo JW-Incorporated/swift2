@@ -244,7 +244,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, which moved them to 5-0, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
@@ -291,6 +291,17 @@ export default {
             reliability_score: 4,
             notes:
               'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+          {
+            outlet: 'Kansas City Chiefs',
+            url: 'https://www.chiefs.com/news/chiefs-defeat-chargers-22-6-to-move-to-5-0-on-the-season',
+            source_title: 'Chiefs defeat Chargers, 22-6, to move to 5-0 on the season',
+            publisher: 'Kansas City Chiefs',
+            source_type: 'official',
+            accessed_at: '2026-10-24',
+            reliability_score: 5,
+            notes:
+              'Team recap published Oct. 19, 2026. Confirms only the game: the 22-6 win over the Chargers and the 5-0 record. It does not name the venue or carry Kelce\'s receiving line, and says nothing about the suite guests. The injury mention is deliberately not used (health redline).',
           },
           {
             // Added 2026-10-22 (Vault Run, Content Shift lane, intake #6166).
