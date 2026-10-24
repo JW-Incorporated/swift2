@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 90
+
+## October 24 in Country Music History
+
+- first seen: 2026-10-24 07:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A look back at significant events in country music history that occurred on October 24.
+- sources:
+  - [unverified] Backstage Country — https://backstagecountry.com/2026/10/24/this-day-in-country-history-october-24/
 
 ## Taylor Swift and Kate Middleton Sport Dainty Fall Shoes
 
@@ -739,19 +747,3 @@ Stories: 91
 - summary: Taylor Swift had a notable performance with her band at the Academy Museum, marking their first appearance together in nearly two years. The event was highlighted on her social media.
 - sources:
   - [unverified] Facebook — https://news.google.com/rss/articles/CBMi1wFBVV95cUxQeXNTazVsQWU4Um9iMFB1d1cyMDBLNWc0U010MnIwSG1qbjJZRVJpRFNlaTY0bWlGUnVYTWZkZG9oaTkzZmFLeUdzMlNfUm5nYVdOQWVPZFMzMkxwQmc4aFJqT0l3VXczT0JDOVFWakJXd1VvTkxNdU1RMURiVFVtR3BXRWVjUW1MaUF4QXc4Sm0wdXRfWWFCWGdXbndWN2RUUGVNR3JtVkd0cndyUXZOQlpwdG5SbS1hZ3g4M2xSYmc5Tk1fVmJwYjExdmkxbnVMM2lJRl9Rdw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Styles Red Bodysuit with Retrouvai Ring
-
-- first seen: 2026-10-21 06:58 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen wearing a striking red high-cut bodysuit paired with a $6,000 Retrouvai ring, showcasing her fashion sense. The look highlights her signature style and attention to detail in her outfits.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxPS3F4b0FSbUpZWVVhcHg1eGFFOGs4WnpKUUdSekJ3WmNUWkU1YUcwMUhhMEpDYThqa2RseHJWSXZjRWR5RUdMUXZZNy1Xc251eTJHTGRHWmpOWVZLWnJKTkRaRXZ6VDlDT25UUzJsRWhuRW52dFNUVFBkTnJ3ZzZsTmwtXzgxUW5yU3ZlREVZakFpQ01fVlBBOFVpU0hudmtk?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and Travis Kelce Dine at NYC Hotspot
-
-- first seen: 2026-10-21 06:58 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted dining together at a popular restaurant in New York City. The article also features a list of 11 recommended restaurants to visit in the Big Apple.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObmJhTnIwY0NqVkZCUlhldVl6dnYtRTRqR1ZrMHZWMGNMa2JFRzJ5ZTl1bG53aDdLNnB2UXJicElOSEVSeUNPQk1GTTdTZDFVaTRTWXJJYklBaTNGRXRhanh2UU0wWmdTRkllNEx3MUltaE5jbFJ5OUFYNlhNWjJKZXBhVzBickRLOXlaY1ZxWVo5WFNULVotclRHelVtQnRsLUo4bWo4WkRHa2N0X2ZOTzd4Rjh6TGhBNGJuWW1xSkE2b1g3NG1TY1F5cC1Da05kUVVYLTRMNVVVeXVCWkctbzVZM0I?oc=5&hl=en-US&gl=US&ceid=US:en
