@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 94
+
+## Taylor Swift addresses fan filming her at Chiefs game
+
+- first seen: 2026-10-24 17:06 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen confronting a fan who was filming her during a Chiefs game. The interaction has garnered attention online as fans discuss the encounter.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-confronts-fan-filming-164135162.html
+
+## Taylor Swift Misses Opportunity to Return to Country Roots
+
+- first seen: 2026-10-24 17:06 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Business Insider discusses how Taylor Swift recently missed an ideal moment to reconnect with her country music roots. It highlights her ongoing shifts in musical style and public image.
+- sources:
+  - [unverified] Business Insider — https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10
+
+## Prince William Didn't Want Travis Kelce in Photo with Taylor Swift and Kids
+
+- first seen: 2026-10-24 17:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Prince William expressed his desire to exclude Travis Kelce from a photo taken with Taylor Swift and the kids. The comment highlights the dynamics of public appearances involving the singer and her associations.
+- sources:
+  - [unverified] EssentiallySports — https://www.essentiallysports.com/nfl-active-news-trying-to-move-him-out-prince-william-admits-he-didnt-want-travis-kelce-in-photo-with-taylor-swift-kids/
 
 ## Taylor Swift's Photo with Prince William Survives Royal Snub
 
@@ -123,14 +147,6 @@ Stories: 91
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437294/what-taylor-swift-has-written-about-travis-kelce-harry-styles-more
 
-## Taylor Swift Charms Hollywood Elite Before Chiefs Game
-
-- first seen: 2026-10-24 11:42 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was reportedly successful in charming Hollywood's elite while also making time to attend a Chiefs game. Her ability to impress such a difficult crowd has drawn attention.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/desperate-meet-her-taylor-swift-105052110.html
-
 ## Taylor Swift Wears Trendy Jewelry Symbolizing Wealth and Power
 
 - first seen: 2026-10-24 11:42 UTC | category: fashion | importance: 6
@@ -139,6 +155,14 @@ Stories: 91
 - sources:
   - [unverified] Who What Wear — https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-ruby-ring
   - [unverified] Yahoo — https://shopping.yahoo.com/style/accessories/articles/taylor-swift-just-wore-jewelry-084500304.html
+
+## Taylor Swift Charms Hollywood Elite Before Chiefs Game
+
+- first seen: 2026-10-24 11:42 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was reportedly successful in charming Hollywood's elite while also making time to attend a Chiefs game. Her ability to impress such a difficult crowd has drawn attention.
+- sources:
+  - [unverified] thecomeback.com — https://thecomeback.com/pop-culture/taylor-swift-reportedly-wowed-oscar-voters-before-chiefs-game.html
 
 ## Taylor Swift's first manager shares insights on her career beginnings
 
