@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 91
 
 ## Taylor Swift and Kate Middleton Sport Dainty Fall Shoes
 
@@ -755,19 +755,3 @@ Stories: 93
 - summary: Taylor Swift and Travis Kelce were spotted dining together at a popular restaurant in New York City. The article also features a list of 11 recommended restaurants to visit in the Big Apple.
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObmJhTnIwY0NqVkZCUlhldVl6dnYtRTRqR1ZrMHZWMGNMa2JFRzJ5ZTl1bG53aDdLNnB2UXJicElOSEVSeUNPQk1GTTdTZDFVaTRTWXJJYklBaTNGRXRhanh2UU0wWmdTRkllNEx3MUltaE5jbFJ5OUFYNlhNWjJKZXBhVzBickRLOXlaY1ZxWVo5WFNULVotclRHelVtQnRsLUo4bWo4WkRHa2N0X2ZOTzd4Rjh6TGhBNGJuWW1xSkE2b1g3NG1TY1F5cC1Da05kUVVYLTRMNVVVeXVCWkctbzVZM0I?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Wears High-Cut Louis Vuitton Bodysuit for Game Day
-
-- first seen: 2026-10-21 05:39 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted in a high-cut Louis Vuitton bodysuit while attending a game. The stylish outfit has drawn significant attention from fans and fashion enthusiasts alike.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-louis-vuitton-bodysuit-045425815.html
-
-## Taylor Swift's Rhode Island mansion purchased for $80,000 in 1948
-
-- first seen: 2026-10-21 05:39 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report reveals that Taylor Swift's Rhode Island mansion was bought for $80,000 in 1948. The historical context of the property's purchase sheds light on its long-standing value.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxOcVZiOGE0Y1RPdjFQdGs4dXdyWC12MjBuRGsxUWZhdzVpaGNYQkRrZVpOdkFvYXlBVHhiRV9JMWVKNC1RbF9sdXNGMXpLTUdVb2h2YkFNTXhkRThfNnFwUHZEMVM2MGpmNEVWODFKX0tLSXMwVldDUkJhaXR3WlFYeXVsZDJHUjAtMGRaZkp1WHVvR2ViZUJPTkYzbHVXeG9udFJIanBn?oc=5&hl=en-US&gl=US&ceid=US:en
