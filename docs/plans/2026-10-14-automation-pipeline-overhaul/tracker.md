@@ -450,6 +450,11 @@ Done when: Scorecard JSON written weekly by code for all 11 goals; outcome rows 
     2. After 2026-10-24 10:00Z: `gh workflow run tidewatch-decision-sample.yml -R JW-Incorporated/swift2 --ref main -f seed=2 -f since=2026-10-23T09:31Z` (live precision under the new code; read collapsed and Tier A false-critical).
     3. Owner gold set (~20 live rows where a decider said critical/privacy and Sonnet disagreed), then re-run the #15 gate, then the calibration doc (item 5), then P2-12 (verify a candidate→verifier path in route.mjs first).
   - Duplicate code path: 30-pair PM spot-check still owed. #6231 open.
+- 2026-10-24 04:31 PDT live sample (run 40086273070, decisions since the fixes):
+  - Volume: 26 model rows in 25h.
+  - low_stakes collapsed 0.864 (19/22); critical_personal 0/2 vs Sonnet; Haiku 9/19, Jev 5/7.
+  - Too thin for Tier B (n≥30). Re-sample after 2026-10-27 10:00Z with seed 3.
+  - Owner property question (1/2) still pending.
 
 ## Next actions
 
