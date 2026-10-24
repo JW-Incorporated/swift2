@@ -25,15 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Taylor Swift Wears Trendy Jewelry Symbolizing Wealth and Power
+
+- first seen: 2026-10-24 11:42 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was recently seen sporting a jewelry trend that is widely associated with wealth and power. This fashion choice has garnered attention in the media.
+- sources:
+  - [unverified] Yahoo — https://shopping.yahoo.com/style/accessories/articles/taylor-swift-just-wore-jewelry-084500304.html
+
+## Taylor Swift Charms Hollywood Elite Before Chiefs Game
+
+- first seen: 2026-10-24 11:42 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was reportedly successful in charming Hollywood's elite while also making time to attend a Chiefs game. Her ability to impress such a difficult crowd has drawn attention.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/desperate-meet-her-taylor-swift-105052110.html
 
 ## Taylor Swift's first manager shares insights on her career beginnings
 
 - first seen: 2026-10-24 10:42 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In an exclusive interview, Taylor Swift's first manager discusses the early stages of her career and the factors that contributed to her rise in the music industry.
 - sources:
   - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/10/24/taylor-swift-debut-documentary-country/92384399007/
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/24/taylor-swift-debut-album-documentary/92395707007/
 
 ## October 24 in Country Music History
 
@@ -707,11 +724,3 @@ Stories: 86
 - summary: Travis Kelce recounted a phone call from his brother, Jason, that Taylor Swift found surprising and described as ‘f---ed up’.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQa1c0TnB4YXlEOFpHT0o2bEZPSkw4MTZUWnZsLVgxV1dYTThqNmw5TnVSVC0xX1JZWjhpcVhieHlaODRqM3REXzNFTVhmSXlpV2E1SFpWT084Zm8zYWtVSFdVMnBpaGpXazJ3U0tQV0VuWDYxZV9SZ0tHSjZuWE42V0ZueVRSTXZNWlJzRTZRM0Nxal96U1FUb1A5TlRZMy1GNVVfNVJWcTNxdmFoZlcyOWtkVXFsS1NXZTIyeE13?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Book Analyzes Taylor Swift's First Country Album
-
-- first seen: 2026-10-21 10:58 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 'Taylor Swift: The Debut Years' is a book that delves into Taylor Swift's inaugural country album, providing insights into its creation and impact.
-- sources:
-  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizAFBVV95cUxOVXZYdjRKVHJZRWg0MUFjdElob0lRQUhnZTN3Q2haV1VBNWgxcnVQdWxtd3RnQkIxbEM1UjRPRS1XNFI4Mm9qLU5QMmhkVXhBa1F4WWVzeWlKTDZCVkRXaUdYZmtaRXBDT0lnZGJxaU9nMFpNYmdqVmtPLUFNLUxEXzRQeFBvQ2pMWFAxRjBZN3pvSUV6Nzc0T20yOERsRW90a1dBTVByOHZiMWxiWDRJQjNrV3V3ZEkxOXVCSlFuRFEybjBWaHEwaU4zXzM?oc=5&hl=en-US&gl=US&ceid=US:en
