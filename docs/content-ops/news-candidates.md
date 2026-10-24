@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 94
+
+## Taylor Swift and Kate Middleton Sport Dainty Fall Shoes
+
+- first seen: 2026-10-24 03:42 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Kate Middleton are among the stars seen wearing stylish and comfortable fall shoes, with prices starting as low as $18.
+- sources:
+  - [established] People — https://people.com/kate-middleton-katie-holmes-taylor-swift-ballet-flats-october-2026-12186141
+
+## Prince William Attempts to Block Travis Kelce from Photo with Taylor Swift
+
+- first seen: 2026-10-24 03:42 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: During a recent event, Prince William was seen trying to block Travis Kelce from being included in a viral photo with Taylor Swift. The moment has garnered attention on social media.
+- sources:
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
 
 ## Taylor Swift and Travis Kelce's 2024 Photo with Prince William Almost Didn't Happen
 
