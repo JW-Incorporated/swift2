@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 84
+
+## Prince William Explains Photo Reasons for Swift and Kelce with Royal Family
+
+- first seen: 2026-10-24 14:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Prince William discusses the circumstances that nearly prevented Taylor Swift and Travis Kelce from appearing in a 2024 photo with the Royal Family. The revelation highlights the interest in their relationship within royal contexts.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437441/taylor-swift-travis-kelces-photo-with-royal-family-almost-didnt-happen
 
 ## 20 Years Since Taylor Swift's Debut Album; A Look Back at Its Impact
 
@@ -51,14 +59,6 @@ Stories: 85
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437294/what-taylor-swift-has-written-about-travis-kelce-harry-styles-more
 
-## Taylor Swift Wears Trendy Jewelry Symbolizing Wealth and Power
-
-- first seen: 2026-10-24 11:42 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was recently seen sporting a jewelry trend that is widely associated with wealth and power. This fashion choice has garnered attention in the media.
-- sources:
-  - [unverified] Yahoo — https://shopping.yahoo.com/style/accessories/articles/taylor-swift-just-wore-jewelry-084500304.html
-
 ## Taylor Swift Charms Hollywood Elite Before Chiefs Game
 
 - first seen: 2026-10-24 11:42 UTC | category: sighting | importance: 6
@@ -67,13 +67,23 @@ Stories: 85
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/desperate-meet-her-taylor-swift-105052110.html
 
+## Taylor Swift Wears Trendy Jewelry Symbolizing Wealth and Power
+
+- first seen: 2026-10-24 11:42 UTC | category: fashion | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift was recently seen sporting a jewelry trend that is widely associated with wealth and power. This fashion choice has garnered attention in the media.
+- sources:
+  - [unverified] Who What Wear — https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-ruby-ring
+  - [unverified] Yahoo — https://shopping.yahoo.com/style/accessories/articles/taylor-swift-just-wore-jewelry-084500304.html
+
 ## Taylor Swift's first manager shares insights on her career beginnings
 
 - first seen: 2026-10-24 10:42 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: In an exclusive interview, Taylor Swift's first manager discusses the early stages of her career and the factors that contributed to her rise in the music industry.
 - sources:
   - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/10/24/taylor-swift-debut-documentary-country/92384399007/
+  - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/10/24/taylor-swift-life-showgirl-tops-album-chart/3581792848722/
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/24/taylor-swift-debut-album-documentary/92395707007/
 
 ## October 24 in Country Music History
@@ -693,19 +703,3 @@ Stories: 85
 - summary: Business Insider has ranked 16 outfits worn by Taylor Swift this year from worst to best, showcasing her fashion choices.
 - sources:
   - [unverified] Business Insider — https://news.google.com/rss/articles/CBMid0FVX3lxTE9JYUh1b1hRMVNxZWhtTktrTVR0cDBfQmVmYW9jckRaV1Q4OEJnN2R0QVdXTm1uUlVoZy1wUU1KUG5DRTd0ZlJYRU9FRGJFZUtlSTlDTTlmVEZERmV4cGZuekZHN3BYV1pnaHdxVDA0R3UtM0RrREVj?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Anecdote About Taylor Swift and Jason Kelce
-
-- first seen: 2026-10-21 13:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce recounts a humorous incident involving Taylor Swift being woken up by his brother, Jason Kelce. The story highlights a light-hearted moment shared among the trio.
-- sources:
-  - [unverified] Bleacher Report — https://news.google.com/rss/articles/CBMiwgFBVV95cUxQOGFfbnNsN1g4QkUwazZCUThtcXJ2M2VULTVMMVFMdS14RW1fN0tzaDVtbXVyU216eXd5Nzk5UzJYM3l3RnNBSDhQbTNKaER6TGNHTXhwRGF5cEFqOHVwSnp4MDAxV2RjbVEyZVVZdGpra2RPMU40YnF1NjJKaU1vT1FBdEw0cW12Yk93WWd1cV8yWC04SjZQakRsUlYzMFExaENQX3MyczJHaTUtVVV1dHhSQlQ3Xy1kQ3ZOYXJ4aVhnQQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Halloween Party Celebrating Taylor Swift at Mahall's in Lakewood
-
-- first seen: 2026-10-21 13:58 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Mahall's in Lakewood is set to host a Halloween party themed around Taylor Swift. Details of the event have been announced in local news.
-- sources:
-  - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxNelUzLWc4QkRHSktVVWoxRGhmZTNUcU5pMURfbmlqRjc1Y0h1OGNNSFd0cFh2UVkwRzd4NkV3VEdHS0xvQjNwdHMwV1ZfbjcwSnd6NXczQjhVRFJYc2JpcXlJQmNOZW5ZRDBHTm5JZ25yM3pyN0xKTWl3akcyNkd0UXh2TkV6T3phV2RESWFvYlNfYWhnRG9pZjFRRjB2M0Nob3ZQbTZEV0tWMXVSR3NpMkVLTEFVWEpxZkE?oc=5&hl=en-US&gl=US&ceid=US:en
