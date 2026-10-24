@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 87
 
 ## Grammy Voters Share Phase 1 Insights on Nominees
 
@@ -731,19 +731,3 @@ Stories: 89
 - summary: Details regarding the NFL's decision on Taylor Swift emerge as the announcement for the Super Bowl Halftime Show approaches. This comes amid ongoing speculation about her potential involvement.
 - sources:
   - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxPMGVKTjhlTERadjdGVk9IWS1BQnhRN2JxSnVVS05aX1A1ZEVZNmdwUGhVQXRGMXlrQTEzRnJ3Q0w5OXRIQ3Bmd195bGpsYzRIb1FqZ0xhUDFuTjhjRENLdzc5RFBRenNpQ1F4SlBUU0lKTGJYQzluWEpKRl9TTFg4eEs3T0N1QmtyT1VNV2ZUWm1xWV9sZjktVGxxY2dRZmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Supports Return of Glamorous Old Hollywood Hairstyles
-
-- first seen: 2026-10-21 22:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift endorses the revival of glamorous, pinned-back hairstyles reminiscent of Old Hollywood. This trend highlights timeless elegance and is gaining popularity among fans and fashion enthusiasts alike.
-- sources:
-  - [unverified] Women.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbzFvT2FmdnF2eXZYTndmZnA3VnVVd20xWHhCWnFJMUVRaDhVYThyaWRQYzlvZWQ5NlczeVVxYU1VUDFMMk5xbkYzLWt4RWRXOFE0YW5CZHUzeXFSZm9hLWVtUWhrM2R3RHNUNnBudFdsdXhia01ILUhfX2s5R3NFMldQZy1Bay1tOEdoR0xtSFU2aVhLdWNXUXZ2WWpEcVBkMUhzZzl4WmkxUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Expert Reveals Taylor Swift Technique for Concluding Speeches
-
-- first seen: 2026-10-21 22:33 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A communication expert has outlined a three-step method inspired by Taylor Swift to effectively conclude a speech. This technique aims to enhance speech delivery and audience engagement.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcXhDUWVyR2ZocXE1R3M3ZFF6ZHB1N2p3YUJYMXhPQ21FSzN1ZnZrS3ZSTDYyWmV3cjhGUWZISjYzVDR0WldVOTVWd0JNMWZfTWhCMHBQSThvcHU5aHRZdU0yaHRYaHVtRkZkcHZmb1VlZTdJcjFESVdCcWVQWjNkZ0xiaXNLazRfdi1rdGhyX0R3eTM0d1gxelV1QWo?oc=5&hl=en-US&gl=US&ceid=US:en
