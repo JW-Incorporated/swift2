@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 90
+
+## Grammy Voters Share Phase 1 Insights on Nominees
+
+- first seen: 2026-10-24 21:26 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Secret Grammy voters have disclosed their insights on the nominees for this year's Grammy Awards as they conclude Phase 1 of the voting process.
+- sources:
+  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/secret-grammy-voters-nomination-ballot-analysis-olivia-dean-raye-rosalia-ella-langley-asian-pop-music/
+
+## Taylor Swift Celebrates 20th Anniversary of Her First Album
+
+- first seen: 2026-10-24 21:26 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Today marks the 20th anniversary of Taylor Swift's debut album release. The milestone is acknowledged in a feature by Vanity Fair.
+- sources:
+  - [unverified] Vanity Fair — https://www.vanityfair.com/story/taylor-swift-20-years-anniversary
 
 ## Celebrating 20 Years of Taylor Swift's Self-Titled Debut Album
 
@@ -183,12 +199,13 @@ Stories: 88
 ## Taylor Swift's first manager shares insights on her career beginnings
 
 - first seen: 2026-10-24 10:42 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: In an exclusive interview, Taylor Swift's first manager discusses the early stages of her career and the factors that contributed to her rise in the music industry.
 - sources:
   - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/10/24/taylor-swift-debut-documentary-country/92384399007/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/10/24/taylor-swift-life-showgirl-tops-album-chart/3581792848722/
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/24/taylor-swift-debut-album-documentary/92395707007/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swifts-patient-zero-tops-210546925.html
 
 ## October 24 in Country Music History
 
