@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 89
 
 ## Grammy Voters Share Phase 1 Insights on Nominees
 
@@ -226,9 +226,10 @@ Stories: 90
 ## Prince William Attempts to Block Travis Kelce from Photo with Taylor Swift
 
 - first seen: 2026-10-24 03:42 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: During a recent event, Prince William was seen trying to block Travis Kelce from being included in a viral photo with Taylor Swift. The moment has garnered attention on social media.
 - sources:
+  - [unverified] Page Six — https://pagesix.com/2026/10/24/royal-family/prince-william-playfully-shades-travis-kelce-over-viral-taylor-swift-selfie/
   - [established] People — https://people.com/prince-william-jokes-he-was-trying-to-move-travis-kelce-out-of-taylor-swift-selfie-photo-12191917
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
   - [unverified] The Lufkin Daily News — https://lufkindailynews.com/news_reuters/national/hallbrooks-neighbors-include-perhaps-the-world-s-most-famous-newlyweds-taylor-swift-and-travis-kelce/image_28ec6719-d881-5431-8c23-6563114ec0ea.html
@@ -746,11 +747,3 @@ Stories: 90
 - summary: A communication expert has outlined a three-step method inspired by Taylor Swift to effectively conclude a speech. This technique aims to enhance speech delivery and audience engagement.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxOcXhDUWVyR2ZocXE1R3M3ZFF6ZHB1N2p3YUJYMXhPQ21FSzN1ZnZrS3ZSTDYyWmV3cjhGUWZISjYzVDR0WldVOTVWd0JNMWZfTWhCMHBQSThvcHU5aHRZdU0yaHRYaHVtRkZkcHZmb1VlZTdJcjFESVdCcWVQWjNkZ0xiaXNLazRfdi1rdGhyX0R3eTM0d1gxelV1QWo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Debut Album Celebrates 20 Years with New Book
-
-- first seen: 2026-10-21 21:33 UTC | category: release | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new book has been released detailing Taylor Swift's early years in Nashville, coinciding with the 20th anniversary of her debut album. The book provides insights into her journey as a young artist.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNOWJvRzVfVERBU0dDaGV2TDdadEEtcm9xZzVuUzZOWjNhUkdCVS1UR1lqcV9qT0I0dE9weThDV3FoSncxbkNNQmx1dzdzSnNqaDhyWjgzSlpyM21GMGRHbXFkMjJvb1VmTm1peVJmWV96bWJFNTJ2UWRWOFFkdnNVc1hzYWJyNHhrSUh4N1FLTjVOVEdwLTlhblVB?oc=5&hl=en-US&gl=US&ceid=US:en
