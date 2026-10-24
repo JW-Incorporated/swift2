@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 92
 
 ## Taylor Swift and Travis Kelce's 2024 Photo with Prince William Almost Didn't Happen
 
@@ -763,20 +763,3 @@ Stories: 94
 - summary: In a recent court case, it was reported that Beau Lamarre-Condon allegedly played Taylor Swift's song 'No Body, No Crime' during a body disposal incident. The information was presented during the proceedings, drawing attention to the case's details.
 - sources:
   - [unverified] The Guardian — https://news.google.com/rss/articles/CBMisgFBVV95cUxORTZEMjhPMk9kTTVFeGJLdFA5S2k1TXVpcW5YWnBpdllDX3hNT25pZ2dCUElTbFpCc2ZlbHV3S0RWYUhHUzFkcExPT01YTjFVb1hVem5oajRRTGdsSXIxM3huS01HaHVIdExEV2Q2bXZuVFJmUEtyLVZkX3dQTnQ5eWVkZ2xPTkhTVEV6RzN1ZzAxTDZKU2NWWWd4SGVudFlDOC1mZ0E5eUZYMUFOTEtUcUVn?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Confronts Fan Filming Her at Chiefs Game
-
-- first seen: 2026-10-21 02:46 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: An eyewitness reports on a confrontation between Taylor Swift and a fan who filmed her at a Chiefs game. The encounter has drawn attention from media outlets and fans alike.
-- sources:
-  - [unverified] InStyle — https://www.aol.com/articles/taylor-swift-calls-jason-kelce-151702000.html
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMisAFBVV95cUxQT1lLSUh5VHZzcFRZWEQtRWp3WjJLdFA2bm9DUi1JV1FiQ1c4YjhJeWxaRG1WWGpmSURXN05wNWJ2YkJMSVBpbVFRcjlNeG4yMmhVSXo1eHNxRkhiak91SkU2NkdoY3hBNTJYVlZBVkNOa2ZKdWRuc1RSbU5mYXBNeVVyZVhnN2k0QzdhV3A3SGNhTngxM0hLcjhpSGJSQ3l0bEFkYXpzd1d4azVVS2hqNg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift and band perform at Academy Gala
-
-- first seen: 2026-10-21 01:46 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift reunited with her band for a memorable performance at the Academy Gala, showcasing their musical collaboration.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMitAFBVV95cUxPVi1RN0FSeUxtWnltZ19QVldKcWpFcTZCc1Z6azlwZ2djbTNNT0tJLXJSemdjMTNjVW45TU95RFNmbnMzN3pPOWoyZU5hMGVQZ1gzVU5Vd1VCQ3lvVG5rR0V4WU1qQlUyTUg2Tkc3QVNEb0xVbGkyWi0wamxSWXBxNkk5TUMyaVU0TGhubnRvY2RMSWs4empmY2lWaDJDZUFuRThrczR1RHVRdTVUeFVKOVBMYmo?oc=5&hl=en-US&gl=US&ceid=US:en
