@@ -22,6 +22,16 @@ describe('bridge token', () => {
     }
   });
 
+  it('uses the native CSPRNG when the module is present', () => {
+    const getRandomBytes = vi.fn((n: number) => new Uint8Array(n).fill(171));
+    expect(newBridgeToken({ getRandomBytes })).toBe('ab'.repeat(16));
+    expect(getRandomBytes).toHaveBeenCalledWith(16);
+  });
+
+  it('falls back when the native module is missing (null)', () => {
+    expect(newBridgeToken(null)).toMatch(/^[0-9a-f]{32}$/);
+  });
+
   it('never rides a DOM prop: not in the dom props object, not passed to AppReader/SharedUiTest as a prop', () => {
     const domProps = host.slice(host.indexOf('const dom = {'), host.indexOf('};', host.indexOf('const dom = {')));
     expect(domProps).not.toMatch(/token/i);
