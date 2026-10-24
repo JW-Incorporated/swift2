@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 92
+
+## Prince William Discusses Viral Taylor Swift Photo with Travis Kelce
+
+- first seen: 2026-10-24 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Prince William revealed that he attempted to reposition Travis Kelce in the now-famous photo featuring Taylor Swift. This acknowledgment highlights the image's impact and its reception in popular culture.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/prince-william-tried-to-move-travis-kelce-out-of-taylor-swift-photo-12191761
 
 ## Taylor Swift addresses fan filming her at Chiefs game
 
@@ -51,14 +59,6 @@ Stories: 94
 - sources:
   - [unverified] EssentiallySports — https://www.essentiallysports.com/nfl-active-news-trying-to-move-him-out-prince-william-admits-he-didnt-want-travis-kelce-in-photo-with-taylor-swift-kids/
 
-## Taylor Swift's Photo with Prince William Survives Royal Snub
-
-- first seen: 2026-10-24 16:07 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent encounter between Taylor Swift and Prince William was almost affected by a royal snub, but the iconic photo remained intact. The incident highlights Swift's frequent interactions with prominent figures.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swifts-iconic-photo-prince-151121885.html
-
 ## Taylor Swift's Debut Album Impact on Country Music Explored
 
 - first seen: 2026-10-24 16:07 UTC | category: music | importance: 7
@@ -66,6 +66,14 @@ Stories: 94
 - summary: An article discusses how Taylor Swift's debut album significantly influenced the country music genre. The piece highlights the lasting changes brought about by her entry into the music industry.
 - sources:
   - [unverified] XL Country 100.7 — https://xlcountry.com/ixp/204/p/taylor-swift-self-titled-debut-album/
+
+## Taylor Swift's Photo with Prince William Survives Royal Snub
+
+- first seen: 2026-10-24 16:07 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent encounter between Taylor Swift and Prince William was almost affected by a royal snub, but the iconic photo remained intact. The incident highlights Swift's frequent interactions with prominent figures.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swifts-iconic-photo-prince-151121885.html
 
 ## Ranking Taylor Swift's Best Songs as Debut Album Turns 20
 
@@ -193,10 +201,11 @@ Stories: 94
 ## Prince William Attempts to Block Travis Kelce from Photo with Taylor Swift
 
 - first seen: 2026-10-24 03:42 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: During a recent event, Prince William was seen trying to block Travis Kelce from being included in a viral photo with Taylor Swift. The moment has garnered attention on social media.
 - sources:
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
+  - [unverified] The Lufkin Daily News — https://lufkindailynews.com/news_reuters/national/hallbrooks-neighbors-include-perhaps-the-world-s-most-famous-newlyweds-taylor-swift-and-travis-kelce/image_28ec6719-d881-5431-8c23-6563114ec0ea.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-joe-alwyn-more-120000975.html
 
 ## SiriusXM Celebrates 20 Years of Taylor Swift with 13-Hour Music Special
@@ -759,27 +768,3 @@ Stories: 94
 - summary: Travis Kelce shares details about an early morning call from his brother Jason Kelce that Taylor Swift described as 'f–ked up.' The comment highlights the dynamics within the Kelce family and Swift's perspective.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNYUJiS1hhaTBLd0xvQWxaRUN0UnQwVlFseDBFMVM0SURuTnlVWGJrRlc1NFNqa0FWS1FJVUdIaVU3ZGRtdGNRMnYwSnBYUDRvWGVUcmNwNXJLYXVxcXpYeU9tLXhyWnFIYk82dUViQV9RRW9CQ0UxclF5M2RzczMtNmxOWWJBTjhrYndsQjkwODJMZWItM1Z5T2VydXFILU9LZHozcDlKT3FaSGlDV3g3RWdpTVVaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift returns to pop with 'Life of a Showgirl: The Encore'
-
-- first seen: 2026-10-21 17:23 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift reenters the pop music scene with her latest project, 'Life of a Showgirl: The Encore', which has sparked discussions among fans and critics alike.
-- sources:
-  - [unverified] The Slate Online — https://news.google.com/rss/articles/CBMilAFBVV95cUxNNVNfT2tVQll4OXVuT2pDUGY5Q1Rnb2lCei1qLXZWTzd0YjBNTHJkRS1CLXljTENIaFVYTkNvZHNYbG5CMzJfQ3h2Rm5UTUx1RWg2dEZwdThfZ0xUTlc0OFdFbWZzRFpIcmwyOUJaY3M0SzM4d01nSDMyZllyZmx1d3dxTW5lNHdNa2pza1VST1NEbjlV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Performs with Band at 2026 Academy Museum Gala
-
-- first seen: 2026-10-21 17:23 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift performed with her band for the first time in two years at the 2026 Academy Museum Gala, describing the experience as a 'vibe.' This marks a significant return to performing live with her band after a long hiatus.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMilgFBVV95cUxOOWJxZXc1Rm5pdFo3YUtGeS1lZ0xNQjlHVE4zVkREeDR6TGI4MTkzVm5NeXdFM0E0TzR4YjFYZGgybm0wRG5LdkxCTnBaREN0and3Z0U3VTVDTlA1SmtuSnhVNEtIck5YeE9XQUpnX0dEOVZTQllyNlI0WUdMZEU1VGRQVnpXcHhVNHhmM1NGQWZORzJ0Tmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Benefits of Dating Taylor Swift
-
-- first seen: 2026-10-21 17:23 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared his thoughts on the perks of dating Taylor Swift, describing the experience as 'pretty cool'.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZVdqSkNBcHptYUttOFFqcmw1V2N2SDhzdTdVY25tNGJRYkx5dDk3QXp4b0QyZWVDaVpzREd2REVULWZfbmstSldfWmRnY0ltcUczMU5zNi1BMmpDWHF4UFIzNmZDclVrUzZLZzdnUU1GcXFnX1ExT2pDT0pnTUlIbGlCT3lJWGtudjJWZ3Rlc2FlYW9tUlVOZ1RjcDlBb3otZUFPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
