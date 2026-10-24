@@ -7,6 +7,7 @@ import { runMain } from '../lib/cli.mjs';
 import { createClaudeCaller } from '../lib/claude-call.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { answerConfidence, callFallback, decisionRow, inspectWithJev } from './cascade.mjs';
+import { planActions } from './actions/plan.mjs';
 import { classifierStore, openJevFallbackAlert } from './classifier-store.mjs';
 import { CLASS_BY_OPTION, CLASS_IDS } from './questions.mjs';
 
@@ -57,7 +58,7 @@ export async function classifyItems({ items, candidates, store, config, jev, cal
   }
   const direct = inspected.filter((entry) => entry.inspected.kind === 'decision');
   const requiredFallback = inspected.filter((entry) => entry.inspected.kind === 'fallback'
-    && !['below_threshold', 'drift_sample'].includes(entry.inspected.reason));
+    && !['below_threshold', 'drift_sample', 'personal_escalation'].includes(entry.inspected.reason));
   const fallbackEntries = inspected.filter((entry) => entry.inspected.kind === 'fallback');
   const rows = direct.map(({ item, inspected: result }) => decisionRow(item, result, null, config));
   const batchSize = config.fallbackBatchSize;
@@ -189,6 +190,40 @@ export function isCandidate(row, config) {
   return jevCandidate(row.answers?.jev, config) || haikuCandidate(row);
 }
 
+export function planStateLines(expected, rows, config) {
+  const expectedById = new Map(expected.map((entry) => [entry.id, entry.class]));
+  const byClass = new Map(CLASS_IDS.map((classId) => [classId, { planned: 0, held: 0, dropped: 0 }]));
+  const heldActions = new Map();
+  let truePrivacyPlanned = 0;
+  const truePrivacyPlannedItems = [];
+  for (const row of rows) {
+    const expectedClass = expectedById.get(row.item_id);
+    if (!expectedClass) continue;
+    const plan = planActions(row.class, row.answers, row.confidence, undefined, config);
+    const bucket = plan.actions.includes('drop_hash_only') ? 'dropped' : plan.state === 'held' ? 'held' : 'planned';
+    byClass.get(expectedClass)[bucket] += 1;
+    if (plan.state === 'held') {
+      for (const action of plan.actions) heldActions.set(action, (heldActions.get(action) ?? 0) + 1);
+    }
+    if (expectedClass === 'privacy_redline' && bucket === 'planned') {
+      truePrivacyPlanned += 1;
+      truePrivacyPlannedItems.push(`true-privacy-planned-item id=${row.item_id} predicted=${row.class} decider=${row.decider} actions=${plan.actions.join('+')}`);
+    }
+  }
+  const lines = CLASS_IDS.map((classId) => {
+    const { planned, held, dropped } = byClass.get(classId);
+    return `plan-state-by-expected ${classId} planned=${planned} held=${held} dropped=${dropped}`;
+  });
+  const heldTally = [...heldActions].sort(([a], [b]) => a.localeCompare(b)).map(([name, count]) => `${name}=${count}`);
+  lines.push(`held-actions ${heldTally.join(' ') || 'none'}`);
+  lines.push(`true-privacy-planned n=${truePrivacyPlanned}`);
+  lines.push(...truePrivacyPlannedItems);
+  const normal = byClass.get('normal_news');
+  const normalTotal = normal.planned + normal.held + normal.dropped;
+  lines.push(`normal-news-held-rate held=${normal.held}/${normalTotal} rate=${normalTotal ? (normal.held / normalTotal).toFixed(3) : 'n/a'}`);
+  return lines;
+}
+
 export function evalReport(expected, rows, summary, { config, recorded, jevAnswers } = {}) {
   const predicted = new Map(rows.map((row) => [row.item_id, row.class]));
   const rowById = new Map(rows.map((row) => [row.item_id, row]));
@@ -247,6 +282,7 @@ export function evalReport(expected, rows, summary, { config, recorded, jevAnswe
   lines.push(`privacy-predicted-by-expected ${expectedTally.join(' ') || 'none'}`);
   const byDecider = (decider) => privacyRows.filter((row) => row.decider === decider).length;
   lines.push(`privacy-predicted-by-decider jev=${byDecider('jev')} haiku=${byDecider('haiku')} with-hint=${privacyRows.filter((row) => row.answers?.redline_hint).length}`);
+  if (config) lines.push(...planStateLines(expected, rows, config));
   return lines.join('\n');
 }
 

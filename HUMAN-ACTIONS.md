@@ -90,10 +90,10 @@ with uploaded/not-member counts and no group says `failed`.
 
 **Worked if:** the next brief no longer lists #5537 under stalled.
 
-## #126 🟢 [UPGRADE] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
+## #126 🔴 [BLOCKING] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
 <!-- ha filed=2026-10-14 -->
 
-**Why:** Merch cards can't carry affiliate links until the Awin publisher ID and the Amazon store ID are set in Vercel. Nothing else waits on this.
+**Why:** Merch cards can't carry affiliate links until the Awin and Amazon IDs are set in Vercel. Also, with 0 joined Awin advertisers no product index is built, so merch-matcher-authoring fails every run (watchdog #6214) until at least one join below is approved.
 **Steps:**
 1. Go to https://ui.awin.com and note your Publisher ID.
 2. Join these advertisers: agolde.com, alamourthelabel.com, clubllondon.us, jenniferbehr.com, meshki.us.

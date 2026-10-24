@@ -9262,3 +9262,7 @@ task or reverting this change restores the RSS-only system.
 ## 2026-10-23 — Tidewatch critical_breaking also covers a new concert film, a one-night-only global livestream event, and headlining a major festival
 
 **Decision.** A new concert film, a one-night-only global livestream event, and headlining a major festival are critical_breaking for Tidewatch (owner, in chat; addendum to D-c of 2026-10-17). Prompt text in `Q_CLASS`, `FALLBACK_SYSTEM` and the decision-sample yardstick is extended to match; no option ids or classification logic change.
+
+## 2026-10-23 — Jev no longer decides privacy_redline
+
+**Decision.** Any Jev answer indicating personal subject or speculation escalates to Haiku, which is the sole model-side privacy authority; the action layer holds on blocklist, Haiku privacy, or a Jev-decided item that should have escalated (invariant). Model-decided privacy on a primary-source item is held for the verifier, not dropped (follow-up). Full Haiku-primary remains pre-authorised, re-evaluated per source family when a Tier A miss is a confident Jev decision. Reverse by restoring the privacy branch in classFromAnswers. (Architect #17.) The earlier Jev-answer net on Haiku-decided rows (speculativePersonal) was removed deliberately: Haiku's label is final for escalated items; stored pre-change Jev-decided rows with high personal answers will plan as hold_invariant (safe direction).

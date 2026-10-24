@@ -26,28 +26,33 @@ function isYes(answer) {
   return answer?.type === 'noul' && answer.probability >= 0.5;
 }
 
-function speculativePersonal(answers, config) {
+function jevDecidedShouldHaveEscalated(answers, config) {
   const raw = jevAnswers(answers);
-  return raw?.q_speculation?.type === 'noul'
-    && raw.q_speculation.probability >= config.classes.privacy_redline.thresholds.act
-    && raw.q_personal?.type === 'noul' && raw.q_personal.probability >= 0.3;
+  if (!raw || (answers.haiku && !answers.haiku.drift)) return false;
+  return (raw.q_speculation?.type === 'noul'
+    && raw.q_speculation.probability >= config.classes.privacy_redline.thresholds.act)
+    || isYes(raw.q_personal);
 }
 
 export function impliedClass(classId, answers, config) {
   const raw = jevAnswers(answers);
-  if (raw) return classFromAnswers(raw, config, answers.redline_hint)?.class ?? classId;
+  if (raw) return classFromAnswers(raw, config)?.class ?? classId;
   return answers?.haiku?.class ?? classId;
 }
 
 function answerRoute(answers, config) {
   const raw = jevAnswers(answers);
   if (!raw) return null;
-  const result = classFromAnswers(raw, config, answers.redline_hint);
+  const result = classFromAnswers(raw, config);
   if (!result || result.confidence < config.classes[result.class].thresholds.act) return null;
   return ROUTE_BY_CLASS[result.class];
 }
 
-export function planActions(classId, answers, confidence, storyTimeline, config) {
+function isPrimarySource(answers, source) {
+  return source === 'official' || isYes(jevAnswers(answers)?.q_official);
+}
+
+export function planActions(classId, answers, confidence, storyTimeline, config, source = null) {
   const classConfig = config.classes[classId];
   if (!classConfig || ROUTE_BY_CLASS[classId] !== classConfig.action.route) {
     throw new Error(`unapproved Tidewatch class or route: ${classId}`);
@@ -58,9 +63,17 @@ export function planActions(classId, answers, confidence, storyTimeline, config)
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_injection'] };
   }
-  if (answers?.redline_hint || classId === 'privacy_redline' || speculativePersonal(answers, config)) {
+  if (!answers?.redline_hint && classId === 'privacy_redline' && isPrimarySource(answers, source)) {
+    return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+      answerRoute: routeFromAnswers, state: 'held', actions: ['hold_redline_primary'] };
+  }
+  if (answers?.redline_hint || classId === 'privacy_redline') {
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
       answerRoute: routeFromAnswers, state: 'held', actions: ['hold_redline'] };
+  }
+  if (jevDecidedShouldHaveEscalated(answers, config)) {
+    return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
+      answerRoute: routeFromAnswers, state: 'held', actions: ['hold_invariant'] };
   }
   if (confidence < classConfig.thresholds.act) {
     return { classId, impliedClass: inferredClass, finalRoute: classConfig.action.route,
