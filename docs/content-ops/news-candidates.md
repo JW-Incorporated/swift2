@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 88
+
+## Prince William Reflects on Meeting Taylor Swift in 2013
+
+- first seen: 2026-10-24 15:07 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Prince William shared his feelings about meeting Taylor Swift for the first time back in 2013, expressing that he still finds the experience somewhat awkward. The comments were featured in a recent article by Marie Claire.
+- sources:
+  - [unverified] Marie Claire — https://www.marieclaire.com/celebrity/royals/prince-william-still-cringing-meeting-taylor-swift-2013/
+
+## Reflecting on 20 Years of Taylor Swift's Debut Album
+
+- first seen: 2026-10-24 15:07 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: A retrospective on Taylor Swift's self-titled debut album released in 2006, marking the beginning of her successful songwriting career.
+- sources:
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-features/taylor-swift-debut-album-20-years-1235646292/
+
+## Taylor Swift and Travis Kelce's Royal Family Photo Details
+
+- first seen: 2026-10-24 15:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses the circumstances that nearly prevented Taylor Swift and Travis Kelce from taking a royal family photo together. It explores the background behind the moment and the significance of the image.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/why-taylor-swift-travis-kelces-133100961.html
+
+## Prince William Nudge in Viral Photo of Taylor Swift and Travis Kelce
+
+- first seen: 2026-10-24 15:07 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: In a recent viral photo, Prince William allegedly attempted to nudge Travis Kelce out of the frame while Taylor Swift was present. This incident has drawn attention to the iconic moment captured at the event.
+- sources:
+  - [established] Harper's Bazaar — https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/
 
 ## Prince William Explains Photo Reasons for Swift and Kelce with Royal Family
 
