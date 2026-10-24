@@ -15670,6 +15670,18 @@ export default {
               'The official lyric video for "Patient Zero," posted to Taylor\'s YouTube the weekend The Life of a Showgirl: The Encore arrived.',
             kind: 'primary',
           },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/09/02-taylor-swift-tloas-encore-billboard-1800.jpg?w=1024',
+            // Billboard's own og:image for the cited Spotify-record story; curl
+            // 200 image/jpeg (1024px render of an 1800x1200 original), downloaded
+            // and viewed: Taylor in a black sleeveless top, red lip, head tilted.
+            // Source shoot not identified, so the caption claims only what
+            // Billboard used it for.
+            focalPoint: '68% 22%',
+            credit: 'Billboard',
+            caption: 'The image Billboard led with in its report on Taylor\'s single-day Spotify record for The Life of a Showgirl: The Encore.',
+            kind: 'reference',
+          },
         ],
         sources: [
           {
