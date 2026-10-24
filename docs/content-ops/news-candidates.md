@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 90
 
 ## Prince William Discusses Viral Taylor Swift Photo with Travis Kelce
 
@@ -752,19 +752,3 @@ Stories: 92
 - summary: Cara Delevingne shares insights about her involvement in Taylor Swift's music video for 'Patient Zero'. The actress highlights the creative friendship between her and Swift.
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNMVBSQnNVb2tESXlHRUUydzF5b2RpQXExUjJ1SWZQY1ZXZHRyVU8xQXNYdFJXZ3M0LUNnUmRSSVBnOUROdmwwN0dNMG9TYXkxMDByMzlYY3otcXRDUnhZWTZFeEZBd1M1eHpoMVh5a0dWRDNwdnpDMFo0bkJFdWZsUFRmNkhpMVpjRThWRXRxODlZRmc1ZldyMFBR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Responds to Wake-Up Call from Jason Kelce
-
-- first seen: 2026-10-21 18:23 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift had a straightforward reaction to a wake-up call she received from Jason Kelce, brother of NFL player Travis Kelce. The details of her response highlight her interaction with the Kelce family.
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOb2VqeWdPOW1kdHo1RVRKUm16azdyaC1OODVIdy04STFkUTItNG1sWlJ4ZmFWNEpMZHFOVWZ0VGdjZGprdTNwbk4tQWVrNEJuNnV6cVQ0X25fY1Z2cHd1RmZSWW5aUXoyQmo4Mkg1WUtKYXZubkx3dnI1UWVfMmN6TjZCcDZHNzlrbFZUTzF5ODgxckdwNzR1aVlMMklKX1VyQkRXTnl2ODQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses a Controversial Call Mentioned by Taylor Swift
-
-- first seen: 2026-10-21 18:23 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shares details about an early morning call from his brother Jason Kelce that Taylor Swift described as 'f–ked up.' The comment highlights the dynamics within the Kelce family and Swift's perspective.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitgFBVV95cUxNYUJiS1hhaTBLd0xvQWxaRUN0UnQwVlFseDBFMVM0SURuTnlVWGJrRlc1NFNqa0FWS1FJVUdIaVU3ZGRtdGNRMnYwSnBYUDRvWGVUcmNwNXJLYXVxcXpYeU9tLXhyWnFIYk82dUViQV9RRW9CQ0UxclF5M2RzczMtNmxOWWJBTjhrYndsQjkwODJMZWItM1Z5T2VydXFILU9LZHozcDlKT3FaSGlDV3g3RWdpTVVaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
