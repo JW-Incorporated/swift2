@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 92
+
+## Taylor Swift Fans Believe She Stopped an Easter Egg Drop Before Anniversary
+
+- first seen: 2026-10-24 00:46 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Fans speculate that Taylor Swift may have released a subtle Easter egg ahead of the anniversary of her debut album. This has sparked conversations and theories among the Swiftie community.
+- sources:
+  - [unverified] Us Weekly — https://www.usmagazine.com/entertainment/news/did-taylor-swift-fans-spot-clue-before-debut-anniversary/
 
 ## Travis Kelce Seen With NWSL Players During Bye Week
 
@@ -756,19 +764,3 @@ Stories: 93
 - summary: Taylor Swift reunited with her band for a memorable performance at the Academy Gala, showcasing their musical collaboration.
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMitAFBVV95cUxPVi1RN0FSeUxtWnltZ19QVldKcWpFcTZCc1Z6azlwZ2djbTNNT0tJLXJSemdjMTNjVW45TU95RFNmbnMzN3pPOWoyZU5hMGVQZ1gzVU5Vd1VCQ3lvVG5rR0V4WU1qQlUyTUg2Tkc3QVNEb0xVbGkyWi0wamxSWXBxNkk5TUMyaVU0TGhubnRvY2RMSWs4empmY2lWaDJDZUFuRThrczR1RHVRdTVUeFVKOVBMYmo?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Potential New Saint Listened to Taylor Swift
-
-- first seen: 2026-10-21 00:46 UTC | category: music | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: An article discusses a potential new saint of the Catholic Church who reportedly listened to Taylor Swift and the Jonas Brothers. The piece highlights the intersection of pop culture and religious figures.
-- sources:
-  - [unverified] ZENIT - English — https://news.google.com/rss/articles/CBMixAFBVV95cUxQTHFFS1QzRFp1SlpfdWgzakRFemtjWGFNWnlfaWtLOHlhYmdWZzduS2c4LVB4N0piUEdaSktzN0dtWl9XZGUxamozLVBjUzR4YmpaYVRnVHJOT1k2UzU0cG5iMmF5MUQxbTJwdEtZR3MxZEowZ1dwUkZTYnVhUmZIZklsVmdST1d4cllYaU5WZzVZYUhXMG13eHpLMXhZd0tabzFvd0pWQnBjOXBQeWpqTVBQdDFqYnhWdGoyX1daSnR4THJl?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Shares Post During Knicks Ring Ceremony
-
-- first seen: 2026-10-21 00:46 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, a Knicks fan, posted on social media during the team's ring ceremony, despite not attending the opening game. Her absence from the game was noted alongside her support for the team.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQSWpzRzA2M0sxSGhoNkVaT0RSTEF5VV9HMTZIbWtjdVZCNzhqeE1OQUhaU19lejloUEJnNkNxUVlWaDVqcXB1V1VKcWN6Ym9HaE9RTjdzQTJyeUtEamlNb29pcW82QnZDb0lBeGRoTTRMYkE4bllTYlRYa3dOQWx1Rm45NG54VzhZOUEyMFJaNld0cWItRGVFd2U5QzBKS2RrRFE?oc=5&hl=en-US&gl=US&ceid=US:en
