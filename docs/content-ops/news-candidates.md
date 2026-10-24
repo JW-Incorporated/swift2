@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 85
+
+## 20 Years Since Taylor Swift's Debut Album; A Look Back at Its Impact
+
+- first seen: 2026-10-24 13:17 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: A retrospective on the 20th anniversary of Taylor Swift's debut album, highlighting its significance in launching her career and her connection to country music. The piece includes insights from notable figures in the music industry.
+- sources:
+  - [established] People — https://people.com/taylor-swift-debut-album-anniversary-what-to-know-12189830
 
 ## Taylor Swift's debut album marks 20th anniversary
 
@@ -87,10 +95,11 @@ Stories: 88
 ## Prince William Attempts to Block Travis Kelce from Photo with Taylor Swift
 
 - first seen: 2026-10-24 03:42 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: During a recent event, Prince William was seen trying to block Travis Kelce from being included in a viral photo with Taylor Swift. The moment has garnered attention on social media.
 - sources:
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-joe-alwyn-more-120000975.html
 
 ## SiriusXM Celebrates 20 Years of Taylor Swift with 13-Hour Music Special
 
@@ -700,35 +709,3 @@ Stories: 88
 - summary: Mahall's in Lakewood is set to host a Halloween party themed around Taylor Swift. Details of the event have been announced in local news.
 - sources:
   - [unverified] Cleveland.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxNelUzLWc4QkRHSktVVWoxRGhmZTNUcU5pMURfbmlqRjc1Y0h1OGNNSFd0cFh2UVkwRzd4NkV3VEdHS0xvQjNwdHMwV1ZfbjcwSnd6NXczQjhVRFJYc2JpcXlJQmNOZW5ZRDBHTm5JZ25yM3pyN0xKTWl3akcyNkd0UXh2TkV6T3phV2RESWFvYlNfYWhnRG9pZjFRRjB2M0Nob3ZQbTZEV0tWMXVSR3NpMkVLTEFVWEpxZkE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Interaction with a Fan at Travis Kelce's Game Gains Attention
-
-- first seen: 2026-10-21 12:58 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An interaction between Taylor Swift and a fan during Travis Kelce's game has gone viral. The moment has garnered support from fans who are taking Swift's side in the situation.
-- sources:
-  - [unverified] CafeMom.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxPZ0YxN3RnN3ZUNnhYZ3oxaTNfZ2NxSVFnNnhWWjJvLWl0eGFzb2E1VWw3eGhDazRKaGVKdjdKSVRYR2lVRTFhNTdCZnczMUZiQnVHUGRBYVdHeGhCNlZDT0RaUlhjSUhzNGxBd1lRUUZXSVRKVjBiSVZRTExucklMeXZLTXRXTThDRjhqaVN0ZGZwa2s2?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Addresses Fan Filming at Chiefs Game in Viral Clip
-
-- first seen: 2026-10-21 12:58 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent viral video, Taylor Swift seemingly addresses a fan's filming during the Chiefs game. The incident has caught the attention of fans and media alike.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPdms1SG5JdHdRQ3hGTkVTYWVNWmQweUlZSElmRkRQc0h1aUZoLVlCVWlRM3F4QnJWOVE3TjJuVUh0M1dQZEk3elc5VWM5TmY3cGhTMUtRX2VEN0g4Yko1bTV1aHFqVG1QRHFERDBLN1ZyX0hIcU1JMXhfZThvTHB1Q1FqblU2QjdNckQ1Unh1QzQzWHMxenE1UlpzZUFoS2FoREE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Every Taylor Swift Song Ranked from 270 to 1
-
-- first seen: 2026-10-21 12:58 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Ringer has published a comprehensive ranking of all Taylor Swift songs, listing them from 270 to 1. This article showcases the author's evaluation of her discography, providing fans with insights into the ranking process.
-- sources:
-  - [unverified] The Ringer — https://news.google.com/rss/articles/CBMif0FVX3lxTE02ZlI0bHkxWVRJWl9NRDg4OEQtVUtJZk1IU29xUnUwUDdIdTFOb2NERFRwbGJidy1wLVVtbGFwN0kxajB2M19teW9lTE42elpudUZFSW1sVUxiaHJVOWRCVFM1bFo1ZS1FOUt6N3EyanJVNENYQ2JNdEI0RUxSNTQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Praises George Strait's Sense of Humor
-
-- first seen: 2026-10-21 12:58 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her admiration for George Strait's "awesome, dry, subtle sense of humor" in a recent statement. The comment highlights her appreciation for the country music legend.
-- sources:
-  - [unverified] Holler Country — https://news.google.com/rss/articles/CBMirgFBVV95cUxObUJtdkg0ZTJ5WEduckFBVDJqYm1DNEdNVldjUmxaLWNCWnlxREZrVEo3b3hOOFJRTXNCZTRYMGpvTnN5TndnemlIX3MtZ2t4ZE5lNUIweGxlY08zdExsRXVBWHRKb2dKck8wTnFzb0Myci10WEtrSGZRZ2ozVTZNSFdWRzZmZm52TC1ES0tqUVBWX1ROd0NCNkw5WFVhMVFEdzRmMXVXOEZSb1EtQmc?oc=5&hl=en-US&gl=US&ceid=US:en
