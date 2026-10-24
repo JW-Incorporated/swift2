@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 88
+
+## Celebrating 20 Years of Taylor Swift's Self-Titled Debut Album
+
+- first seen: 2026-10-24 20:26 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: It's the 20th anniversary of Taylor Swift's self-titled debut album, and Variety reflects on its impact through a previously unpublished Q&A. The piece explores the significance of the album in her career.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/
 
 ## Prince William Discusses Viral Taylor Swift Photo with Travis Kelce
 
@@ -201,9 +209,10 @@ Stories: 89
 ## Prince William Attempts to Block Travis Kelce from Photo with Taylor Swift
 
 - first seen: 2026-10-24 03:42 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: During a recent event, Prince William was seen trying to block Travis Kelce from being included in a viral photo with Taylor Swift. The moment has garnered attention on social media.
 - sources:
+  - [established] People — https://people.com/prince-william-jokes-he-was-trying-to-move-travis-kelce-out-of-taylor-swift-selfie-photo-12191917
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
   - [unverified] The Lufkin Daily News — https://lufkindailynews.com/news_reuters/national/hallbrooks-neighbors-include-perhaps-the-world-s-most-famous-newlyweds-taylor-swift-and-travis-kelce/image_28ec6719-d881-5431-8c23-6563114ec0ea.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-joe-alwyn-more-120000975.html
@@ -728,19 +737,3 @@ Stories: 89
 - summary: A new book has been released detailing Taylor Swift's early years in Nashville, coinciding with the 20th anniversary of her debut album. The book provides insights into her journey as a young artist.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimgFBVV95cUxNOWJvRzVfVERBU0dDaGV2TDdadEEtcm9xZzVuUzZOWjNhUkdCVS1UR1lqcV9qT0I0dE9weThDV3FoSncxbkNNQmx1dzdzSnNqaDhyWjgzSlpyM21GMGRHbXFkMjJvb1VmTm1peVJmWV96bWJFNTJ2UWRWOFFkdnNVc1hzYWJyNHhrSUh4N1FLTjVOVEdwLTlhblVB?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce shares Taylor Swift's reaction to brother's wakeup call
-
-- first seen: 2026-10-21 20:19 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce discusses Taylor Swift's relatable response when his brother Jason called him to wake up. The moment highlights Swift's down-to-earth personality.
-- sources:
-  - [unverified] Extra — https://news.google.com/rss/articles/CBMivgFBVV95cUxPT1hqNTc1a2ZweDQtdENXT1FMRGdxbWdKLW1QVjNkZFlJbHJtNmV0UkZGMXFpeTlQT1hYTmMxblh4VzdvejItUWRCbVZ3aWhXN0gwQTFBdDhXckh3eFZEZ0VUUDFFenU2V2FtTURGT1VGUjNFWTJiT0JVNVphUWZvRG9hM2Y4YllGZTZuN1ZVRlVCVFUzSnNiUUJYVHBXNlVmUUhTS1UzeVNXNWVCWmdPb09CbWpQUXBncHRBMC1B?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Noticed Family Quirk of Travis Kelce
-
-- first seen: 2026-10-21 20:19 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent article, Taylor Swift is mentioned in relation to a family quirk of Travis Kelce's that she finds bothersome. The piece discusses how this quirk has impacted their relationship.
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMisAFBVV95cUxOeDhhVC0yWE91UVhza2NPY3JMbHpPRldxVkZRQllISWFNTmZGS0tNOV90QXNULXhvMHBVVjRtNWxRR3htdVRnX3BPczN4NjVLYWp2dmxUOEFaOVczbTNhM19MMHFQM0NaOVNDVXlmYW1fMkVqWE0xQ0M0TEZYT1pwZDNMb3d4bUI5Y3ZxS1hfbW4ySDZzc0tLQ2ZvdXdWZGhsM3dQX1B4eGlaeGJpNDRxQQ?oc=5&hl=en-US&gl=US&ceid=US:en
