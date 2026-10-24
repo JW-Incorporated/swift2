@@ -152,7 +152,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources (Billboard put the night’s total at nearly $3 million), came about two weeks after her first wedding anniversary (Sept. 27) with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
+          'Selena Gomez’s fourth annual Rare Impact Fund Benefit, held at the Hollywood Palladium in Los Angeles on Oct. 14, 2026 to raise money for youth mental-health resources (the night raised nearly $3 million, per Billboard), came about two weeks after her first wedding anniversary (Sept. 27) with Benny Blanco. On the carpet, Entertainment Tonight asked whether she had passed any marriage advice on to Taylor, who married Travis Kelce in July. “I don’t need to!” Selena said. “I think she’s probably the best to give me that.”\n\nThe two are now on the same side of the aisle after 18 years of friendship. Taylor was a guest at Selena and Benny’s wedding the September before, and Selena was in the room for Taylor’s.',
         sources: [
           {
             outlet: 'Billboard',
@@ -16511,7 +16511,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her self-titled debut came out on Oct. 24, 2006. With the 20th anniversary a day away and nothing posted on her socials yet, Taylor\'s official website got there first. As Elle reported on Oct. 23, 2026, the debut album\'s page on taylorswift.com now has confetti and a "20 years of Taylor Swift" message, set alongside photos of her from every album era.\n\nNo new project came with it. In the 2025 letter about buying back the masters to her first six albums, she had written: "I\'ve already completely rerecorded my entire debut album, and I really love how it sounds now," adding that it could "re-emerge when the time is right." As of the website update, nothing has been announced.',
+          'Her self-titled debut came out on Oct. 24, 2006. With the 20th anniversary a day away and nothing posted on her socials yet, Taylor\'s official website got there first. On Oct. 23, 2026, per Elle, the debut album\'s page on taylorswift.com now has confetti and a "20 years of Taylor Swift" message, set alongside photos of her from every album era.\n\nNo new project came with it. In the 2025 letter about buying back the masters to her first six albums, she had written: "I\'ve already completely rerecorded my entire debut album, and I really love how it sounds now," adding that it could "re-emerge when the time is right." As of the website update, nothing has been announced.',
         sources: [
           {
             outlet: 'Elle',

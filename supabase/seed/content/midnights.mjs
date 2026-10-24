@@ -4557,7 +4557,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_Songbook_Trail_Eras_Tour_film_premiere_01.jpg',
             focalPoint: '50% 45%',
             credit: '14GTR, CC0, via Wikimedia Commons',
-            caption: 'For reference: the Oscar de la Renta gown Swift wore to the film\'s premiere, displayed in the Taylor Swift Songbook Trail at London\'s V&A.',
+            caption: 'For reference: the Oscar de la Renta gown Taylor wore to the film\'s premiere, displayed in the Taylor Swift Songbook Trail at London\'s V&A.',
             kind: 'reference',
           },
         ],
