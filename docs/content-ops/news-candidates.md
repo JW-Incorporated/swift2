@@ -27,6 +27,14 @@ so far".
 
 Stories: 86
 
+## Taylor Swift's first manager shares insights on her career beginnings
+
+- first seen: 2026-10-24 10:42 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: In an exclusive interview, Taylor Swift's first manager discusses the early stages of her career and the factors that contributed to her rise in the music industry.
+- sources:
+  - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/10/24/taylor-swift-debut-documentary-country/92384399007/
+
 ## October 24 in Country Music History
 
 - first seen: 2026-10-24 07:42 UTC | category: music | importance: 5
@@ -707,11 +715,3 @@ Stories: 86
 - summary: 'Taylor Swift: The Debut Years' is a book that delves into Taylor Swift's inaugural country album, providing insights into its creation and impact.
 - sources:
   - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizAFBVV95cUxOVXZYdjRKVHJZRWg0MUFjdElob0lRQUhnZTN3Q2haV1VBNWgxcnVQdWxtd3RnQkIxbEM1UjRPRS1XNFI4Mm9qLU5QMmhkVXhBa1F4WWVzeWlKTDZCVkRXaUdYZmtaRXBDT0lnZGJxaU9nMFpNYmdqVmtPLUFNLUxEXzRQeFBvQ2pMWFAxRjBZN3pvSUV6Nzc0T20yOERsRW90a1dBTVByOHZiMWxiWDRJQjNrV3V3ZEkxOXVCSlFuRFEybjBWaHEwaU4zXzM?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Recognized for Political Skills as Oscar Buzz Grows
-
-- first seen: 2026-10-21 09:58 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A source has referred to Taylor Swift as a 'master politician' in light of increasing buzz surrounding her potential Oscar nomination. This recognition highlights her influence in the entertainment industry as awards season approaches.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQUlJKWE5hSTVqWTRqWk5pNDQtZWhseVlHWlRYSGNhMnhhcmhoa3lyYXFVTlBfMDc1Tng3MXB0VzZKcnlxdm1jTHF0M0J1S1hjdkZJU2JuNkFqNndMeVM0M2FkbWl3R1BkZkxoYVhmRC1XekxVQThBS25XRnV1elhIYkxOcW8yaHVEUHFucFBESXE3UXdJaFJMenpvQmlSeUkwbXh2ZnRfVQ?oc=5&hl=en-US&gl=US&ceid=US:en
