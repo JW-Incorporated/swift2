@@ -16435,8 +16435,8 @@ export default {
       // Yahoo) and Bleacher Report. CUT: where Jason was staying. One outlet
       // places it at the couple's house, and a residence never gets more
       // than city level here (privacy-redlines.md), so this stays "in Kansas
-      // City". The YouTube episode was not cited because its date could not
-      // be confirmed from this environment.
+      // City". Enriched 2026-10-24 (Vault Run, intake #6273): New Heights'
+      // own YouTube clip of the story, oEmbed-verified (author New Heights).
       slug: 'showgirl-jason-kelce-squatober-wake-up-call',
       year: 2026,
       month: 10,
@@ -16447,6 +16447,10 @@ export default {
         'On New Heights, Travis told how his brother rang at 7:30 in the morning looking for a bench-press spotter, and how Taylor summed it up.',
       sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
       thumbnailUrl: null,
+      video: {
+        youtubeId: 'P63VzLn2uzo',
+        title: 'New Heights — Taylor on Jason\'s early-morning spot request',
+      },
       moment: {
         context:
           'On the Oct. 21, 2026 episode of New Heights, Travis told a story from Jason\'s visit to Kansas City for the Chargers game. His phone rang at 7:30 in the morning. "In my mind, I\'m thinking worst-case scenario," he said. It was Jason, deep into "Squatober," his October lifting push, asking for a spotter on the bench press.\n\nTravis said his first answer was "No way!" He went anyway. "I\'m walking out of the room, and Taylor\'s like, \'This is f---ed up,\'" he recalled, to which he answered, "Nah, it\'ll be good. It\'ll be good!"',
@@ -16474,6 +16478,18 @@ export default {
             reliability_score: 3,
             notes:
               'By Adam Wells, Oct. 21, 2026; loaded directly. Independent pickup confirming "Squatober," the bench-press spot and Taylor\'s reaction.',
+          },
+          {
+            outlet: 'New Heights',
+            url: 'https://www.youtube.com/watch?v=P63VzLn2uzo',
+            source_title:
+              'Mahomes Is Having Fun Again & Taylor Swift Calls Out Jason’s 7 AM Spot Request',
+            publisher: 'New Heights (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-10-24',
+            reliability_score: 5,
+            notes:
+              'New Heights\' own clip of the story, posted Oct. 23, 2026; oEmbed-verified (HTTP 200, author New Heights). Cited as the show\'s own telling; the quotes above stay attributed to People and Bleacher Report.',
           },
         ],
         // Visual (charter step 3b): no free-licensed image of the episode, so
@@ -16538,6 +16554,63 @@ export default {
             kind: 'archival',
           },
         ],
+      },
+    },
+    {
+      // Authored 2026-10-24 (Vault Run, Content Shift lane) from intake #6285.
+      // Harper's Bazaar and Marie Claire both loaded directly and agree on the
+      // quotes. Correction to the filing: Marie Claire dates the appearance
+      // Oct. 23 (a Friday, the show's usual night), not Oct. 24; Harper's
+      // Bazaar gives no air date. Visual: the selfie itself, the same Instagram
+      // embed the June 2024 moment uses (tortured-poets.mjs, verified there
+      // 2026-10-09 as taylorswift's own post). The embed renders client-side,
+      // so it could not be re-read from this run.
+      slug: 'showgirl-prince-william-graham-norton-selfie',
+      year: 2026,
+      month: 10,
+      day: 23,
+      category: 'relationship',
+      title: 'Prince William on the Wembley selfie: "Travis kept coming back in"',
+      snippet:
+        'More than two years on, William told Graham Norton he had been trying to edit Travis out of the photo that made Taylor and Travis Instagram official.',
+      sourceUrl:
+        'https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In June 2024, after the first of her Wembley Eras Tour shows, Taylor posted a backstage selfie with Prince William, Prince George and Princess Charlotte. Travis was in the frame too, which made it the first photo of the two of them on her own Instagram.\n\nOn Oct. 23, 2026, William made a surprise appearance on The Graham Norton Show and told the other side of it. "I hadn\'t appreciated the significance," he said. "Actually, I was trying to move him out of the photo, but Travis kept coming back in. I couldn\'t work out why he kept coming back in. I was trying to move him out so it was just me and Taylor and the children." When Norton pointed out that this was the photo where they went "photo official," William answered, "Apparently."\n\nThere was no falling-out behind the joke. William later went on New Heights himself, in the episode that came out on July 3, 2026.',
+        sources: [
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/',
+            source_title: 'Prince William Speaks on His Now-Famous Photo With Taylor Swift and Travis Kelce',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-24',
+            reliability_score: 4,
+            notes:
+              'By Sophie Wang, Oct. 24, 2026; loaded directly. Primary text for the full quote, Norton\'s "photo official" line and William\'s "Apparently," and the July 3, 2026 New Heights episode.',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/celebrity/royals/prince-william-trying-to-move-away-from-travis-kelce-eras-tour-selfie-taylor-swift/',
+            source_title:
+              'Prince William Shares Why He "Was Trying to Move" Away From Travis Kelce During His Viral Taylor Swift Eras Tour Selfie',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-24',
+            reliability_score: 4,
+            notes:
+              'By Amy Mackelden, Oct. 24, 2026; loaded directly. Independent account of the same quotes; source for the Oct. 23 air date.',
+          },
+        ],
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            "Taylor's own Instagram, June 2024: the backstage Wembley selfie William was talking about.",
+          postedOn: '2024-06-21',
+        },
       },
     },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
