@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 91
+
+## Taylor Swift's Photo with Prince William Survives Royal Snub
+
+- first seen: 2026-10-24 16:07 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent encounter between Taylor Swift and Prince William was almost affected by a royal snub, but the iconic photo remained intact. The incident highlights Swift's frequent interactions with prominent figures.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swifts-iconic-photo-prince-151121885.html
+
+## Taylor Swift's Debut Album Impact on Country Music Explored
+
+- first seen: 2026-10-24 16:07 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An article discusses how Taylor Swift's debut album significantly influenced the country music genre. The piece highlights the lasting changes brought about by her entry into the music industry.
+- sources:
+  - [unverified] XL Country 100.7 — https://xlcountry.com/ixp/204/p/taylor-swift-self-titled-debut-album/
+
+## Ranking Taylor Swift's Best Songs as Debut Album Turns 20
+
+- first seen: 2026-10-24 16:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: As Taylor Swift's debut album celebrates its 20th anniversary, Deseret News provides a ranking of some of her best songs. This reflects on her musical evolution since the release.
+- sources:
+  - [unverified] Deseret News — https://www.deseret.com/entertainment/2026/10/24/taylor-swift-song-ranking-20-years-of-music/
+
+## Taylor Swift's debut shaped her pop instincts and themes
+
+- first seen: 2026-10-24 16:07 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An article discusses how Taylor Swift's debut album laid the groundwork for her signature pop style and thematic fixations. The piece highlights the influence of her early work on her later music career.
+- sources:
+  - [unverified] Slant Magazine — https://www.slantmagazine.com/music/taylor-swift-self-titled-debut-retrospective-album-review/
 
 ## Prince William Reflects on Meeting Taylor Swift in 2013
 
@@ -727,11 +759,3 @@ Stories: 88
 - summary: Travis Kelce shared his thoughts on the perks of dating Taylor Swift, describing the experience as 'pretty cool'.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNZVdqSkNBcHptYUttOFFqcmw1V2N2SDhzdTdVY25tNGJRYkx5dDk3QXp4b0QyZWVDaVpzREd2REVULWZfbmstSldfWmRnY0ltcUczMU5zNi1BMmpDWHF4UFIzNmZDclVrUzZLZzdnUU1GcXFnX1ExT2pDT0pnTUlIbGlCT3lJWGtudjJWZ3Rlc2FlYW9tUlVOZ1RjcDlBb3otZUFPbQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Ranking of 16 Outfits Worn by Taylor Swift This Year
-
-- first seen: 2026-10-21 15:23 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Business Insider has ranked 16 outfits worn by Taylor Swift this year from worst to best, showcasing her fashion choices.
-- sources:
-  - [unverified] Business Insider — https://news.google.com/rss/articles/CBMid0FVX3lxTE9JYUh1b1hRMVNxZWhtTktrTVR0cDBfQmVmYW9jckRaV1Q4OEJnN2R0QVdXTm1uUlVoZy1wUU1KUG5DRTd0ZlJYRU9FRGJFZUtlSTlDTTlmVEZERmV4cGZuekZHN3BYV1pnaHdxVDA0R3UtM0RrREVj?oc=5&hl=en-US&gl=US&ceid=US:en
