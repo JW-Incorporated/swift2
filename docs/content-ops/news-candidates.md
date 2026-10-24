@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 94
+
+## Taylor Swift and Travis Kelce's 2024 Photo with Prince William Almost Didn't Happen
+
+- first seen: 2026-10-24 01:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A notable 2024 picture featuring Taylor Swift and Travis Kelce alongside Prince William faced difficulties before its capture. This interaction highlights the significance of their friendship in the public eye.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-significant-235053039.html
+
+## SiriusXM Celebrates 20 Years of Taylor Swift with 13-Hour Music Special
+
+- first seen: 2026-10-24 01:42 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: SiriusXM Hits 1 will commemorate 20 years of Taylor Swift by featuring 13 hours of her music. This event honors her extensive career and contributions to the music industry.
+- sources:
+  - [unverified] SiriusXM — https://www.siriusxm.com/blog/taylor-swift-20th-anniversary-hits-1
 
 ## Taylor Swift Fans Believe She Stopped an Easter Egg Drop Before Anniversary
 
