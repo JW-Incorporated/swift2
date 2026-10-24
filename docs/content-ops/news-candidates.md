@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 88
+
+## Taylor Swift's debut album marks 20th anniversary
+
+- first seen: 2026-10-24 12:42 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's self-titled debut album celebrates its 20th anniversary. The article reflects on her early beginnings and the impact of her first album in the music industry.
+- sources:
+  - [established] People — https://people.com/taylor-swift-self-titled-debut-album-turns-20-her-beginnings-12190110
+
+## Celebrities Behind 'Teardrops on My Guitar' Explored
+
+- first seen: 2026-10-24 12:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: E! News examines the celebrities who may have inspired Taylor Swift's classic song "Teardrops on My Guitar." The article highlights various figures significant to Swift's songwriting.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437294/what-taylor-swift-has-written-about-travis-kelce-harry-styles-more
 
 ## Taylor Swift Wears Trendy Jewelry Symbolizing Wealth and Power
 
@@ -716,11 +732,3 @@ Stories: 87
 - summary: Taylor Swift expressed her admiration for George Strait's "awesome, dry, subtle sense of humor" in a recent statement. The comment highlights her appreciation for the country music legend.
 - sources:
   - [unverified] Holler Country — https://news.google.com/rss/articles/CBMirgFBVV95cUxObUJtdkg0ZTJ5WEduckFBVDJqYm1DNEdNVldjUmxaLWNCWnlxREZrVEo3b3hOOFJRTXNCZTRYMGpvTnN5TndnemlIX3MtZ2t4ZE5lNUIweGxlY08zdExsRXVBWHRKb2dKck8wTnFzb0Myci10WEtrSGZRZ2ozVTZNSFdWRzZmZm52TC1ES0tqUVBWX1ROd0NCNkw5WFVhMVFEdzRmMXVXOEZSb1EtQmc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Shares Phone Call from Brother Jason About Taylor Swift
-
-- first seen: 2026-10-21 11:58 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce recounted a phone call from his brother, Jason, that Taylor Swift found surprising and described as ‘f---ed up’.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQa1c0TnB4YXlEOFpHT0o2bEZPSkw4MTZUWnZsLVgxV1dYTThqNmw5TnVSVC0xX1JZWjhpcVhieHlaODRqM3REXzNFTVhmSXlpV2E1SFpWT084Zm8zYWtVSFdVMnBpaGpXazJ3U0tQV0VuWDYxZV9SZ0tHSjZuWE42V0ZueVRSTXZNWlJzRTZRM0Nxal96U1FUb1A5TlRZMy1GNVVfNVJWcTNxdmFoZlcyOWtkVXFsS1NXZTIyeE13?oc=5&hl=en-US&gl=US&ceid=US:en
