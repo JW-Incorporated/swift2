@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 80
+
+## Taylor Swift Spotted With Travis Kelce’s Lombardi Trophy
+
+- first seen: 2026-10-25 05:01 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A photo surfaced showing Taylor Swift alongside Travis Kelce’s Lombardi Trophy, attracting significant attention.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/photo-taylor-swift-travis-kelce-040052121.html
 
 ## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
 
@@ -667,19 +675,3 @@ Stories: 81
 - summary: The latest Weekly Track Roundup includes Taylor Swift, Grimes, and A$AP Rocky among featured artists. This roundup covers new music and notable tracks released around October 18, 2026.
 - sources:
   - [unverified] The Needle Drop — https://news.google.com/rss/articles/CBMiswFBVV95cUxPakNJZExrX1QwTjEwMFpsVWtnbnVEM3FjWHVrWnhkNEE3cDc2N0RwMFdHYXhwWHYxNjFpSktGcUcxb3BnX0dyLUJJcmRkbV9kOEo5MlJlbW50azE2WmpCZnNDaEsybDE4UkZNRHE1YkpueWdWRnN6ZzhfUFJ4WEFlUTcwYlVwRWllR19EUkdiRjZxNXAxT2U1Mkg3Q2I0aW9pMmVRYUVDZ21neTNHaVA1R2REOA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Changes Wedding Ring Ahead of Chiefs Game
-
-- first seen: 2026-10-22 04:58 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made headlines by changing her wedding ring just days before the Kansas City Chiefs' matchup against the Seattle Seahawks. This change has caught the attention of fans and media alike.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNQnl2dEo3R1BIdkpZWktad2NfYlRwYXl1UUJabnJEbmRnX1hGXzB6NzJwdUp4aHdDOThVdG9jb2Rpb3Q2RDU0YWpxMEkwQjNieUp6ZjlGUG56V1dOZWV5T0tRNUFtT2pxZ3o5SlljRDllRWJtdzVsVzdoWnA5QXdwT2NycUFDcmpncnhwaHFjRVVMV3pHQW1GR2plVEpIMndMNFJMMA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Overview of Taylor Swift's Early Career
-
-- first seen: 2026-10-22 04:58 UTC | category: music | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: The Arizona Daily Star provides an overview of Taylor Swift's early career, highlighting her beginnings in the music industry. The piece focuses on her initial steps and influences that shaped her path as an artist.
-- sources:
-  - [unverified] Arizona Daily Star — https://news.google.com/rss/articles/CBMidEFVX3lxTE9XQ0c3c2M4SUZCM0dwbExOLVZ3UDhpeU9YWFlMUXVKOTlNUGdKUmFkd29TSFJXMUI3UV9KeEhKNEVBS2traHdjZGFmWmd1bnhMVEpkMmx5OXRheDNwOXY1TnQ2dUFhalJISjgyQ0Rvd1l2NE53?oc=5&hl=en-US&gl=US&ceid=US:en
