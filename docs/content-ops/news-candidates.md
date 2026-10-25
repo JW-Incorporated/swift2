@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 85
 
 ## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
 
@@ -715,19 +715,3 @@ Stories: 87
 - summary: Taylor Swift’s show, 'The Life of a Showgirl: The Encore', continues to captivate audiences, as reported by The Miami Hurricane. The performance showcases her talents and entertainment value.
 - sources:
   - [unverified] The Miami Hurricane — https://news.google.com/rss/articles/CBMirwFBVV95cUxNVk9FTHZFYklIWmFoelZNMHhhcTh3NExSSy1tLWNnc0ZhSmNJMVpNdkFRVEtMbVN1T214YWRmN3lfb0R0ODVIV3hNVzhIXzZoV3pxUk5IRmNiekpKTTBVZ0VQZFVHS0tLWFJNSndBQjh0ajFBalRLeFh5eTFwekxJbVdCd1BhajlTTmRyQi00VmxUQU14MnZ4TUpPTkd4WVlrOXRNOEI0eUZkaFFmVy1J?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discussing Taylor Swift and Travis Kelce's wedding speculation
-
-- first seen: 2026-10-22 01:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An opinion piece questions the ongoing scrutiny surrounding Taylor Swift and Travis Kelce's wedding. The author explores societal tendencies to analyze celebrity relationships in detail.
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi0AFBVV95cUxOYlUycTU2MkFCdnBxa2RDakk1OGROeFlNWVZaT1c1QTFOZ1JBY0VnUEJqcHdsN1l0aVRmU1N6ZEdQbHNfRHJESzhxZW9FS2dhZjBiWVBwNGxzRmJlaXhSQkxxaFRHTW1PSXdJNnJhTjdJTXcwVEYyb1V6dUIwS3FnRmRKdmxJZnVkN2xhb2lrcHJDUXpBUGNWVFctOHNVSnBoYU8yOGZxdzFXVGhGanBMc2JvUUNRUTFOWXFSUTJveGVTdFdoODJDTHIwNDJaSkZT?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Music Provides Hope for Inmates
-
-- first seen: 2026-10-22 01:58 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An article from ASU News discusses how Taylor Swift's music offers inspiration and hope to individuals incarcerated, highlighting the impact of her songs in rehabilitation and emotional support.
-- sources:
-  - [unverified] ASU News — https://news.google.com/rss/articles/CBMisAFBVV95cUxObVBHYkJrcmVOaEVTM3RvQ2Y2bTA2SGtFNkxDbktBZG53aEthdG9fNEhJRTBqcmltUXp3alBubjJ2bl9jQ2ZqNk9Qd29iV2NUZkJjdGw1SXdZTDVhX2JONFJmeGVfdzNjMUdvWHlCbEhuWEwxd1Jrbi1OanhneG00MW5OZVgycEpaWUJ3d3A0X3ZETHd6OE82ZEJUQmFRVDFLS2EwWG9iZEY3RzF0TlpkUA?oc=5&hl=en-US&gl=US&ceid=US:en
