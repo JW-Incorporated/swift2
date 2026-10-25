@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 77
+
+## Posture Bra Gains Popularity Following Taylor Swift's Influence
+
+- first seen: 2026-10-25 12:56 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A posture bra has seen a surge in popularity, attributed to Taylor Swift's influence. Retailers are noticing increased interest in this product as fans look to emulate Swift's style.
+- sources:
+  - [unverified] Peoria Journal Star — https://www.eastpeoriatimescourier.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
+
+## Taylor Swift Sparks Interest in Posture Bra
+
+- first seen: 2026-10-25 12:56 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A posture bra has garnered attention, reportedly beginning with Taylor Swift's influence. The item has since seen increased interest and demand.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
 
 ## Posture Bra Gains Popularity After Taylor Swift's Influence
 
@@ -73,7 +89,7 @@ Stories: 75
 - verification_status: rumor | source_count: 1
 - summary: A photo surfaced showing Taylor Swift alongside Travis Kelce’s Lombardi Trophy, attracting significant attention.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/photo-taylor-swift-travis-kelce-040052121.html
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-lombardi-trophy-photo-turns-heads/
 
 ## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
 
