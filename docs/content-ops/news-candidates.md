@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 75
+
+## Celebrating 20 Years of Taylor Swift's Debut with Notable Photos
+
+- first seen: 2026-10-25 21:31 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: A look back at Taylor Swift's 20-year career anniversary highlighted by five memorable photos. The article reflects on her journey since her debut.
+- sources:
+  - [unverified] HELLO! Magazine — https://www.hellomagazine.com/us/931164/taylor-swift-debut-20-years-ago-unmissable-photos/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swifts-debut-20-years-202613864.html
+
+## Taylor Swift's Attendance at Chiefs vs. Seahawks Game Questioned
+
+- first seen: 2026-10-25 21:31 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There are speculations about whether Taylor Swift will attend the Chiefs game against the Seahawks during NFL Week 7 in 2026.
+- sources:
+  - [unverified] Bolavip US — https://bolavip.com/en/nfl/is-taylor-swift-attending-the-chiefs-game-vs-seahawks-today-in-2026-nfl-week-7-snf
+
+## Taylor Swift's Potential Attendance at Chiefs Game on October 25
+
+- first seen: 2026-10-25 21:31 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Speculation arises regarding Taylor Swift's attendance at the Chiefs game today, October 25. Details on her participation remain unconfirmed.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66079547/?ref_=nmnw_art_perm
 
 ## Prince William Jokes About Travis Kelce's Taylor Swift Selfie Mistake
 
@@ -611,11 +636,3 @@ Stories: 73
 - summary: The Daily Bruin published a ranking of Taylor Swift's albums, celebrating 20 years of her music career. The article reflects on the lasting impact of her work, particularly focusing on which albums will continue to resonate with fans.
 - sources:
   - [unverified] Daily Bruin — https://news.google.com/rss/articles/CBMisgFBVV95cUxNY3lxZS1xcUxTMXBhSEtkNENxbXZUQjFFU3hPWkVvNDAyVE5BUmxGeUhMa2NNUkM3Zm8zWERRaEFWZ2h6MkV3eDhET3p3cm96a3U2VWt3N0FiWVRlR21UQTlpX3RjVENWSksyQWgzR2FEZEpQUVBzcXBKX1lkeUNmMWJWbFRlQzZhaVdiYXZXT05fRHFCLTNiTzRHZm95QnRWRHJrOXJhYVhLNU4wczhjU05B?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Rhode Island Mansion History Explored
-
-- first seen: 2026-10-22 21:32 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article details the history of Taylor Swift's Rhode Island mansion, describing it as once being the unruly seaside kingdom of an heiress. The piece offers insights into the property’s past and significance.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2AFBVV95cUxNMEtidWRZWnZVM2ZocV9zSE9IeHM4VFRiUlpzZkVtR1JnQnFlRi1qZ0Y5VFN6eUtHSFh3NkF2LVNPeVljdGQxVVU3akE4a1BCNktLY08xcDNqeW94eWdrOXFJMlFacHRieXE5SFhQaHFPYm9vUVdyeDBsSG5nSU16aDdqZTNoMHphckxGeUZ5eW5MMXF5NWVoVzNTUlhHUHVnZ3kzR2xVQlBkTHVtRmJpZkVIeGNOVklkaUVKVG5wbXhZd3FyTXZheVlHOC01OXVwbXdFOEREYnrSAdgBQVVfeXFMUEliZzJhRko0NnBnSVFVVmRfbjF5dUh5eDVyUEc1bDZNZ2M1emU3S1ZDYWlfWFhzc19ZSngzMGlUY1NBSkk4RW0zYndyS2VEN293SVZ5eHBSWmo0LXhjSEJMN0RZV0xQUEI2dVdoYUxub1Q1aWdIaC1vbXc4LU83T1l4YTJRdG4yamxiTld2RzNqNVFjQjczcGEwWkp3aXBES29wdl9WLS1XNDI3WnJyMWNKMlBqME1FLU54T2RaYmIxQzgwcDhlYXBUUTAwd0tPUERyMDBMZWxE?oc=5&hl=en-US&gl=US&ceid=US:en
