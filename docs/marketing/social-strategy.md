@@ -416,13 +416,15 @@ arithmetic above is the other half: a ≤2 cap on a 13-beat fortnight could not
 have carried 12 events even on a perfect week. So, from this plan on:
 
 - **A major moment gets a same-day pair and does not spend the ordinary cap.**
-  *Major* means a confirmed event the site itself fronts: a live debut, a
-  release, an official video, a chart No. 1, an award, a tour or appearance
-  announcement — never an intake row whose `significance` is `routine`. The
-  ceiling becomes **≤3 news posts per rolling 7 days, of which ≤2 may be
-  ordinary**; a third in one week must be major. The anti-aggregator reason the
-  ≤2 was written still holds for everything that is not major, which is most of
-  the intake feed.
+  *Major* is a property of the event, not of a metadata field: a confirmed
+  event the site itself fronts whose shape is a live debut, a release, an
+  official video, a chart No. 1 or a chart milestone, an award, or a tour or
+  appearance announcement. `significance: "defining"` or `"notable"` on the
+  moment makes it major outright; **`routine` is not evidence of anything and
+  never disqualifies a moment** (corrected 2026-10-25 — see "Why 1 of 15"
+  below). The ceiling stays **≤3 news posts per rolling 7 days, of which ≤2 may
+  be ordinary**; a third in one week must be major. The anti-aggregator reason
+  the ≤2 was written still holds for everything that is not major.
 - **Every calendar leaves somewhere for one to land.** Each rolling 7 days
   carries **≥2 displaceable beats** — a `heartbeat:` or `mood:` beat — on top
   of its news reserve. A plan with zero slack is how a full calendar silently
@@ -433,9 +435,42 @@ have carried 12 events even on a perfect week. So, from this plan on:
   then mood). If no heartbeat or mood beat is free inside 48h, a major moment
   takes the nearest one and that beat is **dropped rather than slid**, recorded
   in the item's `why`. A major moment posted two days late is not news.
+- **A floor, not just a ceiling — ≥3 moments a week reach both platforms inside
+  48h** (added 2026-10-25, answering Marjorie's ask
+  [#6310](https://github.com/JW-Incorporated/swift2/issues/6310); evidence: the
+  week to 2026-10-25 shipped **1** news pair while the site carried 15 moments,
+  the second such week running). The ≤3 ceiling was written as a guard against
+  over-posting; the measured failure is the opposite, so the news allowance is
+  now meant to be **spent**, not held. Three moments needs three landing days
+  and the calendar already carries them — one news reserve plus the ≥2
+  displaceable beats above. A week that lands fewer than three names each
+  moment it missed and the reason, in the plan.
 - **It is measured.** Each weekly plan reports news pairs shipped against major
-  site-covered moments, so a 1-of-13 gap shows up as a number rather than as a
-  good intention.
+  site-covered moments and against the floor of three, so a 1-of-15 gap shows
+  up as a number rather than as a good intention.
+
+**Why 1 of 15, and the two halves of the fix (2026-10-25).** The `routine` veto
+this section used to carry was one half of it: `scripts/social/new-on-site.mjs`
+writes `significance: item.significance ?? 'routine'` and the vault corpus
+leaves the field unset, so **all 64 moment rows** across the 10-17 → 10-25
+`social/inbox/new-on-site-*.json` sheets read `routine` — including "The Fate of
+Ophelia" going live for the first time and "Showgirl" reaching 15 weeks at
+No. 1, both of which are squarely on the major list above. `routine` is not even
+a value the content type defines (`packages/experience/src/types.ts`:
+`'defining' | 'notable'`). The major lane could therefore never open on its own,
+and the one pair that did ship got there through the calendar, planned by hand.
+
+The other half is **not this desk's to fix** and is filed to Marjorie:
+`scripts/social/lib/event-dispatch.mjs` decides which events earn a dedicated
+event-draft run from a title keyword list (`TIMELY_RE`) that rejects **10 of 10**
+of this week's site-fronted moment headlines, and bounds its scan at
+`EVENT_WINDOW_HOURS = 24` against this section's 48h; and
+`docs/agents/runner-prompts/tree-event-draft.md` step 5 schedules only onto a UTC
+day where neither platform is already taken, never displacing a `heartbeat:` or
+`mood:` beat — so the yield order and the ≥2-displaceable-beats guarantee above
+are both unreachable from inside the only run that drafts off-reserve news. Until
+those land, the floor is carried by the calendar path (the reserve plus planned
+pairs), which is slower than same-day and cannot reliably make 48h.
 
 The site's own `social/inbox/new-on-site-*.json` sheet is evidence a moment is
 live and already sourced on the site; it is not a substitute for sourcing the
@@ -550,7 +585,10 @@ day.
 2026-10-01): its beat is written `news:` with a named fallback subject on the
 same line, and it is the only slot the previous day's run leaves alone. A
 calendar that assigns all seven days to planned campaigns is now a planning
-bug, not a full plan — it is what made 27 events in two weeks un-postable.
+bug, not a full plan — it is what made 27 events in two weeks un-postable. One
+reserve is the floor on *slots*, not on posts: §1(e2)'s throughput floor is **≥3
+moments reaching both platforms inside 48h each week**, carried by the reserve
+plus the ≥2 displaceable beats, and a plan is read against that number.
 
 ### Sibling rule + the X length rule
 
@@ -799,6 +837,7 @@ against that old curve is fiction. Reset below.
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
 | Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
 | Campaign mix | `campaign` prefixes | Roughly 1 launch arc, **6 thread beats** (one per thread, §1(b) as of 2026-10-09), 4-5 news reserves, 4-5 timeline beats, 2-3 mood, rest heartbeat, per month |
+| **News throughput** (added 2026-10-25, Tree, answering ask [#6310](https://github.com/JW-Incorporated/swift2/issues/6310)) | `social/posted/` `news:`/`heartbeat:event-news:` pairs vs the week's `social/inbox/new-on-site-*.json` moments | **Floor ≥3 moments reaching both platforms inside 48h** per week (§1(e2)), against the ≤3-pair ceiling. Report it as `<shipped> of <site-fronted moments>, <n> inside 48h` and name every miss with its reason. The week to 2026-10-25 was **1 of 15** |
 | **Photo supply** (added 2026-10-15, Tree) | `social/photo-library.json` vs `social/posted/` + `gh run list --workflow=concert-photo-sourcing.yml` | Three lines, reported as-is: **library total**, **never-used count**, and **the last `concert-photo-sourcing` run's conclusion**. A red engine is a headline, not a footnote — it lands zero photos, and the §2 intake floor (≥50 never-used entries/week under 3,000) is unreachable while one subreddit 403 is a total stop |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
