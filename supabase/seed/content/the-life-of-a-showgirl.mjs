@@ -16717,6 +16717,19 @@ export default {
               'The episode itself, published Oct. 22, 2026 per the channel feed; oEmbed-verified (HTTP 200, author First We Feast). Not watched from this run, so the quotes stay attributed to Contactmusic.',
           },
         ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg',
+            focalPoint: '55% 30%',
+            // 1280x720 maxresdefault, curl-verified HTTP 200 image/jpeg,
+            // downloaded and vision-confirmed 2026-10-25: Maya Hawke smiling
+            // in front of the Hot Ones hot-sauce lineup with the show logo;
+            // oEmbed confirms the video id is First We Feast's episode.
+            credit: 'First We Feast (official Hot Ones episode thumbnail, YouTube)',
+            caption: 'Maya Hawke on the Hot Ones set, in the thumbnail of the episode where she named her two epic-poetry Taylor songs.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
