@@ -244,7 +244,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, which moved them to 5-0, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater, and the detail fashion coverage picked up afterward was on her hand: a gold wrap ring set with rubies, which Who What Wear identified as the Magna ring from the jewelry label Retrouvaí.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
@@ -291,6 +291,33 @@ export default {
             reliability_score: 4,
             notes:
               'Independent corroboration of Taylor, Clark and Este Haim together at GEHA Field at Arrowhead Stadium, the Donna Kelce hug, and the 22-6 win over the Chargers.',
+          },
+          {
+            outlet: 'Kansas City Chiefs',
+            url: 'https://www.chiefs.com/news/chiefs-defeat-chargers-22-6-to-move-to-5-0-on-the-season',
+            source_title: 'Chiefs defeat Chargers, 22-6, to move to 5-0 on the season',
+            publisher: 'Kansas City Chiefs',
+            source_type: 'official',
+            accessed_at: '2026-10-24',
+            reliability_score: 5,
+            notes:
+              'Team recap published Oct. 19, 2026. Confirms only the game: the 22-6 win over the Chargers and the 5-0 record. It does not name the venue or carry Kelce\'s receiving line, and says nothing about the suite guests. The injury mention is deliberately not used (health redline).',
+          },
+          {
+            // Added 2026-10-25 (Vault Run, Content Shift lane, intake #6300).
+            // The whowhatwear.com page would not render from this run; read via
+            // the Yahoo syndication (same author, Who What Wear credited). It says
+            // "last weekend" at Arrowhead in the red turtleneck, matching this
+            // Oct. 18 game. Price and gem-symbolism framing left out.
+            outlet: 'Who What Wear',
+            url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-ruby-ring',
+            source_title: 'Taylor Swift Just Wore the Jewelry Trend That Symbolizes Wealth, Power, and Protection',
+            publisher: 'Who What Wear',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-25',
+            reliability_score: 3,
+            notes:
+              'By Drew Elovitz, Oct. 24, 2026. Primary text for the gold-and-ruby wrap ring and its identification as Retrouvaí\'s Magna ring.',
           },
           {
             // Added 2026-10-22 (Vault Run, Content Shift lane, intake #6166).
@@ -1638,12 +1665,12 @@ export default {
               "A month on, TicketNews — citing Rob Shuter's 'Naughty But Nice' newsletter — reported Taylor was weighing a concert residency insiders valued at up to $1 billion, with venues in two different metro areas said to be competing for it. Neither Taylor nor her reps confirmed anything.",
             reportedBy: "TicketNews (citing Rob Shuter's Naughty But Nice newsletter)",
             reportedOn: "2026-07-08",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.ticketnews.com/2026/07/report-taylor-swift-could-be-considering-billion-dollar-concert-residency/",
             sourceTier: "tabloid",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "A gossip-newsletter tip carried by the ticketing trade press; the billion-dollar figure is insider speculation, not a disclosed deal. The underlying report named specific competing arenas, coarsened here to 'two metro areas' per the location matrix since nothing is announced. Resolves confirmed on an official residency announcement; fades if the talk goes quiet.",
+              "A gossip-newsletter tip carried by ticketing trade press; the billion-dollar figure is insider speculation. The competing arenas are coarsened to two metro areas per the location matrix. Faded 2026-10-24: no residency announced by Taylor or any venue, and no fresh reporting since July. Never confirmed or denied.",
           },
         ],
       },
@@ -3156,12 +3183,12 @@ export default {
               "The album's lone feature kept the 'who will Taylor work with next' question alive. One name fans have watched since March 2025: SZA, who told Rolling Stone she'd offered to write with Taylor and that Taylor 'was open to it.' More than a year on, no Taylor–SZA track has been announced or released.",
             reportedBy: "Rolling Stone",
             reportedOn: "2025-03-21",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.rollingstone.com/music/music-news/sza-taylor-swift-collaboration-kendrick-lamar-superbowl-1235301403/",
             sourceTier: "established",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "SZA's own on-record comment about a possible collaboration — an unannounced-music question, explicitly Always-OK. Re-checked Aug 2026: still no announced or released Taylor–SZA track. Resolves on a credited release or a public denial; fades if it stays talk. No location.",
+              "SZA’s own on-record comment about a possible collaboration, an unannounced-music question (Always-OK). Faded 2026-10-24: re-checked, still no announced or released Taylor–SZA track and no new reporting since March 2025. Never confirmed or denied, gone quiet. No location.",
           },
         ],
       },
@@ -3834,13 +3861,13 @@ export default {
               "As the Eras Tour's filmed finale arrived, fan accounts claimed Taylor was 'in talks' for European dates on a future tour. Reality Tea, aggregating the chatter in late July 2026, noted Taylor herself had said she wasn't touring 'any time soon' — leaving the timing unsettled.",
             reportedBy: "Reality Tea",
             reportedOn: "2026-07-30",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.realitytea.com/2026/07/30/taylor-swift-tour-date-2027-rumors-fans-react/",
             sourceTier: "social",
             locationSpecificity: "region",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "Fan-account speculation, not a reported booking, carried by a gossip aggregator. Location kept at region level (a continent, no country or city) per the matrix. Resolves confirmed on any official European tour date; fades if it stays chatter.",
+              "Fan-account speculation, not a reported booking, carried by a gossip aggregator. Location kept at region level (a continent, no country or city) per the matrix. Resolves confirmed on any official European tour date; fades if it stays chatter. Faded 2026-10-24: re-checked, no tour dates announced anywhere and the fan-account talk produced no further reporting. Never confirmed or denied, gone quiet.",
           },
           {
             claim:
@@ -3850,9 +3877,9 @@ export default {
             status: "unconfirmed",
             url: "https://www.deuxmoi.world/news/taylor-swift-stuns-super-bowl-2026-2027-tour",
             sourceTier: "social",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-24",
             note:
-              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent.",
+              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent. Re-checked 2026-10-24: no tour announced for 2026 or 2027 yet. Still live while 2027 is ahead.",
           },
           {
             // Rumor Desk 2026-08-25: a fresh data point on the same "when does
@@ -3868,8 +3895,8 @@ export default {
             url: 'https://www.nme.com/news/music/emily-eavis-confirms-glastonbury-2027-headliners-booked-as-she-responds-to-madonna-rumours-3962795',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            note: 'Forward-looking tour speculation. Location held at region level (a country, no named festival or city) per the matrix — the underlying report names a specific festival, coarsened here because an unannounced future booking is speculative provenance. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser herself cautioned most such rumours are wrong.',
-            lastCheckedOn: '2026-08-26',
+            note: 'Forward-looking tour speculation. Held at region level (a country, no named festival or city) per the matrix, coarsened from the source. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser cautioned most such rumours are wrong. Re-checked 2026-10-24: line-up not announced yet. Still live.',
+            lastCheckedOn: '2026-10-24',
           },
         ],
       },
@@ -12892,6 +12919,22 @@ export default {
           { outlet: 'NBC Insider', url: 'https://www.nbc.com/nbc-insider/how-to-watch-taylor-swift-extended-tonight-show-interview' },
           { outlet: 'YouTube — The Tonight Show Starring Jimmy Fallon', url: 'https://www.youtube.com/watch?v=GzjZqH0WRwE' },
         ],
+        // Rumor Desk 2026-10-24: the same halftime question, a year on. Tiered
+        // tabloid: read via Heavy's Yahoo syndication, which relays Puck; Puck
+        // itself was not read from this run.
+        rumors: [
+          {
+            claim:
+              'A year after she addressed it on Fallon, the halftime question came back for Super Bowl LXI in February 2027. Puck\'s Dave Brooks reported on Oct. 20, 2026, citing multiple sources, that Jay-Z, who picks the halftime act, had chosen himself, which entertainment coverage read as ruling out a Taylor halftime show for another year. The NFL had not announced the headliner.',
+            reportedBy: 'Heavy (via Yahoo Entertainment), citing Puck',
+            reportedOn: '2026-10-21',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/nfl-taylor-swift-decision-leaked-213302955.html',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-10-24',
+            note: 'Read directly 2026-10-24 (Heavy, Oct. 21, 2026, quoting Puck\'s Oct. 20 story "Jay-Z Picks Jay-Z for Super Bowl LXI"). Resolves when the NFL announces the Super Bowl LXI halftime headliner: confirmed if it is Jay-Z with no Taylor set, debunked if Taylor headlines. A separate anonymous-insider read on why she would pass was left out as a non-claim about her private plans. No location.',
+          },
+        ],
         // Photo pass #762 (2026-08-14): the YouTube thumbnail above is a
         // title-card graphic, not an actual video still. This NBC press photo
         // (Todd Owyoung/NBC, Oct. 6, 2025 taping) is downloaded and vision-
@@ -15643,6 +15686,18 @@ export default {
               'The official lyric video for "Patient Zero," posted to Taylor\'s YouTube the weekend The Life of a Showgirl: The Encore arrived.',
             kind: 'primary',
           },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/09/02-taylor-swift-tloas-encore-billboard-1800.jpg?w=1024',
+            // Billboard's own og:image for the cited Spotify-record story; curl
+            // 200 image/jpeg (1024px render of an 1800x1200 original), downloaded
+            // and viewed: Taylor in a black sleeveless top, red lip, head tilted.
+            // Source shoot not identified, so the caption claims only what
+            // Billboard used it for.
+            focalPoint: '68% 22%',
+            credit: 'Billboard',
+            caption: 'The image Billboard led with in its report on Taylor\'s single-day Spotify record for The Life of a Showgirl: The Encore.',
+            kind: 'reference',
+          },
         ],
         sources: [
           {
@@ -16435,8 +16490,8 @@ export default {
       // Yahoo) and Bleacher Report. CUT: where Jason was staying. One outlet
       // places it at the couple's house, and a residence never gets more
       // than city level here (privacy-redlines.md), so this stays "in Kansas
-      // City". The YouTube episode was not cited because its date could not
-      // be confirmed from this environment.
+      // City". Enriched 2026-10-24 (Vault Run, intake #6273): New Heights'
+      // own YouTube clip of the story, oEmbed-verified (author New Heights).
       slug: 'showgirl-jason-kelce-squatober-wake-up-call',
       year: 2026,
       month: 10,
@@ -16447,6 +16502,10 @@ export default {
         'On New Heights, Travis told how his brother rang at 7:30 in the morning looking for a bench-press spotter, and how Taylor summed it up.',
       sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-brother-jason-114353594.html',
       thumbnailUrl: null,
+      video: {
+        youtubeId: 'P63VzLn2uzo',
+        title: 'New Heights — Taylor on Jason\'s early-morning spot request',
+      },
       moment: {
         context:
           'On the Oct. 21, 2026 episode of New Heights, Travis told a story from Jason\'s visit to Kansas City for the Chargers game. His phone rang at 7:30 in the morning. "In my mind, I\'m thinking worst-case scenario," he said. It was Jason, deep into "Squatober," his October lifting push, asking for a spotter on the bench press.\n\nTravis said his first answer was "No way!" He went anyway. "I\'m walking out of the room, and Taylor\'s like, \'This is f---ed up,\'" he recalled, to which he answered, "Nah, it\'ll be good. It\'ll be good!"',
@@ -16474,6 +16533,18 @@ export default {
             reliability_score: 3,
             notes:
               'By Adam Wells, Oct. 21, 2026; loaded directly. Independent pickup confirming "Squatober," the bench-press spot and Taylor\'s reaction.',
+          },
+          {
+            outlet: 'New Heights',
+            url: 'https://www.youtube.com/watch?v=P63VzLn2uzo',
+            source_title:
+              'Mahomes Is Having Fun Again & Taylor Swift Calls Out Jason’s 7 AM Spot Request',
+            publisher: 'New Heights (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-10-24',
+            reliability_score: 5,
+            notes:
+              'New Heights\' own clip of the story, posted Oct. 23, 2026; oEmbed-verified (HTTP 200, author New Heights). Cited as the show\'s own telling; the quotes above stay attributed to People and Bleacher Report.',
           },
         ],
         // Visual (charter step 3b): no free-licensed image of the episode, so
@@ -16536,6 +16607,127 @@ export default {
             credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
             caption: 'Then: Taylor holding up a certified-sales plaque for the debut album, May 2007.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-24 (Vault Run, Content Shift lane) from intake #6285.
+      // Harper's Bazaar and Marie Claire both loaded directly and agree on the
+      // quotes. Correction to the filing: Marie Claire dates the appearance
+      // Oct. 23 (a Friday, the show's usual night), not Oct. 24; Harper's
+      // Bazaar gives no air date. Visual: the selfie itself, the same Instagram
+      // embed the June 2024 moment uses (tortured-poets.mjs, verified there
+      // 2026-10-09 as taylorswift's own post). The embed renders client-side,
+      // so it could not be re-read from this run.
+      slug: 'showgirl-prince-william-graham-norton-selfie',
+      year: 2026,
+      month: 10,
+      day: 23,
+      category: 'relationship',
+      title: 'Prince William on the Wembley selfie: "Travis kept coming back in"',
+      snippet:
+        'More than two years on, William told Graham Norton he had been trying to edit Travis out of the photo that made Taylor and Travis Instagram official.',
+      sourceUrl:
+        'https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In June 2024, after the first of her Wembley Eras Tour shows, Taylor posted a backstage selfie with Prince William, Prince George and Princess Charlotte. Travis was in the frame too, which made it the first photo of the two of them on her own Instagram.\n\nOn Oct. 23, 2026, William made a surprise appearance on The Graham Norton Show and told the other side of it. "I hadn\'t appreciated the significance," he said. "Actually, I was trying to move him out of the photo, but Travis kept coming back in. I couldn\'t work out why he kept coming back in. I was trying to move him out so it was just me and Taylor and the children." When Norton pointed out that this was the photo where they went "photo official," William answered, "Apparently."\n\nThere was no falling-out behind the joke. William later went on New Heights himself, in the episode that came out on July 3, 2026.',
+        sources: [
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/',
+            source_title: 'Prince William Speaks on His Now-Famous Photo With Taylor Swift and Travis Kelce',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-24',
+            reliability_score: 4,
+            notes:
+              'By Sophie Wang, Oct. 24, 2026; loaded directly. Primary text for the full quote, Norton\'s "photo official" line and William\'s "Apparently," and the July 3, 2026 New Heights episode.',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/celebrity/royals/prince-william-trying-to-move-away-from-travis-kelce-eras-tour-selfie-taylor-swift/',
+            source_title:
+              'Prince William Shares Why He "Was Trying to Move" Away From Travis Kelce During His Viral Taylor Swift Eras Tour Selfie',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-24',
+            reliability_score: 4,
+            notes:
+              'By Amy Mackelden, Oct. 24, 2026; loaded directly. Independent account of the same quotes; source for the Oct. 23 air date.',
+          },
+        ],
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            "Taylor's own Instagram, June 2024: the backstage Wembley selfie William was talking about.",
+          postedOn: '2024-06-21',
+        },
+      },
+    },
+    {
+      // Authored 2026-10-25 (Vault Run, Content Shift lane) from intake #6301.
+      // The episode date is First We Feast's own YouTube upload (RSS published
+      // 2026-10-22, oEmbed-verified). The quotes come from Contactmusic, read
+      // directly; the episode itself was not watched from this run. Contactmusic's
+      // wording of Sean Evans's question is a paraphrase, so it is paraphrased
+      // here too. CUT: her Eminem answer from the same episode (off-topic).
+      slug: 'showgirl-maya-hawke-hot-ones-epic-poetry',
+      year: 2026,
+      month: 10,
+      day: 22,
+      category: 'music',
+      title: 'Maya Hawke on Hot Ones: "But Daddy I Love Him" and "betty" are epic poetry',
+      snippet:
+        'Asked which Taylor songs belong in an American poetry anthology, Maya Hawke picked one from The Tortured Poets Department and one from folklore.',
+      sourceUrl:
+        'https://www.contactmusic.com/story/467/3632131/maya-hawke-thinks-these-two-taylor-swift-songs-are-epic-poetry-',
+      thumbnailUrl: null,
+      video: {
+        youtubeId: '4p1yZgR4F9k',
+        title: 'Hot Ones — Maya Hawke',
+      },
+      moment: {
+        context:
+          'Maya Hawke took on the wings on Hot Ones in an episode that went up on Oct. 22, 2026. When Sean Evans asked which Taylor song should represent her in an American anthology of poetry, she named two: "But Daddy I Love Him" from The Tortured Poets Department and "betty" from folklore.\n\n"They tell a full story like an epic poetry," she said. "They do it without using clichés." She called them "extremely complete, kind of epic journeys," and added, "to do a journey like that in such a condensed amount of time — it\'s just concentrated humanity, you know?"',
+        sources: [
+          {
+            outlet: 'Contactmusic',
+            url: 'https://www.contactmusic.com/story/467/3632131/maya-hawke-thinks-these-two-taylor-swift-songs-are-epic-poetry-',
+            source_title: "Maya Hawke thinks these two Taylor Swift songs are 'epic poetry'",
+            publisher: 'Contactmusic.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-25',
+            reliability_score: 3,
+            notes:
+              'By Alistair McGeorge, Oct. 23, 2026; loaded directly. Primary text for the two song picks and every quote.',
+          },
+          {
+            outlet: 'First We Feast',
+            url: 'https://www.youtube.com/watch?v=4p1yZgR4F9k',
+            source_title: 'Maya Hawke Is Proud of the Progress While Eating Spicy Wings | Hot Ones',
+            publisher: 'First We Feast (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-10-25',
+            reliability_score: 4,
+            notes:
+              'The episode itself, published Oct. 22, 2026 per the channel feed; oEmbed-verified (HTTP 200, author First We Feast). Not watched from this run, so the quotes stay attributed to Contactmusic.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg',
+            focalPoint: '55% 30%',
+            // 1280x720 maxresdefault, curl-verified HTTP 200 image/jpeg,
+            // downloaded and vision-confirmed 2026-10-25: Maya Hawke smiling
+            // in front of the Hot Ones hot-sauce lineup with the show logo;
+            // oEmbed confirms the video id is First We Feast's episode.
+            credit: 'First We Feast (official Hot Ones episode thumbnail, YouTube)',
+            caption: 'Maya Hawke on the Hot Ones set, in the thumbnail of the episode where she named her two epic-poetry Taylor songs.',
+            kind: 'primary',
           },
         ],
       },
