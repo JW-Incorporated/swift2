@@ -1447,9 +1447,9 @@ export default {
             reportedOn: '2026-08-07',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/taylor-swift-allegedly-restocks-250-200000000.html',
-            note: 'A more concrete signal than the easter-egg reads above, but sourced to a fan-bot and a tabloid write-up — Taylor and her team have said nothing. The re-recording is on record as finished (her May 2025 letter: "already completely re-recorded my entire debut album"); only the release is unannounced. Resolves on a debut Taylor\'s Version announcement, fades if anniversary passes empty. No location.',
+            note: 'Sourced to a fan-bot and a tabloid write-up; Taylor and her team said nothing. The re-recording is on record as finished (May 2025 letter); only the release is unannounced. Resolves on a debut Taylor’s Version announcement, fades if the anniversary passes empty. Re-checked 2026-10-24, the anniversary: no announcement, the website tribute came with no release. Still live. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-30',
+            lastCheckedOn: '2026-10-24',
           },
           {
             // Rumor Desk 2026-08-19: a different KIND of signal than the
@@ -1464,9 +1464,9 @@ export default {
             reportedOn: '2026-06-19',
             status: 'unconfirmed',
             url: 'https://popculture.com/celebrity/news/taylor-swift-spotted-at-recording-studio-amidst-new-taylors-version-speculation/',
-            note: 'A distinct signal from the easter-egg and restock reads above: a quantified betting-market probability with a hard deadline. The debut re-record is on record as finished (Taylor, May 2025); only the release is unannounced. Resolves cleanly by 2026-12-31 — a debut Taylor\'s Version out or not — otherwise fades. No location.',
+            note: 'A quantified betting-market probability with a hard deadline, distinct from the easter-egg and restock reads. The debut re-record is on record as finished (May 2025); only the release is unannounced. Resolves by 2026-12-31, otherwise fades. Re-checked 2026-10-24: still unannounced on the anniversary morning. No location.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-19',
+            lastCheckedOn: '2026-10-24',
           },
         ],
       },

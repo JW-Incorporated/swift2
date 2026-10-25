@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-22',
+  updatedOn: '2026-10-24',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
@@ -109,7 +109,9 @@ export default {
       // the only "out 24 Oct" claims found are on user-edited fan wikis.
       // Rechecked 2026-10-22 (Vault Run): still no announcement of either;
       // coverage remains fan speculation and unconfirmed retail listings.
-      lastCheckedOn: '2026-10-22',
+      // Rechecked 2026-10-24 (Vault Run), the anniversary itself: the website
+      // tribute (Elle, 23 Oct) came with no release; still nothing announced.
+      lastCheckedOn: '2026-10-24',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: with the debut album turning 20 on 24 October 2026, coverage on 18 October still reported no announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
