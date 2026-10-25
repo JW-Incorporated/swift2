@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 79
+
+## Taylor Swift Makes Surprise Appearance During Dakota Johnson's 'SNL' Monologue
+
+- first seen: 2026-10-25 22:31 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a surprise cameo during Dakota Johnson's monologue on Saturday Night Live, portraying Johnson's 'literal therapist'. This unexpected moment added a humorous twist to the show's opening.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66046600/?ref_=ttnw_art_perm
+
+## Taylor Swift's Exes Share Their Thoughts About Her
+
+- first seen: 2026-10-25 22:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Yahoo article features insights from Taylor Swift's former partners discussing their perspectives about her. The piece highlights various opinions and reflections on their past relationships with the artist.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swifts-exes-lot-her-134500901.html
+
+## Taylor Swift Achieves Number One Hit with 'Patient Zero'
+
+- first seen: 2026-10-25 22:31 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached another milestone in her music career as her latest song, 'Patient Zero', secures the number one position on the charts. This adds to her impressive list of chart-topping hits.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66047959/?ref_=ttnw_art_perm
+
+## Olivia Rodrigo Tops Billboard 200, Overtaking Taylor Swift
+
+- first seen: 2026-10-25 22:31 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Olivia Rodrigo has secured the top position on the Billboard 200 chart, surpassing Taylor Swift, aided by the artist Chappell Roan. This marks a significant shift in the rankings of popular music.
+- sources:
+  - [unverified] Forbes — https://www.forbes.com/sites/monicamercuri/2026/10/25/olivia-rodrigo-dethrones-taylor-swift-on-billboard-200-with-help-from-chappell-roan/
 
 ## Celebrating 20 Years of Taylor Swift's Debut with Notable Photos
 
