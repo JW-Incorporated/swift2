@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 75
+
+## Taylor Swift's Name Origin Linked to James Taylor
+
+- first seen: 2026-10-25 14:36 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was named after the renowned singer-songwriter James Taylor, a fact revealed long before her rise to global fame. This connection highlights her musical influence from an early age.
+- sources:
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/etimes/trending/taylor-swift-was-named-after-singer-songwriter-james-taylor-long-before-she-became-a-global-superstar-years-later-she-shared-the-stage-with-the-very-musician-whose-name-helped-shape-her-own-in-a-full-circle-moment/articleshow/135187293.cms
 
 ## Posture Bra Gains Popularity Following Taylor Swift's Influence
 
@@ -627,27 +635,3 @@ Stories: 77
 - summary: Bernie Taupin talks about his new solo album and mentions Elton John and Taylor Swift in a recent interview with Billboard. The conversation highlights Taupin's work and his connections with these well-known artists.
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUC15eEpsSTFEVEpJRlNaNG1WSG1OUkNDaWlYQkRzdk9qZ1J4d2lDN3RQaTl4eVVPX1FDWDhIZzQyenB0ZTlOMFoxYUhOSGhOUmpNVXJPNHBTUlM3T0Zhc2tIMHEwT1hRMVQ3NEVyQzJYd1VUT0UzNzJ6Sk9TNHN1b3FTYW1uUDFyS0tBX0lYUFVWeW0tSXAtbm1RM1lrZ3lLcHc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Self-Titled Debut Album Celebrates 20th Anniversary
-
-- first seen: 2026-10-22 14:29 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's self-titled debut album marks its 20th anniversary, reflecting on two decades of her music career.
-- sources:
-  - [unverified] Stereogum — https://news.google.com/rss/articles/CBMigAFBVV95cUxOdk9XcFV4UTk4MXlwZWJsVDVOLVYwaXNJUGNHZmZES3NNSDNkYnJRX1BVSVRjRHdoVHJFOWZoVkVWTjBaWER2SUdOZWhqMVBBbERMTmNzQl9HV29EbG95LVFubnVaNWF3c0VfcVZscGdHWk5kSVJkY3VieE04b09ZVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Best Music-Themed Halloween Costume Ideas for 2026
-
-- first seen: 2026-10-22 14:29 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A list of creative Halloween costume ideas inspired by music legends and popular artists for 2026 is now available. Options include honoring icons like Dolly Parton and channeling contemporary stars like Bad Bunny.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-lists/halloween-costume-ideas-2026-music-dolly-parton-bad-bunny-1235645993/
-
-## Taylor Swift's New Single Reflects Desire to Prove Herself
-
-- first seen: 2026-10-22 14:29 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A source reveals that Taylor Swift feels she has 'something to prove' with her upcoming single. The anticipation surrounding this release suggests it may hold significant importance for the artist.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNc2FmYndwbUpnTDA2WThuRnRsdlRCM1NndUJpclFIck9mZllCRFhhdWR2ZHFZUkcxeUJ5UTl5R2ZmSUJKaFVzM0NpS042cWNUY2VpQ0JGN1c5UG9Xa1pZUjRjN0NlQmEtRkY1ZDRqMzhWSDNuZlFScXc1d3d4dWRTN3FFLXY4RUNCNm5yRWtzVjdZWC1FRG50am5Fam5CMmdKTDlN?oc=5&hl=en-US&gl=US&ceid=US:en
