@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 79
+
+## Taylor Swift Anxious Over Negative Travis Kelce Reports
+
+- first seen: 2026-10-25 17:31 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports indicate that Taylor Swift is feeling genuinely anxious about negative news regarding her relationship with Travis Kelce, citing issues of private friction between the two.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234956156/taylor-swift-travis-kelce-response/
 
 ## Taylor Swift's Attendance at Chiefs vs. Seahawks Game Questioned
 
