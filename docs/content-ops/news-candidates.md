@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 88
+
+## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
+
+- first seen: 2026-10-25 00:06 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A feature from ABC News showcases a 14-year-old Taylor Swift reflecting on her early experience with stardom. The article highlights her rise in the music industry and her journey as a young artist.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/video/137542132/
 
 ## Grammy Voters Share Phase 1 Insights on Nominees
 
