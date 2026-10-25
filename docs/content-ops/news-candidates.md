@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 76
+
+## Prince Critiques Sports Star in New Interview
+
+- first seen: 2026-10-25 15:36 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a surprising interview, Prince offers critique directed at a well-known sports star. The comments have sparked interest and discussion among fans and the media.
+- sources:
+  - [unverified] News.com.au — https://www.news.com.au/entertainment/celebrity-life/royals/prince-william-shades-travis-kelce-over-viral-taylor-swift-selfie/news-story/3ffd67cc828d502a65f4985e50179538
+
+## Taylor Swift Expresses Concern Over Media Coverage of Travis Kelce Romance
+
+- first seen: 2026-10-25 15:36 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has voiced concerns that the extensive media coverage of her romance with Travis Kelce may be diminishing its appeal to fans. This comes amidst ongoing public interest in their relationship.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-worries-her-travis-kelce-romance-is-losing-its-appeal-as-fans-face-relentless-couple-coverage-12232341
+
+## Prince William's Attempt to Move Travis Kelce in Taylor Swift Selfie
+
+- first seen: 2026-10-25 15:36 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Prince William unknowingly tried to shift Travis Kelce out of a selfie with Taylor Swift, which also marked the couple's debut on Instagram. The incident highlights a notable moment involving the royal family and pop culture.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-tried-move-travis-153046580.html
 
 ## Taylor Swift's Name Origin Linked to James Taylor
 
@@ -619,19 +643,3 @@ Stories: 75
 - summary: The mansion where Taylor Swift wrote her album '1989' is currently on the market. The property has garnered attention due to its connection to the popular album.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxNM3NELWd3OVJJQ2h2VVlHNFFkalhJNmZxc2ExMWV2V1A0ZWVFQ2VFZV9qLUpUd05OclBiZ1dYRWhrU2tyNm9lVUhfcWlYcWFlTU5YOG9rOU15bTNXZHhfODBucFo1bG5tb1V1Tm1ldVpEWnV3VWtNTUJMMFFTMjJ1WlVGaEhTM2F5R3RFekk0bW9mWE1mX094R0QwNjFaUQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Faces Anxiety Over Public Perception and Overexposure
-
-- first seen: 2026-10-22 15:27 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A new article explores Taylor Swift's concerns regarding her overexposure and the potential impact on public opinion about her. The discussion sheds light on her feelings about maintaining her image in the public eye.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi-AFBVV95cUxPRUVWSHRTMEgtYURYb01pSGtGb19QaWRBbWp4S1pIQjV2NTRPYmt6anEyc3hiMnIzQm9rcVdhcl8wWEtpTTlralFtbTk5VGJJcW9rZXE0M0R6OG5PNjJBbi1VM193WXFPdl8zcGdCR283YWhtWjZlYnd2X1Qyck5ubnFpZW1tTHd0ckl6Zm5uZEdhRFlNNTA5VWRoV3pUbk51MXlpYkcwOEI0NFRxOGhsdmY3ay1mOEd4TjlkRENnZ2toaEhzLTJzeXBZaGRMX1Y5dzZBdzZ5N1JnUFg3c3AtdFcyYW9xWm1uaTdXODI0a3VfalN5YlZUV9IB-AFBVV95cUxNS2ZiZEN5QnQ3Q1BhV2ZpSERxNWcxY3ZvcDlBZnNXWnpKV2VMUHROUE9zWDBSS3k1alh6eGFSZU1OSXozcHUwRmgyT0RBRWNRRkdveUhNbGpQVTFub2RrUzVybmFZZmFQMHhpUklvQU5feUtXQ0NWTzdMRjNCVUVFRE40SjhYem9GOUlJUlBrdDNjQVJ4MzBfYzliS0p6NzdJNHBPNllmNjZTWlRuUVFscjhjU1k3QlIyckdnRW5URG5Bb3lkOFRXNVJxWWhlSWptcTJXNE9zRGJnZ0JNQ1ZVQ2U0bDB6UHA5ZURXZm14SXc4d2VKbFVQdQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Bernie Taupin Discusses New Solo Album Featuring Elton John and Taylor Swift
-
-- first seen: 2026-10-22 15:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bernie Taupin talks about his new solo album and mentions Elton John and Taylor Swift in a recent interview with Billboard. The conversation highlights Taupin's work and his connections with these well-known artists.
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxQUC15eEpsSTFEVEpJRlNaNG1WSG1OUkNDaWlYQkRzdk9qZ1J4d2lDN3RQaTl4eVVPX1FDWDhIZzQyenB0ZTlOMFoxYUhOSGhOUmpNVXJPNHBTUlM3T0Zhc2tIMHEwT1hRMVQ3NEVyQzJYd1VUT0UzNzJ6Sk9TNHN1b3FTYW1uUDFyS0tBX0lYUFVWeW0tSXAtbm1RM1lrZ3lLcHc?oc=5&hl=en-US&gl=US&ceid=US:en
