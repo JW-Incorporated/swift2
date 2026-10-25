@@ -244,7 +244,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, which moved them to 5-0, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
+          'Taylor was back in her usual suite at Arrowhead Stadium on Sunday, Oct. 18, 2026, and once again she had company from the basketball world: Caitlin Clark, a self-described "big Chiefs fan," was right beside her, and her longtime friend Este Haim of HAIM was there too. At one point Taylor pulled Donna Kelce in for a hug.\n\nIt was Clark\'s latest turn in the suite after the January 2025 Texans playoff game and the Oct. 12, 2025 Sunday-night win over Detroit — by now a recurring pairing rather than a novelty. On the field Kansas City took a 22-6 rout of the division-rival Chargers, which moved them to 5-0, with Travis finishing on four catches for 53 yards. Taylor watched in a red turtleneck sweater, and the detail fashion coverage picked up afterward was on her hand: a gold wrap ring set with rubies, which Who What Wear identified as the Magna ring from the jewelry label Retrouvaí.\n\nThe moment that traveled furthest afterward was a fan clip. Footage shared on TikTok appeared to show a woman near the suite turning around and raising her phone at Taylor, and Taylor gesturing back at her, reported as a cue to put the phone down and watch the game. There is no audio of what was said, and neither Taylor nor the fan has commented, so the exchange is only as clear as the clip.',
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/10/1280/720/taylor-swift-caitlin-clark-chiefs-chargers.jpg?ve=1&tl=1',
@@ -302,6 +302,22 @@ export default {
             reliability_score: 5,
             notes:
               'Team recap published Oct. 19, 2026. Confirms only the game: the 22-6 win over the Chargers and the 5-0 record. It does not name the venue or carry Kelce\'s receiving line, and says nothing about the suite guests. The injury mention is deliberately not used (health redline).',
+          },
+          {
+            // Added 2026-10-25 (Vault Run, Content Shift lane, intake #6300).
+            // The whowhatwear.com page would not render from this run; read via
+            // the Yahoo syndication (same author, Who What Wear credited). It says
+            // "last weekend" at Arrowhead in the red turtleneck, matching this
+            // Oct. 18 game. Price and gem-symbolism framing left out.
+            outlet: 'Who What Wear',
+            url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-ruby-ring',
+            source_title: 'Taylor Swift Just Wore the Jewelry Trend That Symbolizes Wealth, Power, and Protection',
+            publisher: 'Who What Wear',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-25',
+            reliability_score: 3,
+            notes:
+              'By Drew Elovitz, Oct. 24, 2026. Primary text for the gold-and-ruby wrap ring and its identification as Retrouvaí\'s Magna ring.',
           },
           {
             // Added 2026-10-22 (Vault Run, Content Shift lane, intake #6166).
@@ -16650,6 +16666,70 @@ export default {
             "Taylor's own Instagram, June 2024: the backstage Wembley selfie William was talking about.",
           postedOn: '2024-06-21',
         },
+      },
+    },
+    {
+      // Authored 2026-10-25 (Vault Run, Content Shift lane) from intake #6301.
+      // The episode date is First We Feast's own YouTube upload (RSS published
+      // 2026-10-22, oEmbed-verified). The quotes come from Contactmusic, read
+      // directly; the episode itself was not watched from this run. Contactmusic's
+      // wording of Sean Evans's question is a paraphrase, so it is paraphrased
+      // here too. CUT: her Eminem answer from the same episode (off-topic).
+      slug: 'showgirl-maya-hawke-hot-ones-epic-poetry',
+      year: 2026,
+      month: 10,
+      day: 22,
+      category: 'music',
+      title: 'Maya Hawke on Hot Ones: "But Daddy I Love Him" and "betty" are epic poetry',
+      snippet:
+        'Asked which Taylor songs belong in an American poetry anthology, Maya Hawke picked one from The Tortured Poets Department and one from folklore.',
+      sourceUrl:
+        'https://www.contactmusic.com/story/467/3632131/maya-hawke-thinks-these-two-taylor-swift-songs-are-epic-poetry-',
+      thumbnailUrl: null,
+      video: {
+        youtubeId: '4p1yZgR4F9k',
+        title: 'Hot Ones — Maya Hawke',
+      },
+      moment: {
+        context:
+          'Maya Hawke took on the wings on Hot Ones in an episode that went up on Oct. 22, 2026. When Sean Evans asked which Taylor song should represent her in an American anthology of poetry, she named two: "But Daddy I Love Him" from The Tortured Poets Department and "betty" from folklore.\n\n"They tell a full story like an epic poetry," she said. "They do it without using clichés." She called them "extremely complete, kind of epic journeys," and added, "to do a journey like that in such a condensed amount of time — it\'s just concentrated humanity, you know?"',
+        sources: [
+          {
+            outlet: 'Contactmusic',
+            url: 'https://www.contactmusic.com/story/467/3632131/maya-hawke-thinks-these-two-taylor-swift-songs-are-epic-poetry-',
+            source_title: "Maya Hawke thinks these two Taylor Swift songs are 'epic poetry'",
+            publisher: 'Contactmusic.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-25',
+            reliability_score: 3,
+            notes:
+              'By Alistair McGeorge, Oct. 23, 2026; loaded directly. Primary text for the two song picks and every quote.',
+          },
+          {
+            outlet: 'First We Feast',
+            url: 'https://www.youtube.com/watch?v=4p1yZgR4F9k',
+            source_title: 'Maya Hawke Is Proud of the Progress While Eating Spicy Wings | Hot Ones',
+            publisher: 'First We Feast (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-10-25',
+            reliability_score: 4,
+            notes:
+              'The episode itself, published Oct. 22, 2026 per the channel feed; oEmbed-verified (HTTP 200, author First We Feast). Not watched from this run, so the quotes stay attributed to Contactmusic.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg',
+            focalPoint: '55% 30%',
+            // 1280x720 maxresdefault, curl-verified HTTP 200 image/jpeg,
+            // downloaded and vision-confirmed 2026-10-25: Maya Hawke smiling
+            // in front of the Hot Ones hot-sauce lineup with the show logo;
+            // oEmbed confirms the video id is First We Feast's episode.
+            credit: 'First We Feast (official Hot Ones episode thumbnail, YouTube)',
+            caption: 'Maya Hawke on the Hot Ones set, in the thumbnail of the episode where she named her two epic-poetry Taylor songs.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
