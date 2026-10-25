@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 76
 
 ## Taylor Swift Spotted With Travis Kelce’s Lombardi Trophy
 
@@ -643,19 +643,3 @@ Stories: 78
 - summary: NPR explores Aaron Dessner's influence in the pop music scene, highlighting his contributions to bringing authenticity to the genre. The piece examines his methods and impact on contemporary music.
 - sources:
   - [unverified] NPR — https://news.google.com/rss/articles/CBMigAFBVV95cUxObV9rNHRuTG5xZmI3dU1ranY4bnp2NGYtemQ2Z3dUSUdhRDhXYjBCLTBiNFhrcDhodnRZai1QejFvU1VydVJkbVFweVVEWW9Hb3R6SlFGVzllQjdCVXEydDZrUnhiV1BJV2pzdXhHdlc4VmVXTmlFMzFraHNKbmpJaQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Cara Delevingne Discusses Her Role in Taylor Swift’s ‘Patient Zero’ Music Video
-
-- first seen: 2026-10-22 08:05 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Cara Delevingne shares insights into her participation in Taylor Swift's music video for 'Patient Zero.' The discussion highlights how she became involved with the project.
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE1FWkZ4T291cGwzdXhlaE5CR2c3bWl5cU1qdXlWRm1YbVpZMzJNR0ROUzVmU0I5US1MU0l4bGtBM2JBQUZiLXdsQWJzNF9BRWlnamZsYjZiMm5BMFhLXzI4aVgwZ01Ndw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## New Soundtrack Released for 'Nobody Wants This' Season 3 on Netflix
-
-- first seen: 2026-10-22 08:03 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Netflix has released the soundtrack for Season 3 of 'Nobody Wants This,' titled 'The Bubbly Soundtrack to a Champagne Season.' This new music accompanies the series as it continues to captivate audiences.
-- sources:
-  - [unverified] Netflix — https://news.google.com/rss/articles/CBMiigFBVV95cUxQX3BxQXROZWJqd3pTUmt0SHB0eWZoQzU5RkVXbGtHdUVhX2FSM2NHN0ZiTkszaElZMkt5Rk0xTzNlVWZLX0MwSEdSaEhBZUprNlF3TjV4OV91eERFVXhpdUJaX1diZ0d1X05SMDZQTkREaGE0Sk81NktHQ1FpVkluMGNWbGNMQlNvYWc?oc=5&hl=en-US&gl=US&ceid=US:en
