@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 77
+
+## Jack Antonoff Discusses Breakup and Personal Songwriting Insights
+
+- first seen: 2026-10-25 10:56 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: In a recent interview, Jack Antonoff reflects on his shock breakup and the impact it has on his songwriting, emphasizing the importance of personal integrity in his music. He discusses his experiences while on tour with his band Bleachers and his past with the band Fun.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/oct/25/jack-antonoff-bleachers-interview-producer-kendrick-springsteen-taylor-swift
+
+## Celebrity Looks: Dakota Johnson in Retro Corduroy Pants
+
+- first seen: 2026-10-25 10:56 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: This article highlights various celebrity fashion trends, including Dakota Johnson's stylish corduroy pants and Kate Middleton's cozy sweater. These looks are capturing attention and are being sought after by fashion enthusiasts.
+- sources:
+  - [established] People — https://people.com/best-celebrity-outfits-this-week-10-25-12145041
 
 ## Taylor Swift Spotted With Travis Kelce’s Lombardi Trophy
 
@@ -635,11 +651,3 @@ Stories: 76
 - summary: A recent event in Denver showcased nearly 100 divas, including Taylor Swift. The feature highlights various prominent female artists in the music industry.
 - sources:
   - [unverified] The Colorado Sun — https://news.google.com/rss/articles/CBMidEFVX3lxTE9LZTBBVnpmaFQyOUpNTnU4WGpFOVdlNlBjMnVRd3hHQmZpMGpOZUtLSnc5dlRuSHU2d3UtUnVMTWxwbkhSUE8xYThxelpjRTBfTFJnMkwwV2Y5QlVaLUJFQ2FxdDRnQ0w3SjczR2FyRnVjbTJI?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Aaron Dessner's Role in Promoting Authenticity in Pop Music
-
-- first seen: 2026-10-22 10:01 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: NPR explores Aaron Dessner's influence in the pop music scene, highlighting his contributions to bringing authenticity to the genre. The piece examines his methods and impact on contemporary music.
-- sources:
-  - [unverified] NPR — https://news.google.com/rss/articles/CBMigAFBVV95cUxObV9rNHRuTG5xZmI3dU1ranY4bnp2NGYtemQ2Z3dUSUdhRDhXYjBCLTBiNFhrcDhodnRZai1QejFvU1VydVJkbVFweVVEWW9Hb3R6SlFGVzllQjdCVXEydDZrUnhiV1BJV2pzdXhHdlc4VmVXTmlFMzFraHNKbmpJaQ?oc=5&hl=en-US&gl=US&ceid=US:en
