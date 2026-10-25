@@ -1,0 +1,21 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "okay END GAME fans, little challenge for you 💍\n\nopen the thread on longlive and scroll to the ring. taylor's engagement ring is an old-mine cut diamond — and the goldsmith who made it is named right there in the beat, someone whose work she'd admired long before travis ever called.\n\nfind her name and reply with what you got 👇 no googling — it's genuinely in there, promise.\n\nwe built End Game as every sourced, dated step of the whole thing: the tight end who invited her onto his podcast, the game the world decided made it official, super bowl LVIII, the instagram announcement, the ring, the garden at MSG. you can read it start to finish like a story.\n\nopen it: https://www.longlivets.com/?lens=the-proposal&utm_source=instagram&utm_medium=social&utm_campaign=the-proposal\n\n#taylorswift #traviskelce #taylorandtravis #endgame #swifties #longlive",
+  "media": ["/social/library/photos/reddit-taylorswiftpictures-1pxtr93-ig45.jpg"],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1pxtr93-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pxtr93/taylors_workout/",
+  "scheduledAt": "2026-10-26T23:00:00Z",
+  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor’s Workout"],
+  "campaign": "thread:the-proposal:interactive-challenge:2026-10-hero",
+  "why": "End Game thread hero (window 10-26→30), interactive-challenge angle: find the ring beat and name the goldsmith (Kindred Lubeck) — answerable only by opening /?lens=the-proposal. Confirmed engagement news, sourced in the thread.",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "total": 21,
+    "rationale": "An interactive End Game challenge that only pays off if you open the lens — find the ring beat and name the goldsmith (Kindred Lubeck), a real sourced detail. It rewards reading the thread end to end and invites genuine replies, exactly the share-shaped engagement we need.",
+    "rulesChecked": ["L002"],
+    "revision": 1
+  }
+}
