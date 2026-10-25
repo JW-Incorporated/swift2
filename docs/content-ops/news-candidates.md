@@ -57,7 +57,7 @@ Stories: 79
 - verification_status: rumor | source_count: 1
 - summary: Olivia Rodrigo has secured the top position on the Billboard 200 chart, surpassing Taylor Swift, aided by the artist Chappell Roan. This marks a significant shift in the rankings of popular music.
 - sources:
-  - [unverified] Forbes — https://www.forbes.com/sites/monicamercuri/2026/10/25/olivia-rodrigo-dethrones-taylor-swift-on-billboard-200-with-help-from-chappell-roan/
+  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/olivia-rodrigo-dethrones-taylor-swift-213253213.html
 
 ## Celebrating 20 Years of Taylor Swift's Debut with Notable Photos
 
