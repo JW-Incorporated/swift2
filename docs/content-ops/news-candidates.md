@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 87
 
 ## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
 
@@ -731,11 +731,3 @@ Stories: 88
 - summary: An article from ASU News discusses how Taylor Swift's music offers inspiration and hope to individuals incarcerated, highlighting the impact of her songs in rehabilitation and emotional support.
 - sources:
   - [unverified] ASU News — https://news.google.com/rss/articles/CBMisAFBVV95cUxObVBHYkJrcmVOaEVTM3RvQ2Y2bTA2SGtFNkxDbktBZG53aEthdG9fNEhJRTBqcmltUXp3alBubjJ2bl9jQ2ZqNk9Qd29iV2NUZkJjdGw1SXdZTDVhX2JONFJmeGVfdzNjMUdvWHlCbEhuWEwxd1Jrbi1OanhneG00MW5OZVgycEpaWUJ3d3A0X3ZETHd6OE82ZEJUQmFRVDFLS2EwWG9iZEY3RzF0TlpkUA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## NFL's Taylor Swift Decision Surfaces Ahead of Super Bowl Announcement
-
-- first seen: 2026-10-22 00:58 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Details regarding the NFL's decision on Taylor Swift emerge as the announcement for the Super Bowl Halftime Show approaches. This comes amid ongoing speculation about her potential involvement.
-- sources:
-  - [unverified] Heavy.com — https://news.google.com/rss/articles/CBMinwFBVV95cUxPMGVKTjhlTERadjdGVk9IWS1BQnhRN2JxSnVVS05aX1A1ZEVZNmdwUGhVQXRGMXlrQTEzRnJ3Q0w5OXRIQ3Bmd195bGpsYzRIb1FqZ0xhUDFuTjhjRENLdzc5RFBRenNpQ1F4SlBUU0lKTGJYQzluWEpKRl9TTFg4eEs3T0N1QmtyT1VNV2ZUWm1xWV9sZjktVGxxY2dRZmc?oc=5&hl=en-US&gl=US&ceid=US:en
