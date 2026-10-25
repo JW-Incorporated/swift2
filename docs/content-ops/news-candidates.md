@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 81
 
 ## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
 
@@ -683,27 +683,3 @@ Stories: 84
 - summary: The Arizona Daily Star provides an overview of Taylor Swift's early career, highlighting her beginnings in the music industry. The piece focuses on her initial steps and influences that shaped her path as an artist.
 - sources:
   - [unverified] Arizona Daily Star — https://news.google.com/rss/articles/CBMidEFVX3lxTE9XQ0c3c2M4SUZCM0dwbExOLVZ3UDhpeU9YWFlMUXVKOTlNUGdKUmFkd29TSFJXMUI3UV9KeEhKNEVBS2traHdjZGFmWmd1bnhMVEpkMmx5OXRheDNwOXY1TnQ2dUFhalJISjgyQ0Rvd1l2NE53?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Reportedly 'Won Herself an Oscar' Before Game
-
-- first seen: 2026-10-22 03:58 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: According to a report, Taylor Swift has been recognized with an Oscar ahead of attending a game featuring Travis Kelce. Details surrounding the award and the event remain unspecified.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-gala-travis-kelce/
-
-## Taylor Swift Involved in Incident with Fan at Chiefs Game
-
-- first seen: 2026-10-22 03:58 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: During a Chiefs game, Taylor Swift was accused of snapping at a fan. An expert has provided insights into what actually transpired during the incident.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPekFUWHlDcjN2SFR4blJYaEZncWxNYzN4R2g2dDQtaFVSSHpVcXNhcVZIU1RQelVKN3Nab2NzeTdRanQ4eUhKZlZmNzBmNXZrd3lia08yOTZFdFloZmpSOWgyX05FdmJCbGZ2MXRXVS11d2taaHJGaEZvTWRzNDlLSkhzZ09OQ1Q1aUdWeDFZMml2NmZ2TFpUNmpHc1hsRE5YNm9RamVR?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Taylor Swift's Ties to Chiefs Nation
-
-- first seen: 2026-10-22 03:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce recently shared his thoughts on Taylor Swift's continuous connection to the Chiefs nation. This highlights the ongoing relationship between Swift and the sports community.
-- sources:
-  - [unverified] MARCA — https://news.google.com/rss/articles/CBMi4gFBVV95cUxQWk9qeDFhMkxHbGFJQXBRR2JqOV9Oa3lYSjE3emlDajRoNzN5UG5hc18wMDhrOXhEeFIyWWkyWWVTdXd6czF4NVo4VFlIQWJZQ21rX1g2ZFMya0ZTN1dMY2tRRXNPYlAxYmdmTTNFTkVHTmxfTVdBOGRiV2taal9WVkdMZW1yTVFZNUpsd3VBbE5SbDdHUHZZZ1ZyNjdsZ0o0MVJSQW1zWUt3dlpUUmlDajR6QjVuYmJaUjBxeFFJNnAtcTNBazJFYWNCdkFDeXdpRHRhRnBhUXkyOXQwSnVRWTR30gHiAUFVX3lxTE9HdW14UEpNR2xPUmtSVzJ6cnZZalBTQV9pME51WFl0eVRhTld4ZlVpR3VZMXZhRDJUcGlZMzRZU1VhckRtRklXd1FJZWMweU5MTW1ab0hGMnR2M1BvZm15bGNLQjM3QW1teGIzZjlUVXVtRFV4S3R3SHVZZmR0Q1FScW0wS3hMQjU1RlRCYVd6Rk1qOHF0TEN3T1pydjFQNDFuMWpUUURlT2FGN3F3UWtjZGZGZnV1dWJzWDRlZDB0dnhQaUZkd0hYYmFPRjBCRlJ4THZVRm5KR0ZyMkd4Y1EyOUE?oc=5&hl=en-US&gl=US&ceid=US:en
