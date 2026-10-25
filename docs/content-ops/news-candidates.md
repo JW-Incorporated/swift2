@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 75
 
 ## Prince William Jokes About Travis Kelce's Taylor Swift Selfie Mistake
 
@@ -635,19 +635,3 @@ Stories: 77
 - summary: A discussion has emerged regarding the possibility of a tribute episode dedicated to Taylor Swift in a reboot of the series 'Glee'. USA Today explores this idea in their latest coverage.
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQQ2phN2VmcjBCbkZaV1lKeFFoR1EtR3hsUG5tTmgzVXdQR1BqdnQtczdWZjlEaXNzM2wwc29XV044RjZLal91bFBCazR4cnpkRlVraXJoRnlQR2JJU2loaWJHVGtwTTlCUWxqQXAyUDN1NlU4VTNtYkhpWmJlX296eXU4LWNvYmNUNVU4T1dDd0xiLXduUmRyUVhXMWNja0tSaG9fNXpPbktQTjZrcWEta0UyU0FyeXBJ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Pledges $4 Million to Nashville Community
-
-- first seen: 2026-10-22 19:27 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made a significant $4 million pledge that is inspiring a community in Nashville. This generous commitment is expected to have a positive impact on the area.
-- sources:
-  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMizgFBVV95cUxNbThpbWpPVk9BRW5aQVMzSjlfdEg3empvZnJHYTZpMzFfSFdIZUtWM1NZZDh0TlFidTYtdF9Vb05OYm9wckxsemdHLVhST0hVcXFDZDE2X19ta2VQSElLQjJDQ0tuX2NXQXQzbXdmby1TbkIxejZDcV9hSzljTlh0RV9WV01LNk83RGYwRmtZcVBncFlfU2hVaU96RmpQUE9FMWxPZGZTQzFNem5VTzJTSnBOUHJfa3EtNENrQWF6NGlNSk5Mc1hkTFdKbXU0dw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Season 3 of 'Nobody Wants This' Features Taylor Swift and Other Artists
-
-- first seen: 2026-10-22 19:27 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: The third season of 'Nobody Wants This' includes a variety of songs by notable artists such as Taylor Swift, Robyn, Usher, and SZA, among others. The 10-episode series features original tracks and poignant musical selections throughout its episodes.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/nobody-wants-this-soundtrack-songs-all-seasons/
