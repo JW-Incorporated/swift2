@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 78
 
 ## Taylor Swift Spotted With Travis Kelce’s Lombardi Trophy
 
@@ -659,19 +659,3 @@ Stories: 80
 - summary: Netflix has released the soundtrack for Season 3 of 'Nobody Wants This,' titled 'The Bubbly Soundtrack to a Champagne Season.' This new music accompanies the series as it continues to captivate audiences.
 - sources:
   - [unverified] Netflix — https://news.google.com/rss/articles/CBMiigFBVV95cUxQX3BxQXROZWJqd3pTUmt0SHB0eWZoQzU5RkVXbGtHdUVhX2FSM2NHN0ZiTkszaElZMkt5Rk0xTzNlVWZLX0MwSEdSaEhBZUprNlF3TjV4OV91eERFVXhpdUJaX1diZ0d1X05SMDZQTkREaGE0Sk81NktHQ1FpVkluMGNWbGNMQlNvYWc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Travis Kelce Discusses Benefits of Marriage to Taylor Swift
-
-- first seen: 2026-10-22 07:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Travis Kelce shared his thoughts about being married to Taylor Swift, mentioning a particular perk he finds enjoyable. This highlights their relationship in the public eye.
-- sources:
-  - [unverified] InStyle — https://news.google.com/rss/articles/CBMiiwFBVV95cUxQbGIyNjZkY1RPSzJTd180eDh0aS1BRnF6ZjBQeEh3cmFPMDY4TU5nQlpNWGlnMk00Q2V5STlzV09TbER3UVlxZTdwZDlOaUhIM2JpN3h6WU5BZzV2aW5kb25WNk1xS2wzYTJjQkItdmRWeWIycEwxWG1ZVExEQ0paMGJjcVRIYkxOOFVV?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Weekly Track Roundup Features Taylor Swift and Others
-
-- first seen: 2026-10-22 07:03 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The latest Weekly Track Roundup includes Taylor Swift, Grimes, and A$AP Rocky among featured artists. This roundup covers new music and notable tracks released around October 18, 2026.
-- sources:
-  - [unverified] The Needle Drop — https://news.google.com/rss/articles/CBMiswFBVV95cUxPakNJZExrX1QwTjEwMFpsVWtnbnVEM3FjWHVrWnhkNEE3cDc2N0RwMFdHYXhwWHYxNjFpSktGcUcxb3BnX0dyLUJJcmRkbV9kOEo5MlJlbW50azE2WmpCZnNDaEsybDE4UkZNRHE1YkpueWdWRnN6ZzhfUFJ4WEFlUTcwYlVwRWllR19EUkdiRjZxNXAxT2U1Mkg3Q2I0aW9pMmVRYUVDZ21neTNHaVA1R2REOA?oc=5&hl=en-US&gl=US&ceid=US:en
