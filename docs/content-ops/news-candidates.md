@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 73
 
 ## Prince William Jokes About Travis Kelce's Taylor Swift Selfie Mistake
 
@@ -619,19 +619,3 @@ Stories: 75
 - summary: An article details the history of Taylor Swift's Rhode Island mansion, describing it as once being the unruly seaside kingdom of an heiress. The piece offers insights into the property’s past and significance.
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi2AFBVV95cUxNMEtidWRZWnZVM2ZocV9zSE9IeHM4VFRiUlpzZkVtR1JnQnFlRi1qZ0Y5VFN6eUtHSFh3NkF2LVNPeVljdGQxVVU3akE4a1BCNktLY08xcDNqeW94eWdrOXFJMlFacHRieXE5SFhQaHFPYm9vUVdyeDBsSG5nSU16aDdqZTNoMHphckxGeUZ5eW5MMXF5NWVoVzNTUlhHUHVnZ3kzR2xVQlBkTHVtRmJpZkVIeGNOVklkaUVKVG5wbXhZd3FyTXZheVlHOC01OXVwbXdFOEREYnrSAdgBQVVfeXFMUEliZzJhRko0NnBnSVFVVmRfbjF5dUh5eDVyUEc1bDZNZ2M1emU3S1ZDYWlfWFhzc19ZSngzMGlUY1NBSkk4RW0zYndyS2VEN293SVZ5eHBSWmo0LXhjSEJMN0RZV0xQUEI2dVdoYUxub1Q1aWdIaC1vbXc4LU83T1l4YTJRdG4yamxiTld2RzNqNVFjQjczcGEwWkp3aXBES29wdl9WLS1XNDI3WnJyMWNKMlBqME1FLU54T2RaYmIxQzgwcDhlYXBUUTAwd0tPUERyMDBMZWxE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Discussion of Possible Taylor Swift Tribute in Glee Reboot
-
-- first seen: 2026-10-22 20:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest that the reboot of 'Glee' might include a tribute episode dedicated to Taylor Swift. This has sparked discussions among fans regarding the potential inclusion of her music and influence in the show.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxQbVFkUWFTQkJfekVlN2JUR2FQNENBcG1yTUFZSGswLUJpYkZoVm85THZuS1dHSEhLWUZmOVhCMUJROGIyOGg1dW05b3I0cThRT3lMZkE3anZxWElFWHZxUUJZRDhpRVZ2cVd4V3RJejRrSUk3OXZDWjJ6SHZyaEdPTzF5aWRoVUhscTh5VkYxNEZFa1FLc0RScg?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Potential for Taylor Swift Tribute Episode in Glee Reboot
-
-- first seen: 2026-10-22 20:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A discussion has emerged regarding the possibility of a tribute episode dedicated to Taylor Swift in a reboot of the series 'Glee'. USA Today explores this idea in their latest coverage.
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQQ2phN2VmcjBCbkZaV1lKeFFoR1EtR3hsUG5tTmgzVXdQR1BqdnQtczdWZjlEaXNzM2wwc29XV044RjZLal91bFBCazR4cnpkRlVraXJoRnlQR2JJU2loaWJHVGtwTTlCUWxqQXAyUDN1NlU4VTNtYkhpWmJlX296eXU4LWNvYmNUNVU4T1dDd0xiLXduUmRyUVhXMWNja0tSaG9fNXpPbktQTjZrcWEta0UyU0FyeXBJ?oc=5&hl=en-US&gl=US&ceid=US:en
