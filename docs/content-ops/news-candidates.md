@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 84
 
 ## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
 
@@ -707,11 +707,3 @@ Stories: 85
 - summary: Travis Kelce recently shared his thoughts on Taylor Swift's continuous connection to the Chiefs nation. This highlights the ongoing relationship between Swift and the sports community.
 - sources:
   - [unverified] MARCA — https://news.google.com/rss/articles/CBMi4gFBVV95cUxQWk9qeDFhMkxHbGFJQXBRR2JqOV9Oa3lYSjE3emlDajRoNzN5UG5hc18wMDhrOXhEeFIyWWkyWWVTdXd6czF4NVo4VFlIQWJZQ21rX1g2ZFMya0ZTN1dMY2tRRXNPYlAxYmdmTTNFTkVHTmxfTVdBOGRiV2taal9WVkdMZW1yTVFZNUpsd3VBbE5SbDdHUHZZZ1ZyNjdsZ0o0MVJSQW1zWUt3dlpUUmlDajR6QjVuYmJaUjBxeFFJNnAtcTNBazJFYWNCdkFDeXdpRHRhRnBhUXkyOXQwSnVRWTR30gHiAUFVX3lxTE9HdW14UEpNR2xPUmtSVzJ6cnZZalBTQV9pME51WFl0eVRhTld4ZlVpR3VZMXZhRDJUcGlZMzRZU1VhckRtRklXd1FJZWMweU5MTW1ab0hGMnR2M1BvZm15bGNLQjM3QW1teGIzZjlUVXVtRFV4S3R3SHVZZmR0Q1FScW0wS3hMQjU1RlRCYVd6Rk1qOHF0TEN3T1pydjFQNDFuMWpUUURlT2FGN3F3UWtjZGZGZnV1dWJzWDRlZDB0dnhQaUZkd0hYYmFPRjBCRlJ4THZVRm5KR0ZyMkd4Y1EyOUE?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's 'The Life of a Showgirl: The Encore' Continues
-
-- first seen: 2026-10-22 03:00 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s show, 'The Life of a Showgirl: The Encore', continues to captivate audiences, as reported by The Miami Hurricane. The performance showcases her talents and entertainment value.
-- sources:
-  - [unverified] The Miami Hurricane — https://news.google.com/rss/articles/CBMirwFBVV95cUxNVk9FTHZFYklIWmFoelZNMHhhcTh3NExSSy1tLWNnc0ZhSmNJMVpNdkFRVEtMbVN1T214YWRmN3lfb0R0ODVIV3hNVzhIXzZoV3pxUk5IRmNiekpKTTBVZ0VQZFVHS0tLWFJNSndBQjh0ajFBalRLeFh5eTFwekxJbVdCd1BhajlTTmRyQi00VmxUQU14MnZ4TUpPTkd4WVlrOXRNOEI0eUZkaFFmVy1J?oc=5&hl=en-US&gl=US&ceid=US:en
