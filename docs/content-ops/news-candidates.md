@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 75
+
+## Posture Bra Gains Popularity After Taylor Swift's Influence
+
+- first seen: 2026-10-25 11:56 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new posture bra has seen a surge in demand, attributed to Taylor Swift's influence in the fashion world. The item has received notable attention in the market since its association with the artist.
+- sources:
+  - [unverified] The Post-Crescent — https://www.postcrescent.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
+
+## Posture Bra Gains Popularity Following Taylor Swift Mention
+
+- first seen: 2026-10-25 11:56 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A posture bra has seen a surge in demand, attributed to Taylor Swift's influence. The item is gaining attention in the fashion market.
+- sources:
+  - [unverified] The Commercial Appeal — https://www.commercialappeal.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
+
+## Caitlin Clark's Move Draws Comparison to Taylor Swift
+
+- first seen: 2026-10-25 11:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark showcases a move during gameplay that has fans drawing parallels to Taylor Swift, highlighting the influence of the pop star. This comparison has generated buzz among sports and music fans alike.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-makes-move-reminds-110000376.html
 
 ## Jack Antonoff Discusses Breakup and Personal Songwriting Insights
 
@@ -611,43 +635,3 @@ Stories: 77
 - summary: A source reveals that Taylor Swift feels she has 'something to prove' with her upcoming single. The anticipation surrounding this release suggests it may hold significant importance for the artist.
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxNc2FmYndwbUpnTDA2WThuRnRsdlRCM1NndUJpclFIck9mZllCRFhhdWR2ZHFZUkcxeUJ5UTl5R2ZmSUJKaFVzM0NpS042cWNUY2VpQ0JGN1c5UG9Xa1pZUjRjN0NlQmEtRkY1ZDRqMzhWSDNuZlFScXc1d3d4dWRTN3FFLXY4RUNCNm5yRWtzVjdZWC1FRG50am5Fam5CMmdKTDlN?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift Criticized Over Wedding to Travis Kelce
-
-- first seen: 2026-10-22 11:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is currently facing backlash from critics regarding her wedding to Travis Kelce. This situation has drawn attention across various platforms.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMigwFBVV95cUxQWk5xR3NEV2lCVUFLa0VSWXRQaUZBQm54NkdlckVUWGotWjRzNkFPXzc0VmtPYW8wRjlSeTRpTUJISXlfSEhmYmlIdVNWSTF4Ql9qcUZ1MDlxSFlzcnhyVzQ2RjQzNG95WEljY1FmZDRnRmtQMXB5NVl0RzhTRHNndW1Zcw?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Grammy-nominated sound engineer who mixed ‘Red’ resides in Aptos
-
-- first seen: 2026-10-22 11:01 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A Grammy-nominated sound engineer who contributed to Taylor Swift's album ‘Red’ has made Aptos his home. The article highlights his achievements and connection to the album.
-- sources:
-  - [unverified] Lookout Santa Cruz — https://news.google.com/rss/articles/CBMitAFBVV95cUxQYjVhVk1kdDFDRnBheVdfbnRnVGNQWUhwdF91OTc2R1hRRW15UDJwOTNzMHNpX2tLVmdteUxtSXpOckZrMHI4SnM1ekxKNi05Xy0wdk1yTHVBLXBWbDNDd1FPZjdsUE9fLTdFYjE0WTlLdGNTS1B3MHl5UkNPbUZhamhiNmw0N2lyQkQzaEFXWW1YZHlWOHdKMTh3SjB2eTBsV3ZaaVVqSWh3SVd1TTlqV21iWVQ?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Expert Comments on Taylor Swift's Recent Confrontation with Chiefs Fan
-
-- first seen: 2026-10-22 11:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An expert weighs in on the recent interaction between Taylor Swift and a Chiefs fan, suggesting that the situation may not have been as it appeared. The commentary provides a different perspective on the encounter.
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQRV85cEd4WTQxNHd2QjRiNk9oRERiUkhDcjYwQWU2T21hX3dFZ2ZjMEEyVGJhRlA2dmpUTXFVSFFidEpZLWM2cmNjbnU3aElzQkhEMmVONFdNN2pwNGkwcm9ILUFsNEJlVzVXQkx0c2V6TlVwZy1ISjdPV0lMeExzcWx5V1hQTzhxWERMRVI3YVNUMG9KWG5aWF9RZzBCLUlJWFlvSFNSc3RNSXc?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Timeline of Taylor Swift and Mariska Hargitay's Friendship
-
-- first seen: 2026-10-22 11:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article presents a detailed timeline exploring the friendship between Taylor Swift and Mariska Hargitay, highlighting their age-gap and significant moments in their relationship.
-- sources:
-  - [unverified] The List — https://news.google.com/rss/articles/CBMilAFBVV95cUxPQ3ZYcXAxeTZsMUxHcWV0MmRveG5GTXVJdUU4MGtldXh5MEI4TGItU3dfc2FFN3NkR3J5X05pb0pWVkRSYlFjR1V2YnJDQ01sS0NwcUtXckowVzhnWnZYUE5iN2xnMG5RcmNPMTljZTZhbUxWNVowcGtRdmlCdmY2NEhoeGV5X29KXzBwTWFKNmxLMDRv?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Denver Event Features Taylor Swift Among 100 Divas
-
-- first seen: 2026-10-22 11:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent event in Denver showcased nearly 100 divas, including Taylor Swift. The feature highlights various prominent female artists in the music industry.
-- sources:
-  - [unverified] The Colorado Sun — https://news.google.com/rss/articles/CBMidEFVX3lxTE9LZTBBVnpmaFQyOUpNTnU4WGpFOVdlNlBjMnVRd3hHQmZpMGpOZUtLSnc5dlRuSHU2d3UtUnVMTWxwbkhSUE8xYThxelpjRTBfTFJnMkwwV2Y5QlVaLUJFQ2FxdDRnQ0w3SjczR2FyRnVjbTJI?oc=5&hl=en-US&gl=US&ceid=US:en
