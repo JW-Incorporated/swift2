@@ -2,20 +2,43 @@
   "platform": "x",
   "lane": "calendar",
   "body": "quiz for the group chat 💍 who actually designed taylor's engagement ring? the answer lives inside our End Game timeline, waiting at the moment he proposed. tap through, then tell us the name you find: https://www.longlivets.com/?lens=the-proposal&utm_source=x&utm_medium=social&utm_campaign=the-proposal",
-  "media": ["/social/library/photos/reddit-taylorswiftpictures-1pxtr93-ig45.jpg"],
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1pxtr93-ig45.jpg"
+  ],
   "mediaKind": "photo",
   "photoId": "reddit-taylorswiftpictures-1pxtr93-ig45",
   "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1pxtr93/taylors_workout/",
   "scheduledAt": "2026-10-26T23:00:00Z",
-  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor’s Workout"],
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor’s Workout"
+  ],
   "campaign": "thread:the-proposal:interactive-challenge:2026-10-hero",
   "why": "End Game thread hero (window 10-26→30), interactive-challenge angle, X sibling of the IG pair: name the goldsmith behind the ring, answerable only by opening /?lens=the-proposal. Confirmed engagement news, sourced in the thread.",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
     "total": 21,
     "rationale": "The X half of the End Game challenge: open the lens, find the ring beat, name the goldsmith (Kindred Lubeck). One tight idea plus the link, structurally unlike the IG caption, built to pull a reply rather than a scroll-past.",
-    "rulesChecked": ["L002"],
+    "rulesChecked": [
+      "L002"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-25T15:04:52.245Z",
+    "pr": 6296,
+    "message": "social-tree-approve run 40205181087",
+    "contentHash": "sha256:5042eb0d797cd56871809a535102dd114fe39f04506c51c1625326533db9208f",
+    "mediaDigest": "sha256:e7677fc310cf48b9fed31cadc0673328312232a09d17d0b154891ffb8297698a",
+    "sig": "hmac-sha256:2fecbe73c9bd675fcdcb9e6884feebf6b95ad87ab4d15bde9e24929783493983"
   }
 }
