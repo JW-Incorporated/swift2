@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 78
+
+## Taylor Swift's Attendance at Chiefs vs. Seahawks Game Questioned
+
+- first seen: 2026-10-25 16:31 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There is speculation regarding whether Taylor Swift will attend the Kansas City Chiefs Week 7 game against the Seahawks. The question remains unanswered as fans await confirmation.
+- sources:
+  - [unverified] AudioPhix — https://audiophix.com/will-taylor-swift-be-kansas-city-chiefs-week-7-game-vs-seahawks
+
+## Taylor Swift and Travis Kelce Pause Family Plans Due to NFL Career
+
+- first seen: 2026-10-25 16:31 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Sources indicate that Taylor Swift and Travis Kelce are currently not prioritizing family plans while he focuses on his NFL career. The couple is taking their time amidst the pressures of their respective commitments.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-no-rush-taylor-swift-110046047.html
 
 ## Prince Critiques Sports Star in New Interview
 
