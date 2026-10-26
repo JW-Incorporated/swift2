@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 76
+
+## Taylor Swift Halloween Costumes Inspired by Her 2026 Moments
+
+- first seen: 2026-10-26 21:01 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cosmopolitan highlights Halloween costume ideas inspired by Taylor Swift's notable moments of 2026. The costumes capture the essence of her significant appearances throughout the year.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74250324/taylor-swift-halloween-costumes/
+
+## ESPN Analyst Surprised by Taylor Swift Hot Mic Moment Leak
+
+- first seen: 2026-10-26 21:01 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An ESPN analyst expresses confusion over how a hot mic moment involving Taylor Swift leaked to the public. The incident has generated significant attention and discussion.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-hot-mic-moment-still-has-espn-analyst-baffled-how-it-leaked
 
 ## Details Surface About Taylor Swift and Travis Kelce's Wedding Production
 
@@ -135,7 +151,7 @@ Stories: 74
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 10
+- verification_status: corroborated | source_count: 11
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
@@ -143,6 +159,7 @@ Stories: 74
   - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50280779/nfl-week-7-trolls
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
   - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
+  - [unverified] Page Six — https://pagesix.com/2026/10/26/entertainment/taylor-swift-travis-kelce-wedding-props-deemed-too-expensive-dangerous-revealed/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-chiefs-seahawks-game-attendance/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317781059.html
   - [unverified] The Sun — https://www.the-sun.com/entertainment/17208962/taylor-swift-travis-kelce-wedding-carousel-pond-plans/
