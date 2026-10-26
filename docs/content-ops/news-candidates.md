@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
 
 ## Taylor Swift Expected to Appear Post Chiefs-Seahawks Game
 
@@ -704,11 +704,3 @@ Stories: 84
 - summary: Taylor Swift was seen helping Travis Kelce achieve a new honor prior to the game against the Seahawks. The event highlights their ongoing relationship and mutual support.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-helps-travis-kelce-081412298.html
-
-## Reflections on Early Taylor Swift from MySpace Era
-
-- first seen: 2026-10-23 06:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article reflects on the Taylor Swift known in 2006 through her MySpace presence, highlighting her early career and connection with fans during that time.
-- sources:
-  - [unverified] The i Paper — https://inews.co.uk/culture/music/taylor-swift-myspace-2006-4838174
