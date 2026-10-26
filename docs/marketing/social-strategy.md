@@ -112,6 +112,21 @@ queues behind it (Tree records the backlog in the calendar ledger).
 **Slot cost.** An arc preempts **heartbeat** slots first. It may delay a thread
 window by up to 2 days; it never cancels one.
 
+**An arc is never scheduled into a fortnight where it would break §1(e2)'s
+≥2-displaceable-beats floor (added 2026-10-26, Tree).** The two rules collide
+arithmetically, and the collision is provable rather than a matter of taste: a
+7-day week owes one thread hero, one Blank Spaces timeline chapter (§1(c)) and
+one news reserve (§1(e2)), which leaves four beats; §1(e2) requires **≥2 of
+them to stay displaceable** so a major moment has somewhere to land. An arc
+taking three of those four (day 0, +2, +4) leaves **one**, and the week is a
+planning bug before a single word is drafted. When both cannot fit, **the arc
+waits** — a launch arc's eligibility does not expire (the pinch-zoom photo
+viewer, #831, has been live since 2026-07-18), whereas a major moment missed by
+48h is gone for good. Record the deferral in the calendar ledger with the
+fortnight it moves to, so it is a deferral and not the silent 3-of-4 close that
+ended `launch:shop-the-look` and the 1-post close that ended
+`launch:mood-chat`.
+
 **Currently push-worthy, in order** (Tree works down this list when no new ship
 landed): Mood Chat (#1560 — the clearest "we launched a thing" story), the
 pinch-zoom photo viewer (#831), the photos + focal program (#762), shoppable
@@ -371,11 +386,28 @@ Tree writes **reserves at least one day per week as a news day**: its beat is
 written as `news:` with a **named fallback subject on the same line**, so a
 quiet week still posts and the "a calendar gap is never filled" rule
 (§0/invariant) is never in play — a reserve is an assigned slot with two
-possible subjects, not a gap. On a reserve day the 11:00Z daily run checks
-`events.uncovered[]` first: an uncovered event → leave the beat for the event
-run and draft nothing there; nothing uncovered → draft the named fallback as
-written. A reserve day's beat is never drafted a day early by the previous
-run.
+possible subjects, not a gap. A reserve day's beat is never drafted a day early
+by the previous run.
+
+**The reserve day's drafter always drafts the fallback (changed 2026-10-26,
+Tree).** This paragraph used to say that on a reserve day the 11:00Z run checks
+`events.uncovered[]` first and, if something was uncovered, **left the beat for
+the event run and drafted nothing there**. That clause cost a dark day on
+2026-10-25: the drafter found two uncovered events (intake
+[#6290](https://github.com/JW-Incorporated/swift2/issues/6290),
+[#6273](https://github.com/JW-Incorporated/swift2/issues/6273)), correctly left
+the reserve empty per this rule, and `routine-tree-event-draft.yml` never fired
+for either — its last run of the week was 10-23, for intake #6258 — so **10-25
+shipped nothing on either platform** and the two events it was holding the slot
+for were never covered. The hedge was written when the event run could only
+schedule onto a day where neither platform was taken, so an empty beat was the
+only way it could land at all. Step 5 of `tree-event-draft.md` now **displaces**
+a `heartbeat:` or `mood:` beat on the yield order below, so the event run no
+longer needs a vacancy — and the ≥2-displaceable-beats guarantee exists to give
+it one. Therefore: **a reserve beat always drafts its named fallback**, and an
+event that arrives takes it or displaces a beat like any other. A reserve may
+never be left empty in anticipation of a run that may not fire; a slot held open
+for news that does not arrive is just a gap with a reason attached.
 
 **Yield order, when news lands off-reserve.** News may take the next
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
