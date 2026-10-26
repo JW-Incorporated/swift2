@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 82
+
+## Taylor Swift Fans React to Seattle Seahawks Friendship Bracelet Meme
+
+- first seen: 2026-10-26 15:09 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Fans of Taylor Swift have expressed their frustration towards the Seattle Seahawks over a meme related to friendship bracelets. The meme has drawn negative reactions from the fan base.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/10/26/seahawk-bracelets-cause-backlash-with-taylor-swift-fans/
 
 ## Seahawks Comment on Taylor Swift and Travis Kelce Following Chiefs Loss
 
@@ -692,27 +700,3 @@ Stories: 84
 - summary: An eye-witness details the moments leading up to an incident where Taylor Swift reportedly snapped at an NFL fan. This interaction has garnered attention among fans and media alike.
 - sources:
   - [unverified] The Mirror US — https://www.themirror.com/sport/american-football/taylor-swift-chiefs-confrontation-eyewitness-2079259
-
-## Taylor Swift Celebrates 20th Anniversary of Debut Album and Reclaims Masters
-
-- first seen: 2026-10-23 15:09 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's debut album marks its 20th anniversary, coinciding with her successful reclamation of her masters. This milestone highlights her enduring impact in the music industry.
-- sources:
-  - [unverified] Noise11 — https://www.noise11.com/news/taylor-swift-debut-album-20-years-20261024
-
-## Taylor Swift Critiques Jason Kelce Amid Family Feud Reports
-
-- first seen: 2026-10-23 15:09 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest Taylor Swift has called out Jason Kelce over a perceived 'f— up move' following claims of tension between their families. Additionally, a source indicated Swift is concerned about fans' feelings towards her and Travis Kelce.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234956096/what-happened-travis-kelce-jason-taylor-swift/
-
-## Taylor Swift's Awkward Moments Featured in Yahoo List
-
-- first seen: 2026-10-23 14:12 UTC | category: music | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: Yahoo highlights various awkward moments from Taylor Swift's career that fans might find memorable. The article gathers a collection of these instances, showcasing a lighter side of the artist.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/awkward-taylor-swift-moments-cant-133000570.html
