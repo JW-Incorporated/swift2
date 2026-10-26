@@ -460,17 +460,40 @@ a value the content type defines (`packages/experience/src/types.ts`:
 `'defining' | 'notable'`). The major lane could therefore never open on its own,
 and the one pair that did ship got there through the calendar, planned by hand.
 
-The other half is **not this desk's to fix** and is filed to Marjorie:
-`scripts/social/lib/event-dispatch.mjs` decides which events earn a dedicated
-event-draft run from a title keyword list (`TIMELY_RE`) that rejects **10 of 10**
-of this week's site-fronted moment headlines, and bounds its scan at
-`EVENT_WINDOW_HOURS = 24` against this section's 48h; and
-`docs/agents/runner-prompts/tree-event-draft.md` step 5 schedules only onto a UTC
-day where neither platform is already taken, never displacing a `heartbeat:` or
-`mood:` beat — so the yield order and the ≥2-displaceable-beats guarantee above
-are both unreachable from inside the only run that drafts off-reserve news. Until
-those land, the floor is carried by the calendar path (the reserve plus planned
-pairs), which is slower than same-day and cannot reliably make 48h.
+The other half was **not this desk's to fix** and was filed to Marjorie; it
+landed on 2026-10-26 ([#6313](https://github.com/JW-Incorporated/swift2/issues/6313),
+ops-fixer), so the same-day path is now reachable:
+
+- `scripts/social/lib/event-dispatch.mjs` bounded its scan at
+  `EVENT_WINDOW_HOURS = 24` against this section's 48h — **now 48**.
+- Its title keyword list (`TIMELY_RE`) was matching wire headlines only
+  incidentally, on a stray `album`/`single`/`video` noun, and missing the event
+  families the news desk actually files. It now also reads a live debut, an
+  appearance, a chart week and an anniversary, and — the first-class part — **a
+  moment this site already fronts is promoted past the keyword test entirely and
+  picked ahead of ordinary news**, which is what "the site's front page is the
+  trigger" above asks for. The link is lexical (three distinctive shared words
+  between the intake headline and a `social/inbox/new-on-site-*.json` moment),
+  because nothing records provenance from a vault moment back to its intake
+  issue. The #36 blocklist still applies to a site-fronted moment: being on the
+  site is editorial reach, not a blocklist waiver.
+- `docs/agents/runner-prompts/tree-event-draft.md` step 5 scheduled only onto a
+  UTC day where neither platform was already taken, never displacing a
+  `heartbeat:` or `mood:` beat — so the yield order and the
+  ≥2-displaceable-beats guarantee above were unreachable from inside the only run
+  that drafts off-reserve news. **Step 5 now displaces** on that yield order,
+  re-dates the beat it took (both halves) and records it in `why`.
+
+**The 10-of-10 claim above was measured against the wrong corpus** and is
+withdrawn: `judgeTitle` only ever sees `intake:` *issue* titles, never the vault
+moment headlines it was run against, and against the real intake corpus the old
+list passed 16 of the newest 40 — including the Fate of Ophelia live debut and
+the 15-weeks-at-No. 1 chart week. The keyword gate was therefore never the whole
+reason those two missed 48h; the 24h window and the missing displacement were the
+binding constraints. Five of the ten moments share almost no vocabulary with the
+intake issue that sourced them ("Confetti on the debut page" for a *"20 years of
+Taylor Swift" website tribute*), so no title rule links them and the site-fronted
+promotion reaches the other five.
 
 The site's own `social/inbox/new-on-site-*.json` sheet is evidence a moment is
 live and already sourced on the site; it is not a substitute for sourcing the
