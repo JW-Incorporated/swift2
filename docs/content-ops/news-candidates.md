@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 74
+
+## Tate McRae Hits Number Two on Billboard Hot 100
+
+- first seen: 2026-10-26 19:01 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Tate McRae's song "Housewife" secures the second position on the Billboard Hot 100, surpassing tracks by Taylor Swift and Olivia Rodrigo. Ella Langley's "Choosin' Texas" tops the chart at number one.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/tate-mcrae-billboard-hot-100-number-two-olivia-rodrigo-1235645932/
 
 ## Analyzing the Downfall of Taylor Swift
 
