@@ -1,0 +1,33 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "ten-second challenge 🐍 what links the reputation snake teasers to the opening frame of 'ME!'? same creature, flipped from threat to transformation two years apart — one hissed, one grew wings. the full map's in our easter-eggs lens → https://www.longlivets.com/?lens=easter-eggs&utm_source=x&utm_medium=social&utm_campaign=easter-eggs",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1puk3m7-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1puk3m7-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1puk3m7/taylor_swift_in_golden_glam/",
+  "scheduledAt": "2026-10-27T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift in Golden Glam"
+  ],
+  "campaign": "symbol-thread:the-snake:2026-10-27",
+  "why": "X sibling of the Oct 27 symbol-thread pair, same snake motif across reputation (2017) and Lover (2019), structurally distinct from the IG caption. One tight contradiction plus an engagement prompt and the easter-eggs lens link.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "The X half of the snake symbol-thread, written as a ten-second challenge: what links the reputation teasers to 'ME!'? Same serpent, threat flipped to transformation. A different hook shape and vocabulary from the IG caption, built to pull a quote rather than a scroll-past.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}
