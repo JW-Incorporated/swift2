@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Prince William Takes Selfie with Taylor Swift, Unwanted Guest Appears
+
+- first seen: 2026-10-26 09:01 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent selfie taken by Prince William with Taylor Swift featured an unexpected individual in the background. The incident was noted in a news article but did not provide further details.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-taylor-swift-selfie-073432285.html
 
 ## Taylor Swift Expected to Appear Post Chiefs-Seahawks Game
 
