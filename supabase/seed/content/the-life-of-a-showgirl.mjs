@@ -16732,6 +16732,127 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-10-26 (Vault Run, Content Shift lane) from intake #6343.
+      // Variety and SiriusXM both loaded directly (the filing reported Variety
+      // as paywalled; it returned 200 with the full Q&A from this run). CUT:
+      // Business Insider's "PR misstep" analysis and the outlet song rankings.
+      // They are opinion, not events. Also cut: any Taylor's Version framing,
+      // which already lives in the debut page's rumor container.
+      slug: 'showgirl-debut-album-turns-20',
+      year: 2026,
+      month: 10,
+      day: 24,
+      category: 'music',
+      title: 'The debut turns 20, and an unpublished 2008 interview resurfaces',
+      snippet:
+        'On the album\'s 20th birthday, Variety published a nearly complete Q&A from January 2008, when 18-year-old Taylor was still riding "Our Song."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor\'s self-titled debut came out on Oct. 24, 2006, and turned 20 on Oct. 24, 2026. Beyond the confetti on her website the day before, she didn\'t mark it with new music. As Variety put it, nothing "so obvious or fan-servicing as putting out a deluxe version."\n\nVariety\'s Chris Willman marked it with his old tapes instead. He had interviewed her at length for Entertainment Weekly in January 2008, over burgers at an In-N-Out. Only a few hundred words of it ran at the time. For the anniversary he published the conversation nearly in full for the first time. "Our Song," which she wrote by herself in ninth grade for a high school talent show, had just spent its sixth week at No. 1 on the country chart, and she said she was "gonna milk this No. 1 for all it\'s worth." She confirmed that "Tim McGraw" and "Our Song" were written about the same boy. Asked whether it ever felt like too much, she said: "At the end of the day, I want to be here for the next 20 years."\n\nSiriusXM Hits 1 also spent the day on her, with "Hits 1 Never-Ending Eras," 13 hours of music from every era plus stories sent in by fans.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/',
+            source_title:
+              "Happy 20th Birthday, 'Debut'! A Revealing Look Back at Taylor Swift's First Album, Via a Previously Unpublished Q&A: 'I Want to Be Here for the Next 20 Years'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 5,
+            notes:
+              'By Chris Willman, Oct. 24, 2026; loaded directly. Primary text for the anniversary date, the January 2008 EW interview history, the "Our Song" sixth week at No. 1, the ninth-grade talent-show origin, the same-boy answer, and both quotes.',
+          },
+          {
+            outlet: 'SiriusXM',
+            url: 'https://www.siriusxm.com/blog/taylor-swift-20th-anniversary-hits-1',
+            source_title: 'Celebrate 20 Years of Taylor Swift with 13 Hours of Her Music on SiriusXM Hits 1',
+            publisher: 'SiriusXM',
+            source_type: 'official',
+            accessed_at: '2026-10-26',
+            reliability_score: 4,
+            notes:
+              'The broadcaster\'s own announcement, Oct. 23, 2026; loaded directly. Primary for "Hits 1 Never-Ending Eras": Oct. 24, 13 hours, music from every era, and fan-submitted stories.',
+          },
+        ],
+        // Visual (charter step 3b): Commons, CC BY-SA 3.0 (Adam Bielawski),
+        // also used on the debut page. Taken the month after the interview.
+        // curl 200 image/jpeg 800x536 on 2026-10-26, downloaded and
+        // vision-confirmed: Taylor on stage with her acoustic guitar.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg',
+            focalPoint: '50% 22%',
+            credit: 'Adam Bielawski / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'Then: Taylor on stage in February 2008, a month after the interview Variety finally published in full.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-26 (Vault Run, Content Shift lane) from intake #6344.
+      // Variety and Rolling Stone both loaded directly (the filing reported
+      // Variety as paywalled; it returned 200 from this run) and agree on the
+      // standings. CUT: the acoustic-versions release date. Rolling Stone's
+      // sentence is ambiguous between Oct. 16 and Oct. 18, so no date is given.
+      slug: 'showgirl-patient-zero-hot-100-run-ends-no-5',
+      year: 2026,
+      month: 10,
+      day: 26,
+      category: 'music',
+      title: '"Patient Zero" ends its three-week Hot 100 run at No. 1 and slides to No. 5',
+      snippet:
+        'Ella Langley\'s "Choosin\' Texas" took the top spot back, but "Patient Zero" was still the best-selling song of the week.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          '"Patient Zero" debuted at the top of the Billboard Hot 100 in early October and held the spot for three weeks. On the new chart, revealed Oct. 26, 2026, it fell to No. 5. Ella Langley\'s "Choosin\' Texas" went back to No. 1, its 25th week there, a record for nonconsecutive weeks.\n\nThe fall was mostly about physical sales. Per Variety, they went from 151,000 the week before to 26,000, with no new versions or shipments of the song arriving that week, though the radio airplay held up. Even with that drop it was still the top-selling song of the week. Rolling Stone noted that the newest version on the chart was the acoustic takes she had released earlier in October.\n\nUnder Langley, four new releases fought over No. 2. Tate McRae\'s "Housewife" won it, with Olivia Rodrigo and Chappell Roan\'s "Expectations" remix at No. 3 and Zach Bryan and Lana Del Rey\'s "Lies" at No. 4.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/',
+            source_title:
+              "Ella Langley Retakes No. 1 on Hot 100 From Taylor Swift; Tate McRae's 'Housewife,' Rodrigo/Roan 'Expectations' and Zach Bryan/Lana Del Rey 'Lies' All Bow Big",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 5,
+            notes:
+              'By Chris Willman, Oct. 26, 2026; loaded directly. Primary text for the three weeks at No. 1, the fall to No. 5, the 151,000-to-26,000 physical-sales drop with no new variants, the steady radio, top seller of the week, and "Choosin\' Texas" at 25 weeks.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/tate-mcrae-billboard-hot-100-number-two-olivia-rodrigo-1235645932/',
+            source_title: 'Tate McRae Beats Taylor Swift, Olivia Rodrigo in Billboard Hot 100 Race for … Number Two',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 5,
+            notes:
+              'By Maya Georgi, Oct. 26, 2026; loaded directly. Corroborates No. 5 and the 26,000 physical sales, and is the source for the acoustic versions and the Nos. 2-4 order.',
+          },
+        ],
+        // Same official-video frame as the October No. 1 debut moment; no
+        // `video` field for the same feed-card reason given there. Re-verified
+        // 2026-10-26: curl 200 image/jpeg (177KB), oEmbed title "Taylor Swift
+        // - Patient Zero (Expanded Video)", author Taylor Swift; viewed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" video, YouTube)',
+            caption: 'A frame from the official "Patient Zero" video, the song that held No. 1 on the Hot 100 for three weeks.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
