@@ -48,7 +48,56 @@ permissions:
   actions: write # send-brief dispatches tree-mail.yml (mode=plan)
 
 jobs:
+  # #6328: the prompt's step 0.6 needs the event-status sensor
+  # (`scripts/social/event-status.mjs`), and the agent job could never run it:
+  # the sensor imports the `@swift2/core` workspace package AND `.ts` source
+  # directly, so it only runs through `tsx` with `node_modules` present, while
+  # the agent job (routine-template.yml) never installs — a bare-node run there
+  # dies with ERR_MODULE_NOT_FOUND and the planner goes blind to a live
+  # countdown/theory. Same deterministic-prepare pattern (and same script,
+  # which wraps the tsx invocation in runEventStatusCli) that
+  # routine-tree-daily-draft.yml and routine-tree-event-draft.yml already use:
+  # install here, read the sensor here, hand the agent `events.status` as a
+  # pre-run artifact. Unconditional on purpose — a `mode=replan` run skips step
+  # 0.6, but `run` needs this job, and an `if` that skipped it would skip the
+  # whole plan run with it.
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install workspace packages (event-status.mjs needs them; the agent job never installs)
+        continue-on-error: true
+        run: npm ci --silent
+      - name: Pre-compute this week's inputs (read-only; a failure degrades to an error stub)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          set -uo pipefail
+          mkdir -p .scratch
+          node scripts/social/prepare-draft-inputs.mjs --out .scratch/tree-inputs.json || true
+          if [ ! -s .scratch/tree-inputs.json ]; then
+            echo '{"v":1,"error":"prepare-draft-inputs.mjs failed; see the prepare job log — treat event mode as unknown"}' > .scratch/tree-inputs.json
+          fi
+      - uses: actions/upload-artifact@v7
+        with:
+          name: tree-weekly-plan-inputs
+          path: .scratch/tree-inputs.json
+          retention-days: 1
+
   run:
+    needs: prepare
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Tree — weekly social plan"
@@ -63,6 +112,10 @@ jobs:
       timeout_minutes: 60
       max_turns: 140 # measured: runs since 09-28 needed 69, 87+, 81+, 96+ turns (the last three died at the old 80 cap, #5470); ~1.4x the highest observed leaves headroom
       checkout_token_secret: SOCIAL_POSTER_PAT
+      # #6328: the `prepare` job's tree-inputs.json, downloaded into .scratch/
+      # before the agent starts (step 0.6 reads its `events.status` instead of
+      # running the sensor, which cannot run in this job).
+      pre_run_artifact: tree-weekly-plan-inputs
       # Needed by the `taste` job below: it downloads .scratch/out/ to file a taste-ruling question
       # the agent saved (taste-ruling.mjs save). Only that one small JSON is ever written there;
       # retention is 1 day (routine-template.yml).
