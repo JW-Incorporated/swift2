@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 84
+
+## Seahawks Comment on Taylor Swift and Travis Kelce Following Chiefs Loss
+
+- first seen: 2026-10-26 13:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Seahawks made remarks referencing Taylor Swift and Travis Kelce after the Chiefs suffered a significant defeat. The comments suggest a playful jab at the attention surrounding the couple in the wake of the game.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-travis-kelce-seahawks-chiefs/
+
+## Seahawks Create Taylor Swift-Inspired Meme After Chiefs Game Win
+
+- first seen: 2026-10-26 13:56 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: After their victory against the Chiefs, the Seahawks shared a Taylor Swift-inspired bracelet meme to celebrate. The playful jab highlights the ongoing intersection of pop culture and sports.
+- sources:
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25520422-seahawks-troll-chiefs-taylor-swift-inspired-bracelet-meme-after-win-vs-walker-kelce-kc
 
 ## Taylor Swift Misses Chiefs vs Seahawks Game Last Night
 
