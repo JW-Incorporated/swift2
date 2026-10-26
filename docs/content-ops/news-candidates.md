@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 73
+
+## Analyzing the Downfall of Taylor Swift
+
+- first seen: 2026-10-26 18:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from The UCSD Guardian titled 'Two Cents' examines the perceived downfall of Taylor Swift, discussing various aspects of her career. The analysis delves into factors that may have contributed to this view of her trajectory.
+- sources:
+  - [unverified] The UCSD Guardian — https://ucsdguardian.org/2026/10/26/two-cents-analyzing-the-downfall-of-taylor-swift/
 
 ## Dwayne Johnson 'Likes' Controversial Post About Taylor Swift
 
@@ -622,60 +630,3 @@ Stories: 79
 - summary: Taylor Swift is referenced in an article addressing the implications of Meta's new terms for publishers. The piece suggests her situation may exemplify broader issues within the industry.
 - sources:
   - [unverified] A Media Operator — https://www.amediaoperator.com/news/metas-new-terms-arent-just-a-publisher-problem-ask-taylor-swift/
-
-## Chris Stapleton Achieves Rare Spotify Milestone with Taylor Swift
-
-- first seen: 2026-10-23 18:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Chris Stapleton has joined Taylor Swift in achieving a notable milestone on Spotify, highlighting their success on the platform.
-- sources:
-  - [unverified] DRGNews — https://drgnews.com/2026/10/23/chris-stapleton-joins-taylor-swift-in-rare-spotify-achievement/
-
-## Overview of Taylor Swift Featured in Profile by Polina Pompliano
-
-- first seen: 2026-10-23 18:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A profile article by Polina Pompliano presents an overview of who Taylor Swift is, detailing her career and impact in the music industry.
-- sources:
-  - [unverified] The Profile | Polina Pompliano — https://www.readtheprofile.com/p/who-is-taylor-swift
-
-## Travis Kelce Discusses Taylor Swift's Reaction to Wake-Up Call
-
-- first seen: 2026-10-23 18:01 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce shares insights into Taylor Swift's response to a surprising wake-up call involving Jason.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-taylor-swift-170000221.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-shares-taylor-swift-164500149.html
-
-## Taylor Swift Attends Academy Museum Gala in Custom Dior
-
-- first seen: 2026-10-23 17:06 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made her first appearance on the Academy Museum Gala carpet, showcasing a custom design by Dior. This marked a significant moment for her in the fashion spotlight at the gala event.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-takes-her-first-160857529.html
-
-## Maya Hawke Praises Two Taylor Swift Songs as 'Epic Poetry'
-
-- first seen: 2026-10-23 17:06 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Maya Hawke has expressed her admiration for two songs by Taylor Swift, calling them 'epic poetry'. This highlights the impact and artistic quality of Swift's music in the eyes of fellow artists.
-- sources:
-  - [unverified] Contactmusic.com — https://www.contactmusic.com/story/467/3632131/maya-hawke-thinks-these-two-taylor-swift-songs-are-epic-poetry-
-
-## Taylor Swift Updates Website for Debut Album's 20th Anniversary
-
-- first seen: 2026-10-23 17:06 UTC | category: release | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Ahead of the 20th anniversary of her debut album, Taylor Swift has made a subtle change to her official website. The update coincides with the anniversary celebration of her first album.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/music/a74231089/taylor-swift-debut-album-anniversary/
-
-## Chris Stapleton Achieves Second Billion-Stream Milestone
-
-- first seen: 2026-10-23 17:06 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Chris Stapleton has reached a remarkable milestone by scoring his second billion-stream song, joining Morgan Wallen in this achievement.
-- sources:
-  - [unverified] Taste of Country — https://tasteofcountry.com/chris-stapleton-billion-streams-milestone/
