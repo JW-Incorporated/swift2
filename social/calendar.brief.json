@@ -1,34 +1,39 @@
 {
-  "weekOf": "2026-10-19",
-  "whatChangedAndWhy": "Tree's own approval path worked unattended for the first time — today's run drafted a pair, dispatched social-tree-approve.yml and both items are on main with a valid tree:auto stamp, no founder tick anywhere. What is broken is merging: one stale allowlist line in scripts/lib/moment-media-gate.mjs turns build-content red on every Tree PR, so the Runway hero (#5998), the founder-approved Blank Spaces hero (#6056) and both inbox-expiry PRs are stuck and nothing posted between 10-15 and 10-19. Two strategy changes, made and reported in PR #6105: Experiment 01 (Instagram hashtags) read out at n=2 with both arms at IG reach 1 and every October IG post at reach 0-1, so it is closed as unreadable — tags become the default on every IG beat, the arms go away, and the comparison returns only when trailing-7-day median reach clears 10; and a thread hero whose window closed because CI was red now gets one make-good inside the same month, which is why Runway finally gets taught on 10-30. No new experiment this fortnight on purpose: nothing on-platform is measurable at reach 1. No lessons changed (zero edits and zero rejections this week, 6 of 6 approved) and no founder task filed — the week's one real blocker is a one-line script fix, which is Marjorie's, not the owner's.",
+  "weekOf": "2026-10-26",
+  "whatChangedAndWhy": "Last week's merge outage is over and the week delivered: 12 posts shipped 10-19 to 10-24, zero failures, and Mood landed for the first time ever (10-21, approved at critique 22). Then 10-25 shipped nothing, because of a rule I wrote: a news-reserve day was told to leave its beat empty for the same-day event run, the drafter did exactly that for two uncovered events, and that run never fired. I changed it today in PR #6321 — a reserve beat now always drafts its named fallback, and I also wrote into strategy 1(a) that a launch arc may not be scheduled where it would leave fewer than two displaceable beats in a rolling 7 days, which is why the launch:photo-viewer arc is deferred to the 11-09 fortnight rather than shortened. The two fixes I asked Marjorie for on #6310 both landed today (#6313 widened event dispatch to 48h and promotes site-fronted moments; tree-event-draft.md step 5 now displaces a beat), so this is the first fortnight the news floor is mechanically reachable: four landing days a week, every reserve productive. The lessons ledger is unchanged — zero edit/reject rows this week, nothing codifiable (autoCodify is false), nothing retirable (L002 is 2 weeks quiet against an 8-week window), and I am not inventing a rule to look busy. October's monthly review is at the bottom of the calendar: double down on news, drop the labelled on-platform experiment.",
   "calendar": [
-    { "day": 1, "text": "10-19 Mon — covered by queue: the Fate of Ophelia live-debut news pair, already stamped and scheduled 23:00Z. Nothing planned here; a second pair today would be capped out and retired unposted." },
-    { "day": 2, "text": "10-20 Tue — covered by queue: the Lover 'first album she owned' pair. This is the 10-18 news reserve's fallback, re-booked onto its own day." },
-    { "day": 3, "text": "10-21 Wed — Mood, 'what it gave me' (mood:result). Third attempt: Mood has never shipped once and both previous deaths were mechanical, not editorial. First beat this plan can actually reach." },
-    { "day": 4, "text": "10-22 Thu — Blank Spaces timeline, next unposted chapter after Joe Jonas 2008. The weekly confirmed-only minimum for the week of 10-19." },
-    { "day": 5, "text": "10-23 Fri — Taylor's Version thread hero, angle single-best-item. One item told whole, inside its 10-21→25 window." },
-    { "day": 6, "text": "10-24 Sat — heartbeat, on-this-day for October 24, with a track-fact fallback rather than stretching a near-miss date. Kept deliberately displaceable so a major moment has somewhere to land." },
-    { "day": 7, "text": "10-25 Sun — news reserve for the week of 10-19; if nothing is uncovered, a Showgirl-era deep cut built on Emmitt Smith's game-day-camera quote (new on the site 10-18), led by the quote itself." },
-    { "day": 8, "text": "10-26 Mon — End Game thread hero, angle interactive-challenge, opening its 10-26→30 window. This is also the monthly-review run." },
-    { "day": 9, "text": "10-27 Tue — heartbeat, symbol-thread: one Invisible Strings motif that recurs across two eras, speculation labelled. Second displaceable beat of the week." },
-    { "day": 10, "text": "10-28 Wed — news reserve for the week of 10-26; fallback is a Speak Now deep cut on the 6,000 books for the Wyomissing library (new on the site 10-18), hooked on the number." },
-    { "day": 11, "text": "10-29 Thu — Blank Spaces timeline, the chapter after 10-22's. Weekly minimum for the week of 10-26, different hook shape from 10-22." },
-    { "day": 12, "text": "10-30 Fri — The Runway thread hero, angle quiz-poll, as October's one explicit out-of-window make-good. Its real window closed with the hero written and blocked red on CI; this gets October to 5 of 6 threads taught." },
-    { "day": 13, "text": "10-31 Sat — heartbeat, on-this-day for Halloween if the Vault has a genuinely dated October 31 moment, folklore era deep cut if it does not. Third displaceable beat." },
-    { "day": 14, "text": "11-01 Sun — launch arc day 0 for the pinch-zoom photo viewer, live since July and never promoted once. Hard gate: a drafter pinch-zooms a photo on the live site first, or the beat reverts to a track-fact fallback. The 10-26 run owns +2/+4/+8." }
+    { "day": 1, "text": "10-26 Mon — COVERED BY QUEUE: October's End Game thread hero is already drafted and queued for 23:00Z, so nothing new is planned here (a second pair would be skipped by the one-per-platform-per-day cap and retired stale)." },
+    { "day": 2, "text": "10-27 Tue — heartbeat:symbol-thread on the Invisible Strings atlas, linking the Clue Web lens; displaceable, so it is the first place a major news moment can land this week." },
+    { "day": 3, "text": "10-28 Wed — NEWS RESERVE. Fallback is a 1989 era deep cut on the $50,000 she sent the Seattle Symphony after hearing 'Become Ocean' — and the fallback is now always drafted, never held back for an event run that may not fire." },
+    { "day": 4, "text": "10-29 Thu — Blank Spaces timeline, the week's permanent minimum: the next unposted chapter after Fearless solo 2008, confirmed-only and verified against the Vault." },
+    { "day": 5, "text": "10-30 Fri — Runway thread hero, October's one make-good, written fresh. Runway is the only thread dropped two months running and both drops were engine failures; this is the beat that gets October to 5 of 6 threads taught, so it is not displaceable." },
+    { "day": 6, "text": "10-31 Sat — heartbeat:on-this-day on a real dated October 31 moment, with a folklore deep cut as the fallback if the dated search comes up empty. Halloween is a real hook, not an invented theme; displaceable." },
+    { "day": 7, "text": "11-01 Sun — NEWS RESERVE #2. Fallback is Richard Marx in his own words on passing over a writing session with a 15-year-old Taylor. A second reserve because this week delivered 0 of 3 against the news floor and nothing else in the week needs the slot." },
+    { "day": 8, "text": "11-02 Mon — Decode thread hero, November's first, angle behind-the-data (computed: monthNumber 3). The thread as a dataset — how many clues, how far back, which era is densest — with every count verified off the live lens first." },
+    { "day": 9, "text": "11-03 Tue — Mood beat, November's one slot, format mood:era-match. It rotates off October's mood:result and is the format whose October 3rd attempt was approved and then killed unposted by the 48h clock, so this is its first real airing. Displaceable." },
+    { "day": 10, "text": "11-04 Wed — Blank Spaces timeline, week of 11-02's minimum: the next chapter after 10-29's, in a different hook shape." },
+    { "day": 11, "text": "11-05 Thu — heartbeat:era-deep-cut on the Prince of Wales's own account of the Wembley backstage selfie; confirmed, on the record, and the joke is his rather than ours. Displaceable." },
+    { "day": 12, "text": "11-06 Fri — Clue Web thread hero, angle quiz-poll (computed). One question whose answer is genuinely inside the lens, checked before the question is written, and a different motif from 10-27's." },
+    { "day": 13, "text": "11-07 Sat — NEWS RESERVE. Fallback is Maya Hawke on Hot Ones calling 'But Daddy I Love Him' and 'betty' epic poetry; it switches to a reputation deep cut if 10-31 already took the folklore fallback, so no era ships twice in a week." },
+    { "day": 14, "text": "11-08 Sun — heartbeat:track-fact off an era this fortnight has not used (reputation, evermore, red and Speak Now are all open). Displaceable, and the last landing day of the window." }
   ],
   "proposals": [],
   "questions": [],
   "needsFromMarjorie": [
     {
       "kind": "error",
-      "ask": "Delete the stale SURFACE_MEDIA_LEGACY entry that turns build-content red on Tree's draft PRs",
-      "why": "moment-media-gate.mjs: 'SURFACE_MEDIA_LEGACY lists social/inbox/appearance-2026-10-12-FqbcAAKQjes.json, which matches no gated row' (job 117741603794). Red on every PR touching social/inbox: #5998, #6027, #6057, #6094. Nothing posted 10-15 to 10-19; 2 intents cannot expire."
+      "ask": "Update tree-daily-draft.md so a news-reserve beat always drafts its fallback instead of being left empty for the same-day event run",
+      "why": "That wording cost 2026-10-25 entirely: the drafter found two uncovered events (intake #6290, #6273), correctly left the reserve empty per the prompt, and routine-tree-event-draft.yml never fired for either, so nothing shipped on either platform — I changed strategy 1(e2) to match in PR #6321 but the runner prompt is outside this desk's mutation rights."
     },
     {
       "kind": "error",
-      "ask": "An Instagram post that already shipped was also retired into social/failed/ as stale",
-      "why": "2026-10-11-speaknow-million-week-ig.json sits in social/posted/ with postedAt 23:26Z and IG id 18107359273946758, and an identical copy sits in social/failed/, retired 10-15 for '48h after approval'. The queue copy outlived the post, so the sweeper failed an item that shipped."
+      "ask": "Add a workspace-install step to routine-tree-weekly-plan.yml so event-status.mjs can run in the weekly plan job",
+      "why": "The weekly-plan workflow has no npm install step, unlike routine-tree-daily-draft.yml and routine-tree-event-draft.yml which both carry one labelled 'event-status.mjs needs them' — this run only got a reading by installing by hand and then invoking it through npx tsx, since bare node fails on the TypeScript import in @swift2/core."
+    },
+    {
+      "kind": "error",
+      "ask": "Find out why retire-stale-drafts.mjs is leaving seven Tree draft PRs open long past the 48h staleness window",
+      "why": "PRs #5443, #5495, #5998, #6027, #6056, #6112 and #6141 are all still open with the oldest dated 2026-10-09, every one carrying drafts that can no longer post, and the sweeper runs in the daily prepare job without closing them."
     }
   ]
 }
