@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Taylor Swift's Advice Allegedly Helped Lula's Election Victory
+
+- first seen: 2026-10-26 10:58 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: In a historic election, Lula defeated Flávio Bolsonaro to secure a fourth presidential term in Brazil, with Taylor Swift's advice reportedly playing a role in energizing the fandom and supporters. The celebration continues as filmmakers rejoice in the outcome.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/lula-election-win-taylor-swift-guillermo-del-toro-fandom-1236931046/
+
 ## Prince William Takes Selfie with Taylor Swift, Unwanted Guest Appears
 
 - first seen: 2026-10-26 09:01 UTC | category: sighting | importance: 5
@@ -46,9 +54,10 @@ Stories: 83
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
+  - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
   - [established] Elle — https://www.elle.com/culture/celebrities/a74241747/taylor-swift-travis-kelce-chiefs-seahawks-game-attendance-explained-october-2026/
   - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50280779/nfl-week-7-trolls
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
@@ -697,11 +706,3 @@ Stories: 83
 - summary: The Swiftie community is generating excitement with new theories about Taylor Swift, drawing attention across social media. Fans are known for their imaginative interpretations of her work and personal life.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/swifties-known-wild-theories-m-181840221.html
-
-## Taylor Swift Updates Website After 20 Years
-
-- first seen: 2026-10-23 10:49 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has updated her website for the first time in 20 years, surprising fans. The update has generated considerable excitement among her followers.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-20-website-fans-092336666.html
