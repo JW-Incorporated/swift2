@@ -4,12 +4,14 @@ import { buildReceipt, causeOf } from './draft-receipt.mjs';
 import { collectGithub } from './prepare-draft-inputs.mjs';
 import { retiredComment, sweep, MAX_RETIRED_PER_RUN } from './retire-stale-drafts.mjs';
 import { staleReason } from './lib/draft-prs.mjs';
-import { DISPATCH_LABEL, EVENT_DAILY_CAP, fromRestIssue, isTrustedAuthor, judgeTitle, pickEvents } from './lib/event-dispatch.mjs';
+import { DISPATCH_LABEL, EVENT_DAILY_CAP, EVENT_WINDOW_HOURS, fromRestIssue, isTrustedAuthor, judgeTitle, pickEvents, siteFrontedMoment } from './lib/event-dispatch.mjs';
 import { dispatchPicks } from './dispatch-event-drafts.mjs';
 
 const NOW = Date.parse('2026-10-01T12:00:00Z');
 const H = 3_600_000;
 const ago = (hours: number) => new Date(NOW - hours * H).toISOString();
+/** A trusted, undispatched open intake issue `hours` old — the shape pickEvents reads. */
+const issueAt = (number: number, title: string, hours: number) => ({ number, title, createdAt: ago(hours), labels: ['intake'], author: 'claude[bot]', authorAssociation: 'CONTRIBUTOR' });
 const pr = (over: Record<string, unknown> = {}) => ({ number: 1, createdAt: ago(72), labels: ['social-draft'], queuePaths: ['social/queue/a.json'], failingChecks: [], ...over });
 const unstamped = [{ data: { platform: 'x' } }];
 const stamped = (hoursAgo: number) => [{ data: { platform: 'x', approval: { at: ago(hoursAgo) } } }];
@@ -141,14 +143,101 @@ describe('event dispatch', () => {
       issue(3, 'intake: Taylor Swift releases a trailer', 5, ['intake', DISPATCH_LABEL]),
       issue(4, 'intake: Taylor Swift wins another award', 30),
       issue(5, "intake: 'Opalite' video teaser released", 6),
+      issue(6, 'intake: Taylor Swift announces a tour leg', 60),
     ];
     const covered = [{ data: { body: "the 'Opalite' video teaser is out", campaign: 'c', why: 'w' } }];
     const { picks, skipped } = pickEvents({ issues, socialItems: covered, nowMs: NOW });
     expect(picks.map((p: { number: number }) => p.number)).toEqual([2, 1]);
-    expect(skipped.map((s: { why: string }) => s.why)).toEqual(expect.arrayContaining(['already dispatched', 'older than 24h', 'already covered by a posted/queued/drafted item']));
+    expect(skipped.map((s: { why: string }) => s.why)).toEqual(expect.arrayContaining(['already dispatched', 'older than 48h', 'already covered by a posted/queued/drafted item']));
     expect(EVENT_DAILY_CAP).toBe(2);
     expect(pickEvents({ issues, socialItems: covered, nowMs: NOW, dispatchedToday: 1 }).picks).toHaveLength(1);
     expect(pickEvents({ issues, socialItems: covered, nowMs: NOW, dispatchedToday: 2 }).picks).toEqual([]);
+  });
+
+  // #6313: the scan bounded itself at 24h while strategy §1(e2) asks for 48, so one
+  // missed news-triage or scan run dropped an event out of the window for good.
+  it('scans a 48h window, so a 30h-old event is in and only a 60h-old one falls out', () => {
+    expect(EVENT_WINDOW_HOURS).toBe(48);
+    const issues = [issue(4, 'intake: Taylor Swift wins another award', 30), issue(6, 'intake: Taylor Swift announces a tour leg', 60)];
+    const { picks, skipped } = pickEvents({ issues, socialItems: [], nowMs: NOW });
+    expect(picks.map((p: { number: number }) => p.number)).toEqual([4]);
+    expect(skipped).toEqual([{ number: 6, why: 'older than 48h' }]);
+  });
+});
+
+// #6313: TIMELY_RE was matching wire headlines only incidentally — on a stray
+// `album`/`single`/`video` noun — and missing the event families the news desk
+// actually files. Titles here are verbatim from real intake issues.
+describe('event dispatch reads the event families the news desk files', () => {
+  it('passes a live debut, an appearance and a chart week; still refuses commentary and the blocklist', () => {
+    for (const title of [
+      'intake: Taylor Swift and Caitlin Clark attend Chiefs-Chargers game at Arrowhead with Este Haim, wears red bodysuit (SI/Fox News-OutKick, Oct 18 2026)',
+      'intake: YouTube appearance — Good Morning America: “Taylor Swift tops Billboard 200” (published 2026-10-12)',
+      "intake: Taylor Swift performs 'The Fate of Ophelia' live for the first time, four-song full-band set, Dior gown, at Academy Museum Gala (NYT/Rolling Stone, Oct 17 2026)",
+      "intake: 'The Life of a Showgirl' logs 15th week at No. 1 on Billboard 200 (Variety/Official Charts, Oct 18-19 2026)",
+    ]) expect(judgeTitle(title), title).toMatchObject({ ok: true });
+
+    // Commentary, not a time-boxed event: the daily cap of 2 must not go on these.
+    for (const title of [
+      'intake: Richard Marx recounts turning down a co-write with 15-year-old Taylor Swift, says he still doesn\'t regret it (Ultimate Classic Rock, Oct 2026)',
+      "intake: Bad Gyal says she'd refuse $3M to collaborate with Taylor Swift, calls her music 'dry chicken' (IBTimes/Complex, Oct 15 2026)",
+      'intake: Emmitt Smith defends Taylor Swift against NFL-broadcast overexposure criticism (Variety, Oct 14 2026)',
+    ]) expect(judgeTitle(title).ok, title).toBe(false);
+
+    expect(judgeTitle('intake: Taylor Swift wins her trademark lawsuit').why).toMatch(/sensitive topic/);
+  });
+});
+
+// #6313: a moment the site already fronts has passed the news desk's editorial bar,
+// so the keyword test is the wrong gate for it (strategy §1(e2): "the site's front
+// page is the trigger"). The fixture is the week-to-2026-10-25 new-on-site sheets.
+describe('the site-fronted rule', () => {
+  const siteMoments = [
+    { id: 'm1', title: '"Hey, it\'s Taylor Swift" goes global: the voice trademark push reaches the UK, EU and Australia' },
+    { id: 'm2', title: 'Emmitt Smith on the game-day camera: "She\'s not looking for the damn camera!"' },
+    { id: 'm3', title: '“The Fate of Ophelia” goes live for the first time, closing the Academy Museum Gala' },
+    { id: 'm4', title: 'Caitlin Clark and Este Haim join Taylor at Arrowhead as the Chiefs rout the Chargers' },
+    { id: 'm5', title: '"Showgirl" reaches 15 weeks at No. 1 as "Patient Zero" makes it three straight in the UK' },
+    { id: 'm6', title: 'Richard Marx on the 15-year-old Taylor he passed on writing with: “I did the right thing”' },
+    { id: 'm7', title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”' },
+    { id: 'm8', title: 'Jason\'s 7:30 a.m. "Squatober" call, and Taylor\'s verdict on it' },
+    { id: 'm9', title: 'Bad Gyal says she wouldn’t collaborate with Taylor for $3 million' },
+    { id: 'm10', title: 'Confetti on the debut page: "20 years of Taylor Swift"' },
+  ];
+
+  it('links an intake issue to the moment it sourced, and never on a common word alone', () => {
+    expect(siteFrontedMoment('intake: Taylor Swift expands voice/likeness trademark filings to UK, EU, Australia amid AI deepfake crackdown (MBW, Oct 15 2026)', siteMoments)).toMatchObject({ id: 'm1' });
+    expect(siteFrontedMoment('intake: Selena Gomez says Taylor Swift is better suited to give marriage advice, at Rare Impact Fund Benefit (Cheat Sheet, Oct 14-15 2026)', siteMoments)).toMatchObject({ id: 'm7' });
+    // growth-coverage's keywordsOf reduced m2 to the token `she` and matched 14 unrelated
+    // intake issues; three distinctive shared words must not fire on an unrelated story.
+    expect(siteFrontedMoment('intake: YouTube appearance — New Heights: “Mahomes Is Having Fun Again” (published 2026-10-23)', siteMoments)).toBeNull();
+    expect(siteFrontedMoment('intake: Taylor Swift wears ruby ring jewelry trend at Chiefs game (Who What Wear, Oct 24 2026)', siteMoments)).toBeNull();
+    expect(siteFrontedMoment('intake: x', siteMoments)).toBeNull();
+    expect(siteFrontedMoment('intake: Taylor Swift releases a trailer', undefined)).toBeNull();
+  });
+
+  it('promotes a site-fronted moment past TIMELY_RE but never past the blocklist', () => {
+    const donation = 'intake: Taylor Swift donated $50,000 to Seattle Symphony in 2015 after hearing \'Become Ocean\' (UPI/KIRO7, Dec 2015)';
+    const moments = [{ id: 'm11', title: 'Moved by "Become Ocean," she sends the Seattle Symphony $50,000' }];
+    expect(judgeTitle(donation).ok).toBe(false); // no time-boxed keyword
+    expect(judgeTitle(donation, { siteFronted: true })).toMatchObject({ ok: true, siteFronted: true });
+    expect(pickEvents({ issues: [issueAt(11, donation, 3)], socialItems: [], siteMoments: moments, nowMs: NOW }).picks).toMatchObject([{ number: 11, siteFronted: 'm11' }]);
+    // The #36 blocklist is not waived by the site fronting it.
+    expect(judgeTitle('intake: Taylor Swift named in a trademark lawsuit', { siteFronted: true }).why).toMatch(/sensitive topic/);
+  });
+
+  it('picks a site-fronted moment ahead of newer ordinary news, so the cap cannot starve the curated lane', () => {
+    const moments = [{ id: 'm4', title: 'Caitlin Clark and Este Haim join Taylor at Arrowhead as the Chiefs rout the Chargers' }];
+    const { picks } = pickEvents({
+      issues: [
+        issueAt(1, 'intake: Taylor Swift releases a trailer', 1),
+        issueAt(2, 'intake: Taylor Swift drops a teaser', 2),
+        issueAt(3, 'intake: Taylor Swift and Caitlin Clark attend Chiefs-Chargers game at Arrowhead with Este Haim (SI, Oct 18 2026)', 20),
+      ],
+      socialItems: [], siteMoments: moments, nowMs: NOW,
+    });
+    expect(picks.map((p: { number: number }) => p.number)).toEqual([3, 1]);
+    expect(picks[0].siteFronted).toBe('m4');
   });
 });
 
