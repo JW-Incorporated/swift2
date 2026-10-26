@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 79
+
+## Dwayne Johnson 'Likes' Controversial Post About Taylor Swift
+
+- first seen: 2026-10-26 17:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dwayne “The Rock” Johnson has gained attention for liking a post that could be interpreted as critical of Taylor Swift. This action has sparked curiosity and questions among fans regarding the context and significance of his interaction.
+- sources:
+  - [unverified] BuzzFeed — https://www.buzzfeed.com/leylamohammed/dwayne-johnson-likes-shady-taylor-swift-post?ref=bfnsplash
 
 ## Taylor Swift and Travis Kelce Modify Wedding Plans, Removing $7 Million Feature
 
@@ -95,7 +103,7 @@ Stories: 83
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
@@ -104,6 +112,7 @@ Stories: 83
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
   - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-chiefs-seahawks-game-attendance/
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317781059.html
   - [unverified] The Sun — https://www.the-sun.com/entertainment/17208962/taylor-swift-travis-kelce-wedding-carousel-pond-plans/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-wins-unusual-award-111045941.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
@@ -376,10 +385,11 @@ Stories: 83
 ## Prince William Discusses Viral Taylor Swift Photo with Travis Kelce
 
 - first seen: 2026-10-24 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Prince William revealed that he attempted to reposition Travis Kelce in the now-famous photo featuring Taylor Swift. This acknowledgment highlights the image's impact and its reception in popular culture.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/prince-william-tried-to-move-travis-kelce-out-of-taylor-swift-photo-12191761
+  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/prince-william-tried-to-move-travis-kelce-from-taylor-swift-pic/
 
 ## Taylor Swift addresses fan filming her at Chiefs game
 
@@ -669,43 +679,3 @@ Stories: 83
 - summary: Chris Stapleton has reached a remarkable milestone by scoring his second billion-stream song, joining Morgan Wallen in this achievement.
 - sources:
   - [unverified] Taste of Country — https://tasteofcountry.com/chris-stapleton-billion-streams-milestone/
-
-## Taylor Swift Reacts to Jason Kelce's Early Morning Call to Travis
-
-- first seen: 2026-10-23 16:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: AOL.com reports on Taylor Swift's response to Jason Kelce's 7:30 a.m. call intended for Travis Kelce. The incident highlights the intersection of her personal life with the media's attention.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-not-having-jason-162136000.html
-
-## Taylor Swift reportedly concerned about fan fatigue
-
-- first seen: 2026-10-23 16:06 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: According to reports, Taylor Swift is feeling the pressure of backlash and is worried that her fans may be tiring of her. This sentiment reflects her awareness of fan engagement and the current dynamics of her relationship with her audience.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-feel-backlash-taylor-swift-150608051.html
-
-## Insiders Discuss Challenges Following Taylor Swift's Wedding to Travis Kelce
-
-- first seen: 2026-10-23 16:06 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Sources indicate that Taylor Swift's increasing fame is creating frustration in her relationship with Travis Kelce. The pressures of public attention are reportedly affecting their dynamic.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-s-fame-takes-a-toll-after-wedding-to-travis-kelce-as-insiders-reveal-growing-frustration-12222899
-
-## Chiefs Fan Critiques Taylor Swift Fans at Arrowhead Stadium
-
-- first seen: 2026-10-23 16:06 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A Chiefs fan has gone viral for expressing his annoyance towards Taylor Swift fans during a game at Arrowhead Stadium, labeling the situation as 'bizarre.' The incident has drawn attention online as Swift's presence continues to be a topic among football fans.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/chiefs-fan-calls-out-annoying-taylor-swift-fans-at-arrowhead/
-
-## Taylor Swift's Interaction with NFL Fan Caught on Camera
-
-- first seen: 2026-10-23 16:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An eye-witness details the moments leading up to an incident where Taylor Swift reportedly snapped at an NFL fan. This interaction has garnered attention among fans and media alike.
-- sources:
-  - [unverified] The Mirror US — https://www.themirror.com/sport/american-football/taylor-swift-chiefs-confrontation-eyewitness-2079259
