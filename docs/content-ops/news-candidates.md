@@ -27,6 +27,22 @@ so far".
 
 Stories: 74
 
+## Details Surface About Taylor Swift and Travis Kelce's Wedding Production
+
+- first seen: 2026-10-26 20:02 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: New photos reveal significant production efforts for the upcoming wedding of Taylor Swift and Travis Kelce. As more details emerge, excitement builds around the couple's anticipated event.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-wedding-details-emerge/
+
+## Ella Langley Reaches No. 1; Tate McRae and Rodrigo/Roan Debut Big
+
+- first seen: 2026-10-26 20:02 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Ella Langley has reclaimed the No. 1 spot on the music charts, while Tate McRae and the duo Rodrigo/Roan have made significant debuts. This marks an exciting week in the music industry.
+- sources:
+  - [established] Variety — https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/
+
 ## Tate McRae Hits Number Two on Billboard Hot 100
 
 - first seen: 2026-10-26 19:01 UTC | category: music | importance: 7
@@ -622,19 +638,3 @@ Stories: 74
 - summary: A detailed examination of the weather-related themes found throughout Taylor Swift's music has been published. The article explores how these references contribute to her songwriting style.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/news/videos/breaking-down-weather-references-taylor-195535494.html
-
-## Taylor Swift Showcases 'Gold Fairy Dust' Nails as Fall Manicure Alternative
-
-- first seen: 2026-10-23 20:01 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift is turning heads with her 'Gold Fairy Dust' nails, a stylish alternative to the darker manicures often seen in fall. This chic nail design has been highlighted by ELLE as a trendy choice for the season.
-- sources:
-  - [established] Elle — https://www.elle.com/beauty/makeup-skin-care/a74232956/taylor-swift-gold-fairy-dust-nails/
-
-## Taylor Swift Mentioned in Discussion of Meta’s New Terms
-
-- first seen: 2026-10-23 20:01 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is referenced in an article addressing the implications of Meta's new terms for publishers. The piece suggests her situation may exemplify broader issues within the industry.
-- sources:
-  - [unverified] A Media Operator — https://www.amediaoperator.com/news/metas-new-terms-arent-just-a-publisher-problem-ask-taylor-swift/
