@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 82
+
+## Taylor SwiftAbsent from Chiefs Game Against Seahawks
+
+- first seen: 2026-10-26 02:11 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was reportedly not present at the Kansas City Chiefs game against the Seattle Seahawks, raising questions about her attendance.
+- sources:
+  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-chiefs-game-against-seahawks/
+
+## Taylor Swift's Photo with Chiefs' Super Bowl LVIII Trophy Emerges
+
+- first seen: 2026-10-26 02:11 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An unseen photo of Taylor Swift posing with the Kansas City Chiefs' Super Bowl LVIII trophy has surfaced online, capturing a moment related to the team's celebration. This glimpse into Swift's interactions highlights her connection with the sports world.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-s-unseen-photo-with-kansas-city-chiefs-super-bowl-lviii-trophy-surfaces-online-12235221
 
 ## Documentary Highlights Taylor Swift's Impact on Prisoner's Life
 
