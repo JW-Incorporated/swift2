@@ -156,6 +156,21 @@ describe('the drafter prompts agree with check-drafts', () => {
     expect(daily).not.toContain('gh pr list --state closed --label social-draft --search');
   });
 
+  it('step 4.5 never leaves a news reserve empty for the same-day event run (#6327, cost 2026-10-25)', () => {
+    expect(daily).toContain('A news reserve is ALWAYS drafted in this run, and is NEVER left empty for the same-day event run');
+    expect(daily).toContain('a reserve may never be held open in anticipation of a run that may not fire');
+    // The withdrawn hedge: an uncovered event handed wholesale to the event run.
+    expect(daily).not.toContain('a time-sensitive one is drafted by its own same-day run (`routine-tree-event-draft.yml`), so here only note a still-uncovered item in the PR body');
+  });
+
+  it('agrees with social-strategy §1(e2) on the reserve: fallback by default, own day only', () => {
+    const strategy = read('docs/marketing/social-strategy.md');
+    expect(strategy).toContain('a reserve beat always drafts its named fallback');
+    expect(strategy).toContain('A reserve day\'s beat is never drafted a day early');
+    expect(daily).toContain('draft the calendar\'s named fallback exactly as written');
+    expect(daily).toContain('A reserve day\'s beat is never drafted a day early');
+  });
+
   it('L001 in the ledger carries the same rule', () => {
     const lessons = read('social/lessons.md');
     expect(lessons).toContain('the IG and X halves of the SAME campaign carry the SAME photo');

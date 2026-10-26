@@ -112,6 +112,21 @@ queues behind it (Tree records the backlog in the calendar ledger).
 **Slot cost.** An arc preempts **heartbeat** slots first. It may delay a thread
 window by up to 2 days; it never cancels one.
 
+**An arc is never scheduled into a fortnight where it would break §1(e2)'s
+≥2-displaceable-beats floor (added 2026-10-26, Tree).** The two rules collide
+arithmetically, and the collision is provable rather than a matter of taste: a
+7-day week owes one thread hero, one Blank Spaces timeline chapter (§1(c)) and
+one news reserve (§1(e2)), which leaves four beats; §1(e2) requires **≥2 of
+them to stay displaceable** so a major moment has somewhere to land. An arc
+taking three of those four (day 0, +2, +4) leaves **one**, and the week is a
+planning bug before a single word is drafted. When both cannot fit, **the arc
+waits** — a launch arc's eligibility does not expire (the pinch-zoom photo
+viewer, #831, has been live since 2026-07-18), whereas a major moment missed by
+48h is gone for good. Record the deferral in the calendar ledger with the
+fortnight it moves to, so it is a deferral and not the silent 3-of-4 close that
+ended `launch:shop-the-look` and the 1-post close that ended
+`launch:mood-chat`.
+
 **Currently push-worthy, in order** (Tree works down this list when no new ship
 landed): Mood Chat (#1560 — the clearest "we launched a thing" story), the
 pinch-zoom photo viewer (#831), the photos + focal program (#762), shoppable
@@ -371,11 +386,28 @@ Tree writes **reserves at least one day per week as a news day**: its beat is
 written as `news:` with a **named fallback subject on the same line**, so a
 quiet week still posts and the "a calendar gap is never filled" rule
 (§0/invariant) is never in play — a reserve is an assigned slot with two
-possible subjects, not a gap. On a reserve day the 11:00Z daily run checks
-`events.uncovered[]` first: an uncovered event → leave the beat for the event
-run and draft nothing there; nothing uncovered → draft the named fallback as
-written. A reserve day's beat is never drafted a day early by the previous
-run.
+possible subjects, not a gap. A reserve day's beat is never drafted a day early
+by the previous run.
+
+**The reserve day's drafter always drafts the fallback (changed 2026-10-26,
+Tree).** This paragraph used to say that on a reserve day the 11:00Z run checks
+`events.uncovered[]` first and, if something was uncovered, **left the beat for
+the event run and drafted nothing there**. That clause cost a dark day on
+2026-10-25: the drafter found two uncovered events (intake
+[#6290](https://github.com/JW-Incorporated/swift2/issues/6290),
+[#6273](https://github.com/JW-Incorporated/swift2/issues/6273)), correctly left
+the reserve empty per this rule, and `routine-tree-event-draft.yml` never fired
+for either — its last run of the week was 10-23, for intake #6258 — so **10-25
+shipped nothing on either platform** and the two events it was holding the slot
+for were never covered. The hedge was written when the event run could only
+schedule onto a day where neither platform was taken, so an empty beat was the
+only way it could land at all. Step 5 of `tree-event-draft.md` now **displaces**
+a `heartbeat:` or `mood:` beat on the yield order below, so the event run no
+longer needs a vacancy — and the ≥2-displaceable-beats guarantee exists to give
+it one. Therefore: **a reserve beat always drafts its named fallback**, and an
+event that arrives takes it or displaces a beat like any other. A reserve may
+never be left empty in anticipation of a run that may not fire; a slot held open
+for news that does not arrive is just a gap with a reason attached.
 
 **Yield order, when news lands off-reserve.** News may take the next
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
@@ -416,13 +448,15 @@ arithmetic above is the other half: a ≤2 cap on a 13-beat fortnight could not
 have carried 12 events even on a perfect week. So, from this plan on:
 
 - **A major moment gets a same-day pair and does not spend the ordinary cap.**
-  *Major* means a confirmed event the site itself fronts: a live debut, a
-  release, an official video, a chart No. 1, an award, a tour or appearance
-  announcement — never an intake row whose `significance` is `routine`. The
-  ceiling becomes **≤3 news posts per rolling 7 days, of which ≤2 may be
-  ordinary**; a third in one week must be major. The anti-aggregator reason the
-  ≤2 was written still holds for everything that is not major, which is most of
-  the intake feed.
+  *Major* is a property of the event, not of a metadata field: a confirmed
+  event the site itself fronts whose shape is a live debut, a release, an
+  official video, a chart No. 1 or a chart milestone, an award, or a tour or
+  appearance announcement. `significance: "defining"` or `"notable"` on the
+  moment makes it major outright; **`routine` is not evidence of anything and
+  never disqualifies a moment** (corrected 2026-10-25 — see "Why 1 of 15"
+  below). The ceiling stays **≤3 news posts per rolling 7 days, of which ≤2 may
+  be ordinary**; a third in one week must be major. The anti-aggregator reason
+  the ≤2 was written still holds for everything that is not major.
 - **Every calendar leaves somewhere for one to land.** Each rolling 7 days
   carries **≥2 displaceable beats** — a `heartbeat:` or `mood:` beat — on top
   of its news reserve. A plan with zero slack is how a full calendar silently
@@ -433,9 +467,65 @@ have carried 12 events even on a perfect week. So, from this plan on:
   then mood). If no heartbeat or mood beat is free inside 48h, a major moment
   takes the nearest one and that beat is **dropped rather than slid**, recorded
   in the item's `why`. A major moment posted two days late is not news.
+- **A floor, not just a ceiling — ≥3 moments a week reach both platforms inside
+  48h** (added 2026-10-25, answering Marjorie's ask
+  [#6310](https://github.com/JW-Incorporated/swift2/issues/6310); evidence: the
+  week to 2026-10-25 shipped **1** news pair while the site carried 15 moments,
+  the second such week running). The ≤3 ceiling was written as a guard against
+  over-posting; the measured failure is the opposite, so the news allowance is
+  now meant to be **spent**, not held. Three moments needs three landing days
+  and the calendar already carries them — one news reserve plus the ≥2
+  displaceable beats above. A week that lands fewer than three names each
+  moment it missed and the reason, in the plan.
 - **It is measured.** Each weekly plan reports news pairs shipped against major
-  site-covered moments, so a 1-of-13 gap shows up as a number rather than as a
-  good intention.
+  site-covered moments and against the floor of three, so a 1-of-15 gap shows
+  up as a number rather than as a good intention.
+
+**Why 1 of 15, and the two halves of the fix (2026-10-25).** The `routine` veto
+this section used to carry was one half of it: `scripts/social/new-on-site.mjs`
+writes `significance: item.significance ?? 'routine'` and the vault corpus
+leaves the field unset, so **all 64 moment rows** across the 10-17 → 10-25
+`social/inbox/new-on-site-*.json` sheets read `routine` — including "The Fate of
+Ophelia" going live for the first time and "Showgirl" reaching 15 weeks at
+No. 1, both of which are squarely on the major list above. `routine` is not even
+a value the content type defines (`packages/experience/src/types.ts`:
+`'defining' | 'notable'`). The major lane could therefore never open on its own,
+and the one pair that did ship got there through the calendar, planned by hand.
+
+The other half was **not this desk's to fix** and was filed to Marjorie; it
+landed on 2026-10-26 ([#6313](https://github.com/JW-Incorporated/swift2/issues/6313),
+ops-fixer), so the same-day path is now reachable:
+
+- `scripts/social/lib/event-dispatch.mjs` bounded its scan at
+  `EVENT_WINDOW_HOURS = 24` against this section's 48h — **now 48**.
+- Its title keyword list (`TIMELY_RE`) was matching wire headlines only
+  incidentally, on a stray `album`/`single`/`video` noun, and missing the event
+  families the news desk actually files. It now also reads a live debut, an
+  appearance, a chart week and an anniversary, and — the first-class part — **a
+  moment this site already fronts is promoted past the keyword test entirely and
+  picked ahead of ordinary news**, which is what "the site's front page is the
+  trigger" above asks for. The link is lexical (three distinctive shared words
+  between the intake headline and a `social/inbox/new-on-site-*.json` moment),
+  because nothing records provenance from a vault moment back to its intake
+  issue. The #36 blocklist still applies to a site-fronted moment: being on the
+  site is editorial reach, not a blocklist waiver.
+- `docs/agents/runner-prompts/tree-event-draft.md` step 5 scheduled only onto a
+  UTC day where neither platform was already taken, never displacing a
+  `heartbeat:` or `mood:` beat — so the yield order and the
+  ≥2-displaceable-beats guarantee above were unreachable from inside the only run
+  that drafts off-reserve news. **Step 5 now displaces** on that yield order,
+  re-dates the beat it took (both halves) and records it in `why`.
+
+**The 10-of-10 claim above was measured against the wrong corpus** and is
+withdrawn: `judgeTitle` only ever sees `intake:` *issue* titles, never the vault
+moment headlines it was run against, and against the real intake corpus the old
+list passed 16 of the newest 40 — including the Fate of Ophelia live debut and
+the 15-weeks-at-No. 1 chart week. The keyword gate was therefore never the whole
+reason those two missed 48h; the 24h window and the missing displacement were the
+binding constraints. Five of the ten moments share almost no vocabulary with the
+intake issue that sourced them ("Confetti on the debut page" for a *"20 years of
+Taylor Swift" website tribute*), so no title rule links them and the site-fronted
+promotion reaches the other five.
 
 The site's own `social/inbox/new-on-site-*.json` sheet is evidence a moment is
 live and already sourced on the site; it is not a substitute for sourcing the
@@ -550,7 +640,10 @@ day.
 2026-10-01): its beat is written `news:` with a named fallback subject on the
 same line, and it is the only slot the previous day's run leaves alone. A
 calendar that assigns all seven days to planned campaigns is now a planning
-bug, not a full plan — it is what made 27 events in two weeks un-postable.
+bug, not a full plan — it is what made 27 events in two weeks un-postable. One
+reserve is the floor on *slots*, not on posts: §1(e2)'s throughput floor is **≥3
+moments reaching both platforms inside 48h each week**, carried by the reserve
+plus the ≥2 displaceable beats, and a plan is read against that number.
 
 ### Sibling rule + the X length rule
 
@@ -799,6 +892,7 @@ against that old curve is fiction. Reset below.
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
 | Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
 | Campaign mix | `campaign` prefixes | Roughly 1 launch arc, **6 thread beats** (one per thread, §1(b) as of 2026-10-09), 4-5 news reserves, 4-5 timeline beats, 2-3 mood, rest heartbeat, per month |
+| **News throughput** (added 2026-10-25, Tree, answering ask [#6310](https://github.com/JW-Incorporated/swift2/issues/6310)) | `social/posted/` `news:`/`heartbeat:event-news:` pairs vs the week's `social/inbox/new-on-site-*.json` moments | **Floor ≥3 moments reaching both platforms inside 48h** per week (§1(e2)), against the ≤3-pair ceiling. Report it as `<shipped> of <site-fronted moments>, <n> inside 48h` and name every miss with its reason. The week to 2026-10-25 was **1 of 15** |
 | **Photo supply** (added 2026-10-15, Tree) | `social/photo-library.json` vs `social/posted/` + `gh run list --workflow=concert-photo-sourcing.yml` | Three lines, reported as-is: **library total**, **never-used count**, and **the last `concert-photo-sourcing` run's conclusion**. A red engine is a headline, not a footnote — it lands zero photos, and the §2 intake floor (≥50 never-used entries/week under 3,000) is unreachable while one subreddit 403 is a total stop |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
