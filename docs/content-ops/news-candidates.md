@@ -25,17 +25,26 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Taylor Swift Expected to Appear Post Chiefs-Seahawks Game
+
+- first seen: 2026-10-26 06:06 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is rumored to make a significant appearance following the Chiefs versus Seahawks game, according to Heavy.com. Fans are eager to see if she will indeed attend the event after the game concludes.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-major-appearance-after-seahawks-game-travis-kelce/
 
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a74241747/taylor-swift-travis-kelce-chiefs-seahawks-game-attendance-explained-october-2026/
   - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50280779/nfl-week-7-trolls
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
+  - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
 
 ## Taylor SwiftAbsent from Chiefs Game Against Seahawks
