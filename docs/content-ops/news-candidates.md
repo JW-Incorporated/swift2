@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 80
+
+## Documentary Highlights Taylor Swift's Impact on Prisoner's Life
+
+- first seen: 2026-10-26 01:11 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A new documentary explores how Taylor Swift's music inspired hope in a man during his 21 years in prison. The film reflects on the significant influence of her songs in his life.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/entertainment/daylight-unlikely-taylor-swift-fan-now-hes-getting-out-of-prison
+
+## Taylor Swift Sparks Interest in Popular Posture Bra
+
+- first seen: 2026-10-26 01:11 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new posture bra, which gained popularity after Taylor Swift was spotted wearing it, has seen a surge in demand. This trend highlights Swift's ongoing influence on fashion choices.
+- sources:
+  - [unverified] Lansing State Journal — https://www.lansingstatejournal.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
+
+## Taylor Swift's Possible Attendance at Chiefs-Seahawks Game
+
+- first seen: 2026-10-26 01:11 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reports speculate on Taylor Swift's attendance at the Chiefs-Seahawks Sunday Night Football game. Fans are curious if she will be spotted at the event.
+- sources:
+  - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-tonights-chiefs-seahawks-sunday-night-football-game
 
 ## Taylor Swift Sparks Interest in Popular Posture Bra
 
@@ -652,11 +676,3 @@ Stories: 78
 - summary: An article reflects on the Taylor Swift known in 2006 through her MySpace presence, highlighting her early career and connection with fans during that time.
 - sources:
   - [unverified] The i Paper — https://inews.co.uk/culture/music/taylor-swift-myspace-2006-4838174
-
-## Rumors of Taylor Swift's debut album rerelease circulate this week
-
-- first seen: 2026-10-23 00:57 UTC | category: release | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: There are rumors suggesting that Taylor Swift may be rereleasing her debut album this week, as reported by Yahoo. Further details have yet to be confirmed.
-- sources:
-  - [unverified] Deseret News — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdWU2a21BeUR6MFpUeDhIcWwtR25lbldhUkJLRng4M1JHREhiVXo0X2VSTTNRY19yaUhQRlZCdHk1OXFfNE93Q3dLU2hxZDVnM0VWQU5GdmdGVm14S0l2eW9XNlYySl93QU16RWpxVXN6czVtTHFCSjF3QVpxeHoxczE4VGpMQWhETGx2ZA?oc=5&hl=en-US&gl=US&ceid=US:en
