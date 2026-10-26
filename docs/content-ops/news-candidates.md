@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 79
+
+## Never-Before-Seen Wedding Photos of Taylor Swift Leaked
+
+- first seen: 2026-10-26 21:38 UTC | category: relationship | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Newly leaked wedding photos of Taylor Swift provide fans with their first glimpse of what guests saw as she walked down the aisle. These images are expected to stir excitement among her fanbase.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/never-seen-taylor-swift-wedding-205720210.html
+
+## Bluebird Cafe Addresses Taylor Swift Event Rumors
+
+- first seen: 2026-10-26 21:38 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bluebird Cafe has publicly addressed and denied rumors regarding a surprise event featuring Taylor Swift this week. The establishment aimed to clarify misinformation circulating among fans and media.
+- sources:
+  - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74252728/bluebird-cafe-shuts-down-taylor-swift-rumors/
+
+## Taylor Swift Reflects on Early Career in 2006 Interview for 20th Anniversary
+
+- first seen: 2026-10-26 21:38 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent feature, Taylor Swift discusses her early hit 'Tim McGraw,' her experiences with MySpace, and more during a 2006 interview as part of her 20th anniversary celebrations.
+- sources:
+  - [unverified] Extra — https://extratv.com/2026/10/26/taylor-swift-20th-anniversary-she-talks-tim-mcgraw-myspace-and-more-in-2006-interview/
 
 ## Taylor Swift Halloween Costumes Inspired by Her 2026 Moments
 
@@ -151,7 +175,7 @@ Stories: 76
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 11
+- verification_status: corroborated | source_count: 12
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
@@ -160,6 +184,7 @@ Stories: 76
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
   - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
   - [unverified] Page Six — https://pagesix.com/2026/10/26/entertainment/taylor-swift-travis-kelce-wedding-props-deemed-too-expensive-dangerous-revealed/
+  - [unverified] starmagazine.com — https://starmagazine.com/new-images-from-taylor-swift-and-travis-kelces-msg-wedding-reveal-stunning-never-before-seen-details/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-chiefs-seahawks-game-attendance/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317781059.html
   - [unverified] The Sun — https://www.the-sun.com/entertainment/17208962/taylor-swift-travis-kelce-wedding-carousel-pond-plans/
