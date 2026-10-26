@@ -129,3 +129,40 @@ describe('#4169: SOCIAL_FREEZE reaches every weekly-brief.mjs step', () => {
     );
   });
 });
+
+describe('#6328: the event-status sensor runs where it can actually run', () => {
+  // The bug: step 0.6 of the prompt told the agent to run event-status.mjs
+  // itself, which it never could — the sensor imports @swift2/core and .ts
+  // source (so it needs node_modules + tsx) and the agent job
+  // (routine-template.yml) never installs, so it died with
+  // ERR_MODULE_NOT_FOUND and the planner was blind to a live event. The
+  // sensor now runs in a `prepare` job via prepare-draft-inputs.mjs (whose
+  // runEventStatusCli owns the tsx invocation), handed over as an artifact.
+  const workflow = readWorkflow('.github/workflows/routine-tree-weekly-plan.yml');
+
+  it('has a prepare job that installs the workspace before pre-computing the inputs', () => {
+    expect(workflow).toMatch(/^ {2}prepare:$/m);
+    const prepare = workflow.split(/^ {2}prepare:$/m)[1].split(/^ {2}run:\n/m)[0];
+    const installAt = prepare.indexOf('npm ci --silent');
+    const precomputeAt = prepare.indexOf('node scripts/social/prepare-draft-inputs.mjs');
+    expect(installAt).toBeGreaterThan(-1);
+    expect(precomputeAt).toBeGreaterThan(installAt);
+  });
+
+  it('hands the pre-compute to the agent as a pre-run artifact', () => {
+    expect(workflow).toMatch(/^ {2}run:\n {4}needs: prepare$/m);
+    expect(workflow).toMatch(/pre_run_artifact: tree-weekly-plan-inputs/);
+    expect(workflow).toMatch(/name: tree-weekly-plan-inputs\n\s+path: \.scratch\/tree-inputs\.json/);
+  });
+
+  it('degrades a failed pre-compute to an error stub instead of failing the run', () => {
+    expect(workflow).toMatch(/prepare-draft-inputs\.mjs --out \.scratch\/tree-inputs\.json \|\| true/);
+    expect(workflow).toMatch(/"error":"prepare-draft-inputs\.mjs failed/);
+  });
+
+  it('the prompt reads the artifact and never re-runs the sensor itself', () => {
+    const prompt = readWorkflow('docs/agents/runner-prompts/tree-weekly-plan.md');
+    expect(prompt).toMatch(/Read `events\.status` in `\.scratch\/tree-inputs\.json`/);
+    expect(prompt).not.toMatch(/Run `node scripts\/social\/event-status\.mjs`/);
+  });
+});
