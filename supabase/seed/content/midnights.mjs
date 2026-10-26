@@ -2545,7 +2545,7 @@ export default {
       day: 27,
       category: 'fashion',
       // Cross-link (Stage 3, 2026-08-10): the "Free People" designer cluster.
-      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se'],
+      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se', 'moment:vault-midnights-a-zodiac-easter-egg-for-joe-alwyn-in-the-lavender-haze-video'],
       title: 'A 70s lace slip dress and Free People fur coat for "Lavender Haze"',
       snippet:
         'A white lace-trimmed slip mini dress under a light-violet Free People "Renata" faux fur coat, styled with shag-inspired bangs, glittery eyeshadow, and glossy pink lips for the self-directed 70s-themed video.',
@@ -5664,6 +5664,7 @@ export default {
       month: 1,
       day: 27,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-'],
       title: 'A zodiac Easter egg for Joe Alwyn in the \'Lavender Haze\' video',
       snippet:
         'When Taylor released the self-directed "Lavender Haze" music video on Jan. 27, 2023, fans spotted a vinyl record cover featuring the Sagittarius and Pisces constellations — her and Alwyn\'s zodiac signs — read as a coded nod to their relationship.',

@@ -144,6 +144,7 @@ export default {
       month: 10,
       day: 14,
       category: 'relationship',
+      relatedIds: ['moment:vault-fearless-bowling-with-selena-gomez-in-studio-city', 'moment:vault-ttpd-a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen'],
       title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”',
       snippet:
         'Two weeks after her own first wedding anniversary, at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
