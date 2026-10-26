@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 78
+
+## Taylor Swift Sparks Interest in Popular Posture Bra
+
+- first seen: 2026-10-26 00:11 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A posture bra has gained popularity, reportedly starting with Taylor Swift's influence. The item is now in high demand among fans and consumers alike.
+- sources:
+  - [unverified] Yahoo — https://shopping.yahoo.com/health/womens-health/articles/started-taylor-swift-now-everyone-113221902.html
 
 ## Taylor Swift Makes Surprise Appearance During Dakota Johnson's 'SNL' Monologue
 
@@ -652,19 +660,3 @@ Stories: 79
 - summary: There are rumors suggesting that Taylor Swift may be rereleasing her debut album this week, as reported by Yahoo. Further details have yet to be confirmed.
 - sources:
   - [unverified] Deseret News — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdWU2a21BeUR6MFpUeDhIcWwtR25lbldhUkJLRng4M1JHREhiVXo0X2VSTTNRY19yaUhQRlZCdHk1OXFfNE93Q3dLU2hxZDVnM0VWQU5GdmdGVm14S0l2eW9XNlYySl93QU16RWpxVXN6czVtTHFCSjF3QVpxeHoxczE4VGpMQWhETGx2ZA?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Taylor Swift's Gowns Inspire Shift from Black Wedding Guest Dresses
-
-- first seen: 2026-10-22 23:27 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's elegant gowns are encouraging a move away from traditional black wedding guest dresses towards a more sophisticated color choice. This trend reflects her influence in the fashion world and offers new options for wedding attire.
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMijgFBVV95cUxQSnQwNU1vbklWazZVN2V0ZUtPR0UtSmFGUy1lbUtleVVsdUNjaEdfbzIwNW9IT2VWUVNuZmVUVVU5djZzTnkzSFU1eVNPUC05dTV2b2RUYWY4NVJnZ181Ymlfb09sYUY5RzdjOS1hR0hDZXdDamMtNzJHdVhqa2YtX0pDb2Etc2FNUEhpcmF3?oc=5&hl=en-US&gl=US&ceid=US:en
-
-## Daily Bruin Ranks Taylor Swift's Albums After 20 Years of Her Career
-
-- first seen: 2026-10-22 23:27 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The Daily Bruin published a ranking of Taylor Swift's albums, celebrating 20 years of her music career. The article reflects on the lasting impact of her work, particularly focusing on which albums will continue to resonate with fans.
-- sources:
-  - [unverified] Daily Bruin — https://news.google.com/rss/articles/CBMisgFBVV95cUxNY3lxZS1xcUxTMXBhSEtkNENxbXZUQjFFU3hPWkVvNDAyVE5BUmxGeUhMa2NNUkM3Zm8zWERRaEFWZ2h6MkV3eDhET3p3cm96a3U2VWt3N0FiWVRlR21UQTlpX3RjVENWSksyQWgzR2FEZEpQUVBzcXBKX1lkeUNmMWJWbFRlQzZhaVdiYXZXT05fRHFCLTNiTzRHZm95QnRWRHJrOXJhYVhLNU4wczhjU05B?oc=5&hl=en-US&gl=US&ceid=US:en
