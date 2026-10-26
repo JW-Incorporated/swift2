@@ -15295,6 +15295,17 @@ export default {
             notes:
               'Independent coverage of the same ET remarks corroborating the dance-floor anecdote, the 10–12 hour estimate and the "wedding of the century" quote.',
           },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/us/924334/brad-pitt-reveals-how-he-lost-girlfriend-in-surprising-confession/',
+            source_title: 'Brad Pitt reveals how he \'lost\' girlfriend in surprising confession',
+            publisher: 'Hello!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 3,
+            notes:
+              'Fetched 2026-10-26. Third outlet quoting the same ET interview: "such an amazing night," "10 hours, maybe 12," "so thoughtful and well-planned and really moving and great fun," and "I lost her in the melee on the dance floor."',
+          },
         ],
         photos: [
           {
@@ -16075,6 +16086,17 @@ export default {
             reliability_score: 3,
             notes:
               'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
+          },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/925591/taylor-swift-rare-footage-early-days-of-travis-kelce-romance-wedding/',
+            source_title: 'Taylor Swift shares rare footage of early days of Travis Kelce romance, 3 months after wedding',
+            publisher: 'Hello!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 3,
+            notes:
+              'Fetched 2026-10-26. Independently describes the home footage of Travis driving Taylor into the city, road signs, a passenger-seat selfie, drone shots and two people roller-skating, and places the song on The Encore.',
           },
         ],
       },
