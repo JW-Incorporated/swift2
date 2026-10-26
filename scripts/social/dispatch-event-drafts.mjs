@@ -14,6 +14,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
+import { newOnSiteFeed } from './lib/draft-inputs.mjs';
 import { listOpenDraftPrs, readPrQueueItems } from './lib/draft-prs.mjs';
 import { DISPATCH_LABEL, EVENT_DAILY_CAP, fromRestIssue, pickEvents } from './lib/event-dispatch.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
@@ -30,7 +31,7 @@ const firstLine = (err) => String(err?.message ?? err).split('\n')[0];
  */
 export function dispatchPicks(run, picks, { dryRun = false, log = console.log } = {}) {
   for (const pick of picks) {
-    log(`  dispatch #${pick.number}: ${pick.title.slice(0, 100)}`);
+    log(`  dispatch #${pick.number}${pick.siteFronted ? ' [site-fronted]' : ''}: ${pick.title.slice(0, 100)}`);
     if (dryRun) continue;
     try {
       run(['label', 'create', DISPATCH_LABEL, '--color', 'ededed', '--description', 'Machine-only: a same-day Tree event draft was dispatched for this intake issue']);
@@ -63,9 +64,12 @@ async function main() {
   const social = path.join(ROOT, 'social');
   const drafts = listOpenDraftPrs(gh).flatMap((pr) => readPrQueueItems(gh, repo, pr)).filter((i) => i.data);
   const socialItems = [...(await readJsonDir(path.join(social, 'posted'))), ...(await readJsonDir(path.join(social, 'queue'))), ...drafts];
+  // The same feed Tree's draft run reads: a moment the site already fronts is
+  // promoted past TIMELY_RE and picked first (strategy §1(e2), issue #6313).
+  const feed = newOnSiteFeed((await readJsonDir(path.join(social, 'inbox'))).map(({ ref, data }) => ({ file: path.basename(ref), data })));
 
-  const { picks, skipped } = pickEvents({ issues, socialItems, nowMs, dispatchedToday });
-  console.log(`dispatch-event-drafts${dryRun ? ' (dry run)' : ''}: ${issues.length} open intake issue(s), ${dispatchedToday}/${EVENT_DAILY_CAP} dispatched today, ${picks.length} to dispatch`);
+  const { picks, skipped } = pickEvents({ issues, socialItems, siteMoments: feed?.moments, nowMs, dispatchedToday });
+  console.log(`dispatch-event-drafts${dryRun ? ' (dry run)' : ''}: ${issues.length} open intake issue(s), ${feed ? `${feed.count} site-fronted moment(s) in ${feed.file}` : 'no new-on-site feed'}, ${dispatchedToday}/${EVENT_DAILY_CAP} dispatched today, ${picks.length} to dispatch`);
   const old = skipped.filter((s) => s.why.startsWith('older than'));
   if (old.length) console.log(`  ${old.length} older intake issue(s) outside the window`);
   for (const s of skipped.filter((x) => !x.why.startsWith('older than'))) console.log(`  skip #${s.number}: ${s.why}`);
