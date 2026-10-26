@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 78
+
+## Monica McNutt Discusses Hot Mic Moment Criticizing Taylor Swift
+
+- first seen: 2026-10-26 22:35 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Monica McNutt raises questions regarding how her hot mic moment, in which she criticized Taylor Swift, became widely shared online. The incident has garnered media attention and sparked discussions.
+- sources:
+  - [established] People — https://people.com/monica-mcnutt-questions-how-hot-mic-moment-criticizing-taylor-swift-spread-12195512
 
 ## Never-Before-Seen Wedding Photos of Taylor Swift Leaked
 
@@ -664,19 +672,3 @@ Stories: 79
 - summary: Fans speculate that Taylor Swift may have released a subtle Easter egg ahead of the anniversary of her debut album. This has sparked conversations and theories among the Swiftie community.
 - sources:
   - [unverified] Us Weekly — https://www.usmagazine.com/entertainment/news/did-taylor-swift-fans-spot-clue-before-debut-anniversary/
-
-## Travis Kelce Seen With NWSL Players During Bye Week
-
-- first seen: 2026-10-23 22:03 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce made a surprise appearance with National Women's Soccer League players during the Chiefs' bye week. Notably, Taylor Swift was not in attendance with him.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-unexpected-appearance-nwsl-players-without-taylor-swift
-
-## Analysis of Weather References in Taylor Swift's Songs
-
-- first seen: 2026-10-23 22:03 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A detailed examination of the weather-related themes found throughout Taylor Swift's music has been published. The article explores how these references contribute to her songwriting style.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/news/videos/breaking-down-weather-references-taylor-195535494.html
