@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift and Travis Kelce Modify Wedding Plans, Removing $7 Million Feature
+
+- first seen: 2026-10-26 15:56 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports indicate that Taylor Swift and Travis Kelce have made changes to their wedding plans, including the removal of a $7 million feature. Details about the remaining plans have not been disclosed.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reportedly-154000827.html
 
 ## Taylor Swift Fans React to Seattle Seahawks Friendship Bracelet Meme
 
@@ -87,7 +95,7 @@ Stories: 82
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
@@ -96,6 +104,7 @@ Stories: 82
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
   - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-chiefs-seahawks-game-attendance/
+  - [unverified] The Sun — https://www.the-sun.com/entertainment/17208962/taylor-swift-travis-kelce-wedding-carousel-pond-plans/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-wins-unusual-award-111045941.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
 
