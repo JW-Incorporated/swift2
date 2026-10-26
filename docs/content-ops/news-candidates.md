@@ -30,10 +30,13 @@ Stories: 83
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a74241747/taylor-swift-travis-kelce-chiefs-seahawks-game-attendance-explained-october-2026/
+  - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50280779/nfl-week-7-trolls
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
 
 ## Taylor SwiftAbsent from Chiefs Game Against Seahawks
 
@@ -316,14 +319,6 @@ Stories: 83
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-confronts-fan-filming-164135162.html
 
-## Taylor Swift Misses Opportunity to Return to Country Roots
-
-- first seen: 2026-10-24 17:06 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from Business Insider discusses how Taylor Swift recently missed an ideal moment to reconnect with her country music roots. It highlights her ongoing shifts in musical style and public image.
-- sources:
-  - [unverified] Business Insider — https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10
-
 ## Prince William Didn't Want Travis Kelce in Photo with Taylor Swift and Kids
 
 - first seen: 2026-10-24 17:06 UTC | category: relationship | importance: 5
@@ -331,6 +326,14 @@ Stories: 83
 - summary: Prince William expressed his desire to exclude Travis Kelce from a photo taken with Taylor Swift and the kids. The comment highlights the dynamics of public appearances involving the singer and her associations.
 - sources:
   - [unverified] EssentiallySports — https://www.essentiallysports.com/nfl-active-news-trying-to-move-him-out-prince-william-admits-he-didnt-want-travis-kelce-in-photo-with-taylor-swift-kids/
+
+## Taylor Swift Misses Opportunity to Return to Country Roots
+
+- first seen: 2026-10-24 17:06 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Business Insider discusses how Taylor Swift recently missed an ideal moment to reconnect with her country music roots. It highlights her ongoing shifts in musical style and public image.
+- sources:
+  - [unverified] Business Insider — https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10
 
 ## Taylor Swift's Debut Album Impact on Country Music Explored
 
