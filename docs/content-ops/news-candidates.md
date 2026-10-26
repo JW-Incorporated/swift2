@@ -25,7 +25,16 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
+
+## Taylor Swift Misses Chiefs vs Seahawks Game Last Night
+
+- first seen: 2026-10-26 12:56 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift was not present at the Chiefs vs Seahawks game, prompting discussion about her absence. The reasons for her decision to skip the game have been explored in various outlets.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74246263/why-taylor-swift-skipped-chiefs-vs-seahawks-game/
+  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/why-taylor-swift-skipped-chiefs-111255118.html
 
 ## Taylor Swift's Advice Allegedly Helped Lula's Election Victory
 
@@ -54,7 +63,7 @@ Stories: 83
 ## Taylor Swift absent from Chiefs-Seahawks game in Seattle
 
 - first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
 - sources:
   - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
@@ -63,6 +72,7 @@ Stories: 83
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
   - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-chiefs-seahawks-game-attendance/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-wins-unusual-award-111045941.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
 
 ## Taylor SwiftAbsent from Chiefs Game Against Seahawks
@@ -690,19 +700,3 @@ Stories: 83
 - summary: Yahoo highlights various awkward moments from Taylor Swift's career that fans might find memorable. The article gathers a collection of these instances, showcasing a lighter side of the artist.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/awkward-taylor-swift-moments-cant-133000570.html
-
-## Taylor Swift's Website Update Suggests Possible 'Debut TV' Announcement
-
-- first seen: 2026-10-23 12:44 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's official website has received an update, hinting at a potential announcement regarding 'Debut TV'. Fans are speculating about what this could mean for her music releases.
-- sources:
-  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/taylor-swift-website-updated-debut-114835361.html
-
-## New Theories Emerge Within the Swiftie Community About Taylor Swift
-
-- first seen: 2026-10-23 12:44 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Swiftie community is generating excitement with new theories about Taylor Swift, drawing attention across social media. Fans are known for their imaginative interpretations of her work and personal life.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/swifties-known-wild-theories-m-181840221.html
