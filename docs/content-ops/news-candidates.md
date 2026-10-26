@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift absent from Chiefs-Seahawks game in Seattle
+
+- first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74241747/taylor-swift-travis-kelce-chiefs-seahawks-game-attendance-explained-october-2026/
 
 ## Taylor SwiftAbsent from Chiefs Game Against Seahawks
 
