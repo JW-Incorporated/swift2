@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 80
+
+## Seahawks Playfully Interact with Taylor Swift Following Chiefs Defeat
+
+- first seen: 2026-10-26 23:31 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Seattle Seahawks humorously referenced Taylor Swift after their victory against the Kansas City Chiefs, who were previously undefeated. The playful interaction highlights the intersection of sports and pop culture.
+- sources:
+  - [established] People — https://people.com/seahawks-troll-taylor-swift-after-thrashing-chiefs-to-break-their-undefeated-streak-12194988
+
+## Review of Taylor Swift's 'The Encore' Highlights Variability
+
+- first seen: 2026-10-26 23:31 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Central Times reviews Taylor Swift's 'The Encore', noting it possesses both high points and shortcomings. The critique emphasizes the varying quality of the music presented in this release.
+- sources:
+  - [unverified] Central Times — https://www.centraltimes.org/entertainment/2026/10/26/taylor-swifts-the-encore-has-its-highs-and-lows/
 
 ## Monica McNutt Discusses Hot Mic Moment Criticizing Taylor Swift
 
