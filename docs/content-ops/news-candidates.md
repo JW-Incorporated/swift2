@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 90
+
+## Taylor Swift Achieves New Career Milestone
+
+- first seen: 2026-10-27 17:12 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached yet another significant milestone in her career according to a report from PureWow. This achievement highlights her ongoing success in the music industry.
+- sources:
+  - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-nashville-songwriters-hall-of-fame
+
+## Taylor Swift Showcases Elegant Gold Nails for Fall
+
+- first seen: 2026-10-27 17:12 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has demonstrated that gold nails are a stylish alternative to traditional dark manicures for the fall season, as reported by Grazia. This trend highlights a shift towards brighter, more elegant colors during a typically darker season.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/not-burgundy-not-black-taylor-swift-proved-gold-nails-are-falls-most-elegant-manicure-25497-c1/
 
 ## Taylor Swift Enhances Nashville Hall of Fame Look with Jewelry and Jimmy Choos
 
@@ -35,14 +51,6 @@ Stories: 91
 - sources:
   - [established] WWD — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-nashville-songwriters-1239387187/
 
-## Taylor Swift Attends Nashville Event in Velvet Outfit and Diamond Necklace
-
-- first seen: 2026-10-27 15:01 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift celebrated her induction as the Hall of Fame’s youngest member while marking her homecoming in Nashville. She donned a Raisa Vanessa velvet outfit paired with a striking 65-carat diamond necklace, coinciding with the 20th anniversary of her debut album.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-raisa-vanessa-mini-dress-nashville-songwriters-1239387196/
-
 ## Taylor Swift Achieves Success Following Seahawks Bracelet Comment
 
 - first seen: 2026-10-27 15:01 UTC | category: business | importance: 6
@@ -50,6 +58,14 @@ Stories: 91
 - summary: Taylor Swift has recorded a notable achievement in response to comments about her bracelet made by the Seattle Seahawks. This development highlights her ongoing prominence in the entertainment industry.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-scores-major-win-140311734.html
+
+## Taylor Swift Attends Nashville Event in Velvet Outfit and Diamond Necklace
+
+- first seen: 2026-10-27 15:01 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift celebrated her induction as the Hall of Fame’s youngest member while marking her homecoming in Nashville. She donned a Raisa Vanessa velvet outfit paired with a striking 65-carat diamond necklace, coinciding with the 20th anniversary of her debut album.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-raisa-vanessa-mini-dress-nashville-songwriters-1239387196/
 
 ## Music History Highlights October 27 Featuring Taylor Swift
 
@@ -762,27 +778,3 @@ Stories: 91
 - sources:
   - [unverified] InStyle — https://www.instyle.com/prince-william-tried-to-move-travis-kelce-out-of-taylor-swift-photo-12191761
   - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/prince-william-tried-to-move-travis-kelce-from-taylor-swift-pic/
-
-## Taylor Swift addresses fan filming her at Chiefs game
-
-- first seen: 2026-10-24 17:06 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen confronting a fan who was filming her during a Chiefs game. The interaction has garnered attention online as fans discuss the encounter.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-confronts-fan-filming-164135162.html
-
-## Prince William Didn't Want Travis Kelce in Photo with Taylor Swift and Kids
-
-- first seen: 2026-10-24 17:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Prince William expressed his desire to exclude Travis Kelce from a photo taken with Taylor Swift and the kids. The comment highlights the dynamics of public appearances involving the singer and her associations.
-- sources:
-  - [unverified] EssentiallySports — https://www.essentiallysports.com/nfl-active-news-trying-to-move-him-out-prince-william-admits-he-didnt-want-travis-kelce-in-photo-with-taylor-swift-kids/
-
-## Taylor Swift Misses Opportunity to Return to Country Roots
-
-- first seen: 2026-10-24 17:06 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from Business Insider discusses how Taylor Swift recently missed an ideal moment to reconnect with her country music roots. It highlights her ongoing shifts in musical style and public image.
-- sources:
-  - [unverified] Business Insider — https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10
