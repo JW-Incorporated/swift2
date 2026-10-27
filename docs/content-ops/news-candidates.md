@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame at Age 36
+
+- first seen: 2026-10-27 03:32 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: At 36, Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame, becoming its youngest member. During the ceremony, she reflected on her early songwriting days in Nashville and was honored by former tourmate Brad Paisley and singer Lainey Wilson.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
 
 ## Taylor Swift Jokes About Relationship with Brad Paisley
 
