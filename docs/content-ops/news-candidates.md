@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Brad Paisley Pranks Taylor Swift During Tour, Keeping Her Awake for Months
+
+- first seen: 2026-10-27 06:13 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley executed a prank on Taylor Swift during their tour that reportedly kept her awake for several months. The details of the prank have been discussed in media outlets.
+- sources:
+  - [unverified] Taste of Country — https://tasteofcountry.com/brad-paisley-taylor-swift-tour-prank-crickets/
 
 ## Taylor Swift Honors Nashville Songwriters at Hall of Fame Induction
 
