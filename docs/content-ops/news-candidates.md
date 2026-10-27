@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 93
+
+## Taylor Swift Absent from Travis Kelce's Recent Game
+
+- first seen: 2026-10-27 09:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift did not attend Travis Kelce's latest game, prompting fans to speculate about their relationship. The absence has ignited discussion among NFL fans and media.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skipped-travis-kelce-064422244.html
 
 ## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
 
