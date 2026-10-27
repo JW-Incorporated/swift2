@@ -55,7 +55,6 @@ export function ProposalThread() {
                 type="button"
                 className="w-full text-left"
                 onClick={() => openItem(item.id)}
-                aria-label={`Open “${item.title}” (${era.shortName}, ${item.dateLabel})`}
               >
               {image && (
                 <div className="relative aspect-[16/10] w-full">
