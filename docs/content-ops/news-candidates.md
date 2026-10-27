@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 89
+
+## Taylor Swift and Travis Kelce's Wedding Costs Reported at $30 Million
+
+- first seen: 2026-10-27 07:11 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Taylor Swift and Travis Kelce's upcoming wedding could cost around $30 million. Questions arise about the necessity of such an extravagant expenditure.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reported-064318089.html
+
+## Taylor Swift Wears Raisa Vanessa Velvet Micro Minidress
+
+- first seen: 2026-10-27 07:11 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been spotted in a Raisa Vanessa velvet micro minidress described as 'lusciously fall'. The outfit reflects autumn fashion trends.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-raisa-vanessa-velvet-055245813.html
 
 ## Brad Paisley Pranks Taylor Swift During Tour, Keeping Her Awake for Months
 
