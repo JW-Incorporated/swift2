@@ -27,13 +27,13 @@ so far".
 
 Stories: 96
 
-## Ella Langley's Hit Replaces Taylor Swift's 'Patient Zero' on Hot 100
+## Taylor Swift Discusses Sleep Struggles After Cricket Incident
 
-- first seen: 2026-10-27 13:06 UTC | category: music | importance: 7
+- first seen: 2026-10-27 14:06 UTC | category: sighting | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Ella Langley's song 'Choosin' Texas' has dethroned Taylor Swift's 'Patient Zero' from the top position on the Billboard Hot 100, after Langley's track held the No. 1 spot for 25 nonconsecutive weeks.
+- summary: Taylor Swift revealed that she had trouble sleeping for months following an incident where Brad Paisley released thousands of crickets on her tour bus. She even considered buying a lizard to address the issue.
 - sources:
-  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
+  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/27/i-considered-buying-a-lizard-to-eradicate-the-problem-taylor-swift-couldnt-sleep-for-months-after-brad-paisley-set-loose-thousands-of-crickets-on-her-tour-bus/
 
 ## Taylor Swift Inducted into Nashville Hall of Fame
 
@@ -42,6 +42,15 @@ Stories: 96
 - summary: Taylor Swift has been officially inducted into the Nashville Hall of Fame, recognizing her significant contributions to the music industry. This honor marks a notable achievement in her career.
 - sources:
   - [unverified] TODAY.com — https://www.today.com/video/taylor-swift-inducted-into-nashville-hall-of-fame-272314949990
+
+## Ella Langley's Hit Replaces Taylor Swift's 'Patient Zero' on Hot 100
+
+- first seen: 2026-10-27 13:06 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Ella Langley's song 'Choosin' Texas' has dethroned Taylor Swift's 'Patient Zero' from the top position on the Billboard Hot 100, after Langley's track held the No. 1 spot for 25 nonconsecutive weeks.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ties-rihanna-most-133706354.html
 
 ## Jalen Brunson Enters Taylor Swift NBA Controversy
 
@@ -135,9 +144,10 @@ Stories: 96
 ## Taylor Swift and Travis Kelce's Wedding Costs Reported at $30 Million
 
 - first seen: 2026-10-27 07:11 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Reports suggest that Taylor Swift and Travis Kelce's upcoming wedding could cost around $30 million. Questions arise about the necessity of such an extravagant expenditure.
 - sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74258901/taylor-swift-travis-kelce-wedding-renderings-leak/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reported-064318089.html
 
 ## Taylor Swift Wears Raisa Vanessa Velvet Micro Minidress
@@ -811,11 +821,3 @@ Stories: 96
 - summary: Prince William discusses the circumstances that nearly prevented Taylor Swift and Travis Kelce from appearing in a 2024 photo with the Royal Family. The revelation highlights the interest in their relationship within royal contexts.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437441/taylor-swift-travis-kelces-photo-with-royal-family-almost-didnt-happen
-
-## 20 Years Since Taylor Swift's Debut Album; A Look Back at Its Impact
-
-- first seen: 2026-10-24 13:17 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: A retrospective on the 20th anniversary of Taylor Swift's debut album, highlighting its significance in launching her career and her connection to country music. The piece includes insights from notable figures in the music industry.
-- sources:
-  - [established] People — https://people.com/taylor-swift-debut-album-anniversary-what-to-know-12189830
