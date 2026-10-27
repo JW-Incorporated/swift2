@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 98
+
+## Taylor Swift Achieves Success Following Seahawks Bracelet Comment
+
+- first seen: 2026-10-27 15:01 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has recorded a notable achievement in response to comments about her bracelet made by the Seattle Seahawks. This development highlights her ongoing prominence in the entertainment industry.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-scores-major-win-140311734.html
+
+## Taylor Swift Attends Nashville Event in Velvet Outfit and Diamond Necklace
+
+- first seen: 2026-10-27 15:01 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift celebrated her induction as the Hall of Fame’s youngest member while marking her homecoming in Nashville. She donned a Raisa Vanessa velvet outfit paired with a striking 65-carat diamond necklace, coinciding with the 20th anniversary of her debut album.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-raisa-vanessa-mini-dress-nashville-songwriters-1239387196/
+
+## Music History Highlights October 27 Featuring Taylor Swift
+
+- first seen: 2026-10-27 15:01 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article covers significant events in music history for October 27, including mentions of Taylor Swift. It highlights various influential artists and their contributions to music.
+- sources:
+  - [unverified] RiverBender.com — https://www.riverbender.com/news/details/this-day-in-music-history-oct-27-from-heifetz-to-taylor-swift-97835.cfm
 
 ## Taylor Swift Discusses Sleep Struggles After Cricket Incident
 
@@ -49,8 +73,8 @@ Stories: 96
 - verification_status: corroborated | source_count: 2
 - summary: Ella Langley's song 'Choosin' Texas' has dethroned Taylor Swift's 'Patient Zero' from the top position on the Billboard Hot 100, after Langley's track held the No. 1 spot for 25 nonconsecutive weeks.
 - sources:
+  - [established] Billboard — https://www.billboard.com/music/chart-beat/taylor-swift-ties-rihanna-most-pop-airplay-top-10s-1236368645/
   - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ties-rihanna-most-133706354.html
 
 ## Jalen Brunson Enters Taylor Swift NBA Controversy
 
@@ -225,13 +249,14 @@ Stories: 96
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/Entertainment/wireStory/taylor-swift-lyle-lovett-inducted-nashville-songwriters-hall-137591336
   - [unverified] AP News — https://apnews.com/article/taylor-swift-nashville-songwriters-hall-of-fame-47bc805af87907260700447162565c55
   - [established] People — https://people.com/taylor-swift-officially-inducted-into-nashville-songwriters-hall-of-fame-12189704
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/27/taylor-swift-nashville-songwriters-hall-of-fame-speech-full-transcript/92458491007/
   - [established] Variety — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
   - [unverified] WZTV — https://fox17.com/news/local/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame
 
@@ -813,11 +838,3 @@ Stories: 96
 - summary: In a recent viral photo, Prince William allegedly attempted to nudge Travis Kelce out of the frame while Taylor Swift was present. This incident has drawn attention to the iconic moment captured at the event.
 - sources:
   - [established] Harper's Bazaar — https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/
-
-## Prince William Explains Photo Reasons for Swift and Kelce with Royal Family
-
-- first seen: 2026-10-24 14:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Prince William discusses the circumstances that nearly prevented Taylor Swift and Travis Kelce from appearing in a 2024 photo with the Royal Family. The revelation highlights the interest in their relationship within royal contexts.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437441/taylor-swift-travis-kelces-photo-with-royal-family-almost-didnt-happen
