@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 95
+
+## Taylor Swift Shares Reflections After Travis Kelce’s Game
+
+- first seen: 2026-10-27 10:06 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her feelings following Travis Kelce's recent performance during a game, highlighting her vulnerability in the moment. This message follows Kelce's notable achievements on the field.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-vulnerable-message-after-travis-kelce-historic-game/
+
+## Taylor Swift and Travis Kelce Cancel $7M Wedding Surprise
+
+- first seen: 2026-10-27 10:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A source reveals that Taylor Swift and Travis Kelce have decided to cancel a $7 million surprise planned for their wedding. The reason behind this decision has not been disclosed.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-axed-084427404.html
 
 ## Taylor Swift Absent from Travis Kelce's Recent Game
 
