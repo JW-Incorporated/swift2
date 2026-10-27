@@ -27,6 +27,22 @@ so far".
 
 Stories: 100
 
+## Brad Paisley Defends Prank on Taylor Swift Following Her Reaction
+
+- first seen: 2026-10-27 22:11 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley has stated that he stands by a prank he pulled on Taylor Swift, which she has remarked went 'too far.' The comments have sparked discussions around their relationship and interactions.
+- sources:
+  - [unverified] iHeart — https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/
+
+## Taylor Swift Reveals $1 Million Ring Stack with Bejeweled Manicure
+
+- first seen: 2026-10-27 22:11 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased an impressive $1 million ring stack along with a stunning bejeweled manicure. This reveal marks a significant moment for the artist.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-ring-stack-bejeweled-manicure-career-milestone-12196339
+
 ## Taylor Swift and Travis Kelce Hide Wedding Decor Costs
 
 - first seen: 2026-10-27 21:16 UTC | category: relationship | importance: 7
@@ -253,19 +269,6 @@ Stories: 100
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skipped-travis-kelce-064422244.html
 
-## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
-  - [unverified] Nashville Lifestyles — https://nashvillelifestyles.com/entertainment/celebrities/taylor-swift-becomes-youngest-ever-nashville-songwriters-hal/
-  - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
-  - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
-  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
-
 ## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
 
 - first seen: 2026-10-27 08:11 UTC | category: relationship | importance: 5
@@ -273,6 +276,20 @@ Stories: 100
 - summary: The Seattle Seahawks recently trolled Taylor Swift and Travis Kelce, raising questions about the appropriateness of their actions. The incident has drawn attention from sports and entertainment fans alike.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-travis-kelce-just-064235979.html
+
+## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 7
+- summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
+- sources:
+  - [unverified] ABC7 Chicago — https://abc7chicago.com/story/taylor-swift-lyle-lovett-more-inducted-nashville-songwriters-hall-fame/19986432/
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
+  - [unverified] Nashville Lifestyles — https://nashvillelifestyles.com/entertainment/celebrities/taylor-swift-becomes-youngest-ever-nashville-songwriters-hal/
+  - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
+  - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
+  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
 
 ## Taylor Swift Responds to Brad Paisley’s Tour Prank
 
@@ -845,19 +862,3 @@ Stories: 100
 - summary: A feature from ABC News showcases a 14-year-old Taylor Swift reflecting on her early experience with stardom. The article highlights her rise in the music industry and her journey as a young artist.
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/video/137542132/
-
-## Grammy Voters Share Phase 1 Insights on Nominees
-
-- first seen: 2026-10-24 21:26 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Secret Grammy voters have disclosed their insights on the nominees for this year's Grammy Awards as they conclude Phase 1 of the voting process.
-- sources:
-  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/secret-grammy-voters-nomination-ballot-analysis-olivia-dean-raye-rosalia-ella-langley-asian-pop-music/
-
-## Taylor Swift Celebrates 20th Anniversary of Her First Album
-
-- first seen: 2026-10-24 21:26 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Today marks the 20th anniversary of Taylor Swift's debut album release. The milestone is acknowledged in a feature by Vanity Fair.
-- sources:
-  - [unverified] Vanity Fair — https://www.vanityfair.com/story/taylor-swift-20-years-anniversary
