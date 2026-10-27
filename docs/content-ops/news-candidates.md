@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 96
+
+## Taylor Swift's Team Makes Notable Move Post-Wedding
+
+- first seen: 2026-10-27 20:12 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Following a recent wedding event, Taylor Swift's team reportedly took a significant and unexpected action. The details of this move have sparked discussions among fans and observers.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/just-burned-taylor-swift-team-162045806.html
+
+## Cynthia Nixon and Carrie Coon Propose Taylor Swift Cameo in 'Gilded Age'
+
+- first seen: 2026-10-27 20:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cynthia Nixon and Carrie Coon have expressed interest in having Taylor Swift make a cameo appearance in the series 'Gilded Age'. They discussed potential characters she could portray during an exclusive interview.
+- sources:
+  - [unverified] Extra — https://extratv.com/2026/10/27/cynthia-nixon-and-carrie-coon-want-a-taylor-swift-gilded-age-cameo-who-she-could-play-exclusive/
+
+## Taylor Swift Speaks on Nashville's Unique Music Community
+
+- first seen: 2026-10-27 20:12 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Taylor Swift expressed her views on the distinctiveness of Nashville's music community, stating that it is unlike any other. Her comments highlight the importance of Nashville in the music industry.
+- sources:
+  - [unverified] Axios — https://www.axios.com/local/nashville/2026/10/27/taylor-swift-nashville-songwriter-hall-of-fame
 
 ## William Addresses Travis Kelce's Wedding Attendance with Taylor Swift
 
@@ -192,10 +216,11 @@ Stories: 93
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
+  - [unverified] Nashville Lifestyles — https://nashvillelifestyles.com/entertainment/celebrities/taylor-swift-becomes-youngest-ever-nashville-songwriters-hal/
   - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
   - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
   - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
