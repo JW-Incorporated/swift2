@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 91
+
+## Taylor Swift Photographed with Grammy and Lombardi Trophy
+
+- first seen: 2026-10-27 18:12 UTC | category: sighting | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted showing off a Grammy award alongside the Lombardi Trophy. The photo highlights her recent achievements in music and sports.
+- sources:
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317771037.html
+
+## Leaked Photos from Taylor Swift's Wedding Provide Little Insight
+
+- first seen: 2026-10-27 18:12 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Recent leaked photos related to Taylor Swift's wedding have surfaced, but they do not reveal significant details. The images have garnered attention despite their lack of content.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/27/style/taylor-swift-wedding-photos-daily-mail.html
 
 ## Taylor Swift Achieves New Career Milestone
 
@@ -159,12 +175,13 @@ Stories: 90
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
   - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
   - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
+  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
 
 ## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
@@ -194,10 +211,11 @@ Stories: 90
 ## Taylor Swift and Travis Kelce's Wedding Costs Reported at $30 Million
 
 - first seen: 2026-10-27 07:11 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Reports suggest that Taylor Swift and Travis Kelce's upcoming wedding could cost around $30 million. Questions arise about the necessity of such an extravagant expenditure.
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74258901/taylor-swift-travis-kelce-wedding-renderings-leak/
+  - [unverified] Page Six — https://pagesix.com/2026/10/27/entertainment/taylor-swift-travis-kelce-burned-wedding-decor-after-30m-ceremony-report/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reported-064318089.html
 
 ## Taylor Swift Wears Raisa Vanessa Velvet Micro Minidress
@@ -769,12 +787,3 @@ Stories: 90
 - summary: It's the 20th anniversary of Taylor Swift's self-titled debut album, and Variety reflects on its impact through a previously unpublished Q&A. The piece explores the significance of the album in her career.
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/
-
-## Prince William Discusses Viral Taylor Swift Photo with Travis Kelce
-
-- first seen: 2026-10-24 18:02 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Prince William revealed that he attempted to reposition Travis Kelce in the now-famous photo featuring Taylor Swift. This acknowledgment highlights the image's impact and its reception in popular culture.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/prince-william-tried-to-move-travis-kelce-out-of-taylor-swift-photo-12191761
-  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/prince-william-tried-to-move-travis-kelce-from-taylor-swift-pic/
