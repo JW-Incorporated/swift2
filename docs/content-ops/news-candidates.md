@@ -106,10 +106,11 @@ Stories: 86
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
 - sources:
   - [unverified] AP News — https://apnews.com/article/taylor-swift-nashville-songwriters-hall-of-fame-47bc805af87907260700447162565c55
+  - [established] People — https://people.com/taylor-swift-officially-inducted-into-nashville-songwriters-hall-of-fame-12189704
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
   - [established] Variety — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
   - [unverified] WZTV — https://fox17.com/news/local/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame
