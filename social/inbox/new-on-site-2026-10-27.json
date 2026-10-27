@@ -1,0 +1,110 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-10-27",
+  "windowDays": 7,
+  "since": "2026-10-20T00:00:00.000Z",
+  "count": 7,
+  "media": [
+    "https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/0/00/Selena_Gomez_at_the_2024_Golden_Globes_00001.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png",
+    "https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Richard_Marx%2C_Birmingham%2C_AL_2025.jpg/1280px-Richard_Marx%2C_Birmingham%2C_AL_2025.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg/1280px-Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg",
+    "https://www.instagram.com/p/C8hIungMPmD/"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-bad-gyal-says-she-wouldnt-collaborate-with-taylor-for-3-mill",
+      "eraId": "tloas",
+      "title": "Bad Gyal says she wouldn’t collaborate with Taylor for $3 million",
+      "year": 2026,
+      "month": 10,
+      "day": 15,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-bad-gyal-says-she-wouldnt-collaborate-with-taylor-for-3-mill",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg/1280px-Premios_Goya_2026_-_Bad_Gyal_%28cropped%29.jpg"
+    },
+    {
+      "id": "vault-tloas-confetti-on-the-debut-page-20-years-of-taylor-swift",
+      "eraId": "tloas",
+      "title": "Confetti on the debut page: \"20 years of Taylor Swift\"",
+      "year": 2026,
+      "month": 10,
+      "day": 23,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-confetti-on-the-debut-page-20-years-of-taylor-swift",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg"
+    },
+    {
+      "id": "vault-tloas-jasons-7-30-a-m-squatober-call-and-taylors-verdict-on-it",
+      "eraId": "tloas",
+      "title": "Jason's 7:30 a.m. \"Squatober\" call, and Taylor's verdict on it",
+      "year": 2026,
+      "month": 10,
+      "day": 21,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-jasons-7-30-a-m-squatober-call-and-taylors-verdict-on-it",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/3/34/Jason_Kelce_2023.png"
+    },
+    {
+      "id": "vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep",
+      "eraId": "tloas",
+      "title": "Maya Hawke on Hot Ones: \"But Daddy I Love Him\" and \"betty\" are epic poetry",
+      "year": 2026,
+      "month": 10,
+      "day": 22,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back",
+      "eraId": "tloas",
+      "title": "Prince William on the Wembley selfie: \"Travis kept coming back in\"",
+      "year": 2026,
+      "month": 10,
+      "day": 23,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back",
+      "mediaKind": "instagram",
+      "media": "https://www.instagram.com/p/C8hIungMPmD/"
+    },
+    {
+      "id": "vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-",
+      "eraId": "tloas",
+      "title": "Richard Marx on the 15-year-old Taylor he passed on writing with: “I did the right thing”",
+      "year": 2026,
+      "month": 10,
+      "day": 19,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Richard_Marx%2C_Birmingham%2C_AL_2025.jpg/1280px-Richard_Marx%2C_Birmingham%2C_AL_2025.jpg"
+    },
+    {
+      "id": "vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob",
+      "eraId": "tloas",
+      "title": "Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”",
+      "year": 2026,
+      "month": 10,
+      "day": 14,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/0/00/Selena_Gomez_at_the_2024_Golden_Globes_00001.jpg"
+    }
+  ]
+}
