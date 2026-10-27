@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 86
+
+## Taylor Swift Honors Nashville Songwriters at Hall of Fame Induction
+
+- first seen: 2026-10-27 04:31 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: During her Hall of Fame induction, Taylor Swift expressed her gratitude, stating that Nashville songwriters significantly influenced her development as an artist. This recognition highlights her connection to the Nashville music scene.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1236368575/
 
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame at Age 36
 
@@ -49,7 +57,7 @@ Stories: 87
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift, along with Pink and Cardi B, is listed among celebrities who have declined the opportunity to perform at the Super Bowl Halftime Show, according to E! News.
 - sources:
-  - [unverified] E! News — http://de.eonline.com/news/1437281/celebs-who-said-no-to-super-bowl-halftime-show-taylor-swift-pink-more
+  - [unverified] E! News — https://www.eonline.com/news/1437281/celebs-who-said-no-to-super-bowl-halftime-show-taylor-swift-pink-more
 
 ## Taylor Swift Jokes About Longstanding Estrangement with Brad Paisley
 
@@ -98,11 +106,13 @@ Stories: 87
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
 - sources:
+  - [unverified] AP News — https://apnews.com/article/taylor-swift-nashville-songwriters-hall-of-fame-47bc805af87907260700447162565c55
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-lyle-lovett-more-021804150.html
+  - [established] Variety — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
+  - [unverified] WZTV — https://fox17.com/news/local/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame
 
 ## Wedding Guest Criticizes Chanel Giveaway at Swift-Kelce Event
 
@@ -729,23 +739,3 @@ Stories: 87
 - summary: A look back at significant events in country music history that occurred on October 24.
 - sources:
   - [unverified] Backstage Country — https://backstagecountry.com/2026/10/24/this-day-in-country-history-october-24/
-
-## Taylor Swift and Kate Middleton Sport Dainty Fall Shoes
-
-- first seen: 2026-10-24 03:42 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift and Kate Middleton are among the stars seen wearing stylish and comfortable fall shoes, with prices starting as low as $18.
-- sources:
-  - [established] People — https://people.com/kate-middleton-katie-holmes-taylor-swift-ballet-flats-october-2026-12186141
-
-## Prince William Attempts to Block Travis Kelce from Photo with Taylor Swift
-
-- first seen: 2026-10-24 03:42 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: During a recent event, Prince William was seen trying to block Travis Kelce from being included in a viral photo with Taylor Swift. The moment has garnered attention on social media.
-- sources:
-  - [unverified] Page Six — https://pagesix.com/2026/10/24/royal-family/prince-william-playfully-shades-travis-kelce-over-viral-taylor-swift-selfie/
-  - [established] People — https://people.com/prince-william-jokes-he-was-trying-to-move-travis-kelce-out-of-taylor-swift-selfie-photo-12191917
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
-  - [unverified] The Lufkin Daily News — https://lufkindailynews.com/news_reuters/national/hallbrooks-neighbors-include-perhaps-the-world-s-most-famous-newlyweds-taylor-swift-and-travis-kelce/image_28ec6719-d881-5431-8c23-6563114ec0ea.html
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-joe-alwyn-more-120000975.html
