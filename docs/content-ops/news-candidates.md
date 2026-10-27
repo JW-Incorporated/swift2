@@ -27,6 +27,14 @@ so far".
 
 Stories: 95
 
+## Jack Antonoff Calls Out Ed Sheeran Over Robert Kraft Situation
+
+- first seen: 2026-10-27 11:06 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jack Antonoff, a producer for Taylor Swift, publicly criticized Ed Sheeran for not taking a stand regarding Robert Kraft. The comments reflect tensions in the music industry and highlight the expectations for artists to voice their opinions.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/stand-f-taylor-swift-producer-103026952.html
+
 ## Taylor Swift Shares Reflections After Travis Kelce’s Game
 
 - first seen: 2026-10-27 10:06 UTC | category: relationship | importance: 6
@@ -163,14 +171,6 @@ Stories: 95
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253518/is-taylor-swift-performing-bluebird-cafe-nashville/
 
-## Seattle Seahawks Criticize Taylor Swift and Travis Kelce After Victory
-
-- first seen: 2026-10-27 00:31 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The Seattle Seahawks made comments directed at Taylor Swift and Travis Kelce following their victory over the Kansas City Chiefs, which ended the team's undefeated streak. The remarks highlight the intersection of sports and celebrity culture.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-trolled-seahawks-chiefs-loss-1236368289/
-
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
@@ -183,6 +183,14 @@ Stories: 95
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
   - [established] Variety — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
   - [unverified] WZTV — https://fox17.com/news/local/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame
+
+## Seattle Seahawks Criticize Taylor Swift and Travis Kelce After Victory
+
+- first seen: 2026-10-27 00:31 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Seattle Seahawks made comments directed at Taylor Swift and Travis Kelce following their victory over the Kansas City Chiefs, which ended the team's undefeated streak. The remarks highlight the intersection of sports and celebrity culture.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-trolled-seahawks-chiefs-loss-1236368289/
 
 ## Wedding Guest Criticizes Chanel Giveaway at Swift-Kelce Event
 
@@ -803,14 +811,3 @@ Stories: 95
 - summary: Taylor Swift was reportedly successful in charming Hollywood's elite while also making time to attend a Chiefs game. Her ability to impress such a difficult crowd has drawn attention.
 - sources:
   - [unverified] thecomeback.com — https://thecomeback.com/pop-culture/taylor-swift-reportedly-wowed-oscar-voters-before-chiefs-game.html
-
-## Taylor Swift's first manager shares insights on her career beginnings
-
-- first seen: 2026-10-24 10:42 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: In an exclusive interview, Taylor Swift's first manager discusses the early stages of her career and the factors that contributed to her rise in the music industry.
-- sources:
-  - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/10/24/taylor-swift-debut-documentary-country/92384399007/
-  - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/10/24/taylor-swift-life-showgirl-tops-album-chart/3581792848722/
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/24/taylor-swift-debut-album-documentary/92395707007/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swifts-patient-zero-tops-210546925.html
