@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 94
+
+## Taylor Swift Discusses Impact of Brad Paisley's Tour Prank
+
+- first seen: 2026-10-27 12:06 UTC | category: tour | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift revealed that she struggled with sleep for months following a prank by Brad Paisley during a tour, which she felt went too far. The revelation highlights the effects of tour-related stress on artists.
+- sources:
+  - [established] People — https://people.com/taylor-swift-says-was-unable-sleep-for-months-after-brad-paisley-took-tour-prank-too-far-12196155
 
 ## Jack Antonoff Calls Out Ed Sheeran Over Robert Kraft Situation
 
@@ -794,20 +802,3 @@ Stories: 95
 - summary: E! News examines the celebrities who may have inspired Taylor Swift's classic song "Teardrops on My Guitar." The article highlights various figures significant to Swift's songwriting.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437294/what-taylor-swift-has-written-about-travis-kelce-harry-styles-more
-
-## Taylor Swift Wears Trendy Jewelry Symbolizing Wealth and Power
-
-- first seen: 2026-10-24 11:42 UTC | category: fashion | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift was recently seen sporting a jewelry trend that is widely associated with wealth and power. This fashion choice has garnered attention in the media.
-- sources:
-  - [unverified] Who What Wear — https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-ruby-ring
-  - [unverified] Yahoo — https://shopping.yahoo.com/style/accessories/articles/taylor-swift-just-wore-jewelry-084500304.html
-
-## Taylor Swift Charms Hollywood Elite Before Chiefs Game
-
-- first seen: 2026-10-24 11:42 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was reportedly successful in charming Hollywood's elite while also making time to attend a Chiefs game. Her ability to impress such a difficult crowd has drawn attention.
-- sources:
-  - [unverified] thecomeback.com — https://thecomeback.com/pop-culture/taylor-swift-reportedly-wowed-oscar-voters-before-chiefs-game.html
