@@ -25,15 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
-
-## Taylor Swift Achieves Success Following Seahawks Bracelet Comment
-
-- first seen: 2026-10-27 15:01 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has recorded a notable achievement in response to comments about her bracelet made by the Seattle Seahawks. This development highlights her ongoing prominence in the entertainment industry.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-scores-major-win-140311734.html
+Stories: 94
 
 ## Taylor Swift Attends Nashville Event in Velvet Outfit and Diamond Necklace
 
@@ -42,6 +34,14 @@ Stories: 98
 - summary: Taylor Swift celebrated her induction as the Hall of Fame’s youngest member while marking her homecoming in Nashville. She donned a Raisa Vanessa velvet outfit paired with a striking 65-carat diamond necklace, coinciding with the 20th anniversary of her debut album.
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-raisa-vanessa-mini-dress-nashville-songwriters-1239387196/
+
+## Taylor Swift Achieves Success Following Seahawks Bracelet Comment
+
+- first seen: 2026-10-27 15:01 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has recorded a notable achievement in response to comments about her bracelet made by the Seattle Seahawks. This development highlights her ongoing prominence in the entertainment industry.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-scores-major-win-140311734.html
 
 ## Music History Highlights October 27 Featuring Taylor Swift
 
@@ -135,11 +135,12 @@ Stories: 98
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
   - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
 
 ## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
 
@@ -445,9 +446,10 @@ Stories: 98
 ## Prince William Takes Selfie with Taylor Swift, Unwanted Guest Appears
 
 - first seen: 2026-10-26 09:01 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: A recent selfie taken by Prince William with Taylor Swift featured an unexpected individual in the background. The incident was noted in a news article but did not provide further details.
 - sources:
+  - [unverified] Daily Express — https://www.express.co.uk/news/royal/2260653/prince-william-makes-hilarious-joke
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-taylor-swift-selfie-073432285.html
 
 ## Taylor Swift Expected to Appear Post Chiefs-Seahawks Game
@@ -806,35 +808,3 @@ Stories: 98
 - summary: An article discusses how Taylor Swift's debut album laid the groundwork for her signature pop style and thematic fixations. The piece highlights the influence of her early work on her later music career.
 - sources:
   - [unverified] Slant Magazine — https://www.slantmagazine.com/music/taylor-swift-self-titled-debut-retrospective-album-review/
-
-## Prince William Reflects on Meeting Taylor Swift in 2013
-
-- first seen: 2026-10-24 15:07 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Prince William shared his feelings about meeting Taylor Swift for the first time back in 2013, expressing that he still finds the experience somewhat awkward. The comments were featured in a recent article by Marie Claire.
-- sources:
-  - [unverified] Marie Claire — https://www.marieclaire.com/celebrity/royals/prince-william-still-cringing-meeting-taylor-swift-2013/
-
-## Reflecting on 20 Years of Taylor Swift's Debut Album
-
-- first seen: 2026-10-24 15:07 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: A retrospective on Taylor Swift's self-titled debut album released in 2006, marking the beginning of her successful songwriting career.
-- sources:
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-features/taylor-swift-debut-album-20-years-1235646292/
-
-## Taylor Swift and Travis Kelce's Royal Family Photo Details
-
-- first seen: 2026-10-24 15:07 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article discusses the circumstances that nearly prevented Taylor Swift and Travis Kelce from taking a royal family photo together. It explores the background behind the moment and the significance of the image.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/why-taylor-swift-travis-kelces-133100961.html
-
-## Prince William Nudge in Viral Photo of Taylor Swift and Travis Kelce
-
-- first seen: 2026-10-24 15:07 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: In a recent viral photo, Prince William allegedly attempted to nudge Travis Kelce out of the frame while Taylor Swift was present. This incident has drawn attention to the iconic moment captured at the event.
-- sources:
-  - [established] Harper's Bazaar — https://www.harpersbazaar.com/celebrity/latest/a74237434/prince-william-talks-taylor-swift-travis-kelce-eras-tour-selfie-during-surprise-appearance-graham-norton-show/
