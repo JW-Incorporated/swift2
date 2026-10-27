@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 100
+
+## Taylor Swift and Travis Kelce Hide Wedding Decor Costs
+
+- first seen: 2026-10-27 21:16 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce reportedly took significant measures to conceal the costs of their wedding decor, even going as far as to destroy it. Details surrounding their relationship continue to capture public interest.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-went-195223649.html
 
 ## Leaked Photos from Taylor Swift's Wedding Cause Fan Upset
 
