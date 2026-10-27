@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 99
+
+## Leaked Photos from Taylor Swift's Wedding Cause Fan Upset
+
+- first seen: 2026-10-27 21:11 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: New photos from Taylor Swift's wedding have been leaked, leading to disappointment among her fans, known as Swifties. The article discusses the reaction within the fan community regarding the unauthorized images.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089438/taylor-swift-wedding-photos-leaked-backlash/
+
+## Taylor Swift Debuts New Hairstyle Amid Career Milestone
+
+- first seen: 2026-10-27 21:11 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has changed her hairstyle as she reaches a significant milestone in her career. This change reflects her evolving personal style during this notable period.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-switches-her-hairstyle-144250000.html
+
+## Taylor Swift's Impact in Philadelphia Explored by Numbers
+
+- first seen: 2026-10-27 21:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Philadelphia Magazine examines the statistical influence of Taylor Swift in Philadelphia, focusing on ticket sales, streaming, and cultural engagement with the city.
+- sources:
+  - [unverified] Philadelphia Magazine — https://www.phillymag.com/news/2026/10/27/taylor-swift-philadelphia-shows/
+
+## 12 Years Since Release of Taylor Swift's 1989 Album and Its Cover Story
+
+- first seen: 2026-10-27 21:11 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Fans remember the release of Taylor Swift's 1989 album, which debuted 12 years ago. The iconic Polaroid cover of the album has an interesting backstory that has come to light.
+- sources:
+  - [established] People — https://people.com/taylor-swift-surprising-story-behind-1989-polaroid-cover-12197032
 
 ## Taylor Swift's Team Makes Notable Move Post-Wedding
 
@@ -821,11 +853,3 @@ Stories: 96
 - summary: Today marks the 20th anniversary of Taylor Swift's debut album release. The milestone is acknowledged in a feature by Vanity Fair.
 - sources:
   - [unverified] Vanity Fair — https://www.vanityfair.com/story/taylor-swift-20-years-anniversary
-
-## Celebrating 20 Years of Taylor Swift's Self-Titled Debut Album
-
-- first seen: 2026-10-24 20:26 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: It's the 20th anniversary of Taylor Swift's self-titled debut album, and Variety reflects on its impact through a previously unpublished Q&A. The piece explores the significance of the album in her career.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/
