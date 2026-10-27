@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 92
+
+## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
+
+- first seen: 2026-10-27 08:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Seattle Seahawks recently trolled Taylor Swift and Travis Kelce, raising questions about the appropriateness of their actions. The incident has drawn attention from sports and entertainment fans alike.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-travis-kelce-just-064235979.html
+
+## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
+
+## Taylor Swift Responds to Brad Paisley’s Tour Prank
+
+- first seen: 2026-10-27 08:11 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has publicly forgiven Brad Paisley after he reportedly played a haunting prank during their tour. The details of the prank and the nature of the forgiveness have been highlighted in various media.
+- sources:
+  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-brad-paisley-tour-prank-nashville-songwriters-hall-of-fame.html
+
+## Knicks Host Remains Confused by Taylor Swift's Hot Mic Incident
+
+- first seen: 2026-10-27 08:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report highlights that a Knicks host is still baffled by the recent hot mic scandal involving Taylor Swift. Details about the incident remain unclear, leaving fans and commentators puzzled.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-hot-mic-scandal-073300752.html
 
 ## Taylor Swift and Travis Kelce's Wedding Costs Reported at $30 Million
 
@@ -115,24 +147,13 @@ Stories: 89
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-trolled-seahawks-chiefs-loss-1236368289/
 
-## Taylor Swift Named Leader of Nashville Songwriters Hall of Fame 2026 Class
-
-- first seen: 2026-10-27 00:31 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 5
-- summary: Taylor Swift has been recognized as the leader of the Nashville Songwriters Hall of Fame class of 2026. This honor highlights her contributions to songwriting and her impact on the music industry.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253446/taylor-swift-nashville-songwriters-hall-of-fame-minidress/
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74251375/taylor-swift-outfit-photos-nashville-songwriters-hall-of-fame-induction-ceremony/
-  - [unverified] Page Six — https://pagesix.com/2026/10/26/style/taylor-swift-wears-velvet-raisa-vanessa-dress-at-nashville-songwriters-hall-of-fame-gala-2026/
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1235648096/
-  - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
-
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
 - sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/Entertainment/wireStory/taylor-swift-lyle-lovett-inducted-nashville-songwriters-hall-137591336
   - [unverified] AP News — https://apnews.com/article/taylor-swift-nashville-songwriters-hall-of-fame-47bc805af87907260700447162565c55
   - [established] People — https://people.com/taylor-swift-officially-inducted-into-nashville-songwriters-hall-of-fame-12189704
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
@@ -146,6 +167,19 @@ Stories: 89
 - summary: A guest from Taylor Swift and Travis Kelce’s wedding has expressed discontent over a Chanel giveaway, labeling it as 'demeaning'. The comment highlights differing perspectives on event practices among guests.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-162000834.html
+
+## Taylor Swift Named Leader of Nashville Songwriters Hall of Fame 2026 Class
+
+- first seen: 2026-10-27 00:31 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 6
+- summary: Taylor Swift has been recognized as the leader of the Nashville Songwriters Hall of Fame class of 2026. This honor highlights her contributions to songwriting and her impact on the music industry.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-george-strait-nashville-songwriters-hall-fame-1236368579/
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253446/taylor-swift-nashville-songwriters-hall-of-fame-minidress/
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74251375/taylor-swift-outfit-photos-nashville-songwriters-hall-of-fame-induction-ceremony/
+  - [unverified] Page Six — https://pagesix.com/2026/10/26/style/taylor-swift-wears-velvet-raisa-vanessa-dress-at-nashville-songwriters-hall-of-fame-gala-2026/
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1235648096/
+  - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
 
 ## Seahawks Playfully Interact with Taylor Swift Following Chiefs Defeat
 
@@ -756,11 +790,3 @@ Stories: 89
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/10/24/taylor-swift-life-showgirl-tops-album-chart/3581792848722/
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/24/taylor-swift-debut-album-documentary/92395707007/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swifts-patient-zero-tops-210546925.html
-
-## October 24 in Country Music History
-
-- first seen: 2026-10-24 07:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A look back at significant events in country music history that occurred on October 24.
-- sources:
-  - [unverified] Backstage Country — https://backstagecountry.com/2026/10/24/this-day-in-country-history-october-24/
