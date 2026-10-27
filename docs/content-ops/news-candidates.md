@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 96
+
+## Ella Langley's Hit Replaces Taylor Swift's 'Patient Zero' on Hot 100
+
+- first seen: 2026-10-27 13:06 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Ella Langley's song 'Choosin' Texas' has dethroned Taylor Swift's 'Patient Zero' from the top position on the Billboard Hot 100, after Langley's track held the No. 1 spot for 25 nonconsecutive weeks.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
+
+## Taylor Swift Inducted into Nashville Hall of Fame
+
+- first seen: 2026-10-27 13:06 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been officially inducted into the Nashville Hall of Fame, recognizing her significant contributions to the music industry. This honor marks a notable achievement in her career.
+- sources:
+  - [unverified] TODAY.com — https://www.today.com/video/taylor-swift-inducted-into-nashville-hall-of-fame-272314949990
+
+## Jalen Brunson Enters Taylor Swift NBA Controversy
+
+- first seen: 2026-10-27 13:06 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Knicks player Jalen Brunson has become involved in an ongoing controversy related to Taylor Swift and the NBA, as reported by Yardbarker.
+- sources:
+  - [unverified] Yardbarker — https://www.yardbarker.com/nba/articles/taylor_swift_nba_drama_explodes_knicks_star_jalen_brunson_just_stepped_into_the_controversy/s1_17701_44478683
+
+## Taylor Swift Discusses Coping Mechanisms for Unexpected Challenges
+
+- first seen: 2026-10-27 13:06 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent Yahoo interview, Taylor Swift shared insights on the personal tools she utilizes to handle unexpected chaos in her life. Her approach highlights her ability to manage unpredictable situations effectively.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swift-tools-deal-random-115900909.html
 
 ## Taylor Swift Discusses Impact of Brad Paisley's Tour Prank
 
@@ -67,6 +99,15 @@ Stories: 94
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skipped-travis-kelce-064422244.html
 
+## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
+  - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
+
 ## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
 
 - first seen: 2026-10-27 08:11 UTC | category: relationship | importance: 5
@@ -74,14 +115,6 @@ Stories: 94
 - summary: The Seattle Seahawks recently trolled Taylor Swift and Travis Kelce, raising questions about the appropriateness of their actions. The incident has drawn attention from sports and entertainment fans alike.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-travis-kelce-just-064235979.html
-
-## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
 
 ## Taylor Swift Responds to Brad Paisley’s Tour Prank
 
@@ -786,19 +819,3 @@ Stories: 94
 - summary: A retrospective on the 20th anniversary of Taylor Swift's debut album, highlighting its significance in launching her career and her connection to country music. The piece includes insights from notable figures in the music industry.
 - sources:
   - [established] People — https://people.com/taylor-swift-debut-album-anniversary-what-to-know-12189830
-
-## Taylor Swift's debut album marks 20th anniversary
-
-- first seen: 2026-10-24 12:42 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift's self-titled debut album celebrates its 20th anniversary. The article reflects on her early beginnings and the impact of her first album in the music industry.
-- sources:
-  - [established] People — https://people.com/taylor-swift-self-titled-debut-album-turns-20-her-beginnings-12190110
-
-## Celebrities Behind 'Teardrops on My Guitar' Explored
-
-- first seen: 2026-10-24 12:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: E! News examines the celebrities who may have inspired Taylor Swift's classic song "Teardrops on My Guitar." The article highlights various figures significant to Swift's songwriting.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437294/what-taylor-swift-has-written-about-travis-kelce-harry-styles-more
