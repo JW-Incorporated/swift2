@@ -25,7 +25,48 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 85
+
+## Taylor Swift Might Perform at the Bluebird Cafe in Nashville
+
+- first seen: 2026-10-27 00:31 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There are rumors that Taylor Swift may be giving a surprise performance at the Bluebird Cafe in Nashville. Fans are speculating about the possibility of this special event.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253518/is-taylor-swift-performing-bluebird-cafe-nashville/
+
+## Taylor Swift Named Leader of Nashville Songwriters Hall of Fame 2026 Class
+
+- first seen: 2026-10-27 00:31 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has been recognized as the leader of the Nashville Songwriters Hall of Fame class of 2026. This honor highlights her contributions to songwriting and her impact on the music industry.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253446/taylor-swift-nashville-songwriters-hall-of-fame-minidress/
+  - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
+
+## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
+
+## Seattle Seahawks Criticize Taylor Swift and Travis Kelce After Victory
+
+- first seen: 2026-10-27 00:31 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Seattle Seahawks made comments directed at Taylor Swift and Travis Kelce following their victory over the Kansas City Chiefs, which ended the team's undefeated streak. The remarks highlight the intersection of sports and celebrity culture.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-trolled-seahawks-chiefs-loss-1236368289/
+
+## Wedding Guest Criticizes Chanel Giveaway at Swift-Kelce Event
+
+- first seen: 2026-10-27 00:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A guest from Taylor Swift and Travis Kelce’s wedding has expressed discontent over a Chanel giveaway, labeling it as 'demeaning'. The comment highlights differing perspectives on event practices among guests.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-162000834.html
 
 ## Seahawks Playfully Interact with Taylor Swift Following Chiefs Defeat
 
