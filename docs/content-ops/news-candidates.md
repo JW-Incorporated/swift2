@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Taylor Swift Jokes About Longstanding Estrangement with Brad Paisley
+
+- first seen: 2026-10-27 01:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a lighthearted moment, Taylor Swift humorously claimed she has been 'estranged' from Brad Paisley for 19 years, providing an amusing explanation for her comment. This playful interaction showcases the friendly rapport between the two artists.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437510/taylor-swift-jokes-she-brad-paisley-were-estranged-after-tour-bus-prank
+
+## Ella Langley Claims US No. 1 Chart Position, Overtaking Taylor Swift
+
+- first seen: 2026-10-27 01:31 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ella Langley has regained the US No. 1 chart position, surpassing Taylor Swift. This marks a significant achievement in the current music rankings.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/ella-langley-retakes-us-no-235249388.html
 
 ## Taylor Swift Might Perform at the Bluebird Cafe in Nashville
 
@@ -34,15 +50,6 @@ Stories: 85
 - summary: There are rumors that Taylor Swift may be giving a surprise performance at the Bluebird Cafe in Nashville. Fans are speculating about the possibility of this special event.
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253518/is-taylor-swift-performing-bluebird-cafe-nashville/
-
-## Taylor Swift Named Leader of Nashville Songwriters Hall of Fame 2026 Class
-
-- first seen: 2026-10-27 00:31 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has been recognized as the leader of the Nashville Songwriters Hall of Fame class of 2026. This honor highlights her contributions to songwriting and her impact on the music industry.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253446/taylor-swift-nashville-songwriters-hall-of-fame-minidress/
-  - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
 
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
@@ -59,6 +66,18 @@ Stories: 85
 - summary: The Seattle Seahawks made comments directed at Taylor Swift and Travis Kelce following their victory over the Kansas City Chiefs, which ended the team's undefeated streak. The remarks highlight the intersection of sports and celebrity culture.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-trolled-seahawks-chiefs-loss-1236368289/
+
+## Taylor Swift Named Leader of Nashville Songwriters Hall of Fame 2026 Class
+
+- first seen: 2026-10-27 00:31 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift has been recognized as the leader of the Nashville Songwriters Hall of Fame class of 2026. This honor highlights her contributions to songwriting and her impact on the music industry.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253446/taylor-swift-nashville-songwriters-hall-of-fame-minidress/
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74251375/taylor-swift-outfit-photos-nashville-songwriters-hall-of-fame-induction-ceremony/
+  - [unverified] Page Six — https://pagesix.com/2026/10/26/style/taylor-swift-wears-velvet-raisa-vanessa-dress-at-nashville-songwriters-hall-of-fame-gala-2026/
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1235648096/
+  - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
 
 ## Wedding Guest Criticizes Chanel Giveaway at Swift-Kelce Event
 
@@ -721,11 +740,3 @@ Stories: 85
 - summary: A notable 2024 picture featuring Taylor Swift and Travis Kelce alongside Prince William faced difficulties before its capture. This interaction highlights the significance of their friendship in the public eye.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-significant-235053039.html
-
-## Taylor Swift Fans Believe She Stopped an Easter Egg Drop Before Anniversary
-
-- first seen: 2026-10-24 00:46 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Fans speculate that Taylor Swift may have released a subtle Easter egg ahead of the anniversary of her debut album. This has sparked conversations and theories among the Swiftie community.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/entertainment/news/did-taylor-swift-fans-spot-clue-before-debut-anniversary/
