@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 91
+
+## Taylor Swift Enhances Nashville Hall of Fame Look with Jewelry and Jimmy Choos
+
+- first seen: 2026-10-27 16:16 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: At the Nashville Songwriters Hall of Fame induction, Taylor Swift complemented her outfit with additional jewelry and stylish Jimmy Choo shoes. Her fashion choice garnered attention at the event.
+- sources:
+  - [established] WWD — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-nashville-songwriters-1239387187/
 
 ## Taylor Swift Attends Nashville Event in Velvet Outfit and Diamond Necklace
 
@@ -135,11 +143,12 @@ Stories: 94
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
   - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
+  - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
 
 ## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
@@ -250,7 +259,7 @@ Stories: 94
 ## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
 - sources:
   - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/Entertainment/wireStory/taylor-swift-lyle-lovett-inducted-nashville-songwriters-hall-137591336
@@ -259,6 +268,7 @@ Stories: 94
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/27/taylor-swift-nashville-songwriters-hall-of-fame-speech-full-transcript/92458491007/
   - [established] Variety — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-country-hair-nashville-songwriter-hall-of-fame-1239387219/
   - [unverified] WZTV — https://fox17.com/news/local/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame
 
 ## Seattle Seahawks Criticize Taylor Swift and Travis Kelce After Victory
@@ -776,35 +786,3 @@ Stories: 94
 - summary: An article from Business Insider discusses how Taylor Swift recently missed an ideal moment to reconnect with her country music roots. It highlights her ongoing shifts in musical style and public image.
 - sources:
   - [unverified] Business Insider — https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10
-
-## Taylor Swift's Debut Album Impact on Country Music Explored
-
-- first seen: 2026-10-24 16:07 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: An article discusses how Taylor Swift's debut album significantly influenced the country music genre. The piece highlights the lasting changes brought about by her entry into the music industry.
-- sources:
-  - [unverified] XL Country 100.7 — https://xlcountry.com/ixp/204/p/taylor-swift-self-titled-debut-album/
-
-## Taylor Swift's Photo with Prince William Survives Royal Snub
-
-- first seen: 2026-10-24 16:07 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent encounter between Taylor Swift and Prince William was almost affected by a royal snub, but the iconic photo remained intact. The incident highlights Swift's frequent interactions with prominent figures.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swifts-iconic-photo-prince-151121885.html
-
-## Ranking Taylor Swift's Best Songs as Debut Album Turns 20
-
-- first seen: 2026-10-24 16:07 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: As Taylor Swift's debut album celebrates its 20th anniversary, Deseret News provides a ranking of some of her best songs. This reflects on her musical evolution since the release.
-- sources:
-  - [unverified] Deseret News — https://www.deseret.com/entertainment/2026/10/24/taylor-swift-song-ranking-20-years-of-music/
-
-## Taylor Swift's debut shaped her pop instincts and themes
-
-- first seen: 2026-10-24 16:07 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: An article discusses how Taylor Swift's debut album laid the groundwork for her signature pop style and thematic fixations. The piece highlights the influence of her early work on her later music career.
-- sources:
-  - [unverified] Slant Magazine — https://www.slantmagazine.com/music/taylor-swift-self-titled-debut-retrospective-album-review/
