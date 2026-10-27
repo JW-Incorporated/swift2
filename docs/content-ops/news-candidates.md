@@ -27,6 +27,22 @@ so far".
 
 Stories: 86
 
+## Taylor Swift Jokes About Relationship with Brad Paisley
+
+- first seen: 2026-10-27 02:31 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a lighthearted moment, Taylor Swift made a joke regarding her estrangement from fellow artist Brad Paisley. The comment was shared in a recent appearance reported by TMZ.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/10/26/taylor-swift-jokes-about-brad-paisley-relationship/
+
+## Taylor Swift Among Celebs Who Declined Super Bowl Halftime Show
+
+- first seen: 2026-10-27 02:31 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, along with Pink and Cardi B, is listed among celebrities who have declined the opportunity to perform at the Super Bowl Halftime Show, according to E! News.
+- sources:
+  - [unverified] E! News — http://de.eonline.com/news/1437281/celebs-who-said-no-to-super-bowl-halftime-show-taylor-swift-pink-more
+
 ## Taylor Swift Jokes About Longstanding Estrangement with Brad Paisley
 
 - first seen: 2026-10-27 01:31 UTC | category: relationship | importance: 5
@@ -51,14 +67,6 @@ Stories: 86
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253518/is-taylor-swift-performing-bluebird-cafe-nashville/
 
-## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
-
 ## Seattle Seahawks Criticize Taylor Swift and Travis Kelce After Victory
 
 - first seen: 2026-10-27 00:31 UTC | category: business | importance: 5
@@ -78,6 +86,15 @@ Stories: 86
   - [unverified] Page Six — https://pagesix.com/2026/10/26/style/taylor-swift-wears-velvet-raisa-vanessa-dress-at-nashville-songwriters-hall-of-fame-gala-2026/
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1235648096/
   - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
+
+## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-lyle-lovett-more-021804150.html
 
 ## Wedding Guest Criticizes Chanel Giveaway at Swift-Kelce Event
 
@@ -111,14 +128,6 @@ Stories: 86
 - sources:
   - [established] People — https://people.com/monica-mcnutt-questions-how-hot-mic-moment-criticizing-taylor-swift-spread-12195512
 
-## Never-Before-Seen Wedding Photos of Taylor Swift Leaked
-
-- first seen: 2026-10-26 21:38 UTC | category: relationship | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Newly leaked wedding photos of Taylor Swift provide fans with their first glimpse of what guests saw as she walked down the aisle. These images are expected to stir excitement among her fanbase.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/never-seen-taylor-swift-wedding-205720210.html
-
 ## Bluebird Cafe Addresses Taylor Swift Event Rumors
 
 - first seen: 2026-10-26 21:38 UTC | category: sighting | importance: 5
@@ -134,6 +143,14 @@ Stories: 86
 - summary: In a recent feature, Taylor Swift discusses her early hit 'Tim McGraw,' her experiences with MySpace, and more during a 2006 interview as part of her 20th anniversary celebrations.
 - sources:
   - [unverified] Extra — https://extratv.com/2026/10/26/taylor-swift-20th-anniversary-she-talks-tim-mcgraw-myspace-and-more-in-2006-interview/
+
+## Never-Before-Seen Wedding Photos of Taylor Swift Leaked
+
+- first seen: 2026-10-26 21:38 UTC | category: relationship | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Newly leaked wedding photos of Taylor Swift provide fans with their first glimpse of what guests saw as she walked down the aisle. These images are expected to stir excitement among her fanbase.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/fashion/celebrity-looks/1234957069/taylor-swift-travis-kelce-new-wedding-photos/
 
 ## Taylor Swift Halloween Costumes Inspired by Her 2026 Moments
 
@@ -724,19 +741,3 @@ Stories: 86
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317757485.html
   - [unverified] The Lufkin Daily News — https://lufkindailynews.com/news_reuters/national/hallbrooks-neighbors-include-perhaps-the-world-s-most-famous-newlyweds-taylor-swift-and-travis-kelce/image_28ec6719-d881-5431-8c23-6563114ec0ea.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-joe-alwyn-more-120000975.html
-
-## SiriusXM Celebrates 20 Years of Taylor Swift with 13-Hour Music Special
-
-- first seen: 2026-10-24 01:42 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: SiriusXM Hits 1 will commemorate 20 years of Taylor Swift by featuring 13 hours of her music. This event honors her extensive career and contributions to the music industry.
-- sources:
-  - [unverified] SiriusXM — https://www.siriusxm.com/blog/taylor-swift-20th-anniversary-hits-1
-
-## Taylor Swift and Travis Kelce's 2024 Photo with Prince William Almost Didn't Happen
-
-- first seen: 2026-10-24 01:42 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A notable 2024 picture featuring Taylor Swift and Travis Kelce alongside Prince William faced difficulties before its capture. This interaction highlights the significance of their friendship in the public eye.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-significant-235053039.html
