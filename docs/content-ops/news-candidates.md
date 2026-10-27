@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 93
+
+## William Addresses Travis Kelce's Wedding Attendance with Taylor Swift
+
+- first seen: 2026-10-27 19:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent statement, William expressed confusion regarding Travis Kelce and Kate's absence from his wedding to Taylor Swift. The comments highlight potential tensions within celebrity circles.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234962381/what-william-taylor-swift-travis-kelce/
+
+## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-27 19:11 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has been recognized as the youngest person ever inducted into the Nashville Songwriters Hall of Fame, marking a significant achievement in her career. This recognition underscores her influence and contributions to the music industry.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2515698/taylor-swift-nashville-songwriters-hall-of-fame-induction/news/
 
 ## Taylor Swift Photographed with Grammy and Lombardi Trophy
 
@@ -110,11 +126,12 @@ Stories: 91
 ## Ella Langley's Hit Replaces Taylor Swift's 'Patient Zero' on Hot 100
 
 - first seen: 2026-10-27 13:06 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Ella Langley's song 'Choosin' Texas' has dethroned Taylor Swift's 'Patient Zero' from the top position on the Billboard Hot 100, after Langley's track held the No. 1 spot for 25 nonconsecutive weeks.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/chart-beat/taylor-swift-ties-rihanna-most-pop-airplay-top-10s-1236368645/
   - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
+  - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-ex-boyfriends-buried-iconic-sleepy-hollow-halloween-display/6563689/
 
 ## Jalen Brunson Enters Taylor Swift NBA Controversy
 
