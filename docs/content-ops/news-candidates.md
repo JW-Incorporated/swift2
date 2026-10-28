@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 100
+Stories: 103
+
+## Taylor Swift Wears $2.4 Million Necklace at Red Carpet Event
+
+- first seen: 2026-10-28 00:11 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: At a recent red carpet event, Taylor Swift showcased a stunning necklace valued at $2.4 million, highlighting her fashion sense.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437547/taylor-swift-wears-s2-4m-necklace-at-nashville-songwriters-hall-of-fame
+
+## Source Claims Taylor Swift and Travis Kelce's Wedding Decor Destroyed Post-Ceremony
+
+- first seen: 2026-10-28 00:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A source reports that the expensive wedding decorations of Taylor Swift and Travis Kelce were incinerated without any traces following their ceremony.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-travis-kelces-pricey-211215993.html
+
+## Taylor Swift Discusses Tour Prank During Speech at Nashville Event
+
+- first seen: 2026-10-28 00:11 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During her speech at the Nashville Songwriters Hall of Fame, Taylor Swift shared a humorous prank involving Brad Paisley from their tour. The anecdote highlights her connection to fellow musicians.
+- sources:
+  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/taylor-swift-shares-epic-brad-222059489.html
+
+## Inspiring 'Gold Fairy Dust' Nails for Autumn Featured in ELLE
+
+- first seen: 2026-10-28 00:11 UTC | category: fashion | importance: 4
+- verification_status: single_source | source_count: 1
+- summary: ELLE showcases a nail art trend called 'Gold Fairy Dust' nails, highlighting how to recreate this dreamy autumn manicure.
+- sources:
+  - [established] Elle — https://www.elle.com/uk/beauty/nails/a74257858/taylor-swift-gold-fairy-dust-nails/
 
 ## Brad Paisley Defends Prank on Taylor Swift Following Her Reaction
 
@@ -854,11 +886,3 @@ Stories: 100
 - summary: A photo surfaced showing Taylor Swift alongside Travis Kelce’s Lombardi Trophy, attracting significant attention.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-lombardi-trophy-photo-turns-heads/
-
-## 14-Year-Old Taylor Swift Discusses Stardom in ABC News Feature
-
-- first seen: 2026-10-25 00:06 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A feature from ABC News showcases a 14-year-old Taylor Swift reflecting on her early experience with stardom. The article highlights her rise in the music industry and her journey as a young artist.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/video/137542132/
