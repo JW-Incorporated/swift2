@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 104
+
+## Dwayne Johnson Appears to Like Video Calling Taylor Swift ‘Fake’
+
+- first seen: 2026-10-28 15:44 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dwayne Johnson's recent video includes him calling Taylor Swift a ‘fake,’ a statement he seems to endorse. The context of this interaction remains unclear, raising interests surrounding celebrity interactions.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/dwayne-johnson-appears-video-calling-150034390.html
+
+## Travis Kelce Discusses Marriage Amid Prince William Selfie Joke
+
+- first seen: 2026-10-28 15:44 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce addresses a marriage-related topic in response to a resurfaced joke involving Prince William's selfie. The comments were made during discussions on various media platforms.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-makes-unexpected-marriage-152000767.html
 
 ## Details on Taylor Swift and Travis Kelce's Wedding Décor
 
@@ -43,14 +59,6 @@ Stories: 105
 - sources:
   - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
 
-## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
-
-- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
-- sources:
-  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
-
 ## Taylor Swift Returns with New Performance on ‘The Encore’
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 6
@@ -66,6 +74,17 @@ Stories: 105
 - summary: Taylor Swift is recognized for her historical achievements in the entertainment industry according to a recent segment on Hollywood Minute. The report highlights her impact and successes without detailing specific events.
 - sources:
   - [unverified] kcentv.com — https://www.kcentv.com/video/news/entertainment-news/taylor-swift-makes-history-jane-fonda-explores-field-more-hollywood-minute/500-182099ee-eedf-4ac1-ac08-07393880fa50
+
+## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
+
+- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 4
+- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
+  - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
+  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
+  - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
 
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
@@ -880,27 +899,3 @@ Stories: 105
 - summary: Sources indicate that Taylor Swift and Travis Kelce are currently not prioritizing family plans while he focuses on his NFL career. The couple is taking their time amidst the pressures of their respective commitments.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-no-rush-taylor-swift-110046047.html
-
-## Prince Critiques Sports Star in New Interview
-
-- first seen: 2026-10-25 15:36 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a surprising interview, Prince offers critique directed at a well-known sports star. The comments have sparked interest and discussion among fans and the media.
-- sources:
-  - [unverified] News.com.au — https://www.news.com.au/entertainment/celebrity-life/royals/prince-william-shades-travis-kelce-over-viral-taylor-swift-selfie/news-story/3ffd67cc828d502a65f4985e50179538
-
-## Taylor Swift Expresses Concern Over Media Coverage of Travis Kelce Romance
-
-- first seen: 2026-10-25 15:36 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has voiced concerns that the extensive media coverage of her romance with Travis Kelce may be diminishing its appeal to fans. This comes amidst ongoing public interest in their relationship.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-worries-her-travis-kelce-romance-is-losing-its-appeal-as-fans-face-relentless-couple-coverage-12232341
-
-## Prince William's Attempt to Move Travis Kelce in Taylor Swift Selfie
-
-- first seen: 2026-10-25 15:36 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Prince William unknowingly tried to shift Travis Kelce out of a selfie with Taylor Swift, which also marked the couple's debut on Instagram. The incident highlights a notable moment involving the royal family and pop culture.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-tried-move-travis-153046580.html
