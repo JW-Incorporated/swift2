@@ -189,10 +189,11 @@ Stories: 108
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
 - first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
+  - [unverified] Page Six — https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/
   - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
 
