@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 106
 
-## Taylor Swift Reflects on Nashville Songwriters Hall of Fame Honor
+## Fans Reactions to Taylor Swift's Wedding Decor Decisions
 
-- first seen: 2026-10-28 16:53 UTC | category: music | importance: 7
+- first seen: 2026-10-28 17:51 UTC | category: fashion | importance: 6
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her appreciation for being honored by the Nashville Songwriters Hall of Fame, stating she will 'cherish' the recognition. This acknowledgment highlights her impact and contributions to the music industry.
+- summary: Taylor Swift faces backlash from fans after reports regarding her decisions with elaborate wedding decor. The situation has sparked notable discussions among her followers.
 - sources:
-  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/28/taylor-swift-says-shell-cherish-her-historic-nashville-songwriters-hall-of-fame-honor/
+  - [unverified] AOL.com — https://www.aol.com/articles/fans-turn-taylor-swift-learning-143913000.html
+
+## Travis Kelce Reacts to Prince William's Comment on Taylor Swift Photo
+
+- first seen: 2026-10-28 17:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared a humorous response to Prince William's remark regarding a photo of Taylor Swift. The interaction highlights the connection between Kelce's relationship with Swift and the royal family.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437578/travis-kelce-reacts-to-prince-william-not-wanting-him-in-taylor-swift-photo
 
 ## Seahawks Make Light Joke About Chiefs Amid Taylor Swift Fans' Response
 
@@ -42,6 +50,14 @@ Stories: 105
 - summary: The Seattle Seahawks jokingly commented on the Kansas City Chiefs, leading to a response from Taylor Swift fans. The interaction highlights the connection between sports and pop culture.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/seahawks-playful-shot-chiefs-taylor-160000828.html
+
+## Taylor Swift Reflects on Nashville Songwriters Hall of Fame Honor
+
+- first seen: 2026-10-28 16:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her appreciation for being honored by the Nashville Songwriters Hall of Fame, stating she will 'cherish' the recognition. This acknowledgment highlights her impact and contributions to the music industry.
+- sources:
+  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/28/taylor-swift-says-shell-cherish-her-historic-nashville-songwriters-hall-of-fame-honor/
 
 ## Taylor Swift Upset Over Leaked Wedding Photos of Travis Kelce
 
@@ -901,11 +917,3 @@ Stories: 105
 - summary: Prince William humorously comments on the mishap Travis Kelce had while trying to take a selfie with Taylor Swift. The playful exchange highlights the intersection of sports and pop culture that fans are enjoying.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/prince-william-jokingly-throws-shade-at-travis-kelce-taylor-swift-selfie
-
-## Taylor Swift Anxious Over Negative Travis Kelce Reports
-
-- first seen: 2026-10-25 17:31 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift is feeling genuinely anxious about negative news regarding her relationship with Travis Kelce, citing issues of private friction between the two.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234956156/taylor-swift-travis-kelce-response/
