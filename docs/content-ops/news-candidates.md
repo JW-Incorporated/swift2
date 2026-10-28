@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 105
+
+## Taylor Swift Upset Over Leaked Wedding Photos of Travis Kelce
+
+- first seen: 2026-10-28 15:58 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly upset following the leak of new wedding photos featuring Travis Kelce, feeling it constitutes a betrayal.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-furious-travis-152343122.html
 
 ## Dwayne Johnson Appears to Like Video Calling Taylor Swift ‘Fake’
 
