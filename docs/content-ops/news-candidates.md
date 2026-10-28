@@ -27,13 +27,29 @@ so far".
 
 Stories: 105
 
+## Taylor Swift Reflects on Nashville Songwriters Hall of Fame Honor
+
+- first seen: 2026-10-28 16:53 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her appreciation for being honored by the Nashville Songwriters Hall of Fame, stating she will 'cherish' the recognition. This acknowledgment highlights her impact and contributions to the music industry.
+- sources:
+  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/28/taylor-swift-says-shell-cherish-her-historic-nashville-songwriters-hall-of-fame-honor/
+
+## Seahawks Make Light Joke About Chiefs Amid Taylor Swift Fans' Response
+
+- first seen: 2026-10-28 16:53 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Seattle Seahawks jokingly commented on the Kansas City Chiefs, leading to a response from Taylor Swift fans. The interaction highlights the connection between sports and pop culture.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/seahawks-playful-shot-chiefs-taylor-160000828.html
+
 ## Taylor Swift Upset Over Leaked Wedding Photos of Travis Kelce
 
 - first seen: 2026-10-28 15:58 UTC | category: relationship | importance: 7
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift is reportedly upset following the leak of new wedding photos featuring Travis Kelce, feeling it constitutes a betrayal.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-furious-travis-152343122.html
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234962649/taylor-swift-travis-kelce-response-new-wedding-photos/
 
 ## Dwayne Johnson Appears to Like Video Calling Taylor Swift ‘Fake’
 
@@ -86,12 +102,13 @@ Stories: 105
 ## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
 
 - first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
   - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
   - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/royals/2026/10/28/travis-kelce-taylor-swift-prince-william-backstage-selfie/92476503007/
   - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
 
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
@@ -427,10 +444,11 @@ Stories: 105
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] ABC7 Chicago — https://abc7chicago.com/story/taylor-swift-lyle-lovett-more-inducted-nashville-songwriters-hall-fame/19986432/
+  - [unverified] Country Now — https://countrynow.com/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee-read-her-full-speech/
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
   - [unverified] Nashville Lifestyles — https://nashvillelifestyles.com/entertainment/celebrities/taylor-swift-becomes-youngest-ever-nashville-songwriters-hal/
   - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
@@ -891,19 +909,3 @@ Stories: 105
 - summary: Reports indicate that Taylor Swift is feeling genuinely anxious about negative news regarding her relationship with Travis Kelce, citing issues of private friction between the two.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234956156/taylor-swift-travis-kelce-response/
-
-## Taylor Swift's Attendance at Chiefs vs. Seahawks Game Questioned
-
-- first seen: 2026-10-25 16:31 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: There is speculation regarding whether Taylor Swift will attend the Kansas City Chiefs Week 7 game against the Seahawks. The question remains unanswered as fans await confirmation.
-- sources:
-  - [unverified] AudioPhix — https://audiophix.com/will-taylor-swift-be-kansas-city-chiefs-week-7-game-vs-seahawks
-
-## Taylor Swift and Travis Kelce Pause Family Plans Due to NFL Career
-
-- first seen: 2026-10-25 16:31 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Sources indicate that Taylor Swift and Travis Kelce are currently not prioritizing family plans while he focuses on his NFL career. The couple is taking their time amidst the pressures of their respective commitments.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-no-rush-taylor-swift-110046047.html
