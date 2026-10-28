@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 105
+
+## Taylor Swift's collaborator criticizes Ed Sheeran after controversy
+
+- first seen: 2026-10-28 03:11 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A collaborator of Taylor Swift has publicly called out Ed Sheeran, urging him to take a stand following recent events involving Macklemore. The comments have sparked discussions in the music community.
+- sources:
+  - [unverified] Fox News — https://www.foxnews.com/media/taylor-swifts-hitmaker-scolds-ed-sheeran-stand-f-up-after-macklemore-fallout
 
 ## Castle from 'Blank Space' Sells for $72 Million at Auction
 
