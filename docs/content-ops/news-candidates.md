@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 103
+Stories: 104
+
+## Castle from 'Blank Space' Sells for $72 Million at Auction
+
+- first seen: 2026-10-28 01:11 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million at auction. The sale highlights the value of properties associated with notable cultural figures.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/castle-taylor-swift-blank-space-000958493.html
 
 ## Taylor Swift Wears $2.4 Million Necklace at Red Carpet Event
 
