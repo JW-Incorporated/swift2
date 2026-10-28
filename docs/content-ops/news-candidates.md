@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 105
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
@@ -904,19 +904,3 @@ Stories: 107
 - summary: Taylor Swift was named after the renowned singer-songwriter James Taylor, a fact revealed long before her rise to global fame. This connection highlights her musical influence from an early age.
 - sources:
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/etimes/trending/taylor-swift-was-named-after-singer-songwriter-james-taylor-long-before-she-became-a-global-superstar-years-later-she-shared-the-stage-with-the-very-musician-whose-name-helped-shape-her-own-in-a-full-circle-moment/articleshow/135187293.cms
-
-## Posture Bra Gains Popularity Following Taylor Swift's Influence
-
-- first seen: 2026-10-25 12:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A posture bra has seen a surge in popularity, attributed to Taylor Swift's influence. Retailers are noticing increased interest in this product as fans look to emulate Swift's style.
-- sources:
-  - [unverified] Peoria Journal Star — https://www.eastpeoriatimescourier.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
-
-## Taylor Swift Sparks Interest in Posture Bra
-
-- first seen: 2026-10-25 12:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A posture bra has garnered attention, reportedly beginning with Taylor Swift's influence. The item has since seen increased interest and demand.
-- sources:
-  - [unverified] USA Today — https://www.usatoday.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
