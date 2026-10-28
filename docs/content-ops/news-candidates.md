@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 106
+
+## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
+
+- first seen: 2026-10-28 09:47 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million. The property, known for its stunning features, has garnered attention following its sale.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/the-castle-from-taylor-swifts-blank-space-music-video-just-sold-for-a-staggering-72-million-inside-the-stunning-property/
 
 ## Neighbors Reject Home Improvement Plans for Swift's Ohio Mansion
 
@@ -336,7 +344,7 @@ Stories: 105
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] ABC7 Chicago — https://abc7chicago.com/story/taylor-swift-lyle-lovett-more-inducted-nashville-songwriters-hall-fame/19986432/
@@ -346,6 +354,7 @@ Stories: 105
   - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
   - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
+  - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-becomes-youngest-member-of-nashville-songwriters-hall-of-fame/12308857/
 
 ## Taylor Swift Responds to Brad Paisley’s Tour Prank
 
