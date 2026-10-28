@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 109
+
+## Taylor Swift Achieves New Career Milestone
+
+- first seen: 2026-10-28 20:37 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached another significant career milestone, marking 20 years in the industry. The article discusses her legacy and the impacts of public intimacy on her career.
+- sources:
+  - [unverified] Inc.com — https://www.inc.com/alicia-teltz/taylor-swift-nashville-songwriters-hall-of-fame-public-intimacy/91427104
+
+## Travis Kelce's Relationship with Taylor Swift Reported to be Strained
+
+- first seen: 2026-10-28 20:37 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that the marriage between Travis Kelce and Taylor Swift may be facing challenges, affecting Kelce's performance. The situation is gaining attention in the media.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/28/chiefs-travis-kelce-and-taylor-swift-s-marriage-going-south-starts-getting-into-his-head.html
 
 ## Este Haim Praises Taylor Swift's Solo Music Style
 
@@ -134,23 +150,16 @@ Stories: 107
 ## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
 
 - first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
+  - [unverified] Entertainment Weekly — https://ew.com/travis-kelce-reacts-prince-william-comments-taylor-swift-photo-12198334
   - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
   - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/royals/2026/10/28/travis-kelce-taylor-swift-prince-william-backstage-selfie/92476503007/
+  - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
   - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
-
-## Caroline Wozniacki Channels Taylor Swift for Halloween
-
-- first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
 
 ## Taylor Swift Faces Criticism Over Reported Incineration of Wedding Decor
 
@@ -159,6 +168,15 @@ Stories: 107
 - summary: Taylor Swift has come under fire following reports that all her wedding decor was incinerated, raising concerns about environmental impact. This news has sparked discussions on social media regarding her choices and their sustainability implications.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/climate-disaster-criticism-mounts-taylor-103049356.html
+
+## Caroline Wozniacki Channels Taylor Swift for Halloween
+
+- first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
 
 ## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
 
