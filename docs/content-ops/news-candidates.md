@@ -27,6 +27,14 @@ so far".
 
 Stories: 106
 
+## Taylor Swift Shares Story of Brad Paisley Prank
+
+- first seen: 2026-10-28 18:47 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent segment on Music City Minute, Taylor Swift shared a playful story about a prank orchestrated by Brad Paisley. The revelation highlights their friendship and light-hearted interactions within the music industry.
+- sources:
+  - [unverified] 98.5 KYGO — https://kygo.com/taylor-swift-reveals-prank-brad-paisley-played-on-her-music-city-minute/
+
 ## Fans Reactions to Taylor Swift's Wedding Decor Decisions
 
 - first seen: 2026-10-28 17:51 UTC | category: fashion | importance: 6
@@ -43,14 +51,6 @@ Stories: 106
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437578/travis-kelce-reacts-to-prince-william-not-wanting-him-in-taylor-swift-photo
 
-## Seahawks Make Light Joke About Chiefs Amid Taylor Swift Fans' Response
-
-- first seen: 2026-10-28 16:53 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Seattle Seahawks jokingly commented on the Kansas City Chiefs, leading to a response from Taylor Swift fans. The interaction highlights the connection between sports and pop culture.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/seahawks-playful-shot-chiefs-taylor-160000828.html
-
 ## Taylor Swift Reflects on Nashville Songwriters Hall of Fame Honor
 
 - first seen: 2026-10-28 16:53 UTC | category: music | importance: 7
@@ -58,6 +58,14 @@ Stories: 106
 - summary: Taylor Swift expressed her appreciation for being honored by the Nashville Songwriters Hall of Fame, stating she will 'cherish' the recognition. This acknowledgment highlights her impact and contributions to the music industry.
 - sources:
   - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/28/taylor-swift-says-shell-cherish-her-historic-nashville-songwriters-hall-of-fame-honor/
+
+## Seahawks Make Light Joke About Chiefs Amid Taylor Swift Fans' Response
+
+- first seen: 2026-10-28 16:53 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Seattle Seahawks jokingly commented on the Kansas City Chiefs, leading to a response from Taylor Swift fans. The interaction highlights the connection between sports and pop culture.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/seahawks-playful-shot-chiefs-taylor-160000828.html
 
 ## Taylor Swift Upset Over Leaked Wedding Photos of Travis Kelce
 
@@ -118,7 +126,7 @@ Stories: 106
 ## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
 
 - first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
@@ -126,6 +134,7 @@ Stories: 106
   - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/royals/2026/10/28/travis-kelce-taylor-swift-prince-william-backstage-selfie/92476503007/
   - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
 
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
@@ -909,11 +918,3 @@ Stories: 106
 - summary: Speculation arises regarding Taylor Swift's attendance at the Chiefs game today, October 25. Details on her participation remain unconfirmed.
 - sources:
   - [unverified] IMDb — https://www.imdb.com/news/ni66079547/?ref_=nmnw_art_perm
-
-## Prince William Jokes About Travis Kelce's Taylor Swift Selfie Mistake
-
-- first seen: 2026-10-25 18:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Prince William humorously comments on the mishap Travis Kelce had while trying to take a selfie with Taylor Swift. The playful exchange highlights the intersection of sports and pop culture that fans are enjoying.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/prince-william-jokingly-throws-shade-at-travis-kelce-taylor-swift-selfie
