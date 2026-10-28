@@ -27,6 +27,14 @@ so far".
 
 Stories: 105
 
+## Details on Taylor Swift and Travis Kelce's Wedding Décor
+
+- first seen: 2026-10-28 14:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article explores the décor used by Taylor Swift and Travis Kelce for their $30 million wedding at Madison Square Garden. It examines the choices made for the event and their significance.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/happened-taylor-swift-travis-kelce-133413610.html
+
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 8
@@ -896,11 +904,3 @@ Stories: 105
 - summary: Prince William unknowingly tried to shift Travis Kelce out of a selfie with Taylor Swift, which also marked the couple's debut on Instagram. The incident highlights a notable moment involving the royal family and pop culture.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-tried-move-travis-153046580.html
-
-## Taylor Swift's Name Origin Linked to James Taylor
-
-- first seen: 2026-10-25 14:36 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was named after the renowned singer-songwriter James Taylor, a fact revealed long before her rise to global fame. This connection highlights her musical influence from an early age.
-- sources:
-  - [unverified] The Times of India — https://timesofindia.indiatimes.com/etimes/trending/taylor-swift-was-named-after-singer-songwriter-james-taylor-long-before-she-became-a-global-superstar-years-later-she-shared-the-stage-with-the-very-musician-whose-name-helped-shape-her-own-in-a-full-circle-moment/articleshow/135187293.cms
