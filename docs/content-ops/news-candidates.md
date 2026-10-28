@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 105
+
+## Neighbors Reject Home Improvement Plans for Swift's Ohio Mansion
+
+- first seen: 2026-10-28 07:45 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Neighbors of Taylor Swift and Travis Kelce have opposed proposed home improvement plans for their Ohio mansion. The plans have faced scrutiny and were ultimately rejected by those living nearby.
+- sources:
+  - [unverified] Akron Beacon Journal — https://www.beaconjournal.com/story/news/2026/10/28/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-snag-neighbors/92458338007/
 
 ## Taylor Swift's collaborator criticizes Ed Sheeran after controversy
 
