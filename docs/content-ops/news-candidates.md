@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 108
+Stories: 106
+
+## Taylor Swift reportedly upset about leaked wedding photos
+
+- first seen: 2026-10-28 22:38 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly feeling betrayed due to the leak of wedding photos, which has caused her frustration. The situation has drawn attention to her personal life and the boundaries of privacy.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/feels-betrayal-taylor-swift-reportedly-181313173.html
+
+## Taylor Swift Achieves New Milestone in Music and Songwriting
+
+- first seen: 2026-10-28 22:38 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has set another record in the music and songwriting industry, further solidifying her impact on the field. This accomplishment highlights her continued influence and success in the music world.
+- sources:
+  - [unverified] 12newsnow.com — https://www.12newsnow.com/video/news/entertainment-news/taylor-swift-makes-history-again-in-the-music-and-songwriting-industry/502-85aa2a97-53bd-4f8c-a9b7-0f58c9a66763
 
 ## Taylor Swift and Travis Kelce Inspire Halloween Costumes
 
@@ -140,14 +156,6 @@ Stories: 108
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/happened-taylor-swift-travis-kelce-133413610.html
 
-## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-28 12:47 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made history by becoming the youngest artist ever inducted into the Nashville Songwriters Hall of Fame. This significant achievement highlights her contributions to the music industry.
-- sources:
-  - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
-
 ## Taylor Swift Returns with New Performance on ‘The Encore’
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 6
@@ -177,6 +185,15 @@ Stories: 108
   - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
   - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
+
+## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-28 12:47 UTC | category: music | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift has made history by becoming the youngest artist ever inducted into the Nashville Songwriters Hall of Fame. This significant achievement highlights her contributions to the music industry.
+- sources:
+  - [unverified] Butler Eagle — https://www.butlereagle.com/20261028/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/
+  - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
 
 ## Taylor Swift Faces Criticism Over Reported Incineration of Wedding Decor
 
@@ -906,35 +923,3 @@ Stories: 108
 - summary: A posture bra has gained popularity, reportedly starting with Taylor Swift's influence. The item is now in high demand among fans and consumers alike.
 - sources:
   - [unverified] Yahoo — https://shopping.yahoo.com/health/womens-health/articles/started-taylor-swift-now-everyone-113221902.html
-
-## Taylor Swift Makes Surprise Appearance During Dakota Johnson's 'SNL' Monologue
-
-- first seen: 2026-10-25 22:31 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise cameo during Dakota Johnson's monologue on Saturday Night Live, portraying Johnson's 'literal therapist'. This unexpected moment added a humorous twist to the show's opening.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66046600/?ref_=ttnw_art_perm
-
-## Taylor Swift's Exes Share Their Thoughts About Her
-
-- first seen: 2026-10-25 22:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Yahoo article features insights from Taylor Swift's former partners discussing their perspectives about her. The piece highlights various opinions and reflections on their past relationships with the artist.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swifts-exes-lot-her-134500901.html
-
-## Taylor Swift Achieves Number One Hit with 'Patient Zero'
-
-- first seen: 2026-10-25 22:31 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached another milestone in her music career as her latest song, 'Patient Zero', secures the number one position on the charts. This adds to her impressive list of chart-topping hits.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66047959/?ref_=ttnw_art_perm
-
-## Olivia Rodrigo Tops Billboard 200, Overtaking Taylor Swift
-
-- first seen: 2026-10-25 22:31 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Olivia Rodrigo has secured the top position on the Billboard 200 chart, surpassing Taylor Swift, aided by the artist Chappell Roan. This marks a significant shift in the rankings of popular music.
-- sources:
-  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/olivia-rodrigo-dethrones-taylor-swift-213253213.html
