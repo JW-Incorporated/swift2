@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 107
+
+## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-28 12:47 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made history by becoming the youngest artist ever inducted into the Nashville Songwriters Hall of Fame. This significant achievement highlights her contributions to the music industry.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
+
+## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
+
+- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
+- sources:
+  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
+
+## Taylor Swift Returns with New Performance on ‘The Encore’
+
+- first seen: 2026-10-28 12:47 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to reprise her performance style in an upcoming show titled ‘The Encore’. This event highlights her continuing influence in the music industry.
+- sources:
+  - [unverified] PopMatters — https://www.popmatters.com/taylor-swift-the-encore
+
+## Taylor Swift Makes History in Latest Achievements
+
+- first seen: 2026-10-28 12:47 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is recognized for her historical achievements in the entertainment industry according to a recent segment on Hollywood Minute. The report highlights her impact and successes without detailing specific events.
+- sources:
+  - [unverified] kcentv.com — https://www.kcentv.com/video/news/entertainment-news/taylor-swift-makes-history-jane-fonda-explores-field-more-hollywood-minute/500-182099ee-eedf-4ac1-ac08-07393880fa50
 
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
@@ -888,27 +920,3 @@ Stories: 106
 - summary: A posture bra has garnered attention, reportedly beginning with Taylor Swift's influence. The item has since seen increased interest and demand.
 - sources:
   - [unverified] USA Today — https://www.usatoday.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
-
-## Posture Bra Gains Popularity After Taylor Swift's Influence
-
-- first seen: 2026-10-25 11:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new posture bra has seen a surge in demand, attributed to Taylor Swift's influence in the fashion world. The item has received notable attention in the market since its association with the artist.
-- sources:
-  - [unverified] The Post-Crescent — https://www.postcrescent.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
-
-## Posture Bra Gains Popularity Following Taylor Swift Mention
-
-- first seen: 2026-10-25 11:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A posture bra has seen a surge in demand, attributed to Taylor Swift's influence. The item is gaining attention in the fashion market.
-- sources:
-  - [unverified] The Commercial Appeal — https://www.commercialappeal.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
-
-## Caitlin Clark's Move Draws Comparison to Taylor Swift
-
-- first seen: 2026-10-25 11:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark showcases a move during gameplay that has fans drawing parallels to Taylor Swift, highlighting the influence of the pop star. This comparison has generated buzz among sports and music fans alike.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-makes-move-reminds-110000376.html
