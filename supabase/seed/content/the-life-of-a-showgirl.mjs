@@ -219,6 +219,13 @@ export default {
               'Selena Gomez at the 2024 Golden Globes. In October 2026 she said newlywed Taylor is “probably the best” person to give her marriage advice, not the other way around.',
             kind: 'reference',
           },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Selena_Gomez_at_White_House.jpg/960px-Selena_Gomez_at_White_House.jpg',
+            focalPoint: '50% 28%',
+            credit: 'The White House, public domain, via Wikimedia Commons',
+            caption: 'Selena Gomez in a 2022 White House video appearance, years before her Rare Impact Fund Benefit remarks about Taylor and marriage.',
+            kind: 'reference',
+          },
         ],
       },
     },
