@@ -27,6 +27,22 @@ so far".
 
 Stories: 106
 
+## Caroline Wozniacki Channels Taylor Swift for Halloween
+
+- first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
+
+## Taylor Swift Faces Criticism Over Reported Incineration of Wedding Decor
+
+- first seen: 2026-10-28 11:47 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has come under fire following reports that all her wedding decor was incinerated, raising concerns about environmental impact. This news has sparked discussions on social media regarding her choices and their sustainability implications.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/climate-disaster-criticism-mounts-taylor-103049356.html
+
 ## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
 
 - first seen: 2026-10-28 09:47 UTC | category: business | importance: 7
@@ -896,19 +912,3 @@ Stories: 106
 - summary: Caitlin Clark showcases a move during gameplay that has fans drawing parallels to Taylor Swift, highlighting the influence of the pop star. This comparison has generated buzz among sports and music fans alike.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-makes-move-reminds-110000376.html
-
-## Jack Antonoff Discusses Breakup and Personal Songwriting Insights
-
-- first seen: 2026-10-25 10:56 UTC | category: relationship | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: In a recent interview, Jack Antonoff reflects on his shock breakup and the impact it has on his songwriting, emphasizing the importance of personal integrity in his music. He discusses his experiences while on tour with his band Bleachers and his past with the band Fun.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/oct/25/jack-antonoff-bleachers-interview-producer-kendrick-springsteen-taylor-swift
-
-## Celebrity Looks: Dakota Johnson in Retro Corduroy Pants
-
-- first seen: 2026-10-25 10:56 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: This article highlights various celebrity fashion trends, including Dakota Johnson's stylish corduroy pants and Kate Middleton's cozy sweater. These looks are capturing attention and are being sought after by fashion enthusiasts.
-- sources:
-  - [established] People — https://people.com/best-celebrity-outfits-this-week-10-25-12145041
