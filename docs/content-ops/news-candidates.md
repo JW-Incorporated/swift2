@@ -344,7 +344,7 @@ Stories: 106
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
 - sources:
   - [unverified] ABC7 Chicago — https://abc7chicago.com/story/taylor-swift-lyle-lovett-more-inducted-nashville-songwriters-hall-fame/19986432/
@@ -352,6 +352,7 @@ Stories: 106
   - [unverified] Nashville Lifestyles — https://nashvillelifestyles.com/entertainment/celebrities/taylor-swift-becomes-youngest-ever-nashville-songwriters-hal/
   - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
   - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
+  - [established] The Tennessean — https://www.tennessean.com/videos/entertainment/music/country/2026/10/27/taylor-swift-george-strait-among-stars-honored-at-nashville-gala/92460875007/
   - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
   - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-becomes-youngest-member-of-nashville-songwriters-hall-of-fame/12308857/
