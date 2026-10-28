@@ -16876,6 +16876,99 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-10-28 (Vault Run, Content Shift lane) from YouTube
+      // appearance intake #6363/#6364/#6365, all coverage of one night. The
+      // August election is its own moment (showgirl-nashville-songwriters-
+      // hall-of-fame); this is the enshrinement that moment said was coming.
+      // Taste of Country (full transcript) loaded directly; every quote below
+      // was checked word for word against it. Country Now read via fetch for
+      // the venue, the gala name and J.I. Allison. CUT: a Lainey Wilson
+      // performance one outlet garbled (it calls "Love Story" Wilson's own
+      // hit), and George Strait's award name, which only one page gave.
+      slug: 'showgirl-nashville-songwriters-hall-of-fame-gala',
+      year: 2026,
+      month: 10,
+      day: 26,
+      category: 'music',
+      title: 'Brad Paisley inducts her into the Nashville Songwriters Hall of Fame',
+      snippet:
+        'On Oct. 26, 2026, the Nashville hall made its August vote official: Brad Paisley inducted Taylor, its youngest member ever, and she spent nearly 10 minutes on Music Row, Liz Rose and being 14.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-nashville-songwriters-hall-of-fame-speech-video-transcript/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In August the Nashville Songwriters Hall of Fame elected Taylor, at 36, the youngest songwriter in its history. The ceremony came on Monday, Oct. 26, 2026, at the hall\'s 56th Anniversary Gala at Music City Center in Nashville. Brad Paisley did the induction. The rest of the class was Lyle Lovett, Bruce Channel, Shawn Camp and Lee Thomas Miller, with J.I. Allison inducted posthumously.\n\nShe opened by thanking Paisley, whose tour she opened for in 2007, with a joke: "I\'m really surprised to see you here, actually because we\'ve been estranged since 2007." Then she went back to the beginning. "I was lucky enough to get a publishing deal with Sony Publishing when I was 14 and I just hit the ground running," she said. She described running up the stairs to Liz Rose\'s room after school and saying, "Liz, this happened at school today." On the craft: "I learned by repetition. I think you truly learn a craft when you do it over and over and over." On the town: "Nashville is the place that I went to in my middle school daydreams."\n\nThe speech ran nearly 10 minutes. GMA and TODAY both covered it the next morning.',
+        sources: [
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-nashville-songwriters-hall-of-fame-speech-video-transcript/',
+            source_title: "Taylor Swift: Full Transcript of Nashville Songwriter's Hall of Fame Speech",
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes:
+              'Oct. 27, 2026; loaded directly. Primary for the full speech text (all quotes), the nearly-10-minute length, Paisley doing the introduction and the Lovett/Channel/Camp/Miller class.',
+          },
+          {
+            outlet: 'Country Now',
+            url: 'https://countrynow.com/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee-read-her-full-speech/',
+            source_title:
+              'Taylor Swift Makes History as Youngest-Ever Nashville Songwriters Hall of Fame Inductee, Read Her Full Speech',
+            publisher: 'Country Now',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-28',
+            reliability_score: 3,
+            notes:
+              'By Lauren Jo Black, Oct. 27, 2026. Corroborates Paisley and the class; source for the 56th Anniversary Gala, Music City Center and J.I. Allison (Legacy category, posthumous).',
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.youtube.com/watch?v=z58kj4QtH1Y',
+            source_title: 'Taylor Swift makes history again',
+            publisher: 'ABC News',
+            source_type: 'video',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes: 'GMA\'s own channel, Oct. 27, 2026; oEmbed 200, author "Good Morning America". Intake #6363.',
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.youtube.com/watch?v=AUHYR_EUszs',
+            source_title: 'Taylor Swift makes history once again',
+            publisher: 'ABC News',
+            source_type: 'video',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes: 'GMA\'s own channel, Oct. 27, 2026; oEmbed 200, author "Good Morning America". Intake #6364.',
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.youtube.com/watch?v=YZKMGKleuMw',
+            source_title: 'Taylor Swift Inducted into Nashville Hall of Fame',
+            publisher: 'NBC News',
+            source_type: 'video',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes: 'TODAY\'s own channel, Oct. 27, 2026; oEmbed 200, author "TODAY". Intake #6365.',
+          },
+        ],
+        // Visual (charter step 3b): GMA's frame from the night, used as a
+        // credited photo with no `video` field (same reason as the Patient Zero
+        // moment above). curl 200 image/jpeg 1280x720 on 2026-10-28, viewed:
+        // Taylor on stage holding the hall's award, GMA's "Oct. 27, 2026" tag.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/z58kj4QtH1Y/maxresdefault.jpg',
+            focalPoint: '55% 25%',
+            credit: 'Good Morning America (ABC News), YouTube',
+            caption: 'Taylor with her award at the Nashville Songwriters Hall of Fame gala, Oct. 26, 2026.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
