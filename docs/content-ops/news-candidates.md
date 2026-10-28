@@ -38,10 +38,10 @@ Stories: 105
 ## Castle from 'Blank Space' Sells for $72 Million at Auction
 
 - first seen: 2026-10-28 01:11 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: single_source | source_count: 1
 - summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million at auction. The sale highlights the value of properties associated with notable cultural figures.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/castle-taylor-swift-blank-space-000958493.html
+  - [established] People — https://people.com/castle-from-taylor-swift-s-blank-space-oheka-castle-finds-a-buyer-for-usd72-million-at-auction-12197459
 
 ## Taylor Swift Wears $2.4 Million Necklace at Red Carpet Event
 
