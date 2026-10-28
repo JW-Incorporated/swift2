@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 104
 
 ## Taylor Swift's collaborator criticizes Ed Sheeran after controversy
 
@@ -894,11 +894,3 @@ Stories: 105
 - summary: This article highlights various celebrity fashion trends, including Dakota Johnson's stylish corduroy pants and Kate Middleton's cozy sweater. These looks are capturing attention and are being sought after by fashion enthusiasts.
 - sources:
   - [established] People — https://people.com/best-celebrity-outfits-this-week-10-25-12145041
-
-## Taylor Swift Spotted With Travis Kelce’s Lombardi Trophy
-
-- first seen: 2026-10-25 05:01 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A photo surfaced showing Taylor Swift alongside Travis Kelce’s Lombardi Trophy, attracting significant attention.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-lombardi-trophy-photo-turns-heads/
