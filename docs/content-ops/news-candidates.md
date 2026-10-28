@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 109
+Stories: 108
+
+## Taylor Swift and Travis Kelce Inspire Halloween Costumes
+
+- first seen: 2026-10-28 21:32 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have influenced unique Halloween transformations, as reported by Sports Illustrated. Their styles are prompting fans to adopt similar themes for the holiday.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-and-travis-kelce-get-unexpected-halloween-tribute-from-sports-power-couple
+
+## Taylor Swift and Travis Kelce Wedding Photos Revealed with New Details
+
+- first seen: 2026-10-28 21:32 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Wedding photos of Taylor Swift and Travis Kelce have emerged, featuring a long-awaited detail that gives fans a closer look at the couple's special day.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-wedding-photos-surface-with-one-long-awaited-detail-finally-giving-fans-a-closer-look-12246294
 
 ## Taylor Swift Achieves New Career Milestone
 
@@ -54,10 +70,11 @@ Stories: 109
 ## Taylor Swift Shares Story of Brad Paisley Prank
 
 - first seen: 2026-10-28 18:47 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In a recent segment on Music City Minute, Taylor Swift shared a playful story about a prank orchestrated by Brad Paisley. The revelation highlights their friendship and light-hearted interactions within the music industry.
 - sources:
   - [unverified] 98.5 KYGO — https://kygo.com/taylor-swift-reveals-prank-brad-paisley-played-on-her-music-city-minute/
+  - [unverified] Deseret News — https://www.deseret.com/entertainment/2026/10/28/taylor-swift-nashville-songwriters-hall-of-fame/
 
 ## Fans Reactions to Taylor Swift's Wedding Decor Decisions
 
@@ -172,10 +189,11 @@ Stories: 109
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
 - first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
+  - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
 
 ## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
@@ -919,28 +937,3 @@ Stories: 109
 - summary: Olivia Rodrigo has secured the top position on the Billboard 200 chart, surpassing Taylor Swift, aided by the artist Chappell Roan. This marks a significant shift in the rankings of popular music.
 - sources:
   - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/olivia-rodrigo-dethrones-taylor-swift-213253213.html
-
-## Celebrating 20 Years of Taylor Swift's Debut with Notable Photos
-
-- first seen: 2026-10-25 21:31 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: A look back at Taylor Swift's 20-year career anniversary highlighted by five memorable photos. The article reflects on her journey since her debut.
-- sources:
-  - [unverified] HELLO! Magazine — https://www.hellomagazine.com/us/931164/taylor-swift-debut-20-years-ago-unmissable-photos/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swifts-debut-20-years-202613864.html
-
-## Taylor Swift's Attendance at Chiefs vs. Seahawks Game Questioned
-
-- first seen: 2026-10-25 21:31 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: There are speculations about whether Taylor Swift will attend the Chiefs game against the Seahawks during NFL Week 7 in 2026.
-- sources:
-  - [unverified] Bolavip US — https://bolavip.com/en/nfl/is-taylor-swift-attending-the-chiefs-game-vs-seahawks-today-in-2026-nfl-week-7-snf
-
-## Taylor Swift's Potential Attendance at Chiefs Game on October 25
-
-- first seen: 2026-10-25 21:31 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Speculation arises regarding Taylor Swift's attendance at the Chiefs game today, October 25. Details on her participation remain unconfirmed.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66079547/?ref_=nmnw_art_perm
