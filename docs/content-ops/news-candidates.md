@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 110
+Stories: 109
+
+## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
+
+- first seen: 2026-10-29 23:39 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A judge has denied a motion from fans of Taylor Swift trying to withdraw from a class action lawsuit against Ticketmaster. The decision comes amid ongoing legal disputes regarding ticket sales and fan experiences.
+- sources:
+  - [unverified] Daily Journal — https://www.dailyjournal.com/article/395777-judge-denies-taylor-swift-fans-late-bid-to-exit-ticketmaster-class-action
 
 ## Castle Featured in 'Blank Space' Video Sold for $72 Million
 
@@ -46,10 +54,11 @@ Stories: 110
 ## Tim McGraw Clarifies Taylor Swift Wedding Rumors
 
 - first seen: 2026-10-29 21:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Tim McGraw speaks out regarding the recent rumors surrounding Taylor Swift's wedding plans. The discussion aims to address and clarify misconceptions about her personal life.
 - sources:
   - [unverified] 94.3 WKKJ — https://wkkj.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
+  - [unverified] Buckeye Country 94.3 WMRN-FM — https://buckeyecountry943.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
 
 ## Overview of Unique Celebrity Engagement Rings Featured on People.com
 
@@ -934,19 +943,3 @@ Stories: 110
   - [unverified] Page Six — https://pagesix.com/2026/10/26/style/taylor-swift-wears-velvet-raisa-vanessa-dress-at-nashville-songwriters-hall-of-fame-gala-2026/
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1235648096/
   - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
-
-## Seahawks Playfully Interact with Taylor Swift Following Chiefs Defeat
-
-- first seen: 2026-10-26 23:31 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The Seattle Seahawks humorously referenced Taylor Swift after their victory against the Kansas City Chiefs, who were previously undefeated. The playful interaction highlights the intersection of sports and pop culture.
-- sources:
-  - [established] People — https://people.com/seahawks-troll-taylor-swift-after-thrashing-chiefs-to-break-their-undefeated-streak-12194988
-
-## Review of Taylor Swift's 'The Encore' Highlights Variability
-
-- first seen: 2026-10-26 23:31 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Central Times reviews Taylor Swift's 'The Encore', noting it possesses both high points and shortcomings. The critique emphasizes the varying quality of the music presented in this release.
-- sources:
-  - [unverified] Central Times — https://www.centraltimes.org/entertainment/2026/10/26/taylor-swifts-the-encore-has-its-highs-and-lows/
