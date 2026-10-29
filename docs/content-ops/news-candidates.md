@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 113
+Stories: 111
 
 ## Insider Claims About Taylor Swift and Travis Kelce's Wedding Decorations
 
@@ -78,9 +78,10 @@ Stories: 113
 ## Taylor Swift's 'Wood' Confounds Contestants on 'Millionaire' Quiz
 
 - first seen: 2026-10-29 09:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift's song 'Wood' created a challenge for contestants Colin Jost and Michael Che during their appearance on the quiz show 'Millionaire'. The segment highlighted the song's impact and recognition.
 - sources:
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-wood-stumps-colin-jost-michael-che-who-wants-to-be-a-millionaire-12200266
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-wood-stumps-colin-091904229.html
 
 ## Taylor Swift's Stylish Shoes Trend with Katie Holmes for Fall 2026
@@ -956,19 +957,3 @@ Stories: 113
 - summary: Dwayne “The Rock” Johnson has gained attention for liking a post that could be interpreted as critical of Taylor Swift. This action has sparked curiosity and questions among fans regarding the context and significance of his interaction.
 - sources:
   - [unverified] BuzzFeed — https://www.buzzfeed.com/leylamohammed/dwayne-johnson-likes-shady-taylor-swift-post?ref=bfnsplash
-
-## Taylor Swift and Travis Kelce Modify Wedding Plans, Removing $7 Million Feature
-
-- first seen: 2026-10-26 15:56 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift and Travis Kelce have made changes to their wedding plans, including the removal of a $7 million feature. Details about the remaining plans have not been disclosed.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reportedly-154000827.html
-
-## Taylor Swift Fans React to Seattle Seahawks Friendship Bracelet Meme
-
-- first seen: 2026-10-26 15:09 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Fans of Taylor Swift have expressed their frustration towards the Seattle Seahawks over a meme related to friendship bracelets. The meme has drawn negative reactions from the fan base.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/2026/10/26/seahawk-bracelets-cause-backlash-with-taylor-swift-fans/
