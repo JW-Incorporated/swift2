@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 112
+Stories: 113
+
+## Taylor Swift Reportedly Concerned About Perceptions of Wealth
+
+- first seen: 2026-10-29 12:56 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly feeling apprehensive about how her wealth may be perceived, with concerns of appearing 'out of touch' lingering in the media. This comes as discussions surrounding celebrities and their financial status continue to gain attention.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/questioning-her-wealth-taylor-swift-103053219.html
+
+## ESPN Analyst Responds to Criticism Over Taylor Swift's NBA Appearance
+
+- first seen: 2026-10-29 12:56 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An ESPN analyst has defended Taylor Swift amid controversies surrounding her appearance at an NBA event, telling critics that the issue is theirs to deal with. The discussion has gained significant media attention.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-viral-nba-controversy-115058170.html
 
 ## Taylor Swift Features 2026 Trend with Satin Jewelry-Strap Heels
 
@@ -86,9 +102,10 @@ Stories: 112
 ## Travis Kelce Comments on Prince William's Response to Taylor Swift Selfie
 
 - first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Travis Kelce has shared his thoughts on Prince William's reaction to a selfie featuring Taylor Swift, stating, 'I get it'. This interaction reflects the interest in the connection between Kelce and Swift.
 - sources:
+  - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/10/taylor-swift-and-travis-kelces-wedding-decor-reportedly-met-a-surprising-end-fans-react.html
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/29/taylor-swift-and-travis-kelce-steal-the-spotlight-in-caroline-wozniacki-s-halloween-costume.html
   - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/travis-kelce-responds-prince-william-060000816.html
@@ -955,12 +972,3 @@ Stories: 112
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-travis-kelce-seahawks-chiefs/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/fans-disappointing-taylor-swift-news-234007559.html
-
-## Taylor Swift Misses Chiefs vs Seahawks Game Last Night
-
-- first seen: 2026-10-26 12:56 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift was not present at the Chiefs vs Seahawks game, prompting discussion about her absence. The reasons for her decision to skip the game have been explored in various outlets.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74246263/why-taylor-swift-skipped-chiefs-vs-seahawks-game/
-  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/why-taylor-swift-skipped-chiefs-111255118.html
