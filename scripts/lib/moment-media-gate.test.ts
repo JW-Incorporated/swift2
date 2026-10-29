@@ -13,6 +13,7 @@ import {
   surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './moment-media-gate.mjs';
+import { parseSurfaceMediaLegacy } from './surface-media-legacy.mjs';
 import { TEXT_ONLY_CEILING, textOnlyRatchetFindings } from './text-only-ratchet.mjs';
 
 describe('moment media publication gate', () => {
@@ -138,8 +139,20 @@ describe('P1-23 surface media gates', () => {
   });
 
   it('pins every shipped legacy entry to a 16-hex content hash', () => {
-    expect(SURFACE_MEDIA_LEGACY.size).toBeGreaterThan(100);
-    for (const hash of SURFACE_MEDIA_LEGACY.values()) expect(hash).toMatch(/^[0-9a-f]{16}$/);
+    for (const [key, hash] of SURFACE_MEDIA_LEGACY) {
+      expect(key).toMatch(/^[^\s#]+\.mjs#\S+$|^social\/inbox\/\S+\.json$/);
+      expect(hash).toMatch(/^[0-9a-f]{16}$/);
+    }
+  });
+
+  it('parses CRLF text with stray whitespace without corrupting keys or hashes', () => {
+    const parsed = parseSurfaceMediaLegacy(
+      '\r\na/b.mjs#one 0123456789abcdef\r\n  c/d.mjs#two   fedcba9876543210 \r\n',
+    );
+    expect([...parsed]).toEqual([
+      ['a/b.mjs#one', '0123456789abcdef'],
+      ['c/d.mjs#two', 'fedcba9876543210'],
+    ]);
   });
 });
 
@@ -151,6 +164,10 @@ describe('hardened photo validity', () => {
     [{ moment: { photos: [] }, thumbnailUrl: null }],
     [{ moment: { photos: [] }, thumbnailUrl: '' }],
     [{ thumbnailUrl: 'https://www.billboard.com/music/story.html' }],
+    [{ thumbnailUrl: 'https://www.billboard.com/music/news/swift-article/' }],
+    [{ thumbnailUrl: 'https://storage.googleapis.com/anything/page' }],
+    [{ thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp-other/page' }],
+    [{ moment: { photos: [{ url: 'https://media.vanityfair.com/articles/story' }] } }],
   ])('rejects a non-image or empty photo (%j)', (item) => {
     expect(momentMediaErrors(item)).not.toEqual([]);
   });
@@ -158,7 +175,10 @@ describe('hardened photo validity', () => {
   it.each([
     { thumbnailUrl: 'https://example.com/a/b.PNG?w=800' },
     { thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Taylor' },
-    { moment: { photos: [{ url: 'https://media.glamour.com/photos/abc/master/w_1200' }] } },
+    { moment: { photos: [{ url: 'https://media.vanityfair.com/photos/abc/master/w_1200' }] } },
+    { thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/a.JPG?w=800&h=2' },
+    { thumbnailUrl: 'https://storage.googleapis.com/anything/photo.webp' },
+    { thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/2024/a' },
   ])('accepts an image-like url (%j)', (item) => {
     expect(momentMediaErrors(item)).toEqual([]);
   });
@@ -169,6 +189,14 @@ describe('hardened photo validity', () => {
     expect(mediaPublicationVerdict('era.mjs#new', item, new Map()).errors).not.toEqual([]);
   });
 
+  it('accepts oembed only from YouTube or Instagram post urls', () => {
+    const row = (post_url: string) => ({ media: [{ kind: 'oembed', post_url }] });
+    expect(nonMomentMediaErrors(row('https://www.instagram.com/p/abc/'))).toEqual([]);
+    expect(nonMomentMediaErrors(row('https://www.youtube.com/watch?v=abcdefghijk'))).toEqual([]);
+    expect(nonMomentMediaErrors(row('https://example.com/post'))).not.toEqual([]);
+    expect(nonMomentMediaErrors(row('https://evil.com/instagram.com/p/x'))).not.toEqual([]);
+  });
+
   it('rejects a non-image hotlink and merch imageUrl', () => {
     expect(
       nonMomentMediaErrors({ media: [{ kind: 'hotlink_legacy', url: 'https://example.com/p.html' }] }),
@@ -177,7 +205,7 @@ describe('hardened photo validity', () => {
   });
 });
 
-describe('text-only count ratchet (tracks, Era Secrets, On This Day, Clownbot lore)', () => {
+describe('text-only count ratchet (tracks, Era Secrets, On This Day)', () => {
   it('fails when a new text-only row grows any frozen count', () => {
     for (const [name, ceiling] of Object.entries(TEXT_ONLY_CEILING)) {
       const findings = textOnlyRatchetFindings({ [name]: ceiling + 1 });
@@ -189,10 +217,11 @@ describe('text-only count ratchet (tracks, Era Secrets, On This Day, Clownbot lo
     expect(TEXT_ONLY_CEILING['track guides (no youtubeId or media)']).toBe(0);
   });
 
-  it('is silent at the ceiling and warns when the count falls', () => {
+  it('is silent at the ceiling and errors when the count falls', () => {
     const era = TEXT_ONLY_CEILING['Era Secrets'];
     expect(textOnlyRatchetFindings({ 'Era Secrets': era })).toEqual([]);
-    expect(textOnlyRatchetFindings({ 'Era Secrets': era - 1 }).map((f) => f.level)).toEqual(['warn']);
+    expect(textOnlyRatchetFindings({ 'Era Secrets': era - 1 }).map((f) => f.level)).toEqual(['error']);
+    expect(textOnlyRatchetFindings({ 'Era Secrets': era - 1 })[0].message).toContain('to ' + (era - 1));
   });
 });
 

@@ -1008,13 +1008,11 @@ for (const [file, n] of confirmTierHits) {
     );
 }
 
-// -- text-only count ratchet (On This Day pool, Clownbot lore) --
-// These and the two loops above publish text with no media field yet; their
+// -- text-only count ratchet (On This Day pool) --
+// This and the loops above publish text with no media field yet; their
 // text-only row counts are frozen (scripts/lib/text-only-ratchet.mjs).
 for (const row of (await import(pathToFileURL(join(seed, 'on-this-day', 'starter-pool.mjs')).href)).default)
   countTextOnly('On This Day pool', row);
-for (const row of (await import(pathToFileURL(join(seed, 'clownbot-lore', 'clownbot-lore.mjs')).href)).default.items)
-  countTextOnly('Clownbot lore', row);
 for (const finding of textOnlyRatchetFindings(textOnlyCounts)) {
   if (finding.level === 'error') {
     console.error(`ERROR scripts/lib/text-only-ratchet.mjs: ${finding.message}`);

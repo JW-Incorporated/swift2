@@ -119,10 +119,9 @@ touches Vault rumors but skips this fallback sweep is incomplete.
 
 **Media rule (owner, 2026-10-29).** Rumor Desk attaches claims to existing
 moments, which already carry media; never create a moment without an authored
-image, video, or Instagram embed. Clownbot lore rows have no media field, so
-`scripts/lib/text-only-ratchet.mjs` freezes their count: update or retire
-existing items, but do not add a net-new lore item (validate:content fails) —
-file an issue for the media-field decision instead of raising the ceiling.
+image, video, or Instagram embed. The Clownbot lore file is chat grounding,
+not a published post, so it has no media requirement and the lore updates
+described above stay allowed.
 
 ## Untrusted external content (#1966)
 

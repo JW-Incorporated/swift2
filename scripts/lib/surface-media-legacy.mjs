@@ -125,8 +125,14 @@ merch/official.mjs#8238952612040 145ec43ede43b59d
 merch/official.mjs#8239061434568 701d90df3c87b2a4
 `;
 
-export const SURFACE_MEDIA_LEGACY = new Map(
-  SURFACE_MEDIA_LEGACY_TEXT.trim()
-    .split('\n')
-    .map((line) => line.split(' ')),
-);
+/** Tolerates CRLF text and stray whitespace around the key and hash. */
+export const parseSurfaceMediaLegacy = (text) =>
+  new Map(
+    text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => line.split(/\s+/)),
+  );
+
+export const SURFACE_MEDIA_LEGACY = parseSurfaceMediaLegacy(SURFACE_MEDIA_LEGACY_TEXT);

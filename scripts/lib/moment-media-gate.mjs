@@ -8,7 +8,6 @@ import { readdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { slugify } from './longlive-sync-shared.mjs';
 import { CONFIG } from '../content-engine/config.mjs';
-import { PHOTO_HOST_LEGACY } from './photo-host-gate.mjs';
 import { SURFACE_MEDIA_LEGACY } from './surface-media-legacy.mjs';
 
 export { SURFACE_MEDIA_LEGACY };
@@ -28,23 +27,56 @@ const placeholderImage = (value) => {
   }
 };
 
-const IMAGE_EXT = /\.(?:jpe?g|png|webp|gif|avif|bmp|svg|heic|tiff?)$/i;
-const PAGE_EXT = /\.(?:html?|php|aspx?|jsp|pdf|txt|json|xml)$/i;
-const trustedImageHost = (host, pathname) =>
-  CONFIG.hostAllowlist.includes(host) ||
-  PHOTO_HOST_LEGACY.has(host) ||
-  CONFIG.scopedHostAllowlist.some((s) => s.host === host && pathname.startsWith(s.pathPrefix));
+const IMAGE_EXT = /\.(?:jpe?g|png|webp|gif|avif|svg)$/i;
 
-/** An https URL that points at an image: a known image file extension, or a
- * vetted image host (CONFIG.hostAllowlist / scopedHostAllowlist /
- * PHOTO_HOST_LEGACY) serving something that is not an obvious web page. A
- * random https page is not an image. */
+// Hosts whose every URL is an image, so an extensionless path is still a
+// photo. Every other trusted host (publishers, buckets) hosts article pages
+// too, and an extensionless URL there is not evidence of an image.
+const IMAGE_ONLY_HOSTS = new Set([
+  'upload.wikimedia.org',
+  'i.ytimg.com',
+  'img.youtube.com',
+  'media.gettyimages.com',
+  'dims.apnews.com',
+  'imageio.forbes.com',
+  'media-cldnry.s-nbcnews.com',
+  's.yimg.com',
+  'media.zenfs.com',
+  'cdn.hercampus.com',
+  'images.complex.com',
+  'i.iheart.com',
+]);
+
+// Image-only path prefixes on hosts that are not image-only as a whole.
+const IMAGE_PATH_PREFIXES = [{ host: 'media.vanityfair.com', pathPrefix: '/photos/' }];
+
+/** An https URL that points at an image: a known image file extension, or an
+ * extensionless path on an image-only host / a scoped image-bucket path
+ * (CONFIG.scopedHostAllowlist). A random https page on a trusted publisher or
+ * bucket host is not an image. */
 const imageLikeUrl = (value) => {
   if (!https(value) || placeholderImage(value)) return false;
   try {
     const { hostname, pathname } = new URL(value);
     if (IMAGE_EXT.test(pathname)) return true;
-    return !PAGE_EXT.test(pathname) && trustedImageHost(hostname.toLowerCase(), pathname);
+    const host = hostname.toLowerCase();
+    return (
+      IMAGE_ONLY_HOSTS.has(host) ||
+      [...CONFIG.scopedHostAllowlist, ...IMAGE_PATH_PREFIXES].some(
+        (s) => s.host === host && pathname.startsWith(s.pathPrefix),
+      )
+    );
+  } catch {
+    return false;
+  }
+};
+
+const OEMBED_HOSTS = new Set(['youtube.com', 'youtu.be', 'instagram.com']);
+const oembedPostUrl = (value) => {
+  if (!https(value)) return false;
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^(?:www|m)\./, '');
+    return OEMBED_HOSTS.has(host);
   } catch {
     return false;
   }
@@ -52,7 +84,7 @@ const imageLikeUrl = (value) => {
 
 const renderableMediaEntry = (media) => {
   if (!media || typeof media !== 'object') return false;
-  if (media.kind === 'oembed') return https(media.post_url);
+  if (media.kind === 'oembed') return oembedPostUrl(media.post_url);
   if (media.kind === 'owned') return text(media.asset_path) && text(media.license_ref);
   if (media.kind === 'hotlink_legacy') return imageLikeUrl(media.url);
   return false;
