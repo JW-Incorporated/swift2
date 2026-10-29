@@ -27,6 +27,14 @@ so far".
 
 Stories: 112
 
+## Taylor Swift Features 2026 Trend with Satin Jewelry-Strap Heels
+
+- first seen: 2026-10-29 11:56 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcases the latest trend in footwear with her satin jewelry-strap heels. This style highlights the fashionable elements expected to make waves in 2026.
+- sources:
+  - [unverified] Women.com — https://www.women.com/2300042/taylor-swift-hot-new-2026-shoe-trend-velvet-heels-with-diamond-jewelry-ankle-strap/
+
 ## Dancer from Taylor Swift's Tour Starts Fundraiser for Graves’ Disease
 
 - first seen: 2026-10-29 10:56 UTC | category: business | importance: 6
@@ -956,11 +964,3 @@ Stories: 112
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74246263/why-taylor-swift-skipped-chiefs-vs-seahawks-game/
   - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/why-taylor-swift-skipped-chiefs-111255118.html
-
-## Taylor Swift's Advice Allegedly Helped Lula's Election Victory
-
-- first seen: 2026-10-26 10:58 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: In a historic election, Lula defeated Flávio Bolsonaro to secure a fourth presidential term in Brazil, with Taylor Swift's advice reportedly playing a role in energizing the fandom and supporters. The celebration continues as filmmakers rejoice in the outcome.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/lula-election-win-taylor-swift-guillermo-del-toro-fandom-1236931046/
