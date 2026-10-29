@@ -1258,7 +1258,7 @@ export default {
       relatedIds: [
         'moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles',
         'moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve',
-        'moment:vault-red-taking-over-times-square-on-good-morning-america-one-day-aft',
+        'moment:vault-red-taking-over-times-square-on-good-morning-america-one-day-aft', 'moment:vault-ttpd-a-new-years-eve-kiss-in-kansas-city',
       ],
       year: 2012,
       month: 12,

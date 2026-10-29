@@ -878,6 +878,7 @@ export default {
       month: 3,
       day: 23,
       category: 'sighting',
+      relatedIds: ['moment:vault-ttpd-a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen', 'moment:vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob'],
       title: 'Bowling with Selena Gomez in Studio City',
       snippet: 'An off-duty afternoon at Pinz Bowling Center with Selena Gomez, early in a friendship that would become one of her most enduring.',
       sourceUrl: 'https://www.taylorpictures.net/displayimage.php?album=874&pid=47589',
