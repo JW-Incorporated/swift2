@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 114
+Stories: 113
+
+## Overview of Unique Celebrity Engagement Rings Featured on People.com
+
+- first seen: 2026-10-29 20:01 UTC | category: fashion | importance: 4
+- verification_status: single_source | source_count: 1
+- summary: People.com highlights various unique and unusual engagement rings worn by celebrities, showcasing the distinct styles and choices of different famous personalities.
+- sources:
+  - [established] People — https://people.com/unique-celebrity-engagement-rings-11957123
 
 ## Sam Fender Comments on Concert Ticket Pricing Compared to Taylor Swift
 
@@ -965,19 +973,3 @@ Stories: 114
 - summary: An ESPN analyst expresses confusion over how a hot mic moment involving Taylor Swift leaked to the public. The incident has generated significant attention and discussion.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-hot-mic-moment-still-has-espn-analyst-baffled-how-it-leaked
-
-## Details Surface About Taylor Swift and Travis Kelce's Wedding Production
-
-- first seen: 2026-10-26 20:02 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: New photos reveal significant production efforts for the upcoming wedding of Taylor Swift and Travis Kelce. As more details emerge, excitement builds around the couple's anticipated event.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-wedding-details-emerge/
-
-## Ella Langley Reaches No. 1; Tate McRae and Rodrigo/Roan Debut Big
-
-- first seen: 2026-10-26 20:02 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Ella Langley has reclaimed the No. 1 spot on the music charts, while Tate McRae and the duo Rodrigo/Roan have made significant debuts. This marks an exciting week in the music industry.
-- sources:
-  - [established] Variety — https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/
