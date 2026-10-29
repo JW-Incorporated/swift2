@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 111
+Stories: 112
+
+## Taylor Swift Seen in Cute Minidress
+
+- first seen: 2026-10-29 16:02 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a cute minidress, showcasing her stylish fashion sense. Fans and fashion enthusiasts have taken notice of her latest look.
+- sources:
+  - [unverified] Go Fug Yourself — https://www.gofugyourself.com/taylor-swifts-minidress-is-very-cute/
 
 ## Insider Claims About Taylor Swift and Travis Kelce's Wedding Decorations
 
