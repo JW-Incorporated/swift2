@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 109
+Stories: 110
+
+## Taylor Swift Concerned About Potential Backlash Over Wedding Photos
+
+- first seen: 2026-10-29 07:56 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A source reveals that Taylor Swift is worried about facing backlash for revealing wedding photos, fearing they may be perceived as out of touch. The sentiment reflects sensitivity to public perception regarding her personal life.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fears-touch-backlash-062941829.html
 
 ## Taylor Swift Addresses Alleged Wedding Photos
 
