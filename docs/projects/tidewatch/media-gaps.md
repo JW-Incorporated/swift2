@@ -25,4 +25,8 @@ Before this change, YouTube's `i.ytimg.com` and `img.youtube.com` were already a
 
 ## Legacy ratchet
 
-`scripts/lib/moment-media-gate.mjs:18-111` stores 120 stable keys: 117 non-moment records, one inbox intent, and two merch rows. A grandfathered row remains exempt when its text changes or it gains media, preventing routine content edits from failing on pre-existing gaps. A new key without media and a key that no longer matches any gated row remain blocking; new exemptions must not be added by content-only work. The separate moment exemption table is empty, so no moment behavior changed.
+Hardened 2026-10-29 (`fix/media-gate-hardening`). `scripts/lib/surface-media-legacy.mjs` stores 119 stable-key + content-hash entries (117 non-moment records and two merch rows). An exemption holds only while the row's hash is unchanged: editing a grandfathered text-only row voids it and the edit must add media. A new key without media and a key that no longer matches any gated row remain blocking; new exemptions must not be added by content-only work. The separate moment exemption table is empty.
+
+Photo validity is no longer shape-only: a moment thumbnail/photo, merch `imageUrl`, or `hotlink_legacy` entry must be an https URL with an image file extension, or sit on a vetted image host (`CONFIG.hostAllowlist`, `scopedHostAllowlist`, `PHOTO_HOST_LEGACY`) and not look like a web page (`.html`, `.php`, `.pdf`, ...). `photosReviewed` is a note only and waives nothing.
+
+Track guides, Era Secrets, On This Day and Clownbot lore have no renderable media field yet (adding one is a product decision), so `scripts/lib/text-only-ratchet.mjs` freezes their text-only row counts (tracks 0 — every track has a `youtubeId`; Era Secrets 56; On This Day 38; Clownbot lore 17): the counts can shrink, never grow. Lenses and song-moods are structural relation and numeric score data, not published posts, and are not gated.

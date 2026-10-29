@@ -13,6 +13,7 @@ import {
   surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './moment-media-gate.mjs';
+import { TEXT_ONLY_CEILING, textOnlyRatchetFindings } from './text-only-ratchet.mjs';
 
 describe('moment media publication gate', () => {
   it('matches the frozen, reviewable migration ledger exactly', () => {
@@ -87,7 +88,7 @@ describe('moment media publication gate', () => {
 });
 
 describe('P1-23 surface media gates', () => {
-  const errorsFor = (key: string, item: object, errors: string[], legacy = new Set<string>()) =>
+  const errorsFor = (key: string, item: object, errors: string[], legacy = new Map<string, string>()) =>
     surfaceMediaPublicationVerdict(key, item, errors, legacy).errors;
 
   it.each(['release', 'tour', 'theory', 'video'])('rejects a new %s row without media', (type) => {
@@ -105,12 +106,20 @@ describe('P1-23 surface media gates', () => {
     expect(errorsFor('merch/official.mjs#new-product', row, merchMediaErrors(row))).not.toEqual([]);
   });
 
-  it('keeps an edited grandfathered row exempt by stable key', () => {
+  const legacyFor = (key: string, row: object) =>
+    new Map([[key, momentFingerprint(row).slice(0, 16)]]);
+
+  it('exempts a legacy row only while its content hash is unchanged', () => {
     const old = { slug: 'old-row' };
-    const legacy = new Set(['releases/x.mjs#old-row']);
-    expect(errorsFor('releases/x.mjs#old-row', old, nonMomentMediaErrors(old), legacy)).toEqual([]);
+    const key = 'releases/x.mjs#old-row';
+    expect(errorsFor(key, old, nonMomentMediaErrors(old), legacyFor(key, old))).toEqual([]);
+  });
+
+  it('requires media once a legacy row is edited', () => {
+    const old = { slug: 'old-row' };
+    const key = 'releases/x.mjs#old-row';
     const edited = { ...old, title: 'Corrected title' };
-    expect(errorsFor('releases/x.mjs#old-row', edited, nonMomentMediaErrors(edited), legacy)).toEqual([]);
+    expect(errorsFor(key, edited, nonMomentMediaErrors(edited), legacyFor(key, old))).not.toEqual([]);
   });
 
   it('keeps a grandfathered row valid when it gains media', () => {
@@ -119,8 +128,71 @@ describe('P1-23 surface media gates', () => {
       slug: 'old-row',
       media: [{ kind: 'hotlink_legacy', url: 'https://images.example/new.jpg' }],
     };
-    expect(surfaceMediaPublicationVerdict(key, row, nonMomentMediaErrors(row), new Set([key])))
-      .toEqual({ errors: [], legacyGap: true });
+    const verdict = surfaceMediaPublicationVerdict(
+      key,
+      row,
+      nonMomentMediaErrors(row),
+      legacyFor(key, { slug: 'old-row' }),
+    );
+    expect(verdict.errors).toEqual([]);
+  });
+
+  it('pins every shipped legacy entry to a 16-hex content hash', () => {
+    expect(SURFACE_MEDIA_LEGACY.size).toBeGreaterThan(100);
+    for (const hash of SURFACE_MEDIA_LEGACY.values()) expect(hash).toMatch(/^[0-9a-f]{16}$/);
+  });
+});
+
+describe('hardened photo validity', () => {
+  it.each([
+    [{ thumbnailUrl: 'https://example.com/page.html' }],
+    [{ thumbnailUrl: 'https://example.com/article' }],
+    [{ moment: { photos: [{ url: 'https://example.com/page.html' }] } }],
+    [{ moment: { photos: [] }, thumbnailUrl: null }],
+    [{ moment: { photos: [] }, thumbnailUrl: '' }],
+    [{ thumbnailUrl: 'https://www.billboard.com/music/story.html' }],
+  ])('rejects a non-image or empty photo (%j)', (item) => {
+    expect(momentMediaErrors(item)).not.toEqual([]);
+  });
+
+  it.each([
+    { thumbnailUrl: 'https://example.com/a/b.PNG?w=800' },
+    { thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Taylor' },
+    { moment: { photos: [{ url: 'https://media.glamour.com/photos/abc/master/w_1200' }] } },
+  ])('accepts an image-like url (%j)', (item) => {
+    expect(momentMediaErrors(item)).toEqual([]);
+  });
+
+  it('does not treat photosReviewed as a waiver', () => {
+    const item = { photosReviewed: 'no verifiable image exists', moment: { photos: [] } };
+    expect(momentMediaErrors(item).join('\n')).toContain('needs an authored');
+    expect(mediaPublicationVerdict('era.mjs#new', item, new Map()).errors).not.toEqual([]);
+  });
+
+  it('rejects a non-image hotlink and merch imageUrl', () => {
+    expect(
+      nonMomentMediaErrors({ media: [{ kind: 'hotlink_legacy', url: 'https://example.com/p.html' }] }),
+    ).not.toEqual([]);
+    expect(merchMediaErrors({ imageUrl: 'https://example.com/p.html' })).not.toEqual([]);
+  });
+});
+
+describe('text-only count ratchet (tracks, Era Secrets, On This Day, Clownbot lore)', () => {
+  it('fails when a new text-only row grows any frozen count', () => {
+    for (const [name, ceiling] of Object.entries(TEXT_ONLY_CEILING)) {
+      const findings = textOnlyRatchetFindings({ [name]: ceiling + 1 });
+      expect(findings.map((f) => f.level)).toEqual(['error']);
+    }
+  });
+
+  it('freezes new text-only track guide rows at zero', () => {
+    expect(TEXT_ONLY_CEILING['track guides (no youtubeId or media)']).toBe(0);
+  });
+
+  it('is silent at the ceiling and warns when the count falls', () => {
+    const era = TEXT_ONLY_CEILING['Era Secrets'];
+    expect(textOnlyRatchetFindings({ 'Era Secrets': era })).toEqual([]);
+    expect(textOnlyRatchetFindings({ 'Era Secrets': era - 1 }).map((f) => f.level)).toEqual(['warn']);
   });
 });
 
