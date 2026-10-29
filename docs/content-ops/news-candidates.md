@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 112
+Stories: 115
+
+## Allegations of Taylor Swift's Team Discarding Wedding Decor
+
+- first seen: 2026-10-29 17:01 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An insider claims that Taylor Swift's team burned wedding decorations to prevent fans from obtaining them. This revelation has sparked discussions among fans regarding the lengths taken by the team.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-team-allegedly-burned-131714598.html
+
+## Taylor Swift Joins Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-29 17:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is among five artists inducted into the Nashville Songwriters Hall of Fame, recognized during an event where George Strait paid tribute to the writers.
+- sources:
+  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/29/taylor-swift-lyle-lovett-and-four-more-join-nashville-songwriters-hall-of-fame-as-george-strait-salutes-the-writers/
+
+## Lainey Wilson Performs Taylor Swift’s ‘Love Story’ at Gala
+
+- first seen: 2026-10-29 17:01 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At the Hall of Fame Gala, singer Lainey Wilson delivered a cover of Taylor Swift's popular song 'Love Story'. This performance highlights Wilson's admiration for Swift's work.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/entertainment/lainey-wilson-taylor-swift-love-story-cover
+
+## Taylor Swift Becomes Youngest Member of Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-29 17:01 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame, making her the youngest member to receive this honor. This recognition highlights her significant contributions to the music industry.
+- sources:
+  - [unverified] Wilson County Source — https://wilsoncountysource.com/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame-as-its-youngest-member/
 
 ## Taylor Swift Seen in Cute Minidress
 
@@ -957,11 +989,3 @@ Stories: 112
 - summary: An article from The UCSD Guardian titled 'Two Cents' examines the perceived downfall of Taylor Swift, discussing various aspects of her career. The analysis delves into factors that may have contributed to this view of her trajectory.
 - sources:
   - [unverified] The UCSD Guardian — https://ucsdguardian.org/2026/10/26/two-cents-analyzing-the-downfall-of-taylor-swift/
-
-## Dwayne Johnson 'Likes' Controversial Post About Taylor Swift
-
-- first seen: 2026-10-26 17:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dwayne “The Rock” Johnson has gained attention for liking a post that could be interpreted as critical of Taylor Swift. This action has sparked curiosity and questions among fans regarding the context and significance of his interaction.
-- sources:
-  - [unverified] BuzzFeed — https://www.buzzfeed.com/leylamohammed/dwayne-johnson-likes-shady-taylor-swift-post?ref=bfnsplash
