@@ -27,6 +27,14 @@ so far".
 
 Stories: 106
 
+## Taylor Swift and Elsa Hosk Promote New Spring 2026 Sneakers
+
+- first seen: 2026-10-29 03:38 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and model Elsa Hosk have endorsed a pair of podiatrist-approved sneakers, declaring them the must-have footwear for Spring 2026. Their endorsement is expected to boost the shoes' popularity in the upcoming season.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/white-reebok-sneakers-amazon-12186957
+
 ## Tribute for Swift and Kelce from Sports Power Couple
 
 - first seen: 2026-10-29 02:38 UTC | category: relationship | importance: 5
@@ -906,22 +914,3 @@ Stories: 106
 - summary: Taylor Swift is rumored to make a significant appearance following the Chiefs versus Seahawks game, according to Heavy.com. Fans are eager to see if she will indeed attend the event after the game concludes.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-major-appearance-after-seahawks-game-travis-kelce/
-
-## Taylor Swift absent from Chiefs-Seahawks game in Seattle
-
-- first seen: 2026-10-26 03:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 12
-- summary: Taylor Swift was not in attendance at the Chiefs-Seahawks game in Seattle where Travis Kelce played. The article discusses her absence during the event.
-- sources:
-  - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/10/26/kansas-city-chiefs-te-travis-kelce-on-unexpected-bonus-to-taylor-swifts-presence-at-games/92377987007/
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74241747/taylor-swift-travis-kelce-chiefs-seahawks-game-attendance-explained-october-2026/
-  - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50280779/nfl-week-7-trolls
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/26/taylor-swift-misses-special-night-for-travis-kelce-and-everything-goes-wrong-for-the-chiefs.html
-  - [unverified] New York Post — https://nypost.com/2026/10/25/sports/taylor-swift-appears-to-skip-watching-husband-travis-kelces-chiefs-take-on-seahawks/
-  - [unverified] Page Six — https://pagesix.com/2026/10/26/entertainment/taylor-swift-travis-kelce-wedding-props-deemed-too-expensive-dangerous-revealed/
-  - [unverified] starmagazine.com — https://starmagazine.com/new-images-from-taylor-swift-and-travis-kelces-msg-wedding-reveal-stunning-never-before-seen-details/
-  - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-chiefs-seahawks-game-attendance/
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317781059.html
-  - [unverified] The Sun — https://www.the-sun.com/entertainment/17208962/taylor-swift-travis-kelce-wedding-carousel-pond-plans/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-wins-unusual-award-111045941.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
