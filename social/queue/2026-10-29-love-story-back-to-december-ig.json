@@ -40,5 +40,8 @@
     "contentHash": "sha256:435a5e0b7d97f4573992b232fafa8a5d4a0646f80ab9c557b05c5224595400f1",
     "mediaDigest": "sha256:f5e4fcecf1a258a2454aff6910b336bbda29e8f65f15caeeead1052f859647e2",
     "sig": "hmac-sha256:34874d1bd315b4836fbb1b6aba62388656e98bd13a9d86523fccd3347f81229b"
-  }
+  },
+  "attempts": 1,
+  "lastError": "Instagram publish failed: {\"error\":{\"message\":\"Media ID is not available\",\"type\":\"OAuthException\",\"code\":9007,\"error_subcode\":2207027,\"is_transient\":false,\"error_user_title\":\"Cannot Publish\",\"error_u…",
+  "lastAttemptAt": "2026-10-29T23:27:12.514Z"
 }
