@@ -1,0 +1,21 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "campaign": "timeline:love-story:back-to-december-lautner:2026-10-29",
+  "scheduledAt": "2026-10-29T23:00:00Z",
+  "body": "'back to december' is the one that gets me every time.\n\nit's the rare Taylor song where SHE'S the one apologizing — not the girl who got left, the one who knows she's the one who messed it up. it points straight back to fall 2009 and the romance that started when she met Taylor Lautner on the set of valentine's day.\n\nbarely three months together, and it gave us one of her most grown-up songs 😮‍💨\n\nwe mapped her whole love story in order — who she was with, when, and the song each chapter left behind. lautner's lands right after the fearless solo stretch.\n\ntap through and read it start to finish 👉 https://longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": ["/social/library/photos/reddit-taylorswiftpictures-1q1pxtp-ig45.jpg"],
+  "mediaKind": "photo",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1q1pxtp/taylor_swift_tiktok_leggings/",
+  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift + TikTok leggings"],
+  "photoId": "reddit-taylorswiftpictures-1q1pxtp-ig45",
+  "why": "Love Story timeline (calendar 10-29): next unposted chapter after 'Fearless solo 2008' (single-2008) in the lens order is rel-lautner — Taylor Lautner, fall 2009, 'Back to December.' Artifact hook (the song), no date-stamp. Thread post, share-hook exempt.",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "total": 21,
+    "rationale": "Executes the named love-story slot with the exact next chapter (Lautner/'Back to December') and a dated, checkable detail — met on the Valentine's Day set, fall 2009, her rare apology song. Photo is a real Taylor fan shot but generic, not era-matched, so media scores a 3.",
+    "rulesChecked": ["L002"],
+    "revision": 1
+  }
+}

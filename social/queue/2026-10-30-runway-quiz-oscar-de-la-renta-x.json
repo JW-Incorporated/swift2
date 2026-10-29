@@ -1,0 +1,21 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "campaign": "thread:fashion:quiz-poll:2026-10-hero",
+  "scheduledAt": "2026-10-30T23:00:00Z",
+  "body": "ok swifties, prove you know her closet: which design house turns up on Taylor at BOTH a 2019 movie premiere AND a grammys album-of-the-year win? 👗 no googling — our runway thread has the answer: https://longlivets.com/?lens=fashion&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": ["/social/library/photos/reddit-taylorswiftpictures-1qad9bo.jpg"],
+  "mediaKind": "photo",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1qad9bo/taylor_swift_looking_beautiful/",
+  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift Looking Beautiful"],
+  "photoId": "reddit-taylorswiftpictures-1qad9bo",
+  "why": "X sibling of the Runway quiz-poll hero. Terse quiz framing (platform has no poll field) with the lens link; structurally unlike the IG prose half. Same campaign + image.",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "total": 21,
+    "rationale": "On-slot Runway quiz-poll with a verifiable designer re-wear (Oscar de la Renta at the 2019 Cats premiere and folklore's AOTY Grammys) that pays off inside the lens. Tight own-post X framing, distinct from the IG half. Photo is a real but generic Taylor shot, so media is a 3.",
+    "rulesChecked": ["L002"],
+    "revision": 2
+  }
+}
