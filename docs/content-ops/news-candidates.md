@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 110
+Stories: 111
+
+## Taylor Swift's Stylish Shoes Trend with Katie Holmes for Fall 2026
+
+- first seen: 2026-10-29 08:56 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's fashionable shoes feature a chic detail that has also caught the attention of Katie Holmes for the upcoming Fall 2026 season, highlighting a shared style between the two celebrities.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-purple-shoe-trend-12199272
 
 ## Taylor Swift Concerned About Potential Backlash Over Wedding Photos
 
