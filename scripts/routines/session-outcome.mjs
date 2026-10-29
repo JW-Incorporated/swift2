@@ -15,13 +15,19 @@
 // code defects: an exhausted plan-usage window and a session that failed before
 // its first API call.
 //
-// Two plan caps produce that shape, and both are transient: the weekly window
-// ("You've hit your weekly limit · resets 11pm (UTC)") and the five-hour
-// session window ("You've hit your session limit · resets 6:30pm (UTC)").
-// Recognising only the weekly wording made every session-cap run red and filed
-// a routine-failure issue for it (issue #5899). Only the weekly cap pauses the
-// fleet through the `claude-weekly-limit` issue; a session cap is over in hours,
-// so it passes with a warning and the next scheduled run picks the work up.
+// Three plan caps produce that shape, and all are capacity, not defects: the
+// weekly window ("You've hit your weekly limit · resets 11pm (UTC)"), the
+// five-hour session window ("You've hit your session limit · resets 6:30pm
+// (UTC)") and the org monthly spend cap ("You've hit your org's monthly spend
+// limit · ask your admin to raise it at … · your weekly limit resets 11pm
+// (UTC)"). Recognising only the weekly wording made every session-cap run red
+// and filed a routine-failure issue for it (issue #5899); the spend wording was
+// still unrecognised and did the same to four days of Vault Run judgment jobs
+// (issue #6375), which cost a Marjorie and an ops-fix run each chasing a
+// non-existent code bug. Only the weekly cap pauses the fleet through the
+// `claude-weekly-limit` issue; a session cap is over in hours and a spend cap
+// clears when the org's window rolls or an admin raises it, so both pass with a
+// warning and the next scheduled run picks the work up.
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -31,8 +37,15 @@ const TOKENISH =
   /(?:sk-[A-Za-z0-9_-]{8,}|gh[pousr]_[A-Za-z0-9]{8,}|eyJ[A-Za-z0-9_-]{10,}|[A-Fa-f0-9]{32,}|[A-Za-z0-9+/]{40,}={0,2})/g;
 const DETAIL_MAX = 240;
 // Each cap's own window, used only when its reset time will not parse.
-const LIMIT_FALLBACK_HOURS = { weekly: 6, session: 5 };
+const LIMIT_FALLBACK_HOURS = { weekly: 6, session: 5, spend: 6 };
 const PLAN_LIMIT = /you(?:'|’)ve hit your (weekly|session) limit\s*(?:[-–—·?]\s*)?resets\s+(.+)$/i;
+// The org spend cap names no reset of its own; it trails the account's weekly
+// one ("· your weekly limit resets 11pm (UTC)"), which is the only datum on
+// offer and is what the cap in fact cleared on (#6375). Matched BEFORE
+// PLAN_LIMIT so a spend cap can never be read as the weekly cap that pauses
+// the fleet.
+const SPEND_LIMIT = /you(?:'|’)ve hit your (?:org(?:anization|anisation)?(?:'|’)s )?monthly spend limit/i;
+const SPEND_RESET_HINT = /your (?:weekly|session) limit resets\s+(.+?)\s*$/i;
 const WEEKLY_LIMIT_LABEL = 'claude-weekly-limit';
 
 function asDate(value) {
@@ -74,11 +87,13 @@ export function resultDetail(result) {
 /** Pure: a plan-limit result -> { kind, ...bounded reset record }, or null. */
 export function planLimitInfo(result, { now = new Date() } = {}) {
   const detail = resultDetail(result) ?? '';
-  const match = detail.match(PLAN_LIMIT);
-  if (!match) return null;
-  const kind = match[1].toLowerCase();
+  const spend = SPEND_LIMIT.test(detail);
+  const match = spend ? detail.match(SPEND_RESET_HINT) : detail.match(PLAN_LIMIT);
+  if (!spend && !match) return null;
+  const kind = spend ? 'spend' : match[1].toLowerCase();
   const detectedAt = asDate(now) ?? new Date();
-  const parsedReset = parseLimitReset(match[2].trim(), detectedAt);
+  const resetText = spend ? match?.[1] : match[2];
+  const parsedReset = resetText ? parseLimitReset(resetText.trim(), detectedAt) : null;
   const reset =
     parsedReset ?? new Date(detectedAt.getTime() + LIMIT_FALLBACK_HOURS[kind] * 60 * 60 * 1000);
   return {
@@ -108,6 +123,9 @@ export function failureHint(result, options) {
     const fallback = planLimit.parsed
       ? ''
       : ` (safe ${LIMIT_FALLBACK_HOURS[planLimit.kind]}-hour fallback)`;
+    if (planLimit.kind === 'spend') {
+      return `the org monthly spend cap is exhausted (not this routine's code) — an admin raises it at https://claude.ai/admin-settings/usage, or it clears with the account's window, hinted ${planLimit.resetAt}${fallback}; the next scheduled run recovers`;
+    }
     const window = planLimit.kind === 'session' ? ' (five-hour session window)' : '';
     return `plan usage for this account is exhausted${window}, resets ${planLimit.resetAt}${fallback} — transient, not a code defect`;
   }
