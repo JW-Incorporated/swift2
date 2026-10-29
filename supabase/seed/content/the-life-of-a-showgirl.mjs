@@ -144,6 +144,7 @@ export default {
       month: 10,
       day: 14,
       category: 'relationship',
+      relatedIds: ['moment:vault-fearless-bowling-with-selena-gomez-in-studio-city', 'moment:vault-ttpd-a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen'],
       title: 'Selena Gomez on marriage advice for Taylor: “I think she’s probably the best to give me that”',
       snippet:
         'Two weeks after her own first wedding anniversary, at the Rare Impact Fund Benefit, Selena was asked whether she’d given her newlywed best friend any marriage advice. She said she doesn’t need to, and that if anything it should go the other way.',
@@ -216,6 +217,13 @@ export default {
             credit: 'BRNGroup, CC0, via Wikimedia Commons',
             caption:
               'Selena Gomez at the 2024 Golden Globes. In October 2026 she said newlywed Taylor is “probably the best” person to give her marriage advice, not the other way around.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Selena_Gomez_at_White_House.jpg/960px-Selena_Gomez_at_White_House.jpg',
+            focalPoint: '50% 28%',
+            credit: 'The White House, public domain, via Wikimedia Commons',
+            caption: 'Selena Gomez in a 2022 White House video appearance, years before her Rare Impact Fund Benefit remarks about Taylor and marriage.',
             kind: 'reference',
           },
         ],
@@ -10723,8 +10731,8 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-25',
-            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location.',
+            lastCheckedOn: '2026-10-26',
+            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location. Rechecked 2026-10-26: still open. The Encore was a deluxe of the pop album, not a new project, and Business Insider (Oct. 24) still calls a country-leaning debut re-release possible.',
           },
           {
             // Added 2026-08-31 (Rumor Desk, news digest + web search): the
@@ -10742,9 +10750,9 @@ export default {
             reportedOn: '2026-08-27',
             status: 'unconfirmed',
             url: 'https://www.justjared.com/2026/08/27/taylor-swift-is-reportedly-working-on-new-music/',
-            note: 'An unnamed-insider report, not an announcement — no new album, title or timeline confirmed. Corroborated as a claim (SheKnows, IBTimes and others all trace to the same Page Six sourcing), which is why it is admitted, but it stays a rumor until she says so herself. Adjudicable: resolves if she announces or releases new original music, fades if the "writing" reports go nowhere. No location.',
+            note: 'Unnamed-insider report, not an announcement; outlets all trace to the same Page Six sourcing, so it stays a rumor until she says so. Resolves if she announces new original music; fades if the reports go nowhere. No location. Rechecked 2026-10-26: the Encore does not settle it, since she said those songs were written in 2025, before the wedding (Business Insider). No new album announced.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-31',
+            lastCheckedOn: '2026-10-26',
           },
         ],
       },
@@ -12406,11 +12414,11 @@ export default {
               'Reporting on the copyright blocks framed them as Taylor\'s own doing — her team moving to pull her recordings from the Team Trump and official White House TikTok posts — an attribution the outlets drew from TikTok\'s standard rights-holder block notice and the removals landing within hours of each post.',
             reportedBy: 'Rolling Stone / Billboard',
             reportedOn: '2026-08-13',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-removes-song-trump-white-house-tiktok-1235607884/',
-            note: 'RESULT confirmed above (her songs replaced by TikTok\'s copyright-block notice); CAUSE unconfirmed — outlets infer Taylor\'s team from the notice and timing, but there is no on-record statement, and whether it came from her, her label, or TikTok\'s automation was never confirmed. Rechecked 2026-09-20: still no on-record attribution; resolves if her camp confirms.',
+            note: 'RESULT confirmed above (her songs replaced by TikTok\'s copyright-block notice); CAUSE unconfirmed. Outlets inferred her team from the notice and timing, with no on-record statement from her, her label or TikTok. Faded 2026-10-26: reported in August, never confirmed or denied. Neither her team nor the White House ever answered requests for comment.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-09-20',
+            lastCheckedOn: '2026-10-26',
           },
         ],
         photos: [
@@ -14118,12 +14126,12 @@ export default {
               'Gossip account Deuxmoi reported that Taylor had a girls’ night out with Dakota Johnson in Los Angeles on Friday, Aug. 21, 2026 — her first such reported outing since the wedding, with Travis Kelce away at Chiefs training camp.',
             reportedBy: 'Deuxmoi / Just Jared',
             reportedOn: '2026-08-21',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.justjared.com/2026/08/23/taylor-swift-keeps-low-profile-for-night-out-with-dakota-johnson-at-l-a-hotspot-report/',
-            note: 'Deuxmoi blind item re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation; no photo of either woman, no comment from either camp (social tier). Region-coarsened; venue and security detail dropped per redlines. Rechecked 2026-09-23: still unconfirmed (day 33) — a new Deuxmoi photo of a car entering the garage shows neither woman. Fades otherwise.',
+            note: 'Deuxmoi blind item re-reported by outlets (Just Jared, InStyle) tracing to the same tip, not independent confirmation (social tier). Region-coarsened; venue and security detail dropped per redlines. Faded 2026-10-26: reported in August, never confirmed or denied. Two months on there is still no photo of either woman and no comment from either camp.',
             sourceTier: 'social',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-09-23',
+            lastCheckedOn: '2026-10-26',
           },
         ],
         // Photo pass #762 (2026-08-30): no photo of the rumored night exists —
@@ -15295,6 +15303,17 @@ export default {
             notes:
               'Independent coverage of the same ET remarks corroborating the dance-floor anecdote, the 10–12 hour estimate and the "wedding of the century" quote.',
           },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/us/924334/brad-pitt-reveals-how-he-lost-girlfriend-in-surprising-confession/',
+            source_title: 'Brad Pitt reveals how he \'lost\' girlfriend in surprising confession',
+            publisher: 'Hello!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 3,
+            notes:
+              'Fetched 2026-10-26. Third outlet quoting the same ET interview: "such an amazing night," "10 hours, maybe 12," "so thoughtful and well-planned and really moving and great fun," and "I lost her in the melee on the dance floor."',
+          },
         ],
         photos: [
           {
@@ -16076,6 +16095,17 @@ export default {
             notes:
               'confirms Cleveland Heights, Ohio as Kelce\'s hometown and the closing image — a white dress and roller skates with 13 hearts. Frames the white dress only as matching the song\'s "wearing white" line, not as wedding footage.',
           },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/925591/taylor-swift-rare-footage-early-days-of-travis-kelce-romance-wedding/',
+            source_title: 'Taylor Swift shares rare footage of early days of Travis Kelce romance, 3 months after wedding',
+            publisher: 'Hello!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 3,
+            notes:
+              'Fetched 2026-10-26. Independently describes the home footage of Travis driving Taylor into the city, road signs, a passenger-seat selfie, drone shots and two people roller-skating, and places the song on The Encore.',
+          },
         ],
       },
     },
@@ -16633,7 +16663,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In June 2024, after the first of her Wembley Eras Tour shows, Taylor posted a backstage selfie with Prince William, Prince George and Princess Charlotte. Travis was in the frame too, which made it the first photo of the two of them on her own Instagram.\n\nOn Oct. 23, 2026, William made a surprise appearance on The Graham Norton Show and told the other side of it. "I hadn\'t appreciated the significance," he said. "Actually, I was trying to move him out of the photo, but Travis kept coming back in. I couldn\'t work out why he kept coming back in. I was trying to move him out so it was just me and Taylor and the children." When Norton pointed out that this was the photo where they went "photo official," William answered, "Apparently."\n\nThere was no falling-out behind the joke. William later went on New Heights himself, in the episode that came out on July 3, 2026.',
+          'In June 2024, after the first of her Wembley Eras Tour shows, Taylor posted a backstage selfie with Prince William, Prince George and Princess Charlotte. Travis was in the frame too, which made it the first photo of the two of them on her own Instagram.\n\nOn Oct. 23, 2026, William made a surprise appearance on The Graham Norton Show and told the other side of it. "I hadn\'t appreciated the significance," he said. "Actually, I was trying to move him out of the photo, but Travis kept coming back in. I couldn\'t work out why he kept coming back in. I was trying to move him out so it was just me and Taylor and the children." When Norton pointed out that this was the photo where they went "photo official," William answered, "Apparently."\n\nThere was no falling-out behind the joke. William later went on New Heights himself, in the episode that came out on July 3, 2026. Travis answered on the Oct. 28 episode: "I get it, man. I was just a boyfriend at that point. I wasn\'t her husband yet."',
         sources: [
           {
             outlet: "Harper's Bazaar",
@@ -16657,6 +16687,29 @@ export default {
             reliability_score: 4,
             notes:
               'By Amy Mackelden, Oct. 24, 2026; loaded directly. Independent account of the same quotes; source for the Oct. 23 air date.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/',
+            source_title:
+              "Travis Kelce Reacts to Prince William Saying He Tried to 'Move Him Out' of Royal Family's 2024 Selfie With Taylor Swift",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 5,
+            notes:
+              'By Hannah Dailey, Oct. 28, 2026; loaded directly. Source for Travis\'s reply on the Oct. 28 New Heights episode. Intake #6420.',
+          },
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/',
+            source_title: "Travis Kelce reacts to Prince William's cheeky confession about viral Taylor Swift selfie",
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 3,
+            notes:
+              'By Vanessa Serna, Oct. 28, 2026; loaded directly. Independently carries the same quotes. CUT: the "doesn\'t go south" joke, which Page Six gives to Jason and Billboard to Travis. Intake #6420.',
           },
         ],
         socialPost: {
@@ -16727,6 +16780,248 @@ export default {
             // oEmbed confirms the video id is First We Feast's episode.
             credit: 'First We Feast (official Hot Ones episode thumbnail, YouTube)',
             caption: 'Maya Hawke on the Hot Ones set, in the thumbnail of the episode where she named her two epic-poetry Taylor songs.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-26 (Vault Run, Content Shift lane) from intake #6343.
+      // Variety and SiriusXM both loaded directly (the filing reported Variety
+      // as paywalled; it returned 200 with the full Q&A from this run). CUT:
+      // Business Insider's "PR misstep" analysis and the outlet song rankings.
+      // They are opinion, not events. Also cut: any Taylor's Version framing,
+      // which already lives in the debut page's rumor container.
+      slug: 'showgirl-debut-album-turns-20',
+      year: 2026,
+      month: 10,
+      day: 24,
+      category: 'music',
+      title: 'The debut turns 20, and an unpublished 2008 interview resurfaces',
+      snippet:
+        'On the album\'s 20th birthday, Variety published a nearly complete Q&A from January 2008, when 18-year-old Taylor was still riding "Our Song."',
+      sourceUrl:
+        'https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor\'s self-titled debut came out on Oct. 24, 2006, and turned 20 on Oct. 24, 2026. Beyond the confetti on her website the day before, she didn\'t mark it with new music. Per Variety, there was nothing "so obvious or fan-servicing as putting out a deluxe version."\n\nVariety\'s Chris Willman marked it with his old tapes instead. He had interviewed her at length for Entertainment Weekly in January 2008, over burgers at an In-N-Out. Only a few hundred words of it ran at the time. For the anniversary he published the conversation nearly in full for the first time. "Our Song," which she wrote by herself in ninth grade for a high school talent show, had just spent its sixth week at No. 1 on the country chart, and she said she was "gonna milk this No. 1 for all it\'s worth." She confirmed that "Tim McGraw" and "Our Song" were written about the same boy. Asked whether it ever felt like too much, she said: "At the end of the day, I want to be here for the next 20 years."\n\nSiriusXM Hits 1 also spent the day on her, with "Hits 1 Never-Ending Eras," 13 hours of music from every era plus stories sent in by fans.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/',
+            source_title:
+              "Happy 20th Birthday, 'Debut'! A Revealing Look Back at Taylor Swift's First Album, Via a Previously Unpublished Q&A: 'I Want to Be Here for the Next 20 Years'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 5,
+            notes:
+              'By Chris Willman, Oct. 24, 2026; loaded directly. Primary text for the anniversary date, the January 2008 EW interview history, the "Our Song" sixth week at No. 1, the ninth-grade talent-show origin, the same-boy answer, and both quotes.',
+          },
+          {
+            outlet: 'SiriusXM',
+            url: 'https://www.siriusxm.com/blog/taylor-swift-20th-anniversary-hits-1',
+            source_title: 'Celebrate 20 Years of Taylor Swift with 13 Hours of Her Music on SiriusXM Hits 1',
+            publisher: 'SiriusXM',
+            source_type: 'official',
+            accessed_at: '2026-10-26',
+            reliability_score: 4,
+            notes:
+              'The broadcaster\'s own announcement, Oct. 23, 2026; loaded directly. Primary for "Hits 1 Never-Ending Eras": Oct. 24, 13 hours, music from every era, and fan-submitted stories.',
+          },
+        ],
+        // Visual (charter step 3b): Commons, CC BY-SA 3.0 (Adam Bielawski),
+        // also used on the debut page. Taken the month after the interview.
+        // curl 200 image/jpeg 800x536 on 2026-10-26, downloaded and
+        // vision-confirmed: Taylor on stage with her acoustic guitar.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg',
+            focalPoint: '50% 22%',
+            credit: 'Adam Bielawski / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'Then: Taylor on stage in February 2008, a month after the interview Variety finally published in full.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-26 (Vault Run, Content Shift lane) from intake #6344.
+      // Variety and Rolling Stone both loaded directly (the filing reported
+      // Variety as paywalled; it returned 200 from this run) and agree on the
+      // standings. CUT: the acoustic-versions release date. Rolling Stone's
+      // sentence is ambiguous between Oct. 16 and Oct. 18, so no date is given.
+      slug: 'showgirl-patient-zero-hot-100-run-ends-no-5',
+      year: 2026,
+      month: 10,
+      day: 26,
+      category: 'music',
+      title: '"Patient Zero" ends its three-week Hot 100 run at No. 1 and slides to No. 5',
+      snippet:
+        'Ella Langley\'s "Choosin\' Texas" took the top spot back, but "Patient Zero" was still the best-selling song of the week.',
+      sourceUrl:
+        'https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          '"Patient Zero" debuted at the top of the Billboard Hot 100 in early October and held the spot for three weeks. On the new chart, revealed Oct. 26, 2026, it fell to No. 5. Ella Langley\'s "Choosin\' Texas" went back to No. 1, its 25th week there, a record for nonconsecutive weeks.\n\nThe fall was mostly about physical sales. Per Variety, they went from 151,000 the week before to 26,000, with no new versions or shipments of the song arriving that week, though the radio airplay held up. Even with that drop it was still the top-selling song of the week. The newest version on the chart, according to Rolling Stone, was the acoustic takes she had released earlier in October.\n\nUnder Langley, four new releases fought over No. 2. Tate McRae\'s "Housewife" won it, with Olivia Rodrigo and Chappell Roan\'s "Expectations" remix at No. 3 and Zach Bryan and Lana Del Rey\'s "Lies" at No. 4.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/',
+            source_title:
+              "Ella Langley Retakes No. 1 on Hot 100 From Taylor Swift; Tate McRae's 'Housewife,' Rodrigo/Roan 'Expectations' and Zach Bryan/Lana Del Rey 'Lies' All Bow Big",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 5,
+            notes:
+              'By Chris Willman, Oct. 26, 2026; loaded directly. Primary text for the three weeks at No. 1, the fall to No. 5, the 151,000-to-26,000 physical-sales drop with no new variants, the steady radio, top seller of the week, and "Choosin\' Texas" at 25 weeks.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/tate-mcrae-billboard-hot-100-number-two-olivia-rodrigo-1235645932/',
+            source_title: 'Tate McRae Beats Taylor Swift, Olivia Rodrigo in Billboard Hot 100 Race for … Number Two',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-26',
+            reliability_score: 5,
+            notes:
+              'By Maya Georgi, Oct. 26, 2026; loaded directly. Corroborates No. 5 and the 26,000 physical sales, and is the source for the acoustic versions and the Nos. 2-4 order.',
+          },
+        ],
+        // Same official-video frame as the October No. 1 debut moment; no
+        // `video` field for the same feed-card reason given there. Re-verified
+        // 2026-10-26: curl 200 image/jpeg (177KB), oEmbed title "Taylor Swift
+        // - Patient Zero (Expanded Video)", author Taylor Swift; viewed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg',
+            focalPoint: '50% 45%',
+            credit: 'Taylor Swift (official "Patient Zero" video, YouTube)',
+            caption: 'A frame from the official "Patient Zero" video, the song that held No. 1 on the Hot 100 for three weeks.',
+            kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-10-28 (Vault Run, Content Shift lane) from YouTube
+      // appearance intake #6363/#6364/#6365, all coverage of one night. The
+      // August election is its own moment (showgirl-nashville-songwriters-
+      // hall-of-fame); this is the enshrinement that moment said was coming.
+      // Taste of Country (full transcript) loaded directly; every quote below
+      // was checked word for word against it. Country Now read via fetch for
+      // the venue, the gala name and J.I. Allison. CUT: a Lainey Wilson
+      // performance one outlet garbled (it calls "Love Story" Wilson's own
+      // hit), and George Strait's award name, which only one page gave.
+      // Enriched 2026-10-29 (Vault Run) from intake #6418/#6419: Variety's
+      // review (loaded via curl, read in full) settles both cuts above, Wilson
+      // doing "Love Story" and Strait's Career Maker Award, and carries the
+      // cricket-prank lines word for word. iHeart (loaded) quotes Paisley's
+      // Instagram reply; the "estranged" joke was the setup for that story.
+      slug: 'showgirl-nashville-songwriters-hall-of-fame-gala',
+      year: 2026,
+      month: 10,
+      day: 26,
+      category: 'music',
+      title: 'Brad Paisley inducts her into the Nashville Songwriters Hall of Fame',
+      snippet:
+        'On Oct. 26, 2026, the Nashville hall made its August vote official: Brad Paisley inducted Taylor, its youngest member ever, and she spent nearly 10 minutes on Music Row, Liz Rose and being 14.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-nashville-songwriters-hall-of-fame-speech-video-transcript/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In August the Nashville Songwriters Hall of Fame elected Taylor, at 36, the youngest songwriter in its history. The ceremony came on Monday, Oct. 26, 2026, at the hall\'s 56th Anniversary Gala at Music City Center in Nashville. Brad Paisley did the induction. The rest of the class was Lyle Lovett, Bruce Channel, Shawn Camp and Lee Thomas Miller, with J.I. Allison inducted posthumously, and George Strait got the hall\'s Career Maker Award. As is the hall\'s custom, Taylor didn\'t play; Lainey Wilson sang a stripped-back "Love Story" for her.\n\nShe opened by thanking Paisley, whose tour she opened for in 2007, with a joke: "I\'m really surprised to see you here, actually because we\'ve been estranged since 2007." The reason, she said, was crickets: "He took a tour prank too far. Filled my entire tour bus with live crickets. Thousands of them." She couldn\'t sleep for months and "considered buying a pet lizard to eradicate the problem," but after his introduction she called it even: "I think we can let bygones be bygones." Paisley answered on Instagram the next day that he still stands by the crickets "as a legit truly boss prank."\n\nThen she went back to the beginning. "I was lucky enough to get a publishing deal with Sony Publishing when I was 14 and I just hit the ground running," she said. She described running up the stairs to Liz Rose\'s room after school and saying, "Liz, this happened at school today." On the craft: "I learned by repetition. I think you truly learn a craft when you do it over and over and over." On the town: "Nashville is the place that I went to in my middle school daydreams."\n\nThe speech ran nearly 10 minutes. GMA and TODAY both covered it the next morning.',
+        sources: [
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-nashville-songwriters-hall-of-fame-speech-video-transcript/',
+            source_title: "Taylor Swift: Full Transcript of Nashville Songwriter's Hall of Fame Speech",
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes:
+              'Oct. 27, 2026; loaded directly. Primary for the full speech text (all quotes), the nearly-10-minute length, Paisley doing the introduction and the Lovett/Channel/Camp/Miller class.',
+          },
+          {
+            outlet: 'Country Now',
+            url: 'https://countrynow.com/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee-read-her-full-speech/',
+            source_title:
+              'Taylor Swift Makes History as Youngest-Ever Nashville Songwriters Hall of Fame Inductee, Read Her Full Speech',
+            publisher: 'Country Now',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-28',
+            reliability_score: 3,
+            notes:
+              'By Lauren Jo Black, Oct. 27, 2026. Corroborates Paisley and the class; source for the 56th Anniversary Gala, Music City Center and J.I. Allison (Legacy category, posthumous).',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/',
+            source_title:
+              "Taylor Swift, Inducted Into Nashville Songwriters Hall of Fame, Says 'There Is No Music Community Like This Music Community. I Know, I Checked All the Communities'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 5,
+            notes:
+              'By Chris Willman, Oct. 26, 2026; loaded directly. Source for Strait\'s Career Maker Award, Lainey Wilson\'s stripped-back "Love Story" and the cricket-prank quotes; corroborates Paisley, the class and Music City Center. Intake #6418/#6419.',
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/',
+            source_title: "Brad Paisley Says He Stands By His Prank On Taylor Swift She Says Went 'Too Far'",
+            publisher: 'iHeartMedia',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 3,
+            notes:
+              'By Kelly Fisher, Oct. 27, 2026; loaded directly. Source for Paisley\'s Oct. 27 Instagram reply ("legit truly boss prank"); corroborates the cricket quotes and Wilson singing "Love Story". Intake #6419.',
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.youtube.com/watch?v=z58kj4QtH1Y',
+            source_title: 'Taylor Swift makes history again',
+            publisher: 'ABC News',
+            source_type: 'video',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes: 'GMA\'s own channel, Oct. 27, 2026; oEmbed 200, author "Good Morning America". Intake #6363.',
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.youtube.com/watch?v=AUHYR_EUszs',
+            source_title: 'Taylor Swift makes history once again',
+            publisher: 'ABC News',
+            source_type: 'video',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes: 'GMA\'s own channel, Oct. 27, 2026; oEmbed 200, author "Good Morning America". Intake #6364.',
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.youtube.com/watch?v=YZKMGKleuMw',
+            source_title: 'Taylor Swift Inducted into Nashville Hall of Fame',
+            publisher: 'NBC News',
+            source_type: 'video',
+            accessed_at: '2026-10-28',
+            reliability_score: 4,
+            notes: 'TODAY\'s own channel, Oct. 27, 2026; oEmbed 200, author "TODAY". Intake #6365.',
+          },
+        ],
+        // Visual (charter step 3b): GMA's frame from the night, used as a
+        // credited photo with no `video` field (same reason as the Patient Zero
+        // moment above). curl 200 image/jpeg 1280x720 on 2026-10-28, viewed:
+        // Taylor on stage holding the hall's award, GMA's "Oct. 27, 2026" tag.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/z58kj4QtH1Y/maxresdefault.jpg',
+            focalPoint: '55% 25%',
+            credit: 'Good Morning America (ABC News), YouTube',
+            caption: 'Taylor with her award at the Nashville Songwriters Hall of Fame gala, Oct. 26, 2026.',
             kind: 'primary',
           },
         ],
