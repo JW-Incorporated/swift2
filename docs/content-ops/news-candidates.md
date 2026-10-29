@@ -27,6 +27,14 @@ so far".
 
 Stories: 109
 
+## Taylor Swift Addresses Alleged Wedding Photos
+
+- first seen: 2026-10-29 06:33 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has responded to rumors surrounding alleged leaked wedding photos. The response was shared by SheKnows, highlighting her position on the matter.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089600/how-taylor-swift-responded-leaked-wedding-photos/
+
 ## Taylor Swift and Selena Gomez Relationship Insight
 
 - first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
@@ -38,10 +46,12 @@ Stories: 109
 ## Travis Kelce Comments on Prince William's Response to Taylor Swift Selfie
 
 - first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Travis Kelce has shared his thoughts on Prince William's reaction to a selfie featuring Taylor Swift, stating, 'I get it'. This interaction reflects the interest in the connection between Kelce and Swift.
 - sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/29/taylor-swift-and-travis-kelce-steal-the-spotlight-in-caroline-wozniacki-s-halloween-costume.html
   - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/travis-kelce-responds-prince-william-060000816.html
 
 ## Taylor Swift Achieves Another Success
 
@@ -931,11 +941,3 @@ Stories: 109
 - sources:
   - [unverified] Daily Express — https://www.express.co.uk/news/royal/2260653/prince-william-makes-hilarious-joke
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-taylor-swift-selfie-073432285.html
-
-## Taylor Swift Expected to Appear Post Chiefs-Seahawks Game
-
-- first seen: 2026-10-26 06:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is rumored to make a significant appearance following the Chiefs versus Seahawks game, according to Heavy.com. Fans are eager to see if she will indeed attend the event after the game concludes.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-major-appearance-after-seahawks-game-travis-kelce/
