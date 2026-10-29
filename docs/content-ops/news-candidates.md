@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 111
+Stories: 113
+
+## Insider Claims About Taylor Swift and Travis Kelce's Wedding Decorations
+
+- first seen: 2026-10-29 14:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report raises questions about the whereabouts of wedding decorations belonging to Taylor Swift and Travis Kelce, citing an insider's claims. Further details have yet to be revealed.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/where-did-taylor-swift-travis-123514207.html
+
+## Taylor Swift Highlights Chic Dress Color for Fall 2026
+
+- first seen: 2026-10-29 14:56 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has showcased a stylish dress color for Fall 2026, prompting speculation among fans about a connection to her 'Speak Now' era. The discussion emphasizes a shift away from the traditional little black dress.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/taylor-swift-nashville-songwriters-hall-of-fame-dress-speak-now/
 
 ## Taylor Swift Reportedly Concerned About Perceptions of Wealth
 
@@ -304,20 +320,6 @@ Stories: 111
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/happened-taylor-swift-travis-kelce-133413610.html
 
-## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
-
-- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
-  - [unverified] Entertainment Weekly — https://ew.com/travis-kelce-reacts-prince-william-comments-taylor-swift-photo-12198334
-  - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
-  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
-  - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
-  - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
-
 ## Taylor Swift Returns with New Performance on ‘The Encore’
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 6
@@ -333,6 +335,20 @@ Stories: 111
 - summary: Taylor Swift is recognized for her historical achievements in the entertainment industry according to a recent segment on Hollywood Minute. The report highlights her impact and successes without detailing specific events.
 - sources:
   - [unverified] kcentv.com — https://www.kcentv.com/video/news/entertainment-news/taylor-swift-makes-history-jane-fonda-explores-field-more-hollywood-minute/500-182099ee-eedf-4ac1-ac08-07393880fa50
+
+## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
+
+- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 7
+- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
+  - [unverified] Entertainment Weekly — https://ew.com/travis-kelce-reacts-prince-william-comments-taylor-swift-photo-12198334
+  - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
+  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
+  - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
+  - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
