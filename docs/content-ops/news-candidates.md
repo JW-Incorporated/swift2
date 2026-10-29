@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 115
+Stories: 114
 
 ## Sam Fender Comments on Concert Ticket Pricing Compared to Taylor Swift
 
@@ -43,14 +43,6 @@ Stories: 115
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-team-allegedly-burned-131714598.html
 
-## Taylor Swift Joins Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-29 17:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among five artists inducted into the Nashville Songwriters Hall of Fame, recognized during an event where George Strait paid tribute to the writers.
-- sources:
-  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/29/taylor-swift-lyle-lovett-and-four-more-join-nashville-songwriters-hall-of-fame-as-george-strait-salutes-the-writers/
-
 ## Lainey Wilson Performs Taylor Swift’s ‘Love Story’ at Gala
 
 - first seen: 2026-10-29 17:01 UTC | category: music | importance: 6
@@ -66,6 +58,14 @@ Stories: 115
 - summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame, making her the youngest member to receive this honor. This recognition highlights her significant contributions to the music industry.
 - sources:
   - [unverified] Wilson County Source — https://wilsoncountysource.com/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame-as-its-youngest-member/
+
+## Taylor Swift Joins Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-29 17:01 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is among five artists inducted into the Nashville Songwriters Hall of Fame, recognized during an event where George Strait paid tribute to the writers.
+- sources:
+  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/29/taylor-swift-lyle-lovett-and-four-more-join-nashville-songwriters-hall-of-fame-as-george-strait-salutes-the-writers/
 
 ## Taylor Swift Seen in Cute Minidress
 
@@ -981,11 +981,3 @@ Stories: 115
 - summary: Ella Langley has reclaimed the No. 1 spot on the music charts, while Tate McRae and the duo Rodrigo/Roan have made significant debuts. This marks an exciting week in the music industry.
 - sources:
   - [established] Variety — https://variety.com/2026/music/news/ella-langley-hot-100-tate-mcrae-housewife-rodrigo-roan-1236931455/
-
-## Tate McRae Hits Number Two on Billboard Hot 100
-
-- first seen: 2026-10-26 19:01 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Tate McRae's song "Housewife" secures the second position on the Billboard Hot 100, surpassing tracks by Taylor Swift and Olivia Rodrigo. Ella Langley's "Choosin' Texas" tops the chart at number one.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/tate-mcrae-billboard-hot-100-number-two-olivia-rodrigo-1235645932/
