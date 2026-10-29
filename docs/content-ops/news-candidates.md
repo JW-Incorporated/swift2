@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 105
+
+## Taylor Swift Upset Over Photo Leak From Travis Kelce's Wedding
+
+- first seen: 2026-10-29 01:38 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports indicate that Taylor Swift is furious over a photo leak from the wedding of Travis Kelce. This incident has sparked attention regarding her reaction to the unauthorized sharing of personal moments.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-furious-livid-photo-001124478.html
 
 ## Taylor Swift's Celebrity Pranks Discussed in Opinion Piece
 
@@ -172,6 +180,20 @@ Stories: 107
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/happened-taylor-swift-travis-kelce-133413610.html
 
+## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
+
+- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 7
+- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
+  - [unverified] Entertainment Weekly — https://ew.com/travis-kelce-reacts-prince-william-comments-taylor-swift-photo-12198334
+  - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
+  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
+  - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
+  - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
+
 ## Taylor Swift Returns with New Performance on ‘The Encore’
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 6
@@ -188,20 +210,6 @@ Stories: 107
 - sources:
   - [unverified] kcentv.com — https://www.kcentv.com/video/news/entertainment-news/taylor-swift-makes-history-jane-fonda-explores-field-more-hollywood-minute/500-182099ee-eedf-4ac1-ac08-07393880fa50
 
-## Travis Kelce Responds to Prince William's Joke About Taylor Swift Selfie
-
-- first seen: 2026-10-28 12:47 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Travis Kelce has responded to Prince William’s joke about attempting to 'move' him out of a selfie with Taylor Swift, stating, 'I get it, man.'
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
-  - [unverified] Entertainment Weekly — https://ew.com/travis-kelce-reacts-prince-william-comments-taylor-swift-photo-12198334
-  - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
-  - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
-  - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
-  - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
-
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 8
@@ -210,14 +218,6 @@ Stories: 107
 - sources:
   - [unverified] Butler Eagle — https://www.butlereagle.com/20261028/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/
   - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
-
-## Taylor Swift Faces Criticism Over Reported Incineration of Wedding Decor
-
-- first seen: 2026-10-28 11:47 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has come under fire following reports that all her wedding decor was incinerated, raising concerns about environmental impact. This news has sparked discussions on social media regarding her choices and their sustainability implications.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/climate-disaster-criticism-mounts-taylor-103049356.html
 
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
@@ -229,6 +229,14 @@ Stories: 107
   - [unverified] Page Six — https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/
   - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
+
+## Taylor Swift Faces Criticism Over Reported Incineration of Wedding Decor
+
+- first seen: 2026-10-28 11:47 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has come under fire following reports that all her wedding decor was incinerated, raising concerns about environmental impact. This news has sparked discussions on social media regarding her choices and their sustainability implications.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/climate-disaster-criticism-mounts-taylor-103049356.html
 
 ## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
 
@@ -294,14 +302,6 @@ Stories: 107
 - sources:
   - [established] Elle — https://www.elle.com/uk/beauty/nails/a74257858/taylor-swift-gold-fairy-dust-nails/
 
-## Taylor Swift Reveals $1 Million Ring Stack with Bejeweled Manicure
-
-- first seen: 2026-10-27 22:11 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased an impressive $1 million ring stack along with a stunning bejeweled manicure. This reveal marks a significant moment for the artist.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-ring-stack-bejeweled-manicure-career-milestone-12196339
-
 ## Brad Paisley Defends Prank on Taylor Swift Following Her Reaction
 
 - first seen: 2026-10-27 22:11 UTC | category: relationship | importance: 6
@@ -309,6 +309,14 @@ Stories: 107
 - summary: Brad Paisley has stated that he stands by a prank he pulled on Taylor Swift, which she has remarked went 'too far.' The comments have sparked discussions around their relationship and interactions.
 - sources:
   - [unverified] iHeart — https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/
+
+## Taylor Swift Reveals $1 Million Ring Stack with Bejeweled Manicure
+
+- first seen: 2026-10-27 22:11 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased an impressive $1 million ring stack along with a stunning bejeweled manicure. This reveal marks a significant moment for the artist.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-ring-stack-bejeweled-manicure-career-milestone-12196339
 
 ## Taylor Swift and Travis Kelce Hide Wedding Decor Costs
 
@@ -406,14 +414,6 @@ Stories: 107
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/27/style/taylor-swift-wedding-photos-daily-mail.html
 
-## Taylor Swift Showcases Elegant Gold Nails for Fall
-
-- first seen: 2026-10-27 17:12 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has demonstrated that gold nails are a stylish alternative to traditional dark manicures for the fall season, as reported by Grazia. This trend highlights a shift towards brighter, more elegant colors during a typically darker season.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/not-burgundy-not-black-taylor-swift-proved-gold-nails-are-falls-most-elegant-manicure-25497-c1/
-
 ## Taylor Swift Achieves New Career Milestone
 
 - first seen: 2026-10-27 17:12 UTC | category: music | importance: 7
@@ -421,6 +421,14 @@ Stories: 107
 - summary: Taylor Swift has reached yet another significant milestone in her career according to a report from PureWow. This achievement highlights her ongoing success in the music industry.
 - sources:
   - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-nashville-songwriters-hall-of-fame
+
+## Taylor Swift Showcases Elegant Gold Nails for Fall
+
+- first seen: 2026-10-27 17:12 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has demonstrated that gold nails are a stylish alternative to traditional dark manicures for the fall season, as reported by Grazia. This trend highlights a shift towards brighter, more elegant colors during a typically darker season.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/not-burgundy-not-black-taylor-swift-proved-gold-nails-are-falls-most-elegant-manicure-25497-c1/
 
 ## Taylor Swift Enhances Nashville Hall of Fame Look with Jewelry and Jimmy Choos
 
@@ -823,14 +831,6 @@ Stories: 107
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/10/26/seahawk-bracelets-cause-backlash-with-taylor-swift-fans/
 
-## Seahawks Comment on Taylor Swift and Travis Kelce Following Chiefs Loss
-
-- first seen: 2026-10-26 13:56 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Seahawks made remarks referencing Taylor Swift and Travis Kelce after the Chiefs suffered a significant defeat. The comments suggest a playful jab at the attention surrounding the couple in the wake of the game.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-travis-kelce-seahawks-chiefs/
-
 ## Seahawks Create Taylor Swift-Inspired Meme After Chiefs Game Win
 
 - first seen: 2026-10-26 13:56 UTC | category: sighting | importance: 5
@@ -838,6 +838,15 @@ Stories: 107
 - summary: After their victory against the Chiefs, the Seahawks shared a Taylor Swift-inspired bracelet meme to celebrate. The playful jab highlights the ongoing intersection of pop culture and sports.
 - sources:
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25520422-seahawks-troll-chiefs-taylor-swift-inspired-bracelet-meme-after-win-vs-walker-kelce-kc
+
+## Seahawks Comment on Taylor Swift and Travis Kelce Following Chiefs Loss
+
+- first seen: 2026-10-26 13:56 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: The Seahawks made remarks referencing Taylor Swift and Travis Kelce after the Chiefs suffered a significant defeat. The comments suggest a playful jab at the attention surrounding the couple in the wake of the game.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-travis-kelce-seahawks-chiefs/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/fans-disappointing-taylor-swift-news-234007559.html
 
 ## Taylor Swift Misses Chiefs vs Seahawks Game Last Night
 
@@ -907,27 +916,3 @@ Stories: 107
 - summary: An unseen photo of Taylor Swift posing with the Kansas City Chiefs' Super Bowl LVIII trophy has surfaced online, capturing a moment related to the team's celebration. This glimpse into Swift's interactions highlights her connection with the sports world.
 - sources:
   - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-s-unseen-photo-with-kansas-city-chiefs-super-bowl-lviii-trophy-surfaces-online-12235221
-
-## Documentary Highlights Taylor Swift's Impact on Prisoner's Life
-
-- first seen: 2026-10-26 01:11 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A new documentary explores how Taylor Swift's music inspired hope in a man during his 21 years in prison. The film reflects on the significant influence of her songs in his life.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/entertainment/daylight-unlikely-taylor-swift-fan-now-hes-getting-out-of-prison
-
-## Taylor Swift Sparks Interest in Popular Posture Bra
-
-- first seen: 2026-10-26 01:11 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new posture bra, which gained popularity after Taylor Swift was spotted wearing it, has seen a surge in demand. This trend highlights Swift's ongoing influence on fashion choices.
-- sources:
-  - [unverified] Lansing State Journal — https://www.lansingstatejournal.com/story/shopping/trending/viral/2026/10/25/taylor-swift-forme-posture-bras/92353299007/
-
-## Taylor Swift's Possible Attendance at Chiefs-Seahawks Game
-
-- first seen: 2026-10-26 01:11 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports speculate on Taylor Swift's attendance at the Chiefs-Seahawks Sunday Night Football game. Fans are curious if she will be spotted at the event.
-- sources:
-  - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-tonights-chiefs-seahawks-sunday-night-football-game
