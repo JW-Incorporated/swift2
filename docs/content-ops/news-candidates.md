@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 111
+Stories: 110
 
 ## Castle Featured in 'Blank Space' Video Sold for $72 Million
 
@@ -730,10 +730,11 @@ Stories: 111
 ## Taylor Swift Discusses Impact of Brad Paisley's Tour Prank
 
 - first seen: 2026-10-27 12:06 UTC | category: tour | importance: 5
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift revealed that she struggled with sleep for months following a prank by Brad Paisley during a tour, which she felt went too far. The revelation highlights the effects of tour-related stress on artists.
 - sources:
   - [established] People — https://people.com/taylor-swift-says-was-unable-sleep-for-months-after-brad-paisley-took-tour-prank-too-far-12196155
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-says-brad-paisley-025141315.html
 
 ## Jack Antonoff Calls Out Ed Sheeran Over Robert Kraft Situation
 
@@ -949,11 +950,3 @@ Stories: 111
 - summary: The Central Times reviews Taylor Swift's 'The Encore', noting it possesses both high points and shortcomings. The critique emphasizes the varying quality of the music presented in this release.
 - sources:
   - [unverified] Central Times — https://www.centraltimes.org/entertainment/2026/10/26/taylor-swifts-the-encore-has-its-highs-and-lows/
-
-## Monica McNutt Discusses Hot Mic Moment Criticizing Taylor Swift
-
-- first seen: 2026-10-26 22:35 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Monica McNutt raises questions regarding how her hot mic moment, in which she criticized Taylor Swift, became widely shared online. The incident has garnered media attention and sparked discussions.
-- sources:
-  - [established] People — https://people.com/monica-mcnutt-questions-how-hot-mic-moment-criticizing-taylor-swift-spread-12195512
