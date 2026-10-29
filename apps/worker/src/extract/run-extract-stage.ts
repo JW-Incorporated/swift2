@@ -126,7 +126,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       if (extracted.kind === 'skip') {
         result.skipped += 1;
       } else {
-        const imageUrl = extracted.currentItem || extracted.fanSignal?.theories.length
+        const imageUrl = extracted.currentItem
           ? await resolveImageUrl(story.top_image_url, sources)
           : undefined;
         let evidenceDocId: string | undefined;
@@ -227,7 +227,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               theory,
               extracted.fanSignal.symbols,
               today,
-              { imageUrl, evidenceIds: evidenceDocId ? [evidenceDocId] : [] },
+              { imageUrl: evidenceDocId ? imageUrl : undefined, evidenceIds: evidenceDocId ? [evidenceDocId] : [] },
             );
             theoryIds.push(stored.id);
             result.theoriesUpserted += 1;

@@ -502,10 +502,10 @@ export async function upsertLiveTheory(
   return { id, expiresAt: theoryExpiresAt, published: image.published };
 }
 
-async function emitEasterEggEvent(
+export async function emitEasterEggEvent(
   db: SupabaseClient,
   theoryId: string,
-  theory: ExtractedTheory,
+  theory: Pick<ExtractedTheory, 'name' | 'claim'>,
 ): Promise<void> {
   try {
     await insertEvent(db, {

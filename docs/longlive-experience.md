@@ -119,6 +119,12 @@ apps/web/
                                    gone) — PR3 reaches it via timeline egg doorway cards
                                    Live theory cards (LiveTheoryCard) require a valid evidence image
                                    (live_theory.image_url); imageless theories are never served.
+                                   Owner call (2026-10-29): corpus-promoted (Reddit/Facebook)
+                                   theories and the 8 pre-existing legacy theories stay hidden
+                                   until a current_item evidence image exists for them — there
+                                   is deliberately no default stock image. A held theory adopts
+                                   its evidence image in the worker's held-theory pass, which
+                                   also emits its one-time easter_egg event.
     ThreadsMode.tsx                threads gallery + immersive thread detail + routing
     ThreadsTimeline.tsx            the shared career-axis rail used by every thread
     ClueWeb.tsx                    the Easter-egg mini-app (home / trail / explore views)
