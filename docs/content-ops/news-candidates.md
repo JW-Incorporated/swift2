@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 106
+
+## Tribute for Swift and Kelce from Sports Power Couple
+
+- first seen: 2026-10-29 02:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce received a surprise Halloween tribute from another notable sports couple. The gesture highlights the growing connection between the pair.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-unexpected-204000611.html
+
+## Taylor Swift's Wedding Photos May Not Be Released Due to Concerns
+
+- first seen: 2026-10-29 02:38 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly hesitant to release her wedding photos, which are valued at $30 million, due to fears of possible backlash. The decision could impact public access to these exclusive images.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-30m-wedding-photos-232523645.html
+
+## Travis Kelce Comments on Prince William's Views on Swift Relationship
+
+- first seen: 2026-10-29 02:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce made a humorous remark that Prince William appeared uncertain about the longevity of his relationship with Taylor Swift. The comment reflects a light-hearted take on public perceptions of the couple's romance.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/travis-kelce-jokes-prince-william-181741000.html
 
 ## Taylor Swift Upset Over Photo Leak From Travis Kelce's Wedding
 
@@ -213,10 +237,11 @@ Stories: 105
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-28 12:47 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift has made history by becoming the youngest artist ever inducted into the Nashville Songwriters Hall of Fame. This significant achievement highlights her contributions to the music industry.
 - sources:
   - [unverified] Butler Eagle — https://www.butlereagle.com/20261028/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/
+  - [unverified] Effingham Radio — https://www.effinghamradio.com/2026/10/28/taylor-swift-and-george-strait-honored-at-2026-nashville-songwriters-hall-of-fame-gala/
   - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
 
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
@@ -552,6 +577,14 @@ Stories: 105
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-travis-kelce-just-064235979.html
 
+## Taylor Swift Responds to Brad Paisley’s Tour Prank
+
+- first seen: 2026-10-27 08:11 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has publicly forgiven Brad Paisley after he reportedly played a haunting prank during their tour. The details of the prank and the nature of the forgiveness have been highlighted in various media.
+- sources:
+  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-brad-paisley-tour-prank-nashville-songwriters-hall-of-fame.html
+
 ## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
 
 - first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
@@ -568,14 +601,6 @@ Stories: 105
   - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
   - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-becomes-youngest-member-of-nashville-songwriters-hall-of-fame/12308857/
-
-## Taylor Swift Responds to Brad Paisley’s Tour Prank
-
-- first seen: 2026-10-27 08:11 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has publicly forgiven Brad Paisley after he reportedly played a haunting prank during their tour. The details of the prank and the nature of the forgiveness have been highlighted in various media.
-- sources:
-  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-brad-paisley-tour-prank-nashville-songwriters-hall-of-fame.html
 
 ## Knicks Host Remains Confused by Taylor Swift's Hot Mic Incident
 
@@ -900,19 +925,3 @@ Stories: 105
   - [unverified] The Sun — https://www.the-sun.com/entertainment/17208962/taylor-swift-travis-kelce-wedding-carousel-pond-plans/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-wins-unusual-award-111045941.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/end-game-taylor-swift-travis-044027177.html
-
-## Taylor SwiftAbsent from Chiefs Game Against Seahawks
-
-- first seen: 2026-10-26 02:11 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was reportedly not present at the Kansas City Chiefs game against the Seattle Seahawks, raising questions about her attendance.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-chiefs-game-against-seahawks/
-
-## Taylor Swift's Photo with Chiefs' Super Bowl LVIII Trophy Emerges
-
-- first seen: 2026-10-26 02:11 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An unseen photo of Taylor Swift posing with the Kansas City Chiefs' Super Bowl LVIII trophy has surfaced online, capturing a moment related to the team's celebration. This glimpse into Swift's interactions highlights her connection with the sports world.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-s-unseen-photo-with-kansas-city-chiefs-super-bowl-lviii-trophy-surfaces-online-12235221
