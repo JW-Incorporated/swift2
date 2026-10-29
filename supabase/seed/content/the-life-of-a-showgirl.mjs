@@ -16663,7 +16663,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In June 2024, after the first of her Wembley Eras Tour shows, Taylor posted a backstage selfie with Prince William, Prince George and Princess Charlotte. Travis was in the frame too, which made it the first photo of the two of them on her own Instagram.\n\nOn Oct. 23, 2026, William made a surprise appearance on The Graham Norton Show and told the other side of it. "I hadn\'t appreciated the significance," he said. "Actually, I was trying to move him out of the photo, but Travis kept coming back in. I couldn\'t work out why he kept coming back in. I was trying to move him out so it was just me and Taylor and the children." When Norton pointed out that this was the photo where they went "photo official," William answered, "Apparently."\n\nThere was no falling-out behind the joke. William later went on New Heights himself, in the episode that came out on July 3, 2026.',
+          'In June 2024, after the first of her Wembley Eras Tour shows, Taylor posted a backstage selfie with Prince William, Prince George and Princess Charlotte. Travis was in the frame too, which made it the first photo of the two of them on her own Instagram.\n\nOn Oct. 23, 2026, William made a surprise appearance on The Graham Norton Show and told the other side of it. "I hadn\'t appreciated the significance," he said. "Actually, I was trying to move him out of the photo, but Travis kept coming back in. I couldn\'t work out why he kept coming back in. I was trying to move him out so it was just me and Taylor and the children." When Norton pointed out that this was the photo where they went "photo official," William answered, "Apparently."\n\nThere was no falling-out behind the joke. William later went on New Heights himself, in the episode that came out on July 3, 2026. Travis answered on the Oct. 28 episode: "I get it, man. I was just a boyfriend at that point. I wasn\'t her husband yet."',
         sources: [
           {
             outlet: "Harper's Bazaar",
@@ -16687,6 +16687,29 @@ export default {
             reliability_score: 4,
             notes:
               'By Amy Mackelden, Oct. 24, 2026; loaded directly. Independent account of the same quotes; source for the Oct. 23 air date.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/',
+            source_title:
+              "Travis Kelce Reacts to Prince William Saying He Tried to 'Move Him Out' of Royal Family's 2024 Selfie With Taylor Swift",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 5,
+            notes:
+              'By Hannah Dailey, Oct. 28, 2026; loaded directly. Source for Travis\'s reply on the Oct. 28 New Heights episode. Intake #6420.',
+          },
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/',
+            source_title: "Travis Kelce reacts to Prince William's cheeky confession about viral Taylor Swift selfie",
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 3,
+            notes:
+              'By Vanessa Serna, Oct. 28, 2026; loaded directly. Independently carries the same quotes. CUT: the "doesn\'t go south" joke, which Page Six gives to Jason and Billboard to Travis. Intake #6420.',
           },
         ],
         socialPost: {
@@ -16893,6 +16916,11 @@ export default {
       // the venue, the gala name and J.I. Allison. CUT: a Lainey Wilson
       // performance one outlet garbled (it calls "Love Story" Wilson's own
       // hit), and George Strait's award name, which only one page gave.
+      // Enriched 2026-10-29 (Vault Run) from intake #6418/#6419: Variety's
+      // review (loaded via curl, read in full) settles both cuts above, Wilson
+      // doing "Love Story" and Strait's Career Maker Award, and carries the
+      // cricket-prank lines word for word. iHeart (loaded) quotes Paisley's
+      // Instagram reply; the "estranged" joke was the setup for that story.
       slug: 'showgirl-nashville-songwriters-hall-of-fame-gala',
       year: 2026,
       month: 10,
@@ -16905,7 +16933,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In August the Nashville Songwriters Hall of Fame elected Taylor, at 36, the youngest songwriter in its history. The ceremony came on Monday, Oct. 26, 2026, at the hall\'s 56th Anniversary Gala at Music City Center in Nashville. Brad Paisley did the induction. The rest of the class was Lyle Lovett, Bruce Channel, Shawn Camp and Lee Thomas Miller, with J.I. Allison inducted posthumously.\n\nShe opened by thanking Paisley, whose tour she opened for in 2007, with a joke: "I\'m really surprised to see you here, actually because we\'ve been estranged since 2007." Then she went back to the beginning. "I was lucky enough to get a publishing deal with Sony Publishing when I was 14 and I just hit the ground running," she said. She described running up the stairs to Liz Rose\'s room after school and saying, "Liz, this happened at school today." On the craft: "I learned by repetition. I think you truly learn a craft when you do it over and over and over." On the town: "Nashville is the place that I went to in my middle school daydreams."\n\nThe speech ran nearly 10 minutes. GMA and TODAY both covered it the next morning.',
+          'In August the Nashville Songwriters Hall of Fame elected Taylor, at 36, the youngest songwriter in its history. The ceremony came on Monday, Oct. 26, 2026, at the hall\'s 56th Anniversary Gala at Music City Center in Nashville. Brad Paisley did the induction. The rest of the class was Lyle Lovett, Bruce Channel, Shawn Camp and Lee Thomas Miller, with J.I. Allison inducted posthumously, and George Strait got the hall\'s Career Maker Award. As is the hall\'s custom, Taylor didn\'t play; Lainey Wilson sang a stripped-back "Love Story" for her.\n\nShe opened by thanking Paisley, whose tour she opened for in 2007, with a joke: "I\'m really surprised to see you here, actually because we\'ve been estranged since 2007." The reason, she said, was crickets: "He took a tour prank too far. Filled my entire tour bus with live crickets. Thousands of them." She couldn\'t sleep for months and "considered buying a pet lizard to eradicate the problem," but after his introduction she called it even: "I think we can let bygones be bygones." Paisley answered on Instagram the next day that he still stands by the crickets "as a legit truly boss prank."\n\nThen she went back to the beginning. "I was lucky enough to get a publishing deal with Sony Publishing when I was 14 and I just hit the ground running," she said. She described running up the stairs to Liz Rose\'s room after school and saying, "Liz, this happened at school today." On the craft: "I learned by repetition. I think you truly learn a craft when you do it over and over and over." On the town: "Nashville is the place that I went to in my middle school daydreams."\n\nThe speech ran nearly 10 minutes. GMA and TODAY both covered it the next morning.',
         sources: [
           {
             outlet: 'Taste of Country',
@@ -16929,6 +16957,29 @@ export default {
             reliability_score: 3,
             notes:
               'By Lauren Jo Black, Oct. 27, 2026. Corroborates Paisley and the class; source for the 56th Anniversary Gala, Music City Center and J.I. Allison (Legacy category, posthumous).',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/',
+            source_title:
+              "Taylor Swift, Inducted Into Nashville Songwriters Hall of Fame, Says 'There Is No Music Community Like This Music Community. I Know, I Checked All the Communities'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 5,
+            notes:
+              'By Chris Willman, Oct. 26, 2026; loaded directly. Source for Strait\'s Career Maker Award, Lainey Wilson\'s stripped-back "Love Story" and the cricket-prank quotes; corroborates Paisley, the class and Music City Center. Intake #6418/#6419.',
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/',
+            source_title: "Brad Paisley Says He Stands By His Prank On Taylor Swift She Says Went 'Too Far'",
+            publisher: 'iHeartMedia',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-29',
+            reliability_score: 3,
+            notes:
+              'By Kelly Fisher, Oct. 27, 2026; loaded directly. Source for Paisley\'s Oct. 27 Instagram reply ("legit truly boss prank"); corroborates the cricket quotes and Wilson singing "Love Story". Intake #6419.',
           },
           {
             outlet: 'Good Morning America',
