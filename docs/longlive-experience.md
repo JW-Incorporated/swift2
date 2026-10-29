@@ -117,6 +117,8 @@ apps/web/
     TheoryGuide.tsx                per-era theories/easter-eggs overlay; still functional but no
                                    longer opened from the era hero (the three-pill guide row is
                                    gone) — PR3 reaches it via timeline egg doorway cards
+                                   Live theory cards (LiveTheoryCard) require a valid evidence image
+                                   (live_theory.image_url); imageless theories are never served.
     ThreadsMode.tsx                threads gallery + immersive thread detail + routing
     ThreadsTimeline.tsx            the shared career-axis rail used by every thread
     ClueWeb.tsx                    the Easter-egg mini-app (home / trail / explore views)

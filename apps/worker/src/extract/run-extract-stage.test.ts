@@ -8,11 +8,13 @@ const mocks = vi.hoisted(() => ({
   fetchPostComments: vi.fn(),
   refreshSymbolActivity: vi.fn(),
   reresolveHeldImages: vi.fn(),
+  reresolveHeldTheoryImages: vi.fn(),
   resolveVanishedCountdowns: vi.fn(),
   supabaseExtractUsageDb: vi.fn(),
 }));
 
 vi.mock('./held-image-pass', () => ({ reresolveHeldImages: mocks.reresolveHeldImages }));
+vi.mock('./held-theory-image-pass', () => ({ reresolveHeldTheoryImages: mocks.reresolveHeldTheoryImages }));
 vi.mock('./haiku-client', () => ({ extractWithLLM: mocks.extractWithLLM }));
 vi.mock('../sources/reddit-rss', () => ({ fetchPostComments: mocks.fetchPostComments }));
 vi.mock('../sources/site-diff', () => ({ resolveVanishedCountdowns: mocks.resolveVanishedCountdowns }));
@@ -71,6 +73,7 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.fetchPostComments.mockReset();
     mocks.refreshSymbolActivity.mockReset().mockResolvedValue(undefined);
     mocks.reresolveHeldImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
+    mocks.reresolveHeldTheoryImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
     mocks.resolveVanishedCountdowns.mockReset().mockResolvedValue(0);
     mocks.supabaseExtractUsageDb.mockReset().mockReturnValue({});
   });
@@ -169,10 +172,13 @@ describe('runExtractStage Reddit comment context', () => {
 
   it('runs the bounded held-image pass and reports its counts', async () => {
     mocks.reresolveHeldImages.mockResolvedValue({ checked: 3, published: 2, errors: ['held-image x'] });
+    mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, errors: ['held-theory y'] });
     const result = await runExtractStage(fakeDb([]));
     expect(mocks.reresolveHeldImages).toHaveBeenCalledOnce();
-    expect(result.heldImagesChecked).toBe(3);
-    expect(result.heldImagesPublished).toBe(2);
+    expect(mocks.reresolveHeldTheoryImages).toHaveBeenCalledOnce();
+    expect(result.heldImagesChecked).toBe(7);
+    expect(result.heldImagesPublished).toBe(3);
     expect(result.errors).toContain('held-image x');
+    expect(result.errors).toContain('held-theory y');
   });
 });
