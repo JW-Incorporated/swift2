@@ -4,18 +4,41 @@
   "campaign": "thread:fashion:quiz-poll:2026-10-hero",
   "scheduledAt": "2026-10-30T23:00:00Z",
   "body": "a little fashion detective moment for you 👗\n\ntwo completely different nights: the december 2019 cats world premiere, and march 2021 — the night folklore won album of the year, where she accepted it in a dress covered in floral appliqué.\n\nhere's what a lot of people miss: the SAME fashion house made both looks. one designer, two eras, two totally different moods.\n\ncan you name it before you peek? our runway thread has the receipts — designer, date, every gown in order.\n\ntake a guess, then go check 👉 https://longlivets.com/?lens=fashion&utm_source=instagram&utm_medium=social&utm_campaign=thread",
-  "media": ["/social/library/photos/reddit-taylorswiftpictures-1qad9bo.jpg"],
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1qad9bo.jpg"
+  ],
   "mediaKind": "photo",
   "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1qad9bo/taylor_swift_looking_beautiful/",
-  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift Looking Beautiful"],
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift Looking Beautiful"
+  ],
   "photoId": "reddit-taylorswiftpictures-1qad9bo",
   "why": "Runway thread hero / October make-good (calendar 10-30, protected). quiz-poll angle: a designer re-wear only the lens surfaces — Oscar de la Renta dressed Taylor at both the 2019 Cats premiere (look-lover-cats-premiere) and the folklore AOTY Grammys (look-folklore-grammys-red-carpet). IG asks in prose + sends to the lens; X poses it tersely. Photo-only (no rich lens screenshot to commit this run).",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
     "total": 21,
     "rationale": "Executes the protected Runway make-good with the quiz-poll angle: a real cross-era designer re-wear (Oscar de la Renta, Cats 2019 + folklore Grammys 2021) that only someone who opened the lens could answer. Fan voice, dated and checkable. Photo is a real but generic Taylor shot, so media is a 3.",
-    "rulesChecked": ["L002"],
+    "rulesChecked": [
+      "L002"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-29T10:18:31.229Z",
+    "pr": 6401,
+    "message": "social-tree-approve run 40856414437",
+    "contentHash": "sha256:bc0469a401b622ff35a15d9fca590b21826f64062aaac74d27321abc5e634418",
+    "mediaDigest": "sha256:62cf8eeba42c9d6a8890ae3c1966cfab6bdbd20ff183cbd7dee0172afc1b01e0",
+    "sig": "hmac-sha256:9be3904683d4832e47bb864e6c5d8a143ed1b0a9cc9438b460c0db54bb4d930a"
   }
 }

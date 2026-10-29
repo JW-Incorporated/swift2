@@ -4,18 +4,41 @@
   "campaign": "timeline:love-story:back-to-december-lautner:2026-10-29",
   "scheduledAt": "2026-10-29T23:00:00Z",
   "body": "'back to december' still wrecks me — the ONE time Taylor wrote the apology instead of getting one. fall 2009, the romance that began on a movie set 💔 every chapter, in order: https://longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
-  "media": ["/social/library/photos/reddit-taylorswiftpictures-1q1pxtp-ig45.jpg"],
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1q1pxtp-ig45.jpg"
+  ],
   "mediaKind": "photo",
   "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1q1pxtp/taylor_swift_tiktok_leggings/",
-  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift + TikTok leggings"],
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor Swift + TikTok leggings"
+  ],
   "photoId": "reddit-taylorswiftpictures-1q1pxtp-ig45",
   "why": "X sibling of the Love Story timeline pair (chapter: Taylor Lautner, 'Back to December'). Own-post X copy, not a truncated IG caption; same campaign + image per the one-pair-one-image rule.",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 4 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
     "total": 21,
     "rationale": "On-slot love-story chapter (Lautner/'Back to December') with a verifiable detail — her one apology song, fall 2009, started on a film set. Written as its own tight X post with the lens link. Photo is a real but generic Taylor fan shot, so media is a 3.",
-    "rulesChecked": ["L002"],
+    "rulesChecked": [
+      "L002"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-29T10:18:31.229Z",
+    "pr": 6401,
+    "message": "social-tree-approve run 40856414437",
+    "contentHash": "sha256:ccd049d2ea3352706aa494af34abb151daa07d05b8b7fccb66a6cef7a1199f03",
+    "mediaDigest": "sha256:f5e4fcecf1a258a2454aff6910b336bbda29e8f65f15caeeead1052f859647e2",
+    "sig": "hmac-sha256:3d75ddcd23bc51fe7216f35c08a7c500c6953074a452dafe05709c85d0584c9d"
   }
 }
