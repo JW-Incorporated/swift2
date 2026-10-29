@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 113
+Stories: 111
+
+## Castle Featured in 'Blank Space' Video Sold for $72 Million
+
+- first seen: 2026-10-29 21:46 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The castle that appears in Taylor Swift's 'Blank Space' music video has been sold for $72 million. This transaction highlights the ongoing interest in properties featured in popular music videos.
+- sources:
+  - [unverified] ELLE Decor — https://www.elledecor.com/celebrity-style/luxury-real-estate/a74284512/blank-space-oheka-castle-sale/
 
 ## Travis Kelce Responds to Prince William's Comments on Taylor Swift Selfie
 
@@ -949,27 +957,3 @@ Stories: 113
 - summary: Monica McNutt raises questions regarding how her hot mic moment, in which she criticized Taylor Swift, became widely shared online. The incident has garnered media attention and sparked discussions.
 - sources:
   - [established] People — https://people.com/monica-mcnutt-questions-how-hot-mic-moment-criticizing-taylor-swift-spread-12195512
-
-## Bluebird Cafe Addresses Taylor Swift Event Rumors
-
-- first seen: 2026-10-26 21:38 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bluebird Cafe has publicly addressed and denied rumors regarding a surprise event featuring Taylor Swift this week. The establishment aimed to clarify misinformation circulating among fans and media.
-- sources:
-  - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74252728/bluebird-cafe-shuts-down-taylor-swift-rumors/
-
-## Taylor Swift Reflects on Early Career in 2006 Interview for 20th Anniversary
-
-- first seen: 2026-10-26 21:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent feature, Taylor Swift discusses her early hit 'Tim McGraw,' her experiences with MySpace, and more during a 2006 interview as part of her 20th anniversary celebrations.
-- sources:
-  - [unverified] Extra — https://extratv.com/2026/10/26/taylor-swift-20th-anniversary-she-talks-tim-mcgraw-myspace-and-more-in-2006-interview/
-
-## Never-Before-Seen Wedding Photos of Taylor Swift Leaked
-
-- first seen: 2026-10-26 21:38 UTC | category: relationship | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Newly leaked wedding photos of Taylor Swift provide fans with their first glimpse of what guests saw as she walked down the aisle. These images are expected to stir excitement among her fanbase.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/fashion/celebrity-looks/1234957069/taylor-swift-travis-kelce-new-wedding-photos/
