@@ -27,6 +27,14 @@ so far".
 
 Stories: 115
 
+## Sam Fender Comments on Concert Ticket Pricing Compared to Taylor Swift
+
+- first seen: 2026-10-29 18:01 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sam Fender expresses that there is no need to charge ticket prices similar to those of Taylor Swift's concerts, citing concerns over affordability for fans. His remarks highlight the ongoing discussion about concert pricing in the industry.
+- sources:
+  - [unverified] The Times — https://www.thetimes.com/culture/music/article/sam-fender-ticket-prices-gigs-taylor-swift-comment-ngbzrbnrb
+
 ## Allegations of Taylor Swift's Team Discarding Wedding Decor
 
 - first seen: 2026-10-29 17:01 UTC | category: business | importance: 5
@@ -981,11 +989,3 @@ Stories: 115
 - summary: Tate McRae's song "Housewife" secures the second position on the Billboard Hot 100, surpassing tracks by Taylor Swift and Olivia Rodrigo. Ella Langley's "Choosin' Texas" tops the chart at number one.
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/tate-mcrae-billboard-hot-100-number-two-olivia-rodrigo-1235645932/
-
-## Analyzing the Downfall of Taylor Swift
-
-- first seen: 2026-10-26 18:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article from The UCSD Guardian titled 'Two Cents' examines the perceived downfall of Taylor Swift, discussing various aspects of her career. The analysis delves into factors that may have contributed to this view of her trajectory.
-- sources:
-  - [unverified] The UCSD Guardian — https://ucsdguardian.org/2026/10/26/two-cents-analyzing-the-downfall-of-taylor-swift/
