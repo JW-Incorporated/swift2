@@ -291,6 +291,64 @@ describe('weekly limit outcome', () => {
     });
   });
 
+  // #6375: four days of Vault Run judgment jobs went red on the org monthly
+  // spend cap because only the weekly and session wordings were recognised.
+  // These two strings are verbatim from runs 40579753712 and 40768024555.
+  describe('org monthly spend cap (#6375)', () => {
+    const spendText =
+      "You've hit your org's monthly spend limit · ask your admin to raise it at https://claude.ai/admin-settings/usage · your weekly limit resets 11pm (UTC)";
+    const spendTextDated =
+      "You've hit your org's monthly spend limit · ask your admin to raise it at https://claude.ai/admin-settings/usage · your weekly limit resets Oct 28, 11pm (UTC)";
+
+    it('passes the spend cap instead of filing it as a routine failure', () => {
+      const r = decideOutcome(log({ subtype: 'success', is_error: true, num_turns: 1, result: spendText }), {
+        stepOutcome: 'failure',
+        now: new Date('2026-10-28T20:59:34.000Z'),
+      });
+      expect(r.pass).toBe(true);
+      expect(r.message).toContain('org monthly spend cap is exhausted');
+      // A spend cap must never write the issue that pauses non-content routines.
+      expect(r.weeklyLimit).toBeUndefined();
+    });
+
+    it('reads the trailing weekly hint as the spend cap reset, not as a weekly cap', () => {
+      const at = { now: new Date('2026-10-28T20:59:34.000Z') };
+      expect(planLimitInfo({ result: spendText }, at)).toEqual({
+        kind: 'spend',
+        detectedAt: '2026-10-28T20:59:34.000Z',
+        resetAt: '2026-10-28T23:00:00.000Z',
+        parsed: true,
+      });
+      expect(weeklyLimitInfo({ result: spendText }, at)).toBeNull();
+    });
+
+    it('bounds an unparseable dated reset hint to the fallback window', () => {
+      const info = planLimitInfo({ result: spendTextDated }, {
+        now: new Date('2026-10-27T20:39:25.000Z'),
+      });
+      expect(info).toEqual({
+        kind: 'spend',
+        detectedAt: '2026-10-27T20:39:25.000Z',
+        resetAt: '2026-10-28T02:39:25.000Z',
+        parsed: false,
+      });
+      expect(weeklyLimitInfo({ result: spendTextDated }, { now: new Date('2026-10-27T20:39:25.000Z') })).toBeNull();
+    });
+
+    it('points at the admin setting rather than at the routine', () => {
+      const hint = failureHint({ result: spendText }, { now: new Date('2026-10-28T20:59:34.000Z') });
+      expect(hint).toContain('https://claude.ai/admin-settings/usage');
+      expect(hint).toContain("not this routine's code");
+    });
+
+    it('still treats the plain weekly and session caps as before', () => {
+      const at = { now: new Date('2026-10-15T17:23:37.000Z') };
+      expect(planLimitInfo({ result: realLimitText }, at)?.kind).toBe('weekly');
+      expect(weeklyLimitInfo({ result: realLimitText }, at)).not.toBeNull();
+      expect(planLimitInfo({ result: "You've hit your session limit · resets 6:30pm (UTC)" }, at)?.kind).toBe('session');
+    });
+  });
+
   it('keeps the oldest issue and closes later duplicate issue races', () => {
     const { keeper, duplicates } = dedupeWeeklyLimitIssues([
       { number: 102 },
