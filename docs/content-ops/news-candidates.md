@@ -27,6 +27,14 @@ so far".
 
 Stories: 111
 
+## Taylor Swift's 'Wood' Confounds Contestants on 'Millionaire' Quiz
+
+- first seen: 2026-10-29 09:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's song 'Wood' created a challenge for contestants Colin Jost and Michael Che during their appearance on the quiz show 'Millionaire'. The segment highlighted the song's impact and recognition.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-wood-stumps-colin-091904229.html
+
 ## Taylor Swift's Stylish Shoes Trend with Katie Holmes for Fall 2026
 
 - first seen: 2026-10-29 08:56 UTC | category: fashion | importance: 5
@@ -948,12 +956,3 @@ Stories: 111
 - summary: In a historic election, Lula defeated Flávio Bolsonaro to secure a fourth presidential term in Brazil, with Taylor Swift's advice reportedly playing a role in energizing the fandom and supporters. The celebration continues as filmmakers rejoice in the outcome.
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/lula-election-win-taylor-swift-guillermo-del-toro-fandom-1236931046/
-
-## Prince William Takes Selfie with Taylor Swift, Unwanted Guest Appears
-
-- first seen: 2026-10-26 09:01 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A recent selfie taken by Prince William with Taylor Swift featured an unexpected individual in the background. The incident was noted in a news article but did not provide further details.
-- sources:
-  - [unverified] Daily Express — https://www.express.co.uk/news/royal/2260653/prince-william-makes-hilarious-joke
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/prince-william-taylor-swift-selfie-073432285.html
