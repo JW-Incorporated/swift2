@@ -27,6 +27,22 @@ so far".
 
 Stories: 113
 
+## Travis Kelce Responds to Prince William's Comments on Taylor Swift Selfie
+
+- first seen: 2026-10-29 21:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has reacted to comments made by Prince William regarding a selfie with Taylor Swift. The exchange has garnered media attention, showcasing the intersection of sports and celebrity culture.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-reacts-to-prince-william-throwing-shade-over-taylor-swift-selfie
+
+## Tim McGraw Clarifies Taylor Swift Wedding Rumors
+
+- first seen: 2026-10-29 21:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tim McGraw speaks out regarding the recent rumors surrounding Taylor Swift's wedding plans. The discussion aims to address and clarify misconceptions about her personal life.
+- sources:
+  - [unverified] 94.3 WKKJ — https://wkkj.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
+
 ## Overview of Unique Celebrity Engagement Rings Featured on People.com
 
 - first seen: 2026-10-29 20:01 UTC | category: fashion | importance: 4
@@ -957,19 +973,3 @@ Stories: 113
 - summary: Newly leaked wedding photos of Taylor Swift provide fans with their first glimpse of what guests saw as she walked down the aisle. These images are expected to stir excitement among her fanbase.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/fashion/celebrity-looks/1234957069/taylor-swift-travis-kelce-new-wedding-photos/
-
-## Taylor Swift Halloween Costumes Inspired by Her 2026 Moments
-
-- first seen: 2026-10-26 21:01 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cosmopolitan highlights Halloween costume ideas inspired by Taylor Swift's notable moments of 2026. The costumes capture the essence of her significant appearances throughout the year.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74250324/taylor-swift-halloween-costumes/
-
-## ESPN Analyst Surprised by Taylor Swift Hot Mic Moment Leak
-
-- first seen: 2026-10-26 21:01 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An ESPN analyst expresses confusion over how a hot mic moment involving Taylor Swift leaked to the public. The incident has generated significant attention and discussion.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-hot-mic-moment-still-has-espn-analyst-baffled-how-it-leaked
