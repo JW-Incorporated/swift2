@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 107
+
+## Taylor Swift's Celebrity Pranks Discussed in Opinion Piece
+
+- first seen: 2026-10-29 00:38 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An opinion article explores the implications of celebrity pranks, using Taylor Swift's recent experiences as a focal point. It reflects on how such actions can be perceived and their potential consequences in the celebrity world.
+- sources:
+  - [unverified] Toronto Star — https://www.thestar.com/entertainment/opinion/taylor-swift-a-thousand-crickets-and-the-cautionary-tale-of-celebrity-pranks-that-go-too-far/article_713a576b-0a60-4663-809b-0690590803a3.html
+
+## Ashanti Discusses Friendship with Taylor Swift
+
+- first seen: 2026-10-29 00:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ashanti revealed her friendship with Taylor Swift, affectionately calling her 'Tay Tay'. The unexpected bond has come to light in a recent conversation.
+- sources:
+  - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/ashanti-taylor-swift-friendship
 
 ## Taylor Swift reportedly upset about leaked wedding photos
 
@@ -278,14 +294,6 @@ Stories: 106
 - sources:
   - [established] Elle — https://www.elle.com/uk/beauty/nails/a74257858/taylor-swift-gold-fairy-dust-nails/
 
-## Brad Paisley Defends Prank on Taylor Swift Following Her Reaction
-
-- first seen: 2026-10-27 22:11 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley has stated that he stands by a prank he pulled on Taylor Swift, which she has remarked went 'too far.' The comments have sparked discussions around their relationship and interactions.
-- sources:
-  - [unverified] iHeart — https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/
-
 ## Taylor Swift Reveals $1 Million Ring Stack with Bejeweled Manicure
 
 - first seen: 2026-10-27 22:11 UTC | category: fashion | importance: 6
@@ -294,6 +302,14 @@ Stories: 106
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-ring-stack-bejeweled-manicure-career-milestone-12196339
 
+## Brad Paisley Defends Prank on Taylor Swift Following Her Reaction
+
+- first seen: 2026-10-27 22:11 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley has stated that he stands by a prank he pulled on Taylor Swift, which she has remarked went 'too far.' The comments have sparked discussions around their relationship and interactions.
+- sources:
+  - [unverified] iHeart — https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/
+
 ## Taylor Swift and Travis Kelce Hide Wedding Decor Costs
 
 - first seen: 2026-10-27 21:16 UTC | category: relationship | importance: 7
@@ -301,14 +317,6 @@ Stories: 106
 - summary: Taylor Swift and Travis Kelce reportedly took significant measures to conceal the costs of their wedding decor, even going as far as to destroy it. Details surrounding their relationship continue to capture public interest.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-went-195223649.html
-
-## Leaked Photos from Taylor Swift's Wedding Cause Fan Upset
-
-- first seen: 2026-10-27 21:11 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: New photos from Taylor Swift's wedding have been leaked, leading to disappointment among her fans, known as Swifties. The article discusses the reaction within the fan community regarding the unauthorized images.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089438/taylor-swift-wedding-photos-leaked-backlash/
 
 ## Taylor Swift Debuts New Hairstyle Amid Career Milestone
 
@@ -334,6 +342,22 @@ Stories: 106
 - sources:
   - [established] People — https://people.com/taylor-swift-surprising-story-behind-1989-polaroid-cover-12197032
 
+## Leaked Photos from Taylor Swift's Wedding Cause Fan Upset
+
+- first seen: 2026-10-27 21:11 UTC | category: sighting | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: New photos from Taylor Swift's wedding have been leaked, leading to disappointment among her fans, known as Swifties. The article discusses the reaction within the fan community regarding the unauthorized images.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089438/taylor-swift-wedding-photos-leaked-backlash/
+
+## Taylor Swift Speaks on Nashville's Unique Music Community
+
+- first seen: 2026-10-27 20:12 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Taylor Swift expressed her views on the distinctiveness of Nashville's music community, stating that it is unlike any other. Her comments highlight the importance of Nashville in the music industry.
+- sources:
+  - [unverified] Axios — https://www.axios.com/local/nashville/2026/10/27/taylor-swift-nashville-songwriter-hall-of-fame
+
 ## Taylor Swift's Team Makes Notable Move Post-Wedding
 
 - first seen: 2026-10-27 20:12 UTC | category: business | importance: 6
@@ -350,13 +374,13 @@ Stories: 106
 - sources:
   - [unverified] Extra — https://extratv.com/2026/10/27/cynthia-nixon-and-carrie-coon-want-a-taylor-swift-gilded-age-cameo-who-she-could-play-exclusive/
 
-## Taylor Swift Speaks on Nashville's Unique Music Community
+## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
-- first seen: 2026-10-27 20:12 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Taylor Swift expressed her views on the distinctiveness of Nashville's music community, stating that it is unlike any other. Her comments highlight the importance of Nashville in the music industry.
+- first seen: 2026-10-27 19:11 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has been recognized as the youngest person ever inducted into the Nashville Songwriters Hall of Fame, marking a significant achievement in her career. This recognition underscores her influence and contributions to the music industry.
 - sources:
-  - [unverified] Axios — https://www.axios.com/local/nashville/2026/10/27/taylor-swift-nashville-songwriter-hall-of-fame
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2515698/taylor-swift-nashville-songwriters-hall-of-fame-induction/news/
 
 ## William Addresses Travis Kelce's Wedding Attendance with Taylor Swift
 
@@ -365,14 +389,6 @@ Stories: 106
 - summary: In a recent statement, William expressed confusion regarding Travis Kelce and Kate's absence from his wedding to Taylor Swift. The comments highlight potential tensions within celebrity circles.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234962381/what-william-taylor-swift-travis-kelce/
-
-## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 19:11 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has been recognized as the youngest person ever inducted into the Nashville Songwriters Hall of Fame, marking a significant achievement in her career. This recognition underscores her influence and contributions to the music industry.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2515698/taylor-swift-nashville-songwriters-hall-of-fame-induction/news/
 
 ## Taylor Swift Photographed with Grammy and Lombardi Trophy
 
@@ -390,14 +406,6 @@ Stories: 106
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/27/style/taylor-swift-wedding-photos-daily-mail.html
 
-## Taylor Swift Achieves New Career Milestone
-
-- first seen: 2026-10-27 17:12 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached yet another significant milestone in her career according to a report from PureWow. This achievement highlights her ongoing success in the music industry.
-- sources:
-  - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-nashville-songwriters-hall-of-fame
-
 ## Taylor Swift Showcases Elegant Gold Nails for Fall
 
 - first seen: 2026-10-27 17:12 UTC | category: fashion | importance: 6
@@ -405,6 +413,14 @@ Stories: 106
 - summary: Taylor Swift has demonstrated that gold nails are a stylish alternative to traditional dark manicures for the fall season, as reported by Grazia. This trend highlights a shift towards brighter, more elegant colors during a typically darker season.
 - sources:
   - [unverified] Grazia — https://graziamagazine.com/us/articles/not-burgundy-not-black-taylor-swift-proved-gold-nails-are-falls-most-elegant-manicure-25497-c1/
+
+## Taylor Swift Achieves New Career Milestone
+
+- first seen: 2026-10-27 17:12 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has reached yet another significant milestone in her career according to a report from PureWow. This achievement highlights her ongoing success in the music industry.
+- sources:
+  - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-nashville-songwriters-hall-of-fame
 
 ## Taylor Swift Enhances Nashville Hall of Fame Look with Jewelry and Jimmy Choos
 
@@ -446,14 +462,6 @@ Stories: 106
 - sources:
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/27/i-considered-buying-a-lizard-to-eradicate-the-problem-taylor-swift-couldnt-sleep-for-months-after-brad-paisley-set-loose-thousands-of-crickets-on-her-tour-bus/
 
-## Taylor Swift Inducted into Nashville Hall of Fame
-
-- first seen: 2026-10-27 13:06 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been officially inducted into the Nashville Hall of Fame, recognizing her significant contributions to the music industry. This honor marks a notable achievement in her career.
-- sources:
-  - [unverified] TODAY.com — https://www.today.com/video/taylor-swift-inducted-into-nashville-hall-of-fame-272314949990
-
 ## Ella Langley's Hit Replaces Taylor Swift's 'Patient Zero' on Hot 100
 
 - first seen: 2026-10-27 13:06 UTC | category: music | importance: 7
@@ -463,6 +471,14 @@ Stories: 106
   - [established] Billboard — https://www.billboard.com/music/chart-beat/taylor-swift-ties-rihanna-most-pop-airplay-top-10s-1236368645/
   - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
   - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-ex-boyfriends-buried-iconic-sleepy-hollow-halloween-display/6563689/
+
+## Taylor Swift Inducted into Nashville Hall of Fame
+
+- first seen: 2026-10-27 13:06 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been officially inducted into the Nashville Hall of Fame, recognizing her significant contributions to the music industry. This honor marks a notable achievement in her career.
+- sources:
+  - [unverified] TODAY.com — https://www.today.com/video/taylor-swift-inducted-into-nashville-hall-of-fame-272314949990
 
 ## Jalen Brunson Enters Taylor Swift NBA Controversy
 
@@ -915,11 +931,3 @@ Stories: 106
 - summary: Reports speculate on Taylor Swift's attendance at the Chiefs-Seahawks Sunday Night Football game. Fans are curious if she will be spotted at the event.
 - sources:
   - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-tonights-chiefs-seahawks-sunday-night-football-game
-
-## Taylor Swift Sparks Interest in Popular Posture Bra
-
-- first seen: 2026-10-26 00:11 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A posture bra has gained popularity, reportedly starting with Taylor Swift's influence. The item is now in high demand among fans and consumers alike.
-- sources:
-  - [unverified] Yahoo — https://shopping.yahoo.com/health/womens-health/articles/started-taylor-swift-now-everyone-113221902.html
