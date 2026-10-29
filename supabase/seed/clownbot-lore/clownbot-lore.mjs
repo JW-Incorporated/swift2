@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-24',
+  updatedOn: '2026-10-26',
   items: [
     {
       id: 'showgirl-encore-patient-zero',
@@ -111,10 +111,13 @@ export default {
       // coverage remains fan speculation and unconfirmed retail listings.
       // Rechecked 2026-10-24 (Vault Run), the anniversary itself: the website
       // tribute (Elle, 23 Oct) came with no release; still nothing announced.
-      lastCheckedOn: '2026-10-24',
+      // Rechecked 2026-10-26 (Vault Run): the anniversary passed with no
+      // release. Variety (24 Oct) says she did not mark it with a deluxe or
+      // anything "so obvious or fan-servicing".
+      lastCheckedOn: '2026-10-26',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
-        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: with the debut album turning 20 on 24 October 2026, coverage on 18 October still reported no announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
+        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
       sources: [
         {
           name: 'Rolling Stone',
@@ -131,6 +134,10 @@ export default {
         {
           name: 'Parade (via AOL)',
           url: 'https://www.aol.com/articles/taylor-swifts-debut-album-turns-045000000.html',
+        },
+        {
+          name: 'Variety',
+          url: 'https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/',
         },
       ],
       prompts: [
@@ -230,7 +237,10 @@ export default {
       // into resolved to a single ("Patient Zero") and the Showgirl Encore —
       // not a debut/Reputation/TS13 release. The green-TS read stays fandom
       // interpretation; nothing official connects the images to a re-record.
-      lastCheckedOn: '2026-10-20',
+      // Rechecked 2026-10-26 (Vault Run): the debut's 20th anniversary (24 Oct)
+      // passed with no release (Variety), so the "anniversary drop" reading
+      // didn't happen. Still unconnected to anything official.
+      lastCheckedOn: '2026-10-26',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -286,11 +296,16 @@ export default {
       // partly borne out — she released four brand-new songs on 25 Sept — but
       // the TS13/next-era read it feeds is still unconfirmed, so status stays
       // `reported`. Added the Encore as a corroborating source.
+      // Rechecked 2026-10-26 (Vault Run): CORRECTED the "borne out" read. Per
+      // Business Insider (24 Oct), the Encore songs were written in 2025,
+      // shortly after the original album, so they predate the wedding and do
+      // not corroborate post-wedding writing. Still `reported`; no new album
+      // announced.
       date: '2026-08-27',
-      lastCheckedOn: '2026-10-20',
-      headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
+      lastCheckedOn: '2026-10-26',
+      headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
-        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',
+        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',
       sources: [
         {
           name: 'Page Six (via Just Jared)',
@@ -304,9 +319,13 @@ export default {
           name: 'Variety — "The Life of a Showgirl: The Encore"',
           url: 'https://variety.com/2026/music/news/taylor-swift-reveals-life-of-showgirl-encore-new-songs-1236872982/',
         },
+        {
+          name: 'Business Insider',
+          url: 'https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10',
+        },
       ],
       prompts: [
-        'An insider said she was "writing new music" after the wedding — then the Encore dropped four new songs. Vindicated tip, or is the real question still whether TS13 exists? Commit.',
+        'An insider said she was "writing new music" after the wedding. The Encore songs were written before it. So is there a TS13 in the works, or was the tip just noise? Commit.',
       ],
       tags: ['ts13', 'next-era', 'tloas'],
     },
