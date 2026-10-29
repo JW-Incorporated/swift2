@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 111
+Stories: 112
+
+## Dancer from Taylor Swift's Tour Starts Fundraiser for Graves’ Disease
+
+- first seen: 2026-10-29 10:56 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A dancer who toured with Taylor Swift in San Luis Obispo has initiated a fundraiser to support their battle with Graves' disease. The effort highlights the challenges faced by individuals dealing with health issues.
+- sources:
+  - [unverified] edhat — https://www.edhat.com/slo/news/mason-cutler-graves-disease-gofundme/
 
 ## Taylor Swift's 'Wood' Confounds Contestants on 'Millionaire' Quiz
 
