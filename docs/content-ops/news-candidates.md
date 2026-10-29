@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 113
+Stories: 111
 
 ## Taylor Swift Reportedly Concerned About Perceptions of Wealth
 
@@ -102,12 +102,13 @@ Stories: 113
 ## Travis Kelce Comments on Prince William's Response to Taylor Swift Selfie
 
 - first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce has shared his thoughts on Prince William's reaction to a selfie featuring Taylor Swift, stating, 'I get it'. This interaction reflects the interest in the connection between Kelce and Swift.
 - sources:
   - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/10/taylor-swift-and-travis-kelces-wedding-decor-reportedly-met-a-surprising-end-fans-react.html
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/29/taylor-swift-and-travis-kelce-steal-the-spotlight-in-caroline-wozniacki-s-halloween-costume.html
   - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-upset-121321103.html
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/travis-kelce-responds-prince-william-060000816.html
 
 ## Taylor Swift Achieves Another Success
@@ -955,20 +956,3 @@ Stories: 113
 - summary: Fans of Taylor Swift have expressed their frustration towards the Seattle Seahawks over a meme related to friendship bracelets. The meme has drawn negative reactions from the fan base.
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/10/26/seahawk-bracelets-cause-backlash-with-taylor-swift-fans/
-
-## Seahawks Create Taylor Swift-Inspired Meme After Chiefs Game Win
-
-- first seen: 2026-10-26 13:56 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: After their victory against the Chiefs, the Seahawks shared a Taylor Swift-inspired bracelet meme to celebrate. The playful jab highlights the ongoing intersection of pop culture and sports.
-- sources:
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25520422-seahawks-troll-chiefs-taylor-swift-inspired-bracelet-meme-after-win-vs-walker-kelce-kc
-
-## Seahawks Comment on Taylor Swift and Travis Kelce Following Chiefs Loss
-
-- first seen: 2026-10-26 13:56 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The Seahawks made remarks referencing Taylor Swift and Travis Kelce after the Chiefs suffered a significant defeat. The comments suggest a playful jab at the attention surrounding the couple in the wake of the game.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-travis-kelce-seahawks-chiefs/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/fans-disappointing-taylor-swift-news-234007559.html
