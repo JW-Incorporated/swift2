@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 107
+
+## Taylor Swift Achieves Another Success
+
+- first seen: 2026-10-29 04:33 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses Taylor Swift's latest achievements alongside a mention of a documentary about a different topic. Specific details of Swift's success are not provided in the snippet.
+- sources:
+  - [unverified] WHNT.com — https://whnt.com/video/another-win-for-taylor-swift-a-doc-about-a-serial-pooper-oct-28-2026-day-to-day/12313257/
 
 ## Taylor Swift and Elsa Hosk Promote New Spring 2026 Sneakers
 
@@ -252,17 +260,6 @@ Stories: 106
   - [unverified] Effingham Radio — https://www.effinghamradio.com/2026/10/28/taylor-swift-and-george-strait-honored-at-2026-nashville-songwriters-hall-of-fame-gala/
   - [unverified] Facebook — https://www.facebook.com/abscbnNEWS/posts/taylor-swift-made-history-as-the-youngest-ever-inductee-into-the-nashville-songw/1739647508210498/
 
-## Caroline Wozniacki Channels Taylor Swift for Halloween
-
-- first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 4
-- summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
-  - [unverified] Page Six — https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/
-  - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
-
 ## Taylor Swift Faces Criticism Over Reported Incineration of Wedding Decor
 
 - first seen: 2026-10-28 11:47 UTC | category: business | importance: 5
@@ -270,6 +267,18 @@ Stories: 106
 - summary: Taylor Swift has come under fire following reports that all her wedding decor was incinerated, raising concerns about environmental impact. This news has sparked discussions on social media regarding her choices and their sustainability implications.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/climate-disaster-criticism-mounts-taylor-103049356.html
+
+## Caroline Wozniacki Channels Taylor Swift for Halloween
+
+- first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 5
+- summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
+  - [unverified] Page Six — https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/
+  - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/how-taylor-swift-and-travis-kelces-donation-helped-a-nashville-free-grocery-store-resume-support-for-families-on-its-waitlist/articleshow/135265150.cms
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
 
 ## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
 
