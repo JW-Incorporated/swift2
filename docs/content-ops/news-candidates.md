@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 109
+
+## Taylor Swift and Selena Gomez Relationship Insight
+
+- first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report discusses the dynamic between Taylor Swift and Selena Gomez, noting that Swift may not seek marriage advice from Gomez for a specific reason. However, details about this reason are not provided.
+- sources:
+  - [unverified] Nicki Swift — https://www.nickiswift.com/2294245/taylor-swift-wont-get-marriage-advice-selena-gomez-big-reason/
+
+## Travis Kelce Comments on Prince William's Response to Taylor Swift Selfie
+
+- first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared his thoughts on Prince William's reaction to a selfie featuring Taylor Swift, stating, 'I get it'. This interaction reflects the interest in the connection between Kelce and Swift.
+- sources:
+  - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
 
 ## Taylor Swift Achieves Another Success
 
