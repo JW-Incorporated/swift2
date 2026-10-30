@@ -9,11 +9,19 @@ const byName = (name: string) => B_ONLY_ROUTES.find((r) => r.name === name)!;
 const TEXT = ['fontFamily', 'fontSize', 'fontWeight', 'letterSpacing', 'color'] as const;
 const PILL = [...TEXT, 'borderTopColor', 'borderTopWidth', 'borderTopLeftRadius', 'paddingTop', 'paddingLeft'] as const;
 type Style = Record<string, string>;
-const styleOf = (page: Page, selector: string, props: readonly string[]): Promise<Style> =>
-  page.locator(selector).first().evaluate((el, ps) => {
-    const cs = getComputedStyle(el) as unknown as Record<string, string>;
-    return Object.fromEntries(ps.map((p) => [p, cs[p]!]));
-  }, props);
+// Tailwind rounded-full is calc(infinity * 1px); engines serialize it differently (clamped 2147483648px vs ~3.4e38px), so any
+// radius >= 1e6px is the same "full" pill and is normalized before comparing.
+const normalizeRadius = (s: Style): Style =>
+  Object.fromEntries(
+    Object.entries(s).map(([k, v]) => [k, k === 'borderTopLeftRadius' && parseFloat(v) >= 1e6 ? 'full' : v]),
+  );
+const styleOf = async (page: Page, selector: string, props: readonly string[]): Promise<Style> =>
+  normalizeRadius(
+    await page.locator(selector).first().evaluate((el, ps) => {
+      const cs = getComputedStyle(el) as unknown as Record<string, string>;
+      return Object.fromEntries(ps.map((p) => [p, cs[p]!]));
+    }, props),
+  );
 const pick = (s: Style, keys: readonly string[]): Style => Object.fromEntries(keys.map((k) => [k, s[k]!]));
 
 // The website's Settings page is the style source of truth (same NEUTRAL palette and fonts): the app-only surfaces must use
