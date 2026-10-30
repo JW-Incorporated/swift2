@@ -27,6 +27,38 @@ so far".
 
 Stories: 93
 
+## Colin Jost and Michael Che Discuss NSFW Taylor Swift Song
+
+- first seen: 2026-10-30 18:12 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Colin Jost and Michael Che engaged in a humorous discussion about a non-safe-for-work song by Taylor Swift, highlighting the comedic nature of the conversation.
+- sources:
+  - [unverified] Cinemablend — https://www.cinemablend.com/television/colin-jost-michael-che-discuss-nsfw-taylor-swift-song-who-wants-to-be-a-millionaire
+
+## Nelly Reveals Taylor Swift Paid Him $50,000
+
+- first seen: 2026-10-30 18:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly shared that Taylor Swift paid him $50,000, described humorously as being in a McDonald's bag. This highlights a financial interaction between the two artists.
+- sources:
+  - [unverified] VICE — https://www.vice.com/en/article/a-mcdonalds-bag-full-of-cash-nelly-reveals-how-taylor-swift-paid-him-50000/
+
+## Nelly Reveals Taylor Swift Paid $50,000 for Brief Performance
+
+- first seen: 2026-10-30 18:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly disclosed that Taylor Swift paid him $50,000 in cash for a three-minute performance, stating he would have done it for free. This detail highlights the financial aspects of collaborative performances in the music industry.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/did-free-nelly-says-taylor-173002702.html
+
+## Nelly recounts Taylor Swift's unique payment method for a show.
+
+- first seen: 2026-10-30 18:12 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly shared a story about how Taylor Swift once paid him $50,000 in cash for a performance, presented in a McDonald's bag. He mentioned he would have been willing to perform for free.
+- sources:
+  - [unverified] MusicRadar — https://www.musicradar.com/artists/singers-songwriters/nelly-reveals-taylor-swift-once-paid-him-for-a-show-appearance-with-usd50-000-cash-in-a-mcdonalds-bag-i-wouldve-done-it-for-free
+
 ## Review of 'The Life of a Showgirl: The Encore' Questions Its Quality
 
 - first seen: 2026-10-30 16:47 UTC | category: music | importance: 5
@@ -51,14 +83,6 @@ Stories: 93
 - sources:
   - [established] Billboard — https://www.billboard.com/culture/tv-film/snl-michael-che-colin-jost-taylor-swift-question-millionaire-1236370947/
 
-## Taylor Swift's Catbird Jewelry on Sale for 20% Off
-
-- first seen: 2026-10-30 14:52 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A selection of Taylor Swift's custom Catbird jewelry, including a necklace, is now available at a 20% discount. This promotion was reported by Page Six.
-- sources:
-  - [unverified] Page Six — https://pagesix.com/2026/10/30/style/catbird-sale-offers-20-off-custom-jewelry/
-
 ## Impact of Taylor Swift's Debut Album Felt 20 Years Later
 
 - first seen: 2026-10-30 14:52 UTC | category: music | importance: 7
@@ -82,6 +106,14 @@ Stories: 93
 - summary: Ashanti and Nelly's inclusion on Taylor Swift's wedding guest list is highlighted by a heartwarming backstory. The details explore their connection to the pop star and what led to their invitation.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ashanti-nelly-place-taylor-swift-105051628.html
+
+## Taylor Swift's Catbird Jewelry on Sale for 20% Off
+
+- first seen: 2026-10-30 14:52 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A selection of Taylor Swift's custom Catbird jewelry, including a necklace, is now available at a 20% discount. This promotion was reported by Page Six.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/10/30/style/catbird-sale-offers-20-off-custom-jewelry/
 
 ## Taylor Swift's Longstanding Estrangement from Country Star Discussed
 
@@ -110,9 +142,11 @@ Stories: 93
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
 - sources:
+  - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
+  - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
   - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
@@ -761,35 +795,3 @@ Stories: 93
 - summary: In a recent statement, William expressed confusion regarding Travis Kelce and Kate's absence from his wedding to Taylor Swift. The comments highlight potential tensions within celebrity circles.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234962381/what-william-taylor-swift-travis-kelce/
-
-## Taylor Swift Photographed with Grammy and Lombardi Trophy
-
-- first seen: 2026-10-27 18:12 UTC | category: sighting | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted showing off a Grammy award alongside the Lombardi Trophy. The photo highlights her recent achievements in music and sports.
-- sources:
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317771037.html
-
-## Leaked Photos from Taylor Swift's Wedding Provide Little Insight
-
-- first seen: 2026-10-27 18:12 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Recent leaked photos related to Taylor Swift's wedding have surfaced, but they do not reveal significant details. The images have garnered attention despite their lack of content.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/10/27/style/taylor-swift-wedding-photos-daily-mail.html
-
-## Taylor Swift Achieves New Career Milestone
-
-- first seen: 2026-10-27 17:12 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached yet another significant milestone in her career according to a report from PureWow. This achievement highlights her ongoing success in the music industry.
-- sources:
-  - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-nashville-songwriters-hall-of-fame
-
-## Taylor Swift Showcases Elegant Gold Nails for Fall
-
-- first seen: 2026-10-27 17:12 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has demonstrated that gold nails are a stylish alternative to traditional dark manicures for the fall season, as reported by Grazia. This trend highlights a shift towards brighter, more elegant colors during a typically darker season.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/not-burgundy-not-black-taylor-swift-proved-gold-nails-are-falls-most-elegant-manicure-25497-c1/
