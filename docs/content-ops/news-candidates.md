@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 93
+
+## Review of 'The Life of a Showgirl: The Encore' by Tribal Tribune
+
+- first seen: 2026-10-30 15:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article reviews 'The Life of a Showgirl: The Encore' in the Tribal Tribune, evaluating its themes and content. The critique provides insights into its performance and production aspects.
+- sources:
+  - [unverified] Tribal Tribune — https://tribaltribune.org/thats-debatable-the-life-of-a-showgirl-the-encore/
+
+## SNL's Che and Jost Discuss Taylor Swift on 'Millionaire'
+
+- first seen: 2026-10-30 15:52 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Michael Che and Colin Jost of SNL addressed a question related to Taylor Swift during their game show segment on 'Millionaire'. This humorous interaction was covered by Billboard.
+- sources:
+  - [established] Billboard — https://www.billboard.com/culture/tv-film/snl-michael-che-colin-jost-taylor-swift-question-millionaire-1236370947/
 
 ## Taylor Swift's Catbird Jewelry on Sale for 20% Off
 
@@ -777,27 +793,3 @@ Stories: 94
 - summary: At the Nashville Songwriters Hall of Fame induction, Taylor Swift complemented her outfit with additional jewelry and stylish Jimmy Choo shoes. Her fashion choice garnered attention at the event.
 - sources:
   - [established] WWD — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-nashville-songwriters-1239387187/
-
-## Taylor Swift Achieves Success Following Seahawks Bracelet Comment
-
-- first seen: 2026-10-27 15:01 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has recorded a notable achievement in response to comments about her bracelet made by the Seattle Seahawks. This development highlights her ongoing prominence in the entertainment industry.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-scores-major-win-140311734.html
-
-## Taylor Swift Attends Nashville Event in Velvet Outfit and Diamond Necklace
-
-- first seen: 2026-10-27 15:01 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift celebrated her induction as the Hall of Fame’s youngest member while marking her homecoming in Nashville. She donned a Raisa Vanessa velvet outfit paired with a striking 65-carat diamond necklace, coinciding with the 20th anniversary of her debut album.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-raisa-vanessa-mini-dress-nashville-songwriters-1239387196/
-
-## Music History Highlights October 27 Featuring Taylor Swift
-
-- first seen: 2026-10-27 15:01 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article covers significant events in music history for October 27, including mentions of Taylor Swift. It highlights various influential artists and their contributions to music.
-- sources:
-  - [unverified] RiverBender.com — https://www.riverbender.com/news/details/this-day-in-music-history-oct-27-from-heifetz-to-taylor-swift-97835.cfm
