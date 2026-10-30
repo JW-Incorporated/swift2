@@ -58,6 +58,8 @@ async function main() {
     deferred: result.extract.deferred,
     heldImagesChecked: result.extract.heldImagesChecked,
     heldImagesPublished: result.extract.heldImagesPublished,
+    theoriesUpserted: result.extract.theoriesUpserted,
+    theoryHoldReasons: result.extract.theoryHoldReasons,
     ...runStats,
     errorCount: result.errors.length,
     schemaPending: pendingErrors.length,

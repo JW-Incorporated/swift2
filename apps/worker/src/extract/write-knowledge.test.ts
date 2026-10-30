@@ -388,6 +388,7 @@ describe('upsertLiveTheory media gate', () => {
     const { db, writes } = recordingDb();
     const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29');
     expect(result.published).toBe(false);
+    expect(result.holdReason).toBe('missing_image');
     expect(writes).toHaveLength(1);
     expect(writes[0]).toMatchObject({
       table: 'live_theory',
@@ -416,6 +417,7 @@ describe('upsertLiveTheory media gate', () => {
       imageUrl: 'https://evil.example.com/a.jpg',
     });
     expect(result.published).toBe(false);
+    expect(result.holdReason).toBe('image_host_not_allowlisted');
     expect(writes[0]?.row).toMatchObject({ image_url: null, quality_hold_reason: 'image_host_not_allowlisted' });
   });
 
@@ -427,7 +429,7 @@ describe('upsertLiveTheory media gate', () => {
       imageUrl: GOOD_IMAGE,
       evidenceIds: ['current:ci-2'],
     });
-    expect(result).toMatchObject({ id: 'theory-existing', published: true });
+    expect(result).toMatchObject({ id: 'theory-existing', published: true, holdReason: null });
     expect(writes[0]?.patch).toMatchObject({
       image_url: GOOD_IMAGE,
       quality_hold_reason: null,
@@ -441,6 +443,7 @@ describe('upsertLiveTheory media gate', () => {
     ]);
     const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29');
     expect(result.published).toBe(true);
+    expect(result.holdReason).toBe(null);
     expect(writes[0]?.patch).not.toHaveProperty('image_url');
   });
 });

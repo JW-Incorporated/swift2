@@ -90,7 +90,7 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.upsertLiveTheory.mockReset().mockResolvedValue({ id: 'th-1', expiresAt: 'x', published: false });
     mocks.writeCurrentItem.mockReset();
     mocks.theoryPassesScreen.mockReset().mockReturnValue(true);
-    mocks.writeFanSignal.mockReset().mockResolvedValue({ id: 'fs-1', redlineOk: false, expiresAt: 'x' });
+    mocks.writeFanSignal.mockReset().mockResolvedValue({ id: 'fs-1', redlineOk: true, expiresAt: 'x' });
     mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/screened.jpg');
     mocks.evaluateSameEventGate.mockReset().mockResolvedValue({ action: 'write' });
   });
@@ -190,6 +190,12 @@ describe('runExtractStage Reddit comment context', () => {
   it('runs the bounded held-image pass and reports its counts', async () => {
     mocks.reresolveHeldImages.mockResolvedValue({ checked: 3, published: 2, errors: ['held-image x'] });
     mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, errors: ['held-theory y'] });
+    mocks.upsertLiveTheory.mockResolvedValue({
+      id: 'th-1',
+      expiresAt: 'x',
+      published: false,
+      holdReason: 'no_image',
+    });
     const result = await runExtractStage(fakeDb([]));
     expect(mocks.reresolveHeldImages).toHaveBeenCalledOnce();
     expect(mocks.reresolveHeldTheoryImages).toHaveBeenCalledOnce();
@@ -197,6 +203,50 @@ describe('runExtractStage Reddit comment context', () => {
     expect(result.heldImagesPublished).toBe(3);
     expect(result.errors).toContain('held-image x');
     expect(result.errors).toContain('held-theory y');
+  });
+
+  it('records each hold reason in theoryHoldReasons when a theory is not published', async () => {
+    let upsertCallCount = 0;
+    mocks.upsertLiveTheory.mockReset().mockImplementation(async () => {
+      upsertCallCount += 1;
+      return {
+        id: `th-${upsertCallCount}`,
+        expiresAt: 'x',
+        published: false,
+        holdReason: upsertCallCount === 1 ? 'no_image' : 'off_allowlist',
+      };
+    });
+    // Use two theories in the fan signal to trigger two upsert calls.
+    mocks.extractWithLLM.mockReset().mockResolvedValue({
+      kind: 'both',
+      redlineFlags: [],
+      currentItem: {
+        observedOn: '2026-10-29',
+        category: 'news',
+        tags: [],
+        headline: 'h',
+        summary: 's',
+        detail: 'd',
+        symbols: [],
+        entities: [],
+        statusHint: 'reported',
+      },
+      fanSignal: {
+        topic: 't',
+        summary: 's',
+        stanceMix: {},
+        symbols: [],
+        theories: [
+          { name: 'T1', claim: 'c1' },
+          { name: 'T2', claim: 'c2' },
+        ],
+      },
+    });
+    mocks.writeCurrentItem.mockResolvedValue({ id: 'ci-1', redlineOk: true, expiresAt: 'x' });
+    mocks.writeFanSignal.mockResolvedValue({ id: 'fs-1', redlineOk: true, expiresAt: 'x' });
+    const result = await runExtractStage(fakeDb([]));
+    expect(result.theoryHoldReasons.no_image).toBe(1);
+    expect(result.theoryHoldReasons.off_allowlist).toBe(1);
   });
 
   const BOTH = {
