@@ -55,6 +55,7 @@ export async function getTopTheories(
       .from('live_theory')
       .select('claim,name,heat')
       .eq('outcome', 'pending')
+      .not('image_url', 'is', null)
       .order('heat', { ascending: false })
       .limit(limit);
     if (error) return [];

@@ -1,6 +1,7 @@
 import { createKnowledgeClient, mapFanSignal, mapLiveTheory } from '@swift2/core';
 import type { FanSignalRow, LiveTheoryRow } from '@swift2/core';
 import type { CurrentItem, FanSignal, LiveTheory } from '@swift2/shared';
+import { liveTheoryHasValidImage } from '@swift2/shared';
 import { supabasePublicEnv } from './supabase-server';
 
 // Current-tier data access (server-side) — mirrors lib/vault.ts's env
@@ -39,7 +40,7 @@ export async function loadCurrentItems(eraId: string): Promise<CurrentItem[]> {
 const MAX_ROWS = 200;
 
 const LIVE_THEORY_COLS =
-  'id,name,claim,first_seen_on,last_seen_on,origin,status,outcome,evidence_ids,symbols,heat,resolution,promoted_to,expires_at,mention_count,communities,stance,persistent';
+  'id,name,claim,first_seen_on,last_seen_on,origin,status,outcome,evidence_ids,symbols,heat,resolution,promoted_to,expires_at,mention_count,communities,stance,persistent,image_url';
 const FAN_SIGNAL_COLS =
   'id,window_start,window_end,platform,community,topic,summary,volume,heat,stance_mix,symbols,theory_ids,current_item_ids,sample_urls,expires_at,redline_ok';
 
@@ -67,7 +68,8 @@ export async function loadLiveTheories(): Promise<LiveTheory[]> {
   const env = supabasePublicEnv();
   if (!env) return [];
   const rows = await restSelect<LiveTheoryRow>(env, 'live_theory', LIVE_THEORY_COLS, 'heat.desc');
-  return rows.map(mapLiveTheory);
+  // Defense in depth behind the RLS image_url gate: no valid image, no card.
+  return rows.map(mapLiveTheory).filter(liveTheoryHasValidImage);
 }
 
 /** Fan-signal rows, hottest first — matched against live theories client-side
