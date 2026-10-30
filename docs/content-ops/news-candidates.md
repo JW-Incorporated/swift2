@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 94
 
 ## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
 
@@ -803,11 +803,3 @@ Stories: 95
 - summary: A source reveals that Taylor Swift and Travis Kelce have decided to cancel a $7 million surprise planned for their wedding. The reason behind this decision has not been disclosed.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-axed-084427404.html
-
-## Taylor Swift Absent from Travis Kelce's Recent Game
-
-- first seen: 2026-10-27 09:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift did not attend Travis Kelce's latest game, prompting fans to speculate about their relationship. The absence has ignited discussion among NFL fans and media.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skipped-travis-kelce-064422244.html
