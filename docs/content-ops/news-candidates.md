@@ -27,6 +27,22 @@ so far".
 
 Stories: 102
 
+## Taylor Swift Donates $100,000 to Revive Tennessee Playground
+
+- first seen: 2026-10-30 02:32 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated $100,000 to restore a Tennessee playground that was destroyed by floods in 2010. This contribution aims to support the community's recovery and revitalization efforts.
+- sources:
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-gave-100000-to-revive-a-tennessee-playground-destroyed-by-floods-in-2010-now-the-city-is-seeking-a-roughly-3-million-grant-for-an-inclusive-play-area-and-sports-upgrades-at-the-same-park/articleshow/135323557.cms
+
+## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
+
+- first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
+
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
 
 - first seen: 2026-10-29 23:39 UTC | category: business | importance: 7
@@ -861,19 +877,3 @@ Stories: 102
 - summary: At 36, Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame, becoming its youngest member. During the ceremony, she reflected on her early songwriting days in Nashville and was honored by former tourmate Brad Paisley and singer Lainey Wilson.
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
-
-## Taylor Swift Jokes About Relationship with Brad Paisley
-
-- first seen: 2026-10-27 02:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a lighthearted moment, Taylor Swift made a joke regarding her estrangement from fellow artist Brad Paisley. The comment was shared in a recent appearance reported by TMZ.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/2026/10/26/taylor-swift-jokes-about-brad-paisley-relationship/
-
-## Taylor Swift Among Celebs Who Declined Super Bowl Halftime Show
-
-- first seen: 2026-10-27 02:31 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, along with Pink and Cardi B, is listed among celebrities who have declined the opportunity to perform at the Super Bowl Halftime Show, according to E! News.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437281/celebs-who-said-no-to-super-bowl-halftime-show-taylor-swift-pink-more
