@@ -66,16 +66,18 @@ function fakeDb(theories: Row[], items: Row[]) {
             };
             c.is = (col: string, val: unknown) => {
               if (col === 'image_url' && val === null) {
-                // Mark as image-null update so the mock can simulate races
                 (c as any)._imageNullFilter = true;
-                return c;
               }
               return c;
             };
+            // supabase-js v2: .update() without .select() returns data: null.
+            c.select = () => { (c as any)._select = true; return c; };
             c.then = (resolve: (v: unknown) => void) => {
-              // Simulate that the update actually affected a row (data: [row]).
-              // A race test can override via (c as any)._forceRowCount.
-              const row = c._id ?? c._eqId ?? 'unknown';
+              if (!(c as any)._select) {
+                resolve({ data: null, error: null });
+                return;
+              }
+              const row = c._eqId ?? 'unknown';
               const rowCount = (c as any)._forceRowCount !== undefined ? (c as any)._forceRowCount : 1;
               resolve({ data: Array(rowCount).fill({ id: row }), error: null });
             };
@@ -231,7 +233,12 @@ describe('reresolveHeldTheoryImages', () => {
             return c;
           };
           c.is = () => c;
+          c.select = () => { (c as any)._select = true; return c; };
           c.then = (res: (v: unknown) => void) => {
+            if (!(c as any)._select) {
+              res({ data: null, error: null });
+              return;
+            }
             const id = c._eqId;
             if (id === 'racy') {
               res({ data: [], error: null });
@@ -253,4 +260,46 @@ describe('reresolveHeldTheoryImages', () => {
     expect(result.published).toBe(1);
     expect(theoryUpdates.map((u) => u.id)).toEqual(['racy', 'later']);
   });
+
+  it('terminates with mixed adoptable and unadoptable rows across pages', async () => {
+    // 30 unadoptable rows (evidence image fails the gate) plus one adoptable
+    // row on page 1 and one on page 2. After adopting the page-1 row the
+    // offset shifts by 1, so the page-2 row becomes reachable without an
+    // infinite reset loop.
+    const unadoptable = Array.from({ length: 30 }, (_, i) => ({
+      id: `u${i}`,
+      name: 'U',
+      claim: 'c',
+      evidence_ids: ['current:bad'],
+      last_seen_on: `2025-01-${String(30 - i).padStart(2, '0')}`,
+    }));
+    const adoptablePage1 = {
+      id: 'adopt1',
+      name: 'A1',
+      claim: 'c',
+      evidence_ids: ['current:good1'],
+      last_seen_on: '2025-01-31',
+    };
+    const adoptablePage2 = {
+      id: 'adopt2',
+      name: 'A2',
+      claim: 'c',
+      evidence_ids: ['current:good2'],
+      last_seen_on: '2025-01-05',
+    };
+    const theories = [adoptablePage1, ...unadoptable, adoptablePage2];
+    const items = [
+      { id: 'bad', image_url: 'https://evil.example.com/a.jpg' },
+      { id: 'good1', image_url: 'https://www.people.com/good1.jpg' },
+      { id: 'good2', image_url: 'https://www.people.com/good2.jpg' },
+    ];
+    const { db, theoryUpdates } = fakeDb(theories, items);
+    const result = await reresolveHeldTheoryImages(db);
+    // 33 rows total; all have current-item evidence so all are checked.
+    expect(result.checked).toBe(33);
+    // Both adoptable rows are adopted.
+    expect(result.published).toBe(2);
+    expect(theoryUpdates.map((u) => u.id).sort()).toEqual(['adopt1', 'adopt2']);
+    expect(emit).toHaveBeenCalledTimes(2);
+  }, 2000);
 });

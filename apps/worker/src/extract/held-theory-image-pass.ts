@@ -44,7 +44,9 @@ export async function reresolveHeldTheoryImages(
   now: Date = new Date(),
 ): Promise<HeldTheoryImagePassResult> {
   const result: HeldTheoryImagePassResult = { checked: 0, published: 0, errors: [] };
-  for (let from = 0; from < MAX_SCANNED_ROWS; from += PAGE_SIZE) {
+  let from = 0;
+  let scanned = 0;
+  while (scanned < MAX_SCANNED_ROWS) {
     const { data, error } = await db
       .from('live_theory')
       .select('id,name,claim,evidence_ids')
@@ -61,11 +63,13 @@ export async function reresolveHeldTheoryImages(
       return result;
     }
     const rows = (data ?? []) as HeldTheoryRow[];
-    await adoptPage(db, rows, result);
+    scanned += rows.length;
+    const adoptedHere = await adoptPage(db, rows, result);
     if (rows.length < PAGE_SIZE) break;
-    if (result.published > 0) {
-      from = 0;
-    }
+    // Adopted rows leave the image_url IS NULL set, so every remaining row
+    // shifts up by exactly adoptedHere. Advancing by the difference keeps the
+    // cursor on the true next unadopted row without rescanning or skipping.
+    from += PAGE_SIZE - adoptedHere;
   }
   return result;
 }
@@ -74,11 +78,12 @@ async function adoptPage(
   db: SupabaseClient,
   rows: HeldTheoryRow[],
   result: HeldTheoryImagePassResult,
-): Promise<void> {
+): Promise<number> {
+  let adoptedHere = 0;
   const candidates = rows
     .map((row) => ({ row, itemIds: currentItemIds(row.evidence_ids) }))
     .filter((c) => c.itemIds.length > 0);
-  if (candidates.length === 0) return;
+  if (candidates.length === 0) return 0;
   const allIds = [...new Set(candidates.flatMap((c) => c.itemIds))];
   const { data: items, error: itemError } = await db
     .from('current_item')
@@ -88,7 +93,7 @@ async function adoptPage(
     .is('retracted_at', null);
   if (itemError) {
     result.errors.push(`held-theory item load failed: ${itemError.message}`);
-    return;
+    return 0;
   }
   const byId = new Map(((items ?? []) as { id: string; image_url: string | null }[]).map((i) => [i.id, i.image_url]));
 
@@ -105,11 +110,15 @@ async function adoptPage(
       }
       if (!adopted) continue;
 
+      // .select('id') is required: supabase-js v2 returns data: null from an
+      // update unless a select is chained, so without it the adopted-only guard
+      // below would never see the changed rows and no adoption would count.
       const { data: updated, error: writeError } = await db
         .from('live_theory')
         .update(adopted.fields)
         .eq('id', row.id)
-        .is('image_url', null);
+        .is('image_url', null)
+        .select('id');
       if (writeError) throw new Error(writeError.message);
       // Count adopted only when the update actually changed a row: the is(image_url, null)
       // guard can no-op when a concurrent pass beat us, and a lost race must not count.
@@ -124,9 +133,11 @@ async function adoptPage(
         // first publication (upsertLiveTheory); dedupe_key keeps it once per id.
         await emitEasterEggEvent(db, row.id, row);
         result.published++;
+        adoptedHere++;
       }
     } catch (err) {
       result.errors.push(`held-theory pass failed for ${row.id}: ${(err as Error).message}`);
     }
   }
+  return adoptedHere;
 }
