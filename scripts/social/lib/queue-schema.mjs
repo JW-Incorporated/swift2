@@ -585,7 +585,7 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
     );
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
-    findings.push('mediaKind: X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+    findings.push('mediaKind: X site-screen posts are permanently prohibited. Use a real credited photo, image or video instead (text-only X posts are banned).');
   }
   for (const field of ['mediaCredit', 'mediaSource']) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {

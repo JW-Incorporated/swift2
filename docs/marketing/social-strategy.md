@@ -93,15 +93,15 @@ A launch arc is the one place where the subject genuinely *is* a product
 surface, so an **Instagram** `site-screen` is legitimate here — but §2's ladder
 still governs: on Instagram the screenshot rides slide 2 of a carousel behind a
 Taylor photo tile, because the grid is what a visiting fan sees. **X
-site-screen posts are permanently prohibited**; use a real credited photo or
-text-only X copy for the X sibling instead.
+site-screen posts are permanently prohibited**; use a real credited photo,
+image or video for the X sibling instead (text-only X is banned).
 
 | Day | Post | Platform | Job | Media |
 |---|---|---|---|---|
 | 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: the SAME photo as its IG sibling |
 | +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Photo tile + the tap-path screens as later slides |
 | +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Photo tile + a screenshot of that actual result |
-| +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A photo, or text-only |
+| +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A real photo (image or video required) |
 | +14 | *(optional)* **What you did with it** | IG | Only if real replies/DMs exist to quote (with permission). Skip silently otherwise. | Photo tile + the quoted reply as a screenshot |
 
 **Timing.** Day 0 is the first evening slot ≥24h after the deploy is live on
@@ -261,7 +261,7 @@ It may place a Blank Spaces lens screenshot on slide 2 only when the screenshot
 shows that lens in actual, visually rich use and satisfies §2's “cool feature
 only” rule; never use a generic Long Live card, landing-page image, or plain
 article screenshot. X follows the media ladder: a relevant cleared Taylor photo
-when it fits, otherwise text-only; never a site screenshot.
+required (no fitting photo means the beat is deferred); never a site screenshot.
 
 ### (d) Mood beat — monthly, starter-chip driven
 
@@ -294,7 +294,7 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 
 | Format | Family | Shape |
 |---|---|---|
-| Chip poll | `mood:chip-poll` | X: three chips, "which one is you today", answer by tapping Mood. A photo if one fits; text-only is fine here. |
+| Chip poll | `mood:chip-poll` | X: three chips, "which one is you today", answer by tapping Mood. A real photo or video is required (text-only X is banned). |
 | What it gave me | `mood:result` | IG: one chip in the caption, a Taylor photo from the era those songs come from as the tile, the **real** returned songs as slide 2. The strongest format — it proves the thing works. |
 | Chip of the week | `mood:chip-spotlight` | IG: the chip lives in the **caption**, not in the image — a Taylor photo carries the tile (match the era to the chip's mood). Caption is the fan-recognition beat ("feral about a bridge" is the deepest cut in the set and the one that says *we know you*). Rewritten 2026-08-12: this format used to be a designed typography card, and §2 retired cards from the feed. |
 
@@ -799,22 +799,23 @@ the code is what actually ships and this file is the bug.
    view). It may never be: a bare landing page, a plain article/moment page,
    a letterboxed video-padding frame, or any screenshot whose only content is
    "the site exists" rather than "look what the site does." If a launch or
-   how-to post has no genuinely cool visual to show, it drops to rung 3
-   (text-only on X) or is skipped rather than shipping a flat screenshot —
+   how-to post has no genuinely cool visual to show, it is
+   skipped (or carries a real photo) rather than shipping a flat screenshot —
    same "an empty slot beats a failed one" principle as the photo ladder.
    This is a caption/media judgment call for the drafter, and `check-drafts.mjs`
    cannot verify "cool" automatically — flag any borderline call in the
    item's `why` field so it's auditable in the weekly review.
-3. **No image at all** (X only — Instagram always requires media). A sharp
-   text-only tweet beats a decorative tile every time.
+3. **No image at all — CLOSED.** Text-only X posts are banned (owner,
+   2026-10-30); Instagram always required media. An item with no image or video
+   is not drafted.
 
-   **Amended 2026-09-30 (Bots v2 W8, `docs/decisions.md`): rung 3 is closed
-   for pair posts.** `check-drafts.mjs` has failed an X item without media
+   **Amended 2026-09-30 (Bots v2 W8, `docs/decisions.md`) and 2026-10-30:
+   rung 3 is closed.** `check-drafts.mjs` has failed an X item without media
    since 2026-09-10, and a post is one IG+X pair on ONE image (the owner
-   approves the pair as one Discord message). A text-only X item now needs a
-   written `singlePlatformReason`, like any other single-platform post. When no
-   never-used photo fits the beat, the beat is deferred — never repeated, never
-   dropped to text-only to dodge L001.
+   approves the pair as one Discord message). Since 2026-10-30 not even a
+   `singlePlatformReason` exempts a text-only X item. When no never-used photo
+   fits the beat, the beat is deferred — never repeated, never dropped to
+   text-only to dodge L001.
 
 **Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed
 and the checker rejects it outright, declared or not — on 2026-08-06 all 17
@@ -890,7 +891,7 @@ against that old curve is fiction. Reset below.
 | Posts shipped vs planned | `social/posted/` vs last week's calendar | Calendar adherence; <80% means the calendar is unrealistic, not that the drafter is lazy |
 | Failed posts | `social/failed/` new files | Should be **0**. Any X failure means the sibling rule leaked |
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
-| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
+| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are banned since 2026-10-30; any one found is a gate failure, not a ladder rung): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
 | Campaign mix | `campaign` prefixes | Roughly 1 launch arc, **6 thread beats** (one per thread, §1(b) as of 2026-10-09), 4-5 news reserves, 4-5 timeline beats, 2-3 mood, rest heartbeat, per month |
 | **News throughput** (added 2026-10-25, Tree, answering ask [#6310](https://github.com/JW-Incorporated/swift2/issues/6310)) | `social/posted/` `news:`/`heartbeat:event-news:` pairs vs the week's `social/inbox/new-on-site-*.json` moments | **Floor ≥3 moments reaching both platforms inside 48h** per week (§1(e2)), against the ≤3-pair ceiling. Report it as `<shipped> of <site-fronted moments>, <n> inside 48h` and name every miss with its reason. The week to 2026-10-25 was **1 of 15** |
 | **Photo supply** (added 2026-10-15, Tree) | `social/photo-library.json` vs `social/posted/` + `gh run list --workflow=concert-photo-sourcing.yml` | Three lines, reported as-is: **library total**, **never-used count**, and **the last `concert-photo-sourcing` run's conclusion**. A red engine is a headline, not a footnote — it lands zero photos, and the §2 intake floor (≥50 never-used entries/week under 3,000) is unreachable while one subreddit 403 is a total stop |
