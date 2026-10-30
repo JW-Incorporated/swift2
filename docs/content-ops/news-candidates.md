@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 102
+Stories: 101
 
 ## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
 
@@ -870,11 +870,3 @@ Stories: 102
 - summary: Taylor Swift has been spotted in a Raisa Vanessa velvet micro minidress described as 'lusciously fall'. The outfit reflects autumn fashion trends.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-raisa-vanessa-velvet-055245813.html
-
-## Brad Paisley Pranks Taylor Swift During Tour, Keeping Her Awake for Months
-
-- first seen: 2026-10-27 06:13 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley executed a prank on Taylor Swift during their tour that reportedly kept her awake for several months. The details of the prank have been discussed in media outlets.
-- sources:
-  - [unverified] Taste of Country — https://tasteofcountry.com/brad-paisley-taylor-swift-tour-prank-crickets/
