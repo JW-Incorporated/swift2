@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 94
+
+## Taylor Swift's Catbird Jewelry on Sale for 20% Off
+
+- first seen: 2026-10-30 14:52 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A selection of Taylor Swift's custom Catbird jewelry, including a necklace, is now available at a 20% discount. This promotion was reported by Page Six.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/10/30/style/catbird-sale-offers-20-off-custom-jewelry/
+
+## Impact of Taylor Swift's Debut Album Felt 20 Years Later
+
+- first seen: 2026-10-30 14:52 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the lasting influence of Taylor Swift's debut album, noting its significance in the music industry two decades after its release. The analysis highlights how this album shaped her career and legacy.
+- sources:
+  - [unverified] The Oswegonian — https://www.oswegonian.com/2026/10/30/taylor-swifts-debut-album-left-an-impact-that-is-still-felt-today-20-years-later/
+
+## 26 Funny Taylor Swift Memes Shared Online
+
+- first seen: 2026-10-30 14:52 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: A collection of 26 humorous memes featuring Taylor Swift has been published, showcasing the singer's impact on pop culture. The memes highlight her popularity and connection with fans.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/26-hilarious-taylor-swift-memes-130000149.html
+
+## Ashanti and Nelly Featured on Taylor Swift's Wedding Guest List
+
+- first seen: 2026-10-30 14:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ashanti and Nelly's inclusion on Taylor Swift's wedding guest list is highlighted by a heartwarming backstory. The details explore their connection to the pop star and what led to their invitation.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ashanti-nelly-place-taylor-swift-105051628.html
 
 ## Taylor Swift's Longstanding Estrangement from Country Star Discussed
 
@@ -769,11 +801,3 @@ Stories: 91
 - summary: The article covers significant events in music history for October 27, including mentions of Taylor Swift. It highlights various influential artists and their contributions to music.
 - sources:
   - [unverified] RiverBender.com — https://www.riverbender.com/news/details/this-day-in-music-history-oct-27-from-heifetz-to-taylor-swift-97835.cfm
-
-## Taylor Swift Discusses Sleep Struggles After Cricket Incident
-
-- first seen: 2026-10-27 14:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift revealed that she had trouble sleeping for months following an incident where Brad Paisley released thousands of crickets on her tour bus. She even considered buying a lizard to address the issue.
-- sources:
-  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/27/i-considered-buying-a-lizard-to-eradicate-the-problem-taylor-swift-couldnt-sleep-for-months-after-brad-paisley-set-loose-thousands-of-crickets-on-her-tour-bus/
