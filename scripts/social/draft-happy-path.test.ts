@@ -155,15 +155,20 @@ describe('no pre-computed pick can fail the media-extension gate', () => {
   });
 });
 
-describe('text-only X is the single-platform case, not a loophole', () => {
-  it('an X item with no media passes only with its own written singlePlatformReason', async () => {
+describe('text-only X is banned (owner 2026-10-30)', () => {
+  it('an X item with no media fails even with its own written singlePlatformReason', async () => {
     const { x, posted } = await pairFromPrecompute();
     const bare = { ...x, media: undefined, mediaKind: undefined, photoId: undefined, photoEra: undefined, mediaCredit: undefined, mediaSource: undefined, altText: undefined };
     const noReason = await checkDraft({ file: 'a-x.json', data: bare }, { allQueue: [], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
     expect(noReason.some((f) => f.includes('require at least one credited image'))).toBe(true);
     const reason = { ...bare, singlePlatformReason: 'No usable credited photo fits this story, so X goes first as text.' };
     const withReason = await checkDraft({ file: 'a-x.json', data: reason }, { allQueue: [], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
-    expect(withReason.some((f) => f.includes('require at least one credited image'))).toBe(false);
+    expect(withReason.some((f) => f.includes('require at least one credited image'))).toBe(true);
+  });
+  it('an X item with an image does not trip the image requirement', async () => {
+    const { x, posted } = await pairFromPrecompute();
+    const findings = await checkDraft({ file: 'a-x.json', data: x }, { allQueue: [], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+    expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(false);
   });
 });
 
