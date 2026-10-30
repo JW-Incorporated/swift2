@@ -2233,6 +2233,96 @@
       "sha256": "a8e1145ab3a0761bf1777d35fdce26e8fcdc85be3f33b4f1b0f4eb8f32b57924",
       "reason": "Wide stadium panorama; performer small, other people and foreground clutter.",
       "date": "2026-10-29"
+    },
+    {
+      "id": "official-video--BjZmE2gtdo-maxres2",
+      "sha256": "449b1a1222897622dfb8dc666b5ae85f9a52e0082d2cf9fd6e15f26672128873",
+      "reason": "Main subject is a man in a bow tie; the woman is cropped at the edge.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video--BjZmE2gtdo-maxres3",
+      "sha256": "535d9c5ad5c050649108f530635c3cf2b85ce7a95f7506aa33eebf3405ab08e7",
+      "reason": "Two people at a dinner table; the man is as prominent as the woman.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-mN3rDTAdM2o-maxres3",
+      "sha256": "eb89fd774ce6dffc037bfd26f33675685ed6b03f31754079208e6b09b0d072fb",
+      "reason": "Two children, no single main subject; soft home-video look, pillarboxed.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-SVY8I46dkb0-maxres2",
+      "sha256": "27c39d1c075ce4a064f0385eab358f02e665a99d189519873cc46f8c9ad97cad",
+      "reason": "Audience crowd shot; several people, no single clear subject matching caption",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-mN3rDTAdM2o-maxres2",
+      "sha256": "4f916743526d916f84163f4f8e4e9268139563ec160384351b55cddd8ac77202",
+      "reason": "Small child in a window of vintage home video; soft, small subject, weak caption fit",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-SVY8I46dkb0-maxres3",
+      "sha256": "9d2ec0c42e643d401a451bc00bf426af914612860e2b04fb41bbe9b48e16c81a",
+      "reason": "Audience member clapping amid other people; not a performance shot matching caption.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-bqOfdv9i4sE-maxres2",
+      "sha256": "fc89febd313cb8c92aebabc6a2f4a99c1426b9438b2be23c67ebf5d2c5427bc3",
+      "reason": "Audience member in crowd, not the performer; other people nearby; mismatches caption",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-bqOfdv9i4sE-maxres3",
+      "sha256": "a37c561eb5b6f7d2890b226d52233a91f70ee66109946cb099c666d14cb06d1d",
+      "reason": "Audience group shot of several clapping people; no single main subject.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "press-394dcf727294",
+      "sha256": "6a0a097665ea893941287ea66eb776dc3865e4e6458c95279c909dce69498be7",
+      "reason": "Jewelry ad collage with product shot; not a photo of the captioned person.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "wikimedia-135976469",
+      "sha256": "65a3f55f92915c1bc89f83561ab6660ff83a6aade432b762bb57e6d1269f017b",
+      "reason": "Wide dark stage panorama; performers small, with dancers and crowd silhouettes.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "wikimedia-135976704",
+      "sha256": "9af0b35c55f7af1b707f336d74d00bc616211f30ca6aaf670b15cce7ec1d7c5c",
+      "reason": "Wide stage panorama; many performers, all small, dark and soft.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "wikimedia-137559658",
+      "sha256": "ee968b6c8336270bd01477a873144477bfe7393eaceae079b4a83b43dc2bd4db",
+      "reason": "Wide stage shot with many dancers; subject small, dark, crowd silhouettes in foreground.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "wikimedia-137559672",
+      "sha256": "efcb6f0d245a99eb5afacf834df76264bac155b58e86a6207402f3ea4a2db51f",
+      "reason": "Wide stadium stage shot; many dancers, no single dominant subject.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "wikimedia-137559697",
+      "sha256": "cb38cc9591e605af3aa2e3f448fe324b1f8876fff254bb4b030a63cb7eeda8fa",
+      "reason": "Several performers share the frame; no single dominant subject.",
+      "date": "2026-10-30"
+    },
+    {
+      "id": "wikimedia-137561046",
+      "sha256": "411fbcf2026b80c025cb94acb0171b4d962328c233f1b6eedf9b7d43feecfe5c",
+      "reason": "Wide dark stage shot; performer small, umbrellas and screen dominate.",
+      "date": "2026-10-30"
     }
   ]
 }
