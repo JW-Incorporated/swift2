@@ -2041,6 +2041,198 @@
       "sha256": "a2e479b231a1642e5acc0af6f57505277f271eed1ee030f052fc259419a5bce7",
       "reason": "Dark, soft, grainy phone-quality concert shot; not sharp or well lit.",
       "date": "2026-10-29"
+    },
+    {
+      "id": "official-video-K-a8s8OLBSE-maxres1",
+      "sha256": "5dbe5942571617f158bd69ccaa08d24c8f40783ba338ef907225d8df293641a1",
+      "reason": "Single subject fits caption, but frame is very dark and soft.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "official-video-GPQdWYNi8Wc-maxres2",
+      "sha256": "912c18ef573a0830cf4a1e5f5764409d68d1d1be671d766eb4fdfd875bdbb97a",
+      "reason": "Graphic card with caption text and borders; frame is small within a layout.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "official-video-o5SQIECedTY-maxres1",
+      "sha256": "1516e02e97ee6e1571ec88cbc079dcc58f948632eaa7b09f52520d13db775e55",
+      "reason": "Shows a man playing piano in headphones; doesn't plausibly match the caption's subject.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "official-video-GPQdWYNi8Wc-maxres3",
+      "sha256": "d80cfa55f6880d7187654fd5b3633b593d98918ef6921bcfdb07b68a92da0249",
+      "reason": "Framed with Foot Notes text border overlay; dark, soft, mostly back view.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "official-video-FuXNumBwDOM-maxres3",
+      "sha256": "cf0c155c733369f9197850fa818d3e2639f3b8be3a466f441463954a22c578c0",
+      "reason": "Two people share the frame; a man is equally prominent, not a single subject.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "official-video-Dkk9gvTmCXY-maxres2",
+      "sha256": "976ce77d64d4ebff45cf29260a2dfc95397749c44a3b46407d131f0fbf7a2a29",
+      "reason": "Two people share the frame equally; no single prominent subject.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-135976524",
+      "sha256": "5326502653e4f56e17b52f22e1ad5dec5a775ca5ac5c95457d5816304ff82dae",
+      "reason": "Wide stage shot with many dancers; subject small, dark, and not dominant.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137559767",
+      "sha256": "ea5906b8fe7d9d4b33dee599ce44d07973012165cf6f9730ef3526cd03615c11",
+      "reason": "Wide stage panorama; performers small among dancers and stadium crowd",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-135976658",
+      "sha256": "27ffd2512c3a3a11c0ef6fdc503ba64ee9de52c0be42957fa354c29b47af8533",
+      "reason": "Wide stadium shot; performer is small in frame amid dark venue.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137560101",
+      "sha256": "4c3098a2b19061ffcda216d98d7ae7b2c0898d4d8f303f3f8716aec4ea469ee8",
+      "reason": "Wide stage shot of many performers; no single prominent subject.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137559818",
+      "sha256": "1123d342b7c77f8763e13cb84406a7f200678e2e7cde0db69e8282fdfb8342c7",
+      "reason": "Wide stadium panorama; two figures, small, dark, no single main subject",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-74000654",
+      "sha256": "fae43086e5e9312bc7b02965d3e3ec6c6323e915c32abbe79bddd189a4525c3b",
+      "reason": "Wide stage panorama; performers small, snakes and screens dominate.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-73034651",
+      "sha256": "e6715a9f00aaae3f9f81658bf0596bab6d17e970d5b04e21fdee671ec03567df",
+      "reason": "Stadium panorama with fireworks; no prominent person, performer is a speck.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-73034724",
+      "sha256": "32f9971e969802cd93f06abe8f83e598fcc165db10dd6e0fb75cdcd774573c51",
+      "reason": "Wide stadium/stage panorama with crowd; no prominent single person.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56081316",
+      "sha256": "eaf3767b6cfd8e69b64ff52c58d2d10cbc13a81c9f8f969507f2d686bf8c8a6f",
+      "reason": "Wide dark stage shot; performer small in frame, soft detail",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-73034710",
+      "sha256": "2e895976c93fd4ef590c105e506e5a97b14d2a2daea6fa3c14785b9602663ee2",
+      "reason": "Stadium crowd panorama; snake cage is tiny, no person prominent, dark/soft.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56081226",
+      "sha256": "e6bdd1545c4dcb949dc1936217ab50909b7d3fa0136de3760b9bd29df9c2fdf4",
+      "reason": "Two people share the stage equally; the man on the left is nearly as prominent.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56082410",
+      "sha256": "8073cd648d7e1eb94d37c861f85ed854c0d05d7b62525d43297692dda85676cf",
+      "reason": "Photo of a venue banner with text; no person pictured.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-50701052",
+      "sha256": "c235d3733e6031e423b0921a542e9343754462b457b97bd1343d344443c0a5e8",
+      "reason": "Wide stage shot; performers small, screens and crowd dominate, dim and soft.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56084113",
+      "sha256": "be6df1cdeed104186109d1e8dc27987f6ae2abeac0da87b914191b2330e79f3f",
+      "reason": "Wide crowd/stage panorama at dusk; performer is a tiny speck.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56084114",
+      "sha256": "ad1d0bce2168fa62c4a958bdf848459e4268146d322ad575436076f0a8a1ea84",
+      "reason": "Object (wristband) and crowd shot; no prominent person.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56086886",
+      "sha256": "f285de80aebe16cc716e2be0fc5ed69e7c77ef8fe4d0f3ff4f3f239eecf11d60",
+      "reason": "Dark wide stage shot; performer tiny, seen on screens, crowd silhouettes.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56234657",
+      "sha256": "d110f1c0075881831cdbcd8cf8378f0b5da6f3fc03fee091df966bb4447680b0",
+      "reason": "Stadium and crowd panorama; no prominent person, dim lighting.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56086924",
+      "sha256": "49cf273e208057b691803667adcd9a903c0d06dc2e83b3d898fba31cbc0f2ae4",
+      "reason": "Dark venue panorama; performer is tiny, crowd dominates.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56234812",
+      "sha256": "bf34c32b0aa4f07bf8a2e4c0a9bee31d6610f2f7d831e716a2f9ac62daafbb3b",
+      "reason": "Stadium and stage panorama with crowd; no prominent person.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-56235209",
+      "sha256": "660bc1d62f56e879d408c2098743f91201a5f9d2c8195d098b797f3e891afe64",
+      "reason": "Dark stadium panorama; performer tiny, crowd heads dominate foreground.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-133029974",
+      "sha256": "cdd1b2d8e5f60a68b6725cd64539124acf5360f619b43e7dfeee383927d12aa6",
+      "reason": "Wide stage shot, performer small, soft and dark; large piano dominates",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137560605",
+      "sha256": "760decf01f1d4751c8e9ed826ab2f1c606d4876c7fd0c4e64b21814cfc262dfb",
+      "reason": "Wide stadium stage shot; several people, subject small, crowd dominant.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137560738",
+      "sha256": "ab7fb29934eca32c35e7059dbfff43cb6cc1c2ee66f56dfe77b2172b1fc35228",
+      "reason": "Stadium panorama; performer is small amid stage, screens and crowd.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137560706",
+      "sha256": "9c9b14e263c96e97c23f8c200441fa73a7f12ebc5fe102e84c54ab56cf93a108",
+      "reason": "Stadium panorama; performer small, crowd/phone in foreground, caption is license text.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137560749",
+      "sha256": "5d19a343866cb261192adca4077f856e58215bd498d4004c9a69286e15cae605",
+      "reason": "Wide stadium stage panorama; performer is small, with screens and crowd.",
+      "date": "2026-10-29"
+    },
+    {
+      "id": "wikimedia-137560806",
+      "sha256": "a8e1145ab3a0761bf1777d35fdce26e8fcdc85be3f33b4f1b0f4eb8f32b57924",
+      "reason": "Wide stadium panorama; performer small, other people and foreground clutter.",
+      "date": "2026-10-29"
     }
   ]
 }
