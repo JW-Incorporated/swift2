@@ -43,5 +43,8 @@
   },
   "attempts": 1,
   "lastError": "Instagram publish failed: {\"error\":{\"message\":\"Media ID is not available\",\"type\":\"OAuthException\",\"code\":9007,\"error_subcode\":2207027,\"is_transient\":false,\"error_user_title\":\"Cannot Publish\",\"error_u…",
-  "lastAttemptAt": "2026-10-29T23:27:12.514Z"
+  "lastAttemptAt": "2026-10-29T23:27:12.514Z",
+  "postedAt": "2026-10-29T23:57:15.503Z",
+  "platformPostId": "17903644041603743",
+  "url": "https://www.instagram.com/longlivetscom/"
 }
