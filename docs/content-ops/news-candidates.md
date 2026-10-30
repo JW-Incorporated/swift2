@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 102
 
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
 
@@ -208,10 +208,11 @@ Stories: 104
 ## Travis Kelce Comments on Prince William's Response to Taylor Swift Selfie
 
 - first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Travis Kelce has shared his thoughts on Prince William's reaction to a selfie featuring Taylor Swift, stating, 'I get it'. This interaction reflects the interest in the connection between Kelce and Swift.
 - sources:
   - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/10/taylor-swift-and-travis-kelces-wedding-decor-reportedly-met-a-surprising-end-fans-react.html
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-wedding-photos-3/
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/29/taylor-swift-and-travis-kelce-steal-the-spotlight-in-caroline-wozniacki-s-halloween-costume.html
   - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-upset-121321103.html
@@ -876,19 +877,3 @@ Stories: 104
 - summary: Taylor Swift, along with Pink and Cardi B, is listed among celebrities who have declined the opportunity to perform at the Super Bowl Halftime Show, according to E! News.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437281/celebs-who-said-no-to-super-bowl-halftime-show-taylor-swift-pink-more
-
-## Taylor Swift Jokes About Longstanding Estrangement with Brad Paisley
-
-- first seen: 2026-10-27 01:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a lighthearted moment, Taylor Swift humorously claimed she has been 'estranged' from Brad Paisley for 19 years, providing an amusing explanation for her comment. This playful interaction showcases the friendly rapport between the two artists.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437510/taylor-swift-jokes-she-brad-paisley-were-estranged-after-tour-bus-prank
-
-## Ella Langley Claims US No. 1 Chart Position, Overtaking Taylor Swift
-
-- first seen: 2026-10-27 01:31 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ella Langley has regained the US No. 1 chart position, surpassing Taylor Swift. This marks a significant achievement in the current music rankings.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/ella-langley-retakes-us-no-235249388.html
