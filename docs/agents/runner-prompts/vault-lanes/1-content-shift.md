@@ -68,6 +68,11 @@ auto-merge) ONLY when the content itself genuinely needs a human decision.
 
 - Author into seed files only. Never app code, scripts, workflows, or docs.
 - `Closes #<n>` in the PR body for each item, and ledger-comment each source ticket.
+- **No picture, no item (owner rule, 2026-10-29).** Every item you emit carries
+  a verified image, official YouTube video, or Instagram embed in the same PR.
+  If none can be found, do NOT emit the item: comment what was searched on the
+  ticket and route it to the Photo Enrichment / intake queue. Never ship text
+  and rely on a later backfill; `photosReviewed` waives nothing.
 - **Nothing stands between this content and the live site** — content PRs
   auto-merge on green. The privacy redlines and the sourcing bar are yours alone
   to enforce. That raises this lane's bar; it does not lower it.
