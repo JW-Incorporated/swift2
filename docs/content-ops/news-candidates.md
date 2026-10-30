@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 102
+
+## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
+
+- first seen: 2026-10-30 05:28 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly has disclosed that Taylor Swift once compensated him $50,000 to perform at one of her concerts. This revelation highlights Swift's investment in her events and collaboration with other artists.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/nelly-reveals-taylor-swift-once-045346072.html
 
 ## Ella Langley's 'Choosin' Texas' Reaches No. 1, Displacing Taylor Swift's 'Patient Zero'
 
