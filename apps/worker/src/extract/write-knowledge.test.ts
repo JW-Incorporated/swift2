@@ -358,6 +358,93 @@ describe('upsertLiveTheory', () => {
   });
 });
 
+describe('upsertLiveTheory media gate', () => {
+  const THEORY = { name: 'Brand New Theory', claim: 'Something new' };
+  const GOOD_IMAGE = 'https://www.people.com/photo.jpg';
+
+  /** call 1 = select of existing rows, call 2 = insert/update, call 3+ = events. */
+  function recordingDb(existing: unknown[] = []) {
+    const writes: { table: string; row?: Record<string, unknown>; patch?: Record<string, unknown> }[] = [];
+    const db = fakeDb(() => chain({ data: [], error: null }));
+    let call = 0;
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation((table: string) => {
+      call++;
+      if (call === 1) return chain({ data: existing, error: null });
+      const c = chain({ data: { id: 'theory-new' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        writes.push({ table, row });
+        return c;
+      };
+      c.update = (patch: Record<string, unknown>) => {
+        writes.push({ table, patch });
+        return c;
+      };
+      return c;
+    });
+    return { db, writes };
+  }
+
+  it('holds a text-only theory (no evidence image): image_url null, reason recorded, no easter_egg event', async () => {
+    const { db, writes } = recordingDb();
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29');
+    expect(result.published).toBe(false);
+    expect(writes).toHaveLength(1);
+    expect(writes[0]).toMatchObject({
+      table: 'live_theory',
+      row: { image_url: null, quality_hold_reason: 'missing_image' },
+    });
+  });
+
+  it('publishes a theory whose evidence image passes, carrying image_url and the cited evidence id', async () => {
+    const { db, writes } = recordingDb();
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29', {
+      imageUrl: GOOD_IMAGE,
+      evidenceIds: ['current:ci-1'],
+    });
+    expect(result.published).toBe(true);
+    expect(writes[0]?.row).toMatchObject({
+      image_url: GOOD_IMAGE,
+      quality_hold_reason: null,
+      evidence_ids: ['current:ci-1'],
+    });
+    expect(writes.some((w) => w.table === 'events')).toBe(true);
+  });
+
+  it('rejects an off-allowlist image host the same way the news gate does', async () => {
+    const { db, writes } = recordingDb();
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29', {
+      imageUrl: 'https://evil.example.com/a.jpg',
+    });
+    expect(result.published).toBe(false);
+    expect(writes[0]?.row).toMatchObject({ image_url: null, quality_hold_reason: 'image_host_not_allowlisted' });
+  });
+
+  it('a re-observation adopts an image onto a previously imageless theory and merges evidence ids', async () => {
+    const { db, writes } = recordingDb([
+      { id: 'theory-existing', name: 'Brand New Theory', symbols: ['owl'], heat: 2, image_url: null, evidence_ids: ['current:old'] },
+    ]);
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29', {
+      imageUrl: GOOD_IMAGE,
+      evidenceIds: ['current:ci-2'],
+    });
+    expect(result).toMatchObject({ id: 'theory-existing', published: true });
+    expect(writes[0]?.patch).toMatchObject({
+      image_url: GOOD_IMAGE,
+      quality_hold_reason: null,
+      evidence_ids: ['current:old', 'current:ci-2'],
+    });
+  });
+
+  it('a re-observation never overwrites an existing valid image and stays published', async () => {
+    const { db, writes } = recordingDb([
+      { id: 'theory-existing', name: 'Brand New Theory', symbols: ['owl'], heat: 2, image_url: GOOD_IMAGE, evidence_ids: [] },
+    ]);
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29');
+    expect(result.published).toBe(true);
+    expect(writes[0]?.patch).not.toHaveProperty('image_url');
+  });
+});
+
 describe('theoryPassesScreen', () => {
   it('passes an ordinary theory', () => {
     expect(theoryPassesScreen({ name: 'Ticket Countdown Theory', claim: 'The countdown means a new merch drop.' })).toBe(true);
