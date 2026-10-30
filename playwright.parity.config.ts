@@ -43,7 +43,7 @@ export default defineConfig({
       command: `npm run start -w @swift2/web -- -H 127.0.0.1 -p ${A_PORT}`,
       url: `http://127.0.0.1:${A_PORT}/`,
       reuseExistingServer: !process.env.CI,
-      env: { PARITY_PROBE: '1' },
+      env: { PARITY_PROBE: '1', NODE_OPTIONS: '--require ./scripts/parity/freeze-date.cjs' },
       timeout: 60_000,
     },
   ],
