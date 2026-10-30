@@ -93,6 +93,8 @@ jobs:
             parity-next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
       - name: Build with next build directly (npm run build would re-run prebuild and re-sync live content over the snapshot)
         working-directory: apps/web
+        env:
+          NODE_OPTIONS: --require ${{ github.workspace }}/scripts/parity/freeze-date.cjs
         run: npx next build
       - name: Verify the lens data is still the frozen snapshot after the build
         run: node scripts/parity/make-fixture.mjs --verify-lenses
