@@ -43,6 +43,7 @@ export interface ExtractStageResult {
   dedupeHeld: number;
   heldImagesChecked: number;
   heldImagesPublished: number;
+  theoryHoldReasons: Record<string, number>;
   errors: string[];
 }
 
@@ -61,6 +62,7 @@ function emptyResult(): ExtractStageResult {
     dedupeHeld: 0,
     heldImagesChecked: 0,
     heldImagesPublished: 0,
+    theoryHoldReasons: {},
     errors: [],
   };
 }
@@ -220,6 +222,8 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           for (const theory of extracted.fanSignal.theories) {
             if (!theoryPassesScreen(theory)) {
               result.screenedOut += 1;
+              result.theoryHoldReasons.redline =
+                (result.theoryHoldReasons.redline ?? 0) + 1;
               continue;
             }
             const stored = await upsertLiveTheory(
@@ -231,6 +235,11 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             );
             theoryIds.push(stored.id);
             result.theoriesUpserted += 1;
+            if (!stored.published) {
+              const reason = stored.holdReason ?? 'unknown';
+              result.theoryHoldReasons[reason] =
+                (result.theoryHoldReasons[reason] ?? 0) + 1;
+            }
             await projectKnowledgeDoc(db, {
               id: `ltheory:${stored.id}`,
               kind: 'live_theory',
