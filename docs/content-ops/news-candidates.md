@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 102
+Stories: 101
 
 ## Ella Langley's 'Choosin' Texas' Reaches No. 1, Displacing Taylor Swift's 'Patient Zero'
 
@@ -870,11 +870,3 @@ Stories: 102
 - summary: Brad Paisley executed a prank on Taylor Swift during their tour that reportedly kept her awake for several months. The details of the prank have been discussed in media outlets.
 - sources:
   - [unverified] Taste of Country — https://tasteofcountry.com/brad-paisley-taylor-swift-tour-prank-crickets/
-
-## Taylor Swift Honors Nashville Songwriters at Hall of Fame Induction
-
-- first seen: 2026-10-27 04:31 UTC | category: business | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: During her Hall of Fame induction, Taylor Swift expressed her gratitude, stating that Nashville songwriters significantly influenced her development as an artist. This recognition highlights her connection to the Nashville music scene.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1236368575/
