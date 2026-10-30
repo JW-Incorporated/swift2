@@ -54,6 +54,7 @@ export async function reresolveHeldTheoryImages(
       .gt('expires_at', now.toISOString())
       .not('evidence_ids', 'eq', '{}')
       .order('last_seen_on', { ascending: false })
+      .order('id', { ascending: false })
       .range(from, from + PAGE_SIZE - 1);
     if (error) {
       result.errors.push(`held-theory load failed: ${error.message}`);
@@ -62,6 +63,9 @@ export async function reresolveHeldTheoryImages(
     const rows = (data ?? []) as HeldTheoryRow[];
     await adoptPage(db, rows, result);
     if (rows.length < PAGE_SIZE) break;
+    if (result.published > 0) {
+      from = 0;
+    }
   }
   return result;
 }
@@ -101,21 +105,26 @@ async function adoptPage(
       }
       if (!adopted) continue;
 
-      const { error: writeError } = await db
+      const { data: updated, error: writeError } = await db
         .from('live_theory')
         .update(adopted.fields)
         .eq('id', row.id)
         .is('image_url', null);
       if (writeError) throw new Error(writeError.message);
-      const { error: docError } = await db
-        .from('knowledge_doc')
-        .update({ redline_ok: true })
-        .eq('id', `ltheory:${row.id}`);
-      if (docError) result.errors.push(`held-theory doc update failed for ${row.id}: ${docError.message}`);
-      // Same one-per-theory easter_egg event the re-observation path emits on
-      // first publication (upsertLiveTheory); dedupe_key keeps it once per id.
-      await emitEasterEggEvent(db, row.id, row);
-      result.published++;
+      // Count adopted only when the update actually changed a row: the is(image_url, null)
+      // guard can no-op when a concurrent pass beat us, and a lost race must not count.
+      const updatedRows: unknown[] = updated ?? [];
+      if (updatedRows.length > 0) {
+        const { error: docError } = await db
+          .from('knowledge_doc')
+          .update({ redline_ok: true })
+          .eq('id', `ltheory:${row.id}`);
+        if (docError) result.errors.push(`held-theory doc update failed for ${row.id}: ${docError.message}`);
+        // Same one-per-theory easter_egg event the re-observation path emits on
+        // first publication (upsertLiveTheory); dedupe_key keeps it once per id.
+        await emitEasterEggEvent(db, row.id, row);
+        result.published++;
+      }
     } catch (err) {
       result.errors.push(`held-theory pass failed for ${row.id}: ${(err as Error).message}`);
     }
