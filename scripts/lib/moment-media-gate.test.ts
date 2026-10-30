@@ -336,3 +336,50 @@ describe('legacy pin stability against sync-bot churn', () => {
     expect(verdict({ ...row, kind: 'other' }).errors).not.toEqual([]);
   });
 });
+
+describe('image-only host path scoping', () => {
+  // s.yimg.com: /ny/api/res/1.2/ and /lo/mysterio/api/ are image resize
+  // proxies; other paths on the host are not images.
+  it.each([
+    'https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/vanityfair.com/article',
+    'https://s.yimg.com/lo/mysterio/api/abc123/lightyear_networkapi/resizefill_w384_h480%3Bfmt%3Dwebp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fvanityfair.com%2Farticle',
+  ])('accepts s.yimg.com URL under an image prefix', (url) => {
+    expect(momentMediaErrors({ thumbnailUrl: url })).toEqual([]);
+  });
+
+  it('rejects s.yimg.com URL outside image prefixes', () => {
+    expect(
+      momentMediaErrors({ thumbnailUrl: 'https://s.yimg.com/ae/2024/01/article' }),
+    ).toContainEqual(expect.stringContaining('needs an authored'));
+  });
+
+  // i.iheart.com: /v3/re/new_assets/ is the image asset path; other paths fail.
+  it('accepts i.iheart.com URL under /v3/re/new_assets/', () => {
+    expect(
+      momentMediaErrors({ thumbnailUrl: 'https://i.iheart.com/v3/re/new_assets/12345' }),
+    ).toEqual([]);
+  });
+
+  it('rejects i.iheart.com URL outside /v3/re/new_assets/', () => {
+    expect(
+      momentMediaErrors({ thumbnailUrl: 'https://i.iheart.com/article/5001' }),
+    ).toContainEqual(expect.stringContaining('needs an authored'));
+  });
+
+  // cdn.hercampus.com: /SH6M70M3/as/ is the image CDN path; other paths fail.
+  it('accepts cdn.hercampus.com URL under /SH6M70M3/as/', () => {
+    expect(
+      momentMediaErrors({
+        thumbnailUrl: 'https://cdn.hercampus.com/SH6M70M3/as/abcdef?width=600&height=600',
+      }),
+    ).toEqual([]);
+  });
+
+  it('rejects cdn.hercampus.com URL outside /SH6M70M3/as/', () => {
+    expect(
+      momentMediaErrors({
+        thumbnailUrl: 'https://cdn.hercampus.com/page/2024/article',
+      }),
+    ).toContainEqual(expect.stringContaining('needs an authored'));
+  });
+});
