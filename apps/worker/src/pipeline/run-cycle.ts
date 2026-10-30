@@ -72,6 +72,7 @@ export async function runCycle(
       dedupeHeld: 0,
       heldImagesChecked: 0,
       heldImagesPublished: 0,
+      theoryHoldReasons: {},
       errors: [],
     },
     errors,
