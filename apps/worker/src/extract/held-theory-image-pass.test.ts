@@ -7,10 +7,18 @@ import { reresolveHeldTheoryImages } from './held-theory-image-pass';
 
 type Row = Record<string, unknown>;
 
+/** Internal state the fake `live_theory.update` chain tracks. */
+type UpdateChain = Record<string, unknown> & {
+  _eqId?: unknown;
+  _imageNullFilter?: boolean;
+  _forceRowCount?: number;
+  _select?: boolean;
+};
+
 function fakeDb(theories: Row[], items: Row[]) {
   const theoryUpdates: { patch: Row; id: unknown }[] = [];
   const docUpdates: { patch: Row; id: unknown }[] = [];
-  let orderConfig: Array<{ column: string; ascending: boolean }> = [];
+  const orderConfig: Array<{ column: string; ascending: boolean }> = [];
   let imageNullFilter = false;
 
   const db = {
@@ -58,7 +66,7 @@ function fakeDb(theories: Row[], items: Row[]) {
             return q;
           },
           update: (patch: Row) => {
-            const c: Record<string, unknown> = {};
+            const c: UpdateChain = {};
             c.eq = (_col: string, id: unknown) => {
               theoryUpdates.push({ patch, id });
               c._eqId = id;
@@ -66,19 +74,19 @@ function fakeDb(theories: Row[], items: Row[]) {
             };
             c.is = (col: string, val: unknown) => {
               if (col === 'image_url' && val === null) {
-                (c as any)._imageNullFilter = true;
+                c._imageNullFilter = true;
               }
               return c;
             };
             // supabase-js v2: .update() without .select() returns data: null.
-            c.select = () => { (c as any)._select = true; return c; };
+            c.select = () => { c._select = true; return c; };
             c.then = (resolve: (v: unknown) => void) => {
-              if (!(c as any)._select) {
+              if (!c._select) {
                 resolve({ data: null, error: null });
                 return;
               }
               const row = c._eqId ?? 'unknown';
-              const rowCount = (c as any)._forceRowCount !== undefined ? (c as any)._forceRowCount : 1;
+              const rowCount = c._forceRowCount !== undefined ? c._forceRowCount : 1;
               resolve({ data: Array(rowCount).fill({ id: row }), error: null });
             };
             return c;
@@ -110,7 +118,7 @@ function fakeDb(theories: Row[], items: Row[]) {
       throw new Error(`unexpected table ${table}`);
     },
   } as unknown as SupabaseClient;
-  return { db, theoryUpdates, docUpdates, setNextUpdateResult: (updated: number) => ((db as any)._nextUpdated = updated) };
+  return { db, theoryUpdates, docUpdates };
 }
 
 describe('reresolveHeldTheoryImages', () => {
@@ -222,20 +230,20 @@ describe('reresolveHeldTheoryImages', () => {
     // Intercept the update call: simulate that the "racy" theory's update affects 0 rows
     // (image_url was already set by another process), while "later" succeeds.
     const originalFrom = db.from.bind(db);
-    (db as any).from = (table: string) => {
+    (db as unknown as { from: (table: string) => unknown }).from = (table: string) => {
       const tbl = originalFrom(table);
       if (table === 'live_theory') {
         tbl.update = (patch: Record<string, unknown>) => {
-          const c: Record<string, unknown> = {};
+          const c: UpdateChain = {};
           c.eq = (_col: string, id: unknown) => {
             c._eqId = id;
             theoryUpdates.push({ patch, id });
             return c;
           };
           c.is = () => c;
-          c.select = () => { (c as any)._select = true; return c; };
+          c.select = () => { c._select = true; return c; };
           c.then = (res: (v: unknown) => void) => {
-            if (!(c as any)._select) {
+            if (!c._select) {
               res({ data: null, error: null });
               return;
             }
