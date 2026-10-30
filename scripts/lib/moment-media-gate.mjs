@@ -40,15 +40,21 @@ const IMAGE_ONLY_HOSTS = new Set([
   'dims.apnews.com',
   'imageio.forbes.com',
   'media-cldnry.s-nbcnews.com',
-  's.yimg.com',
   'media.zenfs.com',
-  'cdn.hercampus.com',
   'images.complex.com',
-  'i.iheart.com',
 ]);
 
 // Image-only path prefixes on hosts that are not image-only as a whole.
-const IMAGE_PATH_PREFIXES = [{ host: 'media.vanityfair.com', pathPrefix: '/photos/' }];
+const IMAGE_PATH_PREFIXES = [
+  { host: 'media.vanityfair.com', pathPrefix: '/photos/' },
+  // Yahoo image CDN: two resize-proxy endpoints, both exclusively image.
+  { host: 's.yimg.com', pathPrefix: '/ny/api/res/1.2/' },
+  { host: 's.yimg.com', pathPrefix: '/lo/mysterio/api/' },
+  // iHeart's asset CDN: every known URL is a new_assets image.
+  { host: 'i.iheart.com', pathPrefix: '/v3/re/new_assets/' },
+  // Her Campus CDN: every known URL is under the /SH6M70M3/as/ image path.
+  { host: 'cdn.hercampus.com', pathPrefix: '/SH6M70M3/as/' },
+];
 
 /** An https URL that points at an image: a known image file extension, or an
  * extensionless path on an image-only host / a scoped image-bucket path
