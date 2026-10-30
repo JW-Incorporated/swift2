@@ -173,6 +173,7 @@ export interface LiveTheoryRow {
   communities?: unknown;
   stance?: string | null;
   persistent?: boolean | null;
+  image_url?: string | null;
 }
 
 export function mapLiveTheory(row: LiveTheoryRow): LiveTheory {
@@ -213,6 +214,7 @@ export function mapLiveTheory(row: LiveTheoryRow): LiveTheory {
       ? { stance: row.stance }
       : {}),
     ...(row.persistent ? { persistent: true } : {}),
+    ...(row.image_url ? { imageUrl: row.image_url } : {}),
   };
 }
 

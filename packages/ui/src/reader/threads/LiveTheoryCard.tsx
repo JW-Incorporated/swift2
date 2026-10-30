@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { Flame, Radio } from 'lucide-react';
 import type { LiveTheory } from '@swift2/shared';
+import { useHost } from '../../host/context';
 
 /** `stance` chip copy — fan-side confidence, never ours (matches the
  * corpus's own framing, `docs/proposals/2026-09-06-community-engine-plan.md`
@@ -12,6 +14,11 @@ const STANCE_LABEL: Record<NonNullable<LiveTheory['stance']>, string> = {
   contested: 'Fans are split',
   debunked_by_fans: 'Fans say debunked',
 };
+
+/** Same remote-vs-local check `CurrentItemCard.tsx` uses for its `<Image>`. */
+function isRemoteUrl(url: string): boolean {
+  return /^https?:\/\//.test(url);
+}
 
 /** The Clue Web / eggs-board origin badge (Community Engine plan §3.4:
  * "fan theory · 340 mentions · r/TaylorSwift"). Built only from fields the
@@ -49,12 +56,29 @@ function originBadgeText(theory: LiveTheory): string {
  */
 export function LiveTheoryCard({ theory, fansAreSaying }: { theory: LiveTheory; fansAreSaying?: string }) {
   const isFanOrigin = theory.origin === 'fan';
+  const { Image } = useHost();
+  const [imageFailed, setImageFailed] = useState(false);
+  const showImage = Boolean(theory.imageUrl) && !imageFailed;
   return (
     <li
       id={`live-theory-${theory.id}`}
       className="era-card rounded-2xl border-2 border-dashed p-5"
       style={{ borderColor: 'var(--era-accent)' }}
     >
+      {showImage && (
+        <span className="relative -mx-5 -mt-5 mb-4 block aspect-[16/9] overflow-hidden rounded-t-xl">
+          <Image
+            src={theory.imageUrl!}
+            alt={theory.name}
+            fill
+            unoptimized={isRemoteUrl(theory.imageUrl!)}
+            loading="lazy"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+            onError={() => setImageFailed(true)}
+          />
+        </span>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]">
           <Radio className="h-3.5 w-3.5" aria-hidden />

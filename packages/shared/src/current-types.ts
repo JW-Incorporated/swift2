@@ -185,6 +185,9 @@ export interface LiveTheory {
    * now" strip (§3.4 C3.2) surfaces only these. Undefined/false for a
    * pre-Community-Engine row queried before this column existed. */
   persistent?: boolean;
+  /** `live_theory.image_url` — hotlinked, allowlisted evidence image. A
+   * theory without a valid one is never served (write gate + read filter). */
+  imageUrl?: string;
 }
 
 /** A confirmed egg/theory precedent — built from the Vault by the canonical sync. */
