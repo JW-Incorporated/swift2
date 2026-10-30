@@ -416,6 +416,10 @@ export interface UpsertLiveTheoryResult {
   expiresAt: string;
   /** False when the theory is held for lack of a valid evidence image. */
   published: boolean;
+  /** The `quality_hold_reason` stored on the row when `published` is false,
+   * null when published, `undefined` on a re-observation of an already-held
+   * row that keeps its prior hold reason. */
+  holdReason?: string | null;
 }
 
 /** Upserts one theory: bumps last_seen_on/heat on a matching existing row
@@ -474,7 +478,8 @@ export async function upsertLiveTheory(
     // First publication of a previously held theory: fire the one-per-theory
     // easter_egg event (dedupe_key keeps it to once per theory id).
     if (gainsImage) await emitEasterEggEvent(db, match.id, theory);
-    return { id: match.id, expiresAt: theoryExpiresAt, published: hadImage || image.published };
+    const published = hadImage || image.published;
+    return { id: match.id, expiresAt: theoryExpiresAt, published, holdReason: published ? null : image.fields.quality_hold_reason };
   }
 
   const { data, error } = await db
@@ -499,7 +504,7 @@ export async function upsertLiveTheory(
   if (error) throw new Error(`live_theory insert failed: ${error.message}`);
   const id = data.id as string;
   if (image.published) await emitEasterEggEvent(db, id, theory);
-  return { id, expiresAt: theoryExpiresAt, published: image.published };
+  return { id, expiresAt: theoryExpiresAt, published: image.published, holdReason: image.published ? null : image.fields.quality_hold_reason };
 }
 
 export async function emitEasterEggEvent(
