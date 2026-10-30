@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "campaign": "heartbeat:era-deep-cut:folklore-last-great-american-dynasty:2026-10-31",
+  "scheduledAt": "2026-10-31T23:00:00Z",
+  "body": "okay folklore track 3 will never not make me gasp 🍂\n\n'the last great american dynasty' isn't a made-up story — it's the real history of rebekah harkness, the standard oil heiress who owned taylor's rhode island house (holiday house, in watch hill) decades before taylor ever did.\n\nand then in the last verse taylor writes herself straight into the song: the woman the town called too loud, too much, too marvelous — and the new owner who gets called all the same things.\n\nit's the most folklore thing on folklore — a whole history lesson smuggled inside a pop song, hiding in plain sight at track 3.\n\ntag the friend who still swears track 3 is fiction, then take them all the way back into the era 👉 https://longlivets.com/?era=folklore&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n📷 Ronald Woan (CC BY-SA 2.0) via Wikimedia Commons",
+  "media": [
+    "/social/library/photos/taylor-folklore-arlington-2023-2.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Arlington,_TX_-_Folklore_act_2.jpg",
+  "altText": [
+    "Taylor Swift in a flowing cream gown lying on the moss-covered cabin roof during the folklore set of the Eras Tour in Arlington, Texas, 2023."
+  ],
+  "photoId": "folklore-arlington-2023-2",
+  "photoEra": "folklore",
+  "why": "10-31 heartbeat beat (calendar, DISPLACEABLE). The dated-Oct-31 Vault search came up empty, so this takes the calendar's named fallback: a folklore era-deep-cut linking /?era=folklore. Angle: track 3, 'the last great american dynasty,' is the true story of Rebekah Harkness and Taylor's Holiday House — a specific, checkable deep cut, not a date-stamp opener (burned twice over per the beat). Share hook per growth-plan 6.3.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Dated Oct 31 Vault search came up empty, so this takes the calendar's named folklore era-deep-cut fallback with a specific deep cut: track 3 is the true story of Rebekah Harkness and Taylor's Holiday House. Fan-voice, checkable, real tag hook; the credited folklore photo is apt but decorative, so media is a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}

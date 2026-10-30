@@ -1,0 +1,35 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "campaign": "heartbeat:era-deep-cut:folklore-last-great-american-dynasty:2026-10-31",
+  "scheduledAt": "2026-10-31T23:00:00Z",
+  "body": "the house in 'the last great american dynasty' is a real place: holiday house, in watch hill, rhode island. once rebekah harkness's — a standard oil widow — now taylor's. a true history lesson wearing a pop melody.\n\nstep into the era 👉 https://longlivets.com/?era=folklore&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-folklore-arlington-2023-2.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaCredit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Arlington,_TX_-_Folklore_act_2.jpg",
+  "altText": [
+    "Taylor Swift in a flowing cream gown lying on the moss-covered cabin roof during the folklore set of the Eras Tour in Arlington, Texas, 2023."
+  ],
+  "photoId": "folklore-arlington-2023-2",
+  "photoEra": "folklore",
+  "why": "X sibling of the 10-31 folklore era-deep-cut. Same story (Rebekah Harkness / 'the last great american dynasty' / Holiday House), written as its own terse X post — the fact stated flat, no quiz framing — structurally unlike the IG half. Same credited folklore photo, one pair one image. 261 weighted chars.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "X half of the folklore fallback beat: states track 3's true-story deep cut (Rebekah Harkness, Holiday House) flatly as its own post rather than the IG quiz framing. Specific and checkable, fan-voice; the credited folklore photo is apt but decorative, so media scores a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}
