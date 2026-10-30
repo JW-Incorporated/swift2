@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 94
+
+## Taylor Swift Skips Wedding Tradition Referenced in Lyrics
+
+- first seen: 2026-10-30 22:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift opted out of a certain wedding tradition, which has sparked discussion among fans. The move was noted as reflective of a lyric from her music that seemed to foreshadow this choice.
+- sources:
+  - [unverified] Cinemablend — https://www.cinemablend.com/streaming-news/taylor-swift-skipped-out-travis-kelce-wedding-tradition-lyric-totally-called-it
+
+## Taylor Swift Pays Nelly $50,000 for Performance
+
+- first seen: 2026-10-30 22:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: TMZ reports that Taylor Swift has compensated rapper Nelly with $50,000 for a performance. This marks another collaboration in her diverse repertoire of musical partnerships.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/watch/taylor-paid-nelly-50k-for-surprise-performance-103026/
+
+## Nelly Discusses Payment from Taylor Swift for 1989 World Tour Performance
+
+- first seen: 2026-10-30 22:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Nelly has disclosed the amount he was paid by Taylor Swift to perform during her 1989 World Tour. This revelation provides insight into the financial aspects of guest performances on major tours.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235090162/nelly-taylor-swift-1989-world-tour/
 
 ## Fruity Dupes for Taylor Swift's Wonderstruck Perfume
 
@@ -43,22 +67,6 @@ Stories: 98
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/tim-mcgraw-debunks-taylor-swift-170305625.html
 
-## Video Features Taylor Swift's Song on Alien Swirling Saucers Ride
-
-- first seen: 2026-10-30 20:08 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new video showcases the full ride experience of Alien Swirling Saucers, featuring Taylor Swift's song 'I Knew It, I Knew You'. This ride is part of a theme park attraction.
-- sources:
-  - [unverified] WDW News Today — https://wdwnt.com/2026/10/video-full-ride-pov-of-alien-swirling-saucers-featuring-taylor-swift-song-i-knew-it-i-knew-you/
-
-## Nelly Reveals Taylor Swift Paid Him $50,000 in Unconventional Fashion
-
-- first seen: 2026-10-30 20:08 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent statement, Nelly disclosed that Taylor Swift once paid him $50,000 in cash, which was reportedly stuffed inside a McDonald's bag. This unique transaction adds an interesting anecdote to their interactions.
-- sources:
-  - [unverified] BroBible — https://brobible.com/sports/article/nelly-taylor-swift-mcdonalds-bag-cash/
-
 ## Tim McGraw Discusses Taylor Swift and Travis Kelce's Wedding Details
 
 - first seen: 2026-10-30 20:08 UTC | category: relationship | importance: 6
@@ -74,6 +82,23 @@ Stories: 98
 - summary: A recent Yahoo Sports article explores theories surrounding Taylor Swift's next album, including discussions of debut TV theories, Chiefs-related controversies, and insights on her song 'Maroon.'
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/videos/taylor-swifts-next-album-debut-182158160.html
+
+## Video Features Taylor Swift's Song on Alien Swirling Saucers Ride
+
+- first seen: 2026-10-30 20:08 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A new video showcases the full ride experience of Alien Swirling Saucers, featuring Taylor Swift's song 'I Knew It, I Knew You'. This ride is part of a theme park attraction.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-top-movie-songs-september-1236371350/
+  - [unverified] WDW News Today — https://wdwnt.com/2026/10/video-full-ride-pov-of-alien-swirling-saucers-featuring-taylor-swift-song-i-knew-it-i-knew-you/
+
+## Nelly Reveals Taylor Swift Paid Him $50,000 in Unconventional Fashion
+
+- first seen: 2026-10-30 20:08 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent statement, Nelly disclosed that Taylor Swift once paid him $50,000 in cash, which was reportedly stuffed inside a McDonald's bag. This unique transaction adds an interesting anecdote to their interactions.
+- sources:
+  - [unverified] BroBible — https://brobible.com/sports/article/nelly-taylor-swift-mcdonalds-bag-cash/
 
 ## Nelly Shares Experience Performing with Taylor Swift in Houston
 
@@ -222,9 +247,10 @@ Stories: 98
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
 - sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437684/tim-mcgraw-did-not-perform-at-taylor-swift-travis-kelce-wedding
   - [unverified] Entertainment Weekly — https://ew.com/tim-mcgraw-performance-taylor-swift-travis-kelce-wedding-12202862
   - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
   - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
@@ -266,10 +292,11 @@ Stories: 98
 ## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
 
 - first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
 - sources:
   - [unverified] Complex — https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag
+  - [unverified] E! News — https://www.eonline.com/news/1437676/taylor-swift-paid-nelly-s50-000-cash-in-mcdonalds-bag-for-2011-performance
   - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-says-taylor-swift-paid-201929837.html
 
@@ -782,59 +809,3 @@ Stories: 98
 - summary: ELLE showcases a nail art trend called 'Gold Fairy Dust' nails, highlighting how to recreate this dreamy autumn manicure.
 - sources:
   - [established] Elle — https://www.elle.com/uk/beauty/nails/a74257858/taylor-swift-gold-fairy-dust-nails/
-
-## Brad Paisley Defends Prank on Taylor Swift Following Her Reaction
-
-- first seen: 2026-10-27 22:11 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley has stated that he stands by a prank he pulled on Taylor Swift, which she has remarked went 'too far.' The comments have sparked discussions around their relationship and interactions.
-- sources:
-  - [unverified] iHeart — https://country.iheart.com/featured/wayne-and-tay/content/2026-10-27-brad-paisley-says-he-stands-by-his-prank-on-taylor-swift-she-says-went-too-far/
-
-## Taylor Swift Reveals $1 Million Ring Stack with Bejeweled Manicure
-
-- first seen: 2026-10-27 22:11 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased an impressive $1 million ring stack along with a stunning bejeweled manicure. This reveal marks a significant moment for the artist.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-ring-stack-bejeweled-manicure-career-milestone-12196339
-
-## Taylor Swift and Travis Kelce Hide Wedding Decor Costs
-
-- first seen: 2026-10-27 21:16 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce reportedly took significant measures to conceal the costs of their wedding decor, even going as far as to destroy it. Details surrounding their relationship continue to capture public interest.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-went-195223649.html
-
-## Taylor Swift's Impact in Philadelphia Explored by Numbers
-
-- first seen: 2026-10-27 21:11 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Philadelphia Magazine examines the statistical influence of Taylor Swift in Philadelphia, focusing on ticket sales, streaming, and cultural engagement with the city.
-- sources:
-  - [unverified] Philadelphia Magazine — https://www.phillymag.com/news/2026/10/27/taylor-swift-philadelphia-shows/
-
-## Taylor Swift Debuts New Hairstyle Amid Career Milestone
-
-- first seen: 2026-10-27 21:11 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has changed her hairstyle as she reaches a significant milestone in her career. This change reflects her evolving personal style during this notable period.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-switches-her-hairstyle-144250000.html
-
-## 12 Years Since Release of Taylor Swift's 1989 Album and Its Cover Story
-
-- first seen: 2026-10-27 21:11 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Fans remember the release of Taylor Swift's 1989 album, which debuted 12 years ago. The iconic Polaroid cover of the album has an interesting backstory that has come to light.
-- sources:
-  - [established] People — https://people.com/taylor-swift-surprising-story-behind-1989-polaroid-cover-12197032
-
-## Leaked Photos from Taylor Swift's Wedding Cause Fan Upset
-
-- first seen: 2026-10-27 21:11 UTC | category: sighting | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: New photos from Taylor Swift's wedding have been leaked, leading to disappointment among her fans, known as Swifties. The article discusses the reaction within the fan community regarding the unauthorized images.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089438/taylor-swift-wedding-photos-leaked-backlash/
