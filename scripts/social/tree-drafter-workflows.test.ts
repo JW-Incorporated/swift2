@@ -112,7 +112,7 @@ describe('routine-tree-event-draft.yml', () => {
     const prompt = read('docs/agents/runner-prompts/tree-event-draft.md');
     expect(prompt).toContain('Tier-2: Tree — event draft');
     expect(prompt).toContain('UNTRUSTED DATA');
-    expect(prompt).toContain('`singlePlatformReason`');
+    expect(prompt).toContain('text-only X is BANNED');
   });
 });
 
