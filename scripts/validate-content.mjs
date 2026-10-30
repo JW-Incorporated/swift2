@@ -71,6 +71,7 @@ import {
   surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './lib/moment-media-gate.mjs';
+import { textOnlyRatchetFindings } from './lib/text-only-ratchet.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
 import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
@@ -511,11 +512,10 @@ for (const { file, data } of loaded) {
       err(`${e.message} — extend packages/experience/src/copy-desk/routing.ts in the same PR`);
     }
 
-    // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
-    // deliberate editorial no-photo decision (privacy redline, no verifiable
-    // image, etc.), recorded on the item so content.top-of-feed-photo (the
-    // deterministic checker) and any human reader both recognize it as
-    // reviewed instead of re-flagging it as an oversight every run.
+    // photosReviewed (OPTIONAL, 2026-09-05, #762): a note only. Since
+    // 2026-09-06 it waives nothing — neither this gate (momentMediaErrors
+    // ignores it) nor content.top-of-feed-photo. A published moment always
+    // needs authored media; no verifiable image means the item is not emitted.
     if (it.photosReviewed != null && !(typeof it.photosReviewed === 'string' && it.photosReviewed.trim()))
       err('photosReviewed must be a non-empty string reason when present');
 
@@ -903,9 +903,15 @@ for (const entry of await loadTypeDir('videos', 'videos')) {
 const ERA_SECRET_DEEPER_LINK_RE = /^(song|moment|egg):.+/;
 const ERA_SECRET_PROVENANCE = new Set(['sourced', 'fan_consensus']);
 const eraSecretSlugs = new Map();
+const textOnlyCounts = {};
+const countTextOnly = (name, row) => {
+  textOnlyCounts[name] ??= 0;
+  if (nonMomentMediaErrors(row).length > 0) textOnlyCounts[name] += 1;
+};
 for (const entry of await loadTypeDir('era-secrets', 'secrets')) {
   const { row, fileEra, file } = entry;
   checked += 1;
+  countTextOnly('Era Secrets', row);
   const { err } = makeReporters(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 42)}"`);
   const eraSlug = row.eraSlug ?? fileEra;
   if (!row.slug) err('missing slug (stable identity is required)');
@@ -971,6 +977,14 @@ for (const file of trackFiles) {
     );
     if (row.youtubeId != null && !YOUTUBE_ID_RE.test(String(row.youtubeId)))
       err(`youtubeId "${row.youtubeId}" is not a bare 11-char YouTube id`);
+    countTextOnly('track guides (no youtubeId or media)', {
+      media: [
+        ...(row.media ?? []),
+        ...(YOUTUBE_ID_RE.test(String(row.youtubeId ?? ''))
+          ? [{ kind: 'oembed', post_url: `https://www.youtube.com/watch?v=${row.youtubeId}` }]
+          : []),
+      ],
+    });
     // track_note.note has a DB CHECK (<= 400, 20260704120000_track_note.sql)
     // that nothing here mirrored — found while consolidating the caps on
     // 2026-08-11. Longest note in the corpus today is 212, so this closes a
@@ -992,6 +1006,21 @@ for (const [file, n] of confirmTierHits) {
     console.warn(
       `WARN  tracks/${file}: ${n - CONFIRM_TIER_PRINT_PER_FILE} more wiki/fan-only confirm-language warning(s) not shown (${n} total, #5429)`,
     );
+}
+
+// -- text-only count ratchet (On This Day pool) --
+// This and the loops above publish text with no media field yet; their
+// text-only row counts are frozen (scripts/lib/text-only-ratchet.mjs).
+for (const row of (await import(pathToFileURL(join(seed, 'on-this-day', 'starter-pool.mjs')).href)).default)
+  countTextOnly('On This Day pool', row);
+for (const finding of textOnlyRatchetFindings(textOnlyCounts)) {
+  if (finding.level === 'error') {
+    console.error(`ERROR scripts/lib/text-only-ratchet.mjs: ${finding.message}`);
+    errors += 1;
+  } else {
+    console.warn(`WARN  scripts/lib/text-only-ratchet.mjs: ${finding.message}`);
+    warnings += 1;
+  }
 }
 
 // -- song moods (Mood Chat catalogue scores) --
