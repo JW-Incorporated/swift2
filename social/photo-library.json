@@ -522,6 +522,21 @@
       "sha256": "df0c93c22244ba77e483fa5c17fde2bae8d0b4b9a60179fc1c10077d1af6e123"
     },
     {
+      "id": "official-video--BjZmE2gtdo-maxres1",
+      "mediaPath": "/social/library/photos/official-video--BjZmE2gtdo-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=-BjZmE2gtdo",
+      "alt": "Still from Taylor Swift's official \"Lover\" music video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 80795,
+      "sha256": "28f0e6240b1e9b01c95fb58dd9d1b9a8e918fdb23cf934cdc12005cada9e90a4"
+    },
+    {
       "id": "official-video--CmadmM5cOk-t101",
       "mediaPath": "/social/library/photos/official-video--CmadmM5cOk-t101.jpg",
       "credit": "Taylor Swift (official video)",
@@ -685,6 +700,21 @@
       "height": 720,
       "bytes": 32083,
       "sha256": "ca44de5105e496d990df37e97ea5fb1f3f45e9c4ff263dd80aca5ac1d260a824"
+    },
+    {
+      "id": "official-video-bqOfdv9i4sE-maxres1",
+      "mediaPath": "/social/library/photos/official-video-bqOfdv9i4sE-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=bqOfdv9i4sE",
+      "alt": "Still from Taylor Swift's official \"ME! (Live From The Billboard Music Awards) ft. Brendon Urie\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 50774,
+      "sha256": "7787da7c8024c35fc3b908b981621cad33d6c29943130991256a001d0e13c812"
     },
     {
       "id": "official-video-bs5SZOHowHI-maxres1",
@@ -895,6 +925,21 @@
       "height": 720,
       "bytes": 22273,
       "sha256": "de6677e8e8c1493accc8f504991ad1ef7ebf58b864d004460c79d8e8ea2cb308"
+    },
+    {
+      "id": "official-video-mN3rDTAdM2o-maxres1",
+      "mediaPath": "/social/library/photos/official-video-mN3rDTAdM2o-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=mN3rDTAdM2o",
+      "alt": "Still from Taylor Swift's official \"Christmas Tree Farm\" music video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 30719,
+      "sha256": "e4071fdc22b18881aa8086b6a4f59701985143968bc1b5602ebb906dd86e46f8"
     },
     {
       "id": "official-video-mNLVMDF9mUo-maxres1",
@@ -1195,6 +1240,21 @@
       "height": 720,
       "bytes": 41932,
       "sha256": "0a2a93bd1e53f51a74af540579e86095554a5fb80d174af124bc1f675d4588de"
+    },
+    {
+      "id": "official-video-SVY8I46dkb0-maxres1",
+      "mediaPath": "/social/library/photos/official-video-SVY8I46dkb0-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=SVY8I46dkb0",
+      "alt": "Still from Taylor Swift's official \"Artist of the Decade Medley — 2019 American Music Awards\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 71244,
+      "sha256": "026b45b60c04f557d92763b13e3f61f07f0ca338d7f73cbaa99d2b2e8b3ccfbf"
     },
     {
       "id": "official-video-TEpTNFHHjNg-maxres1",
@@ -4503,6 +4563,22 @@
       "sha256": "b890e747dfc5264358276225d598bb436c1a2b884ec03bf5677bede9d8f3fc7e"
     },
     {
+      "id": "wikimedia-137560653",
+      "mediaPath": "/social/library/photos/wikimedia-137560653.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108951062).jpg",
+      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "1989"
+      ],
+      "width": 1519,
+      "height": 2048,
+      "bytes": 427441,
+      "sha256": "267a4f20c66fbdc1e9b12860e1f55c9ec4bb51db8d6223750d19cc74251aa8f0"
+    },
+    {
       "id": "wikimedia-137561154",
       "mediaPath": "/social/library/photos/wikimedia-137561154.jpg",
       "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
@@ -5100,6 +5176,22 @@
       "sha256": "107974eb1e372d6e84b07a48359bacccea4a03ee6a47031c505f359cbdf4d65e"
     },
     {
+      "id": "wikimedia-24794698",
+      "mediaPath": "/social/library/photos/wikimedia-24794698.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6820756226).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 1500,
+      "bytes": 259233,
+      "sha256": "dc6161a68f4b977fedee8de890e6000b1b012b5e4b94caf5dc90a9fdccd4e147"
+    },
+    {
       "id": "wikimedia-24794701",
       "mediaPath": "/social/library/photos/wikimedia-24794701.jpg",
       "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
@@ -5548,6 +5640,22 @@
       "sha256": "0f8d747c825527e1ec2724ea7de1043c0901e91f549bade9e4a6fa238d119a11"
     },
     {
+      "id": "wikimedia-24794747",
+      "mediaPath": "/social/library/photos/wikimedia-24794747.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966850095).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 667,
+      "bytes": 84910,
+      "sha256": "b39503ee4139582892f427a791e6ca062c88ba6d0a1e4b936a0cbf2d014de2bb"
+    },
+    {
       "id": "wikimedia-24794748",
       "mediaPath": "/social/library/photos/wikimedia-24794748.jpg",
       "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
@@ -5610,6 +5718,22 @@
       "height": 667,
       "bytes": 55314,
       "sha256": "feb2e88f4445b12f45448e55756c03fe37da3043b546982d8896e4daf6c58a69"
+    },
+    {
+      "id": "wikimedia-24794756",
+      "mediaPath": "/social/library/photos/wikimedia-24794756.jpg",
+      "credit": "Eva Rinaldi (CC BY-SA 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_(6966848571).jpg",
+      "alt": "Taylor Swift Speak Now Tour Hots Sydney, Australia\n\nYou might have heard that Taylor Swift was spotted taking in the view of Sydney yesterday, including even catching a harbour cruise with her friends",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "speak-now"
+      ],
+      "width": 1000,
+      "height": 1500,
+      "bytes": 152428,
+      "sha256": "508b9cf9197463519e778753edf34199053433d9d5f770451ef4992abc743640"
     },
     {
       "id": "wikimedia-24794760",
