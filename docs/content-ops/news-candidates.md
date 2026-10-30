@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 95
 
 ## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
 
@@ -811,44 +811,3 @@ Stories: 99
 - summary: Taylor Swift did not attend Travis Kelce's latest game, prompting fans to speculate about their relationship. The absence has ignited discussion among NFL fans and media.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skipped-travis-kelce-064422244.html
-
-## Seahawks Trolled Taylor Swift and Travis Kelce in Recent Incident
-
-- first seen: 2026-10-27 08:11 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Seattle Seahawks recently trolled Taylor Swift and Travis Kelce, raising questions about the appropriateness of their actions. The incident has drawn attention from sports and entertainment fans alike.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-travis-kelce-just-064235979.html
-
-## Taylor Swift Responds to Brad Paisley’s Tour Prank
-
-- first seen: 2026-10-27 08:11 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has publicly forgiven Brad Paisley after he reportedly played a haunting prank during their tour. The details of the prank and the nature of the forgiveness have been highlighted in various media.
-- sources:
-  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-brad-paisley-tour-prank-nashville-songwriters-hall-of-fame.html
-
-## Taylor Swift Becomes Youngest Inductee in Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 08:11 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 10
-- summary: Taylor Swift has made history by becoming the youngest-ever inductee into the Nashville Songwriters Hall of Fame. This achievement highlights her significant contributions to the music industry as a songwriter.
-- sources:
-  - [unverified] ABC7 Chicago — https://abc7chicago.com/story/taylor-swift-lyle-lovett-more-inducted-nashville-songwriters-hall-fame/19986432/
-  - [unverified] Country Now — https://countrynow.com/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee-read-her-full-speech/
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-inducted-nashville-songwriters-hall-fame-velvet-minidress-12196231
-  - [unverified] Nashville Lifestyles — https://nashvillelifestyles.com/entertainment/celebrities/taylor-swift-becomes-youngest-ever-nashville-songwriters-hal/
-  - [unverified] Parade Magazine — https://parade.com/news/taylor-swift-makes-history-as-youngest-ever-nashville-songwriters-hall-of-fame-inductee
-  - [established] People — https://people.com/taylor-swift-wears-65-carat-diamond-choker-velvet-floral-minidress-12196295
-  - [established] The Tennessean — https://www.tennessean.com/videos/entertainment/music/country/2026/10/27/taylor-swift-george-strait-among-stars-honored-at-nashville-gala/92460875007/
-  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74259914/taylor-swift-diamond-necklace-nashville-songwriters-hall-of-fame-2026/
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-nashville-songwriters-hall-of-fame
-  - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-becomes-youngest-member-of-nashville-songwriters-hall-of-fame/12308857/
-
-## Knicks Host Remains Confused by Taylor Swift's Hot Mic Incident
-
-- first seen: 2026-10-27 08:11 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report highlights that a Knicks host is still baffled by the recent hot mic scandal involving Taylor Swift. Details about the incident remain unclear, leaving fans and commentators puzzled.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-hot-mic-scandal-073300752.html
