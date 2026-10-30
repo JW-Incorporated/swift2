@@ -6,15 +6,14 @@
 const FIXED_MS = Date.parse('2026-01-01T12:00:00Z');
 const RealDate = Date;
 
-class FrozenDate extends RealDate {
-  constructor(...args) {
-    if (args.length === 0) super(FIXED_MS);
-    else super(...args);
-  }
-
-  static now() {
-    return FIXED_MS;
-  }
-}
-
-globalThis.Date = FrozenDate;
+// A Proxy over the real Date (not a subclass) so every static (parse, UTC, ...) and instanceof keep working for
+// anything that later wraps or copies Date, as Next's own build-time Date patching does.
+globalThis.Date = new Proxy(RealDate, {
+  construct(target, args, newTarget) {
+    return Reflect.construct(target, args.length === 0 ? [FIXED_MS] : args, newTarget);
+  },
+  get(target, prop, receiver) {
+    if (prop === 'now') return () => FIXED_MS;
+    return Reflect.get(target, prop, receiver);
+  },
+});
