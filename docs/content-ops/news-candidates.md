@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 93
+
+## Guests voice concerns over wedding food and decor at Taylor Swift's event
+
+- first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that some guests at Taylor Swift's wedding expressed dissatisfaction with the food and decor, describing them as 'ghastly and tacky.'
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ghastly-tacky-taylor-swift-wedding-101042181.html
+
+## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
+
+- first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
+- sources:
+  - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
@@ -778,12 +794,3 @@ Stories: 92
 - summary: In a recent Yahoo interview, Taylor Swift shared insights on the personal tools she utilizes to handle unexpected chaos in her life. Her approach highlights her ability to manage unpredictable situations effectively.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swift-tools-deal-random-115900909.html
-
-## Taylor Swift Discusses Impact of Brad Paisley's Tour Prank
-
-- first seen: 2026-10-27 12:06 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift revealed that she struggled with sleep for months following a prank by Brad Paisley during a tour, which she felt went too far. The revelation highlights the effects of tour-related stress on artists.
-- sources:
-  - [established] People — https://people.com/taylor-swift-says-was-unable-sleep-for-months-after-brad-paisley-took-tour-prank-too-far-12196155
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-says-brad-paisley-025141315.html
