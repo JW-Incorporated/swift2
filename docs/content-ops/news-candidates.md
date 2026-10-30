@@ -247,7 +247,7 @@ Stories: 94
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437684/tim-mcgraw-did-not-perform-at-taylor-swift-travis-kelce-wedding
@@ -255,6 +255,7 @@ Stories: 94
   - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
   - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/30/tim-mcgraw-shuts-down-rumor-that-he-performed-at-taylor-swift-travis-kelces-wedding-the-internets-not-always-correct/
+  - [unverified] Wide Open Country — https://www.wideopencountry.com/tim-mcgraw-describes-the-marriage-advice-he-would-give-to-taylor-swift-and-travis-kelce/
   - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
@@ -292,12 +293,14 @@ Stories: 94
 ## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
 
 - first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
 - sources:
   - [unverified] Complex — https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag
   - [unverified] E! News — https://www.eonline.com/news/1437676/taylor-swift-paid-nelly-s50-000-cash-in-mcdonalds-bag-for-2011-performance
   - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
+  - [established] People — https://people.com/nelly-taylor-swift-paid-him-50k-mcdonalds-bag-join-her-on-tour-12203385
+  - [unverified] TMZ — https://www.tmz.com/2026/10/30/nelly-says-taylor-swift-gave-him-50k-in-a-mcdonalds-bag-to-sing-with-him/
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-says-taylor-swift-paid-201929837.html
 
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
