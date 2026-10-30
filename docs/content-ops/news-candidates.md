@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 97
+Stories: 99
+
+## Video Features Taylor Swift's Song on Alien Swirling Saucers Ride
+
+- first seen: 2026-10-30 20:08 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new video showcases the full ride experience of Alien Swirling Saucers, featuring Taylor Swift's song 'I Knew It, I Knew You'. This ride is part of a theme park attraction.
+- sources:
+  - [unverified] WDW News Today — https://wdwnt.com/2026/10/video-full-ride-pov-of-alien-swirling-saucers-featuring-taylor-swift-song-i-knew-it-i-knew-you/
+
+## Nelly Reveals Taylor Swift Paid Him $50,000 in Unconventional Fashion
+
+- first seen: 2026-10-30 20:08 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent statement, Nelly disclosed that Taylor Swift once paid him $50,000 in cash, which was reportedly stuffed inside a McDonald's bag. This unique transaction adds an interesting anecdote to their interactions.
+- sources:
+  - [unverified] BroBible — https://brobible.com/sports/article/nelly-taylor-swift-mcdonalds-bag-cash/
+
+## Tim McGraw Discusses Taylor Swift and Travis Kelce's Wedding Details
+
+- first seen: 2026-10-30 20:08 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Tim McGraw shares insights about the recent wedding of Taylor Swift and Travis Kelce in a new article. The publication provides a glimpse into the star-studded event attended by notable guests.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/news/tim-mcgraw-reveals-what-really-happened-taylor-swift-travis-kelce-star-studded-wedding
+
+## Taylor Swift's Next Album Theories and Controversies Discussed
+
+- first seen: 2026-10-30 20:08 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A recent Yahoo Sports article explores theories surrounding Taylor Swift's next album, including discussions of debut TV theories, Chiefs-related controversies, and insights on her song 'Maroon.'
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/videos/taylor-swifts-next-album-debut-182158160.html
 
 ## Nelly Shares Experience Performing with Taylor Swift in Houston
 
@@ -34,14 +66,6 @@ Stories: 97
 - summary: Nelly reflects on being flown out by Taylor Swift to perform at her Houston show for $50,000, stating he would have done it for free. This anecdote highlights the collaborations and performances during Swift's tour.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/rb-hip-hop/nelly-taylor-swift-mcdonalds-houston-2011-just-a-dream-1236371006/
-
-## Cara Delevingne Discusses Taylor Swift's Easter Egg Planning
-
-- first seen: 2026-10-30 19:08 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cara Delevingne shares insights on how Taylor Swift creatively plans her famous Easter eggs. The discussion provides a glimpse into Swift's artistic approach and the significance of these hidden messages.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437671/cara-delevingne-details-taylor-swift-easter-eggs-patient-zero-video
 
 ## Taylor Swift Plays Guitar for Charity Raffle
 
@@ -58,6 +82,14 @@ Stories: 97
 - summary: A recent article discusses an inaccuracy related to Tim McGraw in the context of Taylor Swift's wedding. The specifics of the detail have sparked interest among fans and media.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-had-one-181515939.html
+
+## Cara Delevingne Discusses Taylor Swift's Easter Egg Planning
+
+- first seen: 2026-10-30 19:08 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cara Delevingne shares insights on how Taylor Swift creatively plans her famous Easter eggs. The discussion provides a glimpse into Swift's artistic approach and the significance of these hidden messages.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437671/cara-delevingne-details-taylor-swift-easter-eggs-patient-zero-video
 
 ## Colin Jost and Michael Che Discuss NSFW Taylor Swift Song
 
@@ -631,11 +663,11 @@ Stories: 97
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-reacts-prince-william-taylor-swift-selfie-1236369571/
   - [unverified] Entertainment Weekly — https://ew.com/travis-kelce-reacts-prince-william-comments-taylor-swift-photo-12198334
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-blank-space/
   - [unverified] HOLA — https://www.hola.com/us/celebrities/20261028931815/travis-kelce-upset-prince-william-taylor-swift-selfie-joke/
   - [established] People — https://people.com/travis-kelce-reacts-to-prince-william-revealing-he-tried-to-push-him-out-of-the-taylor-swift-selfie-12198040
   - [unverified] USA Today — https://www.aol.com/articles/chiefs-spoil-taylor-swift-era-175816000.html
   - [unverified] www.instyle.com — https://www.instyle.com/travis-kelce-reacts-prince-william-joke-taylor-swift-12198331
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/travis-kelce-favorite-taylor-swift-174238874.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
@@ -812,19 +844,3 @@ Stories: 97
 - summary: Cynthia Nixon and Carrie Coon have expressed interest in having Taylor Swift make a cameo appearance in the series 'Gilded Age'. They discussed potential characters she could portray during an exclusive interview.
 - sources:
   - [unverified] Extra — https://extratv.com/2026/10/27/cynthia-nixon-and-carrie-coon-want-a-taylor-swift-gilded-age-cameo-who-she-could-play-exclusive/
-
-## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 19:11 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has been recognized as the youngest person ever inducted into the Nashville Songwriters Hall of Fame, marking a significant achievement in her career. This recognition underscores her influence and contributions to the music industry.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2515698/taylor-swift-nashville-songwriters-hall-of-fame-induction/news/
-
-## William Addresses Travis Kelce's Wedding Attendance with Taylor Swift
-
-- first seen: 2026-10-27 19:11 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent statement, William expressed confusion regarding Travis Kelce and Kate's absence from his wedding to Taylor Swift. The comments highlight potential tensions within celebrity circles.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234962381/what-william-taylor-swift-travis-kelce/
