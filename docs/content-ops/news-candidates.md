@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 109
+Stories: 104
 
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
 
@@ -461,13 +461,14 @@ Stories: 109
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
 - first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
   - [unverified] Page Six — https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/
   - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/how-taylor-swift-and-travis-kelces-donation-helped-a-nashville-free-grocery-store-resume-support-for-families-on-its-waitlist/articleshow/135265150.cms
+  - [unverified] USA Today — https://www.aol.com/articles/travis-kelce-responds-prince-william-162904000.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
 
 ## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
@@ -891,55 +892,3 @@ Stories: 109
 - summary: Ella Langley has regained the US No. 1 chart position, surpassing Taylor Swift. This marks a significant achievement in the current music rankings.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/ella-langley-retakes-us-no-235249388.html
-
-## Taylor Swift Might Perform at the Bluebird Cafe in Nashville
-
-- first seen: 2026-10-27 00:31 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: There are rumors that Taylor Swift may be giving a surprise performance at the Bluebird Cafe in Nashville. Fans are speculating about the possibility of this special event.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253518/is-taylor-swift-performing-bluebird-cafe-nashville/
-
-## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-27 00:31 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 8
-- summary: Taylor Swift has officially been inducted into the Nashville Songwriters Hall of Fame, recognizing her significant contributions to music and songwriting.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/Entertainment/wireStory/taylor-swift-lyle-lovett-inducted-nashville-songwriters-hall-137591336
-  - [unverified] AP News — https://apnews.com/article/taylor-swift-nashville-songwriters-hall-of-fame-47bc805af87907260700447162565c55
-  - [established] People — https://people.com/taylor-swift-officially-inducted-into-nashville-songwriters-hall-of-fame-12189704
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-inducted-nashville-songwriters-hall-of-fame-1235648093/
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/27/taylor-swift-nashville-songwriters-hall-of-fame-speech-full-transcript/92458491007/
-  - [established] Variety — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-country-hair-nashville-songwriter-hall-of-fame-1239387219/
-  - [unverified] WZTV — https://fox17.com/news/local/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame
-
-## Seattle Seahawks Criticize Taylor Swift and Travis Kelce After Victory
-
-- first seen: 2026-10-27 00:31 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The Seattle Seahawks made comments directed at Taylor Swift and Travis Kelce following their victory over the Kansas City Chiefs, which ended the team's undefeated streak. The remarks highlight the intersection of sports and celebrity culture.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-trolled-seahawks-chiefs-loss-1236368289/
-
-## Wedding Guest Criticizes Chanel Giveaway at Swift-Kelce Event
-
-- first seen: 2026-10-27 00:31 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A guest from Taylor Swift and Travis Kelce’s wedding has expressed discontent over a Chanel giveaway, labeling it as 'demeaning'. The comment highlights differing perspectives on event practices among guests.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-162000834.html
-
-## Taylor Swift Named Leader of Nashville Songwriters Hall of Fame 2026 Class
-
-- first seen: 2026-10-27 00:31 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 6
-- summary: Taylor Swift has been recognized as the leader of the Nashville Songwriters Hall of Fame class of 2026. This honor highlights her contributions to songwriting and her impact on the music industry.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-george-strait-nashville-songwriters-hall-fame-1236368579/
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74253446/taylor-swift-nashville-songwriters-hall-of-fame-minidress/
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74251375/taylor-swift-outfit-photos-nashville-songwriters-hall-of-fame-induction-ceremony/
-  - [unverified] Page Six — https://pagesix.com/2026/10/26/style/taylor-swift-wears-velvet-raisa-vanessa-dress-at-nashville-songwriters-hall-of-fame-gala-2026/
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1235648096/
-  - [established] The Tennessean — https://www.tennessean.com/picture-gallery/entertainment/music/2026/10/26/taylor-swift-george-strait-nashville-songwriters-hall-of-fame-2026-photos/92442412007/
