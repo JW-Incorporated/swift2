@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 97
+
+## Nelly Shares Experience Performing with Taylor Swift in Houston
+
+- first seen: 2026-10-30 19:08 UTC | category: tour | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Nelly reflects on being flown out by Taylor Swift to perform at her Houston show for $50,000, stating he would have done it for free. This anecdote highlights the collaborations and performances during Swift's tour.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/rb-hip-hop/nelly-taylor-swift-mcdonalds-houston-2011-just-a-dream-1236371006/
+
+## Cara Delevingne Discusses Taylor Swift's Easter Egg Planning
+
+- first seen: 2026-10-30 19:08 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cara Delevingne shares insights on how Taylor Swift creatively plans her famous Easter eggs. The discussion provides a glimpse into Swift's artistic approach and the significance of these hidden messages.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437671/cara-delevingne-details-taylor-swift-easter-eggs-patient-zero-video
+
+## Taylor Swift Plays Guitar for Charity Raffle
+
+- first seen: 2026-10-30 19:08 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift played a guitar that will be raffled off for charity purposes, providing fans with an opportunity to support a good cause.
+- sources:
+  - [unverified] KVOA — https://www.kvoa.com/news/arizona/taylor-swift-played-guitar-being-raffled-for-charity/article_bb05b5b9-eadc-4d1b-90db-a1e341f7ba67.html
+
+## Detail about Taylor Swift's wedding and Tim McGraw addressed
+
+- first seen: 2026-10-30 19:08 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent article discusses an inaccuracy related to Tim McGraw in the context of Taylor Swift's wedding. The specifics of the detail have sparked interest among fans and media.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-had-one-181515939.html
 
 ## Colin Jost and Michael Che Discuss NSFW Taylor Swift Song
 
@@ -142,9 +174,10 @@ Stories: 93
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
 - sources:
+  - [unverified] Entertainment Weekly — https://ew.com/tim-mcgraw-performance-taylor-swift-travis-kelce-wedding-12202862
   - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
   - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
   - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
