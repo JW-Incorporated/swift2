@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 99
 
 ## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
 
@@ -852,21 +852,3 @@ Stories: 101
 - summary: A report highlights that a Knicks host is still baffled by the recent hot mic scandal involving Taylor Swift. Details about the incident remain unclear, leaving fans and commentators puzzled.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-hot-mic-scandal-073300752.html
-
-## Taylor Swift and Travis Kelce's Wedding Costs Reported at $30 Million
-
-- first seen: 2026-10-27 07:11 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Reports suggest that Taylor Swift and Travis Kelce's upcoming wedding could cost around $30 million. Questions arise about the necessity of such an extravagant expenditure.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74258901/taylor-swift-travis-kelce-wedding-renderings-leak/
-  - [unverified] Page Six — https://pagesix.com/2026/10/27/entertainment/taylor-swift-travis-kelce-burned-wedding-decor-after-30m-ceremony-report/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reported-064318089.html
-
-## Taylor Swift Wears Raisa Vanessa Velvet Micro Minidress
-
-- first seen: 2026-10-27 07:11 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been spotted in a Raisa Vanessa velvet micro minidress described as 'lusciously fall'. The outfit reflects autumn fashion trends.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-raisa-vanessa-velvet-055245813.html
