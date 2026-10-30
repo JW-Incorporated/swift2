@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 93
+
+## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-10-30 10:56 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame alongside Lyle Lovett and others. This recognition highlights her significant contributions to the music industry.
+- sources:
+  - [unverified] yoursun.com — https://www.yoursun.com/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/article_4e5332c6-c471-5f23-a4e6-dc3ec446ad58.html
 
 ## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
 
@@ -787,19 +795,3 @@ Stories: 94
 - summary: Jack Antonoff, a producer for Taylor Swift, publicly criticized Ed Sheeran for not taking a stand regarding Robert Kraft. The comments reflect tensions in the music industry and highlight the expectations for artists to voice their opinions.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/stand-f-taylor-swift-producer-103026952.html
-
-## Taylor Swift Shares Reflections After Travis Kelce’s Game
-
-- first seen: 2026-10-27 10:06 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her feelings following Travis Kelce's recent performance during a game, highlighting her vulnerability in the moment. This message follows Kelce's notable achievements on the field.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-vulnerable-message-after-travis-kelce-historic-game/
-
-## Taylor Swift and Travis Kelce Cancel $7M Wedding Surprise
-
-- first seen: 2026-10-27 10:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A source reveals that Taylor Swift and Travis Kelce have decided to cancel a $7 million surprise planned for their wedding. The reason behind this decision has not been disclosed.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-axed-084427404.html
