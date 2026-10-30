@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 91
+
+## Taylor Swift's Longstanding Estrangement from Country Star Discussed
+
+- first seen: 2026-10-30 13:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Syracuse.com reports on Taylor Swift's estrangement from a popular country star, stemming from a cruel prank that occurred nearly 20 years ago. The history of their relationship highlights the impact of the incident on both artists.
+- sources:
+  - [unverified] Syracuse.com — https://www.syracuse.com/us-news/2026/10/taylor-swift-estranged-from-popular-country-star-for-almost-20-years-after-cruel-prank.html
+
+## Taylor Swift Receives Honor for Songwriting
+
+- first seen: 2026-10-30 13:52 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been recognized for her contributions to songwriting in a recent Hollywood Minute report by CNN. This acknowledgment highlights her impact on the music industry.
+- sources:
+  - [unverified] CNN — https://www.cnn.com/2026/10/28/entertainment/video/entertainment-showbiz-hollywood-minute-taylor-swift-nashville-songwriters-hall-gaslit-documentary-dune-three-final-trailer
 
 ## Guests voice concerns over wedding food and decor at Taylor Swift's event
 
@@ -519,10 +535,11 @@ Stories: 93
 ## Caroline Wozniacki Channels Taylor Swift for Halloween
 
 - first seen: 2026-10-28 11:47 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Tennis star Caroline Wozniacki dressed up as Taylor Swift for Halloween, showcasing her admiration for the pop icon. The costume reflects Wozniacki's playful tribute to Swift's style.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/lifestyle/2026/10/28/caroline-wozniacki-and-david-lee-surprise-by-becoming-taylor-swift-and-travis-kelce-for-halloween.html
+  - [unverified] Nine.com.au — https://www.nine.com.au/entertainment/celebrity/travis-kelce-prince-william-taylor-swift-selfie-almost-didnt-happen-20261029-p619k2.html
   - [unverified] Page Six — https://pagesix.com/2026/10/28/entertainment/travis-kelce-reacts-to-prince-williams-cheeky-confession-about-viral-taylor-swift-selfie/
   - [unverified] The Big Lead — https://www.thebiglead.com/caroline-wozniacki-david-lee-halloween-taylor-swift-travis-kelce/
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/how-taylor-swift-and-travis-kelces-donation-helped-a-nashville-free-grocery-store-resume-support-for-families-on-its-waitlist/articleshow/135265150.cms
@@ -760,37 +777,3 @@ Stories: 93
 - summary: Taylor Swift revealed that she had trouble sleeping for months following an incident where Brad Paisley released thousands of crickets on her tour bus. She even considered buying a lizard to address the issue.
 - sources:
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/27/i-considered-buying-a-lizard-to-eradicate-the-problem-taylor-swift-couldnt-sleep-for-months-after-brad-paisley-set-loose-thousands-of-crickets-on-her-tour-bus/
-
-## Ella Langley's Hit Replaces Taylor Swift's 'Patient Zero' on Hot 100
-
-- first seen: 2026-10-27 13:06 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Ella Langley's song 'Choosin' Texas' has dethroned Taylor Swift's 'Patient Zero' from the top position on the Billboard Hot 100, after Langley's track held the No. 1 spot for 25 nonconsecutive weeks.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/chart-beat/taylor-swift-ties-rihanna-most-pop-airplay-top-10s-1236368645/
-  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1614809290680731/
-  - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-ex-boyfriends-buried-iconic-sleepy-hollow-halloween-display/6563689/
-
-## Taylor Swift Inducted into Nashville Hall of Fame
-
-- first seen: 2026-10-27 13:06 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been officially inducted into the Nashville Hall of Fame, recognizing her significant contributions to the music industry. This honor marks a notable achievement in her career.
-- sources:
-  - [unverified] TODAY.com — https://www.today.com/video/taylor-swift-inducted-into-nashville-hall-of-fame-272314949990
-
-## Jalen Brunson Enters Taylor Swift NBA Controversy
-
-- first seen: 2026-10-27 13:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Knicks player Jalen Brunson has become involved in an ongoing controversy related to Taylor Swift and the NBA, as reported by Yardbarker.
-- sources:
-  - [unverified] Yardbarker — https://www.yardbarker.com/nba/articles/taylor_swift_nba_drama_explodes_knicks_star_jalen_brunson_just_stepped_into_the_controversy/s1_17701_44478683
-
-## Taylor Swift Discusses Coping Mechanisms for Unexpected Challenges
-
-- first seen: 2026-10-27 13:06 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent Yahoo interview, Taylor Swift shared insights on the personal tools she utilizes to handle unexpected chaos in her life. Her approach highlights her ability to manage unpredictable situations effectively.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swift-tools-deal-random-115900909.html
