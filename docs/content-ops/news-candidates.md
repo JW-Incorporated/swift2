@@ -27,6 +27,14 @@ so far".
 
 Stories: 102
 
+## Ella Langley's 'Choosin' Texas' Reaches No. 1, Displacing Taylor Swift's 'Patient Zero'
+
+- first seen: 2026-10-30 03:32 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Ella Langley's song 'Choosin' Texas' has topped the Hot 100 chart, dethroning Taylor Swift's track 'Patient Zero'. This marks the 25th nonconsecutive week for 'Choosin' Texas' at the number one position.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/photos/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1617879023707091/
+
 ## Taylor Swift Donates $100,000 to Revive Tennessee Playground
 
 - first seen: 2026-10-30 02:32 UTC | category: business | importance: 7
@@ -38,9 +46,10 @@ Stories: 102
 ## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
 
 - first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
 - sources:
+  - [unverified] Complex — https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag
   - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
 
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
@@ -869,11 +878,3 @@ Stories: 102
 - summary: During her Hall of Fame induction, Taylor Swift expressed her gratitude, stating that Nashville songwriters significantly influenced her development as an artist. This recognition highlights her connection to the Nashville music scene.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-nashville-songwriters-hall-of-fame-speech-1236368575/
-
-## Taylor Swift Inducted Into Nashville Songwriters Hall of Fame at Age 36
-
-- first seen: 2026-10-27 03:32 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: At 36, Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame, becoming its youngest member. During the ceremony, she reflected on her early songwriting days in Nashville and was honored by former tourmate Brad Paisley and singer Lainey Wilson.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-inducted-speech-nashville-songwriters-hall-fame-1236931794/
