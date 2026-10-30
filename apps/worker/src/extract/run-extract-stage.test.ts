@@ -217,7 +217,7 @@ describe('runExtractStage Reddit comment context', () => {
       };
     });
     // Use two theories in the fan signal to trigger two upsert calls.
-    mocks.extractWithLLM.mockResolvedValue({
+    mocks.extractWithLLM.mockReset().mockResolvedValue({
       kind: 'both',
       redlineFlags: [],
       currentItem: {
