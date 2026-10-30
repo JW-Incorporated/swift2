@@ -3,6 +3,8 @@
 // exemption is exact: editing a listed row changes its hash, voids the
 // exemption, and the edit must add renderable media. Content-only changes
 // cannot add entries here; remove an entry once its row gains media.
+// Hashes ignore SYNC_OWNED_FIELDS (verifiedAt/inStock/price) so bot syncs of
+// merch rows cannot void a pin.
 const SURFACE_MEDIA_LEGACY_TEXT = `
 releases/releases.mjs#taylor-swift 544fd23192274b27
 releases/releases.mjs#napster-live 30cbfc61123748ec
@@ -121,8 +123,8 @@ videos/midnights.mjs#taylor-swift-the-eras-tour-film 3e075322490d6c1a
 videos/reputation.mjs#reputation-stadium-tour-film b03e1b4bfc606059
 videos/speak-now.mjs#speak-now-world-tour-live e46ceaba1803e11c
 videos/the-life-of-a-showgirl.mjs#the-official-release-party-of-a-showgirl 04979498ee397995
-merch/official.mjs#8238952612040 145ec43ede43b59d
-merch/official.mjs#8239061434568 701d90df3c87b2a4
+merch/official.mjs#8238952612040 bc9527a92a1611f9
+merch/official.mjs#8239061434568 ba7a6cd448bd4fa8
 `;
 
 /** Tolerates CRLF text and stray whitespace around the key and hash. */

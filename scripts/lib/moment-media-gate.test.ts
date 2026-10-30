@@ -10,6 +10,8 @@ import {
   retiredSurfaceMediaKeys,
   socialInboxMediaErrors,
   SURFACE_MEDIA_LEGACY,
+  SYNC_OWNED_FIELDS,
+  surfaceFingerprint,
   surfaceMediaLegacyFindings,
   surfaceMediaPublicationVerdict,
 } from './moment-media-gate.mjs';
@@ -288,5 +290,49 @@ describe('SURFACE_MEDIA_LEGACY list audit', () => {
       expect(stale).toBeDefined();
       expect(stale.message).toContain('matches no gated row');
     }
+  });
+});
+
+describe('legacy pin stability against sync-bot churn', () => {
+  const key = 'merch/official.mjs#123';
+  const row = {
+    sourceId: '123',
+    item: 'Tumbler',
+    url: 'https://store.example/products/tumbler',
+    price: '$45.00',
+    inStock: false,
+    verifiedAt: '2026-10-01T00:00:00.000Z',
+  };
+  const pin = new Map([[key, surfaceFingerprint(row).slice(0, 16)]]);
+  const verdict = (r: object) =>
+    surfaceMediaPublicationVerdict(key, r, merchMediaErrors(r), pin);
+
+  it('names the sync-owned fields', () => {
+    expect([...SYNC_OWNED_FIELDS].sort()).toEqual(['inStock', 'price', 'verifiedAt']);
+  });
+
+  it.each([
+    ['verifiedAt', '2026-10-29T23:59:29.428Z'],
+    ['inStock', true],
+    ['price', '$50.00'],
+  ])('keeps the exemption when the bot changes %s', (field, value) => {
+    expect(verdict({ ...row, [field]: value }).errors).toEqual([]);
+  });
+
+  it('keeps the exemption when the bot adds or drops a sync-owned field', () => {
+    const rest: Record<string, unknown> = { ...row };
+    delete rest.price;
+    expect(verdict(rest).errors).toEqual([]);
+  });
+
+  it.each([
+    ['item', 'Renamed tumbler'],
+    ['url', 'https://store.example/products/other'],
+  ])('voids the exemption when content field %s is edited', (field, value) => {
+    expect(verdict({ ...row, [field]: value }).errors).not.toEqual([]);
+  });
+
+  it('voids the exemption when an image-less row only gains non-media content', () => {
+    expect(verdict({ ...row, kind: 'other' }).errors).not.toEqual([]);
   });
 });

@@ -112,6 +112,21 @@ export function merchMediaErrors(row) {
 
 const SURFACE_HASH_LENGTH = 16;
 
+/** Fields a scheduled sync bot rewrites on every run (merch-official-sync
+ * bumps verifiedAt each run and flips inStock / price as the store changes).
+ * They are excluded from the legacy fingerprint so a bot refresh cannot void
+ * an exemption; every content field (item, url, imageUrl, ...) stays hashed,
+ * so a real edit still has to add media. */
+export const SYNC_OWNED_FIELDS = Object.freeze(['verifiedAt', 'inStock', 'price']);
+
+export function surfaceFingerprint(item) {
+  const stable = {};
+  for (const [field, value] of Object.entries(item ?? {})) {
+    if (!SYNC_OWNED_FIELDS.includes(field)) stable[field] = value;
+  }
+  return momentFingerprint(stable);
+}
+
 /** A legacy exemption is exact: the key AND the row's content hash must both
  * match, so an edited text-only row must gain media. */
 export function surfaceMediaPublicationVerdict(
@@ -121,7 +136,7 @@ export function surfaceMediaPublicationVerdict(
   legacy = SURFACE_MEDIA_LEGACY,
 ) {
   const grandfathered =
-    legacy.get(key) === momentFingerprint(item).slice(0, SURFACE_HASH_LENGTH);
+    legacy.get(key) === surfaceFingerprint(item).slice(0, SURFACE_HASH_LENGTH);
   return { errors: grandfathered ? [] : itemErrors, legacyGap: grandfathered };
 }
 
