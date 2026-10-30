@@ -841,6 +841,20 @@ describe('checkMedia', () => {
     expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(true);
   });
 
+  it('rejects a text-only X item even with a valid singlePlatformReason or requireImageOnX=false (owner 2026-10-30)', async () => {
+    const reason = 'No usable credited photo fits this story, so X goes first as text.';
+    const withReason = await checkMedia('a.json', { platform: 'x', body: 'text only', singlePlatformReason: reason }, []);
+    expect(withReason.some((f) => f.includes('require at least one credited image'))).toBe(true);
+    const off = { media: { allowedKinds: ['photo', 'site-screen', 'card'], requireImageOnX: false } };
+    const relaxed = await checkMedia('a.json', { platform: 'x', body: 'text only', singlePlatformReason: reason }, [], [], off as never);
+    expect(relaxed.some((f) => f.includes('require at least one credited image'))).toBe(true);
+  });
+
+  it('does not trip the X image requirement when the X item has an image', async () => {
+    const findings = await checkMedia('a.json', { platform: 'x', media: [CORPUS_PHOTO], mediaKind: 'photo', photoId: CORPUS_PHOTO_ID, mediaCredit: CORPUS_PHOTO_CREDIT, mediaSource: CORPUS_PHOTO_SOURCE }, []);
+    expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(false);
+  });
+
   it('rejects an X draft with mediaKind "video-thumb" — the value is no longer schema-recognized (2026-09-10, kanban t_bac31b1a)', async () => {
     const findings = await checkMedia('a.json', { platform: 'x', body: 'text only', campaign: 'appearance:video-id', mediaKind: 'video-thumb' }, []);
     expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(true);
