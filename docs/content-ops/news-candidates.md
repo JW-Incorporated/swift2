@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 92
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
@@ -787,11 +787,3 @@ Stories: 93
 - sources:
   - [established] People — https://people.com/taylor-swift-says-was-unable-sleep-for-months-after-brad-paisley-took-tour-prank-too-far-12196155
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-says-brad-paisley-025141315.html
-
-## Jack Antonoff Calls Out Ed Sheeran Over Robert Kraft Situation
-
-- first seen: 2026-10-27 11:06 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jack Antonoff, a producer for Taylor Swift, publicly criticized Ed Sheeran for not taking a stand regarding Robert Kraft. The comments reflect tensions in the music industry and highlight the expectations for artists to voice their opinions.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/stand-f-taylor-swift-producer-103026952.html
