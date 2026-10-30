@@ -5181,11 +5181,17 @@ export default {
               'Paul McCartney is reported to have given a surprise performance at the July 3 reception, playing The Beatles\' "I Want to Hold Your Hand" — by several accounts his first live rendition of the song in decades — alongside the separately reported Stevie Nicks set.',
             reportedBy: 'HollywoodLife',
             reportedOn: '2026-07-05',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://hollywoodlife.com/2026/07/05/who-performed-at-taylor-swift-wedding/',
-            note: 'Reported across established outlets days after the wedding — E! News flatly ("Paul McCartney Performs Beatles Classic"), NME and HollywoodLife with the same "I Want to Hold Your Hand" detail — but never confirmed by the couple, who released no photos or video. Adjudicable: resolves if the couple, McCartney or guests confirm the set, or a fuller account rules it out. No location beyond MSG.',
+            note: 'Reported days after the wedding by E! News, NME and HollywoodLife with the same "I Want to Hold Your Hand" detail; the couple released no photos or video. Re-checked 2026-10-30: McCartney himself described the performance on Jimmy Kimmel Live! (AAP, Oct. 3), so it resolves confirmed; the song title rests on People\'s source and wire reports. No location beyond MSG.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-31',
+            lastCheckedOn: '2026-10-30',
+            resolution: {
+              on: '2026-10-03',
+              url: 'https://www.illawarramercury.com.au/story/9362046/mccartney-reveals-advice-he-gave-swift-on-wedding-day/',
+              outlet: 'Australian Associated Press (via Illawarra Mercury)',
+              note: 'McCartney told Jimmy Kimmel Live! about the wedding performance in his own words: "She was on stage and I said, \'you should sing along, and you should sing it to your man\'." That confirms he performed at the reception; AAP\'s write-up identifies the number as "I Want to Hold Your Hand," matching the July reports.',
+            },
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
