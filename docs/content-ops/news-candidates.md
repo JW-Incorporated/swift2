@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 98
+
+## Fruity Dupes for Taylor Swift's Wonderstruck Perfume
+
+- first seen: 2026-10-30 21:07 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ValleyCentral.com features a segment on fruity alternatives to Taylor Swift's Wonderstruck perfume, providing fans with similar scent options. The article highlights various dupes available in the market.
+- sources:
+  - [unverified] ValleyCentral.com — https://www.valleycentral.com/valleycentral/vc-show-talking-about-current-topics/tea-time-fruity-dupes-for-taylor-swifts-wonderstruck-perfume/
+
+## Tim McGraw Addresses Taylor Swift and Travis Kelce Wedding Rumor
+
+- first seen: 2026-10-30 21:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tim McGraw has publicly debunked rumors regarding a wedding between Taylor Swift and Travis Kelce, clarifying the misinformation surrounding the topic. Recent leaked photos reportedly related to the wedding do not provide substantial evidence.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/tim-mcgraw-debunks-taylor-swift-170305625.html
 
 ## Video Features Taylor Swift's Song on Alien Swirling Saucers Ride
 
@@ -206,12 +222,13 @@ Stories: 99
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/tim-mcgraw-performance-taylor-swift-travis-kelce-wedding-12202862
   - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
   - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
+  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/30/tim-mcgraw-shuts-down-rumor-that-he-performed-at-taylor-swift-travis-kelces-wedding-the-internets-not-always-correct/
   - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
@@ -249,11 +266,12 @@ Stories: 99
 ## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
 
 - first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
 - sources:
   - [unverified] Complex — https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag
   - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-says-taylor-swift-paid-201929837.html
 
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
 
@@ -789,14 +807,6 @@ Stories: 99
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-went-195223649.html
 
-## Taylor Swift Debuts New Hairstyle Amid Career Milestone
-
-- first seen: 2026-10-27 21:11 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has changed her hairstyle as she reaches a significant milestone in her career. This change reflects her evolving personal style during this notable period.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-switches-her-hairstyle-144250000.html
-
 ## Taylor Swift's Impact in Philadelphia Explored by Numbers
 
 - first seen: 2026-10-27 21:11 UTC | category: music | importance: 5
@@ -804,6 +814,14 @@ Stories: 99
 - summary: Philadelphia Magazine examines the statistical influence of Taylor Swift in Philadelphia, focusing on ticket sales, streaming, and cultural engagement with the city.
 - sources:
   - [unverified] Philadelphia Magazine — https://www.phillymag.com/news/2026/10/27/taylor-swift-philadelphia-shows/
+
+## Taylor Swift Debuts New Hairstyle Amid Career Milestone
+
+- first seen: 2026-10-27 21:11 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has changed her hairstyle as she reaches a significant milestone in her career. This change reflects her evolving personal style during this notable period.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-switches-her-hairstyle-144250000.html
 
 ## 12 Years Since Release of Taylor Swift's 1989 Album and Its Cover Story
 
@@ -820,27 +838,3 @@ Stories: 99
 - summary: New photos from Taylor Swift's wedding have been leaked, leading to disappointment among her fans, known as Swifties. The article discusses the reaction within the fan community regarding the unauthorized images.
 - sources:
   - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089438/taylor-swift-wedding-photos-leaked-backlash/
-
-## Taylor Swift Speaks on Nashville's Unique Music Community
-
-- first seen: 2026-10-27 20:12 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Taylor Swift expressed her views on the distinctiveness of Nashville's music community, stating that it is unlike any other. Her comments highlight the importance of Nashville in the music industry.
-- sources:
-  - [unverified] Axios — https://www.axios.com/local/nashville/2026/10/27/taylor-swift-nashville-songwriter-hall-of-fame
-
-## Taylor Swift's Team Makes Notable Move Post-Wedding
-
-- first seen: 2026-10-27 20:12 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Following a recent wedding event, Taylor Swift's team reportedly took a significant and unexpected action. The details of this move have sparked discussions among fans and observers.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/just-burned-taylor-swift-team-162045806.html
-
-## Cynthia Nixon and Carrie Coon Propose Taylor Swift Cameo in 'Gilded Age'
-
-- first seen: 2026-10-27 20:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cynthia Nixon and Carrie Coon have expressed interest in having Taylor Swift make a cameo appearance in the series 'Gilded Age'. They discussed potential characters she could portray during an exclusive interview.
-- sources:
-  - [unverified] Extra — https://extratv.com/2026/10/27/cynthia-nixon-and-carrie-coon-want-a-taylor-swift-gilded-age-cameo-who-she-could-play-exclusive/
