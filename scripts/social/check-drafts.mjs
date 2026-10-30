@@ -610,11 +610,8 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
     return findings; // nothing else to check without media
   }
   if (item.platform === 'x' && !item.media?.length) {
-    // Bots v2 W8: "no usable image → X-only" is the sanctioned single-platform case (checkCampaignPair,
-    // owner 2026-09-30) — it could never pass while this gate demanded media too. Only an X item that
-    // carries its OWN written reason is exempt; a paired X item still needs its image.
-    if (isValidSinglePlatformReason(item.singlePlatformReason)) return findings;
-    if (!params.media.requireImageOnX) return findings; // Tree's call (strategy-params.json media.requireImageOnX)
+    // Owner decision 2026-10-30: text-only X posts are banned. No exemption — not singlePlatformReason,
+    // not strategy-params.json media.requireImageOnX.
     findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
     return findings;
   }
