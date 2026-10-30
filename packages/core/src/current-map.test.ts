@@ -73,6 +73,29 @@ describe('Current-tier row mappers', () => {
     expect(signal.stanceMix).toEqual({ excited: 30, skeptical: 12 });
   });
 
+  it('maps live_theory.image_url to imageUrl and omits it when null', () => {
+    const base = {
+      id: 'lt-img',
+      name: 'n',
+      claim: 'c',
+      first_seen_on: '2026-10-20',
+      last_seen_on: '2026-10-20',
+      origin: 'fan',
+      status: 'rumor',
+      outcome: 'pending',
+      evidence_ids: [],
+      symbols: [],
+      heat: 1,
+      resolution: null,
+      promoted_to: null,
+      expires_at: '2026-12-20T00:00:00.000Z',
+    };
+    expect(mapLiveTheory({ ...base, image_url: 'https://www.people.com/p.jpg' }).imageUrl).toBe(
+      'https://www.people.com/p.jpg',
+    );
+    expect(mapLiveTheory({ ...base, image_url: null })).not.toHaveProperty('imageUrl');
+  });
+
   it('maps a live_theory row, including resolution when complete', () => {
     const theory = mapLiveTheory({
       id: 'lt1',

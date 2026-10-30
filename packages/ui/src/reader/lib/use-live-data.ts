@@ -1,6 +1,7 @@
 'use client';
 
 import type { CurrentItem, FanSignal, LiveTheory } from '@swift2/shared';
+import { liveTheoryHasValidImage } from '@swift2/shared';
 
 /**
  * R17: shared client-side fetch for `/vault/live/[eraId]` — the one combined
@@ -40,7 +41,10 @@ export function fetchLiveData(
     .then(
       (data: { items?: unknown; theories?: unknown; signals?: unknown }): LiveData => ({
         items: Array.isArray(data.items) ? (data.items as CurrentItem[]) : [],
-        theories: Array.isArray(data.theories) ? (data.theories as LiveTheory[]) : [],
+        // Defense in depth: a theory with no valid image is never a card.
+        theories: Array.isArray(data.theories)
+          ? (data.theories as LiveTheory[]).filter(liveTheoryHasValidImage)
+          : [],
         signals: Array.isArray(data.signals) ? (data.signals as FanSignal[]) : [],
       }),
     )

@@ -13,6 +13,7 @@ import {
 import { runExtractMaintenance } from './extract-stage-maintenance';
 import { extractWithLLM } from './haiku-client';
 import { reresolveHeldImages } from './held-image-pass';
+import { reresolveHeldTheoryImages } from './held-theory-image-pass';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import {
@@ -125,8 +126,11 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       if (extracted.kind === 'skip') {
         result.skipped += 1;
       } else {
+        const imageUrl = extracted.currentItem
+          ? await resolveImageUrl(story.top_image_url, sources)
+          : undefined;
+        let evidenceDocId: string | undefined;
         if (extracted.currentItem) {
-          const imageUrl = await resolveImageUrl(story.top_image_url, sources);
           let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
           try {
             const candidates = await loadDedupeCandidates(db, CURRENT_ERA_ID);
@@ -186,8 +190,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             if (!written.redlineOk) result.screenedOut += 1;
             else {
               result.extracted += 1;
+              evidenceDocId = `current:${written.id}`;
               await projectKnowledgeDoc(db, {
-                id: `current:${written.id}`,
+                id: evidenceDocId,
                 kind: 'current_item',
                 title: extracted.currentItem.headline,
                 text: `${extracted.currentItem.summary} ${extracted.currentItem.detail}`.trim(),
@@ -222,6 +227,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               theory,
               extracted.fanSignal.symbols,
               today,
+              { imageUrl: evidenceDocId ? imageUrl : undefined, evidenceIds: evidenceDocId ? [evidenceDocId] : [] },
             );
             theoryIds.push(stored.id);
             result.theoriesUpserted += 1;
@@ -238,7 +244,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               symbols: extracted.fanSignal.symbols,
               entities: [],
               expiresAt: stored.expiresAt,
-              redlineOk: true,
+              redlineOk: stored.published,
             });
           }
           const stored = await writeFanSignal(
@@ -286,5 +292,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   result.heldImagesChecked = held.checked;
   result.heldImagesPublished = held.published;
   errors.push(...held.errors);
+  const heldTheories = await reresolveHeldTheoryImages(db);
+  result.heldImagesChecked += heldTheories.checked;
+  result.heldImagesPublished += heldTheories.published;
+  errors.push(...heldTheories.errors);
   return result;
 }

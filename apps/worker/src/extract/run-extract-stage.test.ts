@@ -8,11 +8,19 @@ const mocks = vi.hoisted(() => ({
   fetchPostComments: vi.fn(),
   refreshSymbolActivity: vi.fn(),
   reresolveHeldImages: vi.fn(),
+  reresolveHeldTheoryImages: vi.fn(),
   resolveVanishedCountdowns: vi.fn(),
   supabaseExtractUsageDb: vi.fn(),
+  upsertLiveTheory: vi.fn(),
+  writeCurrentItem: vi.fn(),
+  theoryPassesScreen: vi.fn(),
+  writeFanSignal: vi.fn(),
+  resolveImageUrl: vi.fn(),
+  evaluateSameEventGate: vi.fn(),
 }));
 
 vi.mock('./held-image-pass', () => ({ reresolveHeldImages: mocks.reresolveHeldImages }));
+vi.mock('./held-theory-image-pass', () => ({ reresolveHeldTheoryImages: mocks.reresolveHeldTheoryImages }));
 vi.mock('./haiku-client', () => ({ extractWithLLM: mocks.extractWithLLM }));
 vi.mock('../sources/reddit-rss', () => ({ fetchPostComments: mocks.fetchPostComments }));
 vi.mock('../sources/site-diff', () => ({ resolveVanishedCountdowns: mocks.resolveVanishedCountdowns }));
@@ -24,10 +32,15 @@ vi.mock('./write-knowledge', () => ({
   abandonQuietTheories: mocks.abandonQuietTheories,
   projectKnowledgeDoc: vi.fn(),
   refreshSymbolActivity: mocks.refreshSymbolActivity,
-  theoryPassesScreen: vi.fn(),
-  upsertLiveTheory: vi.fn(),
-  writeCurrentItem: vi.fn(),
-  writeFanSignal: vi.fn(),
+  theoryPassesScreen: mocks.theoryPassesScreen,
+  upsertLiveTheory: mocks.upsertLiveTheory,
+  writeCurrentItem: mocks.writeCurrentItem,
+  writeFanSignal: mocks.writeFanSignal,
+}));
+vi.mock('./image-resolve', () => ({ resolveImageUrl: mocks.resolveImageUrl }));
+vi.mock('./dedupe-gate', () => ({
+  loadDedupeCandidates: vi.fn().mockResolvedValue([]),
+  evaluateSameEventGate: mocks.evaluateSameEventGate,
 }));
 
 import { runExtractStage } from './run-extract-stage';
@@ -71,8 +84,15 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.fetchPostComments.mockReset();
     mocks.refreshSymbolActivity.mockReset().mockResolvedValue(undefined);
     mocks.reresolveHeldImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
+    mocks.reresolveHeldTheoryImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
     mocks.resolveVanishedCountdowns.mockReset().mockResolvedValue(0);
     mocks.supabaseExtractUsageDb.mockReset().mockReturnValue({});
+    mocks.upsertLiveTheory.mockReset().mockResolvedValue({ id: 'th-1', expiresAt: 'x', published: false });
+    mocks.writeCurrentItem.mockReset();
+    mocks.theoryPassesScreen.mockReset().mockReturnValue(true);
+    mocks.writeFanSignal.mockReset().mockResolvedValue({ id: 'fs-1', redlineOk: false, expiresAt: 'x' });
+    mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/screened.jpg');
+    mocks.evaluateSameEventGate.mockReset().mockResolvedValue({ action: 'write' });
   });
 
   afterEach(() => {
@@ -169,10 +189,50 @@ describe('runExtractStage Reddit comment context', () => {
 
   it('runs the bounded held-image pass and reports its counts', async () => {
     mocks.reresolveHeldImages.mockResolvedValue({ checked: 3, published: 2, errors: ['held-image x'] });
+    mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, errors: ['held-theory y'] });
     const result = await runExtractStage(fakeDb([]));
     expect(mocks.reresolveHeldImages).toHaveBeenCalledOnce();
-    expect(result.heldImagesChecked).toBe(3);
-    expect(result.heldImagesPublished).toBe(2);
+    expect(mocks.reresolveHeldTheoryImages).toHaveBeenCalledOnce();
+    expect(result.heldImagesChecked).toBe(7);
+    expect(result.heldImagesPublished).toBe(3);
     expect(result.errors).toContain('held-image x');
+    expect(result.errors).toContain('held-theory y');
+  });
+
+  const BOTH = {
+    kind: 'both',
+    redlineFlags: [],
+    currentItem: {
+      observedOn: '2026-10-29',
+      category: 'news',
+      tags: [],
+      headline: 'h',
+      summary: 's',
+      detail: 'd',
+      symbols: [],
+      entities: [],
+      statusHint: 'reported',
+    },
+    fanSignal: { topic: 't', summary: 's', stanceMix: {}, symbols: [], theories: [{ name: 'T', claim: 'c' }] },
+  };
+
+  it('does not hand a screened-out current_item image to a theory in the same cluster', async () => {
+    mocks.extractWithLLM.mockResolvedValue(BOTH);
+    mocks.writeCurrentItem.mockResolvedValue({ id: 'ci-1', redlineOk: false, expiresAt: 'x' });
+    const result = await runExtractStage(fakeDb([]));
+    expect(mocks.resolveImageUrl).toHaveBeenCalled();
+    expect(mocks.upsertLiveTheory).toHaveBeenCalledOnce();
+    expect(mocks.upsertLiveTheory.mock.calls[0]?.[4]).toEqual({ imageUrl: undefined, evidenceIds: [] });
+    expect(result.errors).toEqual([]);
+  });
+
+  it('passes the image and evidence id to a theory when the current_item was written', async () => {
+    mocks.extractWithLLM.mockResolvedValue(BOTH);
+    mocks.writeCurrentItem.mockResolvedValue({ id: 'ci-1', redlineOk: true, expiresAt: 'x' });
+    await runExtractStage(fakeDb([]));
+    expect(mocks.upsertLiveTheory.mock.calls[0]?.[4]).toEqual({
+      imageUrl: 'https://www.people.com/screened.jpg',
+      evidenceIds: ['current:ci-1'],
+    });
   });
 });

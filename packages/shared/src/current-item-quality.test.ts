@@ -4,7 +4,9 @@ import {
   IMAGE_HOST_ALLOWLIST,
   SCOPED_IMAGE_HOST_ALLOWLIST,
   evaluateCurrentItemQuality,
+  evaluateImageUrl,
   isAllowlistedImageHost,
+  liveTheoryHasValidImage,
   passesCurrentItemQualityGate,
   sentenceCount,
   wordCount,
@@ -173,5 +175,23 @@ describe('evaluateCurrentItemQuality', () => {
       ok: false,
       reason: 'detail_too_short',
     });
+  });
+});
+
+describe('evaluateImageUrl / liveTheoryHasValidImage (live_theory media gate)', () => {
+  it('reports the same reasons the current_item gate does', () => {
+    expect(evaluateImageUrl(undefined)).toEqual({ ok: false, reason: 'missing_image' });
+    expect(evaluateImageUrl(null)).toEqual({ ok: false, reason: 'missing_image' });
+    expect(evaluateImageUrl('https://evil.example.com/a.jpg')).toEqual({
+      ok: false,
+      reason: 'image_host_not_allowlisted',
+    });
+    expect(evaluateImageUrl('https://www.people.com/photo.jpg')).toEqual({ ok: true });
+  });
+
+  it('drops theories without a valid image and keeps ones with an allowlisted image', () => {
+    expect(liveTheoryHasValidImage({})).toBe(false);
+    expect(liveTheoryHasValidImage({ imageUrl: 'https://evil.example.com/a.jpg' })).toBe(false);
+    expect(liveTheoryHasValidImage({ imageUrl: 'https://www.people.com/photo.jpg' })).toBe(true);
   });
 });
