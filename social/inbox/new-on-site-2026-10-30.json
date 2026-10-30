@@ -1,0 +1,96 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-10-30",
+  "windowDays": 7,
+  "since": "2026-10-23T00:00:00.000Z",
+  "count": 6,
+  "media": [
+    "https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg",
+    "https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg",
+    "https://i.ytimg.com/vi/z58kj4QtH1Y/maxresdefault.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg",
+    "https://www.instagram.com/p/C8hIungMPmD/"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall",
+      "eraId": "tloas",
+      "title": "Brad Paisley inducts her into the Nashville Songwriters Hall of Fame",
+      "year": 2026,
+      "month": 10,
+      "day": 26,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/z58kj4QtH1Y/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-confetti-on-the-debut-page-20-years-of-taylor-swift",
+      "eraId": "tloas",
+      "title": "Confetti on the debut page: \"20 years of Taylor Swift\"",
+      "year": 2026,
+      "month": 10,
+      "day": 23,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-confetti-on-the-debut-page-20-years-of-taylor-swift",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg"
+    },
+    {
+      "id": "vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep",
+      "eraId": "tloas",
+      "title": "Maya Hawke on Hot Ones: \"But Daddy I Love Him\" and \"betty\" are epic poetry",
+      "year": 2026,
+      "month": 10,
+      "day": 22,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli",
+      "eraId": "tloas",
+      "title": "\"Patient Zero\" ends its three-week Hot 100 run at No. 1 and slides to No. 5",
+      "year": 2026,
+      "month": 10,
+      "day": 26,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back",
+      "eraId": "tloas",
+      "title": "Prince William on the Wembley selfie: \"Travis kept coming back in\"",
+      "year": 2026,
+      "month": 10,
+      "day": 23,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back",
+      "mediaKind": "instagram",
+      "media": "https://www.instagram.com/p/C8hIungMPmD/"
+    },
+    {
+      "id": "vault-tloas-the-debut-turns-20-and-an-unpublished-2008-interview-resurfa",
+      "eraId": "tloas",
+      "title": "The debut turns 20, and an unpublished 2008 interview resurfaces",
+      "year": 2026,
+      "month": 10,
+      "day": 24,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-the-debut-turns-20-and-an-unpublished-2008-interview-resurfa",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg"
+    }
+  ]
+}

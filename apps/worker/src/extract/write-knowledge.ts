@@ -19,6 +19,7 @@ import {
   LIVE_THEORY_EXPIRY_DAYS,
 } from './expiry';
 import { findTheoryMatch } from './theory-match';
+import { mergeEvidenceIds, theoryImageFields, type TheoryEvidence } from './live-theory-image';
 
 // Notifications Phase 2 producer seam (NOTIFICATIONS_PLAN.md, this task's
 // instruction to "map where each existing pipeline currently emits its
@@ -406,11 +407,19 @@ interface ExistingLiveTheory {
   name: string;
   symbols: string[];
   heat: number;
+  image_url?: string | null;
+  evidence_ids?: unknown;
 }
 
 export interface UpsertLiveTheoryResult {
   id: string;
   expiresAt: string;
+  /** False when the theory is held for lack of a valid evidence image. */
+  published: boolean;
+  /** The `quality_hold_reason` stored on the row when `published` is false,
+   * null when published, `undefined` on a re-observation of an already-held
+   * row that keeps its prior hold reason. */
+  holdReason?: string | null;
 }
 
 /** Upserts one theory: bumps last_seen_on/heat on a matching existing row
@@ -434,10 +443,11 @@ export async function upsertLiveTheory(
   theory: ExtractedTheory,
   symbols: readonly string[],
   today: string,
+  evidence: TheoryEvidence = {},
 ): Promise<UpsertLiveTheoryResult> {
   const { data: existingRows, error: selectError } = await db
     .from('live_theory')
-    .select('id, name, symbols, heat')
+    .select('id, name, symbols, heat, image_url, evidence_ids')
     .neq('status', 'abandoned');
   if (selectError) throw new Error(`live_theory select failed: ${selectError.message}`);
 
@@ -446,18 +456,30 @@ export async function upsertLiveTheory(
     (existingRows ?? []) as ExistingLiveTheory[],
   );
   const theoryExpiresAt = expiresAt(LIVE_THEORY_EXPIRY_DAYS);
+  // Media gate: a theory is only published with a valid evidence image
+  // (live-theory-image.ts); otherwise it is written held, fail closed.
+  const image = theoryImageFields(evidence.imageUrl);
+  const evidenceIds = [...(evidence.evidenceIds ?? [])];
 
   if (match) {
+    const hadImage = Boolean(match.image_url);
+    const gainsImage = !hadImage && image.published;
     const { error: updateError } = await db
       .from('live_theory')
       .update({
         last_seen_on: today,
         heat: match.heat + 1,
         expires_at: theoryExpiresAt,
+        ...(evidenceIds.length > 0 ? { evidence_ids: mergeEvidenceIds(match.evidence_ids, evidenceIds) } : {}),
+        ...(gainsImage ? image.fields : {}),
       })
       .eq('id', match.id);
     if (updateError) throw new Error(`live_theory update failed: ${updateError.message}`);
-    return { id: match.id, expiresAt: theoryExpiresAt };
+    // First publication of a previously held theory: fire the one-per-theory
+    // easter_egg event (dedupe_key keeps it to once per theory id).
+    if (gainsImage) await emitEasterEggEvent(db, match.id, theory);
+    const published = hadImage || image.published;
+    return { id: match.id, expiresAt: theoryExpiresAt, published, holdReason: published ? null : image.fields.quality_hold_reason };
   }
 
   const { data, error } = await db
@@ -474,19 +496,21 @@ export async function upsertLiveTheory(
       heat: 1,
       expires_at: theoryExpiresAt,
       redline_ok: true,
+      evidence_ids: evidenceIds,
+      ...image.fields,
     })
     .select('id')
     .single();
   if (error) throw new Error(`live_theory insert failed: ${error.message}`);
   const id = data.id as string;
-  await emitEasterEggEvent(db, id, theory);
-  return { id, expiresAt: theoryExpiresAt };
+  if (image.published) await emitEasterEggEvent(db, id, theory);
+  return { id, expiresAt: theoryExpiresAt, published: image.published, holdReason: image.published ? null : image.fields.quality_hold_reason };
 }
 
-async function emitEasterEggEvent(
+export async function emitEasterEggEvent(
   db: SupabaseClient,
   theoryId: string,
-  theory: ExtractedTheory,
+  theory: Pick<ExtractedTheory, 'name' | 'claim'>,
 ): Promise<void> {
   try {
     await insertEvent(db, {

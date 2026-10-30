@@ -117,7 +117,9 @@ describe('news producers (real writeCurrentItem events) never emit a dead vocabu
 
   it('a new live theory event opens the Threads board', async () => {
     const { db, events } = recordingDb();
-    await upsertLiveTheory(db, { name: 'n', claim: 'c' } as never, [], '2026-10-04');
+    await upsertLiveTheory(db, { name: 'n', claim: 'c' } as never, [], '2026-10-04', {
+      imageUrl: SERVABLE_IMAGE_URL,
+    });
     const evt = events.find((e) => e.category === 'easter_egg');
     expect(evt).toBeDefined();
     const { target, dest, a } = open(evt!.deep_link as string);

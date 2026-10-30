@@ -57,7 +57,7 @@ describe('schema fingerprint guard', () => {
     // If this fails: schema.ts, validation-contract.ts or the installed zod
     // version changed. Bump SCHEMA_FINGERPRINT in warm-cache.ts (so cached
     // bundles re-validate once after the OTA) AND update this pin.
-    expect([SCHEMA_FINGERPRINT, sha]).toEqual(['schema-fp-4', 'e68c04d1f3cbdb1840ad150d041eee52e98e9961bcae920df8da5488fe4373fe']);
+    expect([SCHEMA_FINGERPRINT, sha]).toEqual(['schema-fp-5', '65784bae332f050f0c9520930f5dd2fb37ba3abfed0b6c0a860bfe6d932e4a72']);
   });
 });
 

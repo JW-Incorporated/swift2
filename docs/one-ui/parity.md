@@ -70,7 +70,10 @@ context with the same device options, armed by the same handler). When both side
 in-memory image cache served side b an image side a had just fetched, so b's request never reached the route
 handler and the recorded external-image sets differed although both sides rendered the image.
 
-Fixed clock (`clock.setFixedTime`, never `install`), reduced motion, animations
+Fixed clock (`clock.setFixedTime`, never `install`; side a's server clock is frozen
+to the same instant by the `scripts/parity/freeze-date.cjs` preload on its `next build` and
+`next start`, because React keeps server-rendered attributes on hydration, so the current-era
+scrubber ridge otherwise followed the real date and drifted past the pixel tolerance, 2026-10-30), reduced motion, animations
 disabled, caret hidden, first-visit flags in `localStorage`, `/vault/live`
 stubbed empty, Vercel analytics stubbed, every external image answered by one
 generated grey PNG (every external image URL is recorded per side and the a and b

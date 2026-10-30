@@ -610,11 +610,8 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
     return findings; // nothing else to check without media
   }
   if (item.platform === 'x' && !item.media?.length) {
-    // Bots v2 W8: "no usable image → X-only" is the sanctioned single-platform case (checkCampaignPair,
-    // owner 2026-09-30) — it could never pass while this gate demanded media too. Only an X item that
-    // carries its OWN written reason is exempt; a paired X item still needs its image.
-    if (isValidSinglePlatformReason(item.singlePlatformReason)) return findings;
-    if (!params.media.requireImageOnX) return findings; // Tree's call (strategy-params.json media.requireImageOnX)
+    // Owner decision 2026-10-30: text-only X posts are banned. No exemption — not singlePlatformReason,
+    // not strategy-params.json media.requireImageOnX.
     findings.push('media: X drafts require at least one credited image in `media` — every real campaign ships to both platforms (2026-09-10, kanban t_bac31b1a).');
     return findings;
   }
@@ -622,7 +619,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
     findings.push(`media: mediaKind ${JSON.stringify(item.mediaKind)} is not currently allowed — social/strategy-params.json media.allowedKinds is ${JSON.stringify(params.media.allowedKinds)}.`);
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
-    findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+    findings.push('media: X drafts may not use mediaKind "site-screen" — X site-screen posts are permanently prohibited. Use a real credited photo, image or video instead (text-only X posts are banned).');
   }
   // Website-screenshot-as-media lock (2026-08-31, Joey — kanban t_895c2ba8:
   // "I want just pictures of Taylor and Taylor related stuff, no more
@@ -635,8 +632,8 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
   // only ship on a `launch:`-family campaign (the feature-launch arc, the
   // one place strategy §2(a) actually calls it out — "an Instagram
   // site-screen is legitimate here"). Every other campaign family
-  // (heartbeat, thread, mood) must use a real Taylor photo or go text-only
-  // on X. Strategy §2(a) is more specific than "launch campaigns may use
+  // (heartbeat, thread, mood) must use a real Taylor photo (text-only X is
+  // banned). Strategy §2(a) is more specific than "launch campaigns may use
   // site-screen" though: "on Instagram the screenshot rides slide 2 of a
   // carousel behind a Taylor photo tile — the grid shows Taylor either
   // way." So even on a launch campaign, media[0] (the grid tile) must be a
@@ -651,7 +648,7 @@ export async function checkMedia(file, item, recentIgPosted, allQueueItems = [],
       findings.push(
         `media: mediaKind "site-screen" is only allowed on a ${screenPrefixes.map((p) => `\`${p}\``).join('/')}-family campaign (social/strategy-params.json siteScreen; this draft's campaign is ${JSON.stringify(item.campaign ?? null)}) — ` +
           'per docs/marketing/social-strategy.md §2, a website screenshot is only legitimate for a feature-launch/how-to post. Every other post must use a real credited Taylor photo ' +
-          '(mediaKind "photo") or go text-only on X. (Joey, 2026-08-31: "no more pictures of our website.")',
+          '(mediaKind "photo"); text-only X is banned. (Joey, 2026-08-31: "no more pictures of our website.")',
       );
     } else {
       launchCarouselRequired = params.siteScreen.requirePhotoGridTile;

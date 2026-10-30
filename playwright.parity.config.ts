@@ -1,4 +1,8 @@
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, devices } from '@playwright/test';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * One UI WP1.1c parity harness. Renders the spike routes twice, (a) the Next
@@ -43,7 +47,7 @@ export default defineConfig({
       command: `npm run start -w @swift2/web -- -H 127.0.0.1 -p ${A_PORT}`,
       url: `http://127.0.0.1:${A_PORT}/`,
       reuseExistingServer: !process.env.CI,
-      env: { PARITY_PROBE: '1' },
+      env: { PARITY_PROBE: '1', NODE_OPTIONS: [process.env.NODE_OPTIONS, `--require ${resolve(__dirname, 'scripts/parity/freeze-date.cjs')}`].filter(Boolean).join(' ') },
       timeout: 60_000,
     },
   ],

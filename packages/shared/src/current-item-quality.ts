@@ -234,6 +234,23 @@ export function isAllowlistedImageHost(url: string): boolean {
   );
 }
 
+/** The image half of the publish gate, shared by every card kind that must
+ * carry media (`current_item` via `evaluateCurrentItemQuality`, `live_theory`
+ * via its write/read paths) — one mechanism, one allowlist. */
+export function evaluateImageUrl(
+  imageUrl: string | null | undefined,
+): { ok: true } | { ok: false; reason: 'missing_image' | 'image_host_not_allowlisted' } {
+  if (!imageUrl) return { ok: false, reason: 'missing_image' };
+  if (!isAllowlistedImageHost(imageUrl)) return { ok: false, reason: 'image_host_not_allowlisted' };
+  return { ok: true };
+}
+
+/** Read-time defense in depth for `live_theory` rows: servable only with a
+ * present, allowlisted image (legacy imageless rows are dropped). */
+export function liveTheoryHasValidImage(theory: { imageUrl?: string | null }): boolean {
+  return evaluateImageUrl(theory.imageUrl).ok;
+}
+
 /**
  * THE PUBLISH GATE. A `current_item` is servable only when ALL of:
  * headline present; `imageUrl` present AND allowlisted; `summary` >=
@@ -253,8 +270,8 @@ export function evaluateCurrentItemQuality(
   thresholds: CurrentItemQualityThresholds = CURRENT_ITEM_QUALITY_THRESHOLDS,
 ): CurrentItemQualityResult {
   if (!item.headline || !item.headline.trim()) return { ok: false, reason: 'missing_headline' };
-  if (!item.imageUrl) return { ok: false, reason: 'missing_image' };
-  if (!isAllowlistedImageHost(item.imageUrl)) return { ok: false, reason: 'image_host_not_allowlisted' };
+  const image = evaluateImageUrl(item.imageUrl);
+  if (!image.ok) return image;
   if (
     sentenceCount(item.summary) < thresholds.summaryMinSentences ||
     item.summary.trim().length < thresholds.summaryMinChars
