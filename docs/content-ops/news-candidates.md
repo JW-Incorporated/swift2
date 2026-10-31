@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 98
 
 ## Nelly Discusses $50,000 Cash Payment from Taylor Swift for Concert
 
@@ -845,11 +845,3 @@ Stories: 99
 - summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million. The property, known for its stunning features, has garnered attention following its sale.
 - sources:
   - [unverified] Grazia — https://graziamagazine.com/us/articles/the-castle-from-taylor-swifts-blank-space-music-video-just-sold-for-a-staggering-72-million-inside-the-stunning-property/
-
-## Neighbors Reject Home Improvement Plans for Swift's Ohio Mansion
-
-- first seen: 2026-10-28 07:45 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Neighbors of Taylor Swift and Travis Kelce have opposed proposed home improvement plans for their Ohio mansion. The plans have faced scrutiny and were ultimately rejected by those living nearby.
-- sources:
-  - [unverified] Akron Beacon Journal — https://www.beaconjournal.com/story/news/2026/10/28/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-snag-neighbors/92458338007/
