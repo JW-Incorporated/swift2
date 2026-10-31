@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 97
 
 ## Travis Kelce Addresses Prince William's Selfie Comment
 
@@ -51,14 +51,6 @@ Stories: 98
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/sport/videos/ckgelp588j1xo?at_medium=RSS&at_campaign=rss
 
-## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
-
-- first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has shared his thoughts on Prince William's unexpected remark regarding a selfie with Taylor Swift. The interaction highlights the crossover between celebrity culture and royal interests.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
-
 ## Taylor Swift's Wedding Guests Reportedly Treated Differently
 
 - first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
@@ -74,6 +66,15 @@ Stories: 98
 - summary: A report suggests that Taylor Swift may choose not to release any official wedding photos, indicating that her silence on the matter could convey more than images. The decision appears to focus on her private life rather than public shares.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/silence-may-ultimately-speak-louder-103036995.html
+
+## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
+
+- first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce has shared his thoughts on Prince William's unexpected remark regarding a selfie with Taylor Swift. The interaction highlights the crossover between celebrity culture and royal interests.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-unexpected-move-wedding-travis-kelce/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
 
 ## New Taylor Swift-themed restaurant Swiftee's Lakeview opens in Hempfield
 
@@ -823,11 +824,3 @@ Stories: 98
 - summary: Travis Kelce addresses a marriage-related topic in response to a resurfaced joke involving Prince William's selfie. The comments were made during discussions on various media platforms.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-makes-unexpected-marriage-152000767.html
-
-## Details on Taylor Swift and Travis Kelce's Wedding Décor
-
-- first seen: 2026-10-28 14:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article explores the décor used by Taylor Swift and Travis Kelce for their $30 million wedding at Madison Square Garden. It examines the choices made for the event and their significance.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/happened-taylor-swift-travis-kelce-133413610.html
