@@ -513,6 +513,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/waves/*.md` | Paste-ready prompts, one per wave, each a fresh session |
 | `docs/plans/marjorie-overhaul/PLAN.md` | Marjorie Overhaul (epic #4180) plan of record: waves M0–M4, item map, gates, why M4 waits for Tree R2 |
 | `docs/plans/marjorie-overhaul/RUNBOOK.md` | Founder runbook for the Marjorie waves: schedule, standing job in `#longlive-marjorie` |
+| `docs/plans/2026-10-31-video-first.md` | Video-first feed plan (2027 direction): diagnosis, target design (current_item embed + media-aware ranker), 8 slices routed Quen vs Claude, owner decisions Q1–Q4 |
 | `docs/plans/marjorie-overhaul/checkpoints.json` | MR1/MR2 rechecks; `due` is null until the M1 session sets it |
 | `docs/plans/marjorie-overhaul/waves/*.md` | Paste-ready prompts, one per wave: `m0-design` (done), `m1-comms`, `m2-watchdog-handling`, `m3-triage`, `m4-loop`, `m5-chat`, `m6-live-asks`, `m7-doorbell`, `m7-clock-v2` (the clock rebuilt from the architect ruling in `DEBUG.md` on `feature/m7-clock`) |
 | `docs/plans/one-ui/PLAN.md` | One UI programme (epic #4788): work packages WP0.0–WP5.2, gates G0–G5, device test sessions S1–S9 |
