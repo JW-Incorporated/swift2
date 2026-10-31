@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 91
+
+## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Home Plans
+
+- first seen: 2026-10-31 00:27 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly facing increased backlash regarding their proposed plans for a home in Ohio. The reaction has garnered attention in public discussions.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-growing-backlash-over-plans-ohio-home
 
 ## Taylor Swift Skips Wedding Tradition Referenced in Lyrics
 
@@ -780,35 +788,3 @@ Stories: 94
 - summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million at auction. The sale highlights the value of properties associated with notable cultural figures.
 - sources:
   - [established] People — https://people.com/castle-from-taylor-swift-s-blank-space-oheka-castle-finds-a-buyer-for-usd72-million-at-auction-12197459
-
-## Taylor Swift Wears $2.4 Million Necklace at Red Carpet Event
-
-- first seen: 2026-10-28 00:11 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: At a recent red carpet event, Taylor Swift showcased a stunning necklace valued at $2.4 million, highlighting her fashion sense.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437547/taylor-swift-wears-s2-4m-necklace-at-nashville-songwriters-hall-of-fame
-
-## Source Claims Taylor Swift and Travis Kelce's Wedding Decor Destroyed Post-Ceremony
-
-- first seen: 2026-10-28 00:11 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A source reports that the expensive wedding decorations of Taylor Swift and Travis Kelce were incinerated without any traces following their ceremony.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-travis-kelces-pricey-211215993.html
-
-## Taylor Swift Discusses Tour Prank During Speech at Nashville Event
-
-- first seen: 2026-10-28 00:11 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During her speech at the Nashville Songwriters Hall of Fame, Taylor Swift shared a humorous prank involving Brad Paisley from their tour. The anecdote highlights her connection to fellow musicians.
-- sources:
-  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/taylor-swift-shares-epic-brad-222059489.html
-
-## Inspiring 'Gold Fairy Dust' Nails for Autumn Featured in ELLE
-
-- first seen: 2026-10-28 00:11 UTC | category: fashion | importance: 4
-- verification_status: single_source | source_count: 1
-- summary: ELLE showcases a nail art trend called 'Gold Fairy Dust' nails, highlighting how to recreate this dreamy autumn manicure.
-- sources:
-  - [established] Elle — https://www.elle.com/uk/beauty/nails/a74257858/taylor-swift-gold-fairy-dust-nails/
