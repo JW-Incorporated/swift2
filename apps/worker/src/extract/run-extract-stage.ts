@@ -132,6 +132,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           ? await resolveImageUrl(story.top_image_url, sources)
           : undefined;
         let evidenceDocId: string | undefined;
+        let theoryImageUrl: string | null | undefined = imageUrl;
         if (extracted.currentItem) {
           let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
           try {
@@ -148,6 +149,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           if (decision.action === 'discard' || decision.action === 'merge') {
             result.dedupeDiscarded += decision.action === 'discard' ? 1 : 0;
             result.dedupeMerged += decision.action === 'merge' ? 1 : 0;
+            let dedupeOriginalImage: string | null;
             try {
               const { data: original, error } = await db
                 .from('current_item')
@@ -155,6 +157,10 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                 .eq('id', decision.candidateId)
                 .single();
               if (error) throw new Error(error.message);
+              dedupeOriginalImage = original.image_url as string | null;
+              if (dedupeOriginalImage) {
+                theoryImageUrl = dedupeOriginalImage;
+              }
               await mergeNewFactsIntoOriginal(
                 db,
                 decision.candidateId,
@@ -174,6 +180,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                   duplicateImageUrl: imageUrl ?? null,
                 },
               );
+              evidenceDocId = `current:${decision.candidateId}`;
             } catch (error) {
               errors.push(
                 `dedupe merge/discard failed for story ${story.id}: ${(error as Error).message}`,
@@ -223,7 +230,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             result,
             extracted.fanSignal,
             evidenceDocId,
-            imageUrl,
+            theoryImageUrl,
             today,
             CURRENT_ERA_ID,
             clusterItems.length,
