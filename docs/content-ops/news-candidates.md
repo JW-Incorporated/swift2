@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 97
+Stories: 98
+
+## New Taylor Swift-themed restaurant Swiftee's Lakeview opens in Hempfield
+
+- first seen: 2026-10-31 10:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Swiftee's Lakeview, a restaurant inspired by Taylor Swift, has opened its doors in the former location of Ferrante's in Hempfield. The establishment aims to attract fans of the pop star with its unique theme.
+- sources:
+  - [unverified] TribLIVE.com — https://triblive.com/local/westmoreland/taylor-swift-inspired-restaurant-swiftees-lakeview-opens-at-former-ferrantes-in-hempfield/
 
 ## Nelly Discusses $50,000 Cash Payment from Taylor Swift for Concert
 
