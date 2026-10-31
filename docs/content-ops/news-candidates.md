@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 97
+
+## Tim McGraw Discusses Marriage Insights in Esquire
+
+- first seen: 2026-10-31 05:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tim McGraw shares his thoughts on maintaining a successful marriage in a recent interview with Esquire. His perspective offers insights into the dynamics of partnerships.
+- sources:
+  - [unverified] Esquire — https://www.esquire.com/entertainment/music/a74272205/tim-mcgraw-what-ive-learned-interview-2026/
 
 ## Nelly Shares Details on Payment from Taylor Swift for Speak Now Tour
 
