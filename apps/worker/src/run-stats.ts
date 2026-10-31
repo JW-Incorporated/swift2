@@ -10,6 +10,7 @@ export interface NewsRunStats {
   imageFetchFailed: number;
   imageNoOg: number;
   imageHostNotAllowlisted: number;
+  imageRejectedHosts: Record<string, number>;
 }
 
 const ZERO: NewsRunStats = {
@@ -20,12 +21,14 @@ const ZERO: NewsRunStats = {
   imageFetchFailed: 0,
   imageNoOg: 0,
   imageHostNotAllowlisted: 0,
+  imageRejectedHosts: {},
 };
 
-export const runStats: NewsRunStats = { ...ZERO };
+export const runStats: NewsRunStats = { ...ZERO, imageRejectedHosts: {} };
 
 export function resetRunStats(): void {
   Object.assign(runStats, ZERO);
+  runStats.imageRejectedHosts = {};
 }
 
 /** Returns the warning text when most Google News resolutions failed, else null. */
