@@ -6453,7 +6453,7 @@ export default {
       month: 12,
       day: 31,
       category: 'relationship',
-      relatedIds: ['moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square'],
+      relatedIds: ['moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square', 'moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
       title: 'A New Year\'s Eve kiss in Kansas City',
       snippet:
         'Taylor and Kelce rang in 2025 with a private, low-key celebration and a midnight kiss in Kansas City; a source called the night "romantic."',
@@ -6602,7 +6602,7 @@ export default {
       month: 5,
       day: 31,
       category: 'fashion',
-      relatedIds: ['moment:vault-fearless-bowling-with-selena-gomez-in-studio-city', 'moment:vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob'],
+      relatedIds: ['moment:vault-fearless-bowling-with-selena-gomez-in-studio-city', 'moment:vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob', 'moment:vault-midnights-a-sparkling-green-gucci-gown-at-the-golden-globes'],
       title: 'A sequined Gucci set for a masters-buyback dinner with Selena Gomez',
       snippet:
         'Celebrating her masters buyback announcement, Taylor stepped out at NYC\'s Monkey Bar wearing a Gucci sequined silk-and-wool set, De Beers diamond earrings, and a diamond tennis bracelet.',
