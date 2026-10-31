@@ -2,19 +2,9 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
-
-## #147 🔴 [BLOCKING] routine-ops-fix hits its 80-turn cap and leaves issues ops-fix:stuck (~5 min)
-<!-- ha filed=2026-10-31 -->
-<!-- ha verify: issue-closed 6350 -->
-
-**Why:** The ops-fixer could not fix #6350 and needs a session with more reach.
-**Steps:**
-1. Open Claude Code in Documents\Claude\Projects\Swift2.
-2. Paste the prompt from issue #6350 (copy button on the code block).
-**Worked if:** issue #6350 is closed by a merged PR.
 
 ## #146 🟡 [DECIDE] PR #5662 (expo bump) stuck red 10 days (~5 min)
 <!-- ha filed=2026-10-23 -->
