@@ -16,23 +16,29 @@ const adapter = (embedOrigin?: string) => ({ embedOrigin }) as unknown as HostAd
 const video = { youtubeId: ID, title: 'A video' } as never;
 const pick = { title: 'A song', youtubeId: ID, slug: 's', eraId: 'e' } as unknown as MoodMatch;
 
+// Each render is unmounted before returning: only one embed may play at a time
+// (use-stop-when-hidden.ts), so a second mounted player would stop the first.
 const momentSrc = (embedOrigin?: string) => {
-  const { container } = render(
+  const { container, unmount } = render(
     <HostProvider adapter={adapter(embedOrigin)}>
       <MomentVideo video={video} startPlaying />
     </HostProvider>,
   );
-  return container.querySelector('iframe')!;
+  const iframe = container.querySelector('iframe')!;
+  unmount();
+  return iframe;
 };
 
 const moodSrc = (embedOrigin?: string) => {
-  const { container, getByRole } = render(
+  const { container, getByRole, unmount } = render(
     <HostProvider adapter={adapter(embedOrigin)}>
       <MoodSongCard pick={pick} eraName="Era" />
     </HostProvider>,
   );
   fireEvent.click(getByRole('button'));
-  return container.querySelector('iframe')!;
+  const iframe = container.querySelector('iframe')!;
+  unmount();
+  return iframe;
 };
 
 describe('YouTube iframe src by host (#4954)', () => {

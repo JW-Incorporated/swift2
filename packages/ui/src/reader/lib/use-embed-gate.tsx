@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useStopWhenHidden } from './use-stop-when-hidden';
 
 /** How long a wrapper-framed player may stay silent before we offer a reload. */
 export const EMBED_READY_BOUND_MS = 20_000;
@@ -55,6 +56,13 @@ export function useEmbedGate(startPlaying = false, embedOrigin?: string) {
     setStalled(false);
     setNotice(EMBED_FAILED_MESSAGE);
   }, []);
+
+  const stop = useCallback(() => {
+    setPlaying(false);
+    setStalled(false);
+  }, []);
+
+  useStopWhenHidden(playing, iframeRef, stop);
 
   const play = useCallback(() => {
     ready.current = false;
