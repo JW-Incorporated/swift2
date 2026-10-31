@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 97
+Stories: 98
+
+## Nelly Claims Taylor Swift Paid Him for Performance in McDonald’s Bag
+
+- first seen: 2026-10-31 06:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly has stated that Taylor Swift paid him $50,000 in a McDonald's bag for a brief three-minute performance. This claim was reported in a Yahoo article.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-says-taylor-swift-paid-023049596.html
 
 ## Tim McGraw Discusses Marriage Insights in Esquire
 
