@@ -27,6 +27,14 @@ so far".
 
 Stories: 92
 
+## Bill Maher Compares Trump's Actions to Dating Taylor Swift
+
+- first seen: 2026-10-31 19:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bill Maher humorously likened the experience of dining with and listening to Donald Trump to dating Taylor Swift. His remarks were made during a recent discussion, illustrating his view on the dynamics of both situations.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/10/31/bill-maher-compares-trump-dinner-to-dating-taylor-swift/
+
 ## Greta Lee and Joan Cusack React to Taylor Swift's 'Toy Story 5' Song
 
 - first seen: 2026-10-31 18:17 UTC | category: music | importance: 5
@@ -778,12 +786,3 @@ Stories: 92
 - summary: Este Haim expresses that her favorite way to enjoy Taylor Swift's music is when it's just Swift accompanied by a guitar. This insight highlights Haim's appreciation for a more stripped-down version of Swift's artistry.
 - sources:
   - [established] People — https://people.com/este-haim-favorite-version-of-friend-taylor-swift-music-exclusive-12198522
-
-## Taylor Swift Shares Story of Brad Paisley Prank
-
-- first seen: 2026-10-28 18:47 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: In a recent segment on Music City Minute, Taylor Swift shared a playful story about a prank orchestrated by Brad Paisley. The revelation highlights their friendship and light-hearted interactions within the music industry.
-- sources:
-  - [unverified] 98.5 KYGO — https://kygo.com/taylor-swift-reveals-prank-brad-paisley-played-on-her-music-city-minute/
-  - [unverified] Deseret News — https://www.deseret.com/entertainment/2026/10/28/taylor-swift-nashville-songwriters-hall-of-fame/
