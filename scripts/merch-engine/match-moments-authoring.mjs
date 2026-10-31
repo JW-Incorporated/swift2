@@ -197,6 +197,24 @@ async function readJson(path) {
   return JSON.parse(await readFile(resolve(path), 'utf8'));
 }
 
+/**
+ * Which search tiers can actually return a candidate this run. A missing Awin
+ * index is a degrade-to-b/c condition, never a matcher failure: E0 only fills
+ * the index once the Awin account has joined programmes, and the approved E6
+ * disposition is to run on brand-direct + paid search until it does
+ * (docs/decisions.md 2026-08-30, SPEC §8 step 2; `searchAwinIndex` already
+ * returns [] for an absent index). With no index AND no paid-search key no
+ * tier can return anything, so the run skips the per-moment vision calls
+ * rather than spending them on a guaranteed zero.
+ */
+export function planSearchTiers({ awinIndexAvailable, searchApiKey } = {}) {
+  const tiers = [
+    ...(awinIndexAvailable ? ['awin-index'] : []),
+    ...(searchApiKey ? ['brand-direct', 'paid-search'] : []),
+  ];
+  return { tiers, proceed: tiers.length > 0, degraded: !awinIndexAvailable };
+}
+
 function argValue(args, name) {
   const at = args.indexOf(name);
   if (at === -1) return null;
@@ -213,17 +231,21 @@ async function main() {
   if (!inputPath || !outputPath) {
     throw new Error('usage: match-moments-authoring.mjs --input plan.json --output result.json [--index awin-product-index.sqlite]');
   }
-  if (!existsSync(indexPath)) {
-    throw new Error(`Awin product index "${indexPath}" is missing; the cache restore found nothing saved by the merch-awin-sync workflow (first run or evicted cache). Run merch-awin-sync to rebuild it.`);
-  }
   const input = await readJson(inputPath);
   if (!Array.isArray(input.moments)) throw new Error('input must contain a moments array');
   const searchApiKey = process.env.SEARCH_API_KEY;
   const cap = Number.isInteger(input.paidSearch?.cap) ? input.paidSearch.cap : 0;
+  const plan = planSearchTiers({ awinIndexAvailable: existsSync(indexPath), searchApiKey });
+  if (plan.degraded) {
+    console.log(`::warning::Awin product index "${indexPath}" is unavailable, so search tier (a) is skipped. E0 has no joined Awin programmes yet, so merch-awin-sync saves no index cache; running degraded on brand-direct + paid search per the approved E6 disposition.`);
+  }
+  if (!plan.proceed) {
+    console.log('::warning::No search tier is available (no Awin index and no SEARCH_API_KEY), so no candidate could be found; skipping the per-moment vision calls instead of spending them on a guaranteed zero.');
+  }
 
   const results = [];
   let paidSearchCalls = 0;
-  for (const entry of input.moments) {
+  for (const entry of plan.proceed ? input.moments : []) {
     const result = await runMatcherAuthoring({
       moment: entry.moment,
       momentImageUrl: entry.momentImageUrl,
@@ -247,7 +269,7 @@ async function main() {
   const target = resolve(outputPath);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
-  console.log(JSON.stringify({ moments: results.length, products: results.reduce((total, result) => total + result.products.length, 0), tickets: tickets.length }));
+  console.log(JSON.stringify({ moments: results.length, products: results.reduce((total, result) => total + result.products.length, 0), tickets: tickets.length, searchTiers: plan.tiers }));
 }
 
 export async function extractDescriptorsWithClaude({ moment, momentImageUrl }, options = {}) {
