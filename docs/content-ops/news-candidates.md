@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 92
+
+## Greta Lee and Joan Cusack React to Taylor Swift's 'Toy Story 5' Song
+
+- first seen: 2026-10-31 18:17 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Greta Lee and Joan Cusack share their reactions to Taylor Swift's song featured in 'Toy Story 5'. The two actresses express their admiration in a recent article.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/did-she-greta-lee-joan-180000273.html
 
 ## Taylor Swift Inducted into Hall of Fame with $2.4 Million Necklace
 
@@ -779,19 +787,3 @@ Stories: 93
 - sources:
   - [unverified] 98.5 KYGO — https://kygo.com/taylor-swift-reveals-prank-brad-paisley-played-on-her-music-city-minute/
   - [unverified] Deseret News — https://www.deseret.com/entertainment/2026/10/28/taylor-swift-nashville-songwriters-hall-of-fame/
-
-## Fans Reactions to Taylor Swift's Wedding Decor Decisions
-
-- first seen: 2026-10-28 17:51 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift faces backlash from fans after reports regarding her decisions with elaborate wedding decor. The situation has sparked notable discussions among her followers.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/fans-turn-taylor-swift-learning-143913000.html
-
-## Travis Kelce Reacts to Prince William's Comment on Taylor Swift Photo
-
-- first seen: 2026-10-28 17:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared a humorous response to Prince William's remark regarding a photo of Taylor Swift. The interaction highlights the connection between Kelce's relationship with Swift and the royal family.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437578/travis-kelce-reacts-to-prince-william-not-wanting-him-in-taylor-swift-photo
