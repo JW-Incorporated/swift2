@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 96
+
+## Nelly Shares Details on Payment from Taylor Swift for Speak Now Tour
+
+- first seen: 2026-10-31 04:27 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Nelly disclosed the amount and the unique method Taylor Swift used to compensate him for his participation in the Speak Now tour.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/nelly-reveals-much-unique-way-015049132.html
 
 ## Review of Taylor Swift's The Life of a Showgirl: The Encore
 
@@ -43,14 +51,6 @@ Stories: 95
 - sources:
   - [unverified] HOLA — https://www.hola.com/us/celebrities/20261030932407/taylor-swift-nelly-50k-mcdonalds-bag-performance/
 
-## Nelly Claims Taylor Swift Paid Him $50K in McDonald's Bag for Concert Performance
-
-- first seen: 2026-10-31 02:27 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Nelly revealed that he received $50,000 from Taylor Swift in a McDonald's bag to perform at her concert. This statement highlights an unusual payment method for live performances in the music industry.
-- sources:
-  - [unverified] Entertainment Weekly — https://ew.com/nelly-says-taylor-swift-paid-him-50k-in-mcdonalds-bag-to-perform-12203459
-
 ## Bill Maher Compares Trump to Taylor Swift in Latest Episode
 
 - first seen: 2026-10-31 02:27 UTC | category: business | importance: 5
@@ -58,6 +58,14 @@ Stories: 95
 - summary: On a recent episode of 'Real Time with Bill Maher,' Bill Maher fired back at criticism regarding his dinner with Trump, comparing the former president to Taylor Swift. The segment highlights Maher’s defense of his choice to engage with controversial figures.
 - sources:
   - [established] Variety — https://variety.com/2026/tv/news/bill-maher-fires-back-trump-taylor-swift-real-time-hbo-1236935799/
+
+## Nelly Claims Taylor Swift Paid Him $50K in McDonald's Bag for Concert Performance
+
+- first seen: 2026-10-31 02:27 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Nelly revealed that he received $50,000 from Taylor Swift in a McDonald's bag to perform at her concert. This statement highlights an unusual payment method for live performances in the music industry.
+- sources:
+  - [unverified] Entertainment Weekly — https://ew.com/nelly-says-taylor-swift-paid-him-50k-in-mcdonalds-bag-to-perform-12203459
 
 ## Taylor Swift Breaks Records in Recent Achievements
 
@@ -303,12 +311,13 @@ Stories: 95
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437684/tim-mcgraw-did-not-perform-at-taylor-swift-travis-kelce-wedding
   - [unverified] Entertainment Weekly — https://ew.com/tim-mcgraw-performance-taylor-swift-travis-kelce-wedding-12202862
   - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
+  - [unverified] MoneyWise.com — https://moneywise.com/managing-money/budgeting/taylor-swift-travis-kelce-wedding-prenup-financial-planning
   - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/30/tim-mcgraw-shuts-down-rumor-that-he-performed-at-taylor-swift-travis-kelces-wedding-the-internets-not-always-correct/
   - [unverified] Wide Open Country — https://www.wideopencountry.com/tim-mcgraw-describes-the-marriage-advice-he-would-give-to-taylor-swift-and-travis-kelce/
