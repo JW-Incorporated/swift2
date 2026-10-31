@@ -27,6 +27,14 @@ so far".
 
 Stories: 95
 
+## Review of Taylor Swift's The Life of a Showgirl: The Encore
+
+- first seen: 2026-10-31 03:26 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The DePauw has published a review of Taylor Swift's performance in The Life of a Showgirl: The Encore. The review highlights various aspects of the show and its impact on audiences.
+- sources:
+  - [unverified] The DePauw — https://thedepauw.com/42100/entertainment/a-review-of-taylor-swifts-the-life-of-a-showgirl-the-encore/
+
 ## Taylor Swift Paid Nelly $50K for a Short Performance
 
 - first seen: 2026-10-31 02:27 UTC | category: business | importance: 6
@@ -812,11 +820,3 @@ Stories: 95
 - summary: Neighbors of Taylor Swift and Travis Kelce have opposed proposed home improvement plans for their Ohio mansion. The plans have faced scrutiny and were ultimately rejected by those living nearby.
 - sources:
   - [unverified] Akron Beacon Journal — https://www.beaconjournal.com/story/news/2026/10/28/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-snag-neighbors/92458338007/
-
-## Taylor Swift's collaborator criticizes Ed Sheeran after controversy
-
-- first seen: 2026-10-28 03:11 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A collaborator of Taylor Swift has publicly called out Ed Sheeran, urging him to take a stand following recent events involving Macklemore. The comments have sparked discussions in the music community.
-- sources:
-  - [unverified] Fox News — https://www.foxnews.com/media/taylor-swifts-hitmaker-scolds-ed-sheeran-stand-f-up-after-macklemore-fallout
