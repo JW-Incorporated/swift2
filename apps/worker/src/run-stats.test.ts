@@ -9,6 +9,7 @@ const stats = (resolved: number, unresolved: number): NewsRunStats => ({
   imageFetchFailed: 0,
   imageNoOg: 0,
   imageHostNotAllowlisted: 0,
+  imageRejectedHosts: {},
 });
 
 describe('gnewsResolutionWarning', () => {
