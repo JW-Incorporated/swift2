@@ -6,6 +6,7 @@ const mocks = vi.hoisted(() => ({
   createUsage: vi.fn(),
   extractWithLLM: vi.fn(),
   fetchPostComments: vi.fn(),
+  mergeNewFactsIntoOriginal: vi.fn(),
   refreshSymbolActivity: vi.fn(),
   reresolveHeldImages: vi.fn(),
   reresolveHeldTheoryImages: vi.fn(),
@@ -30,6 +31,7 @@ vi.mock('./usage-store', () => ({
 }));
 vi.mock('./write-knowledge', () => ({
   abandonQuietTheories: mocks.abandonQuietTheories,
+  mergeNewFactsIntoOriginal: mocks.mergeNewFactsIntoOriginal,
   projectKnowledgeDoc: vi.fn(),
   refreshSymbolActivity: mocks.refreshSymbolActivity,
   theoryPassesScreen: mocks.theoryPassesScreen,
@@ -82,15 +84,16 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.createUsage.mockReset().mockResolvedValue({});
     mocks.extractWithLLM.mockReset().mockResolvedValue({ kind: 'skip', redlineFlags: [] });
     mocks.fetchPostComments.mockReset();
+    mocks.mergeNewFactsIntoOriginal.mockReset().mockResolvedValue({ redlineOk: true });
     mocks.refreshSymbolActivity.mockReset().mockResolvedValue(undefined);
     mocks.reresolveHeldImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
-    mocks.reresolveHeldTheoryImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
+    mocks.reresolveHeldTheoryImages.mockReset().mockResolvedValue({ checked: 0, published: 0, holdReasons: {}, errors: [] });
     mocks.resolveVanishedCountdowns.mockReset().mockResolvedValue(0);
     mocks.supabaseExtractUsageDb.mockReset().mockReturnValue({});
     mocks.upsertLiveTheory.mockReset().mockResolvedValue({ id: 'th-1', expiresAt: 'x', published: false });
     mocks.writeCurrentItem.mockReset();
     mocks.theoryPassesScreen.mockReset().mockReturnValue(true);
-    mocks.writeFanSignal.mockReset().mockResolvedValue({ id: 'fs-1', redlineOk: false, expiresAt: 'x' });
+    mocks.writeFanSignal.mockReset().mockResolvedValue({ id: 'fs-1', redlineOk: true, expiresAt: 'x' });
     mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/screened.jpg');
     mocks.evaluateSameEventGate.mockReset().mockResolvedValue({ action: 'write' });
   });
@@ -189,7 +192,13 @@ describe('runExtractStage Reddit comment context', () => {
 
   it('runs the bounded held-image pass and reports its counts', async () => {
     mocks.reresolveHeldImages.mockResolvedValue({ checked: 3, published: 2, errors: ['held-image x'] });
-    mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, errors: ['held-theory y'] });
+    mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, holdReasons: { no_item_image: 3 }, errors: ['held-theory y'] });
+    mocks.upsertLiveTheory.mockResolvedValue({
+      id: 'th-1',
+      expiresAt: 'x',
+      published: false,
+      holdReason: 'no_image',
+    });
     const result = await runExtractStage(fakeDb([]));
     expect(mocks.reresolveHeldImages).toHaveBeenCalledOnce();
     expect(mocks.reresolveHeldTheoryImages).toHaveBeenCalledOnce();
@@ -197,6 +206,50 @@ describe('runExtractStage Reddit comment context', () => {
     expect(result.heldImagesPublished).toBe(3);
     expect(result.errors).toContain('held-image x');
     expect(result.errors).toContain('held-theory y');
+  });
+
+  it('records each hold reason in theoryHoldReasons when a theory is not published', async () => {
+    let upsertCallCount = 0;
+    mocks.upsertLiveTheory.mockReset().mockImplementation(async () => {
+      upsertCallCount += 1;
+      return {
+        id: `th-${upsertCallCount}`,
+        expiresAt: 'x',
+        published: false,
+        holdReason: upsertCallCount === 1 ? 'no_image' : 'off_allowlist',
+      };
+    });
+    // Use two theories in the fan signal to trigger two upsert calls.
+    mocks.extractWithLLM.mockReset().mockResolvedValue({
+      kind: 'both',
+      redlineFlags: [],
+      currentItem: {
+        observedOn: '2026-10-29',
+        category: 'news',
+        tags: [],
+        headline: 'h',
+        summary: 's',
+        detail: 'd',
+        symbols: [],
+        entities: [],
+        statusHint: 'reported',
+      },
+      fanSignal: {
+        topic: 't',
+        summary: 's',
+        stanceMix: {},
+        symbols: [],
+        theories: [
+          { name: 'T1', claim: 'c1' },
+          { name: 'T2', claim: 'c2' },
+        ],
+      },
+    });
+    mocks.writeCurrentItem.mockResolvedValue({ id: 'ci-1', redlineOk: true, expiresAt: 'x' });
+    mocks.writeFanSignal.mockResolvedValue({ id: 'fs-1', redlineOk: true, expiresAt: 'x' });
+    const result = await runExtractStage(fakeDb([]));
+    expect(result.theoryHoldReasons.no_image).toBe(1);
+    expect(result.theoryHoldReasons.off_allowlist).toBe(1);
   });
 
   const BOTH = {
@@ -233,6 +286,140 @@ describe('runExtractStage Reddit comment context', () => {
     expect(mocks.upsertLiveTheory.mock.calls[0]?.[4]).toEqual({
       imageUrl: 'https://www.people.com/screened.jpg',
       evidenceIds: ['current:ci-1'],
+    });
+  });
+
+  it('dedupe merge with original image passes evidence and original image to the theory', async () => {
+    mocks.evaluateSameEventGate.mockResolvedValue({
+      action: 'merge',
+      candidateId: 'orig-1',
+      mergedSummary: 'ms',
+      mergedDetail: 'md',
+    });
+    const origDb = fakeDb([]) as unknown as Record<string, unknown>;
+    const fakeFrom = (fakeDb([]) as unknown as { from: (t: string) => unknown }).from;
+    origDb.from = (table: string) => {
+      if (table === 'current_item') {
+        return {
+          select: () => ({
+            eq: () => ({
+              single: () =>
+                Promise.resolve({
+                  data: {
+                    headline: 'h',
+                    summary: 's',
+                    detail: 'd',
+                    sources: [],
+                    image_url: 'https://original.example.com/img.jpg',
+                  },
+                  error: null,
+                }),
+            }),
+          }),
+          update: () => ({
+            eq: () => ({
+              is: () => ({
+                then: (r: (v: unknown) => void) => r({ data: null, error: null }),
+              }),
+              then: (r: (v: unknown) => void) => r({ data: null, error: null }),
+            }),
+          }),
+        };
+      }
+      return fakeFrom(table);
+    };
+
+    mocks.extractWithLLM.mockResolvedValue(BOTH);
+    await runExtractStage(origDb as unknown as SupabaseClient);
+    expect(mocks.upsertLiveTheory.mock.calls[0]?.[4]).toEqual({
+      imageUrl: 'https://original.example.com/img.jpg',
+      evidenceIds: ['current:orig-1'],
+    });
+  });
+
+  it('dedupe discard with original image_url null falls back to duplicate imageUrl', async () => {
+    mocks.evaluateSameEventGate.mockResolvedValue({
+      action: 'discard',
+      candidateId: 'orig-2',
+    });
+    const origDb = fakeDb([]) as unknown as Record<string, unknown>;
+    const fakeFrom = (fakeDb([]) as unknown as { from: (t: string) => unknown }).from;
+    origDb.from = (table: string) => {
+      if (table === 'current_item') {
+        return {
+          select: () => ({
+            eq: () => ({
+              single: () =>
+                Promise.resolve({
+                  data: {
+                    headline: 'h',
+                    summary: 's',
+                    detail: 'd',
+                    sources: [],
+                    image_url: null,
+                  },
+                  error: null,
+                }),
+            }),
+          }),
+          update: () => ({
+            eq: () => ({
+              is: () => ({
+                then: (r: (v: unknown) => void) => r({ data: null, error: null }),
+              }),
+              then: (r: (v: unknown) => void) => r({ data: null, error: null }),
+            }),
+          }),
+        };
+      }
+      return fakeFrom(table);
+    };
+
+    mocks.extractWithLLM.mockResolvedValue(BOTH);
+    await runExtractStage(origDb as unknown as SupabaseClient);
+    expect(mocks.upsertLiveTheory.mock.calls[0]?.[4]).toEqual({
+      imageUrl: 'https://www.people.com/screened.jpg',
+      evidenceIds: ['current:orig-2'],
+    });
+  });
+
+  it('dedupe merge that throws leaves evidence and image unset for the theory', async () => {
+    mocks.evaluateSameEventGate.mockResolvedValue({
+      action: 'merge',
+      candidateId: 'orig-3',
+      mergedSummary: 'ms',
+      mergedDetail: 'md',
+    });
+    const origDb = fakeDb([]) as unknown as Record<string, unknown>;
+    origDb.from = (table: string) => {
+      if (table === 'current_item') {
+        return {
+          select: () => ({
+            eq: () => ({
+              single: () =>
+                Promise.resolve({
+                  data: {
+                    headline: 'h',
+                    summary: 's',
+                    detail: 'd',
+                    sources: [],
+                    image_url: 'https://original.example.com/img.jpg',
+                  },
+                  error: 'boom',
+                }),
+            }),
+          }),
+        };
+      }
+      return (fakeDb([]) as unknown as { from: (t: string) => unknown }).from(table);
+    };
+
+    mocks.extractWithLLM.mockResolvedValue(BOTH);
+    await runExtractStage(origDb as unknown as SupabaseClient);
+    // merge threw → evidenceDocId and theoryImageUrl stay unset
+    expect(mocks.upsertLiveTheory.mock.calls[0]?.[4]).toEqual({
+      imageUrl: undefined,
+      evidenceIds: [],
     });
   });
 });

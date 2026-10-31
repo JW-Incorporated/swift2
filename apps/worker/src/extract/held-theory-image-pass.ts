@@ -13,6 +13,7 @@
 // DB reads/writes only: no fetches, no LLM calls.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { evaluateImageUrl } from '@swift2/shared';
 import { theoryImageFields } from './live-theory-image';
 import { emitEasterEggEvent } from './write-knowledge';
 
@@ -30,6 +31,7 @@ interface HeldTheoryRow {
 export interface HeldTheoryImagePassResult {
   checked: number;
   published: number;
+  holdReasons: Record<string, number>;
   errors: string[];
 }
 
@@ -39,12 +41,40 @@ function currentItemIds(evidenceIds: unknown): string[] {
     .map((v) => v.slice(CURRENT_DOC_PREFIX.length));
 }
 
+/** Classify why a checked theory was not adopted:
+ * - `no_evidence_item`: none of its cited current_item ids came back
+ * - `no_item_image`: the items exist but every image_url is null
+ * - `image_rejected:<host>`: an image exists but fails the allowlist check
+ */
+function classifyUnadoptedReason(itemIds: string[], byId: Map<string, string | null>): string {
+  const present: Array<{ id: string; imageUrl: string | null }> = [];
+  for (const id of itemIds) {
+    if (byId.has(id)) present.push({ id, imageUrl: byId.get(id) ?? null });
+  }
+  if (present.length === 0) return 'no_evidence_item';
+  if (present.every((p) => p.imageUrl === null)) return 'no_item_image';
+  for (const { imageUrl } of present) {
+    if (imageUrl === null) continue;
+    const verdict = evaluateImageUrl(imageUrl);
+    if (!verdict.ok) {
+      try {
+        return `image_rejected:${new URL(imageUrl).hostname}`;
+      } catch {
+        return 'image_rejected:unknown';
+      }
+    }
+  }
+  return 'unknown';
+}
+
 export async function reresolveHeldTheoryImages(
   db: SupabaseClient,
   now: Date = new Date(),
 ): Promise<HeldTheoryImagePassResult> {
-  const result: HeldTheoryImagePassResult = { checked: 0, published: 0, errors: [] };
-  for (let from = 0; from < MAX_SCANNED_ROWS; from += PAGE_SIZE) {
+  const result: HeldTheoryImagePassResult = { checked: 0, published: 0, holdReasons: {}, errors: [] };
+  let from = 0;
+  let scanned = 0;
+  while (scanned < MAX_SCANNED_ROWS) {
     const { data, error } = await db
       .from('live_theory')
       .select('id,name,claim,evidence_ids')
@@ -54,14 +84,20 @@ export async function reresolveHeldTheoryImages(
       .gt('expires_at', now.toISOString())
       .not('evidence_ids', 'eq', '{}')
       .order('last_seen_on', { ascending: false })
+      .order('id', { ascending: false })
       .range(from, from + PAGE_SIZE - 1);
     if (error) {
       result.errors.push(`held-theory load failed: ${error.message}`);
       return result;
     }
     const rows = (data ?? []) as HeldTheoryRow[];
-    await adoptPage(db, rows, result);
+    scanned += rows.length;
+    const adoptedHere = await adoptPage(db, rows, result);
     if (rows.length < PAGE_SIZE) break;
+    // Adopted rows leave the image_url IS NULL set, so every remaining row
+    // shifts up by exactly adoptedHere. Advancing by the difference keeps the
+    // cursor on the true next unadopted row without rescanning or skipping.
+    from += PAGE_SIZE - adoptedHere;
   }
   return result;
 }
@@ -70,11 +106,12 @@ async function adoptPage(
   db: SupabaseClient,
   rows: HeldTheoryRow[],
   result: HeldTheoryImagePassResult,
-): Promise<void> {
+): Promise<number> {
+  let adoptedHere = 0;
   const candidates = rows
     .map((row) => ({ row, itemIds: currentItemIds(row.evidence_ids) }))
     .filter((c) => c.itemIds.length > 0);
-  if (candidates.length === 0) return;
+  if (candidates.length === 0) return 0;
   const allIds = [...new Set(candidates.flatMap((c) => c.itemIds))];
   const { data: items, error: itemError } = await db
     .from('current_item')
@@ -84,7 +121,7 @@ async function adoptPage(
     .is('retracted_at', null);
   if (itemError) {
     result.errors.push(`held-theory item load failed: ${itemError.message}`);
-    return;
+    return 0;
   }
   const byId = new Map(((items ?? []) as { id: string; image_url: string | null }[]).map((i) => [i.id, i.image_url]));
 
@@ -99,25 +136,40 @@ async function adoptPage(
           break;
         }
       }
-      if (!adopted) continue;
+      if (!adopted) {
+        const reason = classifyUnadoptedReason(itemIds, byId);
+        result.holdReasons[reason] = (result.holdReasons[reason] ?? 0) + 1;
+        continue;
+      }
 
-      const { error: writeError } = await db
+      // .select('id') is required: supabase-js v2 returns data: null from an
+      // update unless a select is chained, so without it the adopted-only guard
+      // below would never see the changed rows and no adoption would count.
+      const { data: updated, error: writeError } = await db
         .from('live_theory')
         .update(adopted.fields)
         .eq('id', row.id)
-        .is('image_url', null);
+        .is('image_url', null)
+        .select('id');
       if (writeError) throw new Error(writeError.message);
-      const { error: docError } = await db
-        .from('knowledge_doc')
-        .update({ redline_ok: true })
-        .eq('id', `ltheory:${row.id}`);
-      if (docError) result.errors.push(`held-theory doc update failed for ${row.id}: ${docError.message}`);
-      // Same one-per-theory easter_egg event the re-observation path emits on
-      // first publication (upsertLiveTheory); dedupe_key keeps it once per id.
-      await emitEasterEggEvent(db, row.id, row);
-      result.published++;
+      // Count adopted only when the update actually changed a row: the is(image_url, null)
+      // guard can no-op when a concurrent pass beat us, and a lost race must not count.
+      const updatedRows: unknown[] = updated ?? [];
+      if (updatedRows.length > 0) {
+        const { error: docError } = await db
+          .from('knowledge_doc')
+          .update({ redline_ok: true })
+          .eq('id', `ltheory:${row.id}`);
+        if (docError) result.errors.push(`held-theory doc update failed for ${row.id}: ${docError.message}`);
+        // Same one-per-theory easter_egg event the re-observation path emits on
+        // first publication (upsertLiveTheory); dedupe_key keeps it once per id.
+        await emitEasterEggEvent(db, row.id, row);
+        result.published++;
+        adoptedHere++;
+      }
     } catch (err) {
       result.errors.push(`held-theory pass failed for ${row.id}: ${(err as Error).message}`);
     }
   }
+  return adoptedHere;
 }

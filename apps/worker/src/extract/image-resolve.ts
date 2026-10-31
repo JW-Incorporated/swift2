@@ -126,8 +126,16 @@ async function fetchAllowedPageImage(
   const { image, failed } = await fetchPageImageOutcome(articleUrl, fetchImpl);
   if (failed) runStats.imageFetchFailed++;
   else if (!image) runStats.imageNoOg++;
-  else if (!isAllowedImageHost(image)) runStats.imageHostNotAllowlisted++;
-  else {
+  else if (!isAllowedImageHost(image)) {
+    runStats.imageHostNotAllowlisted++;
+    let host = 'invalid-url';
+    try {
+      host = new URL(image).hostname;
+    } catch {
+      // keep 'invalid-url'
+    }
+    runStats.imageRejectedHosts[host] = (runStats.imageRejectedHosts[host] ?? 0) + 1;
+  } else {
     runStats.imageResolved++;
     return image;
   }

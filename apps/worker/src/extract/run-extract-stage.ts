@@ -19,12 +19,10 @@ import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import {
   mergeNewFactsIntoOriginal,
   projectKnowledgeDoc,
-  theoryPassesScreen,
-  upsertLiveTheory,
   writeCurrentItem,
-  writeFanSignal,
   type ClusterSource,
 } from './write-knowledge';
+import { writeFanSignalTheories } from './write-fan-signal-theories';
 
 const CURRENT_ERA_ID = 'tloas';
 const MAX_CLUSTERS_PER_CYCLE = 50;
@@ -43,6 +41,8 @@ export interface ExtractStageResult {
   dedupeHeld: number;
   heldImagesChecked: number;
   heldImagesPublished: number;
+  theoryHoldReasons: Record<string, number>;
+  heldPassReasons: Record<string, number>;
   errors: string[];
 }
 
@@ -61,6 +61,8 @@ function emptyResult(): ExtractStageResult {
     dedupeHeld: 0,
     heldImagesChecked: 0,
     heldImagesPublished: 0,
+    theoryHoldReasons: {},
+    heldPassReasons: {},
     errors: [],
   };
 }
@@ -130,6 +132,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           ? await resolveImageUrl(story.top_image_url, sources)
           : undefined;
         let evidenceDocId: string | undefined;
+        let theoryImageUrl: string | null | undefined = imageUrl;
         if (extracted.currentItem) {
           let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
           try {
@@ -146,6 +149,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           if (decision.action === 'discard' || decision.action === 'merge') {
             result.dedupeDiscarded += decision.action === 'discard' ? 1 : 0;
             result.dedupeMerged += decision.action === 'merge' ? 1 : 0;
+            let dedupeOriginalImage: string | null;
             try {
               const { data: original, error } = await db
                 .from('current_item')
@@ -153,6 +157,10 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                 .eq('id', decision.candidateId)
                 .single();
               if (error) throw new Error(error.message);
+              dedupeOriginalImage = original.image_url as string | null;
+              if (dedupeOriginalImage) {
+                theoryImageUrl = dedupeOriginalImage;
+              }
               await mergeNewFactsIntoOriginal(
                 db,
                 decision.candidateId,
@@ -172,6 +180,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                   duplicateImageUrl: imageUrl ?? null,
                 },
               );
+              evidenceDocId = `current:${decision.candidateId}`;
             } catch (error) {
               errors.push(
                 `dedupe merge/discard failed for story ${story.id}: ${(error as Error).message}`,
@@ -216,62 +225,16 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           }
         }
         if (extracted.fanSignal) {
-          const theoryIds: string[] = [];
-          for (const theory of extracted.fanSignal.theories) {
-            if (!theoryPassesScreen(theory)) {
-              result.screenedOut += 1;
-              continue;
-            }
-            const stored = await upsertLiveTheory(
-              db,
-              theory,
-              extracted.fanSignal.symbols,
-              today,
-              { imageUrl: evidenceDocId ? imageUrl : undefined, evidenceIds: evidenceDocId ? [evidenceDocId] : [] },
-            );
-            theoryIds.push(stored.id);
-            result.theoriesUpserted += 1;
-            await projectKnowledgeDoc(db, {
-              id: `ltheory:${stored.id}`,
-              kind: 'live_theory',
-              title: theory.name,
-              text: theory.claim,
-              open: true,
-              status: 'rumor',
-              sourceTier: 'fan',
-              sources: [],
-              eraId: CURRENT_ERA_ID,
-              symbols: extracted.fanSignal.symbols,
-              entities: [],
-              expiresAt: stored.expiresAt,
-              redlineOk: stored.published,
-            });
-          }
-          const stored = await writeFanSignal(
+          await writeFanSignalTheories(
             db,
+            result,
             extracted.fanSignal,
-            theoryIds,
+            evidenceDocId,
+            theoryImageUrl,
+            today,
+            CURRENT_ERA_ID,
             clusterItems.length,
           );
-          if (!stored.redlineOk) result.screenedOut += 1;
-          else {
-            result.extracted += 1;
-            await projectKnowledgeDoc(db, {
-              id: `signal:${stored.id}`,
-              kind: 'fan_signal',
-              title: extracted.fanSignal.topic,
-              text: extracted.fanSignal.summary,
-              open: true,
-              status: 'reported',
-              sourceTier: 'fan',
-              sources: [],
-              eraId: CURRENT_ERA_ID,
-              symbols: extracted.fanSignal.symbols,
-              entities: [],
-              expiresAt: stored.expiresAt,
-              redlineOk: stored.redlineOk,
-            });
-          }
         }
       }
       const { error } = await db
@@ -295,6 +258,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   const heldTheories = await reresolveHeldTheoryImages(db);
   result.heldImagesChecked += heldTheories.checked;
   result.heldImagesPublished += heldTheories.published;
+  for (const [reason, count] of Object.entries(heldTheories.holdReasons)) {
+    result.heldPassReasons[reason] = (result.heldPassReasons[reason] ?? 0) + count;
+  }
   errors.push(...heldTheories.errors);
   return result;
 }
