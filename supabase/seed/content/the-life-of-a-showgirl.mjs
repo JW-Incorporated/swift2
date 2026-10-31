@@ -5181,11 +5181,17 @@ export default {
               'Paul McCartney is reported to have given a surprise performance at the July 3 reception, playing The Beatles\' "I Want to Hold Your Hand" — by several accounts his first live rendition of the song in decades — alongside the separately reported Stevie Nicks set.',
             reportedBy: 'HollywoodLife',
             reportedOn: '2026-07-05',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://hollywoodlife.com/2026/07/05/who-performed-at-taylor-swift-wedding/',
-            note: 'Reported across established outlets days after the wedding — E! News flatly ("Paul McCartney Performs Beatles Classic"), NME and HollywoodLife with the same "I Want to Hold Your Hand" detail — but never confirmed by the couple, who released no photos or video. Adjudicable: resolves if the couple, McCartney or guests confirm the set, or a fuller account rules it out. No location beyond MSG.',
+            note: 'Reported days after the wedding by E! News, NME and HollywoodLife with the same "I Want to Hold Your Hand" detail; the couple released no photos or video. Re-checked 2026-10-30: McCartney himself described the performance on Jimmy Kimmel Live! (AAP, Oct. 3), so it resolves confirmed; the song title rests on People\'s source and wire reports. No location beyond MSG.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-08-31',
+            lastCheckedOn: '2026-10-30',
+            resolution: {
+              on: '2026-10-03',
+              url: 'https://www.illawarramercury.com.au/story/9362046/mccartney-reveals-advice-he-gave-swift-on-wedding-day/',
+              outlet: 'Australian Associated Press (via Illawarra Mercury)',
+              note: 'McCartney told Jimmy Kimmel Live! about the wedding performance in his own words: "She was on stage and I said, \'you should sing along, and you should sing it to your man\'." That confirms he performed at the reception; AAP\'s write-up identifies the number as "I Want to Hold Your Hand," matching the July reports.',
+            },
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -15980,13 +15986,13 @@ export default {
       category: 'business',
       title: 'The "Blank Space" castle heads to auction — Oheka Castle goes up for sale Oct. 27',
       snippet:
-        'Oheka Castle — the French Renaissance château on Long Island where Taylor filmed the "Blank Space" video — is headed to public auction on Oct. 27, 2026, part of a Chapter 11 bankruptcy. Built in 1919 for financier Otto Kahn and long a hotel and event venue, the 127-room estate is often called the second-largest private residence ever built in America.',
+        'Oheka Castle — the French Renaissance château on Long Island where Taylor filmed the "Blank Space" video — went to public auction on Oct. 27, 2026, part of a Chapter 11 bankruptcy, and sold that day for $72 million. Built in 1919 for financier Otto Kahn and long a hotel and event venue, the 127-room estate is often called the second-largest private residence ever built in America.',
       sourceUrl:
         'https://www.forbes.com/sites/maryroeloffs/2026/09/25/sprawling-new-york-castle-with-a-taylor-swift-connection-headed-to-auction/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Oheka Castle, the 1919 Gold Coast estate in Huntington, New York that doubled as the palace in Taylor\'s 2014 "Blank Space" video, is going up for public auction on Oct. 27, 2026, Forbes and Long Island outlets reported. The sale is part of the property\'s Chapter 11 bankruptcy; per Forbes the lot — offered through Concierge Auctions with Adam Modlin of The Modlin Group — carries no minimum starting bid and includes an adjacent 5.13-acre parcel already approved by the Town of Huntington for 95 luxury condominiums.\n\nThe château is a landmark independent of any pop-music connection: built for financier and arts patron Otto Kahn by the architects Delano & Aldrich, it spans roughly 112,895 square feet across 23 acres, runs to 127 rooms in French Renaissance style, and is frequently cited as the second-largest private residence ever built in the United States. It has spent its modern life as a hotel and event venue, and is one of the estates said to have helped inspire Fitzgerald\'s "The Great Gatsby."\n\nFor Swifties the hook is narrower: this is the palace of "Blank Space," the 1989 single whose video turned a lavish estate into a stage for the song\'s over-the-top romance-and-revenge story. Forbes led its auction coverage with exactly that connection, noting the video "brought another wave of attention to the castle." This entry lives in the current era because that is when the auction news broke — the "Blank Space" tie belongs to 1989, but the event being recorded is the September 2026 sale announcement.',
+          'Oheka Castle, the 1919 Gold Coast estate in Huntington, New York that doubled as the palace in Taylor\'s 2014 "Blank Space" video, is going up for public auction on Oct. 27, 2026, Forbes and Long Island outlets reported. The sale is part of the property\'s Chapter 11 bankruptcy; per Forbes the lot — offered through Concierge Auctions with Adam Modlin of The Modlin Group — carries no minimum starting bid and includes an adjacent 5.13-acre parcel already approved by the Town of Huntington for 95 luxury condominiums.\n\nThe château is a landmark independent of any pop-music connection: built for financier and arts patron Otto Kahn by the architects Delano & Aldrich, it spans roughly 112,895 square feet across 23 acres, runs to 127 rooms in French Renaissance style, and is frequently cited as the second-largest private residence ever built in the United States. It has spent its modern life as a hotel and event venue, and is one of the estates said to have helped inspire Fitzgerald\'s "The Great Gatsby."\n\nFor Swifties the hook is narrower: this is the palace of "Blank Space," the 1989 single whose video turned a lavish estate into a stage for the song\'s over-the-top romance-and-revenge story. Forbes led its auction coverage with exactly that connection, noting the video "brought another wave of attention to the castle."\n\nThe hammer fell on schedule. At the Oct. 27 auction, run through Concierge Auctions, the estate sold for $72 million to Gold Coast Property & Estate Management LLC, The Real Deal and Newsday reported — and Grazia, like Forbes before it, led its coverage of the result with the "Blank Space" connection. This entry lives in the current era because that is when the auction news broke — the "Blank Space" tie belongs to 1989, but the event being recorded is the September 2026 sale announcement.',
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/OHEKA_CASTLE_exterior_view_2.jpg/1280px-OHEKA_CASTLE_exterior_view_2.jpg',
@@ -15998,7 +16004,7 @@ export default {
             focalPoint: '50% 42%',
             credit: 'OhekaCastleNY, CC BY-SA 4.0, via Wikimedia Commons',
             caption:
-              'Oheka Castle in Huntington, New York — the Long Island château used in Taylor\'s 2014 "Blank Space" video, headed to public auction on Oct. 27, 2026.',
+              'Oheka Castle in Huntington, New York — the Long Island château used in Taylor\'s 2014 "Blank Space" video, sold at auction for $72 million on Oct. 27, 2026.',
             kind: 'primary',
           },
         ],
@@ -16031,6 +16037,26 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-26',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Grazia',
+            url: 'https://graziamagazine.com/us/articles/the-castle-from-taylor-swifts-blank-space-music-video-just-sold-for-a-staggering-72-million-inside-the-stunning-property/',
+            source_title: "The Castle From Taylor Swift's 'Blank Space' Music Video Just Sold for a Staggering $72 Million",
+            publisher: 'Grazia',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-30',
+            reliability_score: 3,
+            notes: 'sale result: $72 million at auction on Oct. 27, 2026, through Concierge Auctions; "Blank Space" framing.',
+          },
+          {
+            outlet: 'The Real Deal',
+            url: 'https://therealdeal.com/new-york/2026/10/27/long-island-oheka-castle-sells-for-72m-at-auction/',
+            source_title: "Long Island's historic Oheka Castle finds buyer for $72M at auction",
+            publisher: 'The Real Deal',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-30',
+            reliability_score: 4,
+            notes: 'Oct. 27, 2026 sale for $72 million; buyer Gold Coast Property & Estate Management (also cited for the sale by Newsday, "Developers buy Oheka Castle for $72 million at auction").',
           },
         ],
       },
