@@ -331,7 +331,7 @@ describe('useEmbedGate', () => {
     );
 
     act(() => {
-      result.current.iframeRef.current = el;
+      result.current.iframeRef.current = el as unknown as HTMLIFrameElement;
     });
 
     act(() => {
