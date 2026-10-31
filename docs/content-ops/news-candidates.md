@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 97
 
 ## Nelly Discusses $50,000 Cash Payment from Taylor Swift for Concert
 
@@ -837,11 +837,3 @@ Stories: 98
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/how-taylor-swift-and-travis-kelces-donation-helped-a-nashville-free-grocery-store-resume-support-for-families-on-its-waitlist/articleshow/135265150.cms
   - [unverified] USA Today — https://www.aol.com/articles/travis-kelce-responds-prince-william-162904000.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/caroline-wozniacki-dresses-taylor-swift-114103393.html
-
-## Castle Featured in Taylor Swift's 'Blank Space' Music Video Sold for $72 Million
-
-- first seen: 2026-10-28 09:47 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million. The property, known for its stunning features, has garnered attention following its sale.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/the-castle-from-taylor-swifts-blank-space-music-video-just-sold-for-a-staggering-72-million-inside-the-stunning-property/
