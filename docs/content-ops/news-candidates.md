@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 91
 
 ## Bill Maher Compares Trump's Actions to Dating Taylor Swift
 
@@ -778,11 +778,3 @@ Stories: 92
 - summary: Reports suggest that the marriage between Travis Kelce and Taylor Swift may be facing challenges, affecting Kelce's performance. The situation is gaining attention in the media.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/28/chiefs-travis-kelce-and-taylor-swift-s-marriage-going-south-starts-getting-into-his-head.html
-
-## Este Haim Praises Taylor Swift's Solo Music Style
-
-- first seen: 2026-10-28 19:44 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Este Haim expresses that her favorite way to enjoy Taylor Swift's music is when it's just Swift accompanied by a guitar. This insight highlights Haim's appreciation for a more stripped-down version of Swift's artistry.
-- sources:
-  - [established] People — https://people.com/este-haim-favorite-version-of-friend-taylor-swift-music-exclusive-12198522
