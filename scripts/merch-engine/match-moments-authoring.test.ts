@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   brandHostnameGuess,
   gatherCandidates,
+  planSearchTiers,
   runMatcherAuthoring,
   searchBrandDirect,
   searchPaidSearch,
@@ -11,6 +12,40 @@ import {
 } from './match-moments-authoring.mjs';
 
 const moment = { id: 'grammys-look', title: 'Grammys look' };
+
+describe('E6 authoring: a missing Awin index degrades, never fails (issue #6276)', () => {
+  it('still runs on brand-direct + paid search when the index cache is absent', () => {
+    expect(planSearchTiers({ awinIndexAvailable: false, searchApiKey: 'sk-test' })).toEqual({
+      tiers: ['brand-direct', 'paid-search'],
+      proceed: true,
+      degraded: true,
+    });
+  });
+
+  it('searches the Awin index first when it is present', () => {
+    expect(planSearchTiers({ awinIndexAvailable: true, searchApiKey: 'sk-test' })).toEqual({
+      tiers: ['awin-index', 'brand-direct', 'paid-search'],
+      proceed: true,
+      degraded: false,
+    });
+  });
+
+  it('runs index-only, not degraded, when no paid-search key is configured', () => {
+    expect(planSearchTiers({ awinIndexAvailable: true, searchApiKey: undefined })).toEqual({
+      tiers: ['awin-index'],
+      proceed: true,
+      degraded: false,
+    });
+  });
+
+  it('skips the per-moment vision calls when no tier could return a candidate', () => {
+    expect(planSearchTiers({ awinIndexAvailable: false, searchApiKey: undefined })).toEqual({
+      tiers: [],
+      proceed: false,
+      degraded: true,
+    });
+  });
+});
 
 describe('E6 authoring: strict cost-order search (SPEC §8 step 2)', () => {
   it('never calls brand-direct or paid search when the Awin index already answered', async () => {
