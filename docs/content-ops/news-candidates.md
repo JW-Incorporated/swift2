@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 87
+
+## Nelly Shares Story of Taylor Swift's Unique Payment Method
+
+- first seen: 2026-10-31 23:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly disclosed in an interview that Taylor Swift once compensated him for a performance with $50,000 in cash, presented in a McDonald's bag. This unusual method of payment highlights Swift's unconventional approach to business transactions.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-reveals-taylor-swift-once-173426424.html
 
 ## Tim McGraw Clarifies Wedding Rumor Involving Taylor Swift and Travis Kelce
 
@@ -738,19 +746,3 @@ Stories: 88
 - summary: Ashanti revealed her friendship with Taylor Swift, affectionately calling her 'Tay Tay'. The unexpected bond has come to light in a recent conversation.
 - sources:
   - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/ashanti-taylor-swift-friendship
-
-## Taylor Swift reportedly upset about leaked wedding photos
-
-- first seen: 2026-10-28 22:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly feeling betrayed due to the leak of wedding photos, which has caused her frustration. The situation has drawn attention to her personal life and the boundaries of privacy.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/feels-betrayal-taylor-swift-reportedly-181313173.html
-
-## Taylor Swift Achieves New Milestone in Music and Songwriting
-
-- first seen: 2026-10-28 22:38 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has set another record in the music and songwriting industry, further solidifying her impact on the field. This accomplishment highlights her continued influence and success in the music world.
-- sources:
-  - [unverified] 12newsnow.com — https://www.12newsnow.com/video/news/entertainment-news/taylor-swift-makes-history-again-in-the-music-and-songwriting-industry/502-85aa2a97-53bd-4f8c-a9b7-0f58c9a66763
