@@ -1985,6 +1985,18 @@ export default {
               'Still from the official "willow" music video — released alongside evermore at the midnight the Dec. 10 announcement promised.',
             kind: 'reference',
           },
+          // Photo Enrichment (2026-10-31): the evermore album portrait (cream
+          // cable-knit turtleneck, wooded backdrop) from Rolling Stone's own
+          // coverage of the announcement; downloaded (1600x900, HTTP 200
+          // image/jpeg) and vision-confirmed.
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/2a.jpg?w=1600&h=900&crop=1',
+            focalPoint: '38% 45%',
+            credit: 'Rolling Stone',
+            caption:
+              'The evermore portrait of Taylor in a cream cable-knit turtleneck, shown in Rolling Stone\'s coverage of the Dec. 10, 2020 surprise-album announcement.',
+            kind: 'reference',
+          },
         ],
       },
     },
