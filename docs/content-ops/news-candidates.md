@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 98
+
+## Travis Kelce Addresses Prince William's Selfie Comment
+
+- first seen: 2026-10-31 13:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has responded to comments made by Prince William regarding a selfie featuring Taylor Swift. The interaction highlights the mix of sports and celebrity culture surrounding Swift.
+- sources:
+  - [unverified] PureWow — https://www.purewow.com/news/travis-kelce-responds-prince-william-graham-norton-show-taylor-swfit-selfie
+
+## Bill Maher Compares Trump in Ongoing Feud to Taylor Swift
+
+- first seen: 2026-10-31 13:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bill Maher has drawn a comparison between Trump and Taylor Swift as his feud with the former president intensifies. The comments highlight the ongoing cultural discussions surrounding both figures.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/bill-maher-feud-trump-escalates-134008685.html
+
+## Celebrities Suggest Sport-Themed Halloween Costume Ideas
+
+- first seen: 2026-10-31 13:57 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Various sports stars and celebrities have come together to share their ideas for Halloween costumes inspired by sports. The suggestions aim to inspire fans and attendees of an upcoming sport-themed Halloween party.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/sport/videos/ckgelp588j1xo?at_medium=RSS&at_campaign=rss
 
 ## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
 
@@ -356,14 +380,6 @@ Stories: 95
 - sources:
   - [unverified] CNN — https://www.cnn.com/2026/10/28/entertainment/video/entertainment-showbiz-hollywood-minute-taylor-swift-nashville-songwriters-hall-gaslit-documentary-dune-three-final-trailer
 
-## Guests voice concerns over wedding food and decor at Taylor Swift's event
-
-- first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that some guests at Taylor Swift's wedding expressed dissatisfaction with the food and decor, describing them as 'ghastly and tacky.'
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ghastly-tacky-taylor-swift-wedding-101042181.html
-
 ## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
 
 - first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
@@ -378,6 +394,14 @@ Stories: 95
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/30/tim-mcgraw-shuts-down-rumor-that-he-performed-at-taylor-swift-travis-kelces-wedding-the-internets-not-always-correct/
   - [unverified] Wide Open Country — https://www.wideopencountry.com/tim-mcgraw-describes-the-marriage-advice-he-would-give-to-taylor-swift-and-travis-kelce/
   - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
+
+## Guests voice concerns over wedding food and decor at Taylor Swift's event
+
+- first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that some guests at Taylor Swift's wedding expressed dissatisfaction with the food and decor, describing them as 'ghastly and tacky.'
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ghastly-tacky-taylor-swift-wedding-101042181.html
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
