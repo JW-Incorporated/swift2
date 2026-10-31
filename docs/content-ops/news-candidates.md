@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 88
 
 ## Tim McGraw Clarifies Wedding Rumor Involving Taylor Swift and Travis Kelce
 
@@ -754,19 +754,3 @@ Stories: 90
 - summary: Taylor Swift has set another record in the music and songwriting industry, further solidifying her impact on the field. This accomplishment highlights her continued influence and success in the music world.
 - sources:
   - [unverified] 12newsnow.com — https://www.12newsnow.com/video/news/entertainment-news/taylor-swift-makes-history-again-in-the-music-and-songwriting-industry/502-85aa2a97-53bd-4f8c-a9b7-0f58c9a66763
-
-## Taylor Swift and Travis Kelce Inspire Halloween Costumes
-
-- first seen: 2026-10-28 21:32 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have influenced unique Halloween transformations, as reported by Sports Illustrated. Their styles are prompting fans to adopt similar themes for the holiday.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-and-travis-kelce-get-unexpected-halloween-tribute-from-sports-power-couple
-
-## Taylor Swift and Travis Kelce Wedding Photos Revealed with New Details
-
-- first seen: 2026-10-28 21:32 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Wedding photos of Taylor Swift and Travis Kelce have emerged, featuring a long-awaited detail that gives fans a closer look at the couple's special day.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-wedding-photos-surface-with-one-long-awaited-detail-finally-giving-fans-a-closer-look-12246294
