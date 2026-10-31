@@ -25,11 +25,14 @@ function deregister(stop: () => void): void {
 }
 
 /**
- * While `active` is true, calls `stop()` the moment the element can no longer
- * be seen:
+ * While `active` is true, calls `stop()` the moment the element STOPS being
+ * seen (it must first have been seen, so a player that starts below the fold
+ * or under fixed UI is not killed at mount):
  *  a. the tab becomes hidden (visibilitychange → 'hidden')
- *  b. the element scrolls off-screen (IntersectionObserver ratio < 0.5)
- *  c. another element covers the element's centre (750 ms elementFromPoint poll)
+ *  b. the element scrolls off-screen (IntersectionObserver ratio < 0.5) — only
+ *     once it has been seen at ratio >= 0.5
+ *  c. another element covers the element's centre (750 ms elementFromPoint
+ *     poll) — only once a check has seen the element uncovered
  *  d. another gate claims playback (module-level Set, via claimPlayback)
  *
  * All listeners and the interval are registered only while `active` and
@@ -49,13 +52,16 @@ export function useStopWhenHidden(
     };
     document.addEventListener('visibilitychange', onVisibility);
 
-    // (b) IntersectionObserver
+    // (b) IntersectionObserver — stop only once it has been seen in view
     let io: IntersectionObserver | null = null;
+    let seenInView = false;
     if (typeof IntersectionObserver !== 'undefined' && elementRef.current) {
       io = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
-            if (entry.intersectionRatio < 0.5) {
+            if (entry.intersectionRatio >= 0.5) {
+              seenInView = true;
+            } else if (seenInView) {
               stop();
               break;
             }
@@ -66,8 +72,9 @@ export function useStopWhenHidden(
       io.observe(elementRef.current);
     }
 
-    // (c) 750 ms covered-check via elementFromPoint
+    // (c) 750 ms covered-check via elementFromPoint — stop only once seen uncovered
     let interval: ReturnType<typeof setInterval> | null = null;
+    let seenUncovered = false;
     if (typeof document.elementFromPoint === 'function') {
       interval = setInterval(() => {
         const el = elementRef.current;
@@ -84,7 +91,9 @@ export function useStopWhenHidden(
           window.innerHeight - 1,
         );
         const hit = document.elementFromPoint(x, y);
-        if (hit !== null && hit !== el && !el.contains(hit)) {
+        if (hit === null || hit === el || el.contains(hit)) {
+          seenUncovered = true;
+        } else if (seenUncovered) {
           stop();
         }
       }, 750);

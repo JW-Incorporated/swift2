@@ -143,7 +143,7 @@ describe('useStopWhenHidden', () => {
     expect(stop).not.toHaveBeenCalled();
   });
 
-  it('calls stop when IO reports ratio 0.2', () => {
+  it('does NOT call stop when IO first reports ratio 0.2 (never seen in view)', () => {
     const stop = vi.fn();
     const el = makeEl();
 
@@ -159,10 +159,10 @@ describe('useStopWhenHidden', () => {
       ioCallback!([{ intersectionRatio: 0.2 }]);
     });
 
-    expect(stop).toHaveBeenCalledTimes(1);
+    expect(stop).not.toHaveBeenCalled();
   });
 
-  it('does NOT call stop when IO reports ratio 0.9', () => {
+  it('calls stop when IO reports 0.9 then 0.2 (seen in view, then off-screen)', () => {
     const stop = vi.fn();
     const el = makeEl();
 
@@ -176,9 +176,43 @@ describe('useStopWhenHidden', () => {
     });
 
     expect(stop).not.toHaveBeenCalled();
+
+    act(() => {
+      ioCallback!([{ intersectionRatio: 0.2 }]);
+    });
+
+    expect(stop).toHaveBeenCalledTimes(1);
   });
 
-  it('calls stop when elementFromPoint returns an unrelated element (covered)', () => {
+  it('calls stop when elementFromPoint returns an unrelated element after a self hit', () => {
+    const stop = vi.fn();
+    const el = makeEl();
+    const unrelated = document.createElement('div');
+
+    efMock = () => el;
+
+    renderHook(
+      ({ active, stop, el }) => TestHook({ active, stop, el }),
+      { initialProps: { active: true, stop, el } },
+    );
+
+    // First tick: element is uncovered — marks seenUncovered
+    act(() => {
+      vi.advanceTimersByTime(750);
+    });
+
+    expect(stop).not.toHaveBeenCalled();
+
+    // Second tick: element is covered — stops because seenUncovered is true
+    efMock = () => unrelated;
+    act(() => {
+      vi.advanceTimersByTime(750);
+    });
+
+    expect(stop).toHaveBeenCalledTimes(1);
+  });
+
+  it('does NOT call stop when elementFromPoint first returns an unrelated element (never seen uncovered)', () => {
     const stop = vi.fn();
     const el = makeEl();
     const unrelated = document.createElement('div');
@@ -194,7 +228,7 @@ describe('useStopWhenHidden', () => {
       vi.advanceTimersByTime(750);
     });
 
-    expect(stop).toHaveBeenCalledTimes(1);
+    expect(stop).not.toHaveBeenCalled();
   });
 
   it('does NOT call stop when elementFromPoint returns the iframe itself', () => {
