@@ -19,3 +19,16 @@ describe('VideoMomentCard — #3396 (kind kicker contrast)', () => {
     );
   });
 });
+
+// #6267 — WCAG 2.5.3 Label in Name: the watch-link's accessible name must
+// contain its visible text ("Watch on {platform}") verbatim.
+describe('VideoMomentCard — #6267 (watch-link label in name)', () => {
+  it('the aria-label starts with the visible "Watch on {platform}" text', () => {
+    expect(src).toContain('<span>Watch on {video.platform}</span>');
+    expect(src).toContain('aria-label={`Watch on ${video.platform}: ${video.title}`}');
+  });
+
+  it('never splits the visible text with the title', () => {
+    expect(src).not.toMatch(/aria-label=\{`Watch \$\{video\.title\} on/);
+  });
+});
