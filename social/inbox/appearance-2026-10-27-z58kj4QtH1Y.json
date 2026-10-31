@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-27-z58kj4QtH1Y",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-27T18:56:35.001Z",
+  "deadline": "2026-10-29T18:56:35.001Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Good Morning America",
+    "videoTitle": "Taylor Swift makes history again",
+    "publishedAt": "2026-10-27T15:37:52+00:00",
+    "videoId": "z58kj4QtH1Y",
+    "url": "https://www.youtube.com/watch?v=z58kj4QtH1Y"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6363
+  }
+}
