@@ -73,6 +73,7 @@ export async function runCycle(
       heldImagesChecked: 0,
       heldImagesPublished: 0,
       theoryHoldReasons: {},
+      heldPassReasons: {},
       errors: [],
     },
     errors,

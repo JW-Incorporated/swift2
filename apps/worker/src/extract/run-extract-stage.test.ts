@@ -84,7 +84,7 @@ describe('runExtractStage Reddit comment context', () => {
     mocks.fetchPostComments.mockReset();
     mocks.refreshSymbolActivity.mockReset().mockResolvedValue(undefined);
     mocks.reresolveHeldImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
-    mocks.reresolveHeldTheoryImages.mockReset().mockResolvedValue({ checked: 0, published: 0, errors: [] });
+    mocks.reresolveHeldTheoryImages.mockReset().mockResolvedValue({ checked: 0, published: 0, holdReasons: {}, errors: [] });
     mocks.resolveVanishedCountdowns.mockReset().mockResolvedValue(0);
     mocks.supabaseExtractUsageDb.mockReset().mockReturnValue({});
     mocks.upsertLiveTheory.mockReset().mockResolvedValue({ id: 'th-1', expiresAt: 'x', published: false });
@@ -189,7 +189,7 @@ describe('runExtractStage Reddit comment context', () => {
 
   it('runs the bounded held-image pass and reports its counts', async () => {
     mocks.reresolveHeldImages.mockResolvedValue({ checked: 3, published: 2, errors: ['held-image x'] });
-    mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, errors: ['held-theory y'] });
+    mocks.reresolveHeldTheoryImages.mockResolvedValue({ checked: 4, published: 1, holdReasons: { no_item_image: 3 }, errors: ['held-theory y'] });
     mocks.upsertLiveTheory.mockResolvedValue({
       id: 'th-1',
       expiresAt: 'x',
