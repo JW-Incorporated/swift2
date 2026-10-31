@@ -5183,7 +5183,7 @@ export default {
             reportedOn: '2026-07-05',
             status: 'confirmed',
             url: 'https://hollywoodlife.com/2026/07/05/who-performed-at-taylor-swift-wedding/',
-            note: 'Reported days after the wedding by E! News, NME and HollywoodLife with the same "I Want to Hold Your Hand" detail; the couple released no photos or video. Re-checked 2026-10-30: McCartney himself described the performance on Jimmy Kimmel Live! (AAP, Oct. 3), so it resolves confirmed; the song title rests on People\'s source and wire reports. No location beyond MSG.',
+            note: 'Reported days after the wedding by E! News, NME and HollywoodLife with the same "I Want to Hold Your Hand" detail; the couple released no photos or video. Re-checked 2026-10-30: McCartney himself described the performance on Jimmy Kimmel Live! (AAP, Oct. 3), so it resolves confirmed; the exact song is still second-hand (an unnamed source to People, plus wire reports). No location beyond MSG.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-10-30',
             resolution: {
