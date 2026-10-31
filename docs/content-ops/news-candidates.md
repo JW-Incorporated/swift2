@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 95
+Stories: 93
 
 ## Taylor Swift Inducted into Hall of Fame with $2.4 Million Necklace
 
@@ -43,14 +43,6 @@ Stories: 95
 - sources:
   - [unverified] PureWow — https://www.purewow.com/news/travis-kelce-responds-prince-william-graham-norton-show-taylor-swfit-selfie
 
-## Bill Maher Compares Trump in Ongoing Feud to Taylor Swift
-
-- first seen: 2026-10-31 13:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bill Maher has drawn a comparison between Trump and Taylor Swift as his feud with the former president intensifies. The comments highlight the ongoing cultural discussions surrounding both figures.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/bill-maher-feud-trump-escalates-134008685.html
-
 ## Celebrities Suggest Sport-Themed Halloween Costume Ideas
 
 - first seen: 2026-10-31 13:57 UTC | category: fashion | importance: 5
@@ -58,6 +50,15 @@ Stories: 95
 - summary: Various sports stars and celebrities have come together to share their ideas for Halloween costumes inspired by sports. The suggestions aim to inspire fans and attendees of an upcoming sport-themed Halloween party.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/sport/videos/ckgelp588j1xo?at_medium=RSS&at_campaign=rss
+
+## Bill Maher Compares Trump in Ongoing Feud to Taylor Swift
+
+- first seen: 2026-10-31 13:57 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Bill Maher has drawn a comparison between Trump and Taylor Swift as his feud with the former president intensifies. The comments highlight the ongoing cultural discussions surrounding both figures.
+- sources:
+  - [unverified] New York Post — https://nypost.com/2026/10/31/us-news/bill-maher-says-dining-with-trump-is-like-dating-taylor-swift/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/bill-maher-feud-trump-escalates-134008685.html
 
 ## Taylor Swift's Wedding Guests Reportedly Treated Differently
 
@@ -78,11 +79,13 @@ Stories: 95
 ## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
 
 - first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: Travis Kelce has shared his thoughts on Prince William's unexpected remark regarding a selfie with Taylor Swift. The interaction highlights the crossover between celebrity culture and royal interests.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-unexpected-move-wedding-travis-kelce/
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/31/tim-mcgraw-taylor-swift-travis-kelce-wedding-rumor/92533217007/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/tim-mcgraw-denies-performing-taylor-160000579.html
 
 ## New Taylor Swift-themed restaurant Swiftee's Lakeview opens in Hempfield
 
@@ -792,19 +795,3 @@ Stories: 95
 - summary: Travis Kelce shared a humorous response to Prince William's remark regarding a photo of Taylor Swift. The interaction highlights the connection between Kelce's relationship with Swift and the royal family.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437578/travis-kelce-reacts-to-prince-william-not-wanting-him-in-taylor-swift-photo
-
-## Taylor Swift Reflects on Nashville Songwriters Hall of Fame Honor
-
-- first seen: 2026-10-28 16:53 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her appreciation for being honored by the Nashville Songwriters Hall of Fame, stating she will 'cherish' the recognition. This acknowledgment highlights her impact and contributions to the music industry.
-- sources:
-  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/28/taylor-swift-says-shell-cherish-her-historic-nashville-songwriters-hall-of-fame-honor/
-
-## Seahawks Make Light Joke About Chiefs Amid Taylor Swift Fans' Response
-
-- first seen: 2026-10-28 16:53 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Seattle Seahawks jokingly commented on the Kansas City Chiefs, leading to a response from Taylor Swift fans. The interaction highlights the connection between sports and pop culture.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/seahawks-playful-shot-chiefs-taylor-160000828.html
