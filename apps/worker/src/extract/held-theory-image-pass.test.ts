@@ -136,7 +136,7 @@ describe('reresolveHeldTheoryImages', () => {
       ],
     );
     const result = await reresolveHeldTheoryImages(db);
-    expect(result).toEqual({ checked: 1, published: 1, errors: [] });
+    expect(result).toEqual({ checked: 1, published: 1, holdReasons: {}, errors: [] });
     expect(theoryUpdates[0]).toEqual({
       id: 't1',
       patch: { image_url: 'https://www.people.com/photo.jpg', quality_hold_reason: null },
@@ -157,7 +157,7 @@ describe('reresolveHeldTheoryImages', () => {
     const result = await reresolveHeldTheoryImages(db);
     // "legacy" has no evidence (skipped entirely, not checked); "offlist" cites a
     // non-allowlisted item so it IS checked but not adopted.
-    expect(result).toEqual({ checked: 1, published: 0, errors: [] });
+    expect(result).toEqual({ checked: 1, published: 0, holdReasons: { 'image_rejected:evil.example.com': 1 }, errors: [] });
     expect(theoryUpdates).toHaveLength(0);
     expect(emit).not.toHaveBeenCalled();
   });
@@ -310,4 +310,43 @@ describe('reresolveHeldTheoryImages', () => {
     expect(theoryUpdates.map((u) => u.id).sort()).toEqual(['adopt1', 'adopt2']);
     expect(emit).toHaveBeenCalledTimes(2);
   }, 2000);
+
+  it('records no_evidence_item when a cited current_item id is missing', async () => {
+    const { db } = fakeDb(
+      [
+        { id: 't-missing', name: 'M', claim: 'c', evidence_ids: ['current:missing'], last_seen_on: '2025-01-01' },
+      ],
+      [],
+    );
+    const result = await reresolveHeldTheoryImages(db);
+    expect(result.checked).toBe(1);
+    expect(result.published).toBe(0);
+    expect(result.holdReasons.no_evidence_item).toBe(1);
+  });
+
+  it('records no_item_image when cited items exist but have no image', async () => {
+    const { db } = fakeDb(
+      [
+        { id: 't-noimg', name: 'N', claim: 'c', evidence_ids: ['current:empty'], last_seen_on: '2025-01-01' },
+      ],
+      [{ id: 'empty', image_url: null }],
+    );
+    const result = await reresolveHeldTheoryImages(db);
+    expect(result.checked).toBe(1);
+    expect(result.published).toBe(0);
+    expect(result.holdReasons.no_item_image).toBe(1);
+  });
+
+  it('records image_rejected:<host> when a cited item image fails the allowlist', async () => {
+    const { db } = fakeDb(
+      [
+        { id: 't-reject', name: 'R', claim: 'c', evidence_ids: ['current:bad'], last_seen_on: '2025-01-01' },
+      ],
+      [{ id: 'bad', image_url: 'https://evil.example.com/a.jpg' }],
+    );
+    const result = await reresolveHeldTheoryImages(db);
+    expect(result.checked).toBe(1);
+    expect(result.published).toBe(0);
+    expect(result.holdReasons['image_rejected:evil.example.com']).toBe(1);
+  });
 });

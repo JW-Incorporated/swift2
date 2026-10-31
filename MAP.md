@@ -143,6 +143,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `lib/live-theories-data.ts` | Server-side `live_theory`/`fan_signal` loader — raw `fetch()` against Supabase's REST endpoint (not `@supabase/supabase-js`, not in `apps/web`'s deps), deliberately outside `packages/core/src/knowledge/` (file-disjoint from Stage 9's concurrent work there) |
 | `apps/web/app/embed/youtube/[id]/route.ts` | Wrapper HTML (route handler) the app DOM host frames so YouTube gets a real origin (#4954); only route exempt from frame-ancestors/X-Frame-Options (`lib/security-headers.mjs` `embed`, `proxy.ts`, `next.config.mjs`). UI side: `packages/ui/src/reader/lib/youtube-embed.ts` |
 | `apps/web/app/embed/spotify/[type]/[id]/route.ts` | Spotify wrapper HTML for the app DOM host (One UI W6), same exemption path as YouTube via `isEmbedPath`. UI side: `packages/ui/src/reader/lib/spotify-embed.ts` |
+| `packages/ui/src/reader/lib/use-stop-when-hidden.ts` (+ `.test.ts`) | Stops embedded videos the moment they are not visible (#6473): visibilitychange, IntersectionObserver (ratio < 0.5), 750 ms `elementFromPoint` covered-check, and one-player-at-a-time via module-level `Set` + `claimPlayback`; wired into `useEmbedGate` so every player obeys |
 | `app/vault/live-theories/route.ts` | Stage 7's one read route for both boards below, ISR `revalidate: 900` |
 | `components/longlive/LiveTheoryCard.tsx` | One live `live_theory` card in `TheoryGuide` — dashed-provisional border, heat pill, "fans are saying" line |
 | `apps/web/app/api/feedback/report-guards.ts` | Split out of `feedback/route.ts` (300-line cap, pure move): per-instance IP limiter, `[diag]`/`[watchdog]` validation, durable quota claim |
@@ -231,6 +232,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |
 | `scripts/check-clown-battery.mjs` | `clown:battery` CI script (deterministic, no API key) |
+| `scripts/check-media-mix.mjs` (+ `.test.ts`) | `check:media-mix` (informational, not a CI gate): per-era video share of the feed (moments w/ video + video records + live w/ video over the total), imports the real content pipeline; `--json`, `--live` |
 | `scripts/check-workflow-deps.mjs` (+ `.test.ts`) | `check:workflow-deps` (ci.yml build-full): any workflow job running a repo node/tsx script whose relative-import graph needs a non-builtin package must install deps (setup-repo `npm-ci: 'true'` or `npm ci`), and must run `npm run sync:content` if it imports a gitignored `*.generated.*` module; builtin-only scripts keep the fast path; `ALLOWLIST` for edge cases (#5219, #5224) |
 | `scripts/check-workflow-entries.mjs` (+ `.test.ts`) | `check:workflow-entries` (ci.yml build-full): every workflow `node <file>` entry must LOAD under plain node (spawned `import()` in a secret-free env; module-load errors fail, runtime errors pass). Entries under `scripts/social|community|marjorie/`, a named list, or whose import graph names an external send API (X/IG/FB/Discord/Resend) are NEVER spawned — static import-graph check only (P0-23) |
 | `docs/proposals/2026-08-13-clownbot-shelved-content.md` | Build-A content not carried forward |
@@ -512,6 +514,7 @@ device-identity schema — `platform='web'` devices reuse the entire Phase
 | `docs/plans/tree-overhaul/waves/*.md` | Paste-ready prompts, one per wave, each a fresh session |
 | `docs/plans/marjorie-overhaul/PLAN.md` | Marjorie Overhaul (epic #4180) plan of record: waves M0–M4, item map, gates, why M4 waits for Tree R2 |
 | `docs/plans/marjorie-overhaul/RUNBOOK.md` | Founder runbook for the Marjorie waves: schedule, standing job in `#longlive-marjorie` |
+| `docs/plans/2026-10-31-video-first.md` | Video-first feed plan (2027 direction): diagnosis, target design (current_item embed + media-aware ranker), 8 slices routed Quen vs Claude, owner decisions Q1–Q4 |
 | `docs/plans/marjorie-overhaul/checkpoints.json` | MR1/MR2 rechecks; `due` is null until the M1 session sets it |
 | `docs/plans/marjorie-overhaul/waves/*.md` | Paste-ready prompts, one per wave: `m0-design` (done), `m1-comms`, `m2-watchdog-handling`, `m3-triage`, `m4-loop`, `m5-chat`, `m6-live-asks`, `m7-doorbell`, `m7-clock-v2` (the clock rebuilt from the architect ruling in `DEBUG.md` on `feature/m7-clock`) |
 | `docs/plans/one-ui/PLAN.md` | One UI programme (epic #4788): work packages WP0.0–WP5.2, gates G0–G5, device test sessions S1–S9 |
