@@ -58,6 +58,7 @@ async function main() {
     deferred: result.extract.deferred,
     heldImagesChecked: result.extract.heldImagesChecked,
     heldImagesPublished: result.extract.heldImagesPublished,
+    heldPassReasons: result.extract.heldPassReasons,
     theoriesUpserted: result.extract.theoriesUpserted,
     theoryHoldReasons: result.extract.theoryHoldReasons,
     ...runStats,
