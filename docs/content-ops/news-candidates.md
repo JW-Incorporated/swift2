@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 97
+Stories: 98
+
+## Taylor Swift Inducted into Hall of Fame with $2.4 Million Necklace
+
+- first seen: 2026-10-31 15:17 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was recently inducted into the Hall of Fame, showcasing a stunning $2.4 million diamond necklace during the event. This appearance highlights her continued prominence in both music and fashion.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-celebrates-hall-fame-115000451.html
 
 ## Travis Kelce Addresses Prince William's Selfie Comment
 
