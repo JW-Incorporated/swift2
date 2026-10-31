@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 95
+
+## Taylor Swift Paid Nelly $50K for a Short Performance
+
+- first seen: 2026-10-31 02:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift once compensated Nelly with $50,000 in a McDonald's bag for a three-minute performance. This unusual payment method highlights an interesting moment in her business dealings.
+- sources:
+  - [unverified] HOLA — https://www.hola.com/us/celebrities/20261030932407/taylor-swift-nelly-50k-mcdonalds-bag-performance/
+
+## Nelly Claims Taylor Swift Paid Him $50K in McDonald's Bag for Concert Performance
+
+- first seen: 2026-10-31 02:27 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Nelly revealed that he received $50,000 from Taylor Swift in a McDonald's bag to perform at her concert. This statement highlights an unusual payment method for live performances in the music industry.
+- sources:
+  - [unverified] Entertainment Weekly — https://ew.com/nelly-says-taylor-swift-paid-him-50k-in-mcdonalds-bag-to-perform-12203459
+
+## Bill Maher Compares Trump to Taylor Swift in Latest Episode
+
+- first seen: 2026-10-31 02:27 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: On a recent episode of 'Real Time with Bill Maher,' Bill Maher fired back at criticism regarding his dinner with Trump, comparing the former president to Taylor Swift. The segment highlights Maher’s defense of his choice to engage with controversial figures.
+- sources:
+  - [established] Variety — https://variety.com/2026/tv/news/bill-maher-fires-back-trump-taylor-swift-real-time-hbo-1236935799/
 
 ## Taylor Swift Breaks Records in Recent Achievements
 
