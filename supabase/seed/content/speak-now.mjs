@@ -1657,6 +1657,78 @@ export default {
       },
     },
     {
+      slug: 'nelly-just-a-dream-houston-2011',
+      year: 2011,
+      month: 11,
+      day: 5,
+      category: 'tour',
+      title: 'Nelly surprises Houston for "Just a Dream" — and, he revealed 15 years later, left with $50,000 in a McDonald\'s bag',
+      snippet:
+        'At the Speak Now tour\'s Minute Maid Park show, Nelly walked out to sing "Just a Dream" with Taylor in front of 42,000 people. In October 2026 he told The Breakfast Club she paid him $50,000 cash — handed over, at his own request, in a McDonald\'s bag.',
+      sourceUrl:
+        'https://houston.culturemap.com/news/entertainment/11-06-11-01-52-nelly-and-teen-angst-rule-at-taylor-swift-houston-concert',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor had already been covering Nelly\'s 2010 single "Just a Dream" on the Speak Now tour — she played it at her St. Louis stop, in his hometown, that summer. On Nov. 5, 2011, at a sold-out Minute Maid Park in Houston, the man himself came out to sing it with her. CultureMap Houston\'s review counted a crowd of 42,000 and singled out the cameo as the moment she seemed to be having the most fun all night.\n\nThe backstory surfaced in October 2026, when Nelly told The Breakfast Club how the booking happened. Taylor flew him down from St. Louis, he said, and was apologetic about the fee — she didn\'t "really have a budget like that" and didn\'t want to disrespect him. The figure was $50,000 in cash, and Nelly asked for it in a McDonald\'s bag. "But I would\'ve did it for free," he said.\n\nTellings differ on the small stuff. VICE\'s write-up of the interview says the bag came from her manager after the show; Complex has him paid before he went on, and quotes Nelly saying Taylor first asked for "Hot in Herre," which she and her friends had a routine to. The song the 2011 review actually records them singing is "Just a Dream." The two would share a stage again in St. Louis — "Hey Porsche" on the Red tour, "Hot in Herre" on the 1989 tour.',
+        sources: [
+          {
+            outlet: 'CultureMap Houston',
+            url: 'https://houston.culturemap.com/news/entertainment/11-06-11-01-52-nelly-and-teen-angst-rule-at-taylor-swift-houston-concert',
+            source_title: 'Why is Taylor Swift so darn popular? Teen angst and Nelly rule at Houston concert',
+            publisher: 'CultureMap Houston',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-30',
+            reliability_score: 3,
+            notes: 'contemporaneous review (Clifford Pugh, Nov. 6, 2011): Nov. 5 show at Minute Maid Park, sellout crowd of 42,000, Nelly surprise appearance on "Just A Dream".',
+          },
+          {
+            outlet: 'VICE',
+            url: 'https://www.vice.com/en/article/a-mcdonalds-bag-full-of-cash-nelly-reveals-how-taylor-swift-paid-him-50000/',
+            source_title: "A McDonald's Bag Full of Cash: Nelly Reveals How Taylor Swift Paid Him $50,000",
+            publisher: 'VICE',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-30',
+            reliability_score: 3,
+            notes: 'Nelly on The Breakfast Club (aired Oct. 28, 2026): $50,000 cash in a McDonald\'s bag, flown in from St. Louis, "I would\'ve done it for free"; later St. Louis duets (2013 "Hey Porsche", 2015 "Hot in Herre").',
+          },
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag',
+            source_title: "Nelly Says Taylor Swift Paid Him $50,000 in McDonald's Bag to Perform 'Hot in Herre'",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-30',
+            reliability_score: 3,
+            notes: 'same interview: the "budget" and "disrespect" quotes, payment before the set, "Hot in Herre" as the original ask.',
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-nelly-just-a-dream-video/',
+            source_title: "Taylor Swift Goes Hip-Hop in St. Louis With Nelly's 'Just a Dream'",
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-30',
+            reliability_score: 3,
+            notes: 'Aug. 16, 2011: Taylor covering "Just a Dream" at a St. Louis Speak Now tour stop.',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Taylor_Swift_-_B-Stage_-_Speak_Now_Tour_in_Vancouver.jpg/1280px-Taylor_Swift_-_B-Stage_-_Speak_Now_Tour_in_Vancouver.jpg',
+            // upload.wikimedia.org (allowlisted host). 1280px thumbnail
+            // curl-verified 200 image/jpeg, downloaded and viewed: Taylor in
+            // a lilac dress seated under the lit tree on the acoustic B-stage.
+            // Commons file by Andy L, CC BY-SA 2.0, taken 2011-09-11.
+            credit: 'Andy L / Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'The Speak Now tour\'s acoustic B-stage, photographed in Vancouver in September 2011 — for reference: no freely licensed photo of the Houston duet with Nelly exists.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       slug: 'acm-entertainer-2011',
       year: 2011,
       month: 4,
