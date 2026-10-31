@@ -88,11 +88,14 @@ async function main() {
   let liveItems = [];
   let liveNote = '';
   if (useLive) {
+    // The public route the site itself reads — no Supabase env needed.
+    const url = `https://www.longlivets.com/vault/live/${CURRENT_ERA_ID}`;
     try {
-      const { loadCurrentItems } = await import('../apps/web/lib/current.ts');
-      liveItems = await loadCurrentItems(CURRENT_ERA_ID);
-    } catch {
-      liveNote = '\n(live data unavailable — no Supabase env or connection failed; live columns are 0)';
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      liveItems = (await res.json()).items ?? [];
+    } catch (error) {
+      liveNote = `\n(live data unavailable — ${url}: ${error.message}; live columns are 0)`;
     }
   }
 
