@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 92
+
+## Taylor Swift Breaks Records in Recent Achievements
+
+- first seen: 2026-10-31 01:27 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has achieved notable milestones, as reported in TCU 360. The article also mentions appearances in Abbott Elementary and results from DWTS.
+- sources:
+  - [unverified] TCU 360 — https://tcu360.com/2026/10/30/the-leap-taylor-swift-breaks-records-special-guests-in-abbott-elementary-and-double-elimination-in-dwts/
+
+## Ranking Taylor Swift's Music Across 20 Years and 12 Albums
+
+- first seen: 2026-10-31 01:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Her Campus presents a ranking of Taylor Swift's music throughout her 20-year career, evaluating 12 albums. The analysis showcases the evolution of her sound and artistry over the years.
+- sources:
+  - [unverified] Her Campus — https://www.hercampus.com/school/sbu/taylor-swift-20-years-of-music-ranked-in-12-albums/
 
 ## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Home Plans
 
@@ -780,11 +796,3 @@ Stories: 91
 - summary: A collaborator of Taylor Swift has publicly called out Ed Sheeran, urging him to take a stand following recent events involving Macklemore. The comments have sparked discussions in the music community.
 - sources:
   - [unverified] Fox News — https://www.foxnews.com/media/taylor-swifts-hitmaker-scolds-ed-sheeran-stand-f-up-after-macklemore-fallout
-
-## Castle from 'Blank Space' Sells for $72 Million at Auction
-
-- first seen: 2026-10-28 01:11 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: A castle featured in Taylor Swift's music video for 'Blank Space' has been sold for $72 million at auction. The sale highlights the value of properties associated with notable cultural figures.
-- sources:
-  - [established] People — https://people.com/castle-from-taylor-swift-s-blank-space-oheka-castle-finds-a-buyer-for-usd72-million-at-auction-12197459
