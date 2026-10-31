@@ -291,6 +291,23 @@ describe('Google News source handling', () => {
       imageNoOg: 1,
       imageHostNotAllowlisted: 1,
       imageResolved: 1,
+      imageRejectedHosts: { 'evil-cdn.example.com': 1 },
     });
+  });
+
+  it('tallies rejected image hosts by hostname', async () => {
+    resetRunStats();
+    const sources: ClusterSource[] = [{ outletName: 'B', url: 'https://www.billboard.com/x', tier: 'established' }];
+    await resolveFallbackImage(
+      sources,
+      vi.fn().mockResolvedValue(htmlResponse('<meta property="og:image" content="https://bad-host.example.com/a.jpg">')) as unknown as typeof fetch,
+    );
+    expect(runStats.imageRejectedHosts['bad-host.example.com']).toBe(1);
+  });
+
+  it('resetRunStats clears imageRejectedHosts', () => {
+    runStats.imageRejectedHosts['test-host'] = 1;
+    resetRunStats();
+    expect(runStats.imageRejectedHosts).toEqual({});
   });
 });
