@@ -16,6 +16,75 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-10-31 (Vault Run, Content Shift lane) from intake #6483.
+      // Read directly this run: Yahoo Entertainment (Mandatory syndication,
+      // Nikita Nath, Oct. 29, 2026 09:19 UTC) for the on-screen question and
+      // the four options; CinemaBlend (Riley Utley, Oct. 30, 2026) for the
+      // $4,000 level and Jost's "talking about size" reasoning. Billboard and
+      // EW (cited on the ticket) were gated from this runner, so they are
+      // not cited. Air date: the ticket says Oct. 30, but Yahoo ran the clip on
+      // the morning of Oct. 29 UTC and YouTube TV lists the episode (S5 E8,
+      // "In the Hot Seat") for Oct. 28 — dated Oct. 28. Che's closing pun is
+      // not quoted because neither readable outlet printed its exact wording.
+      // Redlines: clean — a game-show question about one of her songs.
+      slug: 'showgirl-millionaire-jost-che-wood',
+      year: 2026,
+      month: 10,
+      day: 28,
+      category: 'music',
+      title: 'Colin Jost and Michael Che nearly get stuck on “Wood” on Millionaire',
+      snippet:
+        'The SNL anchors’ $4,000 question asked for the shortest track on The Life of a Showgirl, with an “ironically” in the clue. Jost worked it out.',
+      sourceUrl:
+        'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wood-stumps-colin-091904229.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Colin Jost and Michael Che played celebrity Who Wants to Be a Millionaire with Jimmy Kimmel hosting, and their $4,000 question was about Taylor: "Ironically, what innuendo-laden song is the shortest track on Taylor Swift\'s album "The Life of a Showgirl"?" The options were "Wood," "Cruel Summer," "Anti-Hero" and "Karma." Only one of those is actually on the album.\n\nThe Weekend Update pair still stalled for a while. Jost got there by reading the clue: "And I feel like the irony, is if you know some of the lyrics from the song, is talking about size, so shortest track is…" Che caught on and told him to lock in "Wood," which was right.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wood-stumps-colin-091904229.html',
+            source_title: 'Taylor Swift’s ‘Wood’ Stumps Colin Jost & Michael Che on ‘Millionaire’ Quiz',
+            publisher: 'Yahoo Entertainment (via Mandatory)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-31',
+            reliability_score: 3,
+            notes:
+              'By Nikita Nath, Oct. 29, 2026; loaded directly. Source for the question text and the four options.',
+          },
+          {
+            outlet: 'CinemaBlend',
+            url: 'https://www.cinemablend.com/television/colin-jost-michael-che-discuss-nsfw-taylor-swift-song-who-wants-to-be-a-millionaire',
+            source_title:
+              "I Didn't Expect Colin Jost And Michael Che To Discuss An NSFW Taylor Swift Song, But It's As Funny As It Sounds",
+            publisher: 'CinemaBlend',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-31',
+            reliability_score: 3,
+            notes:
+              'By Riley Utley, Oct. 30, 2026; loaded directly. Source for the $4,000 level and Jost\'s quote.',
+          },
+        ],
+        // Photo: no free-licensed still of the episode exists, so like the
+        // Bad Gyal page this carries a verified photo of the speakers. Arturo
+        // Pardavila III's Citi Field portrait (Oct. 12, 2015; CC BY 2.0)
+        // curl-verified 2026-10-31 HTTP 200 image/jpeg at the 960px thumb
+        // (960x628), downloaded and vision-confirmed: Jost and Che side by side
+        // in Mets caps in the stands.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Colin_Jost_and_Michael_Che_at_Citi_Field%2C_2015.jpg/960px-Colin_Jost_and_Michael_Che_at_Citi_Field%2C_2015.jpg',
+            focalPoint: '50% 35%',
+            credit: 'Arturo Pardavila III, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'Colin Jost and Michael Che at Citi Field in 2015, years before a Showgirl question nearly tripped them up on Millionaire.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-22 (Vault Run, Content Shift lane) from intake #6039.
       // A named artist's own on-record opinion in a filmed interview. Two
       // outlets read directly this session carry the same translated quotes
@@ -16736,6 +16805,17 @@ export default {
             reliability_score: 3,
             notes:
               'By Vanessa Serna, Oct. 28, 2026; loaded directly. Independently carries the same quotes. CUT: the "doesn\'t go south" joke, which Page Six gives to Jason and Billboard to Travis. Intake #6420.',
+          },
+          {
+            outlet: 'New Heights',
+            url: 'https://www.youtube.com/watch?v=aVF6UiGPQQs',
+            source_title: 'Prince William Tried to Kick Travis Out of His Photo With Taylor Swift',
+            publisher: 'New Heights',
+            source_type: 'video',
+            accessed_at: '2026-10-31',
+            reliability_score: 4,
+            notes:
+              'Official New Heights YouTube clip (video id aVF6UiGPQQs, published Oct. 30, 2026), the podcast\'s own cut of Travis answering William. Surfaced by appearance-discovery (intake #6464); verified via YouTube oEmbed (HTTP 200, title as above, author_name "New Heights"). Not watched from this run, so no quote in the context rests on it; the quotes stay on Billboard and Page Six.',
           },
         ],
         socialPost: {
