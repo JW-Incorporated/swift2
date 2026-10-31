@@ -13,6 +13,7 @@
 // DB reads/writes only: no fetches, no LLM calls.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { evaluateImageUrl } from '@swift2/shared';
 import { theoryImageFields } from './live-theory-image';
 import { emitEasterEggEvent } from './write-knowledge';
 
@@ -30,6 +31,7 @@ interface HeldTheoryRow {
 export interface HeldTheoryImagePassResult {
   checked: number;
   published: number;
+  holdReasons: Record<string, number>;
   errors: string[];
 }
 
@@ -39,11 +41,37 @@ function currentItemIds(evidenceIds: unknown): string[] {
     .map((v) => v.slice(CURRENT_DOC_PREFIX.length));
 }
 
+/** Classify why a checked theory was not adopted:
+ * - `no_evidence_item`: none of its cited current_item ids came back
+ * - `no_item_image`: the items exist but every image_url is null
+ * - `image_rejected:<host>`: an image exists but fails the allowlist check
+ */
+function classifyUnadoptedReason(itemIds: string[], byId: Map<string, string | null>): string {
+  const present: Array<{ id: string; imageUrl: string | null }> = [];
+  for (const id of itemIds) {
+    if (byId.has(id)) present.push({ id, imageUrl: byId.get(id) ?? null });
+  }
+  if (present.length === 0) return 'no_evidence_item';
+  if (present.every((p) => p.imageUrl === null)) return 'no_item_image';
+  for (const { imageUrl } of present) {
+    if (imageUrl === null) continue;
+    const verdict = evaluateImageUrl(imageUrl);
+    if (!verdict.ok) {
+      try {
+        return `image_rejected:${new URL(imageUrl).hostname}`;
+      } catch {
+        return 'image_rejected:unknown';
+      }
+    }
+  }
+  return 'unknown';
+}
+
 export async function reresolveHeldTheoryImages(
   db: SupabaseClient,
   now: Date = new Date(),
 ): Promise<HeldTheoryImagePassResult> {
-  const result: HeldTheoryImagePassResult = { checked: 0, published: 0, errors: [] };
+  const result: HeldTheoryImagePassResult = { checked: 0, published: 0, holdReasons: {}, errors: [] };
   let from = 0;
   let scanned = 0;
   while (scanned < MAX_SCANNED_ROWS) {
@@ -108,7 +136,11 @@ async function adoptPage(
           break;
         }
       }
-      if (!adopted) continue;
+      if (!adopted) {
+        const reason = classifyUnadoptedReason(itemIds, byId);
+        result.holdReasons[reason] = (result.holdReasons[reason] ?? 0) + 1;
+        continue;
+      }
 
       // .select('id') is required: supabase-js v2 returns data: null from an
       // update unless a select is chained, so without it the adopted-only guard
