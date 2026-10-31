@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 90
+
+## Tim McGraw Clarifies Wedding Rumor Involving Taylor Swift and Travis Kelce
+
+- first seen: 2026-10-31 21:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tim McGraw addresses and corrects misinformation surrounding a rumored wedding between Taylor Swift and Travis Kelce. This clarification comes amidst ongoing speculation about their relationship.
+- sources:
+  - [unverified] Wide Open Country — https://www.wideopencountry.com/no-this-country-star-didnt-perform-at-taylor-swift-travis-kelces-wedding/
 
 ## Bill Maher Compares Trump's Actions to Dating Taylor Swift
 
@@ -762,19 +770,3 @@ Stories: 91
 - summary: Wedding photos of Taylor Swift and Travis Kelce have emerged, featuring a long-awaited detail that gives fans a closer look at the couple's special day.
 - sources:
   - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-wedding-photos-surface-with-one-long-awaited-detail-finally-giving-fans-a-closer-look-12246294
-
-## Taylor Swift Achieves New Career Milestone
-
-- first seen: 2026-10-28 20:37 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has reached another significant career milestone, marking 20 years in the industry. The article discusses her legacy and the impacts of public intimacy on her career.
-- sources:
-  - [unverified] Inc.com — https://www.inc.com/alicia-teltz/taylor-swift-nashville-songwriters-hall-of-fame-public-intimacy/91427104
-
-## Travis Kelce's Relationship with Taylor Swift Reported to be Strained
-
-- first seen: 2026-10-28 20:37 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest that the marriage between Travis Kelce and Taylor Swift may be facing challenges, affecting Kelce's performance. The situation is gaining attention in the media.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/28/chiefs-travis-kelce-and-taylor-swift-s-marriage-going-south-starts-getting-into-his-head.html
