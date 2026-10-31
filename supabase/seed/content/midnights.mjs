@@ -2243,6 +2243,7 @@ export default {
       month: 1,
       day: 7,
       category: 'fashion',
+      relatedIds: ['moment:vault-ttpd-a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen'],
       title: 'A sparkling green Gucci gown at the Golden Globes',
       snippet:
         'A custom sparkling green Gucci gown by Sabato de Sarno, paired with green Christian Louboutin pumps and De Beers diamonds — plus a snake-like ring stack fans read as a reputation nod.',

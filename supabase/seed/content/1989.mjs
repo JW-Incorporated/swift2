@@ -2113,6 +2113,7 @@ export default {
       relatedIds: [
         'moment:vault-red-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac',
         'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
+        'moment:vault-ttpd-a-new-years-eve-kiss-in-kansas-city',
       ],
       year: 2015,
       month: 12,
