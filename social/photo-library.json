@@ -882,6 +882,36 @@
       "sha256": "078fde49dd0acec8bae67c25b4dc26001dbefd2ef5823931ee579d5057f46842"
     },
     {
+      "id": "official-video-kjD3LoXp-Pw-maxres2",
+      "mediaPath": "/social/library/photos/official-video-kjD3LoXp-Pw-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=kjD3LoXp-Pw",
+      "alt": "Still from Taylor Swift's official \"\"False God\" (Live on Saturday Night Live / 2019)\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 42785,
+      "sha256": "5ad8e3114c6ed4601c079ab821dcde10f83e59a316ae62a0c4099c56f0c1093f"
+    },
+    {
+      "id": "official-video-kjD3LoXp-Pw-maxres3",
+      "mediaPath": "/social/library/photos/official-video-kjD3LoXp-Pw-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=kjD3LoXp-Pw",
+      "alt": "Still from Taylor Swift's official \"\"False God\" (Live on Saturday Night Live / 2019)\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 46025,
+      "sha256": "3dcaad3b6b09744541aca69bd70f89f1fd5b2c419811b9aca3a69f490b9bffec"
+    },
+    {
       "id": "official-video-kY-_D-IptZE-maxres1",
       "mediaPath": "/social/library/photos/official-video-kY-_D-IptZE-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -925,6 +955,51 @@
       "height": 720,
       "bytes": 22273,
       "sha256": "de6677e8e8c1493accc8f504991ad1ef7ebf58b864d004460c79d8e8ea2cb308"
+    },
+    {
+      "id": "official-video-MA0HQG9J9Yk-maxres1",
+      "mediaPath": "/social/library/photos/official-video-MA0HQG9J9Yk-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=MA0HQG9J9Yk",
+      "alt": "Still from Taylor Swift's official \"ME! (Live on The Graham Norton Show)\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 123169,
+      "sha256": "4c4088e3f4f35f664806c886ee5a3e156d8111dc11abe36f38dc9f51dabb72ee"
+    },
+    {
+      "id": "official-video-MA0HQG9J9Yk-maxres2",
+      "mediaPath": "/social/library/photos/official-video-MA0HQG9J9Yk-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=MA0HQG9J9Yk",
+      "alt": "Still from Taylor Swift's official \"ME! (Live on The Graham Norton Show)\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 117649,
+      "sha256": "4eabc1ee2f6ad7380da90d89cccc4d3ba99c13bc80957590c9c97aab9a592a49"
+    },
+    {
+      "id": "official-video-MA0HQG9J9Yk-maxres3",
+      "mediaPath": "/social/library/photos/official-video-MA0HQG9J9Yk-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=MA0HQG9J9Yk",
+      "alt": "Still from Taylor Swift's official \"ME! (Live on The Graham Norton Show)\" performance video.",
+      "tags": [
+        "official-video",
+        "lover"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 123723,
+      "sha256": "bb0637a52a8c91f92c23672657d56c80ae9fb92f138a118a3c19fe9a07b0a3bc"
     },
     {
       "id": "official-video-mN3rDTAdM2o-maxres1",
@@ -1785,6 +1860,20 @@
       "height": 1152,
       "bytes": 95958,
       "sha256": "09d801b1024e360732282e9399c26ea1244fd9ac3259f087a6d27a42e8d136fe"
+    },
+    {
+      "id": "press-6a2f52ed173f",
+      "mediaPath": "/social/library/photos/press-6a2f52ed173f.png",
+      "source": "https://www.cinemablend.com/streaming-news/taylor-swift-skipped-out-travis-kelce-wedding-tradition-lyric-totally-called-it",
+      "alt": "Taylor Swift in the news: Taylor Swift Skipped Out On One Wedding Tradition, And I Love That One Lyric Totally Called It",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via CinemaBlend",
+      "width": 2000,
+      "height": 1125,
+      "bytes": 3041297,
+      "sha256": "862017348c5825d046ff0e12efa0d1118357858d79fd2a2f5feecc7d40aa7ce0"
     },
     {
       "id": "red-inglewood-2023",
@@ -4577,6 +4666,22 @@
       "height": 2048,
       "bytes": 427441,
       "sha256": "267a4f20c66fbdc1e9b12860e1f55c9ec4bb51db8d6223750d19cc74251aa8f0"
+    },
+    {
+      "id": "wikimedia-137560896",
+      "mediaPath": "/social/library/photos/wikimedia-137560896.jpg",
+      "credit": "Paolo V (CC BY 2.0), via Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53109756519).jpg",
+      "alt": "These photos are FREE to download, use, print, remix, adapt and use in any way under a Creative Commons license. If you use them, please credit me with my full name Paolo Villanueva and or IG handle @",
+      "tags": [
+        "fan-photo",
+        "eras-tour",
+        "1989"
+      ],
+      "width": 1321,
+      "height": 2048,
+      "bytes": 201469,
+      "sha256": "dc44846c51a7a3cd3dc6724d959d6bc0e612cee08be9f07c05f035586107460b"
     },
     {
       "id": "wikimedia-137561154",
