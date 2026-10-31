@@ -90,6 +90,9 @@ jobs:
           done
           "$HOME/.local/bin/claude" --version
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      # A miss here is expected and tolerated: merch-awin-sync saves no index
+      # cache while the Awin account has zero joined programmes (E0), so the
+      # matcher degrades to brand-direct + paid search (issue #6276).
       - name: Restore Awin product index cache
         if: ${{ steps.run.outputs.proceed == 'true' }}
         uses: actions/cache/restore@v6
