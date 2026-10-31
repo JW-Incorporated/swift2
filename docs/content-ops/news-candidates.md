@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 95
 
 ## Taylor Swift Inducted into Hall of Fame with $2.4 Million Necklace
 
@@ -808,27 +808,3 @@ Stories: 98
 - summary: The Seattle Seahawks jokingly commented on the Kansas City Chiefs, leading to a response from Taylor Swift fans. The interaction highlights the connection between sports and pop culture.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/seahawks-playful-shot-chiefs-taylor-160000828.html
-
-## Taylor Swift Upset Over Leaked Wedding Photos of Travis Kelce
-
-- first seen: 2026-10-28 15:58 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly upset following the leak of new wedding photos featuring Travis Kelce, feeling it constitutes a betrayal.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234962649/taylor-swift-travis-kelce-response-new-wedding-photos/
-
-## Dwayne Johnson Appears to Like Video Calling Taylor Swift ‘Fake’
-
-- first seen: 2026-10-28 15:44 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dwayne Johnson's recent video includes him calling Taylor Swift a ‘fake,’ a statement he seems to endorse. The context of this interaction remains unclear, raising interests surrounding celebrity interactions.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/dwayne-johnson-appears-video-calling-150034390.html
-
-## Travis Kelce Discusses Marriage Amid Prince William Selfie Joke
-
-- first seen: 2026-10-28 15:44 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce addresses a marriage-related topic in response to a resurfaced joke involving Prince William's selfie. The comments were made during discussions on various media platforms.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-makes-unexpected-marriage-152000767.html
