@@ -27,6 +27,14 @@ so far".
 
 Stories: 79
 
+## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
+
+- first seen: 2026-11-01 16:57 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame along with fellow artist Lyle Lovett and others. This recognition highlights her contributions to the music industry.
+- sources:
+  - [unverified] WXXV News 25 — https://www.wxxv25.com/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/
+
 ## Possible Attendance of Taylor Swift at Chiefs vs Broncos Game
 
 - first seen: 2026-11-01 15:59 UTC | category: sighting | importance: 5
@@ -670,11 +678,3 @@ Stories: 79
 - summary: Taylor Swift is among five artists inducted into the Nashville Songwriters Hall of Fame, recognized during an event where George Strait paid tribute to the writers.
 - sources:
   - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/29/taylor-swift-lyle-lovett-and-four-more-join-nashville-songwriters-hall-of-fame-as-george-strait-salutes-the-writers/
-
-## Taylor Swift Seen in Cute Minidress
-
-- first seen: 2026-10-29 16:02 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted wearing a cute minidress, showcasing her stylish fashion sense. Fans and fashion enthusiasts have taken notice of her latest look.
-- sources:
-  - [unverified] Go Fug Yourself — https://www.gofugyourself.com/taylor-swifts-minidress-is-very-cute/
