@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 81
 
 ## Stars Mark Halloween 2026 Celebrations
 
@@ -698,11 +698,3 @@ Stories: 82
   - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-upset-121321103.html
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/travis-kelce-responds-prince-william-060000816.html
-
-## Taylor Swift Achieves Another Success
-
-- first seen: 2026-10-29 04:33 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article discusses Taylor Swift's latest achievements alongside a mention of a documentary about a different topic. Specific details of Swift's success are not provided in the snippet.
-- sources:
-  - [unverified] WHNT.com — https://whnt.com/video/another-win-for-taylor-swift-a-doc-about-a-serial-pooper-oct-28-2026-day-to-day/12313257/
