@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
 
 ## Patrick Mahomes and Wife Celebrate Halloween with Taylor Swift Tribute
 
@@ -730,11 +730,3 @@ Stories: 86
 - summary: Travis Kelce made a humorous remark that Prince William appeared uncertain about the longevity of his relationship with Taylor Swift. The comment reflects a light-hearted take on public perceptions of the couple's romance.
 - sources:
   - [unverified] AOL.com — https://www.aol.com/articles/travis-kelce-jokes-prince-william-181741000.html
-
-## Taylor Swift Upset Over Photo Leak From Travis Kelce's Wedding
-
-- first seen: 2026-10-29 01:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift is furious over a photo leak from the wedding of Travis Kelce. This incident has sparked attention regarding her reaction to the unauthorized sharing of personal moments.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-furious-livid-photo-001124478.html
