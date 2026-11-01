@@ -1,0 +1,35 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "being the one who turned down teenage Taylor and feeling zero regrets about it is wild. richard marx heard her earliest demos, was offered the session, and walked: \"i wouldn't have been any good to her.\" 😭\n\n📷 minds-eye (CC BY-SA 2.0)\n\nlonglivets.com/?item=vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-&utm_source=x&utm_medium=social&utm_campaign=era-deep-cut",
+  "media": [
+    "/social/library/photos/taylor-debut-live-2007-4.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-live-2007-4",
+  "photoEra": "debut",
+  "mediaCredit": "minds-eye (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007).jpg",
+  "scheduledAt": "2026-11-01T23:00:00Z",
+  "altText": [
+    "A young Taylor Swift with long blonde curls playing an acoustic guitar and singing into a microphone during a 2007 debut-era concert."
+  ],
+  "campaign": "heartbeat:era-deep-cut:richard-marx-passed-on-writing:2026-11-01",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "X half of the 11-01 fallback, its own post: opens on the contradiction (turning her down with zero regrets), fresh vocabulary, lands a quote the IG caption never uses (\"i wouldn't have been any good to her\"). ~0.63 word overlap with IG, under the 0.8 gate. Verbatim-sourced quotes only.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 2
+  },
+  "why": "X sibling of heartbeat:era-deep-cut:richard-marx-passed-on-writing:2026-11-01 (11-01 NEWS RESERVE #2 fallback). Same campaign + 23:00Z + debut photo as the IG half per W8; made structurally distinct after the checker flagged 86% similarity — different opener (the offer, not \"i did the right thing\") and a different verbatim quote (\"i wouldn't have been any good to her\", absent from the IG caption). Quotes verbatim from the Vault seed. Weighted length ~255 (URL = 23, credit line included), under 280. Credited CC BY-SA photo, compact credit kept within length; git-LFS pointer so same-picture check relies on prepare-job vetting."
+}
