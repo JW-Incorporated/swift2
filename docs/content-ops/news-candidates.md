@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 81
+
+## Taylor Swift's Attendance at Chiefs Game on November 1 Speculated
+
+- first seen: 2026-11-01 19:51 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There is speculation about Taylor Swift potentially attending the Chiefs game on November 1. Details regarding her plans remain unclear at this time.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/de/news/ni66090442/?ref_=nwc_art_perm
+
+## Taylor Swift Shares Longtime Inside Joke with Best Friend Abigail
+
+- first seen: 2026-11-01 19:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent reveal, Taylor Swift opened up about a longstanding inside joke shared with her best friend, Abigail. The revelation highlights the deep bond they share over the years.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-longtime-inside-184915859.html
+
+## Taylor Swift Comments on 'Husband' Before NFL Game
+
+- first seen: 2026-11-01 19:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Before the Chiefs-Broncos game, Taylor Swift made a rare remark referring to a 'husband'. Details of the comment were not disclosed, but it drew attention from fans and media alike.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-husband-comment-before-broncos-game/
 
 ## Dwayne Johnson appears to like post criticizing Taylor Swift
 
