@@ -2323,6 +2323,126 @@
       "sha256": "411fbcf2026b80c025cb94acb0171b4d962328c233f1b6eedf9b7d43feecfe5c",
       "reason": "Wide dark stage shot; performer small, umbrellas and screen dominate.",
       "date": "2026-10-30"
+    },
+    {
+      "id": "official-video-_zUCMfYkgj0-maxres1",
+      "sha256": "9737c31d2fd1393f8d2f6fe732c360038dc106759e923c1d48cba27c7eb9d9a1",
+      "reason": "Several dancers are equally prominent; no single clear main subject.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "official-video-_zUCMfYkgj0-maxres2",
+      "sha256": "b9d8b4b2dc0c0183877b1ea9b0accf64077f10553790fcc60e870daee632c193",
+      "reason": "Two performers share the frame equally; no single prominent subject.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "official-video-kjD3LoXp-Pw-maxres1",
+      "sha256": "333da2a2423555312d3f8323fa903d8be945619845f8f0427cfa2686c56ff953",
+      "reason": "Graphic SNL promo with repeated figures and SNL logo overlay, not a performance still",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "official-video-_zUCMfYkgj0-maxres3",
+      "sha256": "a2cf457ad24d143188c551ecfd8c32e6fdc4b88dfa117e1c5f6ada41367f089d",
+      "reason": "Two performers share center frame plus dancers; no single prominent subject.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "press-ff7c5c04cb57",
+      "sha256": "4b4dffb168164c705cca27f55591c54eec7acb8c6a223a8409c06e6e555cfbcc",
+      "reason": "Two people shown, no single main subject; not a clear Taylor Swift photo.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "press-761d7a63b286",
+      "sha256": "ad63fa554d350008e239d358bc889c5b38f1a7dabcce83f2ae5094fabbcb7c5d",
+      "reason": "Two people share the frame equally; no single main subject, caption's subject unclear.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "press-9b3dd283e28c",
+      "sha256": "485c09c9faf4b28b29c49938a9b4da4aac9c9e4e7eec7cd04ca8fca83a01a880",
+      "reason": "TV broadcast screenshot collage; a host dominates, with two small inset circles.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "press-4a4906f58efc",
+      "sha256": "f4ccd907ce6fedb6124fb77d2c1779b985846ed45f6d18fcccad9a192bfe75fe",
+      "reason": "Collage of three people; two men dominate, inset is small",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "press-35acf75cb1e4",
+      "sha256": "ae857295aa141eaf1c98d574b8a9d1f8db7c61506fb5baca6a2b7556d46537bf",
+      "reason": "Man on a balcony at night; caption's Taylor Swift subject doesn't plausibly match.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "press-e1b7cbd03917",
+      "sha256": "dbc46b507ccea6ccf4b0bd2cfd97a49ea6d552079843f0b668d389df262eac07",
+      "reason": "TV broadcast screenshot with inset photo of other people; not the captioned subject",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137559632",
+      "sha256": "4290ded289c4fc0a44897d9f78819f9c6edd4ad7984af0b9a62fb54b78969997",
+      "reason": "Wide stage panorama with many small performers, dark; no single subject",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137559654",
+      "sha256": "53ab3dcbe40b252f7e6fee6a43b79d088db3411684e9b1b1516e17136d9328b6",
+      "reason": "Wide stage shot with many dancers; no single dominant subject, small, dark.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137561110",
+      "sha256": "e9dad04f40eddc576917f6b630a9966999918e65cd62a871af4124e30509da2d",
+      "reason": "Dark wide stage panorama; performers tiny, no single prominent subject",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560595",
+      "sha256": "55465a0e1da250bc735813c40e694f593e57838feed7eb5787239684ef9248a5",
+      "reason": "Wide stadium stage shot; several performers, small subjects, foreground clutter",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560787",
+      "sha256": "3d0b946e9f0f9df41d715d9405656d137b428dd9d2a6f623ffc2d4c66d084885",
+      "reason": "Wide stage shot; performer small, dark, another person in foreground.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560824",
+      "sha256": "4f5663606d36d5182fe9150ffeecf36290ea39ce88b59611b0c90d5f575d89f0",
+      "reason": "Stage shot; performer is small in a tall frame with much dark venue.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560849",
+      "sha256": "84fc2502ea5cd810cfc9ef457398f4544d8f75aa83ca269e8fb7331f58533de2",
+      "reason": "Wide stage shot, many performers, small subject, dark foreground, screens dominate",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560889",
+      "sha256": "133c9381f60a5e033cb1d03573c57c036bf8e8148c15817e2a0d84940ecbb63f",
+      "reason": "Wide stadium shot; performer small, dark foreground silhouettes dominate.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560929",
+      "sha256": "814f6436d5bfd90946fce25aa298a27d06443bdc828da0e21d527b5ee9196e45",
+      "reason": "Wide dark stage shot; performer small, with screen and others competing.",
+      "date": "2026-11-01"
+    },
+    {
+      "id": "wikimedia-137560954",
+      "sha256": "c3906544c6b5e624c6b912a4b562e32108712891b37540a634e6890023cfbf78",
+      "reason": "Wide stadium stage shot with several performers and crowd; no single subject.",
+      "date": "2026-11-01"
     }
   ]
 }
