@@ -27,6 +27,14 @@ so far".
 
 Stories: 76
 
+## Patrick Mahomes' Family Unveils Taylor Swift-Inspired Toy Story Costumes
+
+- first seen: 2026-11-01 12:27 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The family of Patrick Mahomes showcased their Halloween costumes inspired by Toy Story, featuring a twist related to Taylor Swift. The costumes highlight their creative approach to the holiday.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/patrick-mahomes-family-reveals-toy-121042684.html
+
 ## Bill Maher Compares Donald Trump to Taylor Swift
 
 - first seen: 2026-11-01 10:26 UTC | category: sighting | importance: 5
@@ -143,11 +151,12 @@ Stories: 76
 ## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
 
 - first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Travis Kelce has shared his thoughts on Prince William's unexpected remark regarding a selfie with Taylor Swift. The interaction highlights the crossover between celebrity culture and royal interests.
 - sources:
   - [unverified] Central Oregon Daily — https://www.centraloregondaily.com/news/entertainment/tim-mcgraw-finally-addresses-ongoing-rumor-about-taylor-swifts-wedding/article_d37a910a-669e-5c74-b7e2-9abd84abc6e9.html
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-unexpected-move-wedding-travis-kelce/
+  - [unverified] thecomeback.com — https://thecomeback.com/pop-culture/relegated-to-d-list-status-taylor-swifts-wedding-guests-were-reportedly-treated-differently-based-on-importance.html
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/31/tim-mcgraw-taylor-swift-travis-kelce-wedding-rumor/92533217007/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/tim-mcgraw-denies-performing-taylor-160000579.html
@@ -645,11 +654,3 @@ Stories: 76
 - summary: An ESPN analyst has defended Taylor Swift amid controversies surrounding her appearance at an NBA event, telling critics that the issue is theirs to deal with. The discussion has gained significant media attention.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-viral-nba-controversy-115058170.html
-
-## Taylor Swift Features 2026 Trend with Satin Jewelry-Strap Heels
-
-- first seen: 2026-10-29 11:56 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcases the latest trend in footwear with her satin jewelry-strap heels. This style highlights the fashionable elements expected to make waves in 2026.
-- sources:
-  - [unverified] Women.com — https://www.women.com/2300042/taylor-swift-hot-new-2026-shoe-trend-velvet-heels-with-diamond-jewelry-ankle-strap/
