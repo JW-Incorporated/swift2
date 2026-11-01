@@ -2527,25 +2527,6 @@ export default {
             credit: 'Footwear News',
           },
         ],
-        // Shop pass (2026-07-22): the exact custom striped romper is
-        // discontinued -- a current black sequin romper, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Julian Chang',
-            item: 'Eres Long-Sleeve V Neck Sequin Romper',
-            retailer: 'julianchang.com',
-            url: 'https://julianchang.com/products/eres-romper',
-            matchTier: 'inspired',
-            matchScore: 25,
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2100/2615/files/3135BlackSequinJulianChang.jpg?v=1758735654',
-            price: '$315.00',
-            isAlternative: true,
-            altNote: 'The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
       },
     },
     // --- Music backstory + sighting/fashion/business depth pass (2026-07-05)
