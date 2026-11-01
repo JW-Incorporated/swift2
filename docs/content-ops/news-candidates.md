@@ -27,6 +27,14 @@ so far".
 
 Stories: 79
 
+## Travis Kelce Responds to Prince William's Comment on Taylor Swift Photo
+
+- first seen: 2026-11-01 07:01 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has addressed Prince William's recent admission about attempting to remove him from a photo with Taylor Swift. The interaction highlights the intriguing relationship dynamics involving the pop star.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/entertainment/travis-kelce-finally-responds-after-prince-william-admits-he-tried-to-cut-him-out-of-taylor-swifts-photo
+
 ## Stars Mark Halloween 2026 Celebrations
 
 - first seen: 2026-11-01 04:02 UTC | category: sighting | importance: 5
@@ -670,11 +678,3 @@ Stories: 79
 - summary: A source reveals that Taylor Swift is worried about facing backlash for revealing wedding photos, fearing they may be perceived as out of touch. The sentiment reflects sensitivity to public perception regarding her personal life.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fears-touch-backlash-062941829.html
-
-## Taylor Swift Addresses Alleged Wedding Photos
-
-- first seen: 2026-10-29 06:33 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has responded to rumors surrounding alleged leaked wedding photos. The response was shared by SheKnows, highlighting her position on the matter.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089600/how-taylor-swift-responded-leaked-wedding-photos/
