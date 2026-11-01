@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 82
 
 ## Patrick Mahomes and Wife Celebrate Halloween with Taylor Swift Tribute
 
@@ -706,27 +706,3 @@ Stories: 85
 - summary: Taylor Swift and model Elsa Hosk have endorsed a pair of podiatrist-approved sneakers, declaring them the must-have footwear for Spring 2026. Their endorsement is expected to boost the shoes' popularity in the upcoming season.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/white-reebok-sneakers-amazon-12186957
-
-## Tribute for Swift and Kelce from Sports Power Couple
-
-- first seen: 2026-10-29 02:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce received a surprise Halloween tribute from another notable sports couple. The gesture highlights the growing connection between the pair.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-unexpected-204000611.html
-
-## Taylor Swift's Wedding Photos May Not Be Released Due to Concerns
-
-- first seen: 2026-10-29 02:38 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly hesitant to release her wedding photos, which are valued at $30 million, due to fears of possible backlash. The decision could impact public access to these exclusive images.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-30m-wedding-photos-232523645.html
-
-## Travis Kelce Comments on Prince William's Views on Swift Relationship
-
-- first seen: 2026-10-29 02:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce made a humorous remark that Prince William appeared uncertain about the longevity of his relationship with Taylor Swift. The comment reflects a light-hearted take on public perceptions of the couple's romance.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/travis-kelce-jokes-prince-william-181741000.html
