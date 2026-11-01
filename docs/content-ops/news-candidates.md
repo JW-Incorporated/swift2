@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 80
 
 ## Taylor Swift Highlights Leather Pencil Skirt as Fall Essential
 
@@ -685,20 +685,3 @@ Stories: 82
 - summary: The castle that appears in Taylor Swift's 'Blank Space' music video has been sold for $72 million. This transaction highlights the ongoing interest in properties featured in popular music videos.
 - sources:
   - [unverified] ELLE Decor — https://www.elledecor.com/celebrity-style/luxury-real-estate/a74284512/blank-space-oheka-castle-sale/
-
-## Travis Kelce Responds to Prince William's Comments on Taylor Swift Selfie
-
-- first seen: 2026-10-29 21:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has reacted to comments made by Prince William regarding a selfie with Taylor Swift. The exchange has garnered media attention, showcasing the intersection of sports and celebrity culture.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-reacts-to-prince-william-throwing-shade-over-taylor-swift-selfie
-
-## Tim McGraw Clarifies Taylor Swift Wedding Rumors
-
-- first seen: 2026-10-29 21:01 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Tim McGraw speaks out regarding the recent rumors surrounding Taylor Swift's wedding plans. The discussion aims to address and clarify misconceptions about her personal life.
-- sources:
-  - [unverified] 94.3 WKKJ — https://wkkj.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
-  - [unverified] Buckeye Country 94.3 WMRN-FM — https://buckeyecountry943.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
