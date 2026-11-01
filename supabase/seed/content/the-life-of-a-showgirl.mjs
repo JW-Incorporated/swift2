@@ -5404,6 +5404,15 @@ export default {
             accessed_at: '2026-08-04',
             reliability_score: 2,
           },
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/us/911008/taylor-swift-travis-kelce-vulnerable-wedding-vows-revealed/',
+            source_title: "Taylor Swift and Travis Kelce's 'vulnerable' wedding vows revealed by GMA host",
+            publisher: 'HELLO!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-01',
+            reliability_score: 3,
+          },
           // Answerer depth pass (Vault Run 2026-08-24, hot-thin-topic #1720):
           // adds a strong (reliability 4) outlet to a page whose Morris quote
           // otherwise rested on People-via-AOL/TMZ/HOLA. Billboard's guests-
@@ -5851,15 +5860,6 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-          },
-          {
-            outlet: 'Officer.com',
-            url: 'https://www.officer.com/features/honoring-the-fallen/news/55393246/taylor-swift-and-travis-kelce-donate-2-million-to-nyc-first-responder-families-through-answer-the-call',
-            source_title: 'Taylor Swift and Travis Kelce Donate $2 Million to NYC First Responder Families Through Answer The Call',
-            publisher: 'Officer.com (Endeavor Business Media)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 3,
           },
           {
             outlet: 'Answer the Call',
@@ -9816,7 +9816,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Taylor has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Taylor has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Taylor\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK, and it debuted at No. 1 on Billboard\'s Top Movie Songs chart. Critics singled out the song on its own merits, calling it "some of Swift\'s loveliest and tightest songwriting" (The Guardian\'s Laura Snapes) and "blissful" (Rolling Stone). It extends a run of Taylor-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Taylor has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.\n\nThen a different awards body made it official: on Sept. 10, 2026 the Country Music Association nominated "I Knew It, I Knew You" for Single of the Year at the 60th CMA Awards — Taylor\'s first CMA nomination in four years and her first in that category in over a decade. Within hours she said she would attend the Nov. 18 ceremony at Nashville\'s Bridgestone Arena, her first CMA Awards appearance in ten years, cementing the country-roots turn the song began.',
+          'Taylor\'s original song for Toy Story 5, "I Knew It, I Knew You" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who\'s saying so. At the July 7 premiere for Disney\'s live-action Moana, Lin-Manuel Miranda — writer of "Along the Way," his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana\'s "How Far I\'ll Go" — told PEOPLE, "I love Taylor, and I love that song. I thought her song for \'Toy Story 5\' was really fun," adding that when writing for a character, "you\'re not thinking about the Oscars... you\'re thinking, \'How on earth do I pull this off? How can it feel honest and true?\'"\n\nThe song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn\'t ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn\'t closed. What\'s real right now is that two of the year\'s highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who\'d be competing against it. The Academy\'s own 99th Oscars calendar dates the process precisely: the Original Song submission deadline is Oct. 14, 2026, the shortlist is announced Dec. 15, 2026, nominations land Jan. 21, 2027, and the ceremony airs March 14, 2027.\n\nIt is the film\'s end-credit song, written from cowgirl Jessie\'s point of view — a character Taylor has said she "adored" and dressed up as as a kid — and it doubled as a return to her country roots after years of pop. Released June 5, 2026 on Walt Disney Records and produced with Antonoff, it was recorded at Electric Lady Studios in New York and Tamarind Studios in Los Angeles. Taylor has described writing and basic-tracking it in a single roughly eight-hour stretch: after an 11 a.m. screening of the finished film left her with "the songwriter zoomies," she went home, wrote the song, and by evening was playing it for Disney CEO Bob Iger — "one of the most fun days of my life." The official video, released the same day, is cut entirely from Toy Story footage tracing Jessie\'s own story: her meeting Woody, flashbacks to being outgrown by original owner Emily, and her present life with Bonnie.\n\nBeyond its two weeks at Hot 100 No. 1 (Taylor\'s 15th chart-topper there), the song also opened at No. 1 on the Global 200, Hot Country Songs and, internationally, the UK, Australian, Canadian, German, Austrian and Belgian (Flanders) charts, reaching No. 2 in Ireland; it has been certified Silver in the UK, and it debuted at No. 1 on Billboard\'s Top Movie Songs chart, then held it four straight months, June through September 2026. Critics singled out the song on its own merits, calling it "some of Swift\'s loveliest and tightest songwriting" (The Guardian\'s Laura Snapes) and "blissful" (Rolling Stone). It extends a run of Taylor-written film songs going back to "Safe & Sound" (The Hunger Games, 2012) and including "Beautiful Ghosts" (Cats, 2019, Academy shortlisted) and "Carolina" (Where the Crawdads Sing, 2022, also shortlisted) — Taylor has never landed an actual nomination despite four Golden Globe bids, but this is her first Oscar-eligible movie song to top the Hot 100, and every prior Toy Story film has produced a Best Original Song nominee, giving this one institutional precedent the earlier songs didn\'t have.\n\nThen a different awards body made it official: on Sept. 10, 2026 the Country Music Association nominated "I Knew It, I Knew You" for Single of the Year at the 60th CMA Awards — Taylor\'s first CMA nomination in four years and her first in that category in over a decade. Within hours she said she would attend the Nov. 18 ceremony at Nashville\'s Bridgestone Arena, her first CMA Awards appearance in ten years, cementing the country-roots turn the song began.',
         sources: [
           {
             outlet: 'Variety',
@@ -9875,6 +9875,19 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-30',
+            reliability_score: 4,
+          },
+          // Content Shift (2026-11-01, vault-run, intake #6510): the run's
+          // fourth straight monthly No. 1 on the same chart, cited to
+          // Billboard's own Chart Beat rather than the filing's
+          // secondary republisher.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-top-movie-songs-september-1236371350/',
+            source_title: "Taylor Swift's 'Toy Story' Song Leads Top Movie Songs for Fourth Month",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-01',
             reliability_score: 4,
           },
           {
@@ -17129,6 +17142,68 @@ export default {
             credit: 'Good Morning America (ABC News), YouTube',
             caption: 'Taylor with her award at the Nashville Songwriters Hall of Fame gala, Oct. 26, 2026.',
             kind: 'primary',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-01 (Vault Run, Content Shift lane) from intake #6509.
+      // The Tennessean (via Yahoo) and Heavy loaded directly; both carry the
+      // same quotes. USA Today (the filing's third outlet) returned HTTP 402,
+      // so it is not cited. CUT: the
+      // Chiefs/Broncos framing in Heavy's headline and any detail about Abigail's
+      // family beyond her husband (privacy redlines: minors).
+      slug: 'showgirl-toy-story-5-screening-abigail-napoleon-dynamite',
+      relatedIds: ['moment:vault-fearless-fifteen-written-for-her-best-friend-abigail'],
+      year: 2026,
+      month: 11,
+      day: 1,
+      category: 'music',
+      title: 'At a Toy Story 5 screening, Taylor tells the room about Abigail',
+      snippet:
+        'At a New York screening Q&A with Andrew Stanton, Taylor said Bonnie and Blaze reminded her of the girl she met at 14 — the friend behind "Fifteen."',
+      sourceUrl: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-longtime-inside-184915859.html',
+      thumbnailUrl: null,
+      video: {
+        youtubeId: 'hDU4GB1PTxc',
+        title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+      },
+      moment: {
+        context:
+          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."',
+        sources: [
+          {
+            outlet: 'The Tennessean (via Yahoo Entertainment)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-longtime-inside-184915859.html',
+            source_title: 'Taylor Swift reveals longtime inside joke with best friend Abigail',
+            publisher: 'The Tennessean',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-01',
+            reliability_score: 4,
+            notes:
+              'By Bryan West, Nov. 1, 2026; loaded directly. Primary text for the date, city, Stanton Q&A and every quote. Intake #6509.',
+          },
+          {
+            outlet: 'Heavy',
+            url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-husband-comment-before-broncos-game/',
+            source_title: "Taylor Swift Makes Rare 'Husband' Comment Before Chiefs-Broncos Game",
+            publisher: 'Heavy.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-01',
+            reliability_score: 3,
+            notes:
+              'Nov. 1, 2026; loaded directly. Independently carries the Napoleon Dynamite and "husbands" quotes, the Manhattan screening and the Stanton Q&A.',
+          },
+          {
+            outlet: 'Taylor Swift (YouTube)',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-01',
+            reliability_score: 5,
+            notes:
+              'The film\'s end-credit song; oEmbed-verified 2026-11-01 (HTTP 200, author_name "Taylor Swift"). The visual for this moment, not a source for the screening.',
           },
         ],
       },
