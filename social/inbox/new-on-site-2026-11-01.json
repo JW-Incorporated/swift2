@@ -1,0 +1,110 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-01",
+  "windowDays": 7,
+  "since": "2026-10-25T00:00:00.000Z",
+  "count": 7,
+  "media": [
+    "https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg",
+    "https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg",
+    "https://i.ytimg.com/vi/z58kj4QtH1Y/maxresdefault.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Taylor_Swift_-_B-Stage_-_Speak_Now_Tour_in_Vancouver.jpg/1280px-Taylor_Swift_-_B-Stage_-_Speak_Now_Tour_in_Vancouver.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Colin_Jost_and_Michael_Che_at_Citi_Field%2C_2015.jpg/960px-Colin_Jost_and_Michael_Che_at_Citi_Field%2C_2015.jpg",
+    "https://www.instagram.com/p/C8hIungMPmD/"
+  ],
+  "moments": [
+    {
+      "id": "vault-speak-now-nelly-surprises-houston-for-just-a-dream-and-he-revealed-15-",
+      "eraId": "speak-now",
+      "title": "Nelly surprises Houston for \"Just a Dream\" — and, he revealed 15 years later, left with $50,000 in a McDonald's bag",
+      "year": 2011,
+      "month": 11,
+      "day": 5,
+      "category": "tour",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-speak-now-nelly-surprises-houston-for-just-a-dream-and-he-revealed-15-",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Taylor_Swift_-_B-Stage_-_Speak_Now_Tour_in_Vancouver.jpg/1280px-Taylor_Swift_-_B-Stage_-_Speak_Now_Tour_in_Vancouver.jpg"
+    },
+    {
+      "id": "vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall",
+      "eraId": "tloas",
+      "title": "Brad Paisley inducts her into the Nashville Songwriters Hall of Fame",
+      "year": 2026,
+      "month": 10,
+      "day": 26,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/z58kj4QtH1Y/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-colin-jost-and-michael-che-nearly-get-stuck-on-wood-on-milli",
+      "eraId": "tloas",
+      "title": "Colin Jost and Michael Che nearly get stuck on “Wood” on Millionaire",
+      "year": 2026,
+      "month": 10,
+      "day": 28,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-colin-jost-and-michael-che-nearly-get-stuck-on-wood-on-milli",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Colin_Jost_and_Michael_Che_at_Citi_Field%2C_2015.jpg/960px-Colin_Jost_and_Michael_Che_at_Citi_Field%2C_2015.jpg"
+    },
+    {
+      "id": "vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep",
+      "eraId": "tloas",
+      "title": "Maya Hawke on Hot Ones: \"But Daddy I Love Him\" and \"betty\" are epic poetry",
+      "year": 2026,
+      "month": 10,
+      "day": 22,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/4p1yZgR4F9k/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli",
+      "eraId": "tloas",
+      "title": "\"Patient Zero\" ends its three-week Hot 100 run at No. 1 and slides to No. 5",
+      "year": 2026,
+      "month": 10,
+      "day": 26,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli",
+      "mediaKind": "photo",
+      "media": "https://i.ytimg.com/vi/j8pR1tyoRFc/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back",
+      "eraId": "tloas",
+      "title": "Prince William on the Wembley selfie: \"Travis kept coming back in\"",
+      "year": 2026,
+      "month": 10,
+      "day": 23,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back",
+      "mediaKind": "instagram",
+      "media": "https://www.instagram.com/p/C8hIungMPmD/"
+    },
+    {
+      "id": "vault-tloas-the-debut-turns-20-and-an-unpublished-2008-interview-resurfa",
+      "eraId": "tloas",
+      "title": "The debut turns 20, and an unpublished 2008 interview resurfaces",
+      "year": 2026,
+      "month": 10,
+      "day": 24,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-the-debut-turns-20-and-an-unpublished-2008-interview-resurfa",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg"
+    }
+  ]
+}
