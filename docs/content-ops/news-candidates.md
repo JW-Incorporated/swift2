@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 81
 
-## Taylor Swift Highlights Leather Pencil Skirt as Fall Essential
+## New Wedding Photos of Taylor Swift Surface for Fans
 
-- first seen: 2026-11-01 20:51 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift showcases the leather pencil skirt in her latest outfit, emphasizing its status as a fall staple. The article details her fashion choice and its relevance for the season.
+- first seen: 2026-11-01 22:06 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Recently leaked never-before-seen photos show Taylor Swift as she walked down the aisle, providing fans with an exclusive glimpse into her wedding. The images reveal what guests experienced during the event.
 - sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234957069/taylor-swift-travis-kelce-new-wedding-photos/
+
+## Taylor Swift Does Not Attend Chiefs vs. Broncos Game
+
+- first seen: 2026-11-01 22:06 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was not present at the Kansas City Chiefs' road game against the Denver Broncos, as reported by Us Weekly.
+- sources:
+  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-chiefs-game-against-denver-broncos/
 
 ## Taylor Swift Campaigns for Oscar at NYC Screening of Toy Story 5
 
@@ -42,6 +50,14 @@ Stories: 80
 - summary: Taylor Swift expressed her desire to win an Oscar for her song featured in "Toy Story 5" during an all guild screening in New York City. She actively campaigned for the award at the event.
 - sources:
   - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video
+
+## Taylor Swift Highlights Leather Pencil Skirt as Fall Essential
+
+- first seen: 2026-11-01 20:51 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift showcases the leather pencil skirt in her latest outfit, emphasizing its status as a fall staple. The article details her fashion choice and its relevance for the season.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/
 
 ## Taylor Swift Shares Longtime Inside Joke with Best Friend Abigail
 
@@ -174,9 +190,10 @@ Stories: 80
 ## Bill Maher Compares Donald Trump to Taylor Swift
 
 - first seen: 2026-11-01 10:26 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Bill Maher makes a controversial comparison between Donald Trump and Taylor Swift, one that is expected to upset Travis Kelce. The remarks highlight Maher's views on the current political climate and celebrity culture.
 - sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74305255/taylor-swift-travis-kelce-chiefs-broncos-away-game-attendance-explained-2026/
   - [unverified] Yahoo News UK — https://uk.news.yahoo.com/tearing-bill-maher-drops-brutal-094009546.html
 
 ## Travis Kelce Responds to Prince William's Comment on Taylor Swift Photo
@@ -677,11 +694,3 @@ Stories: 80
 - summary: A judge has denied a motion from fans of Taylor Swift trying to withdraw from a class action lawsuit against Ticketmaster. The decision comes amid ongoing legal disputes regarding ticket sales and fan experiences.
 - sources:
   - [unverified] Daily Journal — https://www.dailyjournal.com/article/395777-judge-denies-taylor-swift-fans-late-bid-to-exit-ticketmaster-class-action
-
-## Castle Featured in 'Blank Space' Video Sold for $72 Million
-
-- first seen: 2026-10-29 21:46 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The castle that appears in Taylor Swift's 'Blank Space' music video has been sold for $72 million. This transaction highlights the ongoing interest in properties featured in popular music videos.
-- sources:
-  - [unverified] ELLE Decor — https://www.elledecor.com/celebrity-style/luxury-real-estate/a74284512/blank-space-oheka-castle-sale/
