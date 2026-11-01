@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 77
+
+## Critique of Taylor Swift’s ‘The Life of A Showgirl: The Encore’
+
+- first seen: 2026-11-01 17:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An op-ed discusses perceived shortcomings in Taylor Swift's work on 'The Life of A Showgirl: The Encore', highlighting a lack of engagement from the audience.
+- sources:
+  - [unverified] The Huntington News — https://huntnewsnu.com/94624/editorial/op-ed-no-one-stayed-for-the-encore-reckoning-with-taylor-swifts-poor-quality-work-in-the-life-of-a-showgirl-the-encore/
+
+## Taylor Swift Endorses Comfortable Shoe Trend Making a Comeback
+
+- first seen: 2026-11-01 17:56 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has endorsed a comfortable shoe trend that is set to return in 2026. The trend has garnered attention for its comfort and style appeal.
+- sources:
+  - [unverified] Women.com — https://www.women.com/2297262/taylor-swift-cosigned-this-comfortable-shoe-trend-that-made-comeback-2026/
 
 ## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
 
@@ -646,35 +662,3 @@ Stories: 79
 - summary: Sam Fender expresses that there is no need to charge ticket prices similar to those of Taylor Swift's concerts, citing concerns over affordability for fans. His remarks highlight the ongoing discussion about concert pricing in the industry.
 - sources:
   - [unverified] The Times — https://www.thetimes.com/culture/music/article/sam-fender-ticket-prices-gigs-taylor-swift-comment-ngbzrbnrb
-
-## Allegations of Taylor Swift's Team Discarding Wedding Decor
-
-- first seen: 2026-10-29 17:01 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An insider claims that Taylor Swift's team burned wedding decorations to prevent fans from obtaining them. This revelation has sparked discussions among fans regarding the lengths taken by the team.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-team-allegedly-burned-131714598.html
-
-## Lainey Wilson Performs Taylor Swift’s ‘Love Story’ at Gala
-
-- first seen: 2026-10-29 17:01 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: At the Hall of Fame Gala, singer Lainey Wilson delivered a cover of Taylor Swift's popular song 'Love Story'. This performance highlights Wilson's admiration for Swift's work.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/entertainment/lainey-wilson-taylor-swift-love-story-cover
-
-## Taylor Swift Becomes Youngest Member of Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-29 17:01 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame, making her the youngest member to receive this honor. This recognition highlights her significant contributions to the music industry.
-- sources:
-  - [unverified] Wilson County Source — https://wilsoncountysource.com/taylor-swift-inducted-into-nashville-songwriters-hall-of-fame-as-its-youngest-member/
-
-## Taylor Swift Joins Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-29 17:01 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among five artists inducted into the Nashville Songwriters Hall of Fame, recognized during an event where George Strait paid tribute to the writers.
-- sources:
-  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/10/29/taylor-swift-lyle-lovett-and-four-more-join-nashville-songwriters-hall-of-fame-as-george-strait-salutes-the-writers/
