@@ -5862,15 +5862,6 @@ export default {
             reliability_score: 4,
           },
           {
-            outlet: 'Officer.com',
-            url: 'https://www.officer.com/features/honoring-the-fallen/news/55393246/taylor-swift-and-travis-kelce-donate-2-million-to-nyc-first-responder-families-through-answer-the-call',
-            source_title: 'Taylor Swift and Travis Kelce Donate $2 Million to NYC First Responder Families Through Answer The Call',
-            publisher: 'Officer.com (Endeavor Business Media)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 3,
-          },
-          {
             outlet: 'Answer the Call',
             url: 'https://www.answerthecall.org/who-we-are/',
             source_title: "Who We Are — New York Police & Fire Widows' & Children's Benefit Fund",
