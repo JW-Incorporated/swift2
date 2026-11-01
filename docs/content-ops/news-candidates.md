@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 77
+
+## Bill Maher Compares Donald Trump to Taylor Swift
+
+- first seen: 2026-11-01 10:26 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bill Maher makes a controversial comparison between Donald Trump and Taylor Swift, one that is expected to upset Travis Kelce. The remarks highlight Maher's views on the current political climate and celebrity culture.
+- sources:
+  - [unverified] HITC — https://www.hitc.com/theyre-tearing-bill-maher-drops-brutal-donald-trump-taylor-swift-comparison-that-travis-kelce-will-hate/
 
 ## Travis Kelce Responds to Prince William's Comment on Taylor Swift Photo
 
@@ -653,20 +661,3 @@ Stories: 78
 - summary: A dancer who toured with Taylor Swift in San Luis Obispo has initiated a fundraiser to support their battle with Graves' disease. The effort highlights the challenges faced by individuals dealing with health issues.
 - sources:
   - [unverified] edhat — https://www.edhat.com/slo/news/mason-cutler-graves-disease-gofundme/
-
-## Taylor Swift's 'Wood' Confounds Contestants on 'Millionaire' Quiz
-
-- first seen: 2026-10-29 09:56 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift's song 'Wood' created a challenge for contestants Colin Jost and Michael Che during their appearance on the quiz show 'Millionaire'. The segment highlighted the song's impact and recognition.
-- sources:
-  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-wood-stumps-colin-jost-michael-che-who-wants-to-be-a-millionaire-12200266
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-wood-stumps-colin-091904229.html
-
-## Taylor Swift's Stylish Shoes Trend with Katie Holmes for Fall 2026
-
-- first seen: 2026-10-29 08:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's fashionable shoes feature a chic detail that has also caught the attention of Katie Holmes for the upcoming Fall 2026 season, highlighting a shared style between the two celebrities.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-purple-shoe-trend-12199272
