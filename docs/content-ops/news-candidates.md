@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
+
+## Travis Kelce Faces Neighborhood Issues with Ohio Mansion
+
+- first seen: 2026-11-01 15:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce's $5.35 million Ohio mansion is reportedly facing three major points of contention from neighbors.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/01/travis-kelce-s-neighbors-are-major-problem-the-three-points-of-contention-regarding-his-5-35-million-ohio-mansion.html
 
 ## Long Island Castle from 'Blank Space' Sold for $72 Million
 
@@ -646,19 +654,3 @@ Stories: 77
 - summary: Taylor Swift was spotted wearing a cute minidress, showcasing her stylish fashion sense. Fans and fashion enthusiasts have taken notice of her latest look.
 - sources:
   - [unverified] Go Fug Yourself — https://www.gofugyourself.com/taylor-swifts-minidress-is-very-cute/
-
-## Insider Claims About Taylor Swift and Travis Kelce's Wedding Decorations
-
-- first seen: 2026-10-29 14:56 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report raises questions about the whereabouts of wedding decorations belonging to Taylor Swift and Travis Kelce, citing an insider's claims. Further details have yet to be revealed.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/where-did-taylor-swift-travis-123514207.html
-
-## Taylor Swift Highlights Chic Dress Color for Fall 2026
-
-- first seen: 2026-10-29 14:56 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has showcased a stylish dress color for Fall 2026, prompting speculation among fans about a connection to her 'Speak Now' era. The discussion emphasizes a shift away from the traditional little black dress.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/taylor-swift-nashville-songwriters-hall-of-fame-dress-speak-now/
