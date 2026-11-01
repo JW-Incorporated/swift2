@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 78
+
+## Dwayne Johnson appears to like post criticizing Taylor Swift
+
+- first seen: 2026-11-01 18:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dwayne Johnson has seemingly liked a social media post that criticizes Taylor Swift, attracting attention from fans and media alike. The interaction has raised questions about the context and implications of such a 'like'.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carefully-crafted-fake-dwayne-johnson-184320027.html
+
+## Taylor Swift Shares Inside Joke with Best Friend Abigail
+
+- first seen: 2026-11-01 18:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift discusses a longstanding inside joke she shares with her best friend, Abigail, highlighting their deep friendship. This revelation adds a personal touch to their relationship.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/01/taylor-swift-impersonates-napoleon-dynamite-toy-story-5/92550328007/
 
 ## Critique of Taylor Swift’s ‘The Life of A Showgirl: The Encore’
 
@@ -654,11 +670,3 @@ Stories: 77
 - summary: People.com highlights various unique and unusual engagement rings worn by celebrities, showcasing the distinct styles and choices of different famous personalities.
 - sources:
   - [established] People — https://people.com/unique-celebrity-engagement-rings-11957123
-
-## Sam Fender Comments on Concert Ticket Pricing Compared to Taylor Swift
-
-- first seen: 2026-10-29 18:01 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sam Fender expresses that there is no need to charge ticket prices similar to those of Taylor Swift's concerts, citing concerns over affordability for fans. His remarks highlight the ongoing discussion about concert pricing in the industry.
-- sources:
-  - [unverified] The Times — https://www.thetimes.com/culture/music/article/sam-fender-ticket-prices-gigs-taylor-swift-comment-ngbzrbnrb
