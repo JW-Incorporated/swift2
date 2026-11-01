@@ -78,10 +78,12 @@ Stories: 81
 ## Taylor Swift's Attendance at Chiefs Game on November 1 Speculated
 
 - first seen: 2026-11-01 19:51 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: There is speculation about Taylor Swift potentially attending the Chiefs game on November 1. Details regarding her plans remain unclear at this time.
 - sources:
+  - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-the-chiefs-broncos-game-tonight
   - [unverified] IMDb — https://www.imdb.com/de/news/ni66090442/?ref_=nwc_art_perm
+  - [unverified] Parade Magazine — https://parade.com/celebrities/is-taylor-swift-at-chiefs-game-today-november-1-2026
 
 ## Dwayne Johnson appears to like post criticizing Taylor Swift
 
@@ -677,7 +679,7 @@ Stories: 81
 ## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
 
 - first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
 - sources:
   - [unverified] Complex — https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag
@@ -685,6 +687,7 @@ Stories: 81
   - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
   - [established] People — https://people.com/nelly-taylor-swift-paid-him-50k-mcdonalds-bag-join-her-on-tour-12203385
   - [unverified] TMZ — https://www.tmz.com/2026/10/30/nelly-says-taylor-swift-gave-him-50k-in-a-mcdonalds-bag-to-sing-with-him/
+  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/nelly-says-taylor-swift-paid-him-50k-for-concert-cameo/
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-says-taylor-swift-paid-201929837.html
 
 ## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
