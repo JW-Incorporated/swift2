@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 77
+
+## Long Island Castle from 'Blank Space' Sold for $72 Million
+
+- first seen: 2026-11-01 14:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The Long Island castle featured in Taylor Swift's 'Blank Space' has been sold for $72 million. The property is noted for its stunning architecture and historical significance.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/long-island-castle-where-taylor-swift-filmed-blank-space-found-a-buyer-for-72-million-25497-c1/
+
+## Taylor Swift Leads Top Movie Songs Chart for Four Months
+
+- first seen: 2026-11-01 14:27 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has maintained her position at the top of the Top Movie Songs Chart for four consecutive months, showcasing her continued success in the music industry. Her presence in this chart highlights the popularity of her contributions to film soundtracks.
+- sources:
+  - [unverified] Vermilion County First — https://vermilioncountyfirst.com/2026/11/01/taylor-swift-scores-four-months-atop-top-movie-songs-chart/
 
 ## High School Crush of Taylor Swift Attempts to Reconnect After Hit Single
 
