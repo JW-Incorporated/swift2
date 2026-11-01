@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 75
+
+## High School Crush of Taylor Swift Attempts to Reconnect After Hit Single
+
+- first seen: 2026-11-01 13:27 UTC | category: relationship | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: A high school crush of Taylor Swift recently tried to connect with her after being inspired by a hit single from 2007. However, the attempt was unsuccessful according to reports.
+- sources:
+  - [unverified] American Songwriter — https://americansongwriter.com/taylor-swifts-high-school-crush-unsuccessfully-tried-to-connect-with-her-after-hearing-this-hit-single-from-2007/
 
 ## Patrick Mahomes' Family Unveils Taylor Swift-Inspired Toy Story Costumes
 
@@ -638,19 +646,3 @@ Stories: 76
 - summary: Taylor Swift has showcased a stylish dress color for Fall 2026, prompting speculation among fans about a connection to her 'Speak Now' era. The discussion emphasizes a shift away from the traditional little black dress.
 - sources:
   - [unverified] Grazia — https://graziamagazine.com/us/articles/taylor-swift-nashville-songwriters-hall-of-fame-dress-speak-now/
-
-## Taylor Swift Reportedly Concerned About Perceptions of Wealth
-
-- first seen: 2026-10-29 12:56 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly feeling apprehensive about how her wealth may be perceived, with concerns of appearing 'out of touch' lingering in the media. This comes as discussions surrounding celebrities and their financial status continue to gain attention.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/questioning-her-wealth-taylor-swift-103053219.html
-
-## ESPN Analyst Responds to Criticism Over Taylor Swift's NBA Appearance
-
-- first seen: 2026-10-29 12:56 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An ESPN analyst has defended Taylor Swift amid controversies surrounding her appearance at an NBA event, telling critics that the issue is theirs to deal with. The discussion has gained significant media attention.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-viral-nba-controversy-115058170.html
