@@ -351,6 +351,39 @@ heartbeat-only to all lanes on 2026-10-05, see §2's three criteria. There is no
 bare-domain carve-out: Mood lands on `/?mode=mood` (§1(d), corrected
 2026-10-12), so every lane has a link and a bare "longlivets.com" is never one.
 
+**Rule 6a — `utm_campaign` is the campaign family, copied verbatim: the text
+before the first `:` in the item's own `campaign`, and nothing else** (added
+2026-11-01, answering Marjorie's ask
+[#6521](https://github.com/JW-Incorporated/swift2/issues/6521); evidence below).
+The link is `?utm_source=<platform>&utm_medium=social&utm_campaign=<family>`,
+where `<family>` is the *first* segment of the story-unique campaign value — so
+`heartbeat:era-deep-cut:richard-marx-passed-on-writing:2026-11-01` is tagged
+`heartbeat`, and `timeline:love-story:fearless-solo-2008:2026-10-22` is tagged
+`timeline`. **Never the sub-format** (`era-deep-cut`, `track-fact`,
+`on-this-day`), **never the pillar or subject** (`the-proposal`, `easter-eggs`,
+`mood-chat`), and **never a neighbouring family's name**. There is nothing to
+judge here: take the campaign, cut at the first colon, paste.
+
+*Why:* 13 of 16 social pageviews in the week to 2026-11-01 landed in an
+unattributable bucket, so no format could be told apart from any other —
+measurement that cannot name a winner cannot double down on one. The grouping
+that produces every per-format number this desk reports keys on the family
+(`scripts/social/lib/scorecard-report.mjs` `familyOf`, and
+`scripts/marjorie/lib/growth-data.mjs` `socialSummary`, which buckets site
+visits by the raw `utmCampaign` string off Vercel analytics). Measured across
+the 24 items in `social/posted/` for 10-18 → 11-01, **only 10 carried their own
+family**: 4 tagged the sub-format (`era-deep-cut` ×4), 4 tagged a subject
+(`the-proposal` ×2, `easter-eggs` ×2), and 4 `timeline:` items were tagged
+`thread` — a different family that exists. Those 14 are the "other" bucket.
+
+*Also true, and not this desk's to fix:* `familyOf`'s known-family list is
+`launch · thread · timeline · mood · heartbeat`, so the `news:`,
+`on-this-day:` and `symbol-thread:` campaign values this calendar mints read
+`(unrecognized)` in the scorecard even when tagged correctly under this rule.
+Rule 6a still makes them legible in the traffic grouping (they arrive as named
+rows rather than as "other"); closing the scorecard half is a `scripts/` change,
+noted on #6521 for Marjorie.
+
 **Rule 7 — mind X's real length limit, and it's weighted, not raw characters.**
 X counts any autolinked URL (including a bare domain like
 `longlivets.com/?utm=...`) as exactly **23** characters regardless of its real
