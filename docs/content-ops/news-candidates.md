@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 88
+
+## Patrick Mahomes and Wife Celebrate Halloween with Taylor Swift Tribute
+
+- first seen: 2026-11-01 00:05 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Patrick Mahomes and his wife Brittany embraced Halloween by paying homage to Taylor Swift in their costume choice. The couple's celebration reflects their admiration for the pop star.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/patrick-mahomes-wife-brittany-kids-win-halloween-taylor-swift-nod/
 
 ## Nelly Shares Story of Taylor Swift's Unique Payment Method
 
