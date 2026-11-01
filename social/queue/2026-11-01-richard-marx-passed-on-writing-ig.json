@@ -1,0 +1,46 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "\"i did the right thing.\" that's richard marx on passing up the chance to co-write with a 15-year-old Taylor — and i cannot stop thinking about it 😭\n\non bob lefsetz's podcast he told the story: scott borchetta, fresh off starting big machine, played him \"the first two or three Taylor Swift demos\" and asked if he'd write with her. marx asked, \"scott, what is she, 15?\" borchetta said yes. marx said no.\n\nhis rule for co-writing is that he has to believe he can help an artist \"in a way that you can't already help yourself\" — and looking at this teenager, he just didn't see what he'd add.\n\nthat's the part that undoes me. she's the biggest act in the world now, and she was already so fully there on those first demos that a hit-maker looked at a 15-year-old and thought: she doesn't need me.\n\ntag the friend who needs the reminder that she was always this good 💛\n\n📷 minds-eye (CC BY-SA 2.0), via Wikimedia Commons\n\nlonglivets.com/?item=vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-&utm_source=instagram&utm_medium=social&utm_campaign=era-deep-cut",
+  "media": [
+    "/social/library/photos/taylor-debut-live-2007-4.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-live-2007-4",
+  "photoEra": "debut",
+  "mediaCredit": "minds-eye (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007).jpg",
+  "scheduledAt": "2026-11-01T23:00:00Z",
+  "altText": [
+    "A young Taylor Swift with long blonde curls playing an acoustic guitar and singing into a microphone during a 2007 debut-era concert."
+  ],
+  "campaign": "heartbeat:era-deep-cut:richard-marx-passed-on-writing:2026-11-01",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "Executes the 11-01 news-reserve named fallback: Richard Marx, in his own words, on turning down a 15-year-old Taylor's co-write — quote first. Every claim verbatim from the Vault/Lefsetz source. Debut-era photo of teenage Taylor with a guitar makes the image the argument. Heartbeat share-hook is a grounded tag ask.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 2
+  },
+  "why": "IG half of the 11-01 NEWS RESERVE #2 fallback (no uncovered event qualified — the 3 in events.uncovered are blocklist/unverified: #6487 legal+blocked, #6486 relationship speculation, #6447 a routine 2010 donation resurfacing). Calendar's named fallback: heartbeat:era-deep-cut on moment vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-, campaign minted story-unique. Hook = the real sourced quote, attributed after. All quotes verbatim from supabase/seed/content/the-life-of-a-showgirl.mjs (Ultimate Classic Rock / Bob Lefsetz podcast): \"the first two or three Taylor Swift demos\", \"scott, what is she, 15?\", his co-writing rule, \"i did the right thing\", \"biggest act in the world\". PHOTO: the prepare job handed a generic non-era fan photo with no photoEra, but a heartbeat:era-deep-cut campaign requires photoEra + an era-matched photo (checker). The story's actual era is DEBUT (a 15-year-old's first demos), so photoEra=debut and the debut pool's next unused credited photo debut-live-2007-4 (young Taylor + guitar, 2007) — a far better match than a generic Eras tile. Same photo on the X half per W8. Credited CC BY-SA, credit line in caption. git-LFS pointer in this checkout — relied on prepare-job vetting. Mandatory heartbeat share-hook present.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-01T17:18:43.171Z",
+    "pr": 6503,
+    "message": "social-tree-approve run 41330700955",
+    "contentHash": "sha256:6af7acd6de71a9b229bce8d4d5530e9333d1a12881c8606f24a259c5b553020a",
+    "mediaDigest": "sha256:ded1fad029c655cc970e8658bc3fa8435084c851c77c0b16caf4ee7efe5d074c",
+    "sig": "hmac-sha256:6bfdb2889771caa2d16aefc04aa1395011a97c2baa1cb5c67f0eb9ae995615c5"
+  }
+}
