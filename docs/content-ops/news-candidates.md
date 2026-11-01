@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 79
 
 ## Stars Mark Halloween 2026 Celebrations
 
@@ -127,9 +127,10 @@ Stories: 81
 ## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
 
 - first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce has shared his thoughts on Prince William's unexpected remark regarding a selfie with Taylor Swift. The interaction highlights the crossover between celebrity culture and royal interests.
 - sources:
+  - [unverified] Central Oregon Daily — https://www.centraloregondaily.com/news/entertainment/tim-mcgraw-finally-addresses-ongoing-rumor-about-taylor-swifts-wedding/article_d37a910a-669e-5c74-b7e2-9abd84abc6e9.html
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-unexpected-move-wedding-travis-kelce/
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/31/tim-mcgraw-taylor-swift-travis-kelce-wedding-rumor/92533217007/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
@@ -677,24 +678,3 @@ Stories: 81
 - summary: Taylor Swift has responded to rumors surrounding alleged leaked wedding photos. The response was shared by SheKnows, highlighting her position on the matter.
 - sources:
   - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235089600/how-taylor-swift-responded-leaked-wedding-photos/
-
-## Taylor Swift and Selena Gomez Relationship Insight
-
-- first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report discusses the dynamic between Taylor Swift and Selena Gomez, noting that Swift may not seek marriage advice from Gomez for a specific reason. However, details about this reason are not provided.
-- sources:
-  - [unverified] Nicki Swift — https://www.nickiswift.com/2294245/taylor-swift-wont-get-marriage-advice-selena-gomez-big-reason/
-
-## Travis Kelce Comments on Prince William's Response to Taylor Swift Selfie
-
-- first seen: 2026-10-29 05:33 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Travis Kelce has shared his thoughts on Prince William's reaction to a selfie featuring Taylor Swift, stating, 'I get it'. This interaction reflects the interest in the connection between Kelce and Swift.
-- sources:
-  - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/10/taylor-swift-and-travis-kelces-wedding-decor-reportedly-met-a-surprising-end-fans-react.html
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-wedding-photos-3/
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/10/29/taylor-swift-and-travis-kelce-steal-the-spotlight-in-caroline-wozniacki-s-halloween-costume.html
-  - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/travis-kelce-prince-william-taylor-swift-selfie/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-upset-121321103.html
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/travis-kelce-responds-prince-william-060000816.html
