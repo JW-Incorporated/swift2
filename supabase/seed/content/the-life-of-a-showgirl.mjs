@@ -5404,6 +5404,15 @@ export default {
             accessed_at: '2026-08-04',
             reliability_score: 2,
           },
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/us/911008/taylor-swift-travis-kelce-vulnerable-wedding-vows-revealed/',
+            source_title: "Taylor Swift and Travis Kelce's 'vulnerable' wedding vows revealed by GMA host",
+            publisher: 'HELLO!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-01',
+            reliability_score: 3,
+          },
           // Answerer depth pass (Vault Run 2026-08-24, hot-thin-topic #1720):
           // adds a strong (reliability 4) outlet to a page whose Morris quote
           // otherwise rested on People-via-AOL/TMZ/HOLA. Billboard's guests-
