@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 86
 
 ## Patrick Mahomes and Wife Celebrate Halloween with Taylor Swift Tribute
 
@@ -738,19 +738,3 @@ Stories: 88
 - summary: Reports indicate that Taylor Swift is furious over a photo leak from the wedding of Travis Kelce. This incident has sparked attention regarding her reaction to the unauthorized sharing of personal moments.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-furious-livid-photo-001124478.html
-
-## Taylor Swift's Celebrity Pranks Discussed in Opinion Piece
-
-- first seen: 2026-10-29 00:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An opinion article explores the implications of celebrity pranks, using Taylor Swift's recent experiences as a focal point. It reflects on how such actions can be perceived and their potential consequences in the celebrity world.
-- sources:
-  - [unverified] Toronto Star — https://www.thestar.com/entertainment/opinion/taylor-swift-a-thousand-crickets-and-the-cautionary-tale-of-celebrity-pranks-that-go-too-far/article_713a576b-0a60-4663-809b-0690590803a3.html
-
-## Ashanti Discusses Friendship with Taylor Swift
-
-- first seen: 2026-10-29 00:38 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ashanti revealed her friendship with Taylor Swift, affectionately calling her 'Tay Tay'. The unexpected bond has come to light in a recent conversation.
-- sources:
-  - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/ashanti-taylor-swift-friendship
