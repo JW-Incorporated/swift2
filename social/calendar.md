@@ -21,6 +21,15 @@ in PR #6105). Every Instagram beat carries the mid-tail tag block as the
 **default**. There is deliberately no replacement experiment this fortnight
 either — see the ledger.
 
+**Every link's `utm_campaign` is the campaign family — the text before the first
+`:` in that item's own `campaign`, copied verbatim** (strategy Rule 6a, added
+2026-11-01 for ask [#6521](https://github.com/JW-Incorporated/swift2/issues/6521)).
+So `heartbeat:era-deep-cut:…` is tagged `utm_campaign=heartbeat`, not
+`era-deep-cut`; `timeline:love-story:…` is `timeline`, not `thread`. Never the
+sub-format, the pillar or the subject. 14 of the 24 posts shipped 10-18 → 11-01
+got this wrong, which is why 13 of 16 social pageviews could not be attributed
+to a format.
+
 ---
 
 ## 🔴 THE CHANGE THIS FORTNIGHT — the news lane is finally reachable, and it just cost us a dark day
