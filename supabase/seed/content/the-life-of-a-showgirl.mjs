@@ -5404,6 +5404,15 @@ export default {
             accessed_at: '2026-08-04',
             reliability_score: 2,
           },
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/us/911008/taylor-swift-travis-kelce-vulnerable-wedding-vows-revealed/',
+            source_title: "Taylor Swift and Travis Kelce's 'vulnerable' wedding vows revealed by GMA host",
+            publisher: 'HELLO!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-01',
+            reliability_score: 3,
+          },
           // Answerer depth pass (Vault Run 2026-08-24, hot-thin-topic #1720):
           // adds a strong (reliability 4) outlet to a page whose Morris quote
           // otherwise rested on People-via-AOL/TMZ/HOLA. Billboard's guests-
@@ -5851,15 +5860,6 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-          },
-          {
-            outlet: 'Officer.com',
-            url: 'https://www.officer.com/features/honoring-the-fallen/news/55393246/taylor-swift-and-travis-kelce-donate-2-million-to-nyc-first-responder-families-through-answer-the-call',
-            source_title: 'Taylor Swift and Travis Kelce Donate $2 Million to NYC First Responder Families Through Answer The Call',
-            publisher: 'Officer.com (Endeavor Business Media)',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 3,
           },
           {
             outlet: 'Answer the Call',

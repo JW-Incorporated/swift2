@@ -3123,24 +3123,6 @@ export default {
             kind: 'archival',
           },
         ],
-        // Shop pass (2026-07-22): a makeup/SFX look, not a garment --
-        // offering a real zombie SFX kit rather than forcing a clothing
-        // link onto a beauty item.
-        products: [
-          {
-            brand: 'Mehron',
-            item: 'Zombie Professional Makeup Kit',
-            retailer: 'jestpaint.com',
-            url: 'https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez',
-            matchTier: 'unscored',
-            kind: 'beauty',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0030/9316/8186/products/KMP-Z-2__82482.1644251720-NewProfessioalZombiemakeupkit.jpg?v=1654884380',
-            price: '$20.19',
-            isAlternative: true,
-            altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
-            verifiedAt: '2026-09-13T19:02:13.189Z'
-          },
-        ],
       },
     },
     {
