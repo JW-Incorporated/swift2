@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
 
 ## Bill Maher Compares Donald Trump to Taylor Swift
 
@@ -653,11 +653,3 @@ Stories: 77
 - summary: Taylor Swift showcases the latest trend in footwear with her satin jewelry-strap heels. This style highlights the fashionable elements expected to make waves in 2026.
 - sources:
   - [unverified] Women.com — https://www.women.com/2300042/taylor-swift-hot-new-2026-shoe-trend-velvet-heels-with-diamond-jewelry-ankle-strap/
-
-## Dancer from Taylor Swift's Tour Starts Fundraiser for Graves’ Disease
-
-- first seen: 2026-10-29 10:56 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A dancer who toured with Taylor Swift in San Luis Obispo has initiated a fundraiser to support their battle with Graves' disease. The effort highlights the challenges faced by individuals dealing with health issues.
-- sources:
-  - [unverified] edhat — https://www.edhat.com/slo/news/mason-cutler-graves-disease-gofundme/
