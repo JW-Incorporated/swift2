@@ -27,6 +27,14 @@ so far".
 
 Stories: 82
 
+## Stars Mark Halloween 2026 Celebrations
+
+- first seen: 2026-11-01 04:02 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Various stars, including Taylor Swift, were spotted celebrating Halloween in 2026. The event featured festive costumes and Halloween-themed activities.
+- sources:
+  - [unverified] extratv.com — https://extratv.com/photos/image_jpg_20261030_321419990c374aa292d836dc0da08bcd/
+
 ## Patrick Mahomes and Wife Celebrate Halloween with Taylor Swift Tribute
 
 - first seen: 2026-11-01 00:05 UTC | category: fashion | importance: 5
@@ -698,11 +706,3 @@ Stories: 82
 - summary: The article discusses Taylor Swift's latest achievements alongside a mention of a documentary about a different topic. Specific details of Swift's success are not provided in the snippet.
 - sources:
   - [unverified] WHNT.com — https://whnt.com/video/another-win-for-taylor-swift-a-doc-about-a-serial-pooper-oct-28-2026-day-to-day/12313257/
-
-## Taylor Swift and Elsa Hosk Promote New Spring 2026 Sneakers
-
-- first seen: 2026-10-29 03:38 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and model Elsa Hosk have endorsed a pair of podiatrist-approved sneakers, declaring them the must-have footwear for Spring 2026. Their endorsement is expected to boost the shoes' popularity in the upcoming season.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/white-reebok-sneakers-amazon-12186957
