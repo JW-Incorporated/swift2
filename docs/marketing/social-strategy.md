@@ -481,6 +481,36 @@ have carried 12 events even on a perfect week. So, from this plan on:
   site-covered moments and against the floor of three, so a 1-of-15 gap shows
   up as a number rather than as a good intention.
 
+**Three reserves, not one, after a week that missed the floor (added 2026-11-01,
+answering Marjorie's ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520);
+evidence: the week to 2026-11-01 shipped **0 news pairs against 27 site-covered
+moments**, the third such week running).** The week-of-10-26 calendar asserted
+*four* news landing days and delivered none, so landing days were never the
+binding constraint — **what counts is who can draft into them.** Three of those
+four were displaceable `heartbeat:`/`mood:` beats, and a displaceable beat only
+yields if some other run fires to displace it: the daily 11:00Z run is instructed
+not to draft off-reserve news at all (`tree-daily-draft.md` step 4.5 — "only note
+a still-uncovered item in the PR body"), and the run that does draft it,
+`routine-tree-event-draft.yml`, was never dispatched because
+`event-dispatch.mjs`'s "already covered" test is a recall-tuned matcher
+(`growth-coverage.mjs` `keywordsOf`/`textMatches`: two substring hits on
+capitalised title words, against the entire posted + queued + drafted corpus)
+being used as an *exclusion* gate — so three moments were skipped as covered by
+unrelated posts. Therefore:
+
+- **A calendar week whose site-fronted moments went uncovered reserves THREE
+  news days in the following week**, not the standing ≥1. A reserve is a day the
+  11:00Z run drafts news into on its own, with no second workflow in the path,
+  and its named fallback means it is never a gap (the rule above).
+- **A reserve day counts toward the ≥2 landing-slack requirement**, and counts
+  ahead of a displaceable beat: swapping a reserve's named subject for an
+  arriving major moment costs nothing and needs no displacement bookkeeping.
+  The ≥2 floor itself is unchanged, and the ≤3-per-rolling-7-days ceiling
+  (≤2 ordinary) still bounds what actually posts — three reserves raise the
+  chances of landing the floor, never the ceiling.
+- **The coverage matcher is not this desk's to fix.** It is filed to Marjorie;
+  the three-reserve rule is what makes the floor reachable without it.
+
 **Why 1 of 15, and the two halves of the fix (2026-10-25).** The `routine` veto
 this section used to carry was one half of it: `scripts/social/new-on-site.mjs`
 writes `significance: item.significance ?? 'routine'` and the vault corpus
