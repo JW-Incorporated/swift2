@@ -136,9 +136,48 @@ export function newOnSiteFeed(intents) {
   };
 }
 
+/** The seed files a lens count is sourced from — the authored truth, not the built content-vault. */
+export const LENS_SEED_FILES = { 'hidden-clues': ['supabase/seed/lenses/clue-pairs.mjs'] };
+
+/** Whole years between a clue's plant and payoff, the same figure the Decode UI shows (`packages/ui/src/reader/threads/lib/decode.ts`). */
+const gapYears = (c) => Math.max(0, Math.floor((Date.parse(c.payoff.date) - Date.parse(c.plant.date)) / (365.25 * DAY_MS)));
+
+/**
+ * Verified facts about the live `hidden-clues` lens, counted off the seed array the
+ * site renders (every CLUE_PAIRS member is live — `DecodeThread` filters nothing),
+ * so a `behind-the-data` thread-hero beat has a real number without a built
+ * `content-vault.generated.ts` (issue #6505).
+ *
+ * Returns `null` when the seed could not be read: the field is then OMITTED from the
+ * inputs rather than guessed, because the calendar's own instruction for this beat is
+ * to drop the statistic it cannot source.
+ */
+export function hiddenCluesFacts(cluePairs) {
+  const pairs = (Array.isArray(cluePairs) ? cluePairs : []).filter((c) => c?.plant?.date && c?.payoff?.date);
+  if (!pairs.length) return null;
+  const byEra = new Map();
+  for (const c of pairs) byEra.set(c.plant.eraId, (byEra.get(c.plant.eraId) ?? 0) + 1);
+  const [densestEra, densestClues] = [...byEra.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+  const longest = pairs.reduce((a, b) => (gapYears(b) > gapYears(a) ? b : a));
+  return {
+    lens: 'hidden-clues',
+    sources: LENS_SEED_FILES['hidden-clues'],
+    clues: pairs.length,
+    confirmed: pairs.filter((c) => c.confirmed === true).length,
+    theory: pairs.filter((c) => c.confirmed !== true).length,
+    earliestPlant: pairs.map((c) => c.plant.date).sort()[0],
+    latestPayoff: pairs.map((c) => c.payoff.date).sort().at(-1),
+    erasWithClues: byEra.size,
+    densestEra: { eraId: densestEra, clues: densestClues },
+    longestGap: { id: longest.id, title: longest.title, years: gapYears(longest) },
+    note: 'Counted from the seed files above, not the content-vault. Every number here is sourced — quote it as-is; never round it up or extrapolate.',
+  };
+}
+
 /**
  * Assembles the model's inputs. `data`: `{ now, library, calendarMd, lessonsMd,
  * posted, queue, openDrafts, closedPrs, intents, intakeIssues, eventStatus,
+ * cluePairs (the hidden-clues lens seed, or null = unread),
  * igUsable (Set of Instagram-acceptable photo ids, or null = unchecked), warnings }` — each of posted/queue/openDrafts an array of `{ ref, data }`.
  */
 export function buildDraftInputs(d) {
@@ -162,6 +201,8 @@ export function buildDraftInputs(d) {
   const assignedIds = assignedAll.map((a) => a.photo?.photoId).filter(Boolean);
   const backlog = held.length;
   const social = [...d.posted, ...d.queue, ...d.openDrafts];
+  // Omitted, never guessed: an unread seed leaves `lenses` absent entirely.
+  const hiddenClues = hiddenCluesFacts(d.cluePairs);
   return {
     v: 1,
     generatedAt: d.now,
@@ -179,6 +220,7 @@ export function buildDraftInputs(d) {
       heldInOpenPrs: [...ledger.used.entries()].filter(([, w]) => w.some((x) => x.kind === 'open-pr')).map(([id]) => id),
       eras: eraAvailability(d.library, ledger, assignedIds),
     },
+    ...(hiddenClues ? { lenses: { 'hidden-clues': hiddenClues } } : {}),
     rules: activeRules(d.lessonsMd),
     rejections: recentRejections(d.closedPrs, nowMs),
     events: { status: d.eventStatus ?? null, ...uncoveredEvents(d.intakeIssues, social, nowMs) },
@@ -197,6 +239,9 @@ export function summarizeInputs(inputs) {
     ...inputs.beats.map((b) => `  ${beatLine(b)}`),
     ...inputs.redrafts.map((r) => `  re-draft ask #${r.ask} by ${r.by}: ${r.alreadyDrafted ? 'already drafted' : r.items.slice(0, 80)}`),
     `  photos: ${inputs.photos.neverUsed}/${inputs.photos.library} drawable (never used AND Instagram-sized; ${inputs.photos.neverUsedButNotInstagramSized} more never-used are outside IG's 0.8-1.91 aspect window); held by open PRs: ${inputs.photos.heldInOpenPrs.join(', ') || 'none'}; era-exhausted: ${exhausted.join(', ') || 'none'}`,
+    ...(inputs.lenses?.['hidden-clues']
+      ? [`  hidden-clues lens: ${inputs.lenses['hidden-clues'].clues} clues (${inputs.lenses['hidden-clues'].confirmed} confirmed), earliest plant ${inputs.lenses['hidden-clues'].earliestPlant}, densest era ${inputs.lenses['hidden-clues'].densestEra.eraId} (${inputs.lenses['hidden-clues'].densestEra.clues}) — from ${inputs.lenses['hidden-clues'].sources.join(', ')}`]
+      : ['  hidden-clues lens: not counted (seed unread) — do not assert a count']),
     `  rules: ${inputs.rules.map((r) => r.id).join(', ') || 'none'} · recent rejections: ${inputs.rejections.length} · uncovered events: ${inputs.events.uncovered.length} · open intents: ${inputs.inbox.length}`,
     ...inputs.warnings.map((w) => `  ! ${w}`),
   ].join('\n');
