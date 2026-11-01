@@ -89,6 +89,8 @@ export function ModeToggle({
             : 'sm:w-[528px] md:w-auto xl:w-[630px]',
       )}
     >
+      {/* #6457: the active tab's label sits on this `bg-accent` fill, so it
+          uses the calibrated on-fill token, not `text-bg` (4.08:1 on Red). */}
       <span
         aria-hidden
         className="absolute inset-y-1 rounded-full bg-accent transition-[left,width] duration-300 ease-out"
@@ -109,7 +111,7 @@ export function ModeToggle({
         onClick={() => onChange('era')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
-          mode === 'era' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'era' ? 'text-[color:var(--era-accent-fg)]' : 'text-ink-soft hover:text-ink',
         )}
       >
         <Compass className={iconClass} />
@@ -123,7 +125,7 @@ export function ModeToggle({
         onClick={() => onChange('threads')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
-          mode === 'threads' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'threads' ? 'text-[color:var(--era-accent-fg)]' : 'text-ink-soft hover:text-ink',
         )}
       >
         <Layers className={iconClass} />
@@ -140,7 +142,7 @@ export function ModeToggle({
         onClick={() => onChange('mood')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
-          mode === 'mood' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'mood' ? 'text-[color:var(--era-accent-fg)]' : 'text-ink-soft hover:text-ink',
         )}
       >
         <Sparkles className={iconClass} />
@@ -155,7 +157,7 @@ export function ModeToggle({
         onClick={() => onChange('clownbot')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
-          mode === 'clownbot' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'clownbot' ? 'text-[color:var(--era-accent-fg)]' : 'text-ink-soft hover:text-ink',
         )}
       >
         <VenetianMask className={iconClass} />
@@ -170,7 +172,7 @@ export function ModeToggle({
         onClick={() => onChange('community')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
-          mode === 'community' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'community' ? 'text-[color:var(--era-accent-fg)]' : 'text-ink-soft hover:text-ink',
         )}
       >
         <Users className={iconClass} />
@@ -185,7 +187,7 @@ export function ModeToggle({
         onClick={() => onChange('merch')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2.5 text-xs font-semibold transition-colors md:px-3 md:text-sm',
-          mode === 'merch' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'merch' ? 'text-[color:var(--era-accent-fg)]' : 'text-ink-soft hover:text-ink',
         )}
       >
         <ShoppingBag className={iconClass} />
