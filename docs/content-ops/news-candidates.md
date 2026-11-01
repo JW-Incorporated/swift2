@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
 
-## Taylor Swift's Attendance at Chiefs Game on November 1 Speculated
+## Taylor Swift Highlights Leather Pencil Skirt as Fall Essential
 
-- first seen: 2026-11-01 19:51 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: There is speculation about Taylor Swift potentially attending the Chiefs game on November 1. Details regarding her plans remain unclear at this time.
+- first seen: 2026-11-01 20:51 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift showcases the leather pencil skirt in her latest outfit, emphasizing its status as a fall staple. The article details her fashion choice and its relevance for the season.
 - sources:
-  - [unverified] IMDb — https://www.imdb.com/de/news/ni66090442/?ref_=nwc_art_perm
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/
+
+## Taylor Swift Campaigns for Oscar at NYC Screening of Toy Story 5
+
+- first seen: 2026-11-01 20:51 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her desire to win an Oscar for her song featured in "Toy Story 5" during an all guild screening in New York City. She actively campaigned for the award at the event.
+- sources:
+  - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video
 
 ## Taylor Swift Shares Longtime Inside Joke with Best Friend Abigail
 
@@ -50,6 +58,14 @@ Stories: 81
 - summary: Before the Chiefs-Broncos game, Taylor Swift made a rare remark referring to a 'husband'. Details of the comment were not disclosed, but it drew attention from fans and media alike.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-husband-comment-before-broncos-game/
+
+## Taylor Swift's Attendance at Chiefs Game on November 1 Speculated
+
+- first seen: 2026-11-01 19:51 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: There is speculation about Taylor Swift potentially attending the Chiefs game on November 1. Details regarding her plans remain unclear at this time.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/de/news/ni66090442/?ref_=nwc_art_perm
 
 ## Dwayne Johnson appears to like post criticizing Taylor Swift
 
@@ -161,7 +177,7 @@ Stories: 81
 - verification_status: rumor | source_count: 1
 - summary: Bill Maher makes a controversial comparison between Donald Trump and Taylor Swift, one that is expected to upset Travis Kelce. The remarks highlight Maher's views on the current political climate and celebrity culture.
 - sources:
-  - [unverified] HITC — https://www.hitc.com/theyre-tearing-bill-maher-drops-brutal-donald-trump-taylor-swift-comparison-that-travis-kelce-will-hate/
+  - [unverified] Yahoo News UK — https://uk.news.yahoo.com/tearing-bill-maher-drops-brutal-094009546.html
 
 ## Travis Kelce Responds to Prince William's Comment on Taylor Swift Photo
 
@@ -686,11 +702,3 @@ Stories: 81
 - sources:
   - [unverified] 94.3 WKKJ — https://wkkj.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
   - [unverified] Buckeye Country 94.3 WMRN-FM — https://buckeyecountry943.iheart.com/content/2026-10-29-tim-mcgraw-addresses-rumor-about-taylor-swifts-wedding/
-
-## Overview of Unique Celebrity Engagement Rings Featured on People.com
-
-- first seen: 2026-10-29 20:01 UTC | category: fashion | importance: 4
-- verification_status: single_source | source_count: 1
-- summary: People.com highlights various unique and unusual engagement rings worn by celebrities, showcasing the distinct styles and choices of different famous personalities.
-- sources:
-  - [established] People — https://people.com/unique-celebrity-engagement-rings-11957123
