@@ -21,6 +21,15 @@ in PR #6105). Every Instagram beat carries the mid-tail tag block as the
 **default**. There is deliberately no replacement experiment this fortnight
 either — see the ledger.
 
+**Every link's `utm_campaign` is the campaign family — the text before the first
+`:` in that item's own `campaign`, copied verbatim** (strategy Rule 6a, added
+2026-11-01 for ask [#6521](https://github.com/JW-Incorporated/swift2/issues/6521)).
+So `heartbeat:era-deep-cut:…` is tagged `utm_campaign=heartbeat`, not
+`era-deep-cut`; `timeline:love-story:…` is `timeline`, not `thread`. Never the
+sub-format, the pillar or the subject. 14 of the 24 posts shipped 10-18 → 11-01
+got this wrong, which is why 13 of 16 social pageviews could not be attributed
+to a format.
+
 ---
 
 ## 🔴 THE CHANGE THIS FORTNIGHT — the news lane is finally reachable, and it just cost us a dark day
@@ -94,8 +103,8 @@ in the launch-backlog row below with the fortnight it moves to.
 | New user-visible ships, 10-19 → 10-26 | **None that earn an arc.** 100 PRs merged. The nearest miss is [#6186](https://github.com/JW-Incorporated/swift2/pull/6186) (`visualizer` kind so official visualizers lead the video feed) — a feed-ordering change a fan would have to be told about to notice, which fails §1(a)'s own test. Everything else was merch-sync plan authoring, Tidewatch eval work (all flag-off), photo imports (content backfill) and human-action bookkeeping. |
 | **Mood beat** | **October ✅ SHIPPED 10-21** — `mood:result:romanticizing-a-tuesday`, the first Mood post this desk has ever landed, approved by the owner at critique total 22 (`social/feedback/2026-W43.jsonl`). **November = `mood:era-match`, placed 11-03** — rotating format per §1(d), and specifically the format whose 10-03 attempt was approved and then killed by the 48h-from-approval clock without a posting attempt. One slot, as in October. |
 | **Blank Spaces timeline — permanent weekly minimum** | Week of 10-26: **10-29**. Week of 11-02: **11-04**. Chapters shipped: early solo years (09-17) → Harry Styles (09-21) → Joe Jonas 2008 (10-01) → Fearless solo 2008 (10-22). Take the next two unposted chapters **in the lens's own order** off `/?lens=love-story`, name the chapter in each item's `why`, and verify every person, date and quote against the Vault first. Confirmed-only; no rumor-stage relationship claim, ever. |
-| **📰 News reserves — 2 in week 1, 1 in week 2** | **10-28** and **11-01** (week of 10-26), **11-07** (week of 11-02). Each carries a named fallback on its own line. **New as of today: the fallback is ALWAYS drafted** ([PR #6321](https://github.com/JW-Incorporated/swift2/pull/6321)) — a reserve beat is never left empty for a run that may not fire, which is what cost 10-25. Never drafted a day early. |
-| **📰 Major moments ship same-day** (§1(e2)) | Ceiling ≤3 news posts per rolling 7 days, ≤2 of them ordinary. **Four landing days in week 1** (reserves 10-28 + 11-01, displaceable 10-27 + 10-31) and **four in week 2** (reserve 11-07, displaceable 11-03 + 11-05 + 11-08), against a floor of three moments reaching both platforms inside 48h. The ≥2-displaceable check is below, window by window — checked, not asserted. |
+| **📰 News reserves — 2 in week 1, 3 in week 2** | **10-28** and **11-01** (week of 10-26), **11-05 + 11-07 + 11-08** (week of 11-02 — 11-05 and 11-08 converted from displaceable heartbeats on 2026-11-01, answering ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520); the week to 11-01 shipped 0 of 27 site-covered moments). Each carries a named fallback on its own line. **New as of today: the fallback is ALWAYS drafted** ([PR #6321](https://github.com/JW-Incorporated/swift2/pull/6321)) — a reserve beat is never left empty for a run that may not fire, which is what cost 10-25. Never drafted a day early. |
+| **📰 Major moments ship same-day** (§1(e2)) | Ceiling ≤3 news posts per rolling 7 days, ≤2 of them ordinary. **Four landing days in week 1** (reserves 10-28 + 11-01, displaceable 10-27 + 10-31) and **four in week 2** (reserves 11-05 + 11-07 + 11-08, displaceable 11-03), against a floor of three moments reaching both platforms inside 48h. Week 2's three are **reserves, not displaceable beats**, on purpose: week 1 also claimed four landing days and shipped zero, because a displaceable beat only yields if another run fires to displace it. The slack check is below, window by window — checked, not asserted. |
 | **📰 Floor performance, week to 10-26** | **0 of 3.** Zero news pairs shipped this week against 10 moments on the site's own new-on-site sheet. The week to 10-19 was 1 of 15. Named misses, with the reason: intake #6290 (GMA) and #6273 (New Heights) — the 10-25 reserve was held empty for an event run that never fired. The eight remaining 10-26 sheet moments — Richard Marx, Maya Hawke, Prince William, Seattle Symphony, Selena Gomez, Caitlin Clark at Arrowhead, Jason's Squatober call, Showgirl's 15th week at No. 1 — were never dispatchable: `event-dispatch.mjs` only scanned 24h and only matched its keyword list until today. Both constraints are gone; this plan is the first fortnight the floor is mechanically reachable. |
 | 🧪 **Experiment — none this fortnight, deliberately** | Experiment 01 closed at n = 2, unreadable. All eleven October IG posts with insights on file are at **reach 0-2** (`social/metrics/posts/2026-10/`); the top three are tied at reach 2. A one-impression instrument cannot resolve a caption lever, a format lever or a time lever, so spending a slot in four on a labelled arm buys a number nobody can read. The comparison returns as a clean 3-vs-3 the first week trailing-7-day median IG reach is **≥10** (strategy §3). |
 | Openers — burned in the last 14 days, **do not reuse verbatim or near** | **13 distinct patterns across 14 posted items** (10-16 → 10-24), against a ≥12-per-14-days target ✅ — up from 10 of 14 last week. Burned: *"okay this is the sweetest thing…"* · *"turns out taylor's home rotation is…"* · *"she FINALLY played it live 😭"* · *"over a year of waiting to hear it off a stage…"* · *"no label fight. no asterisk. just hers."* · *"the thing about Lover that still gets overlooked…"* · *"okay i tapped <chip> on Mood just to see what it'd do…"* · *"i expected a corny playlist. instead…"* · *"the next chapter in the blank spaces timeline isn't a boyfriend…"* · *"heartbreak in, arena tour out."* · *"of all six re-records, speak now is the one that…"* · *"speak now is the only album Taylor wrote entirely alone…"* · *"twenty years ago tomorrow…"*. **Off the menu this fortnight:** any bare date-stamp or *"<n> years ago"* opener, *"okay i/this…"* as a sentence-opener (spent twice in nine days), and *"the thing about <X> that still gets overlooked"*. |
@@ -243,6 +252,13 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
 
 ## 2026-11-02 (Mon) — Decode thread hero (window 11-01→05) · Tree run day
 
+RE-DRAFT ask #6520 by 2026-11-04: the two site-fronted moments the dispatcher skipped as "already covered" and nothing ever posted — `vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli` (three weeks at No. 1, now No. 5) first, then `vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall`. Draft as an extra pair, not in place of the day's beat.
+
+**Carry that RE-DRAFT line forward** into any calendar this run's own weekly
+rewrite produces until an item's `why` cites `ask #6520` — it is a promise made
+to Marjorie on [#6520](https://github.com/JW-Incorporated/swift2/issues/6520),
+not a suggestion.
+
 - **`23:00Z` · `thread:hidden-clues:behind-the-data`** — mint
   `thread:hidden-clues:behind-the-data:2026-11-hero`. Link `/?lens=hidden-clues`.
 - **November's first thread hero.** `angle = ANGLES[(3 + 0) % 5]` =
@@ -287,9 +303,23 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
 - **Hook direction:** a different shape from 10-29's. Direct address or the
   honest question. Not a date-stamp, and not the shape 10-29 used.
 
-## 2026-11-05 (Thu) — Heartbeat (DISPLACEABLE, §1(e2))
+## 2026-11-05 (Thu) — 📰 NEWS RESERVE #2 (week of 11-02)
 
-- **`23:00Z` · `heartbeat:era-deep-cut`** — mint
+- **`23:00Z` · `news:<event-slug>`**, or the named fallback below. **Same rule as
+  11-07: if `events.uncovered[]` holds a real, confirmed, sourced event dated
+  inside the last 48h, draft THAT pair here (six-dimension rubric, `timely` ≥4,
+  `total` ≥21) — otherwise draft the fallback exactly as written. Never an empty
+  beat.**
+- **Why this day became a reserve (ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520), 2026-11-01):**
+  this week shipped **0 of 27** site-covered moments to social. The calendar's
+  own accounting said the week carried four "news landing days" — but three of
+  them were *displaceable heartbeat beats*, and the daily run is told not to
+  draft off-reserve news (`tree-daily-draft.md` step 4.5: "only note a still-
+  uncovered item in the PR body"), while the run that does draft off-reserve news
+  never fired. A displaceable beat is only a landing day if something displaces
+  it. A **reserve** is a landing day in this run's own hands, so the week of
+  11-02 carries three of them.
+- **Named fallback:** `heartbeat:era-deep-cut` — mint
   `heartbeat:era-deep-cut:prince-william-wembley-selfie:2026-11-05`, built on
   the new-on-site moment
   `vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back`.
@@ -299,8 +329,10 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
   backstage selfie. Confirmed, on the record, and warm — the joke is his, not
   ours. Quote him exactly or not at all; do not characterise the relationship
   beyond what he said.
-- **Hook direction:** the quote, or direct address. **Not** a date-stamp.
-- **Yields first** to a major moment arriving off-reserve.
+- **Hook direction, for the fallback:** the quote, or direct address. **Not** a
+  date-stamp.
+- **If the fallback branch is taken** it ships as a `heartbeat:` beat and stays
+  displaceable by a later arriving moment, exactly as before.
 
 ## 2026-11-06 (Fri) — Clue Web thread hero (window 11-06→10)
 
@@ -335,17 +367,25 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
   epic poetry on Hot Ones is the hook; the fact that it was said on a hot-wings
   show is the second line, not the first.
 
-## 2026-11-08 (Sun) — Heartbeat (DISPLACEABLE, §1(e2))
+## 2026-11-08 (Sun) — 📰 NEWS RESERVE #3 (week of 11-02)
 
-- **`23:00Z` · `heartbeat:track-fact`** — mint
+- **`23:00Z` · `news:<event-slug>`**, or the named fallback below. **Same rule as
+  11-05 and 11-07: a real, confirmed, sourced event dated inside the last 48h
+  from `events.uncovered[]` is drafted HERE as a pair; otherwise the fallback,
+  exactly as written. Never an empty beat.**
+- **Why:** the third of this week's three reserves — see 11-05 for the reason and
+  ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520).
+- **Named fallback:** `heartbeat:track-fact` — mint
   `track-fact:<subject-slug>:2026-11-08`. Link `/?item=<momentId>` or
   `/?era=<eraId>`.
-- **Subject direction:** one sourced fact off a track dossier, from an era this
+- **Subject direction, for the fallback:** one sourced fact off a track dossier, from an era this
   fortnight has not already used — so **not** `1989` (10-28), `the-life-of-a-showgirl`
   (11-01), `folklore` (10-31/11-07) or whichever era 10-29 and 11-04's chapters
   land in. `reputation`, `evermore`, `red` and `Speak Now` are all open.
-- **Hook direction:** the contradiction, or the artifact. Not a date-stamp.
-- **Yields first** to a major moment arriving off-reserve.
+- **Hook direction, for the fallback:** the contradiction, or the artifact. Not a
+  date-stamp.
+- **If the fallback branch is taken** it ships as a `heartbeat:` beat and stays
+  displaceable by a later arriving moment, exactly as before.
 
 ---
 
@@ -357,27 +397,31 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
 | October thread make-good | §1(b) | 1 | 10-30 |
 | November thread heroes | §1(b) | 2 | 11-02 (Decode), 11-06 (Clue Web) |
 | Blank Spaces timeline | §1(c), permanent weekly minimum | 2 | 10-29, 11-04 |
-| News reserves | §1(e2), ≥1 per calendar week | 3 | 10-28, 11-01, 11-07 |
+| News reserves | §1(e2), ≥1 per week; **3 in the week of 11-02** (ask #6520) | 5 | 10-28, 11-01, **11-05**, 11-07, **11-08** |
 | Mood | §1(d), monthly | 1 | 11-03 |
-| Heartbeat (displaceable) | §1(e) | 4 | 10-27, 10-31, 11-05, 11-08 |
+| Heartbeat (displaceable) | §1(e) | 2 | 10-27, 10-31 |
 | Launch arc | §1(a) — **deferred to the 11-09 fortnight** | 0 | — |
 | **Total** | | **14** | 14 days, 13 of them drafted by this plan |
 
-**Displaceable-beat check (§1(e2), ≥2 per rolling 7 days), window by window.**
-Displaceable beats are 10-27, 10-31, 11-03 (mood, rung 2), 11-05 and 11-08:
+**Landing-slack check (§1(e2), ≥2 per rolling 7 days), window by window.** Slack
+is a **reserve day (`R`)** or a displaceable beat — 10-27, 10-31 (heartbeat) and
+11-03 (mood, rung 2). A reserve counts, and counts *better*: swapping a reserve's
+named subject for an arriving moment costs nothing, while a displaceable beat
+only yields if a run fires to displace it (§1(e2), amended today):
 
-- 10-26→11-01: 10-27, 10-31 → **2** ✅
-- 10-27→11-02: 10-27, 10-31 → **2** ✅
-- 10-28→11-03: 10-31, 11-03 → **2** ✅
-- 10-29→11-04: 10-31, 11-03 → **2** ✅
-- 10-30→11-05: 10-31, 11-03, 11-05 → **3** ✅
-- 10-31→11-06: 10-31, 11-03, 11-05 → **3** ✅
-- 11-01→11-07: 11-03, 11-05 → **2** ✅
-- 11-02→11-08: 11-03, 11-05, 11-08 → **3** ✅
+- 10-26→11-01: 10-27, 10-28`R`, 10-31, 11-01`R` → **4** ✅
+- 10-27→11-02: 10-27, 10-28`R`, 10-31, 11-01`R` → **4** ✅
+- 10-28→11-03: 10-28`R`, 10-31, 11-01`R`, 11-03 → **4** ✅
+- 10-29→11-04: 10-31, 11-01`R`, 11-03 → **3** ✅
+- 10-30→11-05: 10-31, 11-01`R`, 11-03, 11-05`R` → **4** ✅
+- 10-31→11-06: 10-31, 11-01`R`, 11-03, 11-05`R` → **4** ✅
+- 11-01→11-07: 11-01`R`, 11-03, 11-05`R`, 11-07`R` → **4** ✅
+- 11-02→11-08: 11-03, 11-05`R`, 11-07`R`, 11-08`R` → **4** ✅
 
-**News landing days per calendar week** (reserve + displaceable, against the
-≥3-moments floor): week of 10-26 = **4** (10-27, 10-28, 10-31, 11-01) · week of
-11-02 = **4** (11-03, 11-05, 11-07, 11-08). ✅
+**News landing days per calendar week, against the ≥3-moments floor:** week of
+10-26 = **2 reserves** (10-28, 11-01) + 2 displaceable — and it delivered **0**,
+which is why the week of 11-02 carries **3 reserves** (11-05, 11-07, 11-08), each
+a day this run can draft news into without any other workflow firing. ✅
 
 **Where a major moment lands.** Nearest free heartbeat or mood beat, in §1(e2)'s
 order, and the displaced beat slides to the next free day — except a
