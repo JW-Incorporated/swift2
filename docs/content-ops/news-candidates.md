@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 80
 
 ## New Wedding Photos of Taylor Swift Surface for Fans
 
@@ -689,11 +689,3 @@ Stories: 81
   - [unverified] TMZ — https://www.tmz.com/2026/10/30/nelly-says-taylor-swift-gave-him-50k-in-a-mcdonalds-bag-to-sing-with-him/
   - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/nelly-says-taylor-swift-paid-him-50k-for-concert-cameo/
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-says-taylor-swift-paid-201929837.html
-
-## Judge Rejects Taylor Swift Fans' Request to Leave Ticketmaster Lawsuit
-
-- first seen: 2026-10-29 23:39 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A judge has denied a motion from fans of Taylor Swift trying to withdraw from a class action lawsuit against Ticketmaster. The decision comes amid ongoing legal disputes regarding ticket sales and fan experiences.
-- sources:
-  - [unverified] Daily Journal — https://www.dailyjournal.com/article/395777-judge-denies-taylor-swift-fans-late-bid-to-exit-ticketmaster-class-action
