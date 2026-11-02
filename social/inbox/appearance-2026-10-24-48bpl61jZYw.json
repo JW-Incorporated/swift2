@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-24-48bpl61jZYw",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-24T23:41:20.194Z",
+  "deadline": "2026-10-26T23:41:20.194Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Good Morning America",
+    "videoTitle": "14-year-old Taylor Swift on stardom",
+    "publishedAt": "2026-10-24T19:50:59+00:00",
+    "videoId": "48bpl61jZYw",
+    "url": "https://www.youtube.com/watch?v=48bpl61jZYw"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6290
+  }
+}
