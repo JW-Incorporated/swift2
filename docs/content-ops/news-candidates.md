@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 74
 
 ## Update on Taylor Swift and Travis Kelce's Relationship Following Wedding Leak
 
@@ -640,27 +640,3 @@ Stories: 77
 - summary: Taylor Swift and Travis Kelce are reportedly facing increased backlash regarding their proposed plans for a home in Ohio. The reaction has garnered attention in public discussions.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-growing-backlash-over-plans-ohio-home
-
-## Taylor Swift Skips Wedding Tradition Referenced in Lyrics
-
-- first seen: 2026-10-30 22:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift opted out of a certain wedding tradition, which has sparked discussion among fans. The move was noted as reflective of a lyric from her music that seemed to foreshadow this choice.
-- sources:
-  - [unverified] Cinemablend — https://www.cinemablend.com/streaming-news/taylor-swift-skipped-out-travis-kelce-wedding-tradition-lyric-totally-called-it
-
-## Taylor Swift Pays Nelly $50,000 for Performance
-
-- first seen: 2026-10-30 22:27 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: TMZ reports that Taylor Swift has compensated rapper Nelly with $50,000 for a performance. This marks another collaboration in her diverse repertoire of musical partnerships.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/watch/taylor-paid-nelly-50k-for-surprise-performance-103026/
-
-## Nelly Discusses Payment from Taylor Swift for 1989 World Tour Performance
-
-- first seen: 2026-10-30 22:27 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Nelly has disclosed the amount he was paid by Taylor Swift to perform during her 1989 World Tour. This revelation provides insight into the financial aspects of guest performances on major tours.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235090162/nelly-taylor-swift-1989-world-tour/
