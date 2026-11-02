@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
+
+## Exploring the Truth About Taylor Swift's Brother Austin
+
+- first seen: 2026-11-02 02:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article investigates the relationship and dynamics between Taylor Swift and her brother Austin. It provides insights into their familial bond.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/truth-taylor-swifts-brother-austin-131500180.html
 
 ## Taylor Swift to Miss Chiefs vs. Broncos Game Today
 
@@ -699,25 +707,3 @@ Stories: 84
 - summary: Ella Langley's song 'Choosin' Texas' has topped the Hot 100 chart, dethroning Taylor Swift's track 'Patient Zero'. This marks the 25th nonconsecutive week for 'Choosin' Texas' at the number one position.
 - sources:
   - [unverified] Facebook — https://www.facebook.com/Boston25News/photos/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1617879023707091/
-
-## Taylor Swift Donates $100,000 to Revive Tennessee Playground
-
-- first seen: 2026-10-30 02:32 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated $100,000 to restore a Tennessee playground that was destroyed by floods in 2010. This contribution aims to support the community's recovery and revitalization efforts.
-- sources:
-  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-gave-100000-to-revive-a-tennessee-playground-destroyed-by-floods-in-2010-now-the-city-is-seeking-a-roughly-3-million-grant-for-an-inclusive-play-area-and-sports-upgrades-at-the-same-park/articleshow/135323557.cms
-
-## Nelly Reveals Taylor Swift Paid Him $50,000 for 2011 Concert Performance
-
-- first seen: 2026-10-30 02:32 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: Nelly disclosed that Taylor Swift compensated him with $50,000 for a surprise performance during her 2011 concert and mentioned additional perks she provided.
-- sources:
-  - [unverified] Complex — https://www.complex.com/music/a/jose-martinez/taylor-swift-nelly-mcdonalds-bag
-  - [unverified] E! News — https://www.eonline.com/news/1437676/taylor-swift-paid-nelly-s50-000-cash-in-mcdonalds-bag-for-2011-performance
-  - [unverified] IMDb — https://www.imdb.com/es/news/ni66086838/?ref_=nwc_art_perm
-  - [established] People — https://people.com/nelly-taylor-swift-paid-him-50k-mcdonalds-bag-join-her-on-tour-12203385
-  - [unverified] TMZ — https://www.tmz.com/2026/10/30/nelly-says-taylor-swift-gave-him-50k-in-a-mcdonalds-bag-to-sing-with-him/
-  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/nelly-says-taylor-swift-paid-him-50k-for-concert-cameo/
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-says-taylor-swift-paid-201929837.html
