@@ -2,20 +2,43 @@
   "platform": "instagram",
   "lane": "calendar",
   "body": "it's finally cardigan weather where i am, so i typed exactly that into Mood expecting it to hand me folklore. (cardigan! it's RIGHT there!)\n\ninstead the first song it pulled was Never Grow Up. Speak Now. 🥹 then seven, then Tim McGraw, then New Year's Day, then We Were Happy — five songs about holding onto something soft before it slips away.\n\nthat's the thing i love about this feature: it didn't match the obvious word, it matched the feeling under it. cardigan weather isn't really about a sweater, it's about wanting time to slow down. Mood heard that.\n\ntag the person you'd spend the whole cozy season with — then go tell Mood your own weather on longlivets.com 💛\n\nlonglivets.com/?mode=mood&utm_source=instagram&utm_medium=social&utm_campaign=mood",
-  "media": ["/social/library/photos/reddit-taylorswiftpictures-1r38qiv-ig45.jpg"],
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1r38qiv-ig45.jpg"
+  ],
   "mediaKind": "photo",
   "photoId": "reddit-taylorswiftpictures-1r38qiv-ig45",
   "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1r38qiv/taylor_at_the_2022_mtv_emas/",
   "scheduledAt": "2026-11-03T23:00:00Z",
-  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor at the 2022 MTV EMAs"],
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor at the 2022 MTV EMAs"
+  ],
   "campaign": "mood:era-match:2026-11-03",
   "why": "IG sibling of mood:era-match:2026-11-03 (Calendar 2026-11-03 23:00Z Mood beat). Chip 'cardigan weather' verbatim from mood-starters.ts; deterministic matchMoods results -> Never Grow Up [speak-now], seven [folklore], Tim McGraw [debut], New Year's Day [reputation], We Were Happy [fearless], all scored eras (engine run on the seed song-moods, live site unreachable here — same method as 10-21). Era-match hook = the honest surprise (expected folklore, got Speak Now); different shape from the X half and from 10-21's IG. Mandatory mood share-hook = tag a friend. Link /?mode=mood. Photo handed by prepare job; LFS pointer, not eyeballed; uncredited -> no credit line.",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 5, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 5 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
     "total": 23,
     "rationale": "cardigan weather should scream folklore, so Mood leading with Never Grow Up from Speak Now is a genuine, specific surprise that teaches what the feature does. Warm, lowercase, real named results and a real tag-hook; the tour photo is the one weak spot since Mood has no era deep-link.",
-    "rulesChecked": ["L002"],
+    "rulesChecked": [
+      "L002"
+    ],
     "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-02T20:56:00.690Z",
+    "pr": 6541,
+    "message": "social-tree-approve run 41523467897",
+    "contentHash": "sha256:f722536a999151a60d03497e8b56a69b1b5f08b425cf8c369e9908a71336a78a",
+    "mediaDigest": "sha256:49de7cd88678279c712053da417355f65d6d21e4b67c6725bdcd20acf3844b7f",
+    "sig": "hmac-sha256:056c16289c5e3ea2ee0d3f5e4c6fb9b428bfb8cd358ee205dd13a051c69e1ee6"
   }
 }
