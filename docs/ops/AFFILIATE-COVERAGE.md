@@ -52,12 +52,12 @@ The explanation column is required for every uncovered row. It reports only the 
 | Alyce 40022 Short Homecoming Dress | promgirl.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-teal-fringe-dress-in-the-first-delicate-video | not listed in checked-in E0 Awin advertiser directory |
 | Alyn Halter Mini Dress | us.princesspolly.com | none | uncovered | direct retailer URL | speak-now.vault-speak-now-a-marilyn-monroe-inspired-white-halter-dress-at-the-teen-cho | not listed in checked-in E0 Awin advertiser directory |
 | And For A Fortnight There We Were Forever T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Aphrodite Off Shoulder Crepe Gown | meshki.us | none | awin-apply | direct retailer URL | ttpd.vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight- |  |
+| Aphrodite Off Shoulder Crepe Gown | meshki.us | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight- | not listed in checked-in E0 Awin advertiser directory |
 | Are You Ever Dreaming Of Me? Compact Mirror | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Armina Blush Pink One-Shoulder Feather-Trim Maxi Dress | clubllondon.us | none | awin-apply | direct retailer URL | reputation.vault-reputation-an-800-hour-atelier-versace-gown-for-her-first-red-carpet-in |  |
 | Baby, That's Show Business Cropped Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Beautiful Tragic Love Affair Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Bex Strapless Slinky Maxi Dress With Split | meshki.us | none | awin-apply | direct retailer URL | midnights.vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced |  |
+| Bex Strapless Slinky Maxi Dress With Split | meshki.us | none | uncovered | direct retailer URL | midnights.vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced | not listed in checked-in E0 Awin advertiser directory |
 | Big Reputation Album Bomber Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Blue Floral Brocade Strapless Ball Gown | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-blue-floral-gown-and-a-surprise-beyonc-reunion | not listed in checked-in E0 Awin advertiser directory |
 | Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown | macduggal.com | none | uncovered | direct retailer URL | red.vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award | not listed in checked-in E0 Awin advertiser directory |
@@ -238,7 +238,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Self-Titled Stars That Shine Baby T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Sequin Red Lip Classic Thing That You Like Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Sequin Tartan Overshirt | ashish.co.uk | none | uncovered | direct retailer URL | 1989.vault-1989-a-houndstooth-ashish-crop-top-pantsuit-leads-the-bad-blood-s | not listed in checked-in E0 Awin advertiser directory |
-| Seraphine Corset Satin Maxi Dress | meshki.us | none | awin-apply | direct retailer URL | ttpd.vault-ttpd-a-new-crystal-bodysuit-and-a-dress-covered-in-lyrics |  |
+| Seraphine Corset Satin Maxi Dress | meshki.us | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-new-crystal-bodysuit-and-a-dress-covered-in-lyrics | not listed in checked-in E0 Awin advertiser directory |
 | Serene Snake Print Sequin Mini Dress | edgebyks.com | none | uncovered | direct retailer URL | 1989.vault-1989-a-silver-snakeskin-louis-vuitton-mini-co-chairing-the-2016-m | not listed in checked-in E0 Awin advertiser directory |
 | Set of 12! Cute little Fall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Set of 12! Cute Tall Pumpkins fanmade Swiftie Inspired! OOAK Handmade V1 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
@@ -427,7 +427,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | --- | ---: |
 | total | 411 |
 | wrapped | 0 |
-| awin-apply | 10 |
+| awin-apply | 7 |
 | pending-signup | 8 |
-| uncovered | 95 |
+| uncovered | 98 |
 | direct-by-policy | 298 |
