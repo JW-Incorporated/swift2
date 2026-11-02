@@ -1,0 +1,44 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "some of these took years to land. 24 are confirmed by Taylor herself, 18 more are fan theories still in play — and all 42 sit next to the payoff they were quietly pointing at. go dig in → longlivets.com/?lens=hidden-clues&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1qgb3m8-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1qgb3m8-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1qgb3m8/did_some_color_correction_much_better/",
+  "scheduledAt": "2026-11-02T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Did some color correction. Much better!"
+  ],
+  "campaign": "thread:hidden-clues:behind-the-data:2026-11-hero",
+  "why": "X sibling of the Nov thread-hero beat (Calendar 2026-11-02 23:00Z, hidden-clues / The Decode, angle behind-the-data). Counted live off CLUE_PAIRS (the dataset the hidden-clues lens renders): 42 clue->payoff pairs, of which 24 carry confirmed:true and 18 are unconfirmed/fan-theory. X takes a DIFFERENT angle from IG (the confirmed-vs-theory split + the years-long waits) to stay platform-native and clear the cross-post-copy check. Hook: the contradiction, not a date-stamp. Link /?lens=hidden-clues, utm_campaign=thread. Photo handed by prepare job (never-used, IG-sized); LFS pointer in this checkout so not eyeballed, relying on prepare-job vetting. Uncredited reddit pick -> no credit line.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Executes the November Decode thread-hero on its behind-the-data angle with a real, sourced count (42 clue->payoff pairs, back to 2014, Lover densest). Number-led hook, link to go read the rows; photo is a real tour shot, only loosely tied to the data subject.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-02T20:56:00.690Z",
+    "pr": 6541,
+    "message": "social-tree-approve run 41523467897",
+    "contentHash": "sha256:03745527a25da5433e97c363f760a6f76d0e15add4453daab023df16482aedd4",
+    "mediaDigest": "sha256:0604c118b5a808ad35b5f2464a4370ec64068495906a4075b6428e634f58f6d7",
+    "sig": "hmac-sha256:b181ea0663dc2588c1665c5ba6a0610f3c1f86b506d124541c67323fab322a4f"
+  }
+}
