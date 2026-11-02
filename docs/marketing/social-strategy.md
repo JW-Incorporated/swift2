@@ -318,11 +318,36 @@ The five pillars survive. What changes is how the copy opens.
 cut" are *filenames for us*, never words in a caption. The entire current
 failure is a pillar name that escaped into 12 captions.
 
-**Rule 2 — banned openers** (hard-blocked by `check-drafts.mjs`):
+**Rule 2 — banned openers** (hard-blocked by `check-drafts.mjs`, from the list in
+`social/strategy-params.json` `openers.bannedOpeners`):
 
 > did you know · fun fact · here's a fact · ever wonder · let's talk about ·
 > imagine · picture this · in a world · buckle up · spoiler · PSA · story time ·
-> a thread 🧵 · we need to talk about
+> a thread 🧵 · we need to talk about · **okay** · **ok**
+
+**Two corrections to this rule, 2026-11-02 (Tree, week-of-11-02 plan).**
+
+*The list above was not actually enforced.* It has said "hard-blocked by
+`check-drafts.mjs`" since 2026-08-11, but `social/strategy-params.json` — the
+file the checker reads — carried only `did you know`, so **13 of the 14 openers
+were published as gates and blocked nothing.** The params file now carries the
+whole list. (`a thread 🧵` is stored as `a thread`: the matcher anchors
+`^<phrase>\b` and a `\b` immediately after an emoji never matches, so the
+emoji form could never have fired.)
+
+*`okay` and `ok` are added, and this is a real finding, not tidying.* **4 of the
+22 items posted 2026-10-20 → 2026-11-01 opened on one** — 10-21 IG *"okay i
+tapped…"*, 10-26 IG *"okay END GAME fans…"*, 10-30 X *"ok swifties…"*, 10-31 IG
+*"okay folklore track 3…"* — while all 22 cleared Rule 3's 6-word reuse gate,
+because that gate cannot see a shared *first* word when words 2-6 differ. The
+week-of-10-26 calendar put the shape off the menu in prose and it shipped twice
+anyway. This is the 2026-08-11 "did you know" finding recurring under a new
+word, and prose directions did not hold it: 1 in 5 posts opening on the same
+filler word is a formula, and a formula-opener gate that cannot see the formula
+forming is not a gate. The ban is prefix-anchored, so only a body literally
+opening on `okay`/`ok` fails — `okay` mid-sentence is untouched, and the warm,
+chatty register those captions were reaching for is available in every other
+hook shape on Rule 5's menu.
 
 **Rule 3 — no opener-pattern reuse within 14 days.** The checker normalizes the
 first five words of every draft and compares against the last 14 days of
