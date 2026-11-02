@@ -9804,6 +9804,7 @@ export default {
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-i-knew-it-i-knew-you-picks-up-a-hollywood-music-in-media-nod',
       ],
       year: 2026,
       month: 7,
@@ -17235,6 +17236,7 @@ export default {
       // TheWrap loaded directly and carries the full category slate. Variety
       // (the filing's first outlet) was not loadable, so it is not cited.
       slug: 'showgirl-i-knew-it-i-knew-you-hmma-nomination',
+      relatedIds: ['moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom'],
       year: 2026,
       month: 11,
       day: 2,
