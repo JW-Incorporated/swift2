@@ -83,7 +83,6 @@ The explanation column is required for every uncovered row. It reports only the 
 | Denver Broncos Friendship Bracelets – Stackable Team Colors – Taylor Swift Inspired | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes | ulta.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-glitter-heart-eye-that-became-the-lover-eras-signature | not listed in checked-in E0 Awin advertiser directory |
 | Down Bad Crying At The Gym Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Eres Long-Sleeve V Neck Sequin Romper | julianchang.com | none | uncovered | direct retailer URL | reputation.vault-reputation-a-sequined-romper-and-kat-maconie-heels-at-the-amazon-prime- | not listed in checked-in E0 Awin advertiser directory |
 | evermore album deluxe edition CD (clean version) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | evermore album deluxe edition vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | evermore Gold Rush Longsleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -249,7 +248,6 @@ The explanation column is required for every uncovered row. It reports only the 
 | Single-Breasted Velvet Jacket | etro.com | none | uncovered | direct retailer URL | evermore.vault-evermore-a-purple-velvet-etro-pantsuit-for-the-all-too-well-short-fil | not listed in checked-in E0 Awin advertiser directory |
 | Siofra Mini Dress (Zig Zag Fringe Dress) | showpo.com | none | uncovered | direct retailer URL | 1989.vault-1989-the-1989-world-tour-wardrobe-a-rotating-closet-of-sparkle | not listed in checked-in E0 Awin advertiser directory |
 | Siofra Mini Dress (Zig Zag Fringe Dress) | showpo.com | none | uncovered | direct retailer URL | red.vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks | not listed in checked-in E0 Awin advertiser directory |
-| Sirocco | jennypackham.com | none | uncovered | direct retailer URL | red.vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas | not listed in checked-in E0 Awin advertiser directory |
 | Sitting There By the Water Beach Towel | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Sleeveless Lambskin Jumpsuit | us.balmain.com | none | uncovered | direct retailer URL | 1989.vault-1989-a-sparkling-white-balmain-jumpsuit-for-the-billboard-music-a | not listed in checked-in E0 Awin advertiser directory |
 | Snake Print Silver Sequined Bodysuit | rhapso-designs.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-reputation-stadium-tours-snake-bodysuit | not listed in checked-in E0 Awin advertiser directory |
@@ -422,15 +420,14 @@ The explanation column is required for every uncovered row. It reports only the 
 | You Can Call Me Honey If You Want Pink Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | You Don't Get To Tell Me About Sad Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Zion Bomber Jacket - Red | thefrankieshop.com | none | uncovered | direct retailer URL | tloas.vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents | not listed in checked-in E0 Awin advertiser directory |
-| Zombie Professional Makeup Kit | jestpaint.com | none | uncovered | direct retailer URL | 1989.vault-1989-zombie-makeup-for-look-what-you-made-me-do | not listed in checked-in E0 Awin advertiser directory |
 
 ## Summary
 
 | status | count |
 | --- | ---: |
-| total | 414 |
+| total | 411 |
 | wrapped | 0 |
 | awin-apply | 10 |
 | pending-signup | 8 |
-| uncovered | 98 |
+| uncovered | 95 |
 | direct-by-policy | 298 |
