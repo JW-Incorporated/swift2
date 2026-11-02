@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift to Write End Credits Song for ‘Toy Story 5’
+
+- first seen: 2026-11-02 17:22 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has announced her involvement in ‘Toy Story 5’ by agreeing to write the end credits song, ensuring she didn’t replace anyone in the process.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-toy-story-5-song-didnt-want-to-kick-somebody-off-1236371936/
+
+## Taylor Swift Nominated at Hollywood Music in Media Awards
+
+- first seen: 2026-11-02 17:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received a nomination at the Hollywood Music in Media Awards, alongside titles like 'The Odyssey' and 'Michael'. The recognition highlights her contributions to the music industry.
+- sources:
+  - [unverified] TheWrap — https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/
 
 ## Busker Wins The Voice UK, Inspired by Taylor Swift
 
@@ -161,9 +177,10 @@ Stories: 82
 ## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
 - sources:
+  - [unverified] Bustle — https://www.bustle.com/entertainment/taylor-swift-abigail-anderson-napoleon-dynamite-impressions
   - [unverified] E! News — https://www.eonline.com/news/1437716/taylor-swift-details-weird-habit-husband-travis-kelce-had-to-deal-with
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-abigail-anderson-quirk-she-shares-high-school-bff-12206970
   - [unverified] Page Six — https://pagesix.com/2026/11/02/entertainment/taylor-swift-confesses-to-weird-habit-husband-travis-kelce-has-to-put-up-with/
@@ -694,11 +711,3 @@ Stories: 82
 - summary: Nelly shared a story about how Taylor Swift once paid him $50,000 in cash for a performance, presented in a McDonald's bag. He mentioned he would have been willing to perform for free.
 - sources:
   - [unverified] MusicRadar — https://www.musicradar.com/artists/singers-songwriters/nelly-reveals-taylor-swift-once-paid-him-for-a-show-appearance-with-usd50-000-cash-in-a-mcdonalds-bag-i-wouldve-done-it-for-free
-
-## Review of 'The Life of a Showgirl: The Encore' Questions Its Quality
-
-- first seen: 2026-10-30 16:47 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A review published in The Georgetown Independent evaluates the quality of 'The Life of a Showgirl: The Encore,' posing the question of whether the show met expectations. The critique aims to analyze different aspects of the production.
-- sources:
-  - [unverified] The Georgetown Independent — https://www.georgetownindy.com/post/was-the-life-of-a-showgirl-the-encore-that-bad
