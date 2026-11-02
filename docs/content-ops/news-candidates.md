@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
 
 ## Taylor Swift and Travis Kelce's Wedding Faces Criticism Over Guest Treatment
 
@@ -88,12 +88,13 @@ Stories: 84
 ## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
 - sources:
   - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
   - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swifts-weird-habit-travis-kelce-has-to-put-up-with/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-weird-habit-065245109.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/love-tight-end-donald-trump-110037104.html
 
 ## New Wedding Photos of Taylor Swift Surface for Fans
 
@@ -712,11 +713,3 @@ Stories: 84
 - summary: A report indicates that some guests at Taylor Swift's wedding expressed dissatisfaction with the food and decor, describing them as 'ghastly and tacky.'
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ghastly-tacky-taylor-swift-wedding-101042181.html
-
-## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-10-30 10:56 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame alongside Lyle Lovett and others. This recognition highlights her significant contributions to the music industry.
-- sources:
-  - [unverified] yoursun.com — https://www.yoursun.com/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/article_4e5332c6-c471-5f23-a4e6-dc3ec446ad58.html
