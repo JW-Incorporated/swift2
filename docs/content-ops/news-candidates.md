@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 77
+
+## Update on Taylor Swift and Travis Kelce's Relationship Following Wedding Leak
+
+- first seen: 2026-11-02 22:22 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The latest information regarding Taylor Swift and Travis Kelce's marriage is discussed following a recent leak about their wedding plans.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970564/taylor-swift-travis-kelce-marriage-now/
 
 ## Taylor Swift Contemplates Hiring Investigators for Leaked Photos
 
