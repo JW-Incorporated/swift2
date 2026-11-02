@@ -525,11 +525,16 @@ yields if some other run fires to displace it: the daily 11:00Z run is instructe
 not to draft off-reserve news at all (`tree-daily-draft.md` step 4.5 — "only note
 a still-uncovered item in the PR body"), and the run that does draft it,
 `routine-tree-event-draft.yml`, was never dispatched because
-`event-dispatch.mjs`'s "already covered" test is a recall-tuned matcher
+`event-dispatch.mjs`'s "already covered" test was a recall-tuned matcher
 (`growth-coverage.mjs` `keywordsOf`/`textMatches`: two substring hits on
 capitalised title words, against the entire posted + queued + drafted corpus)
 being used as an *exclusion* gate — so three moments were skipped as covered by
-unrelated posts. Therefore:
+unrelated posts. (Fixed 2026-11-02, [#6526](https://github.com/JW-Incorporated/swift2/issues/6526):
+that gate is now `event-dispatch.mjs`'s own `coveredBy` — a recent item, inside
+the scan's own 48h window, that either names the intake issue or carries most of
+the headline's distinctive words as *whole* words. `growth-coverage` keeps the
+recall-tuned matcher for the weekly review, where a reviewer re-checks it.)
+Therefore:
 
 - **A calendar week whose site-fronted moments went uncovered reserves THREE
   news days in the following week**, not the standing ≥1. A reserve is a day the
