@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
+
+## Taylor Swift Contemplates Hiring Investigators for Leaked Photos
+
+- first seen: 2026-11-02 21:27 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly considering hiring private investigators to determine the source of the leak of her MSG wedding photos. This move highlights her ongoing efforts to protect her privacy amidst public scrutiny.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-considers-hiring-private-205906583.html
 
 ## Ashanti Discusses Her Friendship With Taylor Swift
 
@@ -648,19 +656,3 @@ Stories: 77
 - summary: Nelly has disclosed the amount he was paid by Taylor Swift to perform during her 1989 World Tour. This revelation provides insight into the financial aspects of guest performances on major tours.
 - sources:
   - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235090162/nelly-taylor-swift-1989-world-tour/
-
-## Fruity Dupes for Taylor Swift's Wonderstruck Perfume
-
-- first seen: 2026-10-30 21:07 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: ValleyCentral.com features a segment on fruity alternatives to Taylor Swift's Wonderstruck perfume, providing fans with similar scent options. The article highlights various dupes available in the market.
-- sources:
-  - [unverified] ValleyCentral.com — https://www.valleycentral.com/valleycentral/vc-show-talking-about-current-topics/tea-time-fruity-dupes-for-taylor-swifts-wonderstruck-perfume/
-
-## Tim McGraw Addresses Taylor Swift and Travis Kelce Wedding Rumor
-
-- first seen: 2026-10-30 21:07 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tim McGraw has publicly debunked rumors regarding a wedding between Taylor Swift and Travis Kelce, clarifying the misinformation surrounding the topic. Recent leaked photos reportedly related to the wedding do not provide substantial evidence.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/tim-mcgraw-debunks-taylor-swift-170305625.html
