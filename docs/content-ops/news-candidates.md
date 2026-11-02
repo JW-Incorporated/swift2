@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift Enjoys a Successful Week
+
+- first seen: 2026-11-02 04:37 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This week's edition of The Weekly Blast highlights Taylor Swift's achievements, contrasting them with Meghan Markle's less favorable week. Further details on both personalities' recent activities are provided in the article.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/weekly-blast-taylor-swift-had-043000210.html
 
 ## Exploring the Truth About Taylor Swift's Brother Austin
 
@@ -62,9 +70,10 @@ Stories: 82
 ## Taylor Swift discusses Travis Kelce's unique quirk
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In a recent feature, Taylor Swift opened up about an unusual quirk that her partner Travis Kelce has to manage. The light-hearted conversation added to the insight into their relationship dynamics.
 - sources:
+  - [unverified] HELLO! — https://www.hellomagazine.com/us/932530/taylor-swift-reveals-the-unusual-habit-her-husband-travis-kelce-has-to-put-up-with/
   - [unverified] The Comeback — https://thecomeback.com/nfl/taylor-swift-shares-strange-quirk-travis-kelce-has-to-put-up-with.html
 
 ## New Wedding Photos of Taylor Swift Surface for Fans
@@ -232,11 +241,12 @@ Stories: 82
 ## Bill Maher Compares Donald Trump to Taylor Swift
 
 - first seen: 2026-11-01 10:26 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Bill Maher makes a controversial comparison between Donald Trump and Taylor Swift, one that is expected to upset Travis Kelce. The remarks highlight Maher's views on the current political climate and celebrity culture.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a74305255/taylor-swift-travis-kelce-chiefs-broncos-away-game-attendance-explained-2026/
   - [unverified] Yahoo News UK — https://uk.news.yahoo.com/tearing-bill-maher-drops-brutal-094009546.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/jim-nantz-comments-travis-kelce-223147476.html
 
 ## Travis Kelce Responds to Prince William's Comment on Taylor Swift Photo
 
