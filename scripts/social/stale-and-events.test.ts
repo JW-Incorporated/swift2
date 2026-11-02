@@ -4,7 +4,7 @@ import { buildReceipt, causeOf } from './draft-receipt.mjs';
 import { collectGithub } from './prepare-draft-inputs.mjs';
 import { retiredComment, sweep, MAX_RETIRED_PER_RUN } from './retire-stale-drafts.mjs';
 import { staleReason } from './lib/draft-prs.mjs';
-import { DISPATCH_LABEL, EVENT_DAILY_CAP, EVENT_WINDOW_HOURS, fromRestIssue, isTrustedAuthor, judgeTitle, pickEvents, siteFrontedMoment } from './lib/event-dispatch.mjs';
+import { COVERED_WINDOW_HOURS, DISPATCH_LABEL, EVENT_DAILY_CAP, EVENT_WINDOW_HOURS, coveredBy, fromRestIssue, isTrustedAuthor, judgeTitle, pickEvents, siteFrontedMoment } from './lib/event-dispatch.mjs';
 import { dispatchPicks } from './dispatch-event-drafts.mjs';
 
 const NOW = Date.parse('2026-10-01T12:00:00Z');
@@ -162,6 +162,65 @@ describe('event dispatch', () => {
     const { picks, skipped } = pickEvents({ issues, socialItems: [], nowMs: NOW });
     expect(picks.map((p: { number: number }) => p.number)).toEqual([4]);
     expect(skipped).toEqual([{ number: 6, why: 'older than 48h' }]);
+  });
+});
+
+// #6526: the already-covered gate was growth-coverage's recall-tuned
+// keywordsOf/textMatches — 2 SUBSTRING hits of capitalised headline words
+// anywhere in the whole posted corpus, publisher/date tail included. `Eras`+
+// `Tour` hit every Eras Tour post ever made and `Sam` hit the word "same", so 0
+// of the 27 site-covered moments in the week to 2026-11-01 reached social.
+// Headlines here are verbatim from the intake issues that were skipped.
+describe('the already-covered gate matches the story, not two common words', () => {
+  const H6485 = 'intake: Taylor Swift reportedly upset over wedding-photo leak, weighing whether to release official wedding photos — reported, unconfirmed (Yahoo Entertainment, Oct 28-31 2026)';
+  const H6484 = 'intake: Sam Fender says no artist needs to charge Taylor Swift-level ticket prices (The Times, Oct 29 2026)';
+  const H6448 = "intake: Taylor Swift's signed Eras Tour guitar re-raffled a third time for charity in Mesa, AZ (KVOA, Oct 30 2026)";
+
+  /** Recent posts about other stories, carrying the words the old matcher tripped on. */
+  const unrelated = [
+    { ref: 'posted/2026-08-20-eight-nights-wembley-x.json', data: { body: 'eight nights at Wembley on the Eras Tour', campaign: 'calendar:eras-tour', why: 'Eras Tour anniversary', postedAt: ago(10) } },
+    { ref: 'posted/2026-09-30-lyric-reading-x.json', data: { body: 'the same lyric, sometimes a different meaning', campaign: 'vault:lyric-reading', why: 'a Times review quoted it', postedAt: ago(20) } },
+  ];
+
+  /** The posted half of #6448's own story — what real coverage looks like. */
+  const realCoverage = {
+    ref: 'posted/2026-10-30-eras-guitar-raffle-x.json',
+    data: {
+      body: 'a signed Eras Tour guitar, raffled a third time for charity in Mesa',
+      campaign: 'news:eras-guitar-raffle-2026-10-30',
+      why: 'intake #6448 (major-moment news, strategy §1(e2))',
+      postedAt: ago(4),
+    },
+  };
+
+  it('leaves a real headline uncovered when the corpus only shares common words', () => {
+    for (const title of [H6485, H6484, H6448]) expect(coveredBy({ number: 1, title }, unrelated, { nowMs: NOW }), title).toBeNull();
+  });
+
+  it('still covers a story a recent item actually posted — by its intake number, or by headline words alone', () => {
+    expect(coveredBy({ number: 6448, title: H6448 }, [...unrelated, realCoverage], { nowMs: NOW })).toMatchObject({ ref: realCoverage.ref, via: 'intake issue reference' });
+    const noNumber = { ...realCoverage, data: { ...realCoverage.data, why: 'major-moment news, strategy §1(e2)' } };
+    expect(coveredBy({ number: 6448, title: H6448 }, [noNumber], { nowMs: NOW })).toMatchObject({ via: expect.stringContaining('headline words') });
+  });
+
+  it('only counts the last 48h, so a story re-filed later is news again', () => {
+    expect(COVERED_WINDOW_HOURS).toBe(48);
+    const old = { ...realCoverage, data: { ...realCoverage.data, postedAt: ago(60) } };
+    expect(coveredBy({ number: 6448, title: H6448 }, [old], { nowMs: NOW })).toBeNull();
+  });
+
+  it('counts a queue slot ahead of now, and an undated draft in flight', () => {
+    const body = { body: 'a signed Eras Tour guitar raffled a third time for charity in Mesa', campaign: 'news', why: 'w' };
+    expect(coveredBy({ number: 1, title: H6448 }, [{ ref: 'queue/a.json', data: { ...body, scheduledAt: new Date(NOW + 20 * H).toISOString() } }], { nowMs: NOW })).toMatchObject({ ref: 'queue/a.json' });
+    expect(coveredBy({ number: 1, title: H6448 }, [{ ref: 'PR #9 social/queue/a.json', data: body }], { nowMs: NOW })).toMatchObject({ ref: 'PR #9 social/queue/a.json' });
+  });
+
+  it('dispatches all three skipped events against that same corpus', () => {
+    const issues = [issueAt(6485, H6485, 1), issueAt(6484, H6484, 3), issueAt(6448, H6448, 5)];
+    // cap: 3 isolates the gate from the daily cap of 2, which has its own tests above.
+    const { picks, skipped } = pickEvents({ issues, socialItems: unrelated, nowMs: NOW, cap: 3 });
+    expect(picks.map((p: { number: number }) => p.number)).toEqual([6485, 6484, 6448]);
+    expect(skipped).toEqual([]);
   });
 });
 

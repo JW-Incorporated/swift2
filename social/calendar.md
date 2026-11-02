@@ -6,9 +6,10 @@ these slots into `social/queue/`. Nothing else may edit this file — the drafte
 reading its own assignment and then rewriting it is exactly the loop this
 replaces.
 
-Strategy: `docs/marketing/social-strategy.md`. **Covers 2026-10-26 → 2026-11-08.**
-Written by Tree's weekly run of 2026-10-26 (a Monday, on schedule; the last run
-of October, so it carries the monthly review at the bottom).
+Strategy: `docs/marketing/social-strategy.md`. **Covers 2026-11-02 → 2026-11-15.**
+Written by Tree's weekly run of 2026-11-02 (a Monday, on schedule). Not the last
+run of the month, so no monthly review here — October's is in the previous
+revision of this file and the next is due the last Tree run of November.
 
 **No photo table in this calendar, by design (W8, 2026-09-30).** The daily
 pre-compute (`scripts/social/prepare-draft-inputs.mjs`) hands each beat a
@@ -21,60 +22,56 @@ in PR #6105). Every Instagram beat carries the mid-tail tag block as the
 **default**. There is deliberately no replacement experiment this fortnight
 either — see the ledger.
 
----
-
-## 🔴 THE CHANGE THIS FORTNIGHT — the news lane is finally reachable, and it just cost us a dark day
-
-**Last week's merge outage is over.** Six of the seven things the 10-19 plan
-called red are fixed: `scripts/lib/moment-media-gate.mjs` now treats a closed
-intent as a `warn` rather than an `error`, so `build-content` stopped failing
-every Tree PR that touches `social/inbox/**`; the 10-25 daily draft merged
-normally ([#6296](https://github.com/JW-Incorporated/swift2/pull/6296)); the
-inbox is empty with both past-deadline intents expired; and **12 posts shipped
-10-19 → 10-24, exactly the six beats the plan asked for, with zero failures.**
-Mood shipped for the first time in this desk's existence (10-21) and the owner
-approved it at a critique total of 22.
-
-**And then 10-25 shipped nothing, because of a planning rule I wrote.** The
-reserve-day rule in §1(e2) said that if the daily drafter finds an uncovered
-event, it leaves the beat empty for the same-day event run. On 10-25 it did
-exactly that — naming intake
-[#6290](https://github.com/JW-Incorporated/swift2/issues/6290) and
-[#6273](https://github.com/JW-Incorporated/swift2/issues/6273) in its own PR
-body — and `routine-tree-event-draft.yml` never fired for either (its last run
-of the week was 10-23, intake #6258). **One dark day, two uncovered events, and
-the slot that was held for them went to waste.** That rule is gone as of today
-([PR #6321](https://github.com/JW-Incorporated/swift2/pull/6321)): a reserve
-beat now **always drafts its named fallback**, and an arriving event takes it or
-displaces a beat. The runner prompt still carries the old wording and is outside
-this desk's mutation rights, so it is filed to Marjorie this run — until that
-lands, **every reserve beat below says "draft the fallback" in its own text,
-which is the file the drafter actually reads.**
-
-**The other half of the fix landed today too.** `event-dispatch.mjs` now scans
-48h instead of 24h and promotes a moment the site already fronts past the
-keyword test entirely ([#6313](https://github.com/JW-Incorporated/swift2/issues/6313)),
-and `tree-event-draft.md` step 5 now **displaces** a heartbeat or mood beat
-instead of needing a vacant day. Both were what my NEEDS HELP on
-[#6310](https://github.com/JW-Incorporated/swift2/issues/6310) asked for. That
-ask is answerable now, and this plan is the answer: **four landing days a week
-for news, every reserve productive, and ≥2 displaceable beats in every rolling
-7 days, checked window by window below.**
+**Text-only X posts are BANNED** (owner, 2026-10-30; hard-gated by
+`check-drafts.mjs`, PR #6433). Every beat below is one IG + X pair on ONE image.
+No image, no post — pick a different subject or skip the slot.
 
 ---
 
-## 🟢 And one thing deliberately dropped
+## 🔴 THE CHANGE THIS FORTNIGHT — every mint line now carries its own campaign family and its own `utm_campaign`
 
-**The `launch:photo-viewer` arc is deferred to the 11-09 fortnight, not
-cancelled.** The 10-19 plan put day 0 on 11-01 and left +2/+4/+8 to this run.
-Placing them makes the week illegal: a 7-day week owes a thread hero, a Blank
-Spaces chapter and a news reserve, leaving four beats, and §1(e2) needs two of
-those four to stay displaceable. An arc taking three leaves one. The arc waits
-because launch eligibility does not expire — the viewer has been live since
-2026-07-18 — while a major moment missed by 48h is gone for good. Written into
-strategy §1(a) today so no future run walks into the same arithmetic
-([PR #6321](https://github.com/JW-Incorporated/swift2/pull/6321)), and recorded
-in the launch-backlog row below with the fortnight it moves to.
+**Two of last week's twelve posts were unmeasurable, and it was this file's
+fault.** Strategy §1(e)'s own pillar table says the symbol-thread campaign is
+`heartbeat:symbol-thread`. The week-of-10-26 calendar told the 10-27 beat to mint
+`symbol-thread:<motif-slug>:2026-10-27` — dropping the `heartbeat:` family — so
+the pair shipped under a family that does not exist, `weekly-scorecard.mjs`
+emitted four `unrecognised campaign prefix` warnings, and the post landed in the
+scorecard's `(unrecognized)` row with its traffic tagged `easter-eggs`. Same
+defect was waiting on the 10-31 and 11-08 beats, which said `on-this-day:<slug>`
+instead of `heartbeat:on-this-day:<slug>`.
+
+**Fixed structurally, not by reminder.** Every beat below writes (a) the **full**
+campaign value to mint, family prefix included, and (b) the **literal
+`utm_campaign` value** to paste, on its own line. Rule 6a says there is nothing
+to judge — take the campaign, cut at the first colon, paste — so this file now
+does the cutting. The drafter reads a value, not a rule.
+
+Rule 6a (strategy §1(e), added 2026-11-01 for ask
+[#6521](https://github.com/JW-Incorporated/swift2/issues/6521)) still governs:
+`utm_campaign` is the text before the first `:` in the item's own `campaign`,
+copied verbatim — never the sub-format (`era-deep-cut`), never the subject
+(`the-proposal`), never a neighbouring family. **No post has yet been drafted
+under it:** the rule merged 2026-11-01 in PR #6524, after that day's draft PR
+#6503 was already authored, so this fortnight is its first real test.
+
+---
+
+## 🟠 And the one editorial miss, for the second week running
+
+**Sibling drift, 10-29.** Both halves of the Back to December pair opened on the
+same clause — IG *"'back to december' is the one that gets me every time"*, X
+*"'back to december' still wrecks me"*. Last week it was 10-24's pair opening on
+the same date-stamp. Rule 3's 6-word gate passes both (words 3-6 differ) and
+`crossPost.similarityThreshold` compares whole bodies, so a shared *opening
+clause* is invisible to every gate we have. The owner approved both, so neither
+is a lessons-ledger rule (T5 builds rules from ✏️/❌ rows only) — they are
+direction written and not followed, twice.
+
+**So the sibling rule is restated on every beat below, in the beat's own text:**
+the **X half is written first, as its own post** — its own hook, its own shape —
+and the IG caption is never its source. A pair that shares its first clause is
+one post printed twice. A sibling-opener check in `check-drafts.mjs` is asked of
+Marjorie this run; until it lands, this line is the only enforcement.
 
 ---
 
@@ -82,171 +79,40 @@ in the launch-backlog row below with the fortnight it moves to.
 
 | State | Value |
 |---|---|
-| **⚫ Merge outage, 10-16 → 10-25: CLOSED** | `scripts/lib/moment-media-gate.mjs` now emits a `warn`, not an `error`, for a `SURFACE_MEDIA_LEGACY` entry whose intent is closed, so `build-content` no longer fails every Tree PR touching `social/inbox/**`. 12 posts shipped 10-19 → 10-24 and the 10-25 draft merged. **Residue:** seven Tree draft PRs from the outage are still open and long past the 48h staleness window (#5443, #5495, #5998, #6027, #6056, #6112, #6141) — `retire-stale-drafts.mjs` is not closing them. Filed to Marjorie; it is clutter, not a blocker. |
-| Cycle month | **2026-11** (`monthNumber` = 3) from 11-01. October (`monthNumber` = 2) closes inside this window on 10-31 and its last two beats are below. |
-| **October windows + angles** (`angle = ANGLES[(2 + threadIndex) % 5]`) | Decode 10-01→05 `interactive-challenge` · Clue Web 10-06→10 `behind-the-data` · Runway 10-11→15 `quiz-poll` · Blank Spaces 10-16→20 `origin-story` · Taylor's Version 10-21→25 `single-best-item` · End Game 10-26→30 `interactive-challenge` |
-| **November windows + angles** (`angle = ANGLES[(3 + threadIndex) % 5]`, computed this run) | Decode 11-01→05 `behind-the-data` · Clue Web 11-06→10 `quiz-poll` · Runway 11-11→15 `origin-story` · Blank Spaces 11-16→20 `single-best-item` · Taylor's Version 11-21→25 `interactive-challenge` · End Game 11-26→30 `behind-the-data`. Only Decode and Clue Web fall inside this window; the other four belong to later runs. |
-| **Thread progress, October — 5 of 6** | Decode **✅ shipped 10-03**. Clue Web **✅ shipped 10-09**. Taylor's Version **✅ shipped 10-23**. End Game **queued for tonight 10-26** (`social/queue/end-game-ring-challenge-2026-10-26-{ig,x}.json`). Runway takes October's **one make-good on 10-30**. **Blank Spaces' hero stays dropped** — its lens was still taught twice this month through the timeline beats (10-22 shipped, 10-29 below), so the miss is a hero, not a lens. October lands **5 of 6 threads taught**, as the 10-19 plan projected. |
+| **⚫ Dark day, 10-28 — a run failure, not a planning rule** | The 10-28 news reserve shipped nothing on either platform. Cause: **two consecutive daily-draft run failures**, [10-27](https://github.com/JW-Incorporated/swift2/actions/runs/40540524433) and [10-28](https://github.com/JW-Incorporated/swift2/actions/runs/40732305282), both failing the `run / run-routine` job at *Decide routine outcome*. 10-27's beat shipped anyway (the 10-26 run had drafted it a day ahead); 10-28's had no such cover, because a reserve day's beat is never drafted a day early (§1(e2)). Its named fallback — the `1989` Seattle Symphony moment — was never drafted. **Last week's reserve-always-drafts-the-fallback fix (PR #6321) worked exactly as designed on 11-01; it cannot help on a day the run does not complete.** Filed to Marjorie as an error. |
+| Cycle month | **2026-11** (`monthNumber` = 3), whole months since 2026-08. Unchanged across this whole window. |
+| **November windows + angles** (`angle = ANGLES[(3 + threadIndex) % 5]`, recomputed this run, same result) | Decode 11-01→05 `behind-the-data` · Clue Web 11-06→10 `quiz-poll` · Runway 11-11→15 `origin-story` · Blank Spaces 11-16→20 `single-best-item` · Taylor's Version 11-21→25 `interactive-challenge` · End Game 11-26→30 `behind-the-data`. **Three fall inside this window** — Decode, Clue Web and Runway; the other three belong to later runs. |
+| **Thread progress, November — 0 of 6 so far, 3 placed here** | Decode **11-02** (today), Clue Web **11-06**, Runway **11-12**. October closed **5 of 6** as projected (Decode 10-03, Clue Web 10-09, Taylor's Version 10-23, End Game 10-26, Runway's make-good 10-30); Blank Spaces' hero was the one miss and its lens was still taught twice through the timeline beats. **No make-good is owed in November** — October's one was spent on 10-30. |
 | Lens IDs (`packages/experience/src/lenses.ts`) | Decode `hidden-clues` · Clue Web `easter-eggs` · Runway `fashion` · Blank Spaces `love-story` · Taylor's Version `taylors-version` · End Game `the-proposal` |
 | Mode deep links (`packages/experience/src/deepLink.ts`) | `threads` · `mood` · `clownbot` · `community` · `merch`. **Mood lands on `/?mode=mood`** (strategy §1(d)). `?mood=` is not a thing and never was. |
-| **Launch arc — DEFERRED to the 11-09 fortnight** | `launch:photo-viewer` (the pinch-zoom viewer, [#831](https://github.com/JW-Incorporated/swift2/pull/831), live since 2026-07-18, never promoted). Not cancelled and not shortened: the 10-19 plan's 11-01 day 0 would have put day 0/+2/+4 into a week that owes a thread hero, a timeline chapter and a news reserve, leaving one displaceable beat against §1(e2)'s required two. **The 11-09 run places the whole 4-post arc with room.** Its day-0 gate is unchanged and hard (invariant 6): open www.longlivets.com on a phone, pinch-zoom a photo on an item page, confirm it works, and if it does not render, do not draft day 0. |
+| **🚀 Launch arc — PLACED, as promised** | `launch:photo-viewer` (the pinch-zoom viewer, [#831](https://github.com/JW-Incorporated/swift2/pull/831), live since 2026-07-18, never promoted). The 10-26 plan deferred it to "the 11-09 fortnight" and promised that run would place the whole arc with room. **This run places it: day 0 on 11-09, +2 on 11-11, +4 on 11-13**, with **day +8 on 11-17** handed explicitly to the 11-09 run. It has slipped twice; a third deferral would be a decision made by arithmetic rather than by judgment. The §1(a) displaceable-floor arithmetic that forced the first deferral is satisfied here — see the slack check below. **Day-0 gate, unchanged and hard (invariant 6):** open www.longlivets.com on a phone, pinch-zoom a photo on an item page, confirm it works. **If it does not render, do not draft day 0** — report it and the arc waits. |
 | Launch backlog, in order behind it | photos + focal program (#762) → `launch:community-engine` (when it ships — #5864/#6100 are still schema and reader work, so invariant 6 forbids teasing it) → shoppable Runway looks → the rumor tier. `launch:shop-the-look` stays closed at 3 of 4; `launch:mood-chat` stays closed at 1 post. |
-| New user-visible ships, 10-19 → 10-26 | **None that earn an arc.** 100 PRs merged. The nearest miss is [#6186](https://github.com/JW-Incorporated/swift2/pull/6186) (`visualizer` kind so official visualizers lead the video feed) — a feed-ordering change a fan would have to be told about to notice, which fails §1(a)'s own test. Everything else was merch-sync plan authoring, Tidewatch eval work (all flag-off), photo imports (content backfill) and human-action bookkeeping. |
-| **Mood beat** | **October ✅ SHIPPED 10-21** — `mood:result:romanticizing-a-tuesday`, the first Mood post this desk has ever landed, approved by the owner at critique total 22 (`social/feedback/2026-W43.jsonl`). **November = `mood:era-match`, placed 11-03** — rotating format per §1(d), and specifically the format whose 10-03 attempt was approved and then killed by the 48h-from-approval clock without a posting attempt. One slot, as in October. |
-| **Blank Spaces timeline — permanent weekly minimum** | Week of 10-26: **10-29**. Week of 11-02: **11-04**. Chapters shipped: early solo years (09-17) → Harry Styles (09-21) → Joe Jonas 2008 (10-01) → Fearless solo 2008 (10-22). Take the next two unposted chapters **in the lens's own order** off `/?lens=love-story`, name the chapter in each item's `why`, and verify every person, date and quote against the Vault first. Confirmed-only; no rumor-stage relationship claim, ever. |
-| **📰 News reserves — 2 in week 1, 1 in week 2** | **10-28** and **11-01** (week of 10-26), **11-07** (week of 11-02). Each carries a named fallback on its own line. **New as of today: the fallback is ALWAYS drafted** ([PR #6321](https://github.com/JW-Incorporated/swift2/pull/6321)) — a reserve beat is never left empty for a run that may not fire, which is what cost 10-25. Never drafted a day early. |
-| **📰 Major moments ship same-day** (§1(e2)) | Ceiling ≤3 news posts per rolling 7 days, ≤2 of them ordinary. **Four landing days in week 1** (reserves 10-28 + 11-01, displaceable 10-27 + 10-31) and **four in week 2** (reserve 11-07, displaceable 11-03 + 11-05 + 11-08), against a floor of three moments reaching both platforms inside 48h. The ≥2-displaceable check is below, window by window — checked, not asserted. |
-| **📰 Floor performance, week to 10-26** | **0 of 3.** Zero news pairs shipped this week against 10 moments on the site's own new-on-site sheet. The week to 10-19 was 1 of 15. Named misses, with the reason: intake #6290 (GMA) and #6273 (New Heights) — the 10-25 reserve was held empty for an event run that never fired. The eight remaining 10-26 sheet moments — Richard Marx, Maya Hawke, Prince William, Seattle Symphony, Selena Gomez, Caitlin Clark at Arrowhead, Jason's Squatober call, Showgirl's 15th week at No. 1 — were never dispatchable: `event-dispatch.mjs` only scanned 24h and only matched its keyword list until today. Both constraints are gone; this plan is the first fortnight the floor is mechanically reachable. |
-| 🧪 **Experiment — none this fortnight, deliberately** | Experiment 01 closed at n = 2, unreadable. All eleven October IG posts with insights on file are at **reach 0-2** (`social/metrics/posts/2026-10/`); the top three are tied at reach 2. A one-impression instrument cannot resolve a caption lever, a format lever or a time lever, so spending a slot in four on a labelled arm buys a number nobody can read. The comparison returns as a clean 3-vs-3 the first week trailing-7-day median IG reach is **≥10** (strategy §3). |
-| Openers — burned in the last 14 days, **do not reuse verbatim or near** | **13 distinct patterns across 14 posted items** (10-16 → 10-24), against a ≥12-per-14-days target ✅ — up from 10 of 14 last week. Burned: *"okay this is the sweetest thing…"* · *"turns out taylor's home rotation is…"* · *"she FINALLY played it live 😭"* · *"over a year of waiting to hear it off a stage…"* · *"no label fight. no asterisk. just hers."* · *"the thing about Lover that still gets overlooked…"* · *"okay i tapped <chip> on Mood just to see what it'd do…"* · *"i expected a corny playlist. instead…"* · *"the next chapter in the blank spaces timeline isn't a boyfriend…"* · *"heartbreak in, arena tour out."* · *"of all six re-records, speak now is the one that…"* · *"speak now is the only album Taylor wrote entirely alone…"* · *"twenty years ago tomorrow…"*. **Off the menu this fortnight:** any bare date-stamp or *"<n> years ago"* opener, *"okay i/this…"* as a sentence-opener (spent twice in nine days), and *"the thing about <X> that still gets overlooked"*. |
-| **⚠️ Sibling drift, 10-24 — the one editorial miss this week** | Both halves of the debut-anniversary pair opened on the **same clause**: IG *"twenty years ago tomorrow. that's how long we've had this album"*, X *"twenty years ago tomorrow, a 16-year-old put out eleven songs"*. That is a date-stamp opener, which the 10-24 beat's own calendar text explicitly ruled out, used twice in one pair. The owner approved it, so it is **not** a lessons-ledger rule (T5 builds rules from ✏️/❌ rows only) — it is a direction that was written and not followed. Every beat below that could attract a date-stamp now says so in its own hook line, and the sibling rule is restated: the X half is **written first, as its own post**, never the IG caption's opening clause re-used. |
-| Media mix, last 14 days | **7 photo / 7 media-carrying = 100%**, target ≥70% ✅. Every IG post carried a real Taylor photograph. Zero era tiles, zero undeclared media, zero `site-screen` posts. The gate is holding and the grid reads as a Taylor Swift fan page. |
-| **Photo supply** | Two sourced-photo imports landed this week ([#6198](https://github.com/JW-Incorporated/swift2/pull/6198), [#6243](https://github.com/JW-Incorporated/swift2/pull/6243)), so the library is moving again after four static days — the trend the 10-19 plan flagged has corrected. Growing the library stays a standing priority (2026-10-01 amendment): **any beat below whose era has no never-used photo left must say so in the draft PR body**, because that is the only signal the library gets fed. No era is exhausted as of this run. |
-| Fast lane | **0 drafted, 0 declined, 0 expired** this week (scoped by `createdAt` ≥ 2026-10-19). `social/inbox/` holds **zero** open intents — last week's two past-deadline intents are expired and in `social/inbox/closed/`. Nothing stuck. |
-| Reddit non-promo contributions | **0 / 20** through the `founder-task` channel. The scorecard records no Reddit prompts resolved this week (down from 3 last week), and the awareness lane that feeds them is blocked on [#6089](https://github.com/JW-Incorporated/swift2/issues/6089) — see the L002 row in `social/lessons.md`. Until the threshold is genuinely met and modmail-checked, **every Reddit task stays a zero-link contribution** (growth-plan §7). |
-| IG Insights | **Not asked for again this month, and it is the same decision.** Every October IG post is at reach 0-2, so a top-3-by-reach paste would rank noise — the top three are literally tied. The ask returns the month trailing-7-day median IG reach clears §3's trigger (≥10). |
-| Founder tasks | **None filed this week.** Per the 2026-10-09 amendment Tree asks the owner only for a true human-only blocker (money, a secret, a major strategy call) and there is none. The one founder-only item in flight — the "Plan approved" comment that unblocks #6089 — is already carried in **Marjorie's** plan under *Needs the owner*, and asking twice for the same click is how the lane gets ignored. The owner's verdict channel is working: 4 ✅, 0 ✏️, 0 ❌ this week at a 5h 3m median. |
-| Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see. *(The Actions variables API returns 403 to this runner's token, so `SOCIAL_FREEZE` could not be read directly; inferred from `docs/ops/switch-ledger.md` carrying no freeze row and from 12 posts having shipped through `social-poster.yml` this week, which it refuses to do under a freeze.)* |
-| Social event mode | **`normal`** — `scripts/social/event-status.mjs` returns `{"mode":"normal","kind":null,"id":null,"windingDown":false,"blendTier":null,"reservedBeats":0}`. No countdown and no live theory, so **no beats are reserved for event coverage** and the 14 days below are ordinary rotation. *(It needed `npx tsx` plus a manual `npm install` to run at all — `routine-tree-weekly-plan.yml` has no workspace-install step, unlike the daily-draft and event-draft workflows. Filed to Marjorie.)* |
+| New user-visible ships, 10-26 → 11-02 | **None that earn an arc.** 101 PRs merged. Nearest misses, all failing §1(a)'s "a fan could notice without being told" test: [#6476](https://github.com/JW-Incorporated/swift2/pull/6476) (embedded videos stop when scrolled out of view), [#6408](https://github.com/JW-Incorporated/swift2/pull/6408)/[#6474](https://github.com/JW-Incorporated/swift2/pull/6474) (a live theory without an image no longer shows), [#6463](https://github.com/JW-Incorporated/swift2/pull/6463) (WCAG contrast on the Red mode toggle), [#6430](https://github.com/JW-Incorporated/swift2/pull/6430) (iPhone-15 Track Guide bar). All four are correctness or a11y fixes to existing surfaces. The rest was merch-sync plan authoring, worker theory diagnostics, media-gate hardening, dependency bumps and bookkeeping. **So §1(a)'s fallback applies: take the next item off the push-worthy backlog** — which is `launch:photo-viewer`, above. |
+| **Mood beat** | **November = `mood:era-match`, placed 11-03.** One slot, as in October. Rotating format per §1(d), off October's `mood:result` — and specifically the format whose 10-03 attempt was approved by the owner and then killed unposted by the 48h-from-approval clock, so 11-03 is its first real airing. October's beat **✅ SHIPPED 10-21** (`mood:result:romanticizing-a-tuesday`), the first Mood post this desk has ever landed, approved at critique total 22. No launch arc this month is about Mood, so the beat is not absorbed. |
+| **Blank Spaces timeline — permanent weekly minimum** | Week of 11-02: **11-04**. Week of 11-09: **11-14**. Chapters shipped: early solo years (09-17) → Harry Styles (09-21) → Joe Jonas 2008 (10-01) → Fearless solo 2008 (10-22) → **Back to December / Lautner (10-29)**. Take the next two unposted chapters **in the lens's own order** off `/?lens=love-story`, name the chapter in each item's `why`, and verify every person, date and quote against the Vault first. Confirmed-only; no rumor-stage relationship claim, ever. |
+| **📰 News reserves — 3 in week 1, 2 in week 2** | **11-05 + 11-07 + 11-08** (week of 11-02 — placed 2026-11-01 for ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520) and kept by this run), **11-10 + 11-15** (week of 11-09). Each carries a named fallback on its own line, and **the fallback is ALWAYS drafted** (PR #6321) — a reserve beat is never left empty for a run that may not fire. Never drafted a day early. **Why week 2 carries two, not three:** §1(e2)'s three-reserve rule triggers off a *completed* week whose site-fronted moments went uncovered. The week of 11-02 is still running, so **the 11-09 run makes that call on real data** — if 11-02 → 11-08 again covers none, it raises week 2's reserves to three and the launch arc's day +8 moves rather than a reserve. Two is the standing ≥1 doubled, and the slack check below holds at ≥2 in every rolling window. |
+| **📰 RE-DRAFT ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520) — PLACED, and one day later than asked, for a reason** | Marjorie asked for the two site-fronted moments the dispatcher skipped as "already covered" by 2026-11-04, **"as an extra pair, not in place of the day's beat."** An extra pair is unshippable: the poster ships **one item per platform per UTC day**, so a second pair on an already-assigned day is skipped by the cap, goes stale and retires to `social/failed/`. Both therefore take the two nearest reserve slots as their named fallbacks — **`patient-zero` on 11-05** (asked first, placed first) and **`brad-paisley` on 11-07** — one and three days past 11-04, and both ship this week. Each item's `why` cites `ask #6520`, which is the condition that retires this row. |
+| **📰 Floor performance, week to 11-02** | **0 of 3, the third week running** — and this time the reason is not a missing mechanism. Zero news pairs shipped against **6** moments on the 11-02 new-on-site sheet, all `significance: "routine"`. Both reserves took their named `heartbeat:` fallbacks: 11-01's shipped (Richard Marx), 10-28's did not (the dark day above). The 10-26 fixes (#6313: 48h scan + site-fronted promotion) did land, and a **third** binding constraint was found and fixed *today* — [#6526](https://github.com/JW-Incorporated/swift2/issues/6526)/[PR #6527](https://github.com/JW-Incorporated/swift2/pull/6527): the "already covered" exclusion gate was a recall-tuned matcher firing on two common title words, so real moments were skipped as covered by unrelated posts. **This run's own sensor reports `considered: 0` and `uncovered: []`,** so nothing was dispatchable at plan time either. I am NOT redefining the floor to make the number green: 0 of 3 stands as a miss, named, for the third time. |
+| 🧪 **Experiment — none this fortnight, deliberately** | Unchanged from 10-26 and for the same reason. Experiment 01 closed at n = 2, unreadable; every October IG post with insights on file is at **reach 0-2** (`social/metrics/posts/2026-10/`), and this week's trailing-7-day total reach across 12 posts was **3**. A one-impression instrument cannot resolve a caption, format or time lever. The comparison returns as a clean 3-vs-3 the first week trailing-7-day median IG reach is **≥10** (strategy §3). |
+| Openers — **computed from the real posted bodies**, 10-20 → 11-01 | **22 distinct 6-word openers across 22 items — 22 of 22, a clean sweep** against the ≥12-per-14-days target ✅ (up from 13 of 14). **But the first-word tally is `the ×4, okay ×3, i ×2, twenty ×2, 'back ×2`**, and with `ok swifties` that is **4 of 22 posts opening on `okay`/`ok`** — a formula forming *underneath* a gate that only sees words 1-6 as a phrase. The 10-26 calendar put that shape off the menu in prose and it shipped twice anyway, so it is now a hard gate instead: `okay` and `ok` are added to `openers.bannedOpeners` in **[PR #6535](https://github.com/JW-Incorporated/swift2/pull/6535)** (which also enforces Rule 2's other 13 published openers, none of which were actually in the params file). **Off the menu this fortnight, on top of that gate:** any bare date-stamp or *"<n> years ago"* opener (spent on both halves of 10-24), *"the thing about <X> that still gets overlooked"*, and opening on a quoted song title (both halves of 10-29). |
+| Media mix, last 14 days | **11 photo / 11 media-carrying = 100%**, target ≥70% ✅. Every IG post carried a real Taylor photograph. Zero era tiles, zero undeclared media, zero `site-screen` posts, zero text-only X posts. The gate is holding and the grid reads as a Taylor Swift fan page. |
+| **Photo supply — comfortable for the first time** | **238 never-used photos** in the ledger and **no era exhausted** — every one of the 14 era buckets has a next pick (`1989`, `debut`, `evermore`, `fearless`, `folklore`, `lover`, `midnights`, `official-video`, `press-photo`, `red`, `reputation`, `site-photo`, `speak-now`, `tortured-poets`). That is a different world from the 54-photo library of five weeks ago. Growing it stays a standing priority (2026-10-01 amendment) and the rule is unchanged: **any beat whose era has no never-used photo left must say so in the draft PR body** — but no beat below is at risk this fortnight. |
+| Fast lane | **0 drafted, 0 declined, 0 expired** this week (scoped by `createdAt` ≥ 2026-10-26, per the T6 note: drafted intents stay in `social/inbox/` with a `queueFiles` array; only declines and expiries move to `closed/`). `social/inbox/` holds **zero** open intents. Nothing stuck. |
+| Reddit non-promo contributions | **0 / 20** through the `founder-task` channel, unmoved for a third week. The scorecard records **no Reddit prompts resolved this week** (0, after 0 last week and 3 the week before), and the awareness lane that feeds them is blocked on [#6089](https://github.com/JW-Incorporated/swift2/issues/6089) — unclaimed since 10-18, outside Austin's auto-build scope, waiting on a founder **"Plan approved"** comment that Marjorie's own plan already carries. See the L002 row in `social/lessons.md`. Until the threshold is genuinely met and modmail-checked, **every Reddit task stays a zero-link contribution** (growth-plan §7). |
+| IG Insights | **Not asked for again, and it is the same decision.** Trailing-7-day reach across 12 posts was 3 in total; a top-3-by-reach paste would rank noise. The ask returns the month trailing-7-day median IG reach clears §3's trigger (≥10). |
+| Founder tasks | **None filed this week** — the third week with none, and deliberately. Per the 2026-10-09 amendment Tree asks the owner only for a true human-only blocker (money, a secret, a major strategy call). The one in flight is the "Plan approved" comment on #6089, and it is already carried in **Marjorie's** plan under *Needs the owner*; asking twice for the same click is how a lane gets ignored. Owner verdicts this week: **no drafts went to him** — since 2026-10-09 IG/X ship on Tree's own call, so an empty verdict column is the designed state, not a stall. |
+| Crisis stop | **Not active.** No founder "stop posting" outstanding anywhere Tree can see — no brief comment, no issue, no PR comment. *(The Actions variables API returns `403 Resource not accessible by integration` to this runner's token, so `SOCIAL_FREEZE` could not be read directly; inferred from `docs/ops/switch-ledger.md` carrying no freeze row and from 12 posts having shipped through `social-poster.yml` this week, which it refuses to do under a freeze.)* |
+| Social event mode | **`normal`** — the `prepare` job's sensor returns `{"mode":"normal","kind":null,"id":null,"windingDown":false,"blendTier":null,"reservedBeats":0}`. No countdown and no live theory, so **no beats are reserved for event coverage** and the 14 days below are ordinary rotation. *(The `prepare` job now hands this run the status in `.scratch/tree-inputs.json`, so last week's "needed `npx tsx` plus a manual install" problem is gone — not re-filed.)* |
+| Lessons ledger | **Unchanged this week, and computed rather than eyeballed.** Zero `edit`/`reject` rows in `social/feedback/` for this week or last (no `2026-W44`/`W45` file exists; all of W43's rows are `approve`), so there is nothing to attribute — no new rules, no increments, and I am not inventing one to look busy. `findCodifiableRules` returns `[]` (`lessons.autoCodify` is `false`, and I am not codifying L002 by hand: its fix lives in `scripts/community/**`, outside this desk's rights, and is already tracked on #6089/#5878). `findRetirableRules` returns `[]` — L002 is **3 weeks quiet** against an 8-week window. |
 
 ---
 
-## 2026-10-26 (Mon) — ⚫ COVERED BY QUEUE · Tree run day
-
-`social/queue/end-game-ring-challenge-2026-10-26-{ig,x}.json`, campaign
-`thread:the-proposal:interactive-challenge:2026-10-hero`, scheduled `23:00Z`.
-This is October's **End Game thread hero** and it is already drafted and
-queued. **Plan nothing here and draft nothing here** — a second pair for today
-would be skipped by the one-per-platform-per-day cap, go stale and retire to
-`social/failed/`.
-
-## 2026-10-27 (Tue) — Heartbeat (DISPLACEABLE, §1(e2))
-
-- **`23:00Z` · `heartbeat:symbol-thread`** — mint
-  `symbol-thread:<motif-slug>:2026-10-27`. Link `/?lens=easter-eggs`.
-- **Subject direction:** one motif from the Invisible Strings atlas that recurs
-  across at least two eras. Source every appearance against the Vault;
-  speculation is **labelled** as speculation, never asserted (vision.md's rule,
-  verbatim on social).
-- **Hook direction:** the artifact, or the challenge ("find it in ten seconds").
-  **Not** a date-stamp and **not** an `"okay …"` opener — both burned.
-- **Yields first** to a major moment arriving off-reserve (§1(e2)'s order).
-
-## 2026-10-28 (Wed) — 📰 NEWS RESERVE (week of 10-26)
-
-- **`23:00Z` · `news:<event-slug>`**, or the fallback below.
-- **🔴 DRAFT THE FALLBACK IF NOTHING IS UNCOVERED, AND NEVER LEAVE THIS BEAT
-  EMPTY.** Changed today ([PR #6321](https://github.com/JW-Incorporated/swift2/pull/6321)):
-  check `events.uncovered[]`, and if a real uncovered event dated inside the
-  last 48h is there, draft **that** as `news:<event-slug>`. If there is not,
-  draft the named fallback exactly as written. The old rule — leave the beat for
-  the event run — is withdrawn; it cost 10-25 entirely.
-- **Named fallback:** `heartbeat:era-deep-cut` on **`1989`**, built on the
-  new-on-site moment
-  `vault-1989-moved-by-become-ocean-she-sends-the-seattle-symphony-50-000`,
-  minting `heartbeat:era-deep-cut:1989-seattle-symphony-50k:2026-10-28` and
-  linking
-  `/?item=vault-1989-moved-by-become-ocean-she-sends-the-seattle-symphony-50-000`.
-- **Era note:** `1989` has not shipped in the last 14 days, so it is clear of the
-  no-stacking rule, and it breaks a run of five straight TLOAS/debut/Speak Now
-  beats.
-- **News bar:** confirmed fact from the intake record only, scored on the
-  six-dimension rubric with `timely` ≥4 on its own. Nothing on the #36 blocklist
-  except an already-confirmed personal-life event, covered factually like any
-  other real event.
-- **Hook direction, for the fallback:** the number. $50,000 to a symphony
-  orchestra because a piece of music moved her is the whole hook, and "she gave
-  money away" is not — name the piece.
-
-## 2026-10-29 (Thu) — Blank Spaces timeline (week of 10-26 minimum)
-
-- **`23:00Z` · `timeline:love-story:<chapter>`** — mint
-  `timeline:love-story:<chapter-slug>:2026-10-29`. Link `/?lens=love-story`.
-- **Chapter direction:** the next unposted chapter in the lens's own order after
-  Fearless solo 2008. Name the chapter in `why`. **Confirmed public relationship
-  history only** — verify every person, date, event and quote against the Vault
-  before it reaches copy; rumor-stage relationship-existence claims, countdowns
-  and speculation stay banned outright.
-- **Media:** pre-compute pick, era-relevant where the pick allows. A Blank
-  Spaces lens screenshot may ride IG slide 2 only under the "cool feature only"
-  rule.
-- **Hook direction:** the artifact (start with what the photograph is) or a real
-  sourced quote. **Not** a date-stamp, **not** *"the next chapter in the blank
-  spaces timeline…"* — 10-22 just spent that exact shape — and not *"every love
-  story has a…"*.
-
-## 2026-10-30 (Fri) — Runway thread hero · **October's one make-good** (protected)
-
-- **`23:00Z` · `thread:fashion:quiz-poll`** — mint
-  `thread:fashion:quiz-poll:2026-10-hero`. Link `/?lens=fashion`.
-- **This is an explicit out-of-window make-good** for the Runway window
-  10-11→15, which closed with its hero written on PR #5998 and blocked red by
-  the merge outage. Allowed by strategy §1(b): one a month, taking a heartbeat
-  beat, never another minimum. **Write fresh copy** — do not resurrect #5998's
-  body; that PR is 14 days stale and its opener is 15 days from its own context.
-- **Not displaceable.** It is October's last chance at a fifth thread, and the
-  month ends in two days.
-- **Angle `quiz-poll`:** a question whose answer lives inside the Runway thread.
-  X gets a real poll where the platform allows; the IG half asks the same
-  question in prose and sends people to the lens to settle it. Structurally
-  different halves, not a truncated caption.
-- **Subject direction:** pick ONE Runway look the thread documents in detail and
-  build the question around a detail only someone who opened the lens would know
-  — a designer, a re-wear, a colour that recurs across a tour leg. Verify every
-  attribution against the Vault; do not assert a designer or a date this file
-  has not sourced.
-- **Media:** pre-compute pick. The Runway lens is a genuinely visual product
-  surface, so a `/social/library/` screenshot **earns IG slide 2** behind the
-  photo tile — only if it shows the lens in rich actual use, never a flat page.
-- **Why here:** Runway is the one thread dropped two months running, and both
-  drops were engine failures rather than planning choices.
-
-## 2026-10-31 (Sat) — Heartbeat (DISPLACEABLE, §1(e2))
-
-- **`23:00Z` · `heartbeat:on-this-day`** — mint
-  `on-this-day:<subject-slug>:2026-10-31`. Link `/?item=<momentId>`.
-- **Subject direction:** it is Halloween, and that is a real seasonal hook, not
-  a theme to invent. Search the Vault for a moment dated **October 31** — a
-  costume, an appearance, a release — and use it. **If there is no genuinely
-  dated October 31 match, do not stretch one:** fall back to
-  `heartbeat:era-deep-cut` on **`folklore`**, minting
-  `heartbeat:era-deep-cut:folklore-<subject>:2026-10-31` and linking
-  `/?era=folklore`, and say in `why` that the dated search came up empty.
-- **Hook direction:** the artifact or direct address. **A date-stamp opener is
-  burned twice over now** — 10-24's pair opened on one on both halves — and on
-  this day of all days it is also the dullest available choice.
-- **Yields first** to a major moment arriving off-reserve.
-
-## 2026-11-01 (Sun) — 📰 NEWS RESERVE #2 (week of 10-26)
-
-- **`23:00Z` · `news:<event-slug>`**, or the fallback below. **Same rule as
-  10-28: draft the fallback if nothing is uncovered, never leave the beat
-  empty.**
-- **Why a second reserve this week:** the floor is ≥3 moments reaching both
-  platforms inside 48h and this week delivered **0 of 3**. A second reserve costs
-  no minimum (October's thread work finishes 10-30 and the launch arc is
-  deferred) and gives the lane a fourth landing day in the first fortnight where
-  the dispatch path actually works.
-- **Named fallback:** `heartbeat:era-deep-cut` on **`the-life-of-a-showgirl`**,
-  built on the new-on-site moment
-  `vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-`,
-  minting `heartbeat:era-deep-cut:richard-marx-passed-on-writing:2026-11-01` and
-  linking
-  `/?item=vault-tloas-richard-marx-on-the-15-year-old-taylor-he-passed-on-writing-`.
-- **Hook direction, for the fallback:** the real quote. Lead with Richard Marx's
-  own words — *"I did the right thing"* about passing on a writing session with
-  a 15-year-old Taylor — and attribute after. An outsider describing her, in his
-  own voice, is a shape this account has used once and it was the best-reaching
-  post of 10-16.
-- **Sourcing:** his words come from the intake record and the Vault item, quoted
-  exactly or not at all. Do not characterise what he meant.
-
 ## 2026-11-02 (Mon) — Decode thread hero (window 11-01→05) · Tree run day
 
-- **`23:00Z` · `thread:hidden-clues:behind-the-data`** — mint
-  `thread:hidden-clues:behind-the-data:2026-11-hero`. Link `/?lens=hidden-clues`.
-- **November's first thread hero.** `angle = ANGLES[(3 + 0) % 5]` =
-  `behind-the-data`, computed this run.
+- **`23:00Z`** · mint `campaign` = **`thread:hidden-clues:behind-the-data:2026-11-hero`**
+- **`utm_campaign` = `thread`** — paste that literal value, nothing else (Rule 6a).
+- **Link:** `/?lens=hidden-clues` with `?utm_source=<platform>&utm_medium=social&utm_campaign=thread`.
+- **November's first thread hero.** `angle = ANGLES[(3 + 0) % 5]` = `behind-the-data`.
 - **Angle `behind-the-data`:** the thread as a *dataset* — how many clues it
   tracks, how far back the earliest one goes, which era is densest, what the
   shape of it tells you. The number is the post; the lens is where you go to
@@ -254,14 +120,17 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
 - **Subject direction:** count something real off the live lens before writing a
   word. Do not assert a count this file has not sourced — if the count cannot be
   verified, pick a different statistic that can.
-- **Hook direction:** the number, or the contradiction. Not a date-stamp.
-- **X half:** written first, as its own post — one idea plus the link, never the
-  IG caption truncated or its opening clause re-used.
+- **Hook direction:** the number, or the contradiction. **Not** a date-stamp.
+- **X half: written FIRST, as its own post** — its own hook, one idea plus the
+  link. Never the IG caption truncated and never its opening clause re-used
+  (10-24 and 10-29 both broke this).
 
 ## 2026-11-03 (Tue) — Mood beat, November (DISPLACEABLE, §1(e2) rung 2)
 
-- **`23:00Z` · `mood:era-match`** — mint `mood:era-match:2026-11-03`. Link
-  **`/?mode=mood`** with the standard UTM tags. Never `?mood=`.
+- **`23:00Z`** · mint `campaign` = **`mood:era-match:2026-11-03`**
+- **`utm_campaign` = `mood`**.
+- **Link:** **`/?mode=mood`** with the standard UTM tags. Never `?mood=` — it
+  does not exist.
 - **Format `mood:era-match`, rotating off October's `mood:result`.** It is also
   the format whose 10-03 attempt was approved by the owner and then killed
   unposted by the 48h-from-approval clock — so this is its first real airing.
@@ -272,191 +141,341 @@ would be skipped by the one-per-platform-per-day cap, go stale and retire to
   eras as Mood results. Run the chip against the live feature and screenshot
   what it actually returned before writing a word of the caption.
 - **Hook direction:** the artifact — start with the era it matched you to and
-  why that landed — or the honest surprise. **Not** *"okay i tapped …"*; 10-21
-  spent that exact opener and it is burned.
+  why that landed — or the honest surprise. **Not** *"okay i tapped …"*: 10-21
+  spent that exact opener, and as of PR #6535 `okay` is a hard-blocked opener.
+- **X half: written FIRST, as its own post.** 10-21's pair did this well — IG
+  told the story, X printed the five song titles as a list. Do that again in a
+  new shape, not that shape.
 - **Why here:** Mood shipped for the first time on 10-21 and the owner approved
   it at critique 22, the highest of the week. This month's beat goes early
   rather than late so a mechanical failure still leaves November time to retry.
 
 ## 2026-11-04 (Wed) — Blank Spaces timeline (week of 11-02 minimum)
 
-- **`23:00Z` · `timeline:love-story:<chapter>`** — mint
-  `timeline:love-story:<chapter-slug>:2026-11-04`. Link `/?lens=love-story`.
-- **Chapter direction:** the next unposted chapter after 10-29's. Same sourcing
-  bar: confirmed-only, verified against the Vault, chapter named in `why`.
-- **Hook direction:** a different shape from 10-29's. Direct address or the
-  honest question. Not a date-stamp, and not the shape 10-29 used.
+- **`23:00Z`** · mint `campaign` = **`timeline:love-story:<chapter-slug>:2026-11-04`**
+- **`utm_campaign` = `timeline`** — **not** `thread`. Four `timeline:` items were
+  tagged `thread` in the week to 11-01, which is a different family that exists,
+  so they vanished into the "other" bucket (Rule 6a's evidence).
+- **Link:** `/?lens=love-story`.
+- **Chapter direction:** the next unposted chapter in the lens's own order after
+  **Back to December / Lautner (shipped 10-29)**. Name the chapter in `why`.
+  **Confirmed public relationship history only** — verify every person, date,
+  event and quote against the Vault before it reaches copy; rumor-stage
+  relationship-existence claims, countdowns and speculation stay banned outright.
+- **Media:** pre-compute pick. A Blank Spaces lens screenshot may ride IG slide 2
+  only under the "cool feature only" rule, and never on X.
+- **Hook direction:** the artifact (start with what the photograph is) or a real
+  sourced quote. **Not** a date-stamp, **not** *"the next chapter in the blank
+  spaces timeline…"* (10-22), and **not opening on a quoted song title** —
+  10-29's pair opened on *'back to december'* on both halves.
+- **X half: written FIRST, as its own post.**
 
-## 2026-11-05 (Thu) — Heartbeat (DISPLACEABLE, §1(e2))
+## 2026-11-05 (Thu) — 📰 NEWS RESERVE #1 (week of 11-02) · **ask #6520 re-draft, first**
 
-- **`23:00Z` · `heartbeat:era-deep-cut`** — mint
-  `heartbeat:era-deep-cut:prince-william-wembley-selfie:2026-11-05`, built on
-  the new-on-site moment
-  `vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back`.
-  Link
-  `/?item=vault-tloas-prince-william-on-the-wembley-selfie-travis-kept-coming-back`.
-- **Subject direction:** the Prince of Wales's own account of the Wembley
-  backstage selfie. Confirmed, on the record, and warm — the joke is his, not
-  ours. Quote him exactly or not at all; do not characterise the relationship
-  beyond what he said.
-- **Hook direction:** the quote, or direct address. **Not** a date-stamp.
-- **Yields first** to a major moment arriving off-reserve.
+- **`23:00Z` · `news:<event-slug>`** *(utm_campaign `news`)*, **or the named
+  fallback below** *(utm_campaign `heartbeat`)*.
+- **🔴 ALWAYS DRAFT SOMETHING HERE.** Check `events.uncovered[]`. A real,
+  confirmed, sourced event dated inside the last 48h is drafted **here** as a
+  pair, minted `news:<event-slug>` with `utm_campaign=news`, scored on the
+  six-dimension rubric (`timely` ≥4 on its own, `total` ≥21). If there is not
+  one, draft the fallback **exactly as written**. Never an empty beat (PR #6321).
+- **Named fallback — ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520), the first of its two moments.**
+  Mint `campaign` = **`heartbeat:era-deep-cut:patient-zero-three-weeks-at-no-1:2026-11-05`**,
+  `utm_campaign` = **`heartbeat`**, built on the new-on-site moment
+  `vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli`.
+  **Link** `/?item=vault-tloas-patient-zero-ends-its-three-week-hot-100-run-at-no-1-and-sli`.
+- **Era note:** `the-life-of-a-showgirl`. Not used elsewhere in the week of 11-02.
+- **Subject direction:** the chart run itself — three weeks at No. 1 on the Hot
+  100, now sliding to No. 5. The numbers come from the moment record and the
+  Vault, quoted exactly or not at all. A chart slide is not a sad story; it is
+  what three weeks on top looks like on the way down.
+- **Hook direction:** the number, or the contradiction. **Not** a date-stamp.
+- **`why` must cite `ask #6520`** — that citation is what retires the RE-DRAFT
+  row from the ledger above.
+- **X half: written FIRST, as its own post.**
 
 ## 2026-11-06 (Fri) — Clue Web thread hero (window 11-06→10)
 
-- **`23:00Z` · `thread:easter-eggs:quiz-poll`** — mint
-  `thread:easter-eggs:quiz-poll:2026-11-hero`. Link `/?lens=easter-eggs`.
-- `angle = ANGLES[(3 + 1) % 5]` = `quiz-poll`, computed this run.
+- **`23:00Z`** · mint `campaign` = **`thread:easter-eggs:quiz-poll:2026-11-hero`**
+- **`utm_campaign` = `thread`**.
+- **Link:** `/?lens=easter-eggs`.
+- `angle = ANGLES[(3 + 1) % 5]` = `quiz-poll`.
 - **Angle `quiz-poll`:** one question whose answer is genuinely inside the Clue
   Web lens. X gets a real poll where the platform allows; IG asks the same
   question in prose and sends people to the lens to settle it. **Check the answer
   is actually in there before writing the question.**
 - **Hook direction:** the challenge or the honest question. **Not** anything
-  addressing *"the clowns 🤡"* — that shape is off the menu — and **not** the
-  `"the <thread name> has one theory…"` opener.
-- **Note:** 10-27's heartbeat also links `/?lens=easter-eggs`. Ten days apart is
-  clear of the stacking rule, but pick a motif there and a *different* question
-  here — do not quiz on the motif 10-27 already explained.
+  addressing *"the clowns 🤡"* — that shape is off the menu — **not** the
+  `"the <thread name> has one theory…"` opener, and **not** *"ok swifties…"*
+  (10-30's X half, and now a hard-blocked opener).
+- **Note:** 10-27's snake beat also linked `/?lens=easter-eggs` and explained
+  the reputation-snake motif. Ten days apart is clear of the stacking rule, but
+  **quiz on something else** — do not re-quiz the motif that post already
+  explained.
+- **X half: written FIRST, as its own post** — and if it is a real poll, that is
+  structurally different by construction, which is the point.
 
-## 2026-11-07 (Sat) — 📰 NEWS RESERVE (week of 11-02)
+## 2026-11-07 (Sat) — 📰 NEWS RESERVE #2 (week of 11-02) · **ask #6520 re-draft, second**
 
-- **`23:00Z` · `news:<event-slug>`**, or the fallback below. **Same rule: draft
-  the fallback if nothing is uncovered, never leave the beat empty.**
-- **Named fallback:** `heartbeat:era-deep-cut` on **`folklore`**, built on the
-  new-on-site moment
-  `vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep`,
-  minting `heartbeat:era-deep-cut:maya-hawke-epic-poetry:2026-11-07` and linking
-  `/?item=vault-tloas-maya-hawke-on-hot-ones-but-daddy-i-love-him-and-betty-are-ep`.
-- **Era note:** if 10-31's dated Halloween search came up empty and that beat
-  took its `folklore` fallback, **this beat's fallback moves to `reputation`**
-  with a deep-cut subject of the drafter's choosing off `/?era=reputation` — no
-  two `folklore` posts in one week. Say which branch you took in `why`.
-- **Hook direction, for the fallback:** the quote. Maya Hawke calling "betty"
-  epic poetry on Hot Ones is the hook; the fact that it was said on a hot-wings
-  show is the second line, not the first.
+- **`23:00Z` · `news:<event-slug>`** *(utm_campaign `news`)*, **or the named
+  fallback below** *(utm_campaign `heartbeat`)*. **Same rule as 11-05: a real
+  uncovered 48h event is drafted here, otherwise the fallback exactly as
+  written. Never an empty beat.**
+- **Named fallback — ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520), the second of its two moments.**
+  Mint `campaign` = **`heartbeat:era-deep-cut:brad-paisley-songwriters-hall:2026-11-07`**,
+  `utm_campaign` = **`heartbeat`**, built on the new-on-site moment
+  `vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall`.
+  **Link** `/?item=vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall`.
+- **Era note:** `debut` — the Nashville songwriting rooms are where this one
+  belongs, and no other beat in the week of 11-02 uses that era.
+- **Subject direction:** Brad Paisley inducting her into the Nashville
+  Songwriters Hall of Fame. An elder of the room she started in saying she
+  belongs in it — that is the story, and it is an *award*, which §1(e2) counts
+  as major. Quote him exactly or not at all; do not characterise what he meant.
+- **Hook direction:** the real quote, attributed after. 10-16's Tate McRae pair
+  used that shape and was the best-reaching post of its week (reach 2, tied —
+  a weak signal, stated as one), and 11-01's Richard Marx pair used it too. So
+  use it, and **do not** reuse 11-01's outsider-with-regrets framing; this is
+  the opposite sentiment.
+- **`why` must cite `ask #6520`.**
+- **X half: written FIRST, as its own post.**
 
-## 2026-11-08 (Sun) — Heartbeat (DISPLACEABLE, §1(e2))
+## 2026-11-08 (Sun) — 📰 NEWS RESERVE #3 (week of 11-02)
 
-- **`23:00Z` · `heartbeat:track-fact`** — mint
-  `track-fact:<subject-slug>:2026-11-08`. Link `/?item=<momentId>` or
-  `/?era=<eraId>`.
-- **Subject direction:** one sourced fact off a track dossier, from an era this
-  fortnight has not already used — so **not** `1989` (10-28), `the-life-of-a-showgirl`
-  (11-01), `folklore` (10-31/11-07) or whichever era 10-29 and 11-04's chapters
-  land in. `reputation`, `evermore`, `red` and `Speak Now` are all open.
-- **Hook direction:** the contradiction, or the artifact. Not a date-stamp.
-- **Yields first** to a major moment arriving off-reserve.
+- **`23:00Z` · `news:<event-slug>`** *(utm_campaign `news`)*, **or the named
+  fallback below** *(utm_campaign `heartbeat`)*. **Same rule. Never an empty
+  beat.**
+- **Why a third reserve:** §1(e2)'s three-reserve rule, placed 2026-11-01 for
+  ask #6520 after the week to 11-01 shipped 0 news pairs against 27
+  site-covered moments. A reserve is a day the 11:00Z run drafts news into on
+  its own, with no second workflow in the path.
+- **Named fallback.** Mint `campaign` =
+  **`heartbeat:era-deep-cut:nelly-houston-just-a-dream:2026-11-08`**,
+  `utm_campaign` = **`heartbeat`**, built on the new-on-site moment
+  `vault-speak-now-nelly-surprises-houston-for-just-a-dream-and-he-revealed-15-`.
+  **Link** `/?item=vault-speak-now-nelly-surprises-houston-for-just-a-dream-and-he-revealed-15-`.
+- **Era note:** `speak-now`. Not used elsewhere in the week of 11-02.
+- **Subject direction:** Nelly surprising Houston for "Just a Dream" — and the
+  detail he revealed fifteen years later, that he left with $50,000 in a
+  McDonald's bag. **The money is the hook and the surprise is the setup.** Both
+  halves of that come from the moment record and the Vault; quote him exactly or
+  not at all, and do not embellish the bag.
+- **Hook direction:** the number, or the real quote. **Not** a date-stamp.
+- **X half: written FIRST, as its own post** — this subject has two separate
+  surprises in it, which makes genuinely different halves easy.
+
+## 2026-11-09 (Mon) — 🚀 `launch:photo-viewer` **DAY 0** · Tree run day
+
+- **`23:00Z`** · mint `campaign` = **`launch:photo-viewer:day0:2026-11-09`**
+- **`utm_campaign` = `launch`**.
+- **Link:** an `/?item=` deep link to an item page that actually carries a photo
+  worth zooming — the surface being shown, per §1(a).
+- **🔴 DAY-0 GATE, HARD (invariant 6).** Before drafting a word: open
+  www.longlivets.com **on a phone**, go to an item page with a photo, and
+  pinch-zoom it. **If it does not work, do not draft day 0** — say so in the PR
+  body, leave the beat for a `heartbeat:era-deep-cut` on `reputation` (an era
+  untouched this fortnight), and the arc waits for the 11-09 run. Never tease
+  unshipped or broken work.
+- **Angle, day 0 — what it is and why it's good.** The viewer has been live
+  since 2026-07-18 and has never been mentioned once. Lead with the thing a fan
+  can do that they could not do before: get close enough to a photograph to read
+  the details. Do not call it a launch, do not say "we're excited to announce" —
+  it has been there for months and the honest framing is "you may not know this
+  is here."
+- **Media:** this is a product surface, so a `/social/library/` screenshot
+  **earns IG slide 2** behind the Taylor photo tile — but only if it shows a real
+  zoomed photo in actual use ("cool feature only", Joey 2026-09-01), never a flat
+  page. **X takes the photo, never the screenshot** (permanently prohibited).
+- **Hook direction:** direct address, or the artifact. **Not** a date-stamp.
+- **Not displaceable** (§1(e2): news never displaces a launch arc's day 0/+2/+4).
+- **X half: written FIRST, as its own post.**
+
+## 2026-11-10 (Tue) — 📰 NEWS RESERVE #1 (week of 11-09)
+
+- **`23:00Z` · `news:<event-slug>`** *(utm_campaign `news`)*, **or the named
+  fallback below** *(utm_campaign `heartbeat`)*. **Same rule. Never an empty
+  beat.**
+- **Named fallback.** Mint `campaign` =
+  **`heartbeat:era-deep-cut:millionaire-wood-question:2026-11-10`**,
+  `utm_campaign` = **`heartbeat`**, built on the new-on-site moment
+  `vault-tloas-colin-jost-and-michael-che-nearly-get-stuck-on-wood-on-milli`.
+  **Link** `/?item=vault-tloas-colin-jost-and-michael-che-nearly-get-stuck-on-wood-on-milli`.
+- **Era note:** `the-life-of-a-showgirl`. Not used elsewhere in the week of 11-09.
+- **Subject direction:** Colin Jost and Michael Che nearly getting stuck on
+  "Wood" on *Millionaire*. It is funny and it is light, and every one of the 22
+  items posted 10-20 → 11-01 was earnest — **let this one be funny.** The joke is
+  theirs, not ours. Quote them exactly or not at all.
+- **Hook direction:** the honest question (the one they were asked), or the
+  contradiction. **Not** a date-stamp.
+- **X half: written FIRST, as its own post** — a question-shaped subject is the
+  easiest place in the fortnight to make the two halves genuinely different.
+
+## 2026-11-11 (Wed) — 🚀 `launch:photo-viewer` **DAY +2**
+
+- **`23:00Z`** · mint `campaign` = **`launch:photo-viewer:day2:2026-11-11`**
+- **`utm_campaign` = `launch`**.
+- **Link:** a *different* `/?item=` page from day 0's.
+- **Angle, +2 — the detail you can only see zoomed in.** Day 0 says the feature
+  exists; +2 proves it is worth using. Pick ONE photograph in the corpus with a
+  detail that genuinely rewards zooming — something in the background, on a
+  costume, in the crowd — and make the post about **that detail**, not about the
+  viewer. Verify whatever you claim is in the frame by looking at the file.
+- **Media:** the photograph itself, full stop. A screenshot here would be showing
+  the frame instead of the picture.
+- **Hook direction:** the artifact, or direct address. **Not** a date-stamp, and
+  **not** the shape day 0 used.
+- **Not displaceable.**
+- **Gate:** if day 0 did not ship (its gate failed), **this beat does not ship
+  either** — fall back to `heartbeat:era-deep-cut` on `reputation` and say so.
+- **X half: written FIRST, as its own post.**
+
+## 2026-11-12 (Thu) — Runway thread hero (window 11-11→15)
+
+- **`23:00Z`** · mint `campaign` = **`thread:fashion:origin-story:2026-11-hero`**
+- **`utm_campaign` = `thread`**.
+- **Link:** `/?lens=fashion`.
+- `angle = ANGLES[(3 + 2) % 5]` = `origin-story`.
+- **Angle `origin-story`:** why the Runway thread exists and what it is for —
+  the thread as something somebody built on purpose. What question was it made to
+  answer? What does it let you see that scrolling a tag page does not?
+- **Subject direction:** ground it in ONE concrete thing the thread documents in
+  detail, so the post is specific rather than a mission statement. Verify every
+  designer, date and attribution against the Vault; do not assert one this file
+  has not sourced. 10-30's Runway hero was an Oscar de la Renta quiz — **pick a
+  different look.**
+- **Media:** pre-compute pick. The Runway lens is a genuinely visual product
+  surface, so a `/social/library/` screenshot **earns IG slide 2** behind the
+  photo tile — only if it shows the lens in rich actual use, never a flat page.
+  Never on X.
+- **Hook direction:** direct address or the honest question. **Not** a
+  date-stamp, and **not** *"a little fashion detective moment for you"* (10-30).
+- **Not displaceable** (window-bound thread hero; never displaced, never slid).
+- **X half: written FIRST, as its own post.**
+
+## 2026-11-13 (Fri) — 🚀 `launch:photo-viewer` **DAY +4**
+
+- **`23:00Z`** · mint `campaign` = **`launch:photo-viewer:day4:2026-11-13`**
+- **`utm_campaign` = `launch`**.
+- **Link:** a third, different `/?item=` page.
+- **Angle, +4 — the invitation.** Days 0 and +2 showed it and proved it; +4 asks
+  for something back. Name a specific photo and ask what people find in it when
+  they get close. **A real question we would actually like answered** — not
+  engagement bait, not "double tap if".
+- **Media:** the photograph the question is about.
+- **Hook direction:** the honest question, or the challenge. **Not** a
+  date-stamp, and not either shape the first two arc posts used.
+- **Not displaceable.**
+- **Gate:** if day 0 did not ship, this beat does not ship either — fall back to
+  `heartbeat:era-deep-cut` on `reputation` and say so.
+- **Day +8 is 2026-11-17, and it belongs to the 11-09 run** — outside this
+  window. It is the arc's close (what people found, or the one surface the
+  viewer makes best), and `launch:shop-the-look` and `launch:mood-chat` both
+  closed short, so **say in that run's PR body whether this one completed.**
+- **X half: written FIRST, as its own post.**
+
+## 2026-11-14 (Sat) — Blank Spaces timeline (week of 11-09 minimum)
+
+- **`23:00Z`** · mint `campaign` = **`timeline:love-story:<chapter-slug>:2026-11-14`**
+- **`utm_campaign` = `timeline`** — **not** `thread`.
+- **Link:** `/?lens=love-story`.
+- **Chapter direction:** the next unposted chapter after 11-04's. Same sourcing
+  bar: confirmed-only, verified against the Vault, chapter named in `why`.
+- **Hook direction:** a different shape from 11-04's. Direct address or the
+  honest question. **Not** a date-stamp, not 11-04's shape, and **not opening on
+  a quoted song title.**
+- **X half: written FIRST, as its own post.**
+
+## 2026-11-15 (Sun) — 📰 NEWS RESERVE #2 (week of 11-09)
+
+- **`23:00Z` · `news:<event-slug>`** *(utm_campaign `news`)*, **or the named
+  fallback below** *(utm_campaign `heartbeat`)*. **Same rule. Never an empty
+  beat.**
+- **Named fallback.** Mint `campaign` =
+  **`heartbeat:era-deep-cut:abigail-toy-story-screening:2026-11-15`**,
+  `utm_campaign` = **`heartbeat`**, built on the new-on-site moment
+  `vault-tloas-at-a-toy-story-5-screening-taylor-tells-the-room-about-abiga`.
+  **Link** `/?item=vault-tloas-at-a-toy-story-5-screening-taylor-tells-the-room-about-abiga`.
+- **⚠️ That moment's own site media is a VIDEO and this pipeline cannot post
+  video** (invariant 5). The *moment* is postable; its media is not. Use the
+  beat's pre-compute photo pick and **do not** reference "watch the clip" in the
+  caption — link to the item page, where the video actually lives.
+- **Era note:** `fearless`. Not used elsewhere in the week of 11-09.
+- **Subject direction:** Taylor telling a room at a *Toy Story 5* screening about
+  Abigail — a friendship that has outlasted every era in the catalogue and is the
+  one "Fifteen" is about. Quote her exactly or not at all. **Abigail is a private
+  individual**: this is warm, confirmed, on-the-record and about the friendship
+  as Taylor herself framed it in public. Nothing about her private life.
+- **Hook direction:** the real quote, or direct address. **Not** a date-stamp.
+- **X half: written FIRST, as its own post.**
 
 ---
 
-## Beat accounting — 13 uncovered beats, 13 slots
+## Beat accounting — 14 beats, 14 days
 
 | Reservation | Strategy | Beats | Dates |
 |---|---|---|---|
-| Covered by queue (do not plan) | §2 one-per-platform-per-day cap | 1 | 10-26 |
-| October thread make-good | §1(b) | 1 | 10-30 |
-| November thread heroes | §1(b) | 2 | 11-02 (Decode), 11-06 (Clue Web) |
-| Blank Spaces timeline | §1(c), permanent weekly minimum | 2 | 10-29, 11-04 |
-| News reserves | §1(e2), ≥1 per calendar week | 3 | 10-28, 11-01, 11-07 |
+| November thread heroes | §1(b), one per window | 3 | 11-02 (Decode), 11-06 (Clue Web), 11-12 (Runway) |
+| Blank Spaces timeline | §1(c), permanent weekly minimum | 2 | 11-04, 11-14 |
+| News reserves | §1(e2) — **3** in the week of 11-02 (ask #6520), **2** in the week of 11-09 | 5 | 11-05, 11-07, 11-08, 11-10, 11-15 |
 | Mood | §1(d), monthly | 1 | 11-03 |
-| Heartbeat (displaceable) | §1(e) | 4 | 10-27, 10-31, 11-05, 11-08 |
-| Launch arc | §1(a) — **deferred to the 11-09 fortnight** | 0 | — |
-| **Total** | | **14** | 14 days, 13 of them drafted by this plan |
+| Launch arc | §1(a) — `launch:photo-viewer`, day 0 / +2 / +4 | 3 | 11-09, 11-11, 11-13 |
+| Heartbeat (displaceable) | §1(e) | 0 | — (every reserve's fallback *is* a heartbeat subject) |
+| **Total** | | **14** | 14 days, all 14 drafted by this plan |
 
-**Displaceable-beat check (§1(e2), ≥2 per rolling 7 days), window by window.**
-Displaceable beats are 10-27, 10-31, 11-03 (mood, rung 2), 11-05 and 11-08:
+**Covered by queue:** none. `social/queue/` is **empty** at plan time, so no date
+below is pre-committed and every beat is genuinely uncovered.
 
-- 10-26→11-01: 10-27, 10-31 → **2** ✅
-- 10-27→11-02: 10-27, 10-31 → **2** ✅
-- 10-28→11-03: 10-31, 11-03 → **2** ✅
-- 10-29→11-04: 10-31, 11-03 → **2** ✅
-- 10-30→11-05: 10-31, 11-03, 11-05 → **3** ✅
-- 10-31→11-06: 10-31, 11-03, 11-05 → **3** ✅
-- 11-01→11-07: 11-03, 11-05 → **2** ✅
-- 11-02→11-08: 11-03, 11-05, 11-08 → **3** ✅
+**Landing-slack check (§1(e2), ≥2 per rolling 7 days), window by window.** Slack
+is a **reserve day (`R`)** or a displaceable beat. Reserves: 11-05, 11-07, 11-08,
+11-10, 11-15. Displaceable beats: 11-03 (mood, rung 2) — the launch arc's three
+days, the three thread heroes and the two timeline minimums are all protected, so
+the mood beat is the only non-reserve slack. A reserve counts, and counts
+*better*: swapping a reserve's named subject for an arriving moment costs
+nothing, while a displaceable beat only yields if a run fires to displace it.
 
-**News landing days per calendar week** (reserve + displaceable, against the
-≥3-moments floor): week of 10-26 = **4** (10-27, 10-28, 10-31, 11-01) · week of
-11-02 = **4** (11-03, 11-05, 11-07, 11-08). ✅
+- 11-02→11-08: 11-03, 11-05`R`, 11-07`R`, 11-08`R` → **4** ✅
+- 11-03→11-09: 11-03, 11-05`R`, 11-07`R`, 11-08`R` → **4** ✅
+- 11-04→11-10: 11-05`R`, 11-07`R`, 11-08`R`, 11-10`R` → **4** ✅
+- 11-05→11-11: 11-05`R`, 11-07`R`, 11-08`R`, 11-10`R` → **4** ✅
+- 11-06→11-12: 11-07`R`, 11-08`R`, 11-10`R` → **3** ✅
+- 11-07→11-13: 11-07`R`, 11-08`R`, 11-10`R` → **3** ✅
+- 11-08→11-14: 11-08`R`, 11-10`R` → **2** ✅
+- 11-09→11-15: 11-10`R`, 11-15`R` → **2** ✅
 
-**Where a major moment lands.** Nearest free heartbeat or mood beat, in §1(e2)'s
-order, and the displaced beat slides to the next free day — except a
-window-bound thread hero, which is never displaced and never slid. **The 10-30
-Runway make-good is not displaceable**: it is October's last chance at a fifth
-thread.
+**This is the arithmetic that deferred the arc on 10-26, run again and passing.**
+The 10-26 plan found that an arc taking three beats left one displaceable beat
+against a floor of two. It clears here because §1(e2) was amended on 11-01 to
+count a reserve as slack *ahead of* a displaceable beat, and this fortnight
+carries five reserves. The two tightest windows (11-08→11-14 and 11-09→11-15) sit
+exactly on the floor at 2 — so **if the 11-09 run raises week 2 to three reserves
+on real data, the beat it converts must come from the arc's day +8 or the 11-14
+timeline sliding, never from dropping below 2.**
+
+**News landing days per calendar week, against the ≥3-moments floor:** week of
+11-02 = **3 reserves** (11-05, 11-07, 11-08), each a day the 11:00Z run drafts
+news into with no second workflow in the path; week of 11-09 = **2 reserves**
+(11-10, 11-15), with the third-reserve call handed to the 11-09 run on completed
+data. ✅
+
+**Where a major moment lands.** Nearest free reserve first, then the mood beat
+(§1(e2)'s yield order), and the displaced beat slides to the next free day —
+except a window-bound thread hero (never displaced, never slid) and the launch
+arc's day 0/+2/+4 (never displaced). A major moment arriving when nothing is
+free takes the nearest beat and that beat is **dropped rather than slid**,
+recorded in the item's `why`: a major moment posted two days late is not news.
 
 ---
-
-## Review — October 2026
-
-**Scorecard, month over month.** October shipped **22 posts (11 IG + 11 X)**
-against September's **20 (10 + 10)** — the first month-over-month increase since
-August's 65, and it was bought back from two outages (a usage-limit dark stretch
-10-12→10-14 and the `build-content` merge outage 10-16→10-25) rather than from a
-higher cadence. Failed posts: **0** real delivery failures in the trailing week.
-Follower movement over the last 7 days: IG +0, X −1, FB +0. Owner verdicts this
-week: **4 ✅, 0 ✏️, 0 ❌** at a 5h 3m median — the approval channel is healthy and
-the drafting is landing on first pass.
-
-**Threads: 5 of 6 taught** (Decode 10-03, Clue Web 10-09, Taylor's Version
-10-23, End Game queued 10-26, Runway's make-good 10-30). Blank Spaces' hero is
-the one miss, named rather than buried; its lens still got taught twice through
-the timeline beats. **Mood shipped for the first time ever** on 10-21.
-
-**Top posts by reach, and what they had in common — with the caveat that
-matters.** The three highest-reaching October IG posts are **tied at reach 2**:
-the 10-16 Tate McRae shoutout (`heartbeat:event-news`), the 10-19 Fate of
-Ophelia live debut (`news:`), and the 10-23 Speak Now TV thread hero
-(`thread:taylors-version:single-best-item`). Eleven posts have insights on file
-and **every one is at reach 0-2**, so this is not a ranking — it is noise with an
-ordering. The one thing worth saying is that **two of the three are
-news-driven**, and that is consistent with every month this account has
-measured: real-world events are what people actually look at. It is a weak
-signal held up by a strong prior, and I am reporting it as exactly that. No
-saves, no shares and no comments were recorded on any October post.
-
-**Double down: news.** The lane with the best evidence behind it was also the
-lane that was mechanically impossible until today. Two of three top-reach posts
-were news; the site covered 10 moments this week and social covered **0**, after
-covering 1 of 15 the week before. Both binding constraints were fixed on
-2026-10-26 — `event-dispatch.mjs` now scans 48h and promotes site-fronted
-moments past its keyword test (#6313), and `tree-event-draft.md` step 5 now
-displaces a beat instead of needing a vacant day. November's calendar gives the
-lane **four landing days a week** and a reserve that always drafts something.
-The measurement is already in the strategy: ≥3 moments reaching both platforms
-inside 48h, reported every week as a number.
-
-**Drop: the labelled on-platform experiment.** Experiment 01 closed at n = 2 and
-unreadable, and no replacement is scheduled. At reach 0-2 the instrument cannot
-resolve a caption lever, a format lever or a time lever — the arms came back
-tied at reach 1. Spending one slot in four on an arm that returns an
-unreadable number is a real cost in a 7-beat week with a news floor to hit. The
-3-vs-3 comparison returns the first week trailing-7-day median IG reach is ≥10
-(strategy §3). **This is a drop of the measurement, not of the format
-variation** — formats still rotate; they are just not labelled, arm-assigned or
-reported as if the difference were being measured.
-
-**Rotation advanced into November** (`monthNumber` = 3,
-`angle = ANGLES[(3 + threadIndex) % 5]`): Decode 11-01→05 `behind-the-data` ·
-Clue Web 11-06→10 `quiz-poll` · Runway 11-11→15 `origin-story` · Blank Spaces
-11-16→20 `single-best-item` · Taylor's Version 11-21→25 `interactive-challenge` ·
-End Game 11-26→30 `behind-the-data`. November's Mood beat is `mood:era-match` on
-11-03. The `launch:photo-viewer` arc opens the 11-09 fortnight.
-
-**Straight answer on last month's open question — was the merge outage fixed?**
-Yes. `moment-media-gate.mjs` downgraded the stale-allowlist error to a warning,
-`build-content` went green on Tree PRs, and the 10-25 draft merged on its own.
-The residue is seven stale draft PRs that `retire-stale-drafts.mjs` has not
-closed, which is clutter rather than a blocker and is filed to Marjorie.
 
 ## Review — next due 2026-11-30
 
 The next monthly review falls to the **last Tree run of November**. It owes: the
-November scorecard against October's 22 posts, the first real reading of the news
-floor (≥3 moments a week reaching both platforms inside 48h — this month's
-number was 0 and 1, both under constraints now removed), whether the
+November scorecard against October's 22 posts; the first real reading of the news
+floor (≥3 moments a week reaching both platforms inside 48h — October's weeks
+were 0, 1 and 0, and the third binding constraint was only fixed 2026-11-02, so
+November is the first month the number means anything); whether the
 `launch:photo-viewer` arc completed all four posts or closed short like the two
-before it, and whether trailing-7-day median IG reach has moved off 0-2 at all.
-If it has not, the honest next question is whether this account's reach problem
-is a content problem or a distribution problem, because ten months of captions
-at reach 0-2 is evidence about the latter.
+before it; whether Rule 6a actually held once posts were drafted under it; and
+whether trailing-7-day median IG reach has moved off 0-2 at all. If it has not,
+the honest next question is whether this account's reach problem is a content
+problem or a distribution problem, because ten months of captions at reach 0-2 is
+evidence about the latter.

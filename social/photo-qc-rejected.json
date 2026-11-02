@@ -2443,6 +2443,222 @@
       "sha256": "c3906544c6b5e624c6b912a4b562e32108712891b37540a634e6890023cfbf78",
       "reason": "Wide stadium stage shot with several performers and crowd; no single subject.",
       "date": "2026-11-01"
+    },
+    {
+      "id": "official-video-dmipFjOtMA8-maxres1",
+      "sha256": "f6a345fec4003c83d5b711805c9b4ba8afc1a71b9e1ef88a4f706fe29509dbd9",
+      "reason": "SNL logo overlay; duplicated-person broadcast graphic, not a single-subject photo",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-O2Irnn7F1PM-maxres1",
+      "sha256": "f2496efe2103a7573f1aee8d18c83bbbb05dbef9676e440f9334c92ad9612b50",
+      "reason": "Soft, low-quality webcam-style frame; face overexposed, looking down, awkward angle",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-O2Irnn7F1PM-maxres3",
+      "sha256": "97622408764686a1476de1aebbb21460f271479c8983d7d3d9c988d58cb9b40c",
+      "reason": "Three people share the frame; two men are as prominent as the woman.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-O2Irnn7F1PM-maxres2",
+      "sha256": "ef14f160235f4977e0896026b550d355c7619c09d5df99199d5392fd1ca36a4f",
+      "reason": "Soft, low-quality video frame; another person partly in frame at left.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-b1kbLwvqugk-maxres1",
+      "sha256": "749196007cf6b3c2bbcf532806b440e07a1772c0dc7ab77b7520dd51ebad8b19",
+      "reason": "Dim, soft dinner scene; subject small, cluttered with table objects and another person.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-b1kbLwvqugk-maxres3",
+      "sha256": "0f6c0c87f6f26c4e4b4360971cd64ed1f585af8f7e29678ab24885dc3d5ba870",
+      "reason": "Subject is a man in a suit; doesn't plausibly match caption's Taylor Swift",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-b7QlX3yR2xs-maxres1",
+      "sha256": "9d7770f5611511071a820a0fa31b7ccd63bd0fda020214cdaf422b6122f5d182",
+      "reason": "Dark, soft frame; older costumed woman, unlikely the caption's subject.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-b7QlX3yR2xs-maxres3",
+      "sha256": "88803b46d04f30316ee3ec4474bc59ea38215d50e20c51b238937e2cb826a50d",
+      "reason": "Centered figure is a costumed \"Queen Pat\" character with text caption; not clearly the captioned artist.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560882",
+      "sha256": "c6a9e3a922dbb92f1086f054b86ef83013d8681ba7f2e9c133a3067a090d2ad4",
+      "reason": "Stadium panorama, small performers, crowd heads dominate, venue sign visible",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560961",
+      "sha256": "e421c46ecb99d0b3a505e9eacb7a09ffa61343baee05a07bc35acca001163f41",
+      "reason": "Stage group shot, several performers, dark; no single dominant subject",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560972",
+      "sha256": "e3bbccf4ee5fc5868ab24c1909b576a15b90a12b540a95d98bf8d84dd525a42e",
+      "reason": "Group of several performers on stage; no single dominant subject, dark.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560915",
+      "sha256": "2d0855f5359e076d2d97cea3eef3fb8ab4659dfaf7527f81135d23368312c148",
+      "reason": "Wide stage shot with five performers; subject small, dark scene.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137561001",
+      "sha256": "9cfbf15d91079e811b48a5aaebcce40611f83062c01391f1aa91e4f44977df06",
+      "reason": "Wide stage shot with several performers; no single dominant subject; dark.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-152120508",
+      "sha256": "9492c2a06d6295d9845dc49524d146196c4402eb6f97201aa8f2810c2a895a76",
+      "reason": "Museum mannequin with costume, no person; glass reflections",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137561006",
+      "sha256": "c2db21ec0a75bebea420ca2fe29984b34fe1f56db2ac69f4aaae1873cb6f22de",
+      "reason": "Group of six performers on stage; no single dominant subject.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-152122168",
+      "sha256": "751b03941fed08cdd3c48bad2f63fb3e6cb52d33b91239ad4644055c27fcd6e3",
+      "reason": "Mannequin outfit in museum display, not a person; dark, glare and reflections.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-152120509",
+      "sha256": "c98cbf3d7a57ed8a4cdbda39f87b5eaae31c66fba39d8b0e3f0486a528a0d5f5",
+      "reason": "Museum mannequin in a glass case with a costume, no person; reflections.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-Zlot0i3Zykw-maxres3",
+      "sha256": "ecf48b6639db2642610e3213f170d45527efe852ca02e1b49542c0b56a71fc7d",
+      "reason": "Soft, motion-blurred, dim video frame; face cropped and turned away.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-AgFeZr5ptV8-maxres1",
+      "sha256": "8e92f90ccb2f3035ee0521c8c9ff2b10a585991e9838e4a99bf7e25c70ff959e",
+      "reason": "Three women share the frame; no single main subject, foreground soft.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-w1oM3kQpXRo-maxres2",
+      "sha256": "cbc13a5671698c6a132ec8328d2deb88dcb42f36c0c5c913e5e343eaf5b50556",
+      "reason": "Dark, soft frame of a young child; doesn't plausibly match the caption's subject",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-WA4iX5D9Z64-maxres1",
+      "sha256": "bcdd13f0826054ba9defe9c0828ca961ecb0f9bd2a8609fbb70beb6ca02a0eda",
+      "reason": "Second man is also prominent behind her; not a single clear main subject.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-w1oM3kQpXRo-maxres1",
+      "sha256": "e58ccbb434ea32504694848ae7145cb5b03498e0fa98ffd9fe3f527cd45a6741",
+      "reason": "Young child, not clearly the caption's subject; dark, blurry foreground object.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-w1oM3kQpXRo-maxres3",
+      "sha256": "f5dff2ba050ecf9f9f1243f7654ec14908a33a05ba0c62bac9c6e69f0ed4b48b",
+      "reason": "Shows a young child with a leaf, not the adult artist; soft, blurry frame.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560862",
+      "sha256": "771bf9dfeca66e46e43eb3282edab9d8ae99816e8b55fa07f09272c388dacead",
+      "reason": "Performer seen from the back/side with motion blur; face hidden, dark scene.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560880",
+      "sha256": "bd58d791311c4015b6c9bb976538f261e83e0477fe9e57056eaf8e5414f25937",
+      "reason": "Stadium panorama; several small performers, crowd dominant, no single subject",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560844",
+      "sha256": "c1d121eafe1749cbe97cebe497f8fd355d2ef10129b2db2b3374bbb9e9300c7c",
+      "reason": "Wide stage shot; many dancers, small performer, crowd heads in foreground",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-152122170",
+      "sha256": "8d861db4acf1a5f5d4a29bdf4fcb01096d41d8bd82b317ce949c8b119aa942f8",
+      "reason": "Mannequin outfit in museum case with glass reflections; no person pictured.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137561000",
+      "sha256": "3fd3884b2cda7dd0648c722f9b38782c27e271a79bafbfb17ee9a3b42f310126",
+      "reason": "Wide stage shot with several performers; no single dominant subject, dark.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-152122169",
+      "sha256": "90173f0f5face7fd24a503131b1af6d70f942f7b54e78d404288394e3b854795",
+      "reason": "Museum mannequin outfit, no person; glass reflections, glare, soft focus.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560575",
+      "sha256": "d420bbb9b15f5a6ecde9b0465f82dd91705249f0f4250c2c97f81590d2b92092",
+      "reason": "Multiple dancers on a stadium stage; no single main subject, dark venue.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560585",
+      "sha256": "1428107042e365ee99c177db8e0f35a1ef3225732dce40c862a303ac5d406fd3",
+      "reason": "Wide stage shot; performer small, dancer in foreground dominates, screen image.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560591",
+      "sha256": "c19f76e2ba5d78cfb43de1b83c265bd5ce8c1fb7b60c74ffe3a61ba05fedc021",
+      "reason": "Wide stage shot; performers small, big screen face and raised arm dominate.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560594",
+      "sha256": "9999bddd137904a147e2c708a8933160acfb867715f44f75a14a8ab83f9b8b13",
+      "reason": "Crowd shot; raised hand and phone dominate, performer tiny, dark and blurry.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560597",
+      "sha256": "6337dc1818165c0af840bee16a1ce4c0fcdcad035b41251fa8899cad688e27f1",
+      "reason": "Two performers share the frame; second person is prominent, not a single subject.",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560608",
+      "sha256": "5d6a949a19a387009243ff20fbc9dcf36ecd292a07d7f4416b9193c37396819f",
+      "reason": "Wide stage panorama with many people on screen; no single prominent subject",
+      "date": "2026-11-02"
+    },
+    {
+      "id": "wikimedia-137560618",
+      "sha256": "d1603045b36aaff55d4fc1b5face2d8a1c15d0843ef121521cfa380ecc87e1d7",
+      "reason": "Stadium panorama; performer small, other people and crowd in frame, dim.",
+      "date": "2026-11-02"
     }
   ]
 }
