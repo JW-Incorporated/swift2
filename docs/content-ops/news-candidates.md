@@ -27,6 +27,22 @@ so far".
 
 Stories: 83
 
+## Burgundy Flats: The Fall Trend Inspired by Celebrities
+
+- first seen: 2026-11-02 14:27 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This fall, burgundy flats have emerged as a trendy alternative to sneakers, inspired by a French-girl aesthetic. Available from $23, these flats are gaining popularity among celebrities and fashion enthusiasts alike.
+- sources:
+  - [unverified] Travel + Leisure — https://www.travelandleisure.com/taylor-swift-burgundy-loafers-inspired-shoe-trend-fall-fashion-12202668
+
+## Taylor Swift reportedly absent during Chiefs' game against Broncos
+
+- first seen: 2026-11-02 14:27 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was notably absent during the Kansas City Chiefs' recent game against the Denver Broncos, which has generated some discussion among fans and media.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-apparent-absence-adds-131658881.html
+
 ## Taylor Swift and Olivia Rodrigo Embrace New Fall 2026 Hat Trend
 
 - first seen: 2026-11-02 13:32 UTC | category: fashion | importance: 6
@@ -83,14 +99,6 @@ Stories: 83
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wont-attend-chiefs-211720387.html
 
-## Taylor Swift Does Not Attend Chiefs Game as Spouse Travis Kelce Plays
-
-- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was not present at the Kansas City Chiefs game against the Denver Broncos, where her husband, Travis Kelce, played. This absence has been noted amid ongoing discussions about their relationship.
-- sources:
-  - [unverified] New York Post — https://nypost.com/2026/11/01/sports/taylor-swift-appears-to-skip-supporting-chiefs-travis-klece-during-loss-to-broncos/
-
 ## Taylor Swift discusses Travis Kelce's unique quirk
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
@@ -100,6 +108,15 @@ Stories: 83
   - [unverified] HELLO! — https://www.hellomagazine.com/us/932530/taylor-swift-reveals-the-unusual-habit-her-husband-travis-kelce-has-to-put-up-with/
   - [unverified] The Comeback — https://thecomeback.com/nfl/taylor-swift-shares-strange-quirk-travis-kelce-has-to-put-up-with.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-hyper-ambitious-taylor-swift-032839988.html
+
+## Taylor Swift Does Not Attend Chiefs Game as Spouse Travis Kelce Plays
+
+- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift was not present at the Kansas City Chiefs game against the Denver Broncos, where her husband, Travis Kelce, played. This absence has been noted amid ongoing discussions about their relationship.
+- sources:
+  - [unverified] New York Post — https://nypost.com/2026/11/01/sports/taylor-swift-appears-to-skip-supporting-chiefs-travis-klece-during-loss-to-broncos/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-revealed-unusual-quirk-135101369.html
 
 ## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
 
@@ -690,19 +707,3 @@ Stories: 83
 - summary: A selection of Taylor Swift's custom Catbird jewelry, including a necklace, is now available at a 20% discount. This promotion was reported by Page Six.
 - sources:
   - [unverified] Page Six — https://pagesix.com/2026/10/30/style/catbird-sale-offers-20-off-custom-jewelry/
-
-## Taylor Swift's Longstanding Estrangement from Country Star Discussed
-
-- first seen: 2026-10-30 13:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Syracuse.com reports on Taylor Swift's estrangement from a popular country star, stemming from a cruel prank that occurred nearly 20 years ago. The history of their relationship highlights the impact of the incident on both artists.
-- sources:
-  - [unverified] Syracuse.com — https://www.syracuse.com/us-news/2026/10/taylor-swift-estranged-from-popular-country-star-for-almost-20-years-after-cruel-prank.html
-
-## Taylor Swift Receives Honor for Songwriting
-
-- first seen: 2026-10-30 13:52 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been recognized for her contributions to songwriting in a recent Hollywood Minute report by CNN. This acknowledgment highlights her impact on the music industry.
-- sources:
-  - [unverified] CNN — https://www.cnn.com/2026/10/28/entertainment/video/entertainment-showbiz-hollywood-minute-taylor-swift-nashville-songwriters-hall-gaslit-documentary-dune-three-final-trailer
