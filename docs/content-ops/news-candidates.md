@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Busker Wins The Voice UK, Inspired by Taylor Swift
+
+- first seen: 2026-11-02 16:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: A singer who started out busking has won The Voice UK, citing Taylor Swift as their inspiration. This achievement highlights the impact of Swift on aspiring artists.
+- sources:
+  - [established] BBC News — https://www.bbc.com/news/articles/cked3j989ex0o
+
+## Taylor Swift's 'I Knew It, I Knew You' Nominated for Awards
+
+- first seen: 2026-11-02 16:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's song 'I Knew It, I Knew You' has been nominated for the Hollywood Music In Media Awards, alongside 'La Nieve' by La Bola Negra.
+- sources:
+  - [established] Variety — https://variety.com/2026/artisans/news/taylor-swift-la-bola-negra-nominees-hollywood-music-in-media-awards-1236936278/
+
+## Taylor Swift Adopts New Office Fashion Style
+
+- first seen: 2026-11-02 16:22 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has moved away from her traditional beauty staple to adopt an office siren dressing style. This change has been highlighted by InStyle.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-black-leather-pencil-skirt-mauve-lipstick-toy-story-5-screening-12207025
 
 ## Taylor Swift Reportedly Has Enough Material for Two New Albums
 
@@ -137,11 +161,12 @@ Stories: 81
 ## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437716/taylor-swift-details-weird-habit-husband-travis-kelce-had-to-deal-with
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-abigail-anderson-quirk-she-shares-high-school-bff-12206970
+  - [unverified] Page Six — https://pagesix.com/2026/11/02/entertainment/taylor-swift-confesses-to-weird-habit-husband-travis-kelce-has-to-put-up-with/
   - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
   - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swifts-weird-habit-travis-kelce-has-to-put-up-with/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-weird-habit-065245109.html
@@ -677,19 +702,3 @@ Stories: 81
 - summary: A review published in The Georgetown Independent evaluates the quality of 'The Life of a Showgirl: The Encore,' posing the question of whether the show met expectations. The critique aims to analyze different aspects of the production.
 - sources:
   - [unverified] The Georgetown Independent — https://www.georgetownindy.com/post/was-the-life-of-a-showgirl-the-encore-that-bad
-
-## Review of 'The Life of a Showgirl: The Encore' by Tribal Tribune
-
-- first seen: 2026-10-30 15:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article reviews 'The Life of a Showgirl: The Encore' in the Tribal Tribune, evaluating its themes and content. The critique provides insights into its performance and production aspects.
-- sources:
-  - [unverified] Tribal Tribune — https://tribaltribune.org/thats-debatable-the-life-of-a-showgirl-the-encore/
-
-## SNL's Che and Jost Discuss Taylor Swift on 'Millionaire'
-
-- first seen: 2026-10-30 15:52 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Michael Che and Colin Jost of SNL addressed a question related to Taylor Swift during their game show segment on 'Millionaire'. This humorous interaction was covered by Billboard.
-- sources:
-  - [established] Billboard — https://www.billboard.com/culture/tv-film/snl-michael-che-colin-jost-taylor-swift-question-millionaire-1236370947/
