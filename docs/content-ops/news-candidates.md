@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
 
 ## Exploring the Truth About Taylor Swift's Brother Austin
 
@@ -65,7 +65,7 @@ Stories: 83
 - verification_status: rumor | source_count: 1
 - summary: In a recent feature, Taylor Swift opened up about an unusual quirk that her partner Travis Kelce has to manage. The light-hearted conversation added to the insight into their relationship dynamics.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-shares-strange-quirk-011858258.html
+  - [unverified] The Comeback — https://thecomeback.com/nfl/taylor-swift-shares-strange-quirk-travis-kelce-has-to-put-up-with.html
 
 ## New Wedding Photos of Taylor Swift Surface for Fans
 
@@ -525,6 +525,14 @@ Stories: 83
 - sources:
   - [unverified] BroBible — https://brobible.com/sports/article/nelly-taylor-swift-mcdonalds-bag-cash/
 
+## Cara Delevingne Discusses Taylor Swift's Easter Egg Planning
+
+- first seen: 2026-10-30 19:08 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Cara Delevingne shares insights on how Taylor Swift creatively plans her famous Easter eggs. The discussion provides a glimpse into Swift's artistic approach and the significance of these hidden messages.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437671/cara-delevingne-details-taylor-swift-easter-eggs-patient-zero-video
+
 ## Nelly Shares Experience Performing with Taylor Swift in Houston
 
 - first seen: 2026-10-30 19:08 UTC | category: tour | importance: 6
@@ -548,14 +556,6 @@ Stories: 83
 - summary: A recent article discusses an inaccuracy related to Tim McGraw in the context of Taylor Swift's wedding. The specifics of the detail have sparked interest among fans and media.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-had-one-181515939.html
-
-## Cara Delevingne Discusses Taylor Swift's Easter Egg Planning
-
-- first seen: 2026-10-30 19:08 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cara Delevingne shares insights on how Taylor Swift creatively plans her famous Easter eggs. The discussion provides a glimpse into Swift's artistic approach and the significance of these hidden messages.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437671/cara-delevingne-details-taylor-swift-easter-eggs-patient-zero-video
 
 ## Colin Jost and Michael Che Discuss NSFW Taylor Swift Song
 
@@ -699,11 +699,3 @@ Stories: 83
 - summary: Nelly has disclosed that Taylor Swift once compensated him $50,000 to perform at one of her concerts. This revelation highlights Swift's investment in her events and collaboration with other artists.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/nelly-reveals-taylor-swift-once-045346072.html
-
-## Ella Langley's 'Choosin' Texas' Reaches No. 1, Displacing Taylor Swift's 'Patient Zero'
-
-- first seen: 2026-10-30 03:32 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Ella Langley's song 'Choosin' Texas' has topped the Hot 100 chart, dethroning Taylor Swift's track 'Patient Zero'. This marks the 25th nonconsecutive week for 'Choosin' Texas' at the number one position.
-- sources:
-  - [unverified] Facebook — https://www.facebook.com/Boston25News/photos/ella-langleys-monster-hit-bumped-taylor-swifts-patient-zero-out-of-the-hot-100-t/1617879023707091/
