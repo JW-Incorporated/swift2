@@ -53,9 +53,15 @@ describe('End Game beats open their moment detail', () => {
     expect(buttonTag).toContain('onClick={() => openItem(item.id)}');
   });
 
-  it('carries an aria-label naming the beat, since the button wraps an image and text', () => {
-    expect(buttonTag).toContain('aria-label=');
-    expect(buttonTag).toContain('item.title');
+  // #6266: an overriding aria-label ("Open “T” (Era, Date)") never contained
+  // the button's visible text, failing WCAG 2.5.3 Label in Name (axe
+  // `label-content-name-mismatch`). The name must derive from the visible
+  // content, which renders the beat's title inside the button.
+  it('names the beat from its visible content (title inside the button), not an overriding aria-label', () => {
+    expect(buttonTag).not.toContain('aria-label');
+    const buttonAt = src.indexOf(buttonTag);
+    const buttonBody = src.slice(buttonAt + buttonTag.length, src.indexOf('</button>', buttonAt));
+    expect(buttonBody).toContain('{item.title}');
   });
 
   it('every End Game beat has an id that resolves back to a real content item', () => {

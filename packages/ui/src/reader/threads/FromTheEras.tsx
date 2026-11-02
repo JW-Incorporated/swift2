@@ -57,7 +57,6 @@ export function FromTheEras({
               type="button"
               onClick={() => openItem(item.id)}
               className="era-card-2 flex items-center gap-3 p-2 text-left transition hover:border-[color:var(--era-accent)]"
-              aria-label={`Open “${item.title}” (${era.shortName}, ${item.dateLabel})`}
             >
               <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                 <Image
