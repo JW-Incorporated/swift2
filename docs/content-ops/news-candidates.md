@@ -27,6 +27,38 @@ so far".
 
 Stories: 77
 
+## Ashanti Discusses Her Friendship With Taylor Swift
+
+- first seen: 2026-11-02 20:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Ashanti has opened up about her friendship with Taylor Swift in a recent interview. The revelation highlights the connections between artists in the music industry.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ashanti-reveals-her-friendship-taylor-193829039.html
+
+## Taylor Swift Absent During Chiefs' Recent Loss
+
+- first seen: 2026-11-02 20:26 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was not present at the Chiefs' latest game where they experienced a loss. The absence has been noted in various reports.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skips-chiefs-heartbreaking-192904000.html
+
+## Taylor Swift Engages with Oscar Voters
+
+- first seen: 2026-11-02 20:26 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is actively reaching out to Oscar voters as part of her promotional efforts. The strategy appears to be focused on gaining recognition for her work in the film industry.
+- sources:
+  - [unverified] The Ankler — https://theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time/
+
+## Taylor Swift shares unique habits in her relationship with Kelce
+
+- first seen: 2026-11-02 20:26 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Taylor Swift discussed some of her unusual habits that her partner, Kelce, has to adapt to. The insights provide a glimpse into their personal relationship dynamics.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-reveals--strange-thing-that-kelce-has-to-put-up-with
+
 ## Wicker Receives 4DX Treatment Compared to Taylor Swift Concerts
 
 - first seen: 2026-11-02 19:17 UTC | category: music | importance: 5
@@ -193,12 +225,13 @@ Stories: 77
 ## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
 - sources:
   - [unverified] Bustle — https://www.bustle.com/entertainment/taylor-swift-abigail-anderson-napoleon-dynamite-impressions
   - [unverified] E! News — https://www.eonline.com/news/1437716/taylor-swift-details-weird-habit-husband-travis-kelce-had-to-deal-with
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-reveals-weird-habit-travis-kelce-has-to-put-up-with-12207229
+  - [unverified] Extra — https://extratv.com/2026/11/02/taylor-swift-reveals-quirk-that-travis-kelce-has-to-put-up-with-involving-her-bff-abigail-anderson/
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-abigail-anderson-quirk-she-shares-high-school-bff-12206970
   - [unverified] Page Six — https://pagesix.com/2026/11/02/entertainment/taylor-swift-confesses-to-weird-habit-husband-travis-kelce-has-to-put-up-with/
   - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
@@ -631,36 +664,3 @@ Stories: 77
 - summary: Tim McGraw has publicly debunked rumors regarding a wedding between Taylor Swift and Travis Kelce, clarifying the misinformation surrounding the topic. Recent leaked photos reportedly related to the wedding do not provide substantial evidence.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/tim-mcgraw-debunks-taylor-swift-170305625.html
-
-## Tim McGraw Discusses Taylor Swift and Travis Kelce's Wedding Details
-
-- first seen: 2026-10-30 20:08 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Tim McGraw shares insights about the recent wedding of Taylor Swift and Travis Kelce in a new article. The publication provides a glimpse into the star-studded event attended by notable guests.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/news/tim-mcgraw-reveals-what-really-happened-taylor-swift-travis-kelce-star-studded-wedding
-
-## Taylor Swift's Next Album Theories and Controversies Discussed
-
-- first seen: 2026-10-30 20:08 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A recent Yahoo Sports article explores theories surrounding Taylor Swift's next album, including discussions of debut TV theories, Chiefs-related controversies, and insights on her song 'Maroon.'
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/videos/taylor-swifts-next-album-debut-182158160.html
-
-## Video Features Taylor Swift's Song on Alien Swirling Saucers Ride
-
-- first seen: 2026-10-30 20:08 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A new video showcases the full ride experience of Alien Swirling Saucers, featuring Taylor Swift's song 'I Knew It, I Knew You'. This ride is part of a theme park attraction.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/chart-beat/taylor-swift-i-knew-it-i-knew-you-top-movie-songs-september-1236371350/
-  - [unverified] WDW News Today — https://wdwnt.com/2026/10/video-full-ride-pov-of-alien-swirling-saucers-featuring-taylor-swift-song-i-knew-it-i-knew-you/
-
-## Nelly Reveals Taylor Swift Paid Him $50,000 in Unconventional Fashion
-
-- first seen: 2026-10-30 20:08 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent statement, Nelly disclosed that Taylor Swift once paid him $50,000 in cash, which was reportedly stuffed inside a McDonald's bag. This unique transaction adds an interesting anecdote to their interactions.
-- sources:
-  - [unverified] BroBible — https://brobible.com/sports/article/nelly-taylor-swift-mcdonalds-bag-cash/
