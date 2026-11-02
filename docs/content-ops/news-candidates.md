@@ -75,14 +75,6 @@ Stories: 84
 - sources:
   - [unverified] New York Post — https://nypost.com/2026/11/01/sports/taylor-swift-appears-to-skip-supporting-chiefs-travis-klece-during-loss-to-broncos/
 
-## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
-
-- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
-- sources:
-  - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
-
 ## Taylor Swift discusses Travis Kelce's unique quirk
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
@@ -91,6 +83,15 @@ Stories: 84
 - sources:
   - [unverified] HELLO! — https://www.hellomagazine.com/us/932530/taylor-swift-reveals-the-unusual-habit-her-husband-travis-kelce-has-to-put-up-with/
   - [unverified] The Comeback — https://thecomeback.com/nfl/taylor-swift-shares-strange-quirk-travis-kelce-has-to-put-up-with.html
+
+## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
+
+- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
+- sources:
+  - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-weird-habit-065245109.html
 
 ## New Wedding Photos of Taylor Swift Surface for Fans
 
