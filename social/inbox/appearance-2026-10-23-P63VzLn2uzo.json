@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-23-P63VzLn2uzo",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-23T23:58:44.708Z",
+  "deadline": "2026-10-25T23:58:44.708Z",
+  "status": "open",
+  "facts": {
+    "channelName": "New Heights",
+    "videoTitle": "Mahomes Is Having Fun Again & Taylor Swift Calls Out Jason’s 7 AM Spot Request",
+    "publishedAt": "2026-10-23T22:00:11+00:00",
+    "videoId": "P63VzLn2uzo",
+    "url": "https://www.youtube.com/watch?v=P63VzLn2uzo"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6273
+  }
+}
