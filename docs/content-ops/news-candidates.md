@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Taylor Swift and Travis Kelce's Wedding Faces Criticism Over Guest Treatment
+
+- first seen: 2026-11-02 05:37 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The wedding of Taylor Swift and Travis Kelce, reportedly costing $30 million, is facing backlash due to perceived unequal treatment of guests. This has sparked discussions among fans and media.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-s-30-million-wedding-faces-backlash-over-unequal-guest-treatment-12268879
+
+## Taylor Swift Reveals Unusual Habit Her Husband Tolerates
+
+- first seen: 2026-11-02 05:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Taylor Swift shares an unusual habit that her husband has to tolerate, highlighting aspects of their relationship. The singer's admission sheds light on her personal life and the dynamics of her marriage.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-confesses-unusual-habit-035446919.html
 
 ## Taylor Swift Enjoys a Successful Week
 
@@ -701,11 +717,3 @@ Stories: 83
 - summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame alongside Lyle Lovett and others. This recognition highlights her significant contributions to the music industry.
 - sources:
   - [unverified] yoursun.com — https://www.yoursun.com/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/article_4e5332c6-c471-5f23-a4e6-dc3ec446ad58.html
-
-## Nelly Shares Details on Taylor Swift's $50,000 Concert Payment
-
-- first seen: 2026-10-30 05:28 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly has disclosed that Taylor Swift once compensated him $50,000 to perform at one of her concerts. This revelation highlights Swift's investment in her events and collaboration with other artists.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/nelly-reveals-taylor-swift-once-045346072.html
