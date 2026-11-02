@@ -1,0 +1,21 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "tapped \"cardigan weather\" on Mood fully expecting folklore to come running — and the first song back was Never Grow Up. Speak Now, not folklore. it read the cozy and found the ache underneath. what's yours? → longlivets.com/?mode=mood&utm_source=x&utm_medium=social&utm_campaign=mood",
+  "media": ["/social/library/photos/reddit-taylorswiftpictures-1r38qiv-ig45.jpg"],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1r38qiv-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1r38qiv/taylor_at_the_2022_mtv_emas/",
+  "scheduledAt": "2026-11-03T23:00:00Z",
+  "altText": ["Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: Taylor at the 2022 MTV EMAs"],
+  "campaign": "mood:era-match:2026-11-03",
+  "why": "X sibling of the Nov mood beat (Calendar 2026-11-03 23:00Z, format mood:era-match). Chip label 'cardigan weather' quoted verbatim from mood-starters.ts. Results are deterministic: ran matchMoods on this chip's hand-tuned vector against the seed song-moods (live site unreachable from this job, same method as the 10-21 mood post) -> Never Grow Up [speak-now], seven [folklore], Tim McGraw [debut], New Year's Day [reputation], We Were Happy [fearless] — all scored eras. Hook: the honest surprise / era it matched you to (expected folklore, got Speak Now), a new shape vs 10-21's title-list X. Link /?mode=mood (never ?mood=). Photo handed by prepare job; LFS pointer, not eyeballed; uncredited -> no credit line.",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 5, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 5 },
+    "total": 23,
+    "rationale": "The era-match format as an honest surprise: expected folklore from 'cardigan weather', Mood led with Never Grow Up (Speak Now). Specific, checkable by tapping, and a new shape from October's list-style mood X; photo is a real tour shot with no mood deep-link to tie it tighter.",
+    "rulesChecked": ["L002"],
+    "revision": 1
+  }
+}
