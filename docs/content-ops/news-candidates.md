@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
+
+## Taylor Swift and Olivia Rodrigo Embrace New Fall 2026 Hat Trend
+
+- first seen: 2026-11-02 13:32 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Olivia Rodrigo are spotted wearing a trendy new hat style for the Fall 2026 season, moving away from traditional beanies. This shift showcases their influence in current fashion trends.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/how-to-style-baseball-cap-fall-2026/
 
 ## Travis Kelce Discusses Taylor Swift's Unique Movie Preferences
 
@@ -698,26 +706,3 @@ Stories: 84
 - summary: Taylor Swift has been recognized for her contributions to songwriting in a recent Hollywood Minute report by CNN. This acknowledgment highlights her impact on the music industry.
 - sources:
   - [unverified] CNN — https://www.cnn.com/2026/10/28/entertainment/video/entertainment-showbiz-hollywood-minute-taylor-swift-nashville-songwriters-hall-gaslit-documentary-dune-three-final-trailer
-
-## Leaked Photos from Swift and Kelce's Wedding Highlight Potential Risks for Couples
-
-- first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 8
-- summary: Recent leaked photographs from Taylor Swift and Travis Kelce's estimated $30 million wedding illustrate a common risk that couples may encounter. The focus on these images raises discussions about privacy and scrutiny in relationships.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437684/tim-mcgraw-did-not-perform-at-taylor-swift-travis-kelce-wedding
-  - [unverified] Entertainment Weekly — https://ew.com/tim-mcgraw-performance-taylor-swift-travis-kelce-wedding-12202862
-  - [unverified] InStyle — https://www.instyle.com/tim-mcgraw-debunks-rumor-taylor-swift-travis-kelce-wedding-12202793
-  - [unverified] MoneyWise.com — https://moneywise.com/managing-money/budgeting/taylor-swift-travis-kelce-wedding-prenup-financial-planning
-  - [established] People — https://people.com/tim-mcgraw-shuts-down-rumor-about-taylor-swift-and-travis-kelce-wedding-12202342
-  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/10/30/tim-mcgraw-shuts-down-rumor-that-he-performed-at-taylor-swift-travis-kelces-wedding-the-internets-not-always-correct/
-  - [unverified] Wide Open Country — https://www.wideopencountry.com/tim-mcgraw-describes-the-marriage-advice-he-would-give-to-taylor-swift-and-travis-kelce/
-  - [unverified] Yahoo Finance — https://finance.yahoo.com/small-business/articles/leaked-photos-taylor-swift-travis-120000702.html
-
-## Guests voice concerns over wedding food and decor at Taylor Swift's event
-
-- first seen: 2026-10-30 12:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that some guests at Taylor Swift's wedding expressed dissatisfaction with the food and decor, describing them as 'ghastly and tacky.'
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ghastly-tacky-taylor-swift-wedding-101042181.html
