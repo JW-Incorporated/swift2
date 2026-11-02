@@ -702,6 +702,36 @@
       "sha256": "ca44de5105e496d990df37e97ea5fb1f3f45e9c4ff263dd80aca5ac1d260a824"
     },
     {
+      "id": "official-video-AgFeZr5ptV8-maxres2",
+      "mediaPath": "/social/library/photos/official-video-AgFeZr5ptV8-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=AgFeZr5ptV8",
+      "alt": "Still from Taylor Swift's official \"22\" music video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 43889,
+      "sha256": "d65ab7712f2fc040db14afb2595a184ec3218ac75c1630560d84a7dd7e08bd4b"
+    },
+    {
+      "id": "official-video-AgFeZr5ptV8-maxres3",
+      "mediaPath": "/social/library/photos/official-video-AgFeZr5ptV8-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=AgFeZr5ptV8",
+      "alt": "Still from Taylor Swift's official \"22\" music video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 41159,
+      "sha256": "d4739c1136c2eb64f05d978a103f0d699a0384e5951a09e926adf3f0d62c5cf3"
+    },
+    {
       "id": "official-video-b1kbLwvqugk-maxres2",
       "mediaPath": "/social/library/photos/official-video-b1kbLwvqugk-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1557,6 +1587,21 @@
       "sha256": "40ee5ea6b908983057b5395d06af76e4673dfd225184808e2e479be31e77a7a6"
     },
     {
+      "id": "official-video-WA4iX5D9Z64-maxres3",
+      "mediaPath": "/social/library/photos/official-video-WA4iX5D9Z64-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=WA4iX5D9Z64",
+      "alt": "Still from Taylor Swift's official \"We Are Never Ever Getting Back Together\" music video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 54361,
+      "sha256": "48f5846327a67738292a23b943203d4607693e1ee9303413b825ca186eb3191f"
+    },
+    {
       "id": "official-video-wyK7YuwUWsU-maxres1",
       "mediaPath": "/social/library/photos/official-video-wyK7YuwUWsU-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1660,6 +1705,36 @@
       "height": 720,
       "bytes": 45913,
       "sha256": "1b143644d62c9dd273988bac338eb0e6363cb54bdd38d026db733f58dcca1112"
+    },
+    {
+      "id": "official-video-Zlot0i3Zykw-maxres1",
+      "mediaPath": "/social/library/photos/official-video-Zlot0i3Zykw-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Zlot0i3Zykw",
+      "alt": "Still from Taylor Swift's official \"Red\" music video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 39128,
+      "sha256": "18cf30739a8f169436ca90af8f9644cdf29db556b0b516bb06bca99bf84f05ee"
+    },
+    {
+      "id": "official-video-Zlot0i3Zykw-maxres2",
+      "mediaPath": "/social/library/photos/official-video-Zlot0i3Zykw-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Zlot0i3Zykw",
+      "alt": "Still from Taylor Swift's official \"Red\" music video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 67908,
+      "sha256": "0095858055cbaeec64d5743168b0aa27be7db4ab76da15f054dcc46de61780db"
     },
     {
       "id": "openverse-00d105eb-a853-426e-b587-4862a1b0ad60",
