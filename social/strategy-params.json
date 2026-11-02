@@ -29,8 +29,25 @@
   "openers": {
     "wordWindow": 6,
     "postedLookbackDays": 14,
-    "bannedOpeners": ["did you know"],
-    "why": "2026-10-01 S2 baseline: formula openers were the 2026-08-11 audit's top voice finding; the first-6-words match runs against the last 14 days of posts and the queue."
+    "bannedOpeners": [
+      "did you know",
+      "fun fact",
+      "here's a fact",
+      "ever wonder",
+      "let's talk about",
+      "imagine",
+      "picture this",
+      "in a world",
+      "buckle up",
+      "spoiler",
+      "psa",
+      "story time",
+      "a thread",
+      "we need to talk about",
+      "okay",
+      "ok"
+    ],
+    "why": "2026-11-02 (Tree, week-of-11-02 plan): two changes, both evidence-led. (1) SYNC — strategy §1(e) Rule 2 has published a 14-opener banned list since 2026-08-11 and said it was \"hard-blocked by check-drafts.mjs\", but this file only ever carried `did you know`, so 13 of the 14 were never actually blocked. The list is now what the doc says it is. (`a thread 🧵` is carried as `a thread` because the matcher anchors `^<phrase>\\b` and a `\\b` after an emoji never matches.) (2) NEW — `okay` and `ok` as first words: 4 of the 22 items posted 2026-10-20 → 2026-11-01 opened on one (10-21 IG \"okay i tapped…\", 10-26 IG \"okay END GAME fans…\", 10-30 X \"ok swifties…\", 10-31 IG \"okay folklore track 3…\"), and all 22 still cleared the 6-word reuse gate, which cannot see a shared first word when words 2-6 differ. The week-of-10-26 calendar put that shape off the menu in prose and it shipped twice anyway; a formula openers gate that misses the formula actually forming is the 2026-08-11 \"did you know\" finding recurring under a new word. Prefix-anchored, so only a body literally opening on the word fails. The first-6-words match still runs against the last 14 days of posts and the queue."
   },
   "crossPost": {
     "similarityThreshold": 0.8,
