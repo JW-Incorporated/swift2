@@ -7387,9 +7387,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live, not faded.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live. Re-checked 2026-11-02: still pending (noms Nov. 16).',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-18',
+            lastCheckedOn: '2026-11-02',
           },
           {
             claim:
@@ -7398,9 +7398,9 @@ export default {
             reportedOn: '2026-07-17',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location. Re-checked 2026-10-18: nominations not yet announced — still live.',
+            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-10-18 and 2026-11-02: not yet announced, still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-18',
+            lastCheckedOn: '2026-11-02',
           },
           // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
           // the October pre-nomination prediction pieces. Award chances are
@@ -7413,9 +7413,9 @@ export default {
             reportedOn: '2026-10-13',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
-            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location.',
+            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-15',
+            lastCheckedOn: '2026-11-02',
           },
           {
             claim:
@@ -7424,9 +7424,9 @@ export default {
             reportedOn: '2026-10-12',
             status: 'unconfirmed',
             url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
-            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location.',
+            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-15',
+            lastCheckedOn: '2026-11-02',
           },
         ],
       },
@@ -9988,9 +9988,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Re-checked 2026-11-02: still live; open FYC campaigning, no Academy ruling.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-08',
+            lastCheckedOn: '2026-11-02',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -10025,11 +10025,11 @@ export default {
               'The trade The Ankler argued ("Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight") that Taylor is quietly assembling an awards-season case — the Toy Story 5 song "I Knew It, I Knew You," the VMA-premiered "Patient Zero" video, and her inaugural VMAs Artist Director Honors — without announcing an explicit campaign. Yahoo and heavy.com repackaged it as "quietly setting her sights on an Oscar."',
             reportedBy: 'The Ankler',
             reportedOn: '2026-10-01',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
-            note: 'Outlet analysis of intent, not an on-record statement — no one (Taylor, her team, the Academy) has confirmed a campaign. Adjudicable (whether she pursues/gets a nomination), so it clears the admit-the-unsettled bar. Resolves against the 99th Oscars calendar on this page (shortlist 2026-12-15, noms 2027-01-21). Tier capped at tabloid: theankler.com isn\'t on the reputable-source allowlist (RR5).',
+            note: 'Outlet analysis of intent, not on-record. Resolves at the Oscar shortlist (2026-12-15) and noms (2027-01-21). Tier capped at tabloid: theankler.com not allowlisted (RR5). 2026-11-02: PARTIAL. Taylor did a Q&A at a Nov. 1 FYC screening for guild voters (theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time; Showbiz411), so the push is real; the Patient Zero/VMA link is not.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-08',
+            lastCheckedOn: '2026-11-02',
           },
           // Added 2026-10-16 (Vault Run, Content Shift lane, intake #6003): the
           // two song-level October pre-nomination pieces, both pages loaded and
@@ -10044,9 +10044,9 @@ export default {
             reportedOn: '2026-10-15',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
-            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location.',
+            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location. Re-checked 2026-11-02: still pending.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-16',
+            lastCheckedOn: '2026-11-02',
           },
           {
             claim:
@@ -10055,9 +10055,9 @@ export default {
             reportedOn: '2026-10-16',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/',
-            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location.',
+            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-16',
+            lastCheckedOn: '2026-11-02',
           },
         ],
       },
