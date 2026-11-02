@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 80
+
+## Taylor Swift and Friend Share Humor About Their Husbands
+
+- first seen: 2026-11-02 18:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has shared a lighthearted inside joke with her best friend regarding their husbands. The humorous exchange highlights their close friendship and the playful dynamics of their relationships.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-shares-hilarious-inside-144224760.html
 
 ## Taylor Swift to Write End Credits Song for ‘Toy Story 5’
 
@@ -177,11 +185,12 @@ Stories: 83
 ## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
 
 - first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
 - sources:
   - [unverified] Bustle — https://www.bustle.com/entertainment/taylor-swift-abigail-anderson-napoleon-dynamite-impressions
   - [unverified] E! News — https://www.eonline.com/news/1437716/taylor-swift-details-weird-habit-husband-travis-kelce-had-to-deal-with
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-reveals-weird-habit-travis-kelce-has-to-put-up-with-12207229
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-abigail-anderson-quirk-she-shares-high-school-bff-12206970
   - [unverified] Page Six — https://pagesix.com/2026/11/02/entertainment/taylor-swift-confesses-to-weird-habit-husband-travis-kelce-has-to-put-up-with/
   - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
@@ -679,35 +688,3 @@ Stories: 83
 - summary: A recent article discusses an inaccuracy related to Tim McGraw in the context of Taylor Swift's wedding. The specifics of the detail have sparked interest among fans and media.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-had-one-181515939.html
-
-## Colin Jost and Michael Che Discuss NSFW Taylor Swift Song
-
-- first seen: 2026-10-30 18:12 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Colin Jost and Michael Che engaged in a humorous discussion about a non-safe-for-work song by Taylor Swift, highlighting the comedic nature of the conversation.
-- sources:
-  - [unverified] Cinemablend — https://www.cinemablend.com/television/colin-jost-michael-che-discuss-nsfw-taylor-swift-song-who-wants-to-be-a-millionaire
-
-## Nelly Reveals Taylor Swift Paid Him $50,000
-
-- first seen: 2026-10-30 18:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly shared that Taylor Swift paid him $50,000, described humorously as being in a McDonald's bag. This highlights a financial interaction between the two artists.
-- sources:
-  - [unverified] VICE — https://www.vice.com/en/article/a-mcdonalds-bag-full-of-cash-nelly-reveals-how-taylor-swift-paid-him-50000/
-
-## Nelly Reveals Taylor Swift Paid $50,000 for Brief Performance
-
-- first seen: 2026-10-30 18:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly disclosed that Taylor Swift paid him $50,000 in cash for a three-minute performance, stating he would have done it for free. This detail highlights the financial aspects of collaborative performances in the music industry.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/did-free-nelly-says-taylor-173002702.html
-
-## Nelly recounts Taylor Swift's unique payment method for a show.
-
-- first seen: 2026-10-30 18:12 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly shared a story about how Taylor Swift once paid him $50,000 in cash for a performance, presented in a McDonald's bag. He mentioned he would have been willing to perform for free.
-- sources:
-  - [unverified] MusicRadar — https://www.musicradar.com/artists/singers-songwriters/nelly-reveals-taylor-swift-once-paid-him-for-a-show-appearance-with-usd50-000-cash-in-a-mcdonalds-bag-i-wouldve-done-it-for-free
