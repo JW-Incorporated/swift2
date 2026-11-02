@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Travis Kelce Discusses Taylor Swift's Unique Movie Preferences
+
+- first seen: 2026-11-02 12:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce talks about Taylor Swift's distinct movie habits that he has to adjust to. The focus is on their relationship and how they navigate personal interests.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-live-taylor-swift-120129888.html
 
 ## Taylor Swift and Travis Kelce's Wedding Faces Criticism Over Guest Treatment
 
