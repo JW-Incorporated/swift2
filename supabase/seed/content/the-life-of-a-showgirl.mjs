@@ -17170,7 +17170,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."',
+          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."\n\nThe morning was also an awards play. It was a for-your-consideration screening at Disney\'s New York offices, and most of the room were guild members and Critics Choice voters. The Q&A with Stanton ran about half an hour, covering the song and her long history with the franchise. She told the room that when Stanton first approached her, months earlier, she wasn\'t sure she had the time because of the Eras Tour. Afterwards she stayed to meet everyone there, more than 200 people, for autographs and selfies. "I Knew It, I Knew You" is in the running for her first Oscar nomination. She is not a nominee yet; the Academy\'s Original Song shortlist comes out Dec. 15.',
         sources: [
           {
             outlet: 'The Tennessean (via Yahoo Entertainment)',
@@ -17195,6 +17195,28 @@ export default {
               'Nov. 1, 2026; loaded directly. Independently carries the Napoleon Dynamite and "husbands" quotes, the Manhattan screening and the Stanton Q&A.',
           },
           {
+            outlet: 'The Ankler',
+            url: 'https://theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time/',
+            source_title: 'Taylor Swift, Wooing Oscar Voters One at a Time',
+            publisher: 'The Ankler',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-02',
+            reliability_score: 4,
+            notes:
+              'By Katey Rich and Christopher Rosen, Nov. 2, 2026; loaded directly. Primary for the FYC framing (guild and Critics Choice voters), the roughly 30-minute Q&A, the Eras Tour timing doubt and the 200-plus meet-and-greet. Intake #6548. Billboard (also filed) was not loadable and is not cited.',
+          },
+          {
+            outlet: 'Showbiz411',
+            url: 'https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video',
+            source_title: "Taylor Swift Really Wants the Oscar for Her Song in 'Toy Story 5'",
+            publisher: 'Showbiz411',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-02',
+            reliability_score: 3,
+            notes:
+              'By Roger Friedman, Nov. 1, 2026; loaded directly. Independently confirms the all-guild screening and the Oscar-campaign framing. Street-level venue detail deliberately not carried (location redline).',
+          },
+          {
             outlet: 'Taylor Swift (YouTube)',
             url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
             source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -17204,6 +17226,53 @@ export default {
             reliability_score: 5,
             notes:
               'The film\'s end-credit song; oEmbed-verified 2026-11-01 (HTTP 200, author_name "Taylor Swift"). The visual for this moment, not a source for the screening.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-02 (Vault Run, Content Shift lane) from intake #6549.
+      // TheWrap loaded directly and carries the full category slate. Variety
+      // (the filing's first outlet) was not loadable, so it is not cited.
+      slug: 'showgirl-i-knew-it-i-knew-you-hmma-nomination',
+      year: 2026,
+      month: 11,
+      day: 2,
+      category: 'music',
+      title: '"I Knew It, I Knew You" picks up a Hollywood Music in Media nod',
+      snippet:
+        "Taylor's Toy Story 5 song is up for Song — Animated Film at the 17th Hollywood Music in Media Awards, with the winners named Nov. 18.",
+      sourceUrl: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+      thumbnailUrl: null,
+      video: {
+        youtubeId: 'hDU4GB1PTxc',
+        title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+      },
+      moment: {
+        context:
+          'On Nov. 2, 2026, the 17th annual Hollywood Music in Media Awards announced its nominees, and "I Knew It, I Knew You" was among them, in the Song — Animated Film category. Taylor wrote the Toy Story 5 end-credit song with Jack Antonoff.\n\nIt shares the category with four other animated-film songs: "Bottle Up" from Paw Patrol: The Dino Movie, performed by the Backstreet Boys; "BRB" from Forgotten Island, performed by H.E.R. and Liza Soberano; "Someone to Hold" from Steps, performed by JENNIE; and "The Better Part of Bravery" from Wildwood, performed by the Decemberists. The winners are announced Nov. 18 at the Avalon Hollywood. That is the same night as the CMA Awards in Nashville, where the song is up for Single of the Year. The Oscar race comes later: the Academy\'s Original Song shortlist is due Dec. 15.',
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+            source_title: "Hollywood Music in Media Nominations Include 'The Odyssey,' 'Michael,' 'Behemoth!' and Taylor Swift",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-02',
+            reliability_score: 4,
+            notes:
+              'By Steve Pond, Nov. 2, 2026; loaded directly. Primary for the category name, the full slate of five, the 17th edition, and the Nov. 18 Avalon Hollywood ceremony. Intake #6549.',
+          },
+          {
+            outlet: 'Taylor Swift (YouTube)',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-02',
+            reliability_score: 5,
+            notes:
+              'The nominated song; oEmbed re-checked 2026-11-02 (HTTP 200). The visual for this moment, not a source for the nomination.',
           },
         ],
       },
