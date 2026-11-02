@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 77
+
+## Wicker Receives 4DX Treatment Compared to Taylor Swift Concerts
+
+- first seen: 2026-11-02 19:17 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The film Wicker has been given a 4DX treatment, with its intense screams compared to those heard at a Taylor Swift concert, according to The Guardian.
+- sources:
+  - [established] The Guardian — https://www.theguardian.com/tv-and-radio/2026/nov/02/wicker-4dx-olivia-colman-movie
 
 ## Taylor Swift and Friend Share Humor About Their Husbands
 
@@ -656,35 +664,3 @@ Stories: 80
 - summary: In a recent statement, Nelly disclosed that Taylor Swift once paid him $50,000 in cash, which was reportedly stuffed inside a McDonald's bag. This unique transaction adds an interesting anecdote to their interactions.
 - sources:
   - [unverified] BroBible — https://brobible.com/sports/article/nelly-taylor-swift-mcdonalds-bag-cash/
-
-## Cara Delevingne Discusses Taylor Swift's Easter Egg Planning
-
-- first seen: 2026-10-30 19:08 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Cara Delevingne shares insights on how Taylor Swift creatively plans her famous Easter eggs. The discussion provides a glimpse into Swift's artistic approach and the significance of these hidden messages.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437671/cara-delevingne-details-taylor-swift-easter-eggs-patient-zero-video
-
-## Nelly Shares Experience Performing with Taylor Swift in Houston
-
-- first seen: 2026-10-30 19:08 UTC | category: tour | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Nelly reflects on being flown out by Taylor Swift to perform at her Houston show for $50,000, stating he would have done it for free. This anecdote highlights the collaborations and performances during Swift's tour.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/rb-hip-hop/nelly-taylor-swift-mcdonalds-houston-2011-just-a-dream-1236371006/
-
-## Taylor Swift Plays Guitar for Charity Raffle
-
-- first seen: 2026-10-30 19:08 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift played a guitar that will be raffled off for charity purposes, providing fans with an opportunity to support a good cause.
-- sources:
-  - [unverified] KVOA — https://www.kvoa.com/news/arizona/taylor-swift-played-guitar-being-raffled-for-charity/article_bb05b5b9-eadc-4d1b-90db-a1e341f7ba67.html
-
-## Detail about Taylor Swift's wedding and Tim McGraw addressed
-
-- first seen: 2026-10-30 19:08 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article discusses an inaccuracy related to Tim McGraw in the context of Taylor Swift's wedding. The specifics of the detail have sparked interest among fans and media.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-had-one-181515939.html
