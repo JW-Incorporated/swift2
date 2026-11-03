@@ -27,6 +27,14 @@ so far".
 
 Stories: 72
 
+## Taylor Swift's Oscar Voter Meeting Filmed, Travis Kelce Absent
+
+- first seen: 2026-11-03 03:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A video captures Taylor Swift during an Oscar voter meeting, with noticeable absence of Travis Kelce. The footage highlights Swift's involvement in the awards process.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/taylor-swift-oscar-voter-meeting-022457684.html
+
 ## Taylor Swift Wears All-Black Outfit in New York
 
 - first seen: 2026-11-03 02:21 UTC | category: fashion | importance: 5
@@ -616,11 +624,3 @@ Stories: 72
 - summary: Nelly disclosed the amount and the unique method Taylor Swift used to compensate him for his participation in the Speak Now tour.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/nelly-reveals-much-unique-way-015049132.html
-
-## Review of Taylor Swift's The Life of a Showgirl: The Encore
-
-- first seen: 2026-10-31 03:26 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The DePauw has published a review of Taylor Swift's performance in The Life of a Showgirl: The Encore. The review highlights various aspects of the show and its impact on audiences.
-- sources:
-  - [unverified] The DePauw — https://thedepauw.com/42100/entertainment/a-review-of-taylor-swifts-the-life-of-a-showgirl-the-encore/
