@@ -63,3 +63,27 @@ describe('judgeWriting', () => {
     await expect(judgeWriting(await ExtractUsageStore.create(db), INPUT, invalid)).rejects.toThrow(/nope/);
   });
 });
+
+describe('judge input', () => {
+  it('sends the context pack and the cited sentences, and states the grounding and context rules', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
+    const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 5, 5, 5]) })) as unknown as WorkerClaudeCaller;
+    await judgeWriting(await ExtractUsageStore.create(db), {
+      ...INPUT,
+      context: '[c1] Last autumn the album rollout began quietly.',
+      citations: [{ text: 'Fans noticed within hours.', refs: ['f1'] }, { text: 'Last autumn it began quietly.', refs: ['c1', 'f2'] }],
+    }, claude);
+    const call = (claude as unknown as ReturnType<typeof vi.fn>).mock.calls[0]![0];
+    expect(call.user).toContain('CONTEXT:\n[c1] Last autumn the album rollout began quietly.');
+    expect(call.user).toContain('CITATIONS:\n- [f1] Fans noticed within hours.\n- [c1, f2] Last autumn it began quietly.');
+    expect(call.system).toContain('supported by the fact (f-id) or context item (c-id) it cites');
+    expect(call.system).toContain('"(none available)" or none of it is relevant, a post without a context paragraph is NOT penalised');
+  });
+
+  it('renders empty context as (none available)', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
+    const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 5, 5, 5]) })) as unknown as WorkerClaudeCaller;
+    await judgeWriting(await ExtractUsageStore.create(db), { ...INPUT, context: '' }, claude);
+    expect((claude as unknown as ReturnType<typeof vi.fn>).mock.calls[0]![0].user).toContain('CONTEXT:\n(none available)');
+  });
+});

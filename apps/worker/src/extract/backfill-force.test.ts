@@ -42,7 +42,7 @@ function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean
       return b;
     };
     b.eq = (c: string, v: unknown) => {
-      if (pending) pending.id = v;
+      if (pending && c === 'id') pending.id = v;
       filtered = filtered.filter((r) => r[c] === v);
       return b;
     };
@@ -108,11 +108,11 @@ function deps(overrides: Partial<ForceDeps> = {}): ForceDeps {
 const reportDir = () => mkdtempSync(join(tmpdir(), 'backfill-force-'));
 
 describe('loadForceCandidates', () => {
-  it('picks only visible, recent rows without facts', async () => {
+  it('picks only the rows the live feed shows that have no facts, with no observed_on window by default', async () => {
     const { db } = fakeDb([
       row('ok'),
       row('has-facts', { facts: FACTS }),
-      row('old', { observed_on: daysAgo(11) }),
+      row('old', { observed_on: daysAgo(40) }),
       row('merged', { merged_into: 'x' }),
       row('retracted', { retracted_at: '2026-01-01' }),
       row('promoted', { promoted_to: 'm' }),
@@ -121,6 +121,12 @@ describe('loadForceCandidates', () => {
       row('thin', { summary: 'Too short.' }),
     ]);
     const picked = await loadForceCandidates(db);
+    expect(picked.map((r: ForceCandidateRow) => r.id)).toEqual(['ok', 'old']);
+  });
+
+  it('narrows to the days override when one is given', async () => {
+    const { db } = fakeDb([row('ok'), row('old', { observed_on: daysAgo(40) })]);
+    const picked = await loadForceCandidates(db, 0, new Date(), 10);
     expect(picked.map((r: ForceCandidateRow) => r.id)).toEqual(['ok']);
   });
 });

@@ -43,6 +43,8 @@ export interface WritingInput {
   /** Body sentence indexes (0-based) that cite a fact or context item. */
   citations?: readonly number[];
   bodySentenceCount?: number;
+  /** One ref list per body sentence, in order, from the writer's structured output; takes precedence over `citations`. */
+  sentenceRefs?: readonly (readonly string[])[];
   /** Outlet names the item's facts are attributed to; an attribution to any other outlet is invented. */
   factAttributions?: readonly string[];
 }
@@ -277,6 +279,10 @@ export function evaluateCurrentItemWriting(
 
   if (options.legacy) {
     // Legacy rows carry no citations.
+  } else if (input.sentenceRefs) {
+    if (input.sentenceRefs.length === 0 || input.sentenceRefs.some((refs) => refs.length === 0)) {
+      reasons.push('uncited_sentence');
+    }
   } else if (!input.citations) {
     reasons.push('citations_missing');
   } else {
