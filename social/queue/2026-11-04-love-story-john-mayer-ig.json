@@ -1,0 +1,44 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "campaign": "timeline:love-story:john-mayer-2009:2026-11-04",
+  "scheduledAt": "2026-11-04T23:00:00Z",
+  "body": "this is the chapter i always forget is only two months long.\n\nlate 2009 into early 2010, Taylor and John Mayer — brief, complicated, and the source of one of the most unflinching songs in her whole catalog.\n\n'Dear John' runs almost seven minutes, and she uses every one of them to say exactly what she meant. it lives on Speak Now, the album she wrote entirely by herself, every single song — a 20-year-old answering for herself on her own record 😮‍💨\n\nit's the next stop in Blank Spaces, our relationship timeline: every era's heartbreak, mapped in order, receipts only.\n\ntag the friend who still isn't over Speak Now.\n\nread it start to finish 👉 https://longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1r6n7aq-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1r6n7aq/an_instagram_story_from_october_2017/",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: An Instagram Story from October 2017"
+  ],
+  "photoId": "reddit-taylorswiftpictures-1r6n7aq-ig45",
+  "why": "Love Story timeline (calendar 11-04): next unposted chapter after 'Back to December / Lautner' (rel-lautner, 10-29) in the lens's start-date order is rel-mayer — John Mayer, Dec 2009–Feb 2010, 'Dear John' on Speak Now (self-written). utm_campaign=timeline, not thread. Confirmed public history only, no wrongdoing framing; share hook included though lens posts are exempt.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "Executes the named love-story slot with the exact next chapter in the lens order (rel-mayer / John Mayer, late 2009) and checkable details — 'Dear John' nearly seven minutes, on the self-written Speak Now. Generic Taylor fan photo, not era-matched, so media scores a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-03T18:38:51.302Z",
+    "pr": 6579,
+    "message": "social-tree-approve run 41695353496",
+    "contentHash": "sha256:aec2accb87dbae39395849e2b8e65cd8f22bf270c7c87890379021d1aef8cdc1",
+    "mediaDigest": "sha256:f8882e17bc0d669f4ca7d3d54a379eb58c6130590a223db23146497fda27a996",
+    "sig": "hmac-sha256:55166e3340886b0cfde3b4201da1fcc19be64d5d8c52ee8b53b2728792916e54"
+  }
+}
