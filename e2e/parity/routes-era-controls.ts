@@ -122,12 +122,4 @@ export const ERA_CONTROL_ROUTES: readonly AOnlyRoute[] = [
     clip: CLIP,
     prepare: (page) => show(page, '[data-ll-item^="era-thread-"]'),
   },
-  {
-    name: 'era-doorway-egg',
-    path: '/',
-    root: 'main',
-    sides: 'both',
-    clip: CLIP,
-    prepare: (page) => show(page, '[data-ll-item^="era-egg-"]'),
-  },
 ];

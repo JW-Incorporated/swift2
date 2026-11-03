@@ -73,6 +73,7 @@ describe('loadDedupeCandidates', () => {
         rows = rows.filter((row) => row[column as keyof typeof row] !== value);
         return chain;
       },
+      order: () => chain,
       gte: () => chain,
       gt: () => chain,
       limit: (limit: number) => {

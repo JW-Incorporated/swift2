@@ -20,6 +20,7 @@ const MIGRATION_NAMES = [
   '20261014010000_tidewatch.sql',
   '20261015030000_watch_decision_shadow_unique.sql',
   '20261015050000_current_item_retracted_at.sql',
+  '20261103000000_current_item_facts_snapshot.sql',
 ];
 const MIGRATIONS = MIGRATION_NAMES.map((name) => path.resolve(
   import.meta.dirname, '..', '..', 'supabase', 'migrations', name,
