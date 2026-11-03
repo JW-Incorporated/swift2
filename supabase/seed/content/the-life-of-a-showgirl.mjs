@@ -15928,6 +15928,21 @@ export default {
               'A frame from the official "Patient Zero" music video, directed by Taylor and shot by Emmanuel Lubezki.',
             kind: 'primary',
           },
+          {
+            url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxres1.jpg',
+            focalPoint: '60% 50%',
+            credit: 'Taylor Swift (official "Patient Zero" music video, YouTube)',
+            caption:
+              'A framed black-and-white wedding photograph, lit in the dark, from the "Patient Zero" video.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxres3.jpg',
+            focalPoint: '55% 40%',
+            credit: 'Taylor Swift (official "Patient Zero" music video, YouTube)',
+            caption: 'A tearful close-up from the "Patient Zero" video, shot in low light.',
+            kind: 'primary',
+          },
         ],
         sources: [
           {
