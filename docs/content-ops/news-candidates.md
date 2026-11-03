@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 70
+
+## Cosmopolitan Discusses Sarah J Maas and Taylor Swift
+
+- first seen: 2026-11-03 21:02 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Cosmopolitan article explores the connection between author Sarah J Maas and Taylor Swift, highlighting insights and perspectives on their relationship. The discussion sheds light on the impact of Swift's music in Maas's life and work.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/books/a74286653/sarah-j-maas-court-of-splintered-harmony-taylor-swift-comparison/
 
 ## Details Emerge on Taylor Swift's Next Career Move as Mrs. Kelce
 
