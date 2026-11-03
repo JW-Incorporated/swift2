@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 71
 
 ## Taylor Swift's Oscar Voter Meeting Filmed, Travis Kelce Absent
 
@@ -616,11 +616,3 @@ Stories: 72
 - summary: Tim McGraw shares his thoughts on maintaining a successful marriage in a recent interview with Esquire. His perspective offers insights into the dynamics of partnerships.
 - sources:
   - [unverified] Esquire — https://www.esquire.com/entertainment/music/a74272205/tim-mcgraw-what-ive-learned-interview-2026/
-
-## Nelly Shares Details on Payment from Taylor Swift for Speak Now Tour
-
-- first seen: 2026-10-31 04:27 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Nelly disclosed the amount and the unique method Taylor Swift used to compensate him for his participation in the Speak Now tour.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/nelly-reveals-much-unique-way-015049132.html
