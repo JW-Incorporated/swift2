@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 68
+
+## Taylor Swift Addresses Reported Wedding Confession Amid Rumors
+
+- first seen: 2026-11-03 16:37 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift makes a statement regarding her relationship with Travis Kelce following reports of her anger over a wedding-related issue. The news hints at tension surrounding a supposed betrayal.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970658/taylor-swift-travis-kelce-marriage-wedding-photos/
 
 ## Taylor Swift Discusses Unique Quirk of Husband Travis Kelce
 
@@ -81,9 +89,10 @@ Stories: 67
 ## Taylor Swift Considers Hiring Private Investigators Due to Leaked Photos
 
 - first seen: 2026-11-03 05:51 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Reports indicate that Taylor Swift is mulling over the idea of hiring private investigators following concerns about leaked wedding photos that have left her feeling unsettled.
 - sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235090605/taylor-swift-hiring-private-investigators/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-considering-hiring-040000753.html
 
 ## Taylor Swift's Oscar Voter Meeting Filmed, Travis Kelce Absent
