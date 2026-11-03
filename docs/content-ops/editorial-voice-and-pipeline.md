@@ -226,6 +226,10 @@ Enforced by DB CHECK constraints and restated as an authoring rule:
 - Photos are always hotlinked with credit (credit = attribution, not legal
   clearance).
 
+## News worker: two-pass writer (live, `NEWS_WRITER_V2`)
+
+The News/Current worker no longer writes its own prose. Pass A (Haiku) extracts a headline, category, status and a `facts` list. A deterministic floor (`worth-gate.ts`) and the same-event dedupe gate run next. Pass B (`claude-sonnet-5-5`) then writes the lead (`summary`) and body (`detail`) from the facts plus a vault context pack, citing a fact or context id per body sentence. The shared writing checks (`current-item-writing.ts`) and a Haiku rubric judge (voice, context, grounding, non-repetition, 4+ on each) gate it, with one rewrite across all steps; any failure, deferral or budget stop holds the row (`quality_hold_reason`) and never ships pass-A text. Set `NEWS_WRITER_V2: 'off'` in `.github/workflows/news-worker.yml` to roll back to the legacy single pass; legacy rows (no `facts`) keep the old read-time rules.
+
 ## Pipeline: Claude drafts → Codex reviews → human spot-checks
 
 Mirrors the company's existing dual-AI operating model

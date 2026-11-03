@@ -11,7 +11,7 @@ import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
 import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
-import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
+import type { ExtractedCurrentItem, ExtractedFact, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
   expiresAt,
   CURRENT_ITEM_EXPIRY_DAYS,
@@ -176,7 +176,14 @@ export interface WriteCurrentItemResult {
    * reflects the COMBINED verdict (topic screen AND the quality gate) —
    * see `evaluateCurrentItemQuality`'s header for why the two are folded
    * into one `redline_ok` column rather than a second gating column. */
-  holdReason?: QualityHoldReason;
+  holdReason?: QualityHoldReason | string;
+}
+
+/** Two-pass engine extras for a row: its facts, the judge score, and a hold the engine decided before the write. */
+export interface WriterV2Write {
+  facts: readonly ExtractedFact[];
+  writingScore?: number;
+  holdReason?: string;
 }
 
 export async function writeCurrentItem(
@@ -187,6 +194,7 @@ export async function writeCurrentItem(
   sources: readonly ClusterSource[],
   countdownTargetAt?: string,
   imageUrl?: string,
+  v2?: WriterV2Write,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -209,7 +217,9 @@ export async function writeCurrentItem(
     detail: item.detail,
     imageUrl,
     redlineOk: screen.ok,
+    ...(v2 ? { facts: v2.facts, sources: sources.map((s) => ({ name: s.outletName, url: s.url })) } : {}),
   });
+  const held = v2?.holdReason ?? (quality.ok ? undefined : quality.reason);
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
   const row = {
     story_id: storyId,
@@ -235,17 +245,18 @@ export async function writeCurrentItem(
     heat: sources.length,
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
-    redline_ok: quality.ok,
-    quality_hold_reason: quality.ok ? null : quality.reason,
+    redline_ok: held === undefined,
+    quality_hold_reason: held ?? null,
     countdown_target_at: countdownTargetAt ?? null,
+    ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
   const id = data.id as string;
-  if (quality.ok && row.redline_ok) {
+  if (row.redline_ok) {
     await emitLaunchCategoryEvent(db, id, item);
   }
-  return { id, redlineOk: quality.ok, expiresAt: itemExpiresAt, ...(quality.ok ? {} : { holdReason: quality.reason }) };
+  return { id, redlineOk: row.redline_ok, expiresAt: itemExpiresAt, ...(held === undefined ? {} : { holdReason: held }) };
 }
 
 export interface MergeIntoOriginalInput {

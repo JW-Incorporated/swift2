@@ -80,6 +80,7 @@ function fakeDb(rawItems: unknown[]): SupabaseClient {
 describe('runExtractStage Reddit comment context', () => {
   beforeEach(() => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    vi.stubEnv('NEWS_WRITER_V2', 'off');
     mocks.abandonQuietTheories.mockReset().mockResolvedValue(0);
     mocks.createUsage.mockReset().mockResolvedValue({});
     mocks.extractWithLLM.mockReset().mockResolvedValue({ kind: 'skip', redlineFlags: [] });

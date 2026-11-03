@@ -16,11 +16,13 @@ import { reresolveHeldImages } from './held-image-pass';
 import { reresolveHeldTheoryImages } from './held-theory-image-pass';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
+import { composeV2Item, createWriterStore, hasFacts, tierFloorHold, writerV2Enabled } from './v2-stage';
 import {
   mergeNewFactsIntoOriginal,
   projectKnowledgeDoc,
   writeCurrentItem,
   type ClusterSource,
+  type WriterV2Write,
 } from './write-knowledge';
 import { writeFanSignalTheories } from './write-fan-signal-theories';
 
@@ -88,6 +90,8 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   const today = new Date().toISOString().slice(0, 10);
   const usage = await ExtractUsageStore.create(supabaseExtractUsageDb(db));
   const commentFetchState = createCommentFetchState();
+  const writerV2 = writerV2Enabled();
+  const writerUsage = writerV2 ? await createWriterStore(db) : undefined;
 
   for (const story of (pending ?? []) as PendingStory[]) {
     result.clustersConsidered += 1;
@@ -128,16 +132,23 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       if (extracted.kind === 'skip') {
         result.skipped += 1;
       } else {
-        const imageUrl = extracted.currentItem
+        let currentItem = extracted.currentItem;
+        if (writerV2 && currentItem && !hasFacts(currentItem)) {
+          currentItem = undefined;
+          result.skipped += 1;
+        }
+        const imageUrl = currentItem
           ? await resolveImageUrl(story.top_image_url, sources)
           : undefined;
         let evidenceDocId: string | undefined;
         let theoryImageUrl: string | null | undefined = imageUrl;
-        if (extracted.currentItem) {
+        if (currentItem) {
           let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
-          try {
+          const floorHold = writerV2 && hasFacts(currentItem) ? tierFloorHold(currentItem, sources) : undefined;
+          if (floorHold) decision = { action: 'publish' };
+          else try {
             const candidates = await loadDedupeCandidates(db, CURRENT_ERA_ID);
-            decision = await evaluateSameEventGate(usage, candidates, extracted.currentItem);
+            decision = await evaluateSameEventGate(usage, candidates, currentItem);
           } catch (error) {
             decision = { action: 'hold', reason: (error as Error).message };
           }
@@ -187,14 +198,26 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               );
             }
           } else {
+            let toWrite = currentItem;
+            let v2Write: WriterV2Write | undefined = floorHold;
+            if (writerV2 && writerUsage && !floorHold && hasFacts(currentItem)) {
+              ({ item: toWrite, v2: v2Write } = await composeV2Item(
+                db,
+                { writer: writerUsage, judge: usage },
+                currentItem,
+                sources,
+                CURRENT_ERA_ID,
+              ));
+            }
             const written = await writeCurrentItem(
               db,
               story.id,
               CURRENT_ERA_ID,
-              extracted.currentItem,
+              toWrite,
               sources,
               countdownTargetAt,
               imageUrl,
+              v2Write,
             );
             if (!written.redlineOk) result.screenedOut += 1;
             else {
@@ -203,12 +226,12 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               await projectKnowledgeDoc(db, {
                 id: evidenceDocId,
                 kind: 'current_item',
-                title: extracted.currentItem.headline,
-                text: `${extracted.currentItem.summary} ${extracted.currentItem.detail}`.trim(),
-                date: extracted.currentItem.observedOn,
-                recencyDate: extracted.currentItem.observedOn,
-                open: ['rumor', 'reported'].includes(extracted.currentItem.statusHint),
-                status: extracted.currentItem.statusHint,
+                title: toWrite.headline,
+                text: `${toWrite.summary} ${toWrite.detail}`.trim(),
+                date: toWrite.observedOn,
+                recencyDate: toWrite.observedOn,
+                open: ['rumor', 'reported'].includes(toWrite.statusHint),
+                status: toWrite.statusHint,
                 sourceTier: sources[0]?.tier ?? 'unverified',
                 sources: sources.map((source) => ({
                   name: source.outletName,
@@ -216,8 +239,8 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                   tier: source.tier,
                 })),
                 eraId: CURRENT_ERA_ID,
-                symbols: extracted.currentItem.symbols,
-                entities: extracted.currentItem.entities,
+                symbols: toWrite.symbols,
+                entities: toWrite.entities,
                 expiresAt: written.expiresAt,
                 redlineOk: written.redlineOk,
               });

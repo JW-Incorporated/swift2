@@ -84,7 +84,7 @@ export interface KnowledgeDataSource {
 }
 
 const CURRENT_ITEM_COLS =
-  'id,story_id,observed_on,era_id,category,tags,headline,summary,detail,status,confidence,source_tier,sources,location_level,image_url,social_post,symbols,entities,heat,promoted_to,merged_into,last_checked_on,expires_at,redline_ok,updated_at,countdown_target_at,countdown_resolved_at';
+  'id,story_id,observed_on,era_id,category,tags,headline,summary,detail,status,confidence,source_tier,sources,location_level,image_url,social_post,symbols,entities,heat,promoted_to,merged_into,last_checked_on,expires_at,redline_ok,updated_at,countdown_target_at,countdown_resolved_at,facts,writing_score';
 
 // Defensive ceiling, same intent as vault.ts's TIER0_MAX_ROWS: makes the
 // payload boundary loud rather than an implicit PostgREST truncation. A

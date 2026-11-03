@@ -85,6 +85,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
+          # Two-pass news writer (docs/decisions.md 2026-11-03). Rollback: set this to 'off'
+          # and merge; the worker then runs the legacy single-pass path exactly as before.
+          NEWS_WRITER_V2: 'on'
         run: npm run news --workspace @swift2/worker
 
       # Publish a credential-free digest of what was ingested, for the News
