@@ -59,6 +59,7 @@ describe('30-day window', () => {
       eq: () => chain,
       is: () => chain,
       gt: () => chain,
+      order: () => chain,
       gte: (_column: string, value: string) => {
         cutoff = value;
         return chain;

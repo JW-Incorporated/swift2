@@ -22,13 +22,17 @@ export interface ShortlistSubject {
   facts?: readonly Pick<ExtractedFact, 'claim'>[] | null;
 }
 
+function fold(value: string): string {
+  return value.normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase();
+}
+
 export function normalizeEntity(value: string): string {
-  return value.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+  return fold(value).replace(/['\u2019]s\b/g, '').replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
 }
 
 /** Lowercase, punctuation stripped, digits and dates kept. */
 export function normalizeClaim(value: string): string {
-  return value.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+  return fold(value).replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function claimJaccard(a: string, b: string): number {
@@ -42,10 +46,15 @@ function claimJaccard(a: string, b: string): number {
   return shared / (aTokens.size + bTokens.size - shared);
 }
 
+function digitTokens(normalized: string): string {
+  return normalized.split(' ').filter((token) => /\d/.test(token)).sort().join(' ');
+}
+
 export function sameClaim(a: string, b: string): boolean {
   const left = normalizeClaim(a);
   const right = normalizeClaim(b);
   if (!left || !right) return false;
+  if (digitTokens(left) !== digitTokens(right)) return false;
   return left === right || claimJaccard(left, right) >= FACT_JACCARD_THRESHOLD;
 }
 
@@ -80,6 +89,16 @@ export function overlapScore(a: string, b: string): number {
     if (bTokens.has(token)) shared += 1;
   }
   return shared / (aTokens.size + bTokens.size - shared);
+}
+
+export function sharedTokenCount(a: string, b: string): number {
+  const aTokens = new Set(tokenize(a).filter((token) => !STOPWORDS.has(token)));
+  const bTokens = new Set(tokenize(b).filter((token) => !STOPWORDS.has(token)));
+  let shared = 0;
+  for (const token of aTokens) {
+    if (bTokens.has(token)) shared += 1;
+  }
+  return shared;
 }
 
 export function lexicalTop<T extends { headline: string; summary: string }>(

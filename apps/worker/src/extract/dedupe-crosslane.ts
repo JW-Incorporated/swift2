@@ -1,9 +1,10 @@
 import type { DedupeCandidate } from './dedupe-gate-llm';
-import { lexicalTop } from './dedupe-shortlist';
+import { lexicalTop, sharedTokenCount } from './dedupe-shortlist';
 
 export const MOMENT_WINDOW_DAYS = 14;
 export const MAX_MOMENT_CANDIDATES = 3;
 export const MAX_VIDEO_CANDIDATES = 2;
+export const MIN_VIDEO_SHARED_TOKENS = 2;
 export const MOMENT_ID_PREFIX = 'moment:';
 export const VIDEO_ID_PREFIX = 'video:';
 
@@ -53,12 +54,13 @@ export function selectCrossLaneCandidates(
 ): CrossLaneCandidate[] {
   const moments: CrossLaneCandidate[] = (input.moments ?? [])
     .filter((moment) => moment.eraId === eraId)
-    .filter((moment) => !subject.observedOn || withinWindow(moment.date, subject.observedOn, MOMENT_WINDOW_DAYS))
+    .filter((moment) => !!subject.observedOn && withinWindow(moment.date, subject.observedOn, MOMENT_WINDOW_DAYS))
     .map((moment) => ({
       id: `${MOMENT_ID_PREFIX}${moment.id}`,
       headline: moment.title,
       summary: moment.summary ?? '',
       detail: '',
+      observedOn: moment.date,
       lane: 'moment' as const,
       refId: moment.id,
     }));
@@ -74,6 +76,11 @@ export function selectCrossLaneCandidates(
     }));
   return [
     ...lexicalTop(subject, moments, MAX_MOMENT_CANDIDATES, 0),
-    ...lexicalTop(subject, videos, MAX_VIDEO_CANDIDATES, 0),
+    ...lexicalTop(
+      subject,
+      videos.filter((video) => sharedTokenCount(`${subject.headline} ${subject.summary}`, video.headline) >= MIN_VIDEO_SHARED_TOKENS),
+      MAX_VIDEO_CANDIDATES,
+      0,
+    ),
   ];
 }

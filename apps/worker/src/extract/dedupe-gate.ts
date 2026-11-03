@@ -43,12 +43,13 @@ export async function loadDedupeCandidates(
   const nowIso = new Date().toISOString();
   const { data, error } = await db
     .from('current_item')
-    .select('id, headline, summary, detail, sources, image_url, heat, entities, facts')
+    .select('id, headline, summary, detail, sources, image_url, heat, entities, facts, observed_on')
     .eq('era_id', eraId)
     .is('promoted_to', null)
     .is('merged_into', null)
     .gte('observed_on', cutoff)
     .gt('expires_at', nowIso)
+    .order('observed_on', { ascending: false })
     .limit(200);
   if (error) throw new Error(`loadDedupeCandidates failed: ${error.message}`);
   return (data ?? []).map((row) => ({
@@ -59,6 +60,7 @@ export async function loadDedupeCandidates(
     sources: ((row.sources as unknown[]) ?? []).map((source) => source as ClusterSource),
     imageUrl: (row.image_url as string | null) ?? null,
     heat: (row.heat as number) ?? 0,
+    observedOn: (row.observed_on as string | null) ?? null,
     entities: (row.entities as string[] | null) ?? [],
     facts: (row.facts as ExtractedFact[] | null) ?? null,
   }));
@@ -139,6 +141,7 @@ export async function evaluateSameEventGate(
 
   const lane = crossLane.find((candidate) => candidate.id === gateResult.matchId);
   if (lane?.lane === 'moment') {
+    if (gateResult.addsNewInfo) return { action: 'publish' };
     return {
       action: 'discard',
       candidateId: lane.id,
@@ -154,6 +157,11 @@ export async function evaluateSameEventGate(
 
   const original = candidates.find((candidate) => candidate.id === gateResult.matchId);
   if (!original) return { action: 'discard', candidateId: gateResult.matchId };
+
+  if (original.facts?.length && !newItem.facts?.length) {
+    console.warn(`dedupe: legacy_item_vs_v2_original for candidate ${original.id}`);
+    return { action: 'discard', candidateId: original.id, reason: 'legacy_item_vs_v2_original' };
+  }
 
   if (original.facts?.length && newItem.facts?.length) {
     const merged = mergeFactLists(original.facts, newItem.facts, original.sources, options.newItemSources ?? []);
