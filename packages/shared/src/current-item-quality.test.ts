@@ -195,3 +195,34 @@ describe('evaluateImageUrl / liveTheoryHasValidImage (live_theory media gate)', 
     expect(liveTheoryHasValidImage({ imageUrl: 'https://www.people.com/photo.jpg' })).toBe(true);
   });
 });
+
+describe('two-pass (v2) rows: writing checks apply only when facts are present', () => {
+  const LEAD =
+    'Taylor stepped into a quiet Nashville recording room this week, and the photos that followed have fans wondering what the next chapter of The Life of a Showgirl might sound like. The visit was brief, but the timing lands in a stretch of careful silence.';
+  const BODY =
+    'The photos show Taylor outside Blackbird Studio in Nashville on Tuesday afternoon. She arrived with a small group and left roughly three hours later. Neither her team nor the studio has said what the session was for. Blackbird has hosted sessions for artists across country and pop for decades. Fans noticed the visit within hours and began comparing it with earlier studio sightings. Last autumn the album rollout began with a similarly quiet stretch of studio rumors. That history is why one afternoon outside a recording room now draws such attention. For now the only detail anyone can confirm is the location and the day. Everything about the purpose stays open until Taylor or her representatives say otherwise. Watch her official channels over the coming days, since announcements for this era have usually landed with very little warning, often on a weekday morning.';
+  const facts = [{ id: 'f1', claim: 'Taylor was photographed outside Blackbird Studio.', attribution: 'People', confidence: 'reported' }];
+  const hedged = BODY.replace('Tuesday afternoon.', 'Tuesday afternoon, reportedly, according to one account, allegedly.');
+
+  it('passes a clean v2 row', () => {
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: BODY, facts }))).toEqual({ ok: true });
+  });
+
+  it('holds a v2 row whose copy fails a writing check', () => {
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: hedged, facts }))).toEqual({
+      ok: false,
+      reason: 'writing_quality',
+    });
+  });
+
+  it('keeps the same text on a legacy row (facts null or absent) servable', () => {
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: hedged, facts: null })).ok).toBe(true);
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: hedged })).ok).toBe(true);
+  });
+
+  it('raises the detail floor to 120 words for v2 rows only', () => {
+    const mid = Array(90).fill('word').join(' ');
+    expect(evaluateCurrentItemQuality(baseItem({ detail: mid })).ok).toBe(true);
+    expect(evaluateCurrentItemQuality(baseItem({ detail: mid, facts }))).toEqual({ ok: false, reason: 'detail_too_short' });
+  });
+});

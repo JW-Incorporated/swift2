@@ -3,8 +3,9 @@
 // haiku-client.ts (callWorkerClaude, forced tool output): expected "no key" /
 // "cap hit" states come back as a deferred result, never a throw, so the
 // caller can hold the item with quality_hold_reason 'writer_deferred'; a
-// genuine API failure throws. Not wired into the live pipeline yet (slice 4).
+// genuine API failure throws.
 
+import { splitSentences } from '@swift2/shared';
 import { WRITER_SYSTEM_PROMPT, WRITE_POST_TOOL } from './writer-prompt';
 import type { ContextPack } from './context-pack';
 import type { ExtractedFact } from './types';
@@ -47,21 +48,15 @@ export type WriterResult =
   | { status: 'deferred'; reason: string }
   | { status: 'invalid'; reasons: string[] };
 
-// TODO(slice 4): replace with splitSentences from @swift2/shared (PR #6563 owns the canonical splitter).
-/** Body sentences in order across paragraphs; the prompt tells the model they are numbered by the site splitter. */
-export function splitBodySentences(body: string): string[] {
-  return body
-    .split(/(?<=[.!?]["'”)]?)\s+/)
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
-}
-
 /** Untrusted text may not close or reopen the data fences. */
 function stripFences(text: string): string {
   return text.replace(/<\/?(?:facts|context)>/gi, '');
 }
 
-function buildUserMessage(input: WriterInput): string {
+/** The exact system message sent to the writer model. */
+export const WRITER_SYSTEM_MESSAGE = `${WRITER_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`;
+
+export function buildUserMessage(input: WriterInput): string {
   const lines = [
     `HEADLINE: ${input.headline}`,
     `STATUS: ${input.statusHint}`,
@@ -105,7 +100,7 @@ export function validateDraft(
   if (body && wordCount < BODY_MIN_WORDS) reasons.push(`body_too_short: body is ${wordCount} words; the minimum is ${BODY_MIN_WORDS}`);
   if (wordCount > BODY_MAX_WORDS) reasons.push(`body is ${wordCount} words; the maximum is ${BODY_MAX_WORDS}`);
 
-  const sentenceCount = body ? splitBodySentences(body).length : 0;
+  const sentenceCount = body ? splitSentences(body).length : 0;
   const covered = new Set<number>();
   const citations: WriterCitation[] = [];
   if (!Array.isArray(p.citations)) {
@@ -135,7 +130,7 @@ async function attempt(input: WriterInput, claude: WorkerClaudeCaller): Promise<
     caller: 'news-worker-writer',
     priority: 'P1',
     model: MODEL,
-    system: `${WRITER_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`,
+    system: WRITER_SYSTEM_MESSAGE,
     user: buildUserMessage(input),
     schema: WRITE_POST_TOOL.input_schema,
   });
