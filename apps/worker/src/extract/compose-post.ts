@@ -27,6 +27,7 @@ export interface ComposeTrace {
   paragraphs?: WriterParagraph[];
   gateReasons?: string[];
   judgeScores?: Record<JudgeDimension, number>;
+  judgeReasons?: Record<JudgeDimension, string>;
   rewrites: number;
 }
 
@@ -67,17 +68,18 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
     let failure: { hold: string; reasons: string[] } | undefined;
     if (written.status === 'invalid') {
       const { lead, body, citations, paragraphs } = written.attempt ?? {};
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined, judgeReasons: undefined });
       failure = { hold: 'writing_quality:invalid_draft', reasons: written.reasons };
     } else {
       const { lead, body, citations, paragraphs } = written.draft;
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined, judgeReasons: undefined });
       const gate = evaluateCurrentItemWriting({
         headline: input.headline,
         lead,
         body,
         sources,
         factAttributions,
+        factClaims: input.facts.map((f) => f.claim),
         sentenceRefs: paragraphs.flatMap((p) => p.sentences.map((sentence) => sentence.refs)),
       });
       if (!gate.ok) {
@@ -95,6 +97,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         });
         if (verdict.status === 'deferred') return { status: 'hold', reason: 'judge_deferred', trace };
         trace.judgeScores = verdict.scores;
+        trace.judgeReasons = verdict.reasons;
         if (verdict.pass) return { status: 'ok', lead, body, writingScore: verdict.writingScore, trace };
         const lowest = lowestDimension(verdict.scores);
         failure = {
