@@ -27,6 +27,14 @@ so far".
 
 Stories: 71
 
+## Taylor Swift Considers Hiring Private Investigators Due to Leaked Photos
+
+- first seen: 2026-11-03 05:51 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports indicate that Taylor Swift is mulling over the idea of hiring private investigators following concerns about leaked wedding photos that have left her feeling unsettled.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-considering-hiring-040000753.html
+
 ## Taylor Swift's Oscar Voter Meeting Filmed, Travis Kelce Absent
 
 - first seen: 2026-11-03 03:52 UTC | category: business | importance: 5
@@ -62,10 +70,10 @@ Stories: 71
 ## Taylor Swift Talks About Impersonating Comedy Character with BFF Abigail
 
 - first seen: 2026-11-03 00:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: single_source | source_count: 1
 - summary: In a recent interview, Taylor Swift shared that she and her best friend Abigail enjoy impersonating a quirky character from a cult comedy. This fun revelation highlights their shared interests and playful dynamic.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-says-she-her-223140221.html
+  - [established] Harper's Bazaar — https://www.harpersbazaar.com/celebrity/latest/a74315568/taylor-swift-bff-abigail-anderson-impersonate-napoleon-dynamite-toy-story-5-panel/
 
 ## Update on Taylor Swift and Travis Kelce's Relationship Following Wedding Leak
 
@@ -608,11 +616,3 @@ Stories: 71
 - summary: Nelly has stated that Taylor Swift paid him $50,000 in a McDonald's bag for a brief three-minute performance. This claim was reported in a Yahoo article.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-says-taylor-swift-paid-023049596.html
-
-## Tim McGraw Discusses Marriage Insights in Esquire
-
-- first seen: 2026-10-31 05:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tim McGraw shares his thoughts on maintaining a successful marriage in a recent interview with Esquire. His perspective offers insights into the dynamics of partnerships.
-- sources:
-  - [unverified] Esquire — https://www.esquire.com/entertainment/music/a74272205/tim-mcgraw-what-ive-learned-interview-2026/
