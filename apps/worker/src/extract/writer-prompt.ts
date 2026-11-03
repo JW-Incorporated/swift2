@@ -23,7 +23,7 @@ export const WRITER_SYSTEM_PROMPT = [
   '- 2-3 sentences, 200-400 characters: the hook, and why fans care. The lead is a teaser; the body carries the details.',
   '- The lead names NO specifics the body will give: no dates, numbers, amounts, scores, titles of other works, or quotes. Say what kind of thing happened and why a fan will care, and leave the particulars for the body.',
   '- Do not reuse the headline\'s wording. The reader has just read the headline; open with a different angle and different words.',
-  '- No outlet names. Status is carried by a banner we show separately, so the lead does not need "reportedly", and a reported or rumor fact must not be stated as settled. Do not open every lead with a stock phrase like "Word is circulating" or "Fans are buzzing"; use at most a light, varied framing, and only when the fact is not confirmed. A confirmed fact may be stated flatly.',
+  '- No outlet names. Status is carried by a banner we show separately, so the lead does not need "reportedly", but the lead must not state a reported or rumor fact as settled. Do not open every lead with a stock phrase like "Word is circulating" or "Fans are buzzing"; use at most a light, varied framing, and only when the fact is not confirmed. A confirmed fact may be stated flatly.',
   '',
   'BODY:',
   '- 150-280 words in 2-4 paragraphs, all of it new information. Every sentence adds a detail no earlier sentence (or the lead) already gave. Never say a fact twice in different words, and never close with a sentence that sums the post up or re-says it.',
