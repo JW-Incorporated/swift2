@@ -7,6 +7,65 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-03 — News post quality engine: two-pass writer, writing gate, 30-day dedupe, daily text cap, snapshot backfill (owner-ordered; architect consult)
+
+**Owner asks (chat, 2026-11-03).** News posts read as flat summaries with no fan voice or context, are too short, and repeat the headline and lead in the body. They also have no image inside the post and show bare link icons. "We must ensure the quality of our posts remains high, and the balance of text to video stays solid." Fix every existing post and the engine. Video-first answers: Q1 demote news, plus a pinned "This week's news" section (rolling 7 days) at the top of the feed that replaces the egg doorway card. Q2 yes, Q3 yes, Q4 no, Q5 nypost.com images yes.
+
+**Decision.**
+1. **Two-pass writer.**
+   - Pass A (Haiku, `apps/worker/src/extract/prompt.ts`) stops writing prose. It emits a `facts` list (`claim`, `attribution`, `confidence`, at most 8) plus a headline, category and status hint. The facts go into a new nullable `current_item.facts jsonb`.
+   - Pass B (`claude-sonnet-5-5`, through the same subscription `callWorkerClaude`) writes the copy from the facts plus a small vault context pack: era summary, up to 5 related era moments, and up to 3 related current items from the last 30 days. It produces:
+     - `summary`, now the lead: 2-3 sentences, 200-400 characters, the hook and why it matters, no outlet names.
+     - `detail`, now the body: 150-280 words covering what happened, the context or era tie-in, and what to watch.
+   - Every body sentence cites a fact or a context item. The writer never sees article text.
+   - Columns are kept and only their roles change. The body floor goes from 60 to 120 words.
+2. **Rejection.**
+   - A deterministic "worth a post" floor comes before pass B. A post needs one of: an official or established source; at least 2 distinct hosts; or a confirmed release, tour or appearance. Otherwise it is held as `below_tier_floor`.
+   - Deterministic writing checks run inside `evaluateCurrentItemQuality`:
+     - hedge words: at most 2 in the body, none in the lead;
+     - lead/body 4-gram overlap below 0.25;
+     - headline/lead overlap below 0.7;
+     - the voice doc's AI-tell list;
+     - each outlet named at most once;
+     - substance;
+     - full citations.
+   - A Haiku rubric judge then scores voice, context, grounding and non-repetition, each 1-5, and requires 4 or more on all of them.
+   - Failure triggers one rewrite with the reasons, then a hold (`writing_quality:<reason>`). Nothing gets a third call.
+   - A deferred writer means hold. Pass-A text never ships.
+3. **Duplicates.**
+   - The same-event window goes from 7 to 30 days.
+   - The shortlist becomes lexical top-5, plus rows sharing at least 2 entities, plus rows sharing a normalized fact.
+   - Vault moments within ±14 days and videos join the gate as read-only candidates.
+   - Merges stop rewriting prose: they append facts and re-run pass B, which ends the "same facts twice" shape.
+4. **Balance.** A worker-side cap of 6 image+text items per day for the current era, measured by `writing_score`, with the rest held as `daily_text_cap`. In the feed, news lives in the pinned 7-day section and leaves the main stream. `check:media-mix` becomes a CI floor of 15% video on `supabase/seed/content/**` PRs, with tloas exempt until video supply lands.
+5. **Backfill.**
+   - `backfill.ts` gains `mode: 'force'`. Before any write it snapshots the old copy into a new append-only `current_item_copy_snapshot` table, with a restore script.
+   - A dry-run artifact (old versus new) is reviewed on a 20-row sample before the live run. At the writer cap this takes 2 nightly runs.
+   - Rows that fail the floor, or are now duplicates, are held or merged, never deleted.
+   - Rows older than 10 days are left alone.
+6. **Model budgets (cost model).**
+   - Haiku extract: unchanged at 150 per run and 600 per day.
+   - Writer (Sonnet): 60 per run and 200 per day, at most 2 calls per published item (write plus one rewrite).
+   - Judge (Haiku): one call per candidate.
+   - Everything runs on the owner's Claude subscription token, which is rate-window bound and not metered. All of it is worker-side and never in a request path. Exhausting a budget holds the item and never ships weaker text.
+7. **Local compute (Qwen)** is used for the migration, regex and test tables, the cap plumbing and an offline eval harness. It is never used for production copy, judge verdicts or backfill writes.
+
+**Why.** The defect is structural: one call writes three fields from one input, nothing checks repetition or voice, and the floors are length-only. A facts list makes grounding and repetition checks mechanical. Snapshotting makes the backfill reversible.
+
+**Alternatives.**
+- A bigger single-pass prompt on Sonnet: it fixes voice but not repetition, and it can't be audited.
+- New `lead`/`body` columns: these touch five areas of code and are expensive to reverse.
+- Embeddings for dedupe: a new dependency, and facts plus entities cover it.
+
+**Reversal.**
+- Schema changes are additive.
+- Prompts and gates revert by commit.
+- Rewritten copy restores from `current_item_copy_snapshot`.
+
+Approved by: Joey (direction, 2026-11-03 chat). Design: architect (Fable) consult, logged in STATE.md.
+
+---
+
 ## 2026-10-21 — Tree daily: deterministic self-approve backstop + max_turns 75
 
 **Decision.** `routine-tree-daily-draft.yml` raises `max_turns` 50 to 75 and gains an `approve-backstop` job (`if: ${{ !cancelled() }}` after `run`, so a manual cancel never dispatches approval; read-only job permissions, the dispatch uses the PAT) that finds today's open `tree/draft/<UTC date>` PR (label `tree`, Tree-identity author), skips if it has no `social/queue/*.json` or a `social-tree-approve` run already started since the PR opened (within 2h), and otherwise dispatches `social-tree-approve.yml --ref main -f pr=<n>` with `SOCIAL_POSTER_PAT` (the same token and `sffan15-sys` identity as the agent's `GH_DISPATCH_TOKEN`). Every gate in the approve workflow is unchanged (dispatcher/author identity, file allowlist, check-drafts, 48h `scheduledAt`, `SOCIAL_FREEZE`); only who triggers it changes. The prompt's step 7 still tells the agent to dispatch it itself.
