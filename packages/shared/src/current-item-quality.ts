@@ -13,9 +13,9 @@
 // `CURRENT_ITEM_QUALITY_THRESHOLDS` constant below (the card's "tune numbers
 // in one exported constant" instruction) — change the bar in one place.
 
-import { evaluateCurrentItemWriting } from './current-item-writing';
-import { IMAGE_HOST_ALLOWLIST, SCOPED_IMAGE_HOST_ALLOWLIST } from './current-item-image-hosts';
-export { IMAGE_HOST_ALLOWLIST, SCOPED_IMAGE_HOST_ALLOWLIST, type ScopedImageHost } from './current-item-image-hosts';
+import { evaluateCurrentItemWriting } from './current-item-writing.ts';
+import { IMAGE_HOST_ALLOWLIST, SCOPED_IMAGE_HOST_ALLOWLIST } from './current-item-image-hosts.ts';
+export { IMAGE_HOST_ALLOWLIST, SCOPED_IMAGE_HOST_ALLOWLIST, type ScopedImageHost } from './current-item-image-hosts.ts';
 
 
 /** Every tunable number/word-floor this gate checks — change the bar in
