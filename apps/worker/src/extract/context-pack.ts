@@ -1,9 +1,5 @@
 // Pass B context pack: a small, deterministic, character-capped bundle of
 // vault context the writer may draw on and cite (ids c1, c2, ...).
-//
-// TODO(slice 4): the worker has no loader for era moments or prior current
-// items today (supabase/seed/content is not read at runtime here). The caller
-// that wires pass B must load them and pass them in — this module stays pure.
 
 export const CONTEXT_PACK_MAX_CHARS = 6_000;
 export const MAX_CONTEXT_MOMENTS = 5;
