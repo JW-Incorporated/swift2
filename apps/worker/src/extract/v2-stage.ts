@@ -4,7 +4,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { composePost, type ComposeTrace } from './compose-post';
-import { buildContextPack } from './context-pack';
+import { buildContextPack, type ContextPack } from './context-pack';
 import { loadEraContext, loadPriorItems } from './context-loader';
 import type { ExtractedCurrentItem, ExtractedFact } from './types';
 import {
@@ -56,7 +56,7 @@ export async function composeV2Item(
   item: V2Item,
   sources: readonly ClusterSource[],
   eraId: string,
-): Promise<{ item: ExtractedCurrentItem; v2: WriterV2Write; trace: ComposeTrace; contextIds: string[] }> {
+): Promise<{ item: ExtractedCurrentItem; v2: WriterV2Write; trace: ComposeTrace; contextIds: string[]; context: ContextPack }> {
   const era = await loadEraContext(eraId);
   const context = buildContextPack({
     eraName: era.eraName,
@@ -75,13 +75,14 @@ export async function composeV2Item(
   });
   const contextIds = context.items.map((i) => i.id);
   if (composed.status === 'hold') {
-    return { item, v2: { facts: item.facts, holdReason: composed.reason }, trace: composed.trace, contextIds };
+    return { item, v2: { facts: item.facts, holdReason: composed.reason }, trace: composed.trace, contextIds, context };
   }
   return {
     item: { ...item, summary: composed.lead, detail: composed.body },
     v2: { facts: item.facts, writingScore: composed.writingScore },
     trace: composed.trace,
     contextIds,
+    context,
   };
 }
 

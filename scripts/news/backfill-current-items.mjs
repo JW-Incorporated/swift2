@@ -21,11 +21,14 @@
 // unset means every thin item's rewrite step defers (reported, not an error),
 // same as the live extract stage's own missing-subscription posture.
 //
-// DRY RUN NEVER WRITES: every row is still resolved/rewritten/re-screened
+// DRY RUN NEVER WRITES current_item (or snapshot) rows, though LLM budget rows in usage_daily are incremented: every row is still resolved/rewritten/re-screened
 // for real (so the printed report reflects the real would-be outcome, not
 // a guess) — `runBackfill`'s `dryRun: true` only skips the final
 // `current_item` update.
 
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { parseLimit } from './backfill-args.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { runBackfill } from '../../apps/worker/src/extract/backfill-run.ts';
@@ -59,8 +62,29 @@ async function main() {
     return 0;
   }
 
-  console.log(`backfill-current-items: starting (${dryRun ? 'DRY RUN — no writes' : 'LIVE — writing back'})`);
-  const result = await runBackfill(db, { dryRun });
+  console.log(`backfill-current-items: starting (${dryRun ? 'DRY RUN — no current_item or snapshot writes; LLM budget counters still increment' : 'LIVE — writing back'})`);
+  const mode = process.env.BACKFILL_MODE === 'force' ? 'force' : 'floors';
+  let limit;
+  try {
+    limit = parseLimit(process.env.BACKFILL_LIMIT);
+  } catch (err) {
+    console.error(`backfill-current-items: ${err.message}`);
+    return 1;
+  }
+  const result = await runBackfill(db, {
+    dryRun,
+    mode,
+    ...(limit > 0 ? { limit } : {}),
+    ...(mode === 'force' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),
+  });
+  if (result.force) {
+    const f = result.force;
+    console.log(
+      `backfill-current-items: force mode — ${f.eligible} eligible, ${f.processed} processed, ${f.passed} pass, ` +
+        `${f.held} held (copy untouched), ${f.skippedWriteFailures} write failure(s), ` +
+        `${f.deferred ? `deferred with ${f.remaining} remaining (re-run continues)` : 'not deferred'}.`,
+    );
+  }
 
   console.log('');
   console.log('Per-item report:');
