@@ -51,6 +51,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
   let rewriteReasons: string[] | undefined;
   const trace: ComposeTrace = { rewrites: 0 };
   const sources = input.sources.map((s) => ({ name: s.outletName, url: s.url }));
+  const factAttributions = [...new Set(input.facts.map((f) => f.attribution.trim()).filter(Boolean))];
   const factLines = input.facts.map((f) => `[${f.id}] ${f.claim} (${f.attribution}, ${f.confidence})`);
 
   for (;;) {
@@ -76,6 +77,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         lead,
         body,
         sources,
+        factAttributions,
         sentenceRefs: paragraphs.flatMap((p) => p.sentences.map((sentence) => sentence.refs)),
       });
       if (!gate.ok) {
@@ -87,6 +89,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
           lead,
           body,
           facts: factLines,
+          attributions: factAttributions,
           context: input.context.text,
           citations: paragraphs.flatMap((p) => p.sentences),
         });
