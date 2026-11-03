@@ -6,7 +6,7 @@ import { THEORIES_RAW } from './theories.generated';
 
 const forEra = (eraId: string) => THEORIES_RAW[eraId as keyof typeof THEORIES_RAW] ?? [];
 
-const NOW = new Date('2026-08-31T12:00:00Z');
+const NOW = new Date('2026-11-02T12:00:00Z');
 
 describe('currentTheories — column 1', () => {
   it('never pads: fewer than 10 in the corpus means fewer than 10 returned', () => {
@@ -94,6 +94,7 @@ describe('currentTheories — column 1', () => {
     expect(currentTheories(NOW, forEra, LORE).map((i) => i.id)).toEqual([
       'theory:tloas:showgirl-esb-green-ts-debut-era',
       'theory:tloas:showgirl-spotify-canvas-color-swap',
+      'lore:iki-oscar-campaign',
       'lore:writing-new-music-post-wedding',
       'lore:ts13-lilac-cipher',
       'lore:green-ts-next-era',
@@ -101,7 +102,6 @@ describe('currentTheories — column 1', () => {
       'theory:ttpd:cassandra-reputation-callback',
       'theory:ttpd:ttpd-quill-fountain-pen-era',
       'lore:rep-tv-debut-tv',
-      'theory:midnights:karma-lost-album',
     ]);
   });
 
