@@ -35,7 +35,14 @@ describe('the committed social/strategy-params.json', () => {
 
   it('loads to the same thresholds the checker hard-coded before S2 (plus card)', () => {
     const p = loadStrategyParams(ROOT);
-    expect(p.openers).toEqual({ wordWindow: 6, postedLookbackDays: 14, bannedOpeners: ['did you know'] });
+    expect(p.openers).toEqual({
+      wordWindow: 6,
+      postedLookbackDays: 14,
+      bannedOpeners: [
+        'did you know', 'fun fact', "here's a fact", 'ever wonder', "let's talk about", 'imagine', 'picture this',
+        'in a world', 'buckle up', 'spoiler', 'psa', 'story time', 'a thread', 'we need to talk about', 'okay', 'ok',
+      ],
+    });
     expect(p.photoReuse.igHistoryWindow).toBe(10);
     expect(p.pairing.simultaneousWindowMinutes).toBe(5);
     expect(p.crossPost).toEqual({ similarityThreshold: 0.8, pairedLookingFloor: 0.15 });
