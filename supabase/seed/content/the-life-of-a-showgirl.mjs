@@ -17171,7 +17171,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."\n\nThe morning was also an awards play. It was a for-your-consideration screening at Disney\'s New York offices, and most of the room were guild members and Critics Choice voters. The Q&A with Stanton ran about half an hour, covering the song and her long history with the franchise. She told the room that when Stanton first approached her, months earlier, she wasn\'t sure she had the time because of the Eras Tour. Afterwards she stayed to meet everyone there, more than 200 people, for autographs and selfies. "I Knew It, I Knew You" is in the running for her first Oscar nomination. She is not a nominee yet; the Academy\'s Original Song shortlist comes out Dec. 15.',
+          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. She came in all black: a fitted three-quarter-sleeve top, a knee-length leather pencil skirt and pointed-toe pumps. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with." What the film got right, she said, was "finding someone who is the same genre of weird and silly as you are."\n\nThe morning was also an awards play. It was a for-your-consideration screening at Disney\'s New York offices, and most of the room were guild members and Critics Choice voters. The Q&A with Stanton ran about half an hour, covering the song and her long history with the franchise. She told the room that when Stanton first approached her, months earlier, she wasn\'t sure she had the time because of the Eras Tour. Afterwards she stayed to meet everyone there, more than 200 people, for autographs and selfies. "I Knew It, I Knew You" is in the running for her first Oscar nomination. She is not a nominee yet; the Academy\'s Original Song shortlist comes out Dec. 15.',
         sources: [
           {
             outlet: 'The Tennessean (via Yahoo Entertainment)',
@@ -17216,6 +17216,17 @@ export default {
             reliability_score: 3,
             notes:
               'By Roger Friedman, Nov. 1, 2026; loaded directly. Independently confirms the all-guild screening and the Oscar-campaign framing. Street-level venue detail deliberately not carried (location redline).',
+          },
+          {
+            outlet: 'Elle',
+            url: 'https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/',
+            source_title: 'Taylor Swift Shows Why the Leather Pencil Skirt Is a Fall Staple With Her Latest Look',
+            publisher: 'Elle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-03',
+            reliability_score: 4,
+            notes:
+              'By Ecleen Luzmila Caraballo, Nov. 1, 2026; loaded directly (browser UA). Primary for the outfit and the "same genre of weird and silly" quote. Intake #6588. People and InStyle (also filed) were access-blocked and are not cited.',
           },
           {
             outlet: 'Taylor Swift (YouTube)',
