@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 68
+
+## Taylor Swift Discusses Unique Quirk of Husband Travis Kelce
+
+- first seen: 2026-11-03 14:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares a quirky aspect of her marriage, mentioning a 'weird' quirk that her husband, Travis Kelce, has to adjust to.
+- sources:
+  - [unverified] 93.7 KRQ — https://krq.iheart.com/content/2026-11-02-taylor-swift-reveals-weird-quirk-that-husband-travis-kelce-has-to-put-up-with/
 
 ## Taylor Swift Donates 'Wildest Dreams' Video Proceeds to Conservation
 
@@ -582,28 +590,3 @@ Stories: 70
 - summary: Taylor Swift was recently inducted into the Hall of Fame, showcasing a stunning $2.4 million diamond necklace during the event. This appearance highlights her continued prominence in both music and fashion.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-celebrates-hall-fame-115000451.html
-
-## Travis Kelce Addresses Prince William's Selfie Comment
-
-- first seen: 2026-10-31 13:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has responded to comments made by Prince William regarding a selfie featuring Taylor Swift. The interaction highlights the mix of sports and celebrity culture surrounding Swift.
-- sources:
-  - [unverified] PureWow — https://www.purewow.com/news/travis-kelce-responds-prince-william-graham-norton-show-taylor-swfit-selfie
-
-## Celebrities Suggest Sport-Themed Halloween Costume Ideas
-
-- first seen: 2026-10-31 13:57 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Various sports stars and celebrities have come together to share their ideas for Halloween costumes inspired by sports. The suggestions aim to inspire fans and attendees of an upcoming sport-themed Halloween party.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/sport/videos/ckgelp588j1xo?at_medium=RSS&at_campaign=rss
-
-## Bill Maher Compares Trump in Ongoing Feud to Taylor Swift
-
-- first seen: 2026-10-31 13:57 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Bill Maher has drawn a comparison between Trump and Taylor Swift as his feud with the former president intensifies. The comments highlight the ongoing cultural discussions surrounding both figures.
-- sources:
-  - [unverified] New York Post — https://nypost.com/2026/10/31/us-news/bill-maher-says-dining-with-trump-is-like-dating-taylor-swift/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/bill-maher-feud-trump-escalates-134008685.html
