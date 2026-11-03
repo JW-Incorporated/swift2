@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
 
 ## Taylor Swift and Travis Kelce's Marriage Has Unexpected Aspects
 
@@ -656,11 +656,3 @@ Stories: 77
 - summary: Her Campus presents a ranking of Taylor Swift's music throughout her 20-year career, evaluating 12 albums. The analysis showcases the evolution of her sound and artistry over the years.
 - sources:
   - [unverified] Her Campus — https://www.hercampus.com/school/sbu/taylor-swift-20-years-of-music-ranked-in-12-albums/
-
-## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Home Plans
-
-- first seen: 2026-10-31 00:27 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing increased backlash regarding their proposed plans for a home in Ohio. The reaction has garnered attention in public discussions.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-growing-backlash-over-plans-ohio-home
