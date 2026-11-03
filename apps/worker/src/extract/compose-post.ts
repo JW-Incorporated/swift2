@@ -17,6 +17,8 @@ export interface ComposeInput {
   facts: readonly ExtractedFact[];
   context: ContextPack;
   sources: readonly { outletName: string; url: string }[];
+  /** Tuning harness only: override the writer model. */
+  writerModel?: string;
 }
 
 /** What the last attempt produced, for the shadow-mode report. */
@@ -40,6 +42,8 @@ export interface ComposeDeps {
   judge: ExtractUsageStore;
   write?: typeof writePost;
   judgeFn?: typeof judgeWriting;
+  /** Tuning harness only: judge a supplied draft once, no rewrite. */
+  noRewrite?: boolean;
 }
 
 function lowestDimension(scores: Record<JudgeDimension, number>): JudgeDimension {
@@ -61,6 +65,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
       statusHint: input.statusHint,
       facts: input.facts,
       context: input.context,
+      ...(input.writerModel ? { model: input.writerModel } : {}),
       ...(rewriteReasons ? { rewriteReasons } : {}),
     });
     if (written.status === 'deferred') return { status: 'hold', reason: 'writer_deferred', trace };
@@ -109,7 +114,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
       }
     }
 
-    if (rewriteReasons) return { status: 'hold', reason: failure.hold, trace };
+    if (rewriteReasons || deps.noRewrite) return { status: 'hold', reason: failure.hold, trace };
     rewriteReasons = failure.reasons;
     trace.rewrites = 1;
   }

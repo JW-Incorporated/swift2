@@ -23,6 +23,14 @@ on:
         description: 'Optional branch to check out (default: the dispatch ref)'
         type: string
         default: ''
+      writer_model:
+        description: 'Optional writer model override (claude-sonnet-5-5 or claude-opus-5-5; empty = default)'
+        type: string
+        default: ''
+      judge_only_file:
+        description: 'Optional repo-relative drafts.jsonl: skip the writer and judge these drafts (lines: {kitId, lead, paragraphs})'
+        type: string
+        default: ''
 
 permissions:
   actions: read
@@ -42,7 +50,17 @@ jobs:
           INPUT_KIT_RUN_ID: ${{ inputs.kit_run_id }}
           INPUT_N: ${{ inputs.n }}
           INPUT_CODE_REF: ${{ inputs.code_ref }}
+          INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
+          INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
         run: |
+          if ! [[ "$INPUT_WRITER_MODEL" =~ ^[a-z0-9.-]*$ ]]; then
+            echo "::error::writer_model must match ^[a-z0-9.-]*$, got '$INPUT_WRITER_MODEL'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_JUDGE_ONLY_FILE" =~ ^[A-Za-z0-9._/-]*$ ]] || [[ "$INPUT_JUDGE_ONLY_FILE" == /* ]] || [[ "$INPUT_JUDGE_ONLY_FILE" == *..* ]]; then
+            echo "::error::judge_only_file must be a repo-relative path matching ^[A-Za-z0-9._/-]*$ without '..', got '$INPUT_JUDGE_ONLY_FILE'"
+            exit 1
+          fi
           if ! [[ "$INPUT_KIT_RUN_ID" =~ ^[0-9]+$ ]]; then
             echo "::error::kit_run_id must be a numeric run id, got '$INPUT_KIT_RUN_ID'"
             exit 1
@@ -94,11 +112,15 @@ jobs:
           KIT_DIR: ${{ runner.temp }}/kit
           OUT_DIR: ${{ runner.temp }}/writer-tune
           INPUT_N: ${{ inputs.n }}
+          INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
+          INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
         run: |
           set -o pipefail
-          N_ARG=""
-          if [ -n "$INPUT_N" ]; then N_ARG="--n $INPUT_N"; fi
-          npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_DIR/writer-eval-kit.jsonl" "$OUT_DIR" --concurrency 2 $N_ARG | tee "$RUNNER_TEMP/summary.md"
+          EXTRA=()
+          if [ -n "$INPUT_N" ]; then EXTRA+=(--n "$INPUT_N"); fi
+          if [ -n "$INPUT_WRITER_MODEL" ]; then EXTRA+=(--writer-model "$INPUT_WRITER_MODEL"); fi
+          if [ -n "$INPUT_JUDGE_ONLY_FILE" ]; then EXTRA+=(--judge-only "$GITHUB_WORKSPACE/$INPUT_JUDGE_ONLY_FILE"); fi
+          npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_DIR/writer-eval-kit.jsonl" "$OUT_DIR" --concurrency 2 "${EXTRA[@]}" | tee "$RUNNER_TEMP/summary.md"
           { echo '## Writer tuning'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
 
       # The repo is PUBLIC: this holds only public news text and model output, no secrets.
