@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ExtractUsageStore, type UsageDb } from './usage-store';
+import { ExtractUsageStore, WRITER_DAILY_CAP, WRITER_PER_RUN_CAP, type UsageDb } from './usage-store';
 
 function fakeDb(initialCount: number, opts: { throws?: boolean } = {}): UsageDb & { incrementCalls: number } {
   let count = initialCount;
@@ -39,6 +39,16 @@ describe('ExtractUsageStore', () => {
     expect(await store.reserve()).toBe(true);
     expect(await store.reserve()).toBe(true);
     expect(await store.reserve()).toBe(false);
+  });
+
+  it('the writer budget is 60 per run and 200 per day', async () => {
+    expect([WRITER_PER_RUN_CAP, WRITER_DAILY_CAP]).toEqual([60, 200]);
+    const perRun = await ExtractUsageStore.create(fakeDb(0), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP);
+    for (let i = 0; i < 60; i++) expect(await perRun.reserve()).toBe(true);
+    expect(await perRun.reserve()).toBe(false);
+    const daily = await ExtractUsageStore.create(fakeDb(199), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP);
+    expect(await daily.reserve()).toBe(true);
+    expect(await daily.reserve()).toBe(false);
   });
 
   it('cumulative daily cap holds across separate process runs (re-create from the same db)', async () => {

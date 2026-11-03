@@ -9,6 +9,7 @@ export * from './youtube';
 export * from './current-types';
 export * from './current-item-quality';
 export * from './outlet-label';
+export * from './current-item-writing';
 export * from './notifications-types';
 export * from './device-registration';
 export * from './notification-deep-links';
