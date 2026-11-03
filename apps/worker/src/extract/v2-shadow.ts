@@ -33,6 +33,7 @@ export async function runShadow(
       lead: trace.lead,
       body: trace.body,
       citations: trace.citations,
+      paragraphs: trace.paragraphs,
       gateReasons: trace.gateReasons,
       judgeScores: trace.judgeScores,
       outcome: v2.holdReason ? (DEFERRED_HOLDS.includes(v2.holdReason) ? 'deferred' : 'hold') : 'ok',

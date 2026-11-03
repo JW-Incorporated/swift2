@@ -89,6 +89,17 @@ class Query {
     return this;
   }
 
+  or(expression: string): this {
+    const clauses = expression.split(',').map((part) => {
+      const [column = '', op = '', value = ''] = part.split('.');
+      if (op === 'is' && value === 'null') return `${identifier(column)} is null`;
+      if (op === 'neq') return `${identifier(column)} <> ${this.param(value)}`;
+      throw new Error(`unsupported or() clause ${part}`);
+    });
+    this.filters.push(`(${clauses.join(' or ')})`);
+    return this;
+  }
+
   gt(column: string, value: unknown): this {
     this.filters.push(`${identifier(column)} > ${this.param(value)}`);
     return this;

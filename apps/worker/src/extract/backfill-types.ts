@@ -9,6 +9,7 @@ export type BackfillMode = 'floors' | 'force';
 export type ForceOutcome =
   | 'pass'
   | 'below_tier_floor'
+  | 'retired_below_floor'
   | 'writing_hold'
   | 'no_facts'
   | 'snapshot_failed'
@@ -22,6 +23,8 @@ export interface ForceSummary {
   passed: number;
   held: number;
   skippedWriteFailures: number;
+  /** Below-floor rows hidden by --retire-below-floor (0 on a dry run). */
+  retired: number;
   deferred: boolean;
   remaining: number;
   outcomes: Record<string, number>;
@@ -52,6 +55,10 @@ export interface ForceDeps {
 export interface RunBackfillOptions {
   dryRun: boolean;
   limit?: number;
+  /** Force mode only: observed_on window in days; unset = the live feed's own window (no cutoff, only unexpired rows). */
+  days?: number;
+  /** Force mode only: hide rows that fail the worth-a-post floor (quality_hold_reason retired_below_floor). Ignored on a dry run. */
+  retireBelowFloor?: boolean;
   fetchImpl?: typeof fetch;
   /** 'floors' (default) is the original thin-copy backfill; 'force' rewrites every eligible recent row through the v2 writer. */
   mode?: BackfillMode;

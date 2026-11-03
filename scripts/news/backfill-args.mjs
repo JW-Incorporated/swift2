@@ -8,6 +8,14 @@ export function parseLimit(raw) {
   return Number.parseInt(raw, 10);
 }
 
+/** BACKFILL_DAYS: unset or empty means the live feed's own window; otherwise a non-negative integer of days (0 = the feed's window). */
+export function parseDays(raw) {
+  if (raw === undefined || raw === '') return undefined;
+  if (!/^[0-9]*$/.test(raw)) throw new Error(`invalid days ${JSON.stringify(raw)}: expected a non-negative integer`);
+  const days = Number.parseInt(raw, 10);
+  return days > 0 ? days : undefined;
+}
+
 /** An ISO-8601 date or datetime; returns the canonical ISO string. */
 export function parseIsoDate(raw) {
   if (typeof raw !== 'string' || !/^\d{4}-\d{2}-\d{2}(T[\d:.]+(Z|[+-]\d{2}:\d{2})?)?$/.test(raw)) {
