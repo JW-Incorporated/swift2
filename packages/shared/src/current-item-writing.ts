@@ -10,6 +10,8 @@
 // MIRROR, NOT IMPORT (same boundary rule as current-item-quality.ts: shared
 // cannot depend on a scripts/ .mjs).
 
+import { allowedOutlets, unknownAttributions } from './current-item-attribution.ts';
+
 export const WRITING_THRESHOLDS = {
   bodyMaxHedges: 2,
   leadMaxHedges: 0,
@@ -41,6 +43,8 @@ export interface WritingInput {
   /** Body sentence indexes (0-based) that cite a fact or context item. */
   citations?: readonly number[];
   bodySentenceCount?: number;
+  /** Outlet names the item's facts are attributed to; an attribution to any other outlet is invented. */
+  factAttributions?: readonly string[];
 }
 
 export interface WritingOptions {
@@ -260,6 +264,9 @@ export function evaluateCurrentItemWriting(
       reasons.push('attribution_repeat');
       break;
     }
+  }
+  if (unknownAttributions(body, allowedOutlets(input.sources, input.factAttributions)).length > 0) {
+    reasons.push('attribution_unknown_outlet');
   }
 
   if (body.trim().split(/\s+/).filter(Boolean).length < t.bodyMinWords) reasons.push('body_too_short');
