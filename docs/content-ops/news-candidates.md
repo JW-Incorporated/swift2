@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 70
 
 ## Taylor Swift Discusses Her Role in 'Toy Story 5'
 
@@ -609,11 +609,3 @@ Stories: 71
 - summary: Swiftee's Lakeview, a restaurant inspired by Taylor Swift, has opened its doors in the former location of Ferrante's in Hempfield. The establishment aims to attract fans of the pop star with its unique theme.
 - sources:
   - [unverified] TribLIVE.com — https://triblive.com/local/westmoreland/taylor-swift-inspired-restaurant-swiftees-lakeview-opens-at-former-ferrantes-in-hempfield/
-
-## Nelly Discusses $50,000 Cash Payment from Taylor Swift for Concert
-
-- first seen: 2026-10-31 06:57 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Nelly disclosed that Taylor Swift compensated him with $50,000 in cash for making a surprise appearance at one of her concerts. This revelation highlights the financial aspects of artist collaborations in the music industry.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-reveals-taylor-swift-paid-021433410.html
