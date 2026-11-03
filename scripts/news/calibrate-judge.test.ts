@@ -65,9 +65,22 @@ describe('evaluateModel', () => {
     expect(e).toMatchObject({ goldOk: true, negativesOk: true, legacyOk: true, accepted: true, goldPassPerRun: [5, 5, 5] });
   });
 
-  it('rejects when one gold draft fails on any run', () => {
+  it('tolerates exactly one non-grounding gold miss across all runs', () => {
     const gold = goldRuns([true, true, true, true, true]);
-    gold[1]![4] = ok(false);
+    gold[1]![4] = ok(false, { voice: 3, context: 5, grounding: 5, non_repetition: 5 });
+    expect(evaluateModel({ gold, negatives: negatives(5), legacy: legacy(31) }).goldOk).toBe(true);
+  });
+
+  it('rejects two gold misses', () => {
+    const gold = goldRuns([true, true, true, true, true]);
+    gold[0]![2] = ok(false, { voice: 3, context: 5, grounding: 5, non_repetition: 5 });
+    gold[1]![4] = ok(false, { voice: 3, context: 5, grounding: 5, non_repetition: 5 });
+    expect(evaluateModel({ gold, negatives: negatives(5), legacy: legacy(31) }).goldOk).toBe(false);
+  });
+
+  it('rejects any gold miss on grounding, even a single one', () => {
+    const gold = goldRuns([true, true, true, true, true]);
+    gold[2]![0] = ok(false, { voice: 5, context: 5, grounding: 3, non_repetition: 5 });
     expect(evaluateModel({ gold, negatives: negatives(5), legacy: legacy(31) }).goldOk).toBe(false);
   });
 

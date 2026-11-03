@@ -46,7 +46,13 @@ const isOk = (r) => r.status === 'ok';
  */
 export function evaluateModel({ gold, negatives, legacy }) {
   const goldPassPerRun = gold.map((run) => run.filter((r) => isOk(r) && r.pass).length);
-  const goldOk = gold.length === GOLD_RUNS && gold.every((run, i) => run.length > 0 && goldPassPerRun[i] === run.length);
+  // Amended 2026-11-03 (PM, from calibration R4-R6): one borderline voice miss in GOLD_RUNS x gold judgments is
+  // judge variance, not miscalibration. A gold item failing on grounding is never tolerated.
+  const goldJudgments = gold.reduce((n, run) => n + run.length, 0);
+  const goldPasses = goldPassPerRun.reduce((n, p) => n + p, 0);
+  const goldGroundingFail = gold.some((run) => run.some((r) => isOk(r) && failedDimensions(r.scores).includes('grounding')));
+  const goldOk = gold.length === GOLD_RUNS && gold.every((run) => run.length > 0 && run.every(isOk))
+    && goldPasses >= goldJudgments - 1 && !goldGroundingFail;
   const negativeHits = negatives.filter((r) => isOk(r) && failedDimensions(r.scores).includes(r.expectFailOn)).length;
   const negativesOk = negatives.length > 0 && negativeHits === negatives.length;
   const legacyFails = legacy.filter((r) => isOk(r) && !r.pass).length;
