@@ -10,13 +10,15 @@ import {
   resolveClusterSources,
   type PendingStory,
 } from './extract-stage-data';
+import { emptyResult, type ExtractStageResult } from './extract-stage-result';
 import { runExtractMaintenance } from './extract-stage-maintenance';
 import { extractWithLLM } from './haiku-client';
 import { reresolveHeldImages } from './held-image-pass';
 import { reresolveHeldTheoryImages } from './held-theory-image-pass';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
-import { composeV2Item, createWriterStore, hasFacts, tierFloorHold, writerV2Enabled } from './v2-stage';
+import { loadEraContext } from './context-loader';
+import { composeV2Item, createWriterStore, hasFacts, rewriteMergedOriginal, tierFloorHold, writerV2Enabled } from './v2-stage';
 import {
   mergeNewFactsIntoOriginal,
   projectKnowledgeDoc,
@@ -29,45 +31,7 @@ import { writeFanSignalTheories } from './write-fan-signal-theories';
 const CURRENT_ERA_ID = 'tloas';
 const MAX_CLUSTERS_PER_CYCLE = 50;
 
-export interface ExtractStageResult {
-  clustersConsidered: number;
-  extracted: number;
-  screenedOut: number;
-  skipped: number;
-  deferred: number;
-  theoriesUpserted: number;
-  abandonedTheories: number;
-  countdownsResolved: number;
-  dedupeMerged: number;
-  dedupeDiscarded: number;
-  dedupeHeld: number;
-  heldImagesChecked: number;
-  heldImagesPublished: number;
-  theoryHoldReasons: Record<string, number>;
-  heldPassReasons: Record<string, number>;
-  errors: string[];
-}
-
-function emptyResult(): ExtractStageResult {
-  return {
-    clustersConsidered: 0,
-    extracted: 0,
-    screenedOut: 0,
-    skipped: 0,
-    deferred: 0,
-    theoriesUpserted: 0,
-    abandonedTheories: 0,
-    countdownsResolved: 0,
-    dedupeMerged: 0,
-    dedupeDiscarded: 0,
-    dedupeHeld: 0,
-    heldImagesChecked: 0,
-    heldImagesPublished: 0,
-    theoryHoldReasons: {},
-    heldPassReasons: {},
-    errors: [],
-  };
-}
+export type { ExtractStageResult } from './extract-stage-result';
 
 export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageResult> {
   const result = emptyResult();
@@ -148,7 +112,13 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           if (floorHold) decision = { action: 'publish' };
           else try {
             const candidates = await loadDedupeCandidates(db, CURRENT_ERA_ID);
-            decision = await evaluateSameEventGate(usage, candidates, currentItem);
+            decision = writerV2
+              ? await evaluateSameEventGate(usage, candidates, currentItem, undefined, {
+                eraId: CURRENT_ERA_ID,
+                crossLane: (await loadEraContext(CURRENT_ERA_ID)).crossLane,
+                newItemSources: sources,
+              })
+              : await evaluateSameEventGate(usage, candidates, currentItem);
           } catch (error) {
             decision = { action: 'hold', reason: (error as Error).message };
           }
@@ -157,7 +127,11 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             errors.push(`dedupe gate held story ${story.id}: ${decision.reason}`);
             continue;
           }
-          if (decision.action === 'discard' || decision.action === 'merge') {
+          if (decision.action === 'attach_video') {
+            result.attachedToVideo += 1;
+          } else if (decision.action === 'discard' && decision.momentId) {
+            result.dedupeDiscarded += 1;
+          } else if (decision.action === 'discard' || decision.action === 'merge') {
             result.dedupeDiscarded += decision.action === 'discard' ? 1 : 0;
             result.dedupeMerged += decision.action === 'merge' ? 1 : 0;
             let dedupeOriginalImage: string | null;
@@ -172,6 +146,17 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               if (dedupeOriginalImage) {
                 theoryImageUrl = dedupeOriginalImage;
               }
+              const rewritten = decision.action === 'merge' && decision.needsRewrite && decision.mergedFacts
+                && writerV2 && writerUsage && hasFacts(currentItem)
+                ? await rewriteMergedOriginal(
+                  db,
+                  { writer: writerUsage, judge: usage },
+                  decision.candidateId,
+                  { ...currentItem, headline: original.headline as string, facts: decision.mergedFacts },
+                  decision.mergedSources ?? sources,
+                  CURRENT_ERA_ID,
+                )
+                : undefined;
               await mergeNewFactsIntoOriginal(
                 db,
                 decision.candidateId,
@@ -183,7 +168,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                   imageUrl: (original.image_url as string | null) ?? null,
                 },
                 {
-                  ...(decision.action === 'merge' ? {
+                  ...(rewritten ? rewritten : decision.action === 'merge' ? {
                     mergedSummary: decision.mergedSummary,
                     mergedDetail: decision.mergedDetail,
                   } : {}),

@@ -9,6 +9,9 @@ const mocks = vi.hoisted(() => ({
   loadClusterSources: vi.fn(),
   resolveClusterSources: vi.fn(),
   resolveImageUrl: vi.fn(),
+  evaluateSameEventGate: vi.fn(),
+  mergeNewFactsIntoOriginal: vi.fn(),
+  updates: [] as unknown[],
 }));
 
 vi.mock('./held-image-pass', () => ({ reresolveHeldImages: async () => ({ checked: 0, published: 0, errors: [] }) }));
@@ -22,13 +25,13 @@ vi.mock('./haiku-client', () => ({ extractWithLLM: mocks.extractWithLLM }));
 vi.mock('./writer-client', () => ({ writePost: mocks.writePost }));
 vi.mock('./judge-client', () => ({ judgeWriting: mocks.judgeWriting }));
 vi.mock('./context-loader', () => ({
-  loadEraContext: async () => ({ eraName: 'The Life of a Showgirl era', eraSummary: 'Her current era.', moments: [] }),
+  loadEraContext: async () => ({ eraName: 'The Life of a Showgirl era', eraSummary: 'Her current era.', moments: [], crossLane: { moments: [], videos: [] } }),
   loadPriorItems: async () => [],
 }));
 vi.mock('./image-resolve', () => ({ resolveImageUrl: mocks.resolveImageUrl }));
 vi.mock('./dedupe-gate', () => ({
   loadDedupeCandidates: async () => [],
-  evaluateSameEventGate: async () => ({ action: 'publish' }),
+  evaluateSameEventGate: mocks.evaluateSameEventGate,
 }));
 vi.mock('./usage-store', () => ({
   ExtractUsageStore: { create: async () => ({}) },
@@ -48,6 +51,7 @@ vi.mock('../sources/fetch-article-text', () => ({ fetchTopArticleTexts: async ()
 vi.mock('./write-knowledge', async (importOriginal) => ({
   ...(await importOriginal<typeof import('./write-knowledge')>()),
   projectKnowledgeDoc: async () => undefined,
+  mergeNewFactsIntoOriginal: mocks.mergeNewFactsIntoOriginal,
 }));
 
 import { runExtractStage } from './run-extract-stage';
@@ -118,6 +122,14 @@ function chain(result: { data?: unknown; error?: unknown }) {
   return query;
 }
 
+const ORIGINAL = {
+  headline: 'Original headline',
+  summary: 'Original lead',
+  detail: 'Original body',
+  sources: SOURCES,
+  image_url: 'https://www.people.com/o.jpg',
+};
+
 function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
   let storyCalls = 0;
   return {
@@ -131,6 +143,11 @@ function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
       }
       if (table === 'current_item') {
         return {
+          select: () => ({ eq: () => ({ single: async () => ({ data: ORIGINAL, error: null }) }) }),
+          update: (patch: unknown) => {
+            mocks.updates.push(patch);
+            return { eq: () => ({ is: async () => ({ error: null }) }) };
+          },
           insert: (row: Record<string, unknown>) => {
             inserted.push(row);
             return { select: () => ({ single: async () => ({ data: { id: 'ci-1' }, error: null }) }) };
@@ -158,6 +175,9 @@ describe('runExtractStage two-pass writer', () => {
     mocks.extractWithLLM.mockReset();
     mocks.writePost.mockReset().mockResolvedValue(draft());
     mocks.judgeWriting.mockReset().mockResolvedValue(PASS);
+    mocks.evaluateSameEventGate.mockReset().mockResolvedValue({ action: 'publish' });
+    mocks.mergeNewFactsIntoOriginal.mockReset().mockResolvedValue({ redlineOk: true });
+    mocks.updates.length = 0;
     mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/photo.jpg');
   });
 
@@ -248,5 +268,45 @@ describe('runExtractStage two-pass writer', () => {
     expect(row).not.toHaveProperty('facts');
     expect(row).not.toHaveProperty('writing_score');
     expect(row).toMatchObject({ summary: PASS_A_SUMMARY, detail: PASS_A_DETAIL, redline_ok: true, quality_hold_reason: null });
+  });
+
+  it('discards a vault-moment duplicate with no row and passes cross-lane options to the gate', async () => {
+    mocks.evaluateSameEventGate.mockResolvedValue({ action: 'discard', candidateId: 'moment:m1', reason: 'duplicate_of_moment:m1', momentId: 'm1' });
+    const { result, row } = await run();
+    expect(row).toBeUndefined();
+    expect(result.dedupeDiscarded).toBe(1);
+    expect(result.errors).toEqual([]);
+    expect(mocks.evaluateSameEventGate.mock.calls[0]?.[4]).toMatchObject({ eraId: 'tloas', crossLane: { moments: [], videos: [] } });
+  });
+
+  it('counts a video match as attached_to_video and writes no row', async () => {
+    mocks.evaluateSameEventGate.mockResolvedValue({ action: 'attach_video', videoId: 'v1' });
+    const { result, row } = await run();
+    expect(row).toBeUndefined();
+    expect(result.attachedToVideo).toBe(1);
+  });
+
+  it('v2 merge re-runs the writer from the merged facts and stores facts and score', async () => {
+    const mergedFacts = [...FACTS, { id: 'f3', claim: 'A third fact.', attribution: 'Variety', confidence: 'reported' }];
+    mocks.evaluateSameEventGate.mockResolvedValue({
+      action: 'merge', candidateId: 'orig-1', needsRewrite: true, mergedFacts, mergedSources: SOURCES,
+    });
+    const { result } = await run();
+    expect(result.errors).toEqual([]);
+    expect(mocks.writePost.mock.calls[0]?.[1].facts).toEqual(mergedFacts);
+    expect(mocks.updates).toEqual([{ facts: mergedFacts, writing_score: 4 }]);
+    expect(mocks.mergeNewFactsIntoOriginal.mock.calls[0]?.[3]).toMatchObject({ mergedSummary: LEAD, mergedDetail: BODY });
+  });
+
+  it('v2 merge that holds keeps the original copy and only adds sources', async () => {
+    mocks.writePost.mockResolvedValue({ status: 'deferred', reason: 'writer budget exhausted' });
+    mocks.evaluateSameEventGate.mockResolvedValue({
+      action: 'merge', candidateId: 'orig-1', needsRewrite: true, mergedFacts: FACTS, mergedSources: SOURCES,
+    });
+    await run();
+    expect(mocks.updates).toEqual([]);
+    const input = mocks.mergeNewFactsIntoOriginal.mock.calls[0]?.[3];
+    expect(input).not.toHaveProperty('mergedSummary');
+    expect(input.duplicateSources).toEqual(SOURCES);
   });
 });

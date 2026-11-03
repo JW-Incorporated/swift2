@@ -70,6 +70,7 @@ export async function runCycle(
       dedupeMerged: 0,
       dedupeDiscarded: 0,
       dedupeHeld: 0,
+      attachedToVideo: 0,
       heldImagesChecked: 0,
       heldImagesPublished: 0,
       theoryHoldReasons: {},

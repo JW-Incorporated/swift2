@@ -5,6 +5,7 @@
 // Every loader is best-effort: missing context only means a thinner pack.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { VaultMomentRef, VideoRef } from './dedupe-crosslane';
 import { MAX_PRIOR_ITEMS, type ContextMoment, type PriorItemContext } from './context-pack';
 
 const SEED_DIR = new URL('../../../../supabase/seed/', import.meta.url);
@@ -17,6 +18,8 @@ export interface EraContext {
   eraName: string;
   eraSummary: string;
   moments: ContextMoment[];
+  /** The same seed moments and videos, shaped for the same-event gate's read-only cross-lane match. */
+  crossLane: { moments: VaultMomentRef[]; videos: VideoRef[] };
 }
 
 const cache = new Map<string, Promise<EraContext>>();
@@ -27,7 +30,7 @@ async function importSeed(relative: string): Promise<Record<string, unknown>> {
 
 async function readEraContext(eraId: string): Promise<EraContext> {
   const slug = ERA_SLUG_BY_ID[eraId];
-  if (!slug) return { eraName: '', eraSummary: '', moments: [] };
+  if (!slug) return { eraName: '', eraSummary: '', moments: [], crossLane: { moments: [], videos: [] } };
   let eraName = '';
   let eraSummary = '';
   try {
@@ -45,18 +48,32 @@ async function readEraContext(eraId: string): Promise<EraContext> {
     // thinner pack
   }
   const moments: ContextMoment[] = [];
+  const crossMoments: VaultMomentRef[] = [];
+  const videos: VideoRef[] = [];
   try {
     const seed = (await importSeed(`content/${slug}.mjs`)) as {
-      default: { items: { title?: string; snippet?: string; category?: string }[] };
+      default: { items: { slug?: string; year?: number; month?: number; day?: number; title?: string; snippet?: string; category?: string }[] };
     };
     for (const item of seed.default.items ?? []) {
       if (!item.title || !item.snippet) continue;
       moments.push({ title: item.title, summary: item.snippet, ...(item.category ? { tags: [item.category] } : {}) });
+      if (item.slug && item.year && item.month && item.day) {
+        const date = `${item.year}-${String(item.month).padStart(2, '0')}-${String(item.day).padStart(2, '0')}`;
+        crossMoments.push({ id: item.slug, eraId, date, title: item.title, summary: item.snippet });
+      }
     }
   } catch {
     // thinner pack
   }
-  return { eraName, eraSummary, moments };
+  try {
+    const seed = (await importSeed(`videos/${slug}.mjs`)) as { default: { videos: { slug?: string; title?: string }[] } };
+    for (const video of seed.default.videos ?? []) {
+      if (video.slug && video.title) videos.push({ videoId: video.slug, eraId, title: video.title });
+    }
+  } catch {
+    // thinner pack
+  }
+  return { eraName, eraSummary, moments, crossLane: { moments: crossMoments, videos } };
 }
 
 /** Era name/summary plus every seed moment of the era; cached per process. */

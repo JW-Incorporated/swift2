@@ -66,3 +66,23 @@ export async function composeV2Item(
     v2: { facts: item.facts, writingScore: composed.writingScore },
   };
 }
+
+/** v2 merge: re-runs the writer once from the merged facts. On a pass, stores the new facts/score and returns the prose for the shared merge write; on a hold, returns an empty rewrite so the original row's copy stays unchanged and only sources/heat are added. */
+export async function rewriteMergedOriginal(
+  db: SupabaseClient,
+  stores: { writer: ExtractUsageStore; judge: ExtractUsageStore },
+  originalId: string,
+  item: V2Item,
+  sources: readonly ClusterSource[],
+  eraId: string,
+): Promise<{ mergedSummary?: string; mergedDetail?: string }> {
+  const { item: written, v2 } = await composeV2Item(db, stores, item, sources, eraId);
+  if (v2.holdReason) return {};
+  const { error } = await db
+    .from('current_item')
+    .update({ facts: v2.facts, writing_score: v2.writingScore ?? null })
+    .eq('id', originalId)
+    .is('retracted_at', null);
+  if (error) throw new Error(`merged facts write failed: ${error.message}`);
+  return { mergedSummary: written.summary, mergedDetail: written.detail };
+}
