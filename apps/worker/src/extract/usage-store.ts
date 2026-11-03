@@ -62,6 +62,11 @@ export class ExtractUsageStore {
     return new ExtractUsageStore(db, 0, initialCount, perRunCap, dailyCap);
   }
 
+  /** Read-only: true while both the per-run and the daily cap still have room. */
+  hasCapacity(): boolean {
+    return this.runCount < this.perRunCap && this.inProcessDailyCount < this.dailyCap;
+  }
+
   /**
    * Reserves budget for one extract call. Returns false once EITHER cap is
    * hit — the caller must defer the cluster to the next run, never call the
@@ -147,6 +152,36 @@ export function supabaseWriterUsageDb(
     },
     async incrementToday() {
       const { error } = await db.rpc('increment_usage_daily', { p_scope: WRITER_SCOPE });
+      if (error) throw error;
+    },
+  };
+}
+
+/** The writing judge (Haiku) has its own budget and durable counter so it
+ * never eats extract capacity. Build the store with
+ * `ExtractUsageStore.create(supabaseJudgeUsageDb(db), JUDGE_PER_RUN_CAP, JUDGE_DAILY_CAP)`. */
+export const JUDGE_PER_RUN_CAP = 100;
+export const JUDGE_DAILY_CAP = 400;
+const JUDGE_SCOPE = 'judge';
+
+/** Real UsageDb backed by usage_daily / increment_usage_daily('judge'). */
+export function supabaseJudgeUsageDb(
+  db: import('@supabase/supabase-js').SupabaseClient,
+): UsageDb {
+  return {
+    async todaysCallCount() {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data, error } = await db
+        .from('usage_daily')
+        .select('call_count')
+        .eq('scope', JUDGE_SCOPE)
+        .eq('usage_date', today)
+        .maybeSingle();
+      if (error) throw error;
+      return data?.call_count ?? 0;
+    },
+    async incrementToday() {
+      const { error } = await db.rpc('increment_usage_daily', { p_scope: JUDGE_SCOPE });
       if (error) throw error;
     },
   };
