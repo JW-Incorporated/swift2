@@ -51,7 +51,7 @@ function chain(result: { data?: unknown; error?: unknown }) {
   const query: Record<string, unknown> = {
     then: (resolve: (value: typeof result) => void) => resolve(result),
   };
-  for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update'])
+  for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update', 'order'])
     query[method] = () => query;
   return query;
 }

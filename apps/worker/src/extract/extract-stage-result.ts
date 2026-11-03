@@ -19,6 +19,11 @@ export interface ExtractStageResult {
   v2Deferred: number;
   /** Two-pass writer: items that came back without facts, left for the next cycle. */
   v2MissingFacts: number;
+  /** Two-pass writer: stories marked extracted after V2_MAX_ATTEMPTS failed attempts. */
+  v2GaveUp: number;
+  v2GaveUpReasons: Record<string, number>;
+  /** True when the cycle stopped early because the day's writer budget was spent. */
+  writerBudgetExhausted: boolean;
   heldImagesChecked: number;
   heldImagesPublished: number;
   theoryHoldReasons: Record<string, number>;
@@ -44,6 +49,9 @@ export function emptyResult(): ExtractStageResult {
     v2Held: 0,
     v2Deferred: 0,
     v2MissingFacts: 0,
+    v2GaveUp: 0,
+    v2GaveUpReasons: {},
+    writerBudgetExhausted: false,
     heldImagesChecked: 0,
     heldImagesPublished: 0,
     theoryHoldReasons: {},
