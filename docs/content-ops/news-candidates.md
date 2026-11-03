@@ -27,13 +27,13 @@ so far".
 
 Stories: 72
 
-## Taylor Swift Makes an Announcement Post Chiefs-Broncos Game
+## Taylor Swift has two new albums reportedly ready for release
 
-- first seen: 2026-11-03 08:47 UTC | category: sighting | importance: 5
+- first seen: 2026-11-03 11:41 UTC | category: release | importance: 8
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift made an announcement following the Chiefs-Broncos game, as reported by Yahoo Sports. Details about the nature of the announcement were not disclosed in the report.
+- summary: Reports indicate that Taylor Swift has two new albums prepared and ready to be released. Details on the albums are currently not available.
 - sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-announcement-made-chiefs-081859329.html
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-reportedly-two-albums-111012088.html
 
 ## Source Reports Taylor Swift's Post-Wedding Plans Cause Concern Among Friends
 
@@ -42,6 +42,14 @@ Stories: 72
 - summary: A source reveals that Taylor Swift’s recent decisions following her wedding are causing unease among her friends. The circumstances surrounding her move have raised some concerns.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-post-wedding-move-075850815.html
+
+## Taylor Swift Makes an Announcement Post Chiefs-Broncos Game
+
+- first seen: 2026-11-03 08:47 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made an announcement following the Chiefs-Broncos game, as reported by Yahoo Sports. Details about the nature of the announcement were not disclosed in the report.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-announcement-made-chiefs-081859329.html
 
 ## Taylor Swift Discusses Her Role in 'Toy Story 5'
 
@@ -618,11 +626,3 @@ Stories: 72
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/31/tim-mcgraw-taylor-swift-travis-kelce-wedding-rumor/92533217007/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/tim-mcgraw-denies-performing-taylor-160000579.html
-
-## New Taylor Swift-themed restaurant Swiftee's Lakeview opens in Hempfield
-
-- first seen: 2026-10-31 10:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Swiftee's Lakeview, a restaurant inspired by Taylor Swift, has opened its doors in the former location of Ferrante's in Hempfield. The establishment aims to attract fans of the pop star with its unique theme.
-- sources:
-  - [unverified] TribLIVE.com — https://triblive.com/local/westmoreland/taylor-swift-inspired-restaurant-swiftees-lakeview-opens-at-former-ferrantes-in-hempfield/
