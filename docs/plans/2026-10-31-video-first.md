@@ -1,6 +1,6 @@
 # Video-first feed (2027 direction): plan
 
-**Status:** proposed 2026-10-31. Owner decisions Q1-Q4 are open (see §5). Owner ask: "the balance between posts and videos is off… 2027 is all about non-AI video."
+**Status:** proposed 2026-10-31. Owner decisions Q1-Q5 answered 2026-11-03 (see §5). Owner ask: "the balance between posts and videos is off… 2027 is all about non-AI video."
 
 **Inputs:**
 - Fact pack (researcher, measured live): 22 of 389 items on the current era's feed are video.
@@ -59,9 +59,13 @@ Routing rule (owner, 2026-10-31): quality first, local compute second.
 **Decision record.** The schema change (slice 3) is a data-model call, so `docs/decisions.md` gets an entry before slice 3 starts.
 
 ## 4. Success signal
+Baseline (`check:media-mix`, #6480, 2026-10-31): tloas 6.1% video (25/408), all eras 18.9% (237/1251).
+
 `check:media-mix` on tloas goes from about 6% to at least 30% video within 2 weeks of slice 6. The architect's early warning: if, after slices 1+4, there is still less than about 1 new video per 3 days, supply (not ranking) is the bottleneck. Revisit Q4 then.
 
 ## 5. Owner decisions (recommendations in bold)
+**Answered 2026-11-03 (owner, in chat):** Q1 demote, plus a pinned, expandable "This week's news" section (rolling 7 days) at the top of the feed. It replaces the egg doorway card, and news shown there leaves the main stream. Q2 yes. Q3 yes. Q4 no. Q5 (nypost.com images) yes, #6559. Recorded in `docs/decisions.md` 2026-11-03.
+
 - **Q1.** Image+text news: **demote** (daily cap plus trust floor) or hide? Hiding loses the "recent news" half of the vision.
 - **Q2.** Auto-publish talk-show and awards-channel videos without a human? **Yes**: the hand-committed channel list is the approval. Risk: an off-topic clip where she's only mentioned.
 - **Q3.** Let Content Shift add interview, speech and press videos (the schema already allows them)? **Yes.**
