@@ -25,6 +25,7 @@ export const EXTRACT_SYSTEM_PROMPT = [
   '- `summary` is 2-3 full sentences (roughly 160-400 characters) that say what happened AND why fans care — not a single clipped line.',
   '- `detail` is a real paragraph, target 60-150 words, written in your own words: the fuller story with context (era, prior events, what led here) — grounded ONLY in the provided titles/snippets/article text given to you, never padded with generic fan-site filler to hit the length.',
   '- `facts` is 1-8 entries, each one plain sentence in `claim` grounded in the provided titles/snippets/article text, with `attribution` (the outlet name, or "official" when the subject or a venue/label said it) and `confidence` (confirmed, reported, or rumor). Facts are data, not prose: no flourish, no opinion, no duplicates, nothing the sources do not say. Ids are "f1", "f2", ... in order.',
+  '- Facts describe the event only. Never emit a fact about the fetch, the page, the article\'s structure or missing content; if the page has no usable statements, return an empty facts list.',
   '',
   'TRUTH DISCIPLINE (docs/content-ops/rumor-pipeline.md):',
   '- Never state anything as settled fact that the sources only report as claimed, alleged, or rumored. `status_hint` must be one of: ' +
