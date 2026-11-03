@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { AlertTriangle, ExternalLink, House, MessageCircleQuestion, X } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
 import { outletLabel, dedupeSourcesByOutlet } from '@swift2/shared';
@@ -128,7 +128,7 @@ export function CurrentItemDetail({
         </p>
 
         {showImage && (
-          <div className="mt-5 aspect-[16/9] overflow-hidden rounded-xl">
+          <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-xl">
             <Image
               src={item.imageUrl!}
               alt={item.headline}
@@ -166,7 +166,7 @@ export function CurrentItemDetail({
             <span className="font-semibold uppercase tracking-widest">Sources:</span>
             {(() => {
               const deduped = dedupeSourcesByOutlet(item.sources);
-              const nodes: React.ReactNode[] = [];
+              const nodes: ReactNode[] = [];
               deduped.forEach((s, i) => {
                 if (i > 0) nodes.push(<span key={`sep-${i}`}> · </span>);
                 nodes.push(

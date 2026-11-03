@@ -49,7 +49,7 @@ function mount() {
       { adapter: adapter() },
       createElement(CurrentItemDetail, {
         item,
-        era: ERAS[0],
+        era: ERAS[0]!,
         onClose: () => {},
       }),
     ),
@@ -60,13 +60,13 @@ describe('CurrentItemDetail', () => {
   it('renders the item image when imageUrl is present', () => {
     mount();
     const img = screen.getByRole('img');
-    expect(img).toHaveAttribute('src', 'https://example.com/photo.jpg');
-    expect(img).toHaveAttribute('alt', 'Taylor announces new tour');
+    expect(img.getAttribute('src')).toBe('https://example.com/photo.jpg');
+    expect(img.getAttribute('alt')).toBe('Taylor announces new tour');
   });
 
   it('renders readable de-duplicated source links', () => {
     mount();
-    expect(screen.getByText('Sources:')).toBeInTheDocument();
+    expect(screen.getByText('Sources:')).toBeTruthy();
     const links = screen.getAllByRole('link');
     const labels = links.map((link) => link.textContent);
     expect(labels).toContain('Rolling Stone');
