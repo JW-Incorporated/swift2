@@ -53,7 +53,10 @@ function stripFences(text: string): string {
   return text.replace(/<\/?(?:facts|context)>/gi, '');
 }
 
-function buildUserMessage(input: WriterInput): string {
+/** The exact system message sent to the writer model. */
+export const WRITER_SYSTEM_MESSAGE = `${WRITER_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`;
+
+export function buildUserMessage(input: WriterInput): string {
   const lines = [
     `HEADLINE: ${input.headline}`,
     `STATUS: ${input.statusHint}`,
@@ -127,7 +130,7 @@ async function attempt(input: WriterInput, claude: WorkerClaudeCaller): Promise<
     caller: 'news-worker-writer',
     priority: 'P1',
     model: MODEL,
-    system: `${WRITER_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`,
+    system: WRITER_SYSTEM_MESSAGE,
     user: buildUserMessage(input),
     schema: WRITE_POST_TOOL.input_schema,
   });

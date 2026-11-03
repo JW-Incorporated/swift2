@@ -31,6 +31,17 @@ on:
         description: 'Resolve/rewrite/re-screen every eligible item but do not write current_item'
         type: boolean
         default: true
+      mode:
+        description: 'floors = thin-copy backfill; force = v2 rewrite of every visible row from the last 10 days without facts (snapshots old copy first)'
+        type: choice
+        options:
+          - floors
+          - force
+        default: floors
+      limit:
+        description: 'Max rows to process (0 = all)'
+        type: string
+        default: '0'
 
 permissions:
   contents: read
@@ -73,4 +84,17 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
           BACKFILL_DRY_RUN: ${{ inputs.dry_run }}
+          BACKFILL_MODE: ${{ inputs.mode }}
+          BACKFILL_LIMIT: ${{ inputs.limit }}
+          BACKFILL_REPORT_DIR: ${{ runner.temp }}/backfill-report
         run: npx --no-install tsx scripts/news/backfill-current-items.mjs
+
+      # The repo is PUBLIC: the report holds only public news text and model output, no secrets.
+      - name: Upload backfill report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: backfill-report
+          path: ${{ runner.temp }}/backfill-report
+          retention-days: 14
+          if-no-files-found: ignore

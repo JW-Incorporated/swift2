@@ -26,6 +26,8 @@
 // a guess) — `runBackfill`'s `dryRun: true` only skips the final
 // `current_item` update.
 
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { runBackfill } from '../../apps/worker/src/extract/backfill-run.ts';
@@ -60,7 +62,22 @@ async function main() {
   }
 
   console.log(`backfill-current-items: starting (${dryRun ? 'DRY RUN — no writes' : 'LIVE — writing back'})`);
-  const result = await runBackfill(db, { dryRun });
+  const mode = process.env.BACKFILL_MODE === 'force' ? 'force' : 'floors';
+  const limit = Number.parseInt(process.env.BACKFILL_LIMIT ?? '0', 10);
+  const result = await runBackfill(db, {
+    dryRun,
+    mode,
+    ...(limit > 0 ? { limit } : {}),
+    ...(mode === 'force' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),
+  });
+  if (result.force) {
+    const f = result.force;
+    console.log(
+      `backfill-current-items: force mode — ${f.eligible} eligible, ${f.processed} processed, ${f.passed} pass, ` +
+        `${f.held} held (copy untouched), ${f.skippedWriteFailures} write failure(s), ` +
+        `${f.deferred ? `deferred with ${f.remaining} remaining (re-run continues)` : 'not deferred'}.`,
+    );
+  }
 
   console.log('');
   console.log('Per-item report:');
