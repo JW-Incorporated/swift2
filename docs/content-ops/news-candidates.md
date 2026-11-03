@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 67
 
 ## Taylor Swift Addresses Reported Wedding Confession Amid Rumors
 
@@ -583,11 +583,3 @@ Stories: 68
 - summary: Bill Maher humorously likened the experience of dining with and listening to Donald Trump to dating Taylor Swift. His remarks were made during a recent discussion, illustrating his view on the dynamics of both situations.
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/10/31/bill-maher-compares-trump-dinner-to-dating-taylor-swift/
-
-## Greta Lee and Joan Cusack React to Taylor Swift's 'Toy Story 5' Song
-
-- first seen: 2026-10-31 18:17 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Greta Lee and Joan Cusack share their reactions to Taylor Swift's song featured in 'Toy Story 5'. The two actresses express their admiration in a recent article.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/did-she-greta-lee-joan-180000273.html
