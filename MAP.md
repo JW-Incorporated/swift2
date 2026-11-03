@@ -165,6 +165,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `components/longlive/EraFeedList.tsx` | Renders `EraSection`'s merged feed: dispatches each `EraFeedEntry` kind (plus `era-feed-clusters.ts`'s `cluster`) to the right card component |
 | `components/longlive/ClusterCard.tsx` | #696 collapsible "release day, track by track" card — collapsed same-day `MomentCard` run, expands to the full normal-tiered grid |
 | `components/longlive/CurrentItemCard.tsx` | Live `current_item` feed card (kind: `'current'`) — dashed-unconfirmed border, "Live · reported by X" chip |
+| `packages/ui/src/reader/era/ThisWeekNews.tsx`, `packages/experience/src/this-week-news.ts` | Pinned expandable "This week's news" row at the top of the current era (7-day live items, All filter only, rows open CurrentItemDetail); `this-week-news.ts` = `thisWeekNewsItems` + `streamExtraEntries` (drops egg doorways and in-window live items from the stream at both merge sites) |
 | `components/longlive/CurrentItemDetail.tsx` | Live item's detail overlay — mandatory dashed rumor banner + "Help us verify" (POSTs `/api/intake`). State owned locally by `EraSection`, not the shared store |
 | `components/longlive/MomentCard.tsx` | Moment card wrapper: box + inline video play affordance (#2057) |
 | `components/longlive/MomentCardButton.tsx` | Moment card body per tier (hero/media/chip/text) + `MomentMeta`/`TagRow` |
