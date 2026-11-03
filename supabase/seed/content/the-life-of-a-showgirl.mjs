@@ -9804,6 +9804,7 @@ export default {
         'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
+        'moment:vault-tloas-i-knew-it-i-knew-you-picks-up-a-hollywood-music-in-media-nod',
       ],
       year: 2026,
       month: 7,
@@ -15927,6 +15928,21 @@ export default {
               'A frame from the official "Patient Zero" music video, directed by Taylor and shot by Emmanuel Lubezki.',
             kind: 'primary',
           },
+          {
+            url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxres1.jpg',
+            focalPoint: '60% 50%',
+            credit: 'Taylor Swift (official "Patient Zero" music video, YouTube)',
+            caption:
+              'A framed black-and-white wedding photograph, lit in the dark, from the "Patient Zero" video.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/mw3kSNIxjqo/maxres3.jpg',
+            focalPoint: '55% 40%',
+            credit: 'Taylor Swift (official "Patient Zero" music video, YouTube)',
+            caption: 'A tearful close-up from the "Patient Zero" video, shot in low light.',
+            kind: 'primary',
+          },
         ],
         sources: [
           {
@@ -17170,7 +17186,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."\n\nThe morning was also an awards play. It was a for-your-consideration screening at Disney\'s New York offices, and most of the room were guild members and Critics Choice voters. The Q&A with Stanton ran about half an hour, covering the song and her long history with the franchise. She told the room that when Stanton first approached her, months earlier, she wasn\'t sure she had the time because of the Eras Tour. Afterwards she stayed to meet everyone there, more than 200 people, for autographs and selfies. "I Knew It, I Knew You" is in the running for her first Oscar nomination. She is not a nominee yet; the Academy\'s Original Song shortlist comes out Dec. 15.',
+          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. She came in all black: a fitted three-quarter-sleeve top, a knee-length leather pencil skirt and pointed-toe pumps. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with." What the film got right, she said, was "finding someone who is the same genre of weird and silly as you are."\n\nThe morning was also an awards play. It was a for-your-consideration screening at Disney\'s New York offices, and most of the room were guild members and Critics Choice voters. The Q&A with Stanton ran about half an hour, covering the song and her long history with the franchise. She told the room that when Stanton first approached her, months earlier, she wasn\'t sure she had the time because of the Eras Tour. Afterwards she stayed to meet everyone there, more than 200 people, for autographs and selfies. "I Knew It, I Knew You" is in the running for her first Oscar nomination. She is not a nominee yet; the Academy\'s Original Song shortlist comes out Dec. 15.',
         sources: [
           {
             outlet: 'The Tennessean (via Yahoo Entertainment)',
@@ -17217,6 +17233,17 @@ export default {
               'By Roger Friedman, Nov. 1, 2026; loaded directly. Independently confirms the all-guild screening and the Oscar-campaign framing. Street-level venue detail deliberately not carried (location redline).',
           },
           {
+            outlet: 'Elle',
+            url: 'https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/',
+            source_title: 'Taylor Swift Shows Why the Leather Pencil Skirt Is a Fall Staple With Her Latest Look',
+            publisher: 'Elle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-03',
+            reliability_score: 4,
+            notes:
+              'By Ecleen Luzmila Caraballo, Nov. 1, 2026; loaded directly (browser UA). Primary for the outfit and the "same genre of weird and silly" quote. Intake #6588. People and InStyle (also filed) were access-blocked and are not cited.',
+          },
+          {
             outlet: 'Taylor Swift (YouTube)',
             url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
             source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -17235,6 +17262,7 @@ export default {
       // TheWrap loaded directly and carries the full category slate. Variety
       // (the filing's first outlet) was not loadable, so it is not cited.
       slug: 'showgirl-i-knew-it-i-knew-you-hmma-nomination',
+      relatedIds: ['moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom'],
       year: 2026,
       month: 11,
       day: 2,
