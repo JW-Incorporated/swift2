@@ -25,7 +25,7 @@ export const WRITER_SYSTEM_PROMPT = [
   '- The lead must not state a reported or rumor fact as settled. Frame it neutrally without naming an outlet or hedging: "a new report has fans...", "word is circulating that...", "fans are buzzing about...". Only a confirmed fact may be stated flatly.',
   '',
   'BODY:',
-  '- 150-280 words in 2-4 paragraphs separated by a blank line.',
+  '- 150-280 words in 2-4 paragraphs.',
   '- Paragraph 1: what happened, with attribution at most once per outlet (say "People reports" once, not in every sentence).',
   '- Paragraph 2: context and era tie-in, drawn only from the context pack. If the context is empty or does not clearly relate to the facts, omit the context paragraph. Never invent era tie-ins, history or connections; cite a context item only when it directly supports the sentence.',
   '- Paragraph 3: what to watch, or why it matters to fans.',
@@ -38,9 +38,15 @@ export const WRITER_SYSTEM_PROMPT = [
   '- Never quote a source verbatim; put it in your own words.',
   '- Privacy redlines (docs/content-ops/privacy-redlines.md): nothing that helps locate her or the people around her, no health, pregnancy, sexuality or family speculation, no legal accusations, no street-level location.',
   '',
+  'LIMITS (count before you answer; a draft outside these is rejected):',
+  '- lead: 200-400 characters, counting every character. Aim for about 300. Under 200 is rejected.',
+  '- body: 150-280 words in total across 2-4 paragraphs. Under 120 or over 300 is rejected. Count your words.',
+  '- every sentence carries at least one ref.',
+  '',
   'CITATIONS:',
-  '- Body sentences are numbered by our sentence splitter, in order across paragraphs, starting at 0. Write plain sentences: avoid abbreviations with periods where you can (write "7pm", not "7 p.m.").',
-  '- Return one citation per body sentence: {sentence: index, ref: "f1" or "c2"}. Every body sentence must be cited, and every ref must be an id you were given.',
+  '- You write the body as paragraphs, each a list of sentences, and each sentence lists the ids that support it in refs, for example ["f1"] or ["f2", "c1"]. We assemble the body from your structure, so there is nothing to count.',
+  '- Every ref must be an id you were given (f1.. or c1..). Cite a context id only when that item directly supports the sentence.',
+  '- One sentence per entry in sentences: do not pack two sentences into one text. Write plain sentences and avoid abbreviations with periods (write "7pm", not "7 p.m.").',
   '',
   'OUTPUT: report through the write_post tool only, no prose outside it.',
 ].join('\n');
@@ -53,26 +59,39 @@ export const WRITE_POST_TOOL = {
     properties: {
       lead: {
         type: 'string',
-        description: '2-3 sentences, 200-400 characters, the hook and why fans care. No outlet names, no hedge words.',
+        description: '2-3 sentences, 200-400 characters (count them; under 200 is rejected), the hook and why fans care. No outlet names, no hedge words.',
       },
-      body: {
-        type: 'string',
-        description: '150-280 words (shorter if facts are thin), 2-4 paragraphs separated by a blank line. Does not restate the lead.',
-      },
-      citations: {
+      paragraphs: {
         type: 'array',
-        description: 'One entry per body sentence: its 0-based index and the fact or context id that supports it.',
+        description: 'The body: 2-4 paragraphs, 150-280 words in total. Does not restate the lead.',
+        minItems: 2,
+        maxItems: 4,
         items: {
           type: 'object',
           properties: {
-            sentence: { type: 'integer', minimum: 0 },
-            ref: { type: 'string', description: 'A fact id (f1..) or context id (c1..) from the input.' },
+            sentences: {
+              type: 'array',
+              minItems: 1,
+              items: {
+                type: 'object',
+                properties: {
+                  text: { type: 'string', description: 'One sentence.' },
+                  refs: {
+                    type: 'array',
+                    minItems: 1,
+                    description: 'The fact (f1..) or context (c1..) ids that support this sentence.',
+                    items: { type: 'string' },
+                  },
+                },
+                required: ['text', 'refs'],
+              },
+            },
           },
-          required: ['sentence', 'ref'],
+          required: ['sentences'],
         },
       },
     },
-    required: ['lead', 'body', 'citations'],
+    required: ['lead', 'paragraphs'],
     additionalProperties: false,
   },
 } as const;

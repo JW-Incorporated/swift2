@@ -14,6 +14,9 @@
 // Usage:
 //   node scripts/news/backfill-current-items.mjs            # dry run (default)
 //   node scripts/news/backfill-current-items.mjs --no-dry-run
+// Force mode (BACKFILL_MODE=force) also takes --days N (BACKFILL_DAYS; default = the
+// live feed's own window) and --retire-below-floor (BACKFILL_RETIRE_BELOW_FLOOR=true):
+// rows failing the worth-a-post floor are hidden, never deleted (undo: restore-copy-snapshot.mjs --clear-retired).
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (degrades to a clean
 // no-op, same contract as every other privileged Community Engine script —
@@ -28,7 +31,7 @@
 
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseLimit } from './backfill-args.mjs';
+import { parseDays, parseLimit } from './backfill-args.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { runBackfill } from '../../apps/worker/src/extract/backfill-run.ts';
@@ -64,9 +67,14 @@ async function main() {
 
   console.log(`backfill-current-items: starting (${dryRun ? 'DRY RUN — no current_item or snapshot writes; LLM budget counters still increment' : 'LIVE — writing back'})`);
   const mode = process.env.BACKFILL_MODE === 'force' ? 'force' : 'floors';
+  const argv = process.argv.slice(2);
+  const daysArg = argv.indexOf('--days');
+  const retireBelowFloor = argv.includes('--retire-below-floor') || process.env.BACKFILL_RETIRE_BELOW_FLOOR === 'true';
   let limit;
+  let days;
   try {
     limit = parseLimit(process.env.BACKFILL_LIMIT);
+    days = parseDays(daysArg >= 0 ? argv[daysArg + 1] : process.env.BACKFILL_DAYS);
   } catch (err) {
     console.error(`backfill-current-items: ${err.message}`);
     return 1;
@@ -75,13 +83,15 @@ async function main() {
     dryRun,
     mode,
     ...(limit > 0 ? { limit } : {}),
+    ...(mode === 'force' && days !== undefined ? { days } : {}),
+    ...(mode === 'force' && retireBelowFloor ? { retireBelowFloor } : {}),
     ...(mode === 'force' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),
   });
   if (result.force) {
     const f = result.force;
     console.log(
       `backfill-current-items: force mode — ${f.eligible} eligible, ${f.processed} processed, ${f.passed} pass, ` +
-        `${f.held} held (copy untouched), ${f.skippedWriteFailures} write failure(s), ` +
+        `${f.held} held (copy untouched unless retired), ${f.retired} retired below floor, ${f.skippedWriteFailures} write failure(s), ` +
         `${f.deferred ? `deferred with ${f.remaining} remaining (re-run continues)` : 'not deferred'}.`,
     );
   }
