@@ -77,4 +77,25 @@ describe('composePost', () => {
       lead: 'Too short', body: BODY, paragraphs: PARAGRAPHS, gateReasons: ['lead is 9 characters; the minimum is 200'],
     });
   });
+  it('allows an outlet the facts are attributed to even when the legacy source has no name', async () => {
+    const credited = [...SENTENCES];
+    credited[0] = 'Variety reports the photos show Taylor outside Blackbird Studio in Nashville on Tuesday afternoon.';
+    const paragraphs = [
+      { sentences: credited.slice(0, 5).map((text, i) => ({ text, refs: refsFor(i) })) },
+      PARAGRAPHS[1]!,
+    ];
+    const draft = { ...attempt(paragraphs), body: `${credited.slice(0, 5).join(' ')}
+
+${SENTENCES.slice(5).join(' ')}` };
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const input: ComposeInput = {
+      ...INPUT,
+      facts: [{ id: 'f1', claim: 'Taylor was photographed outside Blackbird Studio.', attribution: 'Variety', confidence: 'reported' }],
+      sources: [{ outletName: '', url: 'https://news.yahoo.com/a' }],
+    };
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, input);
+    expect(result.status).toBe('ok');
+    expect(judgeFn.mock.calls[0]![1].attributions).toEqual(['Variety']);
+  });
 });
