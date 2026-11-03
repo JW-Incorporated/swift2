@@ -27,6 +27,14 @@ so far".
 
 Stories: 67
 
+## Insider Shares Details on Taylor Swift and Travis Kelce's Home Life
+
+- first seen: 2026-11-03 19:28 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An insider has provided insights into the home life of Taylor Swift and Travis Kelce, revealing unexpected developments. This report sheds light on their relationship dynamics.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-and-travis-kelce-s-home-life-takes-unexpected-turn-insider-reveals
+
 ## Taylor Swift Addresses Reported Wedding Confession Amid Rumors
 
 - first seen: 2026-11-03 16:37 UTC | category: relationship | importance: 7
@@ -70,9 +78,10 @@ Stories: 67
 ## Taylor Swift Makes an Announcement Post Chiefs-Broncos Game
 
 - first seen: 2026-11-03 08:47 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift made an announcement following the Chiefs-Broncos game, as reported by Yahoo Sports. Details about the nature of the announcement were not disclosed in the report.
 - sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970745/who-leak-taylor-swift-wedding-photos/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-never-complains-taylor-swift-115015323.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-announcement-made-chiefs-081859329.html
 
@@ -575,11 +584,3 @@ Stories: 67
 - summary: Tim McGraw addresses and corrects misinformation surrounding a rumored wedding between Taylor Swift and Travis Kelce. This clarification comes amidst ongoing speculation about their relationship.
 - sources:
   - [unverified] Wide Open Country — https://www.wideopencountry.com/no-this-country-star-didnt-perform-at-taylor-swift-travis-kelces-wedding/
-
-## Bill Maher Compares Trump's Actions to Dating Taylor Swift
-
-- first seen: 2026-10-31 19:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bill Maher humorously likened the experience of dining with and listening to Donald Trump to dating Taylor Swift. His remarks were made during a recent discussion, illustrating his view on the dynamics of both situations.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/2026/10/31/bill-maher-compares-trump-dinner-to-dating-taylor-swift/
