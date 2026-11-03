@@ -59,6 +59,8 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
 
   const stories = (pending ?? []) as (PendingStory & { v2_attempts?: number })[];
   for (const [index, story] of stories.entries()) {
+    // Gates on the WRITER budget before the story is even read: once it is spent, every remaining story
+    // defers this cycle, including ones that would have been discarded. Intended: no extract call is spent.
     if (writerV2 && v2Stores && !v2Stores.writer.hasCapacity()) {
       result.writerBudgetExhausted = true;
       result.deferred += stories.length - index;

@@ -141,7 +141,7 @@ const ORIGINAL = {
 };
 
 function markable() {
-  const query = chain({ error: null });
+  const query = chain({ data: [{ id: 'story-1' }], error: null });
   query.update = (patch: Record<string, unknown>) => {
     mocks.storyPatches.push(patch);
     if (patch.extracted_at) mocks.storyMarks.count++;
