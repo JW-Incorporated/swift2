@@ -18,7 +18,8 @@ import {
 const MODEL = 'claude-sonnet-5-5';
 export const LEAD_MIN_CHARS = 200;
 export const LEAD_MAX_CHARS = 400;
-export const BODY_MAX_WORDS = 350;
+export const BODY_MIN_WORDS = 120;
+export const BODY_MAX_WORDS = 300;
 export const BODY_MAX_PARAGRAPHS = 4;
 
 export interface WriterInput {
@@ -46,7 +47,8 @@ export type WriterResult =
   | { status: 'deferred'; reason: string }
   | { status: 'invalid'; reasons: string[] };
 
-/** Body sentences as the prompt defines them: split after . ! or ? followed by whitespace, across paragraphs. */
+// TODO(slice 4): replace with splitSentences from @swift2/shared (PR #6563 owns the canonical splitter).
+/** Body sentences in order across paragraphs; the prompt tells the model they are numbered by the site splitter. */
 export function splitBodySentences(body: string): string[] {
   return body
     .split(/(?<=[.!?]["'”)]?)\s+/)
@@ -54,16 +56,23 @@ export function splitBodySentences(body: string): string[] {
     .filter((s) => s.length > 0);
 }
 
+/** Untrusted text may not close or reopen the data fences. */
+function stripFences(text: string): string {
+  return text.replace(/<\/?(?:facts|context)>/gi, '');
+}
+
 function buildUserMessage(input: WriterInput): string {
   const lines = [
     `HEADLINE: ${input.headline}`,
     `STATUS: ${input.statusHint}`,
     '',
-    'FACTS:',
-    ...input.facts.map((f) => `[${f.id}] (${f.confidence}, ${f.attribution}) ${f.claim}`),
+    '<facts>',
+    ...input.facts.map((f) => `[${f.id}] (${f.confidence}, ${stripFences(f.attribution)}) ${stripFences(f.claim)}`),
+    '</facts>',
     '',
-    'CONTEXT:',
-    input.context.text || '(none available)',
+    '<context>',
+    stripFences(input.context.text) || '(none available)',
+    '</context>',
   ];
   if (input.rewriteReasons && input.rewriteReasons.length > 0) {
     lines.push(
@@ -93,6 +102,7 @@ export function validateDraft(
   const paragraphs = body ? body.split(/\n\s*\n/).filter((s) => s.trim()) : [];
   if (paragraphs.length > BODY_MAX_PARAGRAPHS) reasons.push(`body has ${paragraphs.length} paragraphs; the maximum is ${BODY_MAX_PARAGRAPHS}`);
   const wordCount = body ? body.split(/\s+/).length : 0;
+  if (body && wordCount < BODY_MIN_WORDS) reasons.push(`body_too_short: body is ${wordCount} words; the minimum is ${BODY_MIN_WORDS}`);
   if (wordCount > BODY_MAX_WORDS) reasons.push(`body is ${wordCount} words; the maximum is ${BODY_MAX_WORDS}`);
 
   const sentenceCount = body ? splitBodySentences(body).length : 0;
