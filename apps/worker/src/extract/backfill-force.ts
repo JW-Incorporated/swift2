@@ -6,9 +6,8 @@
 // OUT OF SCOPE: same-event dedupe of backfill rows against each other.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { evaluateCurrentItemQuality, passesCurrentItemQualityGate } from '@swift2/shared';
+import { evaluateCurrentItemQuality } from '@swift2/shared';
 import { screenTopic } from '@swift2/shared/redline';
-import type { SourceTier } from '@swift2/shared/news';
 import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { extractWithLLM } from './haiku-client';
 import {
@@ -17,69 +16,15 @@ import {
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { buildUserMessage } from './writer-client';
 import { retireBelowFloor } from './backfill-retire';
+import { loadForceCandidates, markAttempted, type ForceCandidateRow } from './backfill-force-load';
 import { defaultReportDir, kitIdFor, writeForceArtifacts, type ForceReportRow, type WriterEvalKitRow } from './backfill-report';
 import type { BackfillRunResult, ForceDeps, ForceOutcome, ForceSummary, RunBackfillOptions } from './backfill-types';
 import type { ClusterSource } from './write-knowledge';
 import type { ExtractedFact } from './types';
 
 const WITHHELD = '[withheld: redline]';
-const FORCE_MAX_ROWS = 1000;
-const FORCE_COLS =
-  'id,headline,summary,detail,image_url,sources,era_id,observed_on,category,tags,status,source_tier,symbols,entities,redline_ok';
 
-export interface ForceCandidateRow {
-  id: string;
-  headline: string;
-  summary: string;
-  detail: string;
-  image_url: string | null;
-  sources: { name: string; url: string; tier: SourceTier }[];
-  era_id: string;
-  observed_on: string;
-  category: string;
-  tags: string[] | null;
-  status: string;
-  source_tier: string | null;
-  symbols: string[] | null;
-  entities: string[] | null;
-  redline_ok: boolean;
-}
-
-/** Exactly the rows the live feed shows (unexpired, not merged, retracted or promoted, redline_ok, passing the read-time gate) that have no facts yet. The feed has no observed_on window, so `days` is an optional narrowing override. A limit of 0 means all. */
-export async function loadForceCandidates(
-  db: SupabaseClient,
-  limit = 0,
-  now = new Date(),
-  days?: number,
-): Promise<ForceCandidateRow[]> {
-  let query = db
-    .from('current_item')
-    .select(FORCE_COLS)
-    .is('promoted_to', null)
-    .is('merged_into', null)
-    .is('retracted_at', null)
-    .is('facts', null)
-    .eq('redline_ok', true)
-    .gt('expires_at', now.toISOString());
-  if (days !== undefined && days > 0) {
-    query = query.gte('observed_on', new Date(now.getTime() - days * 86_400_000).toISOString().slice(0, 10));
-  }
-  const { data, error } = await query
-    .order('observed_on', { ascending: false })
-    .limit(FORCE_MAX_ROWS);
-  if (error) throw new Error(`force backfill candidate load failed: ${error.message}`);
-  const visible = ((data ?? []) as ForceCandidateRow[]).filter((row) => passesCurrentItemQualityGate({
-    headline: row.headline,
-    summary: row.summary,
-    detail: row.detail,
-    ...(row.image_url ? { imageUrl: row.image_url } : {}),
-    redlineOk: row.redline_ok,
-    facts: null,
-    sources: row.sources,
-  }));
-  return limit > 0 ? visible.slice(0, limit) : visible;
-}
-
+export { loadForceCandidates, type ForceCandidateRow };
 function screensClean(strings: readonly string[]): boolean {
   return strings.every((s) => !s || !screenTopic(s));
 }
@@ -229,6 +174,13 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
   };
   const tally = (outcome: string): void => { outcomes[outcome] = (outcomes[outcome] ?? 0) + 1; };
 
+  /** Every attempted row is stamped whatever its outcome (not on a dry run, not on a budget deferral, which learned nothing). */
+  const mark = async (id: string): Promise<void> => {
+    if (dryRun) return;
+    const failure = await markAttempted(db, id);
+    if (failure) errors.push(`backfill_attempted_at not set for ${id}: ${failure}`);
+  };
+
   for (const [index, row] of candidates.entries()) {
     result.considered++;
     let res: RowResult;
@@ -236,6 +188,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
       res = await processRow(row, db, deps, fetchImpl, today);
     } catch (err) {
       errors.push(`force backfill failed for ${row.id}: ${(err as Error).message}`);
+      await mark(row.id);
       continue;
     }
     if (res.kit) kit.push(res.kit);
@@ -263,6 +216,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
         res.report = { ...res.report, outcome: written.outcome, holdReason: written.error ?? written.outcome };
       }
     }
+    await mark(row.id);
     summary.processed++;
     tally(res.report.outcome);
     if (res.report.outcome === 'pass') { summary.passed++; result.nowPassing++; result.rewritten++; }

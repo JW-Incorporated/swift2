@@ -127,6 +127,31 @@ describe('writePost', () => {
     expect(empty.status === 'invalid' && empty.reasons.join(' ')).toContain('paragraph 0 has no sentences');
   });
 
+  it('rejects a sentence entry that is not exactly one sentence or lacks terminal punctuation', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    const usage = await ExtractUsageStore.create(db());
+    const withFirst = (first: ReturnType<typeof sentence>) => ({
+      lead: LEAD,
+      paragraphs: [{ sentences: [first, ...PARAGRAPHS[0]!.sentences.slice(1)] }, PARAGRAPHS[1]],
+    });
+    const two = await writePost(usage, input, claudeReturning(withFirst(sentence('She arrived early. She left late.', 'f1'))));
+    expect(two.status === 'invalid' && two.reasons.join(' ')).toContain('sentence_not_single');
+    const bare = await writePost(usage, input, claudeReturning(withFirst(sentence('She arrived early', 'f1'))));
+    expect(bare.status === 'invalid' && bare.reasons.join(' ')).toContain('lacks terminal punctuation');
+    const quoted = await writePost(usage, input, claudeReturning(withFirst(sentence('She called it "the best night."', 'f1'))));
+    expect(quoted.status).toBe('ok');
+    const question = await writePost(usage, input, claudeReturning(withFirst(sentence('Was it planned?', 'f1'))));
+    expect(question.status).toBe('ok');
+  });
+
+  it('requires at least two paragraphs', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    const usage = await ExtractUsageStore.create(db());
+    const one = { lead: LEAD, paragraphs: [{ sentences: PARAGRAPHS.flatMap((p) => p.sentences) }] };
+    const result = await writePost(usage, input, claudeReturning(one));
+    expect(result).toMatchObject({ status: 'invalid', reasons: ['body has 1 paragraph; the minimum is 2'] });
+  });
+
   it('rejects a lead over 400 characters and under 200, keeping the attempt', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const usage = await ExtractUsageStore.create(db());

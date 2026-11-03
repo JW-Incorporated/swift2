@@ -5,6 +5,8 @@
 // caller can hold the item with quality_hold_reason 'writer_deferred'; a
 // genuine API failure throws.
 
+import { splitSentences } from '@swift2/shared';
+import { stripFences } from './prompt-fence';
 import { WRITER_SYSTEM_PROMPT, WRITE_POST_TOOL } from './writer-prompt';
 import type { ContextPack } from './context-pack';
 import type { ExtractedFact } from './types';
@@ -20,7 +22,9 @@ export const LEAD_MIN_CHARS = 200;
 export const LEAD_MAX_CHARS = 400;
 export const BODY_MIN_WORDS = 120;
 export const BODY_MAX_WORDS = 300;
+export const BODY_MIN_PARAGRAPHS = 2;
 export const BODY_MAX_PARAGRAPHS = 4;
+const TERMINAL_PUNCTUATION = /[.!?]["'\u201d\u2019)]*$/;
 
 export interface WriterInput {
   headline: string;
@@ -59,11 +63,6 @@ export type WriterResult =
   | { status: 'ok'; draft: WriterDraft }
   | { status: 'deferred'; reason: string }
   | { status: 'invalid'; reasons: string[]; attempt?: WriterAttempt };
-
-/** Untrusted text may not close or reopen the data fences. */
-function stripFences(text: string): string {
-  return text.replace(/<\/?(?:facts|context)>/gi, '');
-}
 
 /** The exact system message sent to the writer model. */
 export const WRITER_SYSTEM_MESSAGE = `${WRITER_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`;
@@ -135,6 +134,8 @@ export function validateDraft(
           if (!allowedRefs.has(ref)) reasons.push(`ref ${ref} is not a provided fact or context id`);
         }
         if (!text) return;
+        if (splitSentences(text).length !== 1) reasons.push(`paragraph ${pi} sentence ${si} is not one sentence (sentence_not_single)`);
+        if (!TERMINAL_PUNCTUATION.test(text)) reasons.push(`paragraph ${pi} sentence ${si} lacks terminal punctuation (sentence_not_single)`);
         sentences.push({ text, refs });
         for (const ref of refs) if (allowedRefs.has(ref)) citations.push({ sentence: sentenceIndex, ref });
         sentenceIndex++;
@@ -147,6 +148,10 @@ export function validateDraft(
   const wordCount = body ? body.split(/\s+/).length : 0;
   if (body && wordCount < BODY_MIN_WORDS) reasons.push(`body_too_short: body is ${wordCount} words; the minimum is ${BODY_MIN_WORDS}`);
   if (wordCount > BODY_MAX_WORDS) reasons.push(`body is ${wordCount} words; the maximum is ${BODY_MAX_WORDS}`);
+
+  if (Array.isArray(p.paragraphs) && p.paragraphs.length > 0 && p.paragraphs.length < BODY_MIN_PARAGRAPHS) {
+    reasons.push(`body has ${p.paragraphs.length} paragraph; the minimum is ${BODY_MIN_PARAGRAPHS}`);
+  }
 
   const made: WriterAttempt = { lead, body, paragraphs, citations };
   return reasons.length > 0 ? { reasons, ...(lead || body ? { attempt: made } : {}) } : { draft: made, attempt: made, reasons };

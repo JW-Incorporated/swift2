@@ -23,11 +23,15 @@ export async function retireBelowFloor(
   if (!fresh || fresh.facts != null || fresh.merged_into || fresh.retracted_at || fresh.promoted_to || !fresh.redline_ok) {
     return { outcome: 'skipped_changed' };
   }
-  const { error: snapshotError } = await db.from('current_item_copy_snapshot').insert({
+  const { data: snapshot, error: snapshotError } = await db.from('current_item_copy_snapshot').insert({
     current_item_id: id, headline: fresh.headline, summary: fresh.summary, detail: fresh.detail, facts: null, reason: RETIRE_SNAPSHOT_REASON,
-  });
+  }).select('id').single();
   if (snapshotError) return { outcome: 'snapshot_failed', error: snapshotError.message };
+  const dropSnapshot = async (): Promise<void> => {
+    if (snapshot?.id !== undefined) await db.from('current_item_copy_snapshot').delete().eq('id', snapshot.id);
+  };
   const { data: updated, error: updateError } = await db.from('current_item')
+    // expires_at is not guarded: a row that expires mid-run is already hidden, so retiring it is harmless.
     .update({ redline_ok: false, quality_hold_reason: RETIRED_HOLD_REASON })
     .eq('id', id)
     .eq('redline_ok', true)
@@ -36,7 +40,13 @@ export async function retireBelowFloor(
     .is('retracted_at', null)
     .is('promoted_to', null)
     .select('id');
-  if (updateError) return { outcome: 'write_failed', error: updateError.message };
-  if (!updated || updated.length === 0) return { outcome: 'skipped_changed' };
+  if (updateError) {
+    await dropSnapshot();
+    return { outcome: 'write_failed', error: updateError.message };
+  }
+  if (!updated || updated.length === 0) {
+    await dropSnapshot();
+    return { outcome: 'skipped_changed' };
+  }
   return { outcome: 'retired_below_floor' };
 }

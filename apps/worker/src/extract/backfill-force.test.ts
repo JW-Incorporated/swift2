@@ -28,14 +28,24 @@ function row(id: string, overrides: Record<string, unknown> = {}): Record<string
 
 interface Call { table: string; op: 'insert' | 'update'; values: Record<string, unknown>; id?: unknown; guards?: string[] }
 
-function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean; onInsert?: () => void } = {}) {
+function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean; onInsert?: () => void; missingMarker?: boolean } = {}) {
   const calls: Call[] = [];
+  const marks: { id: unknown; at: unknown }[] = [];
+  const orders: { column: string; ascending?: boolean; nullsFirst?: boolean }[] = [];
+  const selects: string[] = [];
   const from = (table: string) => {
     let pending: Call | undefined;
     let filtered = rows;
     let single = false;
+    let withMarker = false;
     const b: Record<string, unknown> = {};
-    b.select = () => b;
+    b.select = (cols?: string) => {
+      if (typeof cols === 'string' && !pending) {
+        selects.push(cols);
+        withMarker = cols.includes('backfill_attempted_at');
+      }
+      return b;
+    };
     b.is = (c: string, v: unknown) => {
       if (pending) pending.guards = [...(pending.guards ?? []), c];
       filtered = filtered.filter((r) => (r[c] ?? null) === v);
@@ -48,7 +58,18 @@ function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean
     };
     b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
-    b.order = () => b;
+    b.order = (column: string, o: { ascending?: boolean; nullsFirst?: boolean } = {}) => {
+      orders.push({ column, ...o });
+      filtered = [...filtered].sort((x, y) => {
+        const xv = x[column] ?? null;
+        const yv = y[column] ?? null;
+        if (xv === yv) return 0;
+        if (xv === null) return o.nullsFirst ? -1 : 1;
+        if (yv === null) return o.nullsFirst ? 1 : -1;
+        return (String(xv) < String(yv) ? -1 : 1) * (o.ascending === false ? -1 : 1);
+      });
+      return b;
+    };
     b.limit = () => b;
     b.maybeSingle = () => { single = true; return b; };
     b.update = (values: Record<string, unknown>) => { pending = { table, op: 'update', values }; return b; };
@@ -58,15 +79,23 @@ function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean
       return { error: opts.snapshotError ? { message: 'insert denied' } : null };
     };
     b.then = (resolve: (v: unknown) => void) => {
+      if (pending && 'backfill_attempted_at' in pending.values) {
+        if (opts.missingMarker) return resolve({ error: { code: '42703', message: 'column backfill_attempted_at does not exist' } });
+        marks.push({ id: pending.id, at: pending.values.backfill_attempted_at });
+        return resolve({ data: null, error: null });
+      }
       if (pending) {
         calls.push(pending);
         return resolve({ data: filtered.map((r) => ({ id: r.id })), error: null });
+      }
+      if (opts.missingMarker && withMarker) {
+        return resolve({ data: null, error: { code: '42703', message: 'column does not exist' } });
       }
       return resolve({ data: single ? (filtered[0] ?? null) : filtered, error: null });
     };
     return b;
   };
-  return { db: { from } as unknown as SupabaseClient, calls };
+  return { db: { from } as unknown as SupabaseClient, calls, marks, orders, selects };
 }
 
 const FACTS = [{ id: 'f1', claim: 'Taylor announced a release', attribution: 'People', confidence: 'reported' as const }];

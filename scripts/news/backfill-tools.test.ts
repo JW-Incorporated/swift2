@@ -101,10 +101,10 @@ describe('restoreSnapshots', () => {
 });
 
 describe('clearRetired', () => {
-  function retiredDb(rows: Record<string, unknown>[]) {
+  function retiredDb(rows: Record<string, unknown>[], snapshots: Record<string, unknown>[] = []) {
     const updates: { values: Record<string, unknown>; guards: Record<string, unknown> }[] = [];
-    const from = () => {
-      let found = rows;
+    const from = (table: string) => {
+      let found = table === 'current_item_copy_snapshot' ? snapshots : rows;
       let pending: { values: Record<string, unknown>; guards: Record<string, unknown> } | undefined;
       const b: Record<string, unknown> = {};
       b.select = () => b;
@@ -112,6 +112,7 @@ describe('clearRetired', () => {
         if (pending) pending.guards[c] = v; else found = found.filter((r) => r[c] === v);
         return b;
       };
+      b.gte = (c: string, v: string) => { found = found.filter((r) => String(r[c]) >= v); return b; };
       b.is = (c: string, v: unknown) => {
         if (pending) pending.guards[c] = v; else found = found.filter((r) => (r[c] ?? null) === v);
         return b;
@@ -119,7 +120,7 @@ describe('clearRetired', () => {
       b.update = (values: Record<string, unknown>) => { pending = { values, guards: {} }; return b; };
       b.then = (resolve: (v: unknown) => void) => {
         if (pending) { updates.push(pending); return resolve({ error: null }); }
-        return resolve({ data: found.map((r) => ({ id: r.id })), error: null });
+        return resolve({ data: found.map((r) => (table === 'current_item_copy_snapshot' ? r : { id: r.id })), error: null });
       };
       return b;
     };
@@ -139,6 +140,18 @@ describe('clearRetired', () => {
       values: { redline_ok: true, quality_hold_reason: null },
       guards: { id: 'a', quality_hold_reason: 'retired_below_floor', retracted_at: null },
     }]);
+  });
+
+  it('with --since only clears rows retired since then', async () => {
+    const two = [...rows, { id: 'd', quality_hold_reason: 'retired_below_floor', retracted_at: null }];
+    const snaps = [
+      { current_item_id: 'a', reason: 'retire_below_floor', snapshot_at: '2026-11-03T00:00:00Z' },
+      { current_item_id: 'd', reason: 'retire_below_floor', snapshot_at: '2026-10-01T00:00:00Z' },
+    ];
+    const { db, updates } = retiredDb(two, snaps);
+    const result = await clearRetired(db, { since: '2026-11-01T00:00:00Z', dryRun: false });
+    expect(result).toMatchObject({ found: 1, restored: 1 });
+    expect(updates.map((u) => u.guards.id)).toEqual(['a']);
   });
 
   it('writes nothing in a dry run', async () => {
