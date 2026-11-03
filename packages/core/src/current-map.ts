@@ -8,6 +8,7 @@
 import type {
   CurrentItem,
   CurrentItemCategory,
+  CurrentItemFact,
   CurrentItemStatus,
   EggLedgerEntry,
   FanSignal,
@@ -65,6 +66,8 @@ export interface CurrentItemRow {
   expires_at: string;
   updated_at: string;
   redline_ok: boolean;
+  facts?: unknown;
+  writing_score?: number | null;
   countdown_target_at: string | null;
   countdown_resolved_at: string | null;
 }
@@ -106,6 +109,8 @@ export function mapCurrentItem(row: CurrentItemRow): CurrentItem {
     expiresAt: row.expires_at,
     updatedAt: row.updated_at,
     redlineOk: row.redline_ok,
+    ...(Array.isArray(row.facts) ? { facts: row.facts as CurrentItemFact[] } : {}),
+    ...(typeof row.writing_score === 'number' ? { writingScore: row.writing_score } : {}),
     ...(row.countdown_target_at ? { countdownTargetAt: row.countdown_target_at } : {}),
     ...(row.countdown_resolved_at ? { countdownResolvedAt: row.countdown_resolved_at } : {}),
   };
