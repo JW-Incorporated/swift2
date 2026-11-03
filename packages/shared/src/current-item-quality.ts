@@ -68,6 +68,7 @@ export const IMAGE_HOST_ALLOWLIST: readonly string[] = [
   'www.wideopencountry.com', 'www.thelist.com', 'www.nickiswift.com',
   'hollywoodlife.com', 'headlineplanet.com', 'assets.purewow.com',
   'imagez.tmz.com', 'i.iheart.com',
+  'nypost.com', 'www.nypost.com',
   'jj-justjared-media.s3.amazonaws.com',
   'jj-justjared-media.s3.us-east-1.amazonaws.com',
   'jj-justjaredjr-media.s3.amazonaws.com',
