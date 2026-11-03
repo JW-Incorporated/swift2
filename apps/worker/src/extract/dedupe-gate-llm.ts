@@ -3,7 +3,7 @@ import {
   hasClaudeSubscriptionToken,
   type WorkerClaudeCaller,
 } from '../claude-call';
-import type { ExtractedCurrentItem } from './types';
+import type { ExtractedCurrentItem, ExtractedFact } from './types';
 import type { ExtractUsageStore } from './usage-store';
 
 const MODEL = 'claude-haiku-5-5';
@@ -13,6 +13,8 @@ export interface DedupeCandidate {
   headline: string;
   summary: string;
   detail: string;
+  entities?: readonly string[] | null;
+  facts?: readonly Pick<ExtractedFact, 'claim'>[] | null;
 }
 
 export interface GateLLMResult {
@@ -33,6 +35,8 @@ const GATE_SYSTEM_PROMPT = [
   'SAME EVENT means the same real-world happening reported by different outlets or at a slightly different angle.',
   'NOT the same event: a genuinely new development that follows from the same topic. When in doubt, prefer treating it as NOT the same event.',
   '',
+  'Candidates whose id starts with moment: are curated vault moments and ids starting with video: are vault videos; they count as the same event when they describe the same real-world happening.',
+  '',
   'If it IS the same event as exactly one candidate: set same_event=true, match_id to that candidate id, and decide adds_new_info.',
   'If it is not the same event as any candidate, set same_event=false and match_id=null.',
 ].join('\n');
@@ -49,8 +53,12 @@ const GATE_SCHEMA = {
   additionalProperties: false,
 };
 
+function factLines(facts: readonly Pick<ExtractedFact, 'claim'>[] | null | undefined, indent: string): string[] {
+  return facts?.length ? [`${indent}facts: ${facts.map((fact) => fact.claim).join(' | ')}`] : [];
+}
+
 function buildGateUserMessage(
-  newItem: Pick<ExtractedCurrentItem, 'headline' | 'summary' | 'detail'>,
+  newItem: Pick<ExtractedCurrentItem, 'headline' | 'summary' | 'detail'> & Pick<DedupeCandidate, 'facts'>,
   candidates: readonly DedupeCandidate[],
 ): string {
   const lines = [
@@ -58,6 +66,7 @@ function buildGateUserMessage(
     `headline: ${newItem.headline}`,
     `summary: ${newItem.summary}`,
     `detail: ${newItem.detail}`,
+    ...factLines(newItem.facts, ''),
     '',
     'CANDIDATES (already live):',
   ];
@@ -67,6 +76,7 @@ function buildGateUserMessage(
       `  headline: ${candidate.headline}`,
       `  summary: ${candidate.summary}`,
       `  detail: ${candidate.detail}`,
+      ...factLines(candidate.facts, '  '),
     );
   }
   return lines.join('\n');
@@ -88,7 +98,7 @@ function sanitizeGateResult(parsed: unknown, validIds: ReadonlySet<string>): Gat
 
 export async function checkSameEvent(
   usage: ExtractUsageStore,
-  newItem: Pick<ExtractedCurrentItem, 'headline' | 'summary' | 'detail'>,
+  newItem: Pick<ExtractedCurrentItem, 'headline' | 'summary' | 'detail'> & Pick<DedupeCandidate, 'facts'>,
   candidates: readonly DedupeCandidate[],
   claude: WorkerClaudeCaller = callWorkerClaude,
 ): Promise<GateLLMResult | null> {
