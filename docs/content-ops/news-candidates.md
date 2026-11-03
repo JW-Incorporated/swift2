@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 70
+
+## A Look Back at Taylor Swift's Best Curly Hair Moments
+
+- first seen: 2026-11-03 22:57 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Yahoo highlights Taylor Swift's iconic curly hair moments throughout her career, showcasing her evolving style. The article features various instances where her curls took center stage in her public appearances.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/slideshows/taylor-swifts-best-curly-hair-213500260.html
 
 ## Cosmopolitan Discusses Sarah J Maas and Taylor Swift
 
