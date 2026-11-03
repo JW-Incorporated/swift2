@@ -36,8 +36,39 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-10-26',
+  updatedOn: '2026-11-02',
   items: [
+    {
+      // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
+      // (The Ankler, Showbiz411); the nomination is the open question. It
+      // resolves at the Academy shortlist (15 Dec 2026) and nominations
+      // (21 Jan 2027).
+      id: 'iki-oscar-campaign',
+      status: 'reported',
+      date: '2026-11-01',
+      lastCheckedOn: '2026-11-02',
+      headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
+      detail:
+        'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
+      sources: [
+        {
+          name: 'The Ankler',
+          url: 'https://theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time/',
+        },
+        {
+          name: 'Showbiz411',
+          url: 'https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video',
+        },
+        {
+          name: 'TheWrap',
+          url: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+        },
+      ],
+      prompts: [
+        'She met 200 guild voters one selfie at a time. Does that get "I Knew It, I Knew You" onto the Dec. 15 shortlist? Give me odds.',
+      ],
+      tags: ['awards', 'toy-story-5'],
+    },
     {
       id: 'showgirl-encore-patient-zero',
       status: 'confirmed',
@@ -114,7 +145,9 @@ export default {
       // Rechecked 2026-10-26 (Vault Run): the anniversary passed with no
       // release. Variety (24 Oct) says she did not mark it with a deluxe or
       // anything "so obvious or fan-servicing".
-      lastCheckedOn: '2026-10-26',
+      // Rechecked 2026-11-02 (Vault Run): still nothing announced. The
+      // Nov 1-2 news cycle was Toy Story 5 awards campaigning, not a re-record.
+      lastCheckedOn: '2026-11-02',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -301,8 +334,10 @@ export default {
       // shortly after the original album, so they predate the wedding and do
       // not corroborate post-wedding writing. Still `reported`; no new album
       // announced.
+      // Rechecked 2026-11-02 (Vault Run): still `reported`. No TS13 album,
+      // title or timeline announced as of the Nov 1-2 news cycle.
       date: '2026-08-27',
-      lastCheckedOn: '2026-10-26',
+      lastCheckedOn: '2026-11-02',
       headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',

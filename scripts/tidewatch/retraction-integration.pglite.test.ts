@@ -20,6 +20,7 @@ const MIGRATION_NAMES = [
   '20261014010000_tidewatch.sql',
   '20261015030000_watch_decision_shadow_unique.sql',
   '20261015050000_current_item_retracted_at.sql',
+  '20261103000000_current_item_facts_snapshot.sql',
 ];
 const MIGRATIONS = MIGRATION_NAMES.map((name) => path.resolve(
   import.meta.dirname, '..', '..', 'supabase', 'migrations', name,
@@ -85,6 +86,17 @@ class Query {
     this.filters.push(value === null
       ? `${identifier(column)} is null`
       : `${identifier(column)} is not distinct from ${this.param(value)}`);
+    return this;
+  }
+
+  or(expression: string): this {
+    const clauses = expression.split(',').map((part) => {
+      const [column = '', op = '', value = ''] = part.split('.');
+      if (op === 'is' && value === 'null') return `${identifier(column)} is null`;
+      if (op === 'neq') return `${identifier(column)} <> ${this.param(value)}`;
+      throw new Error(`unsupported or() clause ${part}`);
+    });
+    this.filters.push(`(${clauses.join(' or ')})`);
     return this;
   }
 

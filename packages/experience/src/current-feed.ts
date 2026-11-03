@@ -1,5 +1,5 @@
 import type { CurrentItem, CurrentItemStatus, LiveTheory } from '@swift2/shared';
-import { passesCurrentItemQualityGate } from '@swift2/shared';
+import { outletLabel, passesCurrentItemQualityGate } from '@swift2/shared';
 import { resolveAnchor } from './anchor-date';
 import { formatRelativeTime } from './format';
 import type { EraFeedEntry } from './era-feed';
@@ -67,7 +67,8 @@ export function collapseMergedDuplicates(items: readonly CurrentItem[]): Current
 /** First reported source's outlet name, for the "Live · reported by X" chip
  * (PLAN.md Stage 5 — outlet from `sources` jsonb, first entry's `name`). */
 export function outletFor(item: CurrentItem): string | undefined {
-  return item.sources[0]?.name || undefined;
+  const first = item.sources[0];
+  return first ? outletLabel(first) : undefined;
 }
 
 /**

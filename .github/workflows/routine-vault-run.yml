@@ -195,6 +195,14 @@ jobs:
           TITLE="vault: $D — $LANES lanes"
           PR=$(gh pr list --head "vault/$D" --state open --json number --jq '.[0].number // empty')
           if [ -z "$PR" ]; then
+            # Auto-merge can land the run PR (and delete its branch) before this step
+            # runs. A squash merge leaves the triple-dot diff above non-empty, so the
+            # only reliable "already published" signal is a merged PR for this head.
+            MERGED=$(gh pr list --head "vault/$D" --state merged --json number --jq '.[0].number // empty')
+            if [ -n "$MERGED" ]; then
+              echo "::notice::vault/$D was already merged as PR #$MERGED — nothing left to open."
+              exit 0
+            fi
             printf 'TL;DR: Daily Vault Run content for %s (%s lanes with commits). Lane yield records are in the JSON blocks below, when the lanes wrote them.\n\n---\n\nOpened by the publish job (no agent opened it earlier).\n\nTier-2: Vault Run\n' "$D" "$LANES" > .pr-body.md
             gh pr create --head "vault/$D" --base main --title "$TITLE" --body-file .pr-body.md --label content-shift
             PR=$(gh pr list --head "vault/$D" --state open --json number --jq '.[0].number')

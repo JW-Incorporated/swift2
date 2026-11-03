@@ -147,6 +147,15 @@ describe('outletFor', () => {
     expect(outletFor(item)).toBe('People');
   });
 
+  it('derives a label from the URL when the first source has no name', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-08-20',
+      sources: [{ name: '', url: 'https://www.theankler.com/x', tier: 'unverified' }],
+    });
+    expect(outletFor(item)).toBe('The Ankler');
+  });
+
   it('is undefined with no sources', () => {
     expect(outletFor(currentItem({ id: 'ci1', observedOn: '2026-08-20', sources: [] }))).toBeUndefined();
   });

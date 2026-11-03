@@ -58,6 +58,14 @@ export interface KnowledgeSource {
  * The generalized "sighting" — anything observable that happened. The row
  * the current era's feed renders AND the row Content Shift promotes.
  */
+/** One pass-A fact the two-pass writer cited (current_item.facts). */
+export interface CurrentItemFact {
+  id: string;
+  claim: string;
+  attribution: string;
+  confidence: string;
+}
+
 export interface CurrentItem {
   id: string;
   /** The news_story cluster it came from; undefined for social-only rows. */
@@ -106,6 +114,10 @@ export interface CurrentItem {
    * Nh ago" masthead line (PLAN.md Stage 5). */
   updatedAt: string;
   redlineOk: boolean;
+  /** Pass-A facts; present only on rows written by the two-pass news engine, which marks them for the writing checks. */
+  facts?: CurrentItemFact[];
+  /** Judge writing score 1-5 (min of the rubric dimensions); two-pass rows only. */
+  writingScore?: number;
   /** ISO 8601 timestamp of a live countdown/reveal target the site-diff
    * adapter detected on taylorswift.com, or undefined for every ordinary
    * current_item. `is pinned` is a plain, computed predicate over this and
