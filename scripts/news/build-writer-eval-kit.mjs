@@ -18,12 +18,12 @@ export function parseKit(text) {
 /** Round-robin across category x sourceTier strata (each stratum sorted by kitId) until n items are taken. */
 export function stratify(rows, n) {
   const strata = new Map();
-  for (const row of [...rows].sort((a, b) => a.kitId.localeCompare(b.kitId))) {
+  for (const row of [...rows].sort((a, b) => (a.kitId < b.kitId ? -1 : a.kitId > b.kitId ? 1 : 0))) {
     const key = `${row.category}|${row.sourceTier}`;
     if (!strata.has(key)) strata.set(key, []);
     strata.get(key).push(row);
   }
-  const queues = [...strata.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([, q]) => q);
+  const queues = [...strata.entries()].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)).map(([, q]) => q);
   const picked = [];
   while (picked.length < n && queues.some((q) => q.length > 0)) {
     for (const q of queues) {

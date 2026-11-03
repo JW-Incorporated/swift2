@@ -10,6 +10,7 @@
 //   add --no-dry-run to write; dry run is the default.
 
 import { serviceClient } from '../lib/supabase.mjs';
+import { parseIsoDate } from './backfill-args.mjs';
 import { runMain } from '../lib/cli.mjs';
 
 export async function restoreSnapshots(db, { id, since, dryRun = true }) {
@@ -49,6 +50,14 @@ async function main() {
   if (!args.id && !args.since) {
     console.error('usage: restore-copy-snapshot.mjs --id <current_item_id> | --since <iso> [--no-dry-run]');
     return 1;
+  }
+  if (args.since) {
+    try {
+      args.since = parseIsoDate(args.since);
+    } catch (err) {
+      console.error(`restore-copy-snapshot: ${err.message}`);
+      return 1;
+    }
   }
   const db = serviceClient();
   if (!db) {

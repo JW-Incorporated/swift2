@@ -28,7 +28,7 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Resolve/rewrite/re-screen every eligible item but do not write current_item'
+        description: 'Resolve/rewrite/re-screen every eligible item but do not write current_item or snapshot rows (LLM budget counters still increment)'
         type: boolean
         default: true
       mode:
@@ -76,6 +76,15 @@ jobs:
           done
           "$HOME/.local/bin/claude" --version
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Validate inputs
+        env:
+          INPUT_LIMIT: ${{ inputs.limit }}
+        run: |
+          if ! [[ "$INPUT_LIMIT" =~ ^[0-9]+$ ]]; then
+            echo "::error::limit must be a non-negative integer (0 = all), got '$INPUT_LIMIT'"
+            exit 1
+          fi
 
       - name: Run the current_item backfill
         env:

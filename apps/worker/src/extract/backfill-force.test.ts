@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { loadForceCandidates, type ForceCandidateRow } from './backfill-force';
+import { sanitizeReason } from './backfill-report';
 import { runBackfill } from './backfill-run';
 import type { ForceDeps } from './backfill-types';
 import type { ExtractUsageStore } from './usage-store';
@@ -25,33 +26,43 @@ function row(id: string, overrides: Record<string, unknown> = {}): Record<string
   };
 }
 
-interface Call { table: string; op: 'insert' | 'update'; values: Record<string, unknown>; id?: unknown }
+interface Call { table: string; op: 'insert' | 'update'; values: Record<string, unknown>; id?: unknown; guards?: string[] }
 
-function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean } = {}) {
+function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean; onInsert?: () => void } = {}) {
   const calls: Call[] = [];
   const from = (table: string) => {
-    let mode: 'select' | 'update' = 'select';
     let pending: Call | undefined;
     let filtered = rows;
+    let single = false;
     const b: Record<string, unknown> = {};
     b.select = () => b;
-    b.is = (c: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) === v); return b; };
+    b.is = (c: string, v: unknown) => {
+      if (pending) pending.guards = [...(pending.guards ?? []), c];
+      filtered = filtered.filter((r) => (r[c] ?? null) === v);
+      return b;
+    };
     b.eq = (c: string, v: unknown) => {
-      if (pending) pending.id = v; else filtered = filtered.filter((r) => r[c] === v);
+      if (pending) pending.id = v;
+      filtered = filtered.filter((r) => r[c] === v);
       return b;
     };
     b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
     b.order = () => b;
     b.limit = () => b;
-    b.update = (values: Record<string, unknown>) => { mode = 'update'; pending = { table, op: 'update', values }; return b; };
+    b.maybeSingle = () => { single = true; return b; };
+    b.update = (values: Record<string, unknown>) => { pending = { table, op: 'update', values }; return b; };
     b.insert = async (values: Record<string, unknown>) => {
       calls.push({ table, op: 'insert', values });
+      opts.onInsert?.();
       return { error: opts.snapshotError ? { message: 'insert denied' } : null };
     };
     b.then = (resolve: (v: unknown) => void) => {
-      if (mode === 'update' && pending) { calls.push(pending); return resolve({ error: null }); }
-      return resolve({ data: filtered, error: null });
+      if (pending) {
+        calls.push(pending);
+        return resolve({ data: filtered.map((r) => ({ id: r.id })), error: null });
+      }
+      return resolve({ data: single ? (filtered[0] ?? null) : filtered, error: null });
     };
     return b;
   };
@@ -132,10 +143,10 @@ describe('force backfill', () => {
     expect(calls.filter((c) => c.op === 'update')).toHaveLength(0);
     expect(result.force?.skippedWriteFailures).toBe(1);
     expect(result.wroteBack).toBe(0);
-    expect(result.errors[0]).toContain('snapshot failed');
+    expect(result.errors[0]).toContain('snapshot_failed');
   });
 
-  it('writes nothing on a dry run but produces the three files', async () => {
+  it('writes no DB rows on a dry run but produces the three files', async () => {
     const { db, calls } = fakeDb([row('a')]);
     const dir = reportDir();
     const result = await runBackfill(db, { dryRun: true, mode: 'force', reportDir: dir, force: deps() });
@@ -177,5 +188,73 @@ describe('force backfill', () => {
     const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps({ compose }) });
     expect(result.force).toMatchObject({ processed: 1, passed: 1, deferred: true, remaining: 2 });
     expect(calls.filter((c) => c.op === 'update')).toHaveLength(1);
+  });
+
+  it('skips a row whose state changed before the write and snapshots nothing', async () => {
+    for (const change of [{ facts: FACTS }, { merged_into: 'x' }, { retracted_at: '2026-11-03' }, { promoted_to: 'm' }]) {
+      const rows = [row('a')];
+      const { db, calls } = fakeDb(rows);
+      const base = deps();
+      const compose = vi.fn(async (...args: unknown[]) => {
+        Object.assign(rows[0]!, change);
+        return (base.compose as (...a: unknown[]) => unknown)(...args);
+      }) as unknown as ForceDeps['compose'];
+      const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps({ compose }) });
+      expect(calls).toEqual([]);
+      expect(result.force?.outcomes).toEqual({ skipped_changed: 1 });
+    }
+  });
+
+  it('snapshots the re-read copy and guards the update', async () => {
+    const rows = [row('a')];
+    const { db, calls } = fakeDb(rows);
+    const base = deps();
+    const compose = vi.fn(async (...args: unknown[]) => {
+      rows[0]!.summary = 'EDITED SUMMARY';
+      return (base.compose as (...a: unknown[]) => unknown)(...args);
+    }) as unknown as ForceDeps['compose'];
+    await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps({ compose }) });
+    expect(calls[0]!.values).toMatchObject({ summary: 'EDITED SUMMARY' });
+    expect(calls[1]!.guards).toEqual(['facts', 'merged_into', 'retracted_at', 'promoted_to']);
+  });
+
+  it('reports skipped_changed when the guarded update matches zero rows', async () => {
+    const rows = [row('a')];
+    const { db, calls } = fakeDb(rows, { onInsert: () => { rows[0]!.facts = FACTS; } });
+    const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps() });
+    expect(calls.map((c) => c.op)).toEqual(['insert', 'update']);
+    expect(result.force?.outcomes).toEqual({ skipped_changed: 1 });
+    expect(result.wroteBack).toBe(0);
+  });
+
+  it('withholds a draft that fails the redline in the report and kit', async () => {
+    const { db } = fakeDb([row('a')]);
+    const dir = reportDir();
+    const compose = vi.fn(async (_d: unknown, _s: unknown, item: { facts: unknown }) => ({
+      item, v2: { facts: item.facts, holdReason: 'writing_quality:voice' },
+      trace: { lead: 'Rumors say is she pregnant today', body: BODY, citations: [], rewrites: 1 }, contextIds: [], context: { items: [], text: '' },
+    })) as unknown as ForceDeps['compose'];
+    await runBackfill(db, { dryRun: true, mode: 'force', reportDir: dir, force: deps({ compose }) });
+    const report = readFileSync(join(dir, 'backfill-report.jsonl'), 'utf8');
+    const kit = readFileSync(join(dir, 'writer-eval-kit.jsonl'), 'utf8');
+    expect(report).toContain('[withheld: redline]');
+    expect(kit).toContain('[withheld: redline]');
+    expect(report + kit).not.toContain('pregnant');
+  });
+
+  it('sanitizes and truncates hold reasons in the public report', async () => {
+    const secret = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.abc sk-abcdef123456789 https://x.example.com/p?token=1 ' + 'a'.repeat(40);
+    expect(sanitizeReason(secret)).not.toMatch(/eyJ|sk-abc|token=1|a{32}/);
+    expect(sanitizeReason('x'.repeat(500))).toHaveLength(200);
+    const { db } = fakeDb([row('a')]);
+    const dir = reportDir();
+    const compose = vi.fn(async (_d: unknown, _s: unknown, item: { facts: unknown }) => ({
+      item, v2: { facts: item.facts, holdReason: 'writing_quality:' + secret + 'y'.repeat(300) },
+      trace: { rewrites: 1 }, contextIds: [], context: { items: [], text: '' },
+    })) as unknown as ForceDeps['compose'];
+    await runBackfill(db, { dryRun: true, mode: 'force', reportDir: dir, force: deps({ compose }) });
+    const line = JSON.parse(readFileSync(join(dir, 'backfill-report.jsonl'), 'utf8').trim());
+    expect(line.holdReason.length).toBeLessThanOrEqual(200);
+    expect(line.holdReason).not.toMatch(/eyJ|sk-abc|token=1/);
   });
 });

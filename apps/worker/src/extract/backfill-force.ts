@@ -2,6 +2,7 @@
 // recent current_item without facts goes through the SAME v2 pipeline the live
 // extract stage uses (pass A facts, worth-a-post floor, Sonnet writer, writing
 // gate, judge, one rewrite). The old copy is snapshotted before any write.
+// A dry run writes no current_item or snapshot rows; LLM budget rows in usage_daily are still incremented.
 // OUT OF SCOPE: same-event dedupe of backfill rows against each other.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -21,6 +22,7 @@ import type { ClusterSource } from './write-knowledge';
 import type { ExtractedFact } from './types';
 
 export const FORCE_WINDOW_DAYS = 10;
+const WITHHELD = '[withheld: redline]';
 const FORCE_MAX_ROWS = 1000;
 const FORCE_COLS =
   'id,headline,summary,detail,image_url,sources,era_id,observed_on,category,tags,status,source_tier,symbols,entities,redline_ok';
@@ -120,7 +122,10 @@ async function processRow(
 
   const composed = await deps.compose(db, deps.stores, item, sources, row.era_id);
   const { trace, v2 } = composed;
-  const draft = trace.lead && trace.body ? { lead: trace.lead, body: trace.body, citations: trace.citations ?? [] } : null;
+  const withheld = !screensClean([trace.lead ?? '', trace.body ?? '']);
+  const shownLead = withheld ? WITHHELD : trace.lead;
+  const shownBody = withheld ? WITHHELD : trace.body;
+  const draft = shownLead && shownBody ? { lead: shownLead, body: shownBody, citations: trace.citations ?? [] } : null;
   const kit: WriterEvalKitRow = {
     kitId: kitIdFor(row.id),
     headline: row.headline,
@@ -137,8 +142,8 @@ async function processRow(
     citations: trace.citations ?? [],
     gateReasons: trace.gateReasons ?? [],
     judgeScores: trace.judgeScores ?? null,
-    newLead: trace.lead ?? null,
-    newBody: trace.body ?? null,
+    newLead: shownLead ?? null,
+    newBody: shownBody ?? null,
   };
   if (v2.holdReason) {
     if (DEFERRED_HOLDS.includes(v2.holdReason)) return { ...hold('deferred', v2.holdReason, traced), kit, deferred: true };
@@ -158,6 +163,37 @@ async function processRow(
     kit,
     write: { summary: lead, detail: body, facts: item.facts, writingScore: v2.writingScore as number },
   };
+}
+
+const SKIPPED_OUTCOMES: readonly ForceOutcome[] = ['snapshot_failed', 'write_failed', 'skipped_changed'];
+
+/** Re-reads the row, snapshots the re-read copy, then updates only while the row is still unchanged. */
+async function guardedWrite(
+  db: SupabaseClient,
+  id: string,
+  write: NonNullable<RowResult['write']>,
+): Promise<{ outcome: ForceOutcome; error?: string }> {
+  const { data: fresh, error: readError } = await db.from('current_item')
+    .select('id,headline,summary,detail,facts,merged_into,retracted_at,promoted_to')
+    .eq('id', id)
+    .maybeSingle();
+  if (readError) return { outcome: 'write_failed', error: readError.message };
+  if (!fresh || fresh.facts != null || fresh.merged_into || fresh.retracted_at || fresh.promoted_to) return { outcome: 'skipped_changed' };
+  const { error: snapshotError } = await db.from('current_item_copy_snapshot').insert({
+    current_item_id: id, headline: fresh.headline, summary: fresh.summary, detail: fresh.detail, facts: null, reason: 'backfill_v2',
+  });
+  if (snapshotError) return { outcome: 'snapshot_failed', error: snapshotError.message };
+  const { data: updated, error: updateError } = await db.from('current_item')
+    .update({ summary: write.summary, detail: write.detail, facts: write.facts, writing_score: write.writingScore })
+    .eq('id', id)
+    .is('facts', null)
+    .is('merged_into', null)
+    .is('retracted_at', null)
+    .is('promoted_to', null)
+    .select('id');
+  if (updateError) return { outcome: 'write_failed', error: updateError.message };
+  if (!updated || updated.length === 0) return { outcome: 'skipped_changed' };
+  return { outcome: 'pass' };
 }
 
 export async function runForceBackfill(db: SupabaseClient, options: RunBackfillOptions): Promise<BackfillRunResult> {
@@ -200,26 +236,17 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
       break;
     }
     if (res.write && !dryRun) {
-      const { error: snapshotError } = await db.from('current_item_copy_snapshot').insert({
-        current_item_id: row.id, headline: row.headline, summary: row.summary, detail: row.detail, facts: null, reason: 'backfill_v2',
-      });
-      if (snapshotError) {
-        errors.push(`snapshot failed for ${row.id}: ${snapshotError.message}`);
-        res.report = { ...res.report, outcome: 'snapshot_failed', holdReason: snapshotError.message };
-      } else {
-        const { error: updateError } = await db.from('current_item')
-          .update({ summary: res.write.summary, detail: res.write.detail, facts: res.write.facts, writing_score: res.write.writingScore })
-          .eq('id', row.id);
-        if (updateError) {
-          errors.push(`write-back failed for ${row.id}: ${updateError.message}`);
-          res.report = { ...res.report, outcome: 'write_failed', holdReason: updateError.message };
-        } else result.wroteBack++;
+      const written = await guardedWrite(db, row.id, res.write);
+      if (written.outcome === 'pass') result.wroteBack++;
+      else {
+        if (written.error) errors.push(`${written.outcome} for ${row.id}: ${written.error}`);
+        res.report = { ...res.report, outcome: written.outcome, holdReason: written.error ?? written.outcome };
       }
     }
     summary.processed++;
     tally(res.report.outcome);
     if (res.report.outcome === 'pass') { summary.passed++; result.nowPassing++; result.rewritten++; }
-    else if (res.report.outcome === 'snapshot_failed' || res.report.outcome === 'write_failed') summary.skippedWriteFailures++;
+    else if (SKIPPED_OUTCOMES.includes(res.report.outcome)) summary.skippedWriteFailures++;
     else { summary.held++; result.stillHeld++; }
     rows.push(res.report);
   }

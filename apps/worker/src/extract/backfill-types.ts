@@ -13,6 +13,7 @@ export type ForceOutcome =
   | 'no_facts'
   | 'snapshot_failed'
   | 'write_failed'
+  | 'skipped_changed'
   | 'deferred';
 
 export interface ForceSummary {

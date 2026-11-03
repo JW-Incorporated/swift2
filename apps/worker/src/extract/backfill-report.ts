@@ -35,6 +35,16 @@ export interface WriterEvalKitRow {
   sonnetDraft: { lead: string; body: string; citations: WriterCitation[] } | null;
 }
 
+/** Public-artifact hygiene: drops query-string URLs, JWTs, sk- keys and long hex, then caps at 200 chars. */
+export function sanitizeReason(text: string): string {
+  return text
+    .replace(/https?:\/\/[^\s"')]*\?[^\s"')]*/g, '[url]')
+    .replace(/eyJ[A-Za-z0-9_-]{5,}(?:\.[A-Za-z0-9_-]+){0,2}/g, '[token]')
+    .replace(/\bsk-[A-Za-z0-9_-]{8,}/g, '[token]')
+    .replace(/\b[0-9a-fA-F]{32,}\b/g, '[token]')
+    .slice(0, 200);
+}
+
 export function kitIdFor(rowId: string): string {
   return createHash('sha256').update(rowId).digest('hex').slice(0, 12);
 }
@@ -46,7 +56,7 @@ export function defaultReportDir(env: NodeJS.ProcessEnv = process.env): string {
 
 function renderMarkdown(rows: readonly ForceReportRow[], summary: ForceSummary, dryRun: boolean): string {
   const lines = [
-    `# Backfill report (${dryRun ? 'DRY RUN, nothing written' : 'LIVE'})`,
+    `# Backfill report (${dryRun ? 'DRY RUN, no current_item or snapshot rows written' : 'LIVE'})`,
     '',
     `Eligible: ${summary.eligible}. Processed: ${summary.processed}. Passed: ${summary.passed}. Held (copy untouched): ${summary.held}. Remaining after a deferral: ${summary.remaining}.`,
     '',
@@ -82,7 +92,12 @@ export function writeForceArtifacts(
   dryRun: boolean,
 ): void {
   mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, 'backfill-report.jsonl'), jsonl(rows));
-  writeFileSync(join(dir, 'backfill-report.md'), renderMarkdown(rows, summary, dryRun));
+  const safe = rows.map((r) => ({
+    ...r,
+    holdReason: r.holdReason === null ? null : sanitizeReason(r.holdReason),
+    gateReasons: r.gateReasons.map(sanitizeReason),
+  }));
+  writeFileSync(join(dir, 'backfill-report.jsonl'), jsonl(safe));
+  writeFileSync(join(dir, 'backfill-report.md'), renderMarkdown(safe, summary, dryRun));
   writeFileSync(join(dir, 'writer-eval-kit.jsonl'), jsonl(kit));
 }

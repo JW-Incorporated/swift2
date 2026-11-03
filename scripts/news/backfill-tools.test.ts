@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readmeText, splitKit, stratify } from './build-writer-eval-kit.mjs';
+import { parseIsoDate, parseLimit } from './backfill-args.mjs';
 import { restoreSnapshots } from './restore-copy-snapshot.mjs';
 
 function kitRow(i: number, category: string, sourceTier: string) {
@@ -95,5 +96,20 @@ describe('restoreSnapshots', () => {
     const result = await restoreSnapshots(db, { id: 'a' });
     expect(result).toMatchObject({ found: 1, restored: 0 });
     expect(updates).toEqual([]);
+  });
+});
+
+describe('argument validation', () => {
+  it('accepts only non-negative integers for limit', () => {
+    expect(parseLimit('20')).toBe(20);
+    expect(parseLimit('0')).toBe(0);
+    expect(parseLimit(undefined)).toBe(0);
+    for (const bad of ['ten', '-5', '', '1.5', ' 3']) expect(() => parseLimit(bad)).toThrow(/invalid limit/);
+  });
+
+  it('fails closed on a malformed --since', () => {
+    expect(parseIsoDate('2026-11-03')).toBe('2026-11-03T00:00:00.000Z');
+    expect(parseIsoDate('2026-11-03T12:00:00Z')).toBe('2026-11-03T12:00:00.000Z');
+    for (const bad of ['yesterday', '', '2026-13-45', '11/03/2026']) expect(() => parseIsoDate(bad)).toThrow(/invalid --since/);
   });
 });
