@@ -7387,9 +7387,9 @@ export default {
             reportedOn: '2026-07-22',
             status: 'unconfirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live, not faded.',
+            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live. Re-checked 2026-11-02: still pending (noms Nov. 16).',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-18',
+            lastCheckedOn: '2026-11-02',
           },
           {
             claim:
@@ -7398,9 +7398,9 @@ export default {
             reportedOn: '2026-07-17',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (~Nov 16, 2026). No location. Re-checked 2026-10-18: nominations not yet announced — still live.',
+            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-10-18 and 2026-11-02: not yet announced, still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-18',
+            lastCheckedOn: '2026-11-02',
           },
           // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
           // the October pre-nomination prediction pieces. Award chances are
@@ -7413,9 +7413,9 @@ export default {
             reportedOn: '2026-10-13',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
-            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location.',
+            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-15',
+            lastCheckedOn: '2026-11-02',
           },
           {
             claim:
@@ -7424,9 +7424,9 @@ export default {
             reportedOn: '2026-10-12',
             status: 'unconfirmed',
             url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
-            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location.',
+            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-15',
+            lastCheckedOn: '2026-11-02',
           },
         ],
       },
@@ -9988,9 +9988,9 @@ export default {
             reportedOn: '2026-06-10',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Still live.',
+            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Re-checked 2026-11-02: still live; open FYC campaigning, no Academy ruling.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-08',
+            lastCheckedOn: '2026-11-02',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -10025,11 +10025,11 @@ export default {
               'The trade The Ankler argued ("Taylor Swift\'s Oscar Campaign: Hiding in Plain Sight") that Taylor is quietly assembling an awards-season case — the Toy Story 5 song "I Knew It, I Knew You," the VMA-premiered "Patient Zero" video, and her inaugural VMAs Artist Director Honors — without announcing an explicit campaign. Yahoo and heavy.com repackaged it as "quietly setting her sights on an Oscar."',
             reportedBy: 'The Ankler',
             reportedOn: '2026-10-01',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
-            note: 'Outlet analysis of intent, not an on-record statement — no one (Taylor, her team, the Academy) has confirmed a campaign. Adjudicable (whether she pursues/gets a nomination), so it clears the admit-the-unsettled bar. Resolves against the 99th Oscars calendar on this page (shortlist 2026-12-15, noms 2027-01-21). Tier capped at tabloid: theankler.com isn\'t on the reputable-source allowlist (RR5).',
+            note: 'Outlet analysis of intent, not on-record. Resolves at the Oscar shortlist (2026-12-15) and noms (2027-01-21). Tier capped at tabloid: theankler.com not allowlisted (RR5). 2026-11-02: PARTIAL. Taylor did a Q&A at a Nov. 1 FYC screening for guild voters (theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time; Showbiz411), so the push is real; the Patient Zero/VMA link is not.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-08',
+            lastCheckedOn: '2026-11-02',
           },
           // Added 2026-10-16 (Vault Run, Content Shift lane, intake #6003): the
           // two song-level October pre-nomination pieces, both pages loaded and
@@ -10044,9 +10044,9 @@ export default {
             reportedOn: '2026-10-15',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
-            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location.',
+            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location. Re-checked 2026-11-02: still pending.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-16',
+            lastCheckedOn: '2026-11-02',
           },
           {
             claim:
@@ -10055,9 +10055,9 @@ export default {
             reportedOn: '2026-10-16',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/',
-            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location.',
+            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-16',
+            lastCheckedOn: '2026-11-02',
           },
         ],
       },
@@ -17170,7 +17170,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."',
+          'On Nov. 1, 2026, Taylor turned up at a Toy Story 5 screening in New York and stayed for a Q&A with the film\'s writer and director, Andrew Stanton. Asked about the movie, she went back to the friendship between Bonnie and her new friend Blaze, and from there to her own first year in Nashville.\n\n"When I moved to Nashville, when I was 14, you\'re the new kid in school," she said. "But there was one girl named Abigail, and she even has curly hair, too, like Blaze." That girl is Abigail Anderson, the best friend she wrote into "Fifteen" on Fearless. Their bit back then was talking in Napoleon Dynamite voices, and it never stopped. "We still do this," Taylor said. "It\'s something our husbands have to put up with."\n\nThe morning was also an awards play. It was a for-your-consideration screening at Disney\'s New York offices, and most of the room were guild members and Critics Choice voters. The Q&A with Stanton ran about half an hour, covering the song and her long history with the franchise. She told the room that when Stanton first approached her, months earlier, she wasn\'t sure she had the time because of the Eras Tour. Afterwards she stayed to meet everyone there, more than 200 people, for autographs and selfies. "I Knew It, I Knew You" is in the running for her first Oscar nomination. She is not a nominee yet; the Academy\'s Original Song shortlist comes out Dec. 15.',
         sources: [
           {
             outlet: 'The Tennessean (via Yahoo Entertainment)',
@@ -17195,6 +17195,28 @@ export default {
               'Nov. 1, 2026; loaded directly. Independently carries the Napoleon Dynamite and "husbands" quotes, the Manhattan screening and the Stanton Q&A.',
           },
           {
+            outlet: 'The Ankler',
+            url: 'https://theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time/',
+            source_title: 'Taylor Swift, Wooing Oscar Voters One at a Time',
+            publisher: 'The Ankler',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-02',
+            reliability_score: 4,
+            notes:
+              'By Katey Rich and Christopher Rosen, Nov. 2, 2026; loaded directly. Primary for the FYC framing (guild and Critics Choice voters), the roughly 30-minute Q&A, the Eras Tour timing doubt and the 200-plus meet-and-greet. Intake #6548. Billboard (also filed) was not loadable and is not cited.',
+          },
+          {
+            outlet: 'Showbiz411',
+            url: 'https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video',
+            source_title: "Taylor Swift Really Wants the Oscar for Her Song in 'Toy Story 5'",
+            publisher: 'Showbiz411',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-02',
+            reliability_score: 3,
+            notes:
+              'By Roger Friedman, Nov. 1, 2026; loaded directly. Independently confirms the all-guild screening and the Oscar-campaign framing. Street-level venue detail deliberately not carried (location redline).',
+          },
+          {
             outlet: 'Taylor Swift (YouTube)',
             url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
             source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -17204,6 +17226,53 @@ export default {
             reliability_score: 5,
             notes:
               'The film\'s end-credit song; oEmbed-verified 2026-11-01 (HTTP 200, author_name "Taylor Swift"). The visual for this moment, not a source for the screening.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-02 (Vault Run, Content Shift lane) from intake #6549.
+      // TheWrap loaded directly and carries the full category slate. Variety
+      // (the filing's first outlet) was not loadable, so it is not cited.
+      slug: 'showgirl-i-knew-it-i-knew-you-hmma-nomination',
+      year: 2026,
+      month: 11,
+      day: 2,
+      category: 'music',
+      title: '"I Knew It, I Knew You" picks up a Hollywood Music in Media nod',
+      snippet:
+        "Taylor's Toy Story 5 song is up for Song — Animated Film at the 17th Hollywood Music in Media Awards, with the winners named Nov. 18.",
+      sourceUrl: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+      thumbnailUrl: null,
+      video: {
+        youtubeId: 'hDU4GB1PTxc',
+        title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+      },
+      moment: {
+        context:
+          'On Nov. 2, 2026, the 17th annual Hollywood Music in Media Awards announced its nominees, and "I Knew It, I Knew You" was among them, in the Song — Animated Film category. Taylor wrote the Toy Story 5 end-credit song with Jack Antonoff.\n\nIt shares the category with four other animated-film songs: "Bottle Up" from Paw Patrol: The Dino Movie, performed by the Backstreet Boys; "BRB" from Forgotten Island, performed by H.E.R. and Liza Soberano; "Someone to Hold" from Steps, performed by JENNIE; and "The Better Part of Bravery" from Wildwood, performed by the Decemberists. The winners are announced Nov. 18 at the Avalon Hollywood. That is the same night as the CMA Awards in Nashville, where the song is up for Single of the Year. The Oscar race comes later: the Academy\'s Original Song shortlist is due Dec. 15.',
+        sources: [
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+            source_title: "Hollywood Music in Media Nominations Include 'The Odyssey,' 'Michael,' 'Behemoth!' and Taylor Swift",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-02',
+            reliability_score: 4,
+            notes:
+              'By Steve Pond, Nov. 2, 2026; loaded directly. Primary for the category name, the full slate of five, the 17th edition, and the Nov. 18 Avalon Hollywood ceremony. Intake #6549.',
+          },
+          {
+            outlet: 'Taylor Swift (YouTube)',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-02',
+            reliability_score: 5,
+            notes:
+              'The nominated song; oEmbed re-checked 2026-11-02 (HTTP 200). The visual for this moment, not a source for the nomination.',
           },
         ],
       },
