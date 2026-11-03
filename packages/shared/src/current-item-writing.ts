@@ -13,6 +13,8 @@
 export const WRITING_THRESHOLDS = {
   bodyMaxHedges: 2,
   leadMaxHedges: 0,
+  headlineMaxHedges: 1,
+  headlineMinContentTokens: 4,
   leadBodyOverlapMax: 0.25,
   headlineLeadOverlapMax: 0.7,
   bodySelfRepeatMax: 0.5,
@@ -41,6 +43,11 @@ export interface WritingInput {
   bodySentenceCount?: number;
 }
 
+export interface WritingOptions {
+  /** Skip the citation checks (eval harness, backfill comparison of legacy rows). */
+  legacy?: boolean;
+}
+
 export type WritingResult = { ok: true } | { ok: false; reasons: string[] };
 
 const HEDGE_WORDS = /\b(?:reportedly|according to|allegedly|sources say|it is said|rumou?red)\b/gi;
@@ -57,7 +64,7 @@ export const AI_TELL_PATTERNS: readonly { phrase: string; re: RegExp }[] = [
   { phrase: 'it seems', re: /\bit seems\b/i },
   { phrase: 'reportedly appears to', re: /\breportedly appears to\b/i },
   { phrase: 'we will explore', re: /\bwe will explore\b/i },
-  { phrase: 'exclamation-stacked hype', re: /!\s*!|(?:[^!]*!){3,}/ },
+  { phrase: 'exclamation-stacked hype', re: /!\s*!/ },
 ];
 
 const STOPWORDS = new Set([
@@ -77,11 +84,33 @@ export function words(text: string): string[] {
     .filter(Boolean);
 }
 
+const ABBREVIATIONS = new Set([
+  'Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Sept', 'Oct', 'Nov', 'Dec',
+  'Mr', 'Mrs', 'Ms', 'Dr', 'St', 'No', 'vs', 'U.S', 'U.K', 'Jr', 'Sr', 'Inc',
+  'p.m', 'a.m', 'e.g', 'i.e', 'vol',
+]);
+
+const SENTENCE_BREAK = /([.!?])(["'”’)\]]?)\s+(?=["'“‘([]?[A-Z0-9])/g;
+
+/**
+ * The one canonical sentence splitter for current-item copy. Body citation
+ * indexes (`WritingInput.citations`, `bodySentenceCount`) are defined by this
+ * function: sentence i is `splitSentences(body)[i]`. The writer and every
+ * checker must use it so they always agree.
+ */
 export function splitSentences(text: string): string[] {
-  return text
-    .split(/(?<=[.!?])["')\]]?\s+(?=["'([]?[A-Z0-9])/)
-    .map((sentence) => sentence.trim())
-    .filter(Boolean);
+  const out: string[] = [];
+  let start = 0;
+  for (const match of text.matchAll(SENTENCE_BREAK)) {
+    if (match[1] === '.') {
+      const token = /(?:^|[\s(])([A-Za-z]+(?:\.[A-Za-z]+)*)$/.exec(text.slice(0, match.index))?.[1];
+      if (token && ABBREVIATIONS.has(token)) continue;
+    }
+    out.push(text.slice(start, match.index + match[1]!.length + match[2]!.length));
+    start = match.index + match[0].length;
+  }
+  out.push(text.slice(start));
+  return out.map((sentence) => sentence.trim()).filter(Boolean);
 }
 
 export function shingles(text: string, size: number = WRITING_THRESHOLDS.shingleSize): Set<string> {
@@ -112,7 +141,7 @@ export function countHedges(text: string): number {
 
 export function headlineLeadOverlap(headline: string, lead: string): number {
   const tokens = words(headline).filter((token) => !STOPWORDS.has(token));
-  if (tokens.length === 0) return 0;
+  if (tokens.length < WRITING_THRESHOLDS.headlineMinContentTokens) return 0;
   const first = new Set(words(splitSentences(lead)[0] ?? ''));
   return tokens.filter((token) => first.has(token)).length / tokens.length;
 }
@@ -129,22 +158,31 @@ export function hasBodySelfRepeat(body: string): boolean {
   return false;
 }
 
+const EXCLAMATION_PHRASE = 'exclamation-stacked hype';
+
 export function findAiTells(text: string): string[] {
-  return AI_TELL_PATTERNS.filter(({ re }) => re.test(text)).map(({ phrase }) => phrase);
+  const found = AI_TELL_PATTERNS.filter(({ re }) => re.test(text)).map(({ phrase }) => phrase);
+  if (
+    !found.includes(EXCLAMATION_PHRASE)
+    && splitSentences(text).some((sentence) => (sentence.match(/!/g) ?? []).length >= 2)
+  ) {
+    found.push(EXCLAMATION_PHRASE);
+  }
+  return found;
 }
 
 function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-/** Per outlet (name or host, case-sensitive for names), mentions in the body. */
+/** Per outlet, how many times the body uses an attribution form naming it (per X, according to X, X reported/said/told/wrote, told X, in an interview with X). A plain mention such as "the Billboard 200" does not count. */
 export function outletMentionCounts(
   body: string,
   sources: readonly WritingSource[],
 ): Map<string, number> {
   const counts = new Map<string, number>();
   for (const source of sources) {
-    const name = (source.name ?? source.outletName ?? '').trim();
+    const name = (source.name || source.outletName || '').trim();
     let host: string;
     try {
       host = source.url ? new URL(source.url).hostname.replace(/^www\./, '') : '';
@@ -156,7 +194,18 @@ export function outletMentionCounts(
       .sort((a, b) => b.length - a.length)
       .map(escapeRegExp);
     if (alternatives.length === 0) continue;
-    const re = new RegExp(`(?<![\\p{L}\\p{N}])(?:${alternatives.join('|')})(?![\\p{L}\\p{N}])`, 'gu');
+    const t = `(?:${alternatives.join('|')})(?![\\p{L}\\p{N}])`;
+    const lb = '(?<![\\p{L}\\p{N}])';
+    const re = new RegExp(
+      [
+        `${lb}[Pp]er ${t}`,
+        `${lb}[Aa]ccording to (?:an? |the )?${t}`,
+        `${lb}${t}(?:['’]s)? (?:reports?|reported|said|says|told|wrote)\\b`,
+        `${lb}[Tt]old ${t}`,
+        `${lb}[Ii]n an interview with ${t}`,
+      ].join('|'),
+      'gu',
+    );
     counts.set(name || host, (body.match(re) ?? []).length);
   }
   return counts;
@@ -168,7 +217,7 @@ export function countDistinctEntities(body: string): number {
     const tokens = sentence.split(/\s+/).slice(1);
     for (const token of tokens) {
       const clean = token.replace(/^[^\p{L}]+|[^\p{L}]+$/gu, '');
-      if (/^[A-Z][\p{L}]{2,}/u.test(clean)) entities.add(clean.replace(/'s$/, ''));
+      if (/^[A-Z][\p{L}]{2,}/u.test(clean)) entities.add(clean.replace(/['’]s$/, ''));
     }
   }
   return entities.size;
@@ -178,12 +227,19 @@ export function hasDate(body: string): boolean {
   return DATE_RE.test(body);
 }
 
-export function evaluateCurrentItemWriting(input: WritingInput): WritingResult {
+export function evaluateCurrentItemWriting(
+  input: WritingInput,
+  options: WritingOptions = {},
+): WritingResult {
   const reasons: string[] = [];
   const t = WRITING_THRESHOLDS;
   const { headline, lead, body } = input;
 
-  if (countHedges(body) > t.bodyMaxHedges || countHedges(lead) > t.leadMaxHedges) {
+  if (
+    countHedges(body) > t.bodyMaxHedges
+    || countHedges(lead) > t.leadMaxHedges
+    || countHedges(headline) > t.headlineMaxHedges
+  ) {
     reasons.push('hedge_overuse');
   }
 
@@ -195,7 +251,7 @@ export function evaluateCurrentItemWriting(input: WritingInput): WritingResult {
   }
   if (hasBodySelfRepeat(body)) reasons.push('body_self_repeat');
 
-  for (const phrase of new Set([...findAiTells(lead), ...findAiTells(body)])) {
+  for (const phrase of new Set([...findAiTells(headline), ...findAiTells(lead), ...findAiTells(body)])) {
     reasons.push(`ai_tell:${phrase}`);
   }
 
@@ -206,13 +262,17 @@ export function evaluateCurrentItemWriting(input: WritingInput): WritingResult {
     }
   }
 
-  if (words(body).length < t.bodyMinWords) reasons.push('body_too_short');
+  if (body.trim().split(/\s+/).filter(Boolean).length < t.bodyMinWords) reasons.push('body_too_short');
   if (lead.length < t.leadMinChars || lead.length > t.leadMaxChars) reasons.push('lead_length');
   if (countDistinctEntities(body) < t.minDistinctEntities && !hasDate(body)) {
     reasons.push('thin_substance');
   }
 
-  if (input.citations) {
+  if (options.legacy) {
+    // Legacy rows carry no citations.
+  } else if (!input.citations) {
+    reasons.push('citations_missing');
+  } else {
     const count = input.bodySentenceCount ?? splitSentences(body).length;
     const cited = new Set(input.citations);
     for (let i = 0; i < count; i++) {

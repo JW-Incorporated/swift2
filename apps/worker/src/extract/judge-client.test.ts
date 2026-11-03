@@ -55,10 +55,10 @@ describe('judgeWriting', () => {
     expect(await judgeWriting(await ExtractUsageStore.create(db), INPUT, claude)).toEqual({ status: 'deferred', reason: 'limit' });
   });
 
-  it('throws on invalid output', async () => {
+  it('defers on malformed scores and throws on an invalid wrapper status', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
     const bad = vi.fn(async () => ({ status: 'ok', data: { voice: 9 } })) as unknown as WorkerClaudeCaller;
-    await expect(judgeWriting(await ExtractUsageStore.create(db), INPUT, bad)).rejects.toThrow(/invalid/);
+    expect(await judgeWriting(await ExtractUsageStore.create(db), INPUT, bad)).toEqual({ status: 'deferred', reason: 'invalid_scores' });
     const invalid = vi.fn(async () => ({ status: 'invalid', reason: 'nope' })) as unknown as WorkerClaudeCaller;
     await expect(judgeWriting(await ExtractUsageStore.create(db), INPUT, invalid)).rejects.toThrow(/nope/);
   });

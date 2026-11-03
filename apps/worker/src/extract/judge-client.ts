@@ -26,14 +26,14 @@ export type JudgeResult =
   }
   | { status: 'deferred'; reason: string };
 
-function parseJudgeOutput(data: unknown): Extract<JudgeResult, { status: 'ok' }> {
+function parseJudgeOutput(data: unknown): JudgeResult {
   const value = (data ?? {}) as Record<string, unknown>;
   const scores = {} as Record<JudgeDimension, number>;
   const reasons = {} as Record<JudgeDimension, string>;
   for (const dimension of JUDGE_DIMENSIONS) {
     const score = value[dimension];
     if (typeof score !== 'number' || !Number.isInteger(score) || score < 1 || score > 5) {
-      throw new Error(`Claude writing judge returned invalid ${dimension} score`);
+      return { status: 'deferred', reason: 'invalid_scores' };
     }
     scores[dimension] = score;
     const reason = value[`${dimension}_reason`];
