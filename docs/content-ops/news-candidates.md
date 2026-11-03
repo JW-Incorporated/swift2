@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 75
+
+## Taylor Swift Wears All-Black Outfit in New York
+
+- first seen: 2026-11-03 02:21 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted in an all-black outfit that evokes a 'Welcome to New York' vibe. The article includes shopping suggestions for inspired pencil skirts and tops starting from $9.
+- sources:
+  - [established] People — https://people.com/taylor-swift-pencil-skirt-black-long-sleeve-shirt-amazon-november-2026-12187417
 
 ## Taylor Swift and Travis Kelce's Marriage Has Unexpected Aspects
 
@@ -640,19 +648,3 @@ Stories: 76
 - summary: Nelly revealed that he received $50,000 from Taylor Swift in a McDonald's bag to perform at her concert. This statement highlights an unusual payment method for live performances in the music industry.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/nelly-says-taylor-swift-paid-him-50k-in-mcdonalds-bag-to-perform-12203459
-
-## Taylor Swift Breaks Records in Recent Achievements
-
-- first seen: 2026-10-31 01:27 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved notable milestones, as reported in TCU 360. The article also mentions appearances in Abbott Elementary and results from DWTS.
-- sources:
-  - [unverified] TCU 360 — https://tcu360.com/2026/10/30/the-leap-taylor-swift-breaks-records-special-guests-in-abbott-elementary-and-double-elimination-in-dwts/
-
-## Ranking Taylor Swift's Music Across 20 Years and 12 Albums
-
-- first seen: 2026-10-31 01:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Her Campus presents a ranking of Taylor Swift's music throughout her 20-year career, evaluating 12 albums. The analysis showcases the evolution of her sound and artistry over the years.
-- sources:
-  - [unverified] Her Campus — https://www.hercampus.com/school/sbu/taylor-swift-20-years-of-music-ranked-in-12-albums/
