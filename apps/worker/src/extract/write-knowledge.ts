@@ -9,9 +9,9 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
-import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, type QualityHoldReason } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, outletLabel, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
-import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
+import type { ExtractedCurrentItem, ExtractedFact, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
   expiresAt,
   CURRENT_ITEM_EXPIRY_DAYS,
@@ -176,7 +176,14 @@ export interface WriteCurrentItemResult {
    * reflects the COMBINED verdict (topic screen AND the quality gate) —
    * see `evaluateCurrentItemQuality`'s header for why the two are folded
    * into one `redline_ok` column rather than a second gating column. */
-  holdReason?: QualityHoldReason;
+  holdReason?: QualityHoldReason | string;
+}
+
+/** Two-pass engine extras for a row: its facts, the judge score, and a hold the engine decided before the write. */
+export interface WriterV2Write {
+  facts: readonly ExtractedFact[];
+  writingScore?: number;
+  holdReason?: string;
 }
 
 export async function writeCurrentItem(
@@ -187,6 +194,7 @@ export async function writeCurrentItem(
   sources: readonly ClusterSource[],
   countdownTargetAt?: string,
   imageUrl?: string,
+  v2?: WriterV2Write,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -209,7 +217,9 @@ export async function writeCurrentItem(
     detail: item.detail,
     imageUrl,
     redlineOk: screen.ok,
+    ...(v2 ? { facts: v2.facts, sources: sources.map((s) => ({ name: s.outletName, url: s.url })) } : {}),
   });
+  const held = v2?.holdReason ?? (quality.ok ? undefined : quality.reason);
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
   const row = {
     story_id: storyId,
@@ -223,7 +233,11 @@ export async function writeCurrentItem(
     status: item.statusHint,
     confidence: CONFIDENCE_BY_STATUS[item.statusHint],
     source_tier: bestSourceTier(sources.map((s) => s.tier)),
-    sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+    sources: sources.map((s) => ({
+      name: s.outletName?.trim() ? s.outletName : outletLabel({ name: s.outletName, url: s.url }),
+      url: s.url,
+      tier: s.tier,
+    })),
     location_level: item.locationLevel ?? null,
     // Content fix 1/6: carries news_story.top_image_url (or the og:image/
     // twitter:image fallback resolved in image-resolve.ts) through to the
@@ -235,17 +249,18 @@ export async function writeCurrentItem(
     heat: sources.length,
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
-    redline_ok: quality.ok,
-    quality_hold_reason: quality.ok ? null : quality.reason,
+    redline_ok: held === undefined,
+    quality_hold_reason: held ?? null,
     countdown_target_at: countdownTargetAt ?? null,
+    ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
   const { data, error } = await db.from('current_item').insert(row).select('id').single();
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
   const id = data.id as string;
-  if (quality.ok && row.redline_ok) {
+  if (row.redline_ok) {
     await emitLaunchCategoryEvent(db, id, item);
   }
-  return { id, redlineOk: quality.ok, expiresAt: itemExpiresAt, ...(quality.ok ? {} : { holdReason: quality.reason }) };
+  return { id, redlineOk: row.redline_ok, expiresAt: itemExpiresAt, ...(held === undefined ? {} : { holdReason: held }) };
 }
 
 export interface MergeIntoOriginalInput {
@@ -254,6 +269,9 @@ export interface MergeIntoOriginalInput {
    * (discard-only path — spec §A "same_event + nothing new"). */
   mergedSummary?: string;
   mergedDetail?: string;
+  /** v2 merge: the merged fact list and judge score, written in the same update as the rewritten prose (only when the rewrite is accepted). */
+  mergedFacts?: readonly ExtractedFact[];
+  writingScore?: number;
   /** The duplicate news_story's sources, unioned into the original's. */
   duplicateSources: readonly ClusterSource[];
   /** The duplicate's resolved image_url, used to fill the original's image
@@ -302,6 +320,9 @@ export async function mergeNewFactsIntoOriginal(
     detail: rewriteDetail,
     imageUrl: imageUrl ?? undefined,
     redlineOk: rewriteScreen.ok,
+    ...(hasRewrite && input.mergedFacts
+      ? { facts: input.mergedFacts, sources: sources.map((s) => ({ name: s.outletName, url: s.url })) }
+      : {}),
   });
 
   // A failing rewrite must never overwrite the original's good copy: fall
@@ -335,6 +356,9 @@ export async function mergeNewFactsIntoOriginal(
     image_url: imageUrl,
     last_checked_on: new Date().toISOString().slice(0, 10),
     updated_at: new Date().toISOString(),
+    ...(hasRewrite && useRewrite && input.mergedFacts
+      ? { facts: input.mergedFacts, writing_score: input.writingScore ?? null }
+      : {}),
   };
   const visibility: Record<string, unknown> = {
     redline_ok: quality.ok,

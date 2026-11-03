@@ -37,6 +37,7 @@ export * from './doorways';
 export * from './doorways-injected';
 export * from './communities';
 export * from './current-feed';
+export * from './this-week-news';
 export * from './feed-tiers';
 export * from './substance';
 export * from './format';

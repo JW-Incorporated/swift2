@@ -18,7 +18,7 @@
 //
 // SAME GATE, NOT A COPY. The visible check imports the shared validator
 // straight from packages/shared/src/current-item-quality.ts (Node 24 strips
-// the TypeScript types natively; that file has zero imports), so the
+// the TypeScript types natively; that file and its two siblings import each other with explicit .ts extensions and nothing else), so the
 // watchdog cannot drift from the rule the site enforces. No `npm ci` needed,
 // matching the dependency-free watchdog.yml convention.
 //
