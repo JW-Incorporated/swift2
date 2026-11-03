@@ -5,6 +5,10 @@ export const MAX_CANDIDATES_TO_LLM = 5;
 export const MAX_SHORTLIST_UNION = 10;
 export const MIN_SHARED_ENTITIES = 2;
 export const FACT_JACCARD_THRESHOLD = 0.8;
+/** overlapScore at or above which two headlines are the same story. The
+ * shortlist itself ranks by overlapScore with no cut; this is the first cut,
+ * used by context-pack.ts to keep a story's own entries out of its context. */
+export const SAME_STORY_OVERLAP = 0.5;
 
 const UNIVERSAL_ENTITIES: ReadonlySet<string> = new Set(['taylor swift', 'taylor', 'swift']);
 
