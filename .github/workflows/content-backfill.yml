@@ -32,7 +32,7 @@ on:
         type: boolean
         default: true
       mode:
-        description: 'floors = thin-copy backfill; force = v2 rewrite of every visible row from the last 10 days without facts (snapshots old copy first)'
+        description: 'floors = thin-copy backfill; force = v2 rewrite of every row the live feed shows that has no facts yet (snapshots old copy first)'
         type: choice
         options:
           - floors
@@ -42,6 +42,14 @@ on:
         description: 'Max rows to process (0 = all)'
         type: string
         default: '0'
+      days:
+        description: 'Force mode only: optional observed_on window in days. Empty = the live feed''s own window (every unexpired visible row)'
+        type: string
+        default: ''
+      retire_below_floor:
+        description: 'Force mode only, ignored on a dry run: hide rows that fail the worth-a-post floor (quality_hold_reason retired_below_floor; undo with restore-copy-snapshot.mjs --clear-retired)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -80,9 +88,14 @@ jobs:
       - name: Validate inputs
         env:
           INPUT_LIMIT: ${{ inputs.limit }}
+          INPUT_DAYS: ${{ inputs.days }}
         run: |
           if ! [[ "$INPUT_LIMIT" =~ ^[0-9]+$ ]]; then
             echo "::error::limit must be a non-negative integer (0 = all), got '$INPUT_LIMIT'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_DAYS" =~ ^[0-9]*$ ]]; then
+            echo "::error::days must be empty or a non-negative integer, got '$INPUT_DAYS'"
             exit 1
           fi
 
@@ -95,6 +108,8 @@ jobs:
           BACKFILL_DRY_RUN: ${{ inputs.dry_run }}
           BACKFILL_MODE: ${{ inputs.mode }}
           BACKFILL_LIMIT: ${{ inputs.limit }}
+          BACKFILL_DAYS: ${{ inputs.days }}
+          BACKFILL_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
           BACKFILL_REPORT_DIR: ${{ runner.temp }}/backfill-report
         run: npx --no-install tsx scripts/news/backfill-current-items.mjs
 

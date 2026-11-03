@@ -1,14 +1,13 @@
-// Force-mode backfill (docs/decisions.md 2026-11-03 §5): every visible,
-// recent current_item without facts goes through the SAME v2 pipeline the live
+// Force-mode backfill (docs/decisions.md 2026-11-03 §5): every row the live
+// feed shows (same visibility filter and window as getCurrentItems) without facts goes through the SAME v2 pipeline the live
 // extract stage uses (pass A facts, worth-a-post floor, Sonnet writer, writing
 // gate, judge, one rewrite). The old copy is snapshotted before any write.
 // A dry run writes no current_item or snapshot rows; LLM budget rows in usage_daily are still incremented.
 // OUT OF SCOPE: same-event dedupe of backfill rows against each other.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { evaluateCurrentItemQuality, passesCurrentItemQualityGate } from '@swift2/shared';
+import { evaluateCurrentItemQuality } from '@swift2/shared';
 import { screenTopic } from '@swift2/shared/redline';
-import type { SourceTier } from '@swift2/shared/news';
 import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { extractWithLLM } from './haiku-client';
 import {
@@ -16,63 +15,16 @@ import {
 } from './v2-stage';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { buildUserMessage } from './writer-client';
+import { retireBelowFloor } from './backfill-retire';
+import { loadForceCandidates, markAttempted, type ForceCandidateRow } from './backfill-force-load';
 import { defaultReportDir, kitIdFor, writeForceArtifacts, type ForceReportRow, type WriterEvalKitRow } from './backfill-report';
 import type { BackfillRunResult, ForceDeps, ForceOutcome, ForceSummary, RunBackfillOptions } from './backfill-types';
 import type { ClusterSource } from './write-knowledge';
 import type { ExtractedFact } from './types';
 
-export const FORCE_WINDOW_DAYS = 10;
 const WITHHELD = '[withheld: redline]';
-const FORCE_MAX_ROWS = 1000;
-const FORCE_COLS =
-  'id,headline,summary,detail,image_url,sources,era_id,observed_on,category,tags,status,source_tier,symbols,entities,redline_ok';
 
-export interface ForceCandidateRow {
-  id: string;
-  headline: string;
-  summary: string;
-  detail: string;
-  image_url: string | null;
-  sources: { name: string; url: string; tier: SourceTier }[];
-  era_id: string;
-  observed_on: string;
-  category: string;
-  tags: string[] | null;
-  status: string;
-  source_tier: string | null;
-  symbols: string[] | null;
-  entities: string[] | null;
-  redline_ok: boolean;
-}
-
-/** Visible rows (today's read-time gate; not merged, retracted or promoted) observed in the last 10 days with no facts yet. A limit of 0 means all. */
-export async function loadForceCandidates(db: SupabaseClient, limit = 0, now = new Date()): Promise<ForceCandidateRow[]> {
-  const cutoff = new Date(now.getTime() - FORCE_WINDOW_DAYS * 86_400_000).toISOString().slice(0, 10);
-  const { data, error } = await db
-    .from('current_item')
-    .select(FORCE_COLS)
-    .is('promoted_to', null)
-    .is('merged_into', null)
-    .is('retracted_at', null)
-    .is('facts', null)
-    .eq('redline_ok', true)
-    .gt('expires_at', now.toISOString())
-    .gte('observed_on', cutoff)
-    .order('observed_on', { ascending: false })
-    .limit(FORCE_MAX_ROWS);
-  if (error) throw new Error(`force backfill candidate load failed: ${error.message}`);
-  const visible = ((data ?? []) as ForceCandidateRow[]).filter((row) => passesCurrentItemQualityGate({
-    headline: row.headline,
-    summary: row.summary,
-    detail: row.detail,
-    ...(row.image_url ? { imageUrl: row.image_url } : {}),
-    redlineOk: row.redline_ok,
-    facts: null,
-    sources: row.sources,
-  }));
-  return limit > 0 ? visible.slice(0, limit) : visible;
-}
-
+export { loadForceCandidates, type ForceCandidateRow };
 function screensClean(strings: readonly string[]): boolean {
   return strings.every((s) => !s || !screenTopic(s));
 }
@@ -81,6 +33,7 @@ interface RowResult {
   report: ForceReportRow;
   kit?: WriterEvalKitRow;
   deferred?: true;
+  retire?: true;
   write?: { summary: string; detail: string; facts: ExtractedFact[]; writingScore: number };
 }
 
@@ -93,7 +46,7 @@ async function processRow(
 ): Promise<RowResult> {
   const base: ForceReportRow = {
     id: row.id, headline: row.headline, oldSummary: row.summary, oldDetail: row.detail,
-    newLead: null, newBody: null, facts: [], citations: [], gateReasons: [], judgeScores: null,
+    newLead: null, newBody: null, facts: [], citations: [], paragraphs: [], gateReasons: [], judgeScores: null,
     outcome: 'writing_hold', holdReason: null,
   };
   const hold = (outcome: ForceOutcome, holdReason: string, extra: Partial<ForceReportRow> = {}): RowResult => ({
@@ -118,14 +71,15 @@ async function processRow(
 
   const item: V2Item = { ...current, headline: row.headline, facts: current.facts };
   const floor = tierFloorHold(item, sources);
-  if (floor) return hold('below_tier_floor', floor.holdReason ?? 'below_tier_floor', { facts: item.facts });
+  if (floor) return { ...hold('below_tier_floor', floor.holdReason ?? 'below_tier_floor', { facts: item.facts }), retire: true };
 
   const composed = await deps.compose(db, deps.stores, item, sources, row.era_id);
   const { trace, v2 } = composed;
   const withheld = !screensClean([trace.lead ?? '', trace.body ?? '']);
   const shownLead = withheld ? WITHHELD : trace.lead;
   const shownBody = withheld ? WITHHELD : trace.body;
-  const draft = shownLead && shownBody ? { lead: shownLead, body: shownBody, citations: trace.citations ?? [] } : null;
+  const shownParagraphs = withheld ? [] : trace.paragraphs ?? [];
+  const draft = shownLead && shownBody ? { lead: shownLead, body: shownBody, citations: trace.citations ?? [], paragraphs: shownParagraphs } : null;
   const kit: WriterEvalKitRow = {
     kitId: kitIdFor(row.id),
     headline: row.headline,
@@ -140,6 +94,7 @@ async function processRow(
   const traced: Partial<ForceReportRow> = {
     facts: item.facts,
     citations: trace.citations ?? [],
+    paragraphs: shownParagraphs,
     gateReasons: trace.gateReasons ?? [],
     judgeScores: trace.judgeScores ?? null,
     newLead: shownLead ?? null,
@@ -197,7 +152,7 @@ async function guardedWrite(
 }
 
 export async function runForceBackfill(db: SupabaseClient, options: RunBackfillOptions): Promise<BackfillRunResult> {
-  const { dryRun, limit, fetchImpl = fetch } = options;
+  const { dryRun, limit, days, retireBelowFloor: retireFloor = false, fetchImpl = fetch } = options;
   const errors: string[] = [];
   const result: BackfillRunResult = {
     considered: 0, rewritten: 0, imagesResolved: 0, nowPassing: 0, stillHeld: 0, deferred: 0, wroteBack: 0, reports: [], errors,
@@ -209,15 +164,22 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
     usage: options.force?.usage ?? await ExtractUsageStore.create(supabaseExtractUsageDb(db)),
     stores: options.force?.stores ?? { writer: await createWriterStore(db), judge: await createJudgeStore(db) },
   };
-  const candidates = await loadForceCandidates(db, limit);
+  const candidates = await loadForceCandidates(db, limit, new Date(), days);
   const today = new Date().toISOString().slice(0, 10);
   const rows: ForceReportRow[] = [];
   const kit: WriterEvalKitRow[] = [];
   const outcomes: Record<string, number> = {};
   const summary: ForceSummary = {
-    eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, deferred: false, remaining: 0, outcomes,
+    eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, retired: 0, deferred: false, remaining: 0, outcomes,
   };
   const tally = (outcome: string): void => { outcomes[outcome] = (outcomes[outcome] ?? 0) + 1; };
+
+  /** Every attempted row is stamped whatever its outcome (not on a dry run, not on a budget deferral, which learned nothing). */
+  const mark = async (id: string): Promise<void> => {
+    if (dryRun) return;
+    const failure = await markAttempted(db, id);
+    if (failure) errors.push(`backfill_attempted_at not set for ${id}: ${failure}`);
+  };
 
   for (const [index, row] of candidates.entries()) {
     result.considered++;
@@ -226,6 +188,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
       res = await processRow(row, db, deps, fetchImpl, today);
     } catch (err) {
       errors.push(`force backfill failed for ${row.id}: ${(err as Error).message}`);
+      await mark(row.id);
       continue;
     }
     if (res.kit) kit.push(res.kit);
@@ -235,6 +198,16 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
       result.deferred++;
       break;
     }
+    if (res.retire && retireFloor && !dryRun) {
+      const retired = await retireBelowFloor(db, row.id);
+      if (retired.outcome === 'retired_below_floor') {
+        summary.retired++;
+        res.report = { ...res.report, outcome: 'retired_below_floor' };
+      } else {
+        if (retired.error) errors.push(`${retired.outcome} for ${row.id}: ${retired.error}`);
+        res.report = { ...res.report, outcome: retired.outcome, holdReason: retired.error ?? retired.outcome };
+      }
+    }
     if (res.write && !dryRun) {
       const written = await guardedWrite(db, row.id, res.write);
       if (written.outcome === 'pass') result.wroteBack++;
@@ -243,6 +216,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
         res.report = { ...res.report, outcome: written.outcome, holdReason: written.error ?? written.outcome };
       }
     }
+    await mark(row.id);
     summary.processed++;
     tally(res.report.outcome);
     if (res.report.outcome === 'pass') { summary.passed++; result.nowPassing++; result.rewritten++; }

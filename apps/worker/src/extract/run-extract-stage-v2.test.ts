@@ -105,6 +105,7 @@ function draft(lead = LEAD, body = BODY) {
       lead,
       body,
       citations: splitSentences(body).map((_, sentence) => ({ sentence, ref: 'f1' })),
+      paragraphs: [{ sentences: splitSentences(body).map((text) => ({ text, refs: ['f1'] })) }],
     },
   };
 }
@@ -491,7 +492,7 @@ describe('runExtractStage shadow mode', () => {
     expect(lines).toHaveLength(1);
     const line = JSON.parse(lines[0]!);
     expect(Object.keys(line).sort()).toEqual(
-      ['body', 'citations', 'contextIds', 'facts', 'headline', 'judgeScores', 'lead', 'outcome', 'storyId'].sort(),
+      ['body', 'citations', 'contextIds', 'facts', 'headline', 'judgeScores', 'lead', 'outcome', 'paragraphs', 'storyId'].sort(),
     );
     expect(line).toMatchObject({ storyId: 'story-1', headline: ITEM.headline, lead: LEAD, outcome: 'ok' });
     expect(line.body).toBe(BODY);
