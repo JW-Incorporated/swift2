@@ -104,6 +104,7 @@ apps/web/
     FilterBar.tsx                  the one global sticky six-chip filter row (§5.8)
     EraSection.tsx                 one era: hero + lyric + TrackGuideBar + moment grid + PIVOT strip
     EraSecretCard.tsx              the Era Secret card (#688): one sourced obscure fact per era entry
+    ThisWeekNews.tsx               pinned, expandable "This week's news" row under the current era's hero (owner 2026-11-03): the last 7 days of live items (`thisWeekNewsItems`), All filter only; rows open CurrentItemDetail. Those items and the egg doorway cards no longer merge into the stream (`streamExtraEntries`, both merge sites); eggs stay in Threads' "Theories & eggs" lens
     MomentDetail.tsx               immersive single-moment view (opened from a grid card)
     MomentVideo.tsx                click-to-play YouTube embed (per moment; also used by TrackGuide
                                    for paired track videos)
