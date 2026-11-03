@@ -85,10 +85,24 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
-          # Two-pass news writer (docs/decisions.md 2026-11-03). Rollback: set this to 'off'
-          # and merge; the worker then runs the legacy single-pass path exactly as before.
-          NEWS_WRITER_V2: 'on'
+          # Two-pass news writer (docs/decisions.md 2026-11-03). 'shadow' = the legacy path writes
+          # the rows exactly as before while the v2 pipeline runs beside it and only reports drafts
+          # (artifact news-v2-shadow). Flip to 'on' after the PM reviews the shadow drafts.
+          # Rollback: set 'off'; the worker then runs the legacy single-pass path only.
+          NEWS_WRITER_V2: 'shadow'
+          NEWS_V2_SHADOW_FILE: ${{ runner.temp }}/news-v2-shadow.jsonl
         run: npm run news --workspace @swift2/worker
+
+      # Shadow drafts: public news text and model output only (no secrets, no PII). The repo is
+      # public, so this artifact is world-readable.
+      - name: Upload v2 shadow drafts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: news-v2-shadow
+          path: ${{ runner.temp }}/news-v2-shadow.jsonl
+          retention-days: 14
+          if-no-files-found: ignore
 
       # Publish a credential-free digest of what was ingested, for the News
       # Triage routine. `news_story` needs SUPABASE_SERVICE_ROLE_KEY, which

@@ -1,5 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { splitSentences } from '@swift2/shared';
+import { mkdtempSync, readFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
@@ -10,6 +13,7 @@ const mocks = vi.hoisted(() => ({
   resolveClusterSources: vi.fn(),
   resolveImageUrl: vi.fn(),
   evaluateSameEventGate: vi.fn(),
+  storyMarks: { count: 0 },
   mergeNewFactsIntoOriginal: vi.fn(),
   updates: [] as unknown[],
 }));
@@ -37,6 +41,9 @@ vi.mock('./usage-store', () => ({
   ExtractUsageStore: { create: async () => ({}) },
   supabaseExtractUsageDb: () => ({}),
   supabaseWriterUsageDb: () => ({}),
+  supabaseJudgeUsageDb: () => ({}),
+  JUDGE_PER_RUN_CAP: 100,
+  JUDGE_DAILY_CAP: 400,
   WRITER_PER_RUN_CAP: 60,
   WRITER_DAILY_CAP: 200,
 }));
@@ -130,6 +137,15 @@ const ORIGINAL = {
   image_url: 'https://www.people.com/o.jpg',
 };
 
+function markable() {
+  const query = chain({ error: null });
+  query.update = () => {
+    mocks.storyMarks.count++;
+    return query;
+  };
+  return query;
+}
+
 function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
   let storyCalls = 0;
   return {
@@ -139,7 +155,7 @@ function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
         storyCalls++;
         return storyCalls === 1
           ? chain({ data: [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '' }], error: null })
-          : chain({ error: null });
+          : markable();
       }
       if (table === 'current_item') {
         return {
@@ -178,6 +194,7 @@ describe('runExtractStage two-pass writer', () => {
     mocks.evaluateSameEventGate.mockReset().mockResolvedValue({ action: 'publish' });
     mocks.mergeNewFactsIntoOriginal.mockReset().mockResolvedValue({ redlineOk: true });
     mocks.updates.length = 0;
+    mocks.storyMarks.count = 0;
     mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/photo.jpg');
   });
 
@@ -201,18 +218,29 @@ describe('runExtractStage two-pass writer', () => {
     expect(mocks.judgeWriting).toHaveBeenCalledOnce();
   });
 
-  it('holds below_tier_floor without calling the writer', async () => {
+  it('rejects below_tier_floor with no row and no writer call, and marks the story extracted', async () => {
     const { row, result } = await run(ITEM, THIN_SOURCES);
     expect(mocks.writePost).not.toHaveBeenCalled();
-    expect(row).toMatchObject({ redline_ok: false, quality_hold_reason: 'below_tier_floor', facts: FACTS });
-    expect(result.screenedOut).toBe(1);
+    expect(row).toBeUndefined();
+    expect(result.v2Held).toBe(1);
+    expect(result.heldPassReasons).toEqual({ below_tier_floor: 1 });
+    expect(result.screenedOut).toBe(0);
+    expect(mocks.storyMarks.count).toBe(1);
   });
 
-  it('holds writer_deferred and never ships the pass-A text', async () => {
-    mocks.writePost.mockResolvedValue({ status: 'deferred', reason: 'writer budget exhausted' });
-    const { row } = await run();
-    expect(row).toMatchObject({ redline_ok: false, quality_hold_reason: 'writer_deferred', writing_score: null });
+  it('writer deferred: no row, story not marked, then the next cycle succeeds', async () => {
+    mocks.writePost.mockResolvedValueOnce({ status: 'deferred', reason: 'writer budget exhausted' });
+    const first = await run();
+    expect(first.row).toBeUndefined();
+    expect(first.result.v2Deferred).toBe(1);
+    expect(first.result.extracted).toBe(0);
+    expect(mocks.storyMarks.count).toBe(0);
     expect(mocks.judgeWriting).not.toHaveBeenCalled();
+
+    const second = await run();
+    expect(second.result.extracted).toBe(1);
+    expect(second.row).toMatchObject({ summary: LEAD, redline_ok: true });
+    expect(mocks.storyMarks.count).toBe(1);
   });
 
   it('rewrites once with the gate reasons when the writing gate fails, then publishes', async () => {
@@ -223,12 +251,16 @@ describe('runExtractStage two-pass writer', () => {
     expect(row).toMatchObject({ summary: LEAD, redline_ok: true, writing_score: 4 });
   });
 
-  it('holds when the writing gate fails twice', async () => {
+  it('holds when the writing gate fails twice, counted as v2Held with the reason', async () => {
     mocks.writePost.mockResolvedValue(draft('Too short a lead.'));
-    const { row } = await run();
+    const { row, result } = await run();
     expect(mocks.writePost).toHaveBeenCalledTimes(2);
     expect(mocks.judgeWriting).not.toHaveBeenCalled();
     expect(row).toMatchObject({ redline_ok: false, quality_hold_reason: 'writing_quality:lead_length' });
+    expect(result.v2Held).toBe(1);
+    expect(result.heldPassReasons).toEqual({ 'writing_quality:lead_length': 1 });
+    expect(result.screenedOut).toBe(0);
+    expect(mocks.storyMarks.count).toBe(1);
   });
 
   it('holds with the lowest judge dimension when the judge fails after the one rewrite', async () => {
@@ -248,16 +280,22 @@ describe('runExtractStage two-pass writer', () => {
     expect(row).toMatchObject({ quality_hold_reason: 'writing_quality:grounding' });
   });
 
-  it('holds judge_deferred', async () => {
+  it('judge deferred: no row, story not marked', async () => {
     mocks.judgeWriting.mockResolvedValue({ status: 'deferred', reason: 'budget_exhausted' });
-    const { row } = await run();
-    expect(row).toMatchObject({ redline_ok: false, quality_hold_reason: 'judge_deferred' });
+    const { row, result } = await run();
+    expect(row).toBeUndefined();
+    expect(result.v2Deferred).toBe(1);
+    expect(mocks.storyMarks.count).toBe(0);
   });
 
-  it('skips a current_item that came back with no facts', async () => {
+  it('missing facts: counted, warned, no row, story not marked', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
     const { result, row } = await run({ ...ITEM, facts: undefined });
-    expect(result.skipped).toBe(1);
+    expect(result.v2MissingFacts).toBe(1);
     expect(row).toBeUndefined();
+    expect(mocks.storyMarks.count).toBe(0);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('story-1'));
+    warn.mockRestore();
   });
 
   it('NEWS_WRITER_V2=off writes the legacy row: pass-A text, no facts, no writer or judge call', async () => {
@@ -275,8 +313,16 @@ describe('runExtractStage two-pass writer', () => {
     const { result, row } = await run();
     expect(row).toBeUndefined();
     expect(result.dedupeDiscarded).toBe(1);
+    expect(result.dedupeDiscardReasons).toEqual({ duplicate_of_moment: 1 });
     expect(result.errors).toEqual([]);
     expect(mocks.evaluateSameEventGate.mock.calls[0]?.[4]).toMatchObject({ eraId: 'tloas', crossLane: { moments: [], videos: [] } });
+  });
+
+  it('counts the legacy_item_vs_v2_original discard reason', async () => {
+    mocks.evaluateSameEventGate.mockResolvedValue({ action: 'discard', candidateId: 'orig-1', reason: 'legacy_item_vs_v2_original' });
+    const { result, row } = await run();
+    expect(row).toBeUndefined();
+    expect(result.dedupeDiscardReasons).toEqual({ legacy_item_vs_v2_original: 1 });
   });
 
   it('counts a video match as attached_to_video and writes no row', async () => {
@@ -286,7 +332,7 @@ describe('runExtractStage two-pass writer', () => {
     expect(result.attachedToVideo).toBe(1);
   });
 
-  it('v2 merge re-runs the writer from the merged facts and stores facts and score', async () => {
+  it('v2 merge re-runs the writer from the merged facts and writes facts, score and prose in one update', async () => {
     const mergedFacts = [...FACTS, { id: 'f3', claim: 'A third fact.', attribution: 'Variety', confidence: 'reported' }];
     mocks.evaluateSameEventGate.mockResolvedValue({
       action: 'merge', candidateId: 'orig-1', needsRewrite: true, mergedFacts, mergedSources: SOURCES,
@@ -294,19 +340,92 @@ describe('runExtractStage two-pass writer', () => {
     const { result } = await run();
     expect(result.errors).toEqual([]);
     expect(mocks.writePost.mock.calls[0]?.[1].facts).toEqual(mergedFacts);
-    expect(mocks.updates).toEqual([{ facts: mergedFacts, writing_score: 4 }]);
-    expect(mocks.mergeNewFactsIntoOriginal.mock.calls[0]?.[3]).toMatchObject({ mergedSummary: LEAD, mergedDetail: BODY });
+    expect(mocks.updates).toEqual([]);
+    expect(mocks.mergeNewFactsIntoOriginal.mock.calls[0]?.[3]).toMatchObject({
+      mergedSummary: LEAD, mergedDetail: BODY, mergedFacts, writingScore: 4,
+    });
   });
 
-  it('v2 merge that holds keeps the original copy and only adds sources', async () => {
-    mocks.writePost.mockResolvedValue({ status: 'deferred', reason: 'writer budget exhausted' });
+  it('v2 merge that fails the gate keeps the original copy and only adds sources', async () => {
+    mocks.writePost.mockResolvedValue(draft('Too short a lead.'));
     mocks.evaluateSameEventGate.mockResolvedValue({
       action: 'merge', candidateId: 'orig-1', needsRewrite: true, mergedFacts: FACTS, mergedSources: SOURCES,
     });
     await run();
-    expect(mocks.updates).toEqual([]);
     const input = mocks.mergeNewFactsIntoOriginal.mock.calls[0]?.[3];
     expect(input).not.toHaveProperty('mergedSummary');
+    expect(input).not.toHaveProperty('mergedFacts');
     expect(input.duplicateSources).toEqual(SOURCES);
+  });
+
+  it('v2 merge with a deferred writer retries: nothing merged, story not marked', async () => {
+    mocks.writePost.mockResolvedValue({ status: 'deferred', reason: 'writer budget exhausted' });
+    mocks.evaluateSameEventGate.mockResolvedValue({
+      action: 'merge', candidateId: 'orig-1', needsRewrite: true, mergedFacts: FACTS, mergedSources: SOURCES,
+    });
+    const { result } = await run();
+    expect(mocks.mergeNewFactsIntoOriginal).not.toHaveBeenCalled();
+    expect(result.v2Deferred).toBe(1);
+    expect(result.dedupeMerged).toBe(0);
+    expect(mocks.storyMarks.count).toBe(0);
+  });
+
+});
+
+describe('runExtractStage shadow mode', () => {
+  let file: string;
+  beforeEach(() => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    file = join(mkdtempSync(join(tmpdir(), 'news-shadow-')), 'shadow.jsonl');
+    vi.stubEnv('NEWS_V2_SHADOW_FILE', file);
+    mocks.extractWithLLM.mockReset();
+    mocks.writePost.mockReset().mockResolvedValue(draft());
+    mocks.judgeWriting.mockReset().mockResolvedValue(PASS);
+    mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/photo.jpg');
+    mocks.evaluateSameEventGate.mockReset().mockResolvedValue({ action: 'publish' });
+    mocks.mergeNewFactsIntoOriginal.mockReset().mockResolvedValue({ redlineOk: true });
+    mocks.updates.length = 0;
+    mocks.storyMarks.count = 0;
+  });
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('writes the legacy row exactly as off mode does, with no v2 columns or DB writes', async () => {
+    vi.stubEnv('NEWS_WRITER_V2', 'off');
+    const off = await run();
+    vi.stubEnv('NEWS_WRITER_V2', 'shadow');
+    const shadow = await run();
+    const strip = (r: Record<string, unknown> | undefined) => ({ ...r, expires_at: undefined });
+    expect(strip(shadow.row)).toEqual(strip(off.row));
+    expect(shadow.row).not.toHaveProperty('facts');
+    expect(shadow.row).not.toHaveProperty('writing_score');
+    expect(mocks.updates).toEqual([]);
+    expect(shadow.result.v2Held + shadow.result.v2Deferred + shadow.result.v2MissingFacts).toBe(0);
+    expect(mocks.writePost).toHaveBeenCalledOnce();
+  });
+
+  it('appends one JSON line per item with the draft, gate, judge and context ids', async () => {
+    vi.stubEnv('NEWS_WRITER_V2', 'shadow');
+    await run();
+    const lines = readFileSync(file, 'utf8').trim().split('\n');
+    expect(lines).toHaveLength(1);
+    const line = JSON.parse(lines[0]!);
+    expect(Object.keys(line).sort()).toEqual(
+      ['body', 'citations', 'contextIds', 'facts', 'headline', 'judgeScores', 'lead', 'outcome', 'storyId'].sort(),
+    );
+    expect(line).toMatchObject({ storyId: 'story-1', headline: ITEM.headline, lead: LEAD, outcome: 'ok' });
+    expect(line.body).toBe(BODY);
+    expect(line.citations.length).toBeGreaterThan(0);
+  });
+
+  it('records a held draft with its gate reasons and a floor rejection', async () => {
+    vi.stubEnv('NEWS_WRITER_V2', 'shadow');
+    mocks.writePost.mockResolvedValue(draft('Too short a lead.'));
+    await run();
+    await run(ITEM, THIN_SOURCES);
+    const [held, floor] = readFileSync(file, 'utf8').trim().split('\n').map((l) => JSON.parse(l));
+    expect(held).toMatchObject({ outcome: 'hold', holdReason: 'writing_quality:lead_length', gateReasons: ['lead_length'] });
+    expect(floor).toMatchObject({ outcome: 'below_tier_floor', holdReason: 'below_tier_floor' });
   });
 });

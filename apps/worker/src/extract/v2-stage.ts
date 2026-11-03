@@ -3,12 +3,15 @@
 // single-pass path exactly; unset or anything else means on.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { composePost } from './compose-post';
+import { composePost, type ComposeTrace } from './compose-post';
 import { buildContextPack } from './context-pack';
 import { loadEraContext, loadPriorItems } from './context-loader';
 import type { ExtractedCurrentItem, ExtractedFact } from './types';
 import {
   ExtractUsageStore,
+  JUDGE_DAILY_CAP,
+  JUDGE_PER_RUN_CAP,
+  supabaseJudgeUsageDb,
   supabaseWriterUsageDb,
   WRITER_DAILY_CAP,
   WRITER_PER_RUN_CAP,
@@ -16,9 +19,15 @@ import {
 import type { ClusterSource, WriterV2Write } from './write-knowledge';
 import { worthAPost } from './worth-gate';
 
-export function writerV2Enabled(env: NodeJS.ProcessEnv = process.env): boolean {
-  return (env.NEWS_WRITER_V2 ?? 'on').trim().toLowerCase() !== 'off';
+export type WriterMode = 'off' | 'shadow' | 'on';
+
+/** off = legacy path only; shadow = legacy writes, v2 runs and reports without touching the DB; on (default) = v2 writes. */
+export function writerMode(env: NodeJS.ProcessEnv = process.env): WriterMode {
+  const value = (env.NEWS_WRITER_V2 ?? 'on').trim().toLowerCase();
+  return value === 'off' || value === 'shadow' ? value : 'on';
 }
+
+export const DEFERRED_HOLDS: readonly string[] = ['writer_deferred', 'judge_deferred'];
 
 export type V2Item = ExtractedCurrentItem & { facts: ExtractedFact[] };
 
@@ -28,6 +37,10 @@ export function hasFacts(item: ExtractedCurrentItem | undefined): item is V2Item
 
 export function createWriterStore(db: SupabaseClient): Promise<ExtractUsageStore> {
   return ExtractUsageStore.create(supabaseWriterUsageDb(db), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP);
+}
+
+export function createJudgeStore(db: SupabaseClient): Promise<ExtractUsageStore> {
+  return ExtractUsageStore.create(supabaseJudgeUsageDb(db), JUDGE_PER_RUN_CAP, JUDGE_DAILY_CAP);
 }
 
 /** The deterministic "worth a post" floor; a hold when the item fails it, undefined when it passes. */
@@ -43,7 +56,7 @@ export async function composeV2Item(
   item: V2Item,
   sources: readonly ClusterSource[],
   eraId: string,
-): Promise<{ item: ExtractedCurrentItem; v2: WriterV2Write }> {
+): Promise<{ item: ExtractedCurrentItem; v2: WriterV2Write; trace: ComposeTrace; contextIds: string[] }> {
   const era = await loadEraContext(eraId);
   const context = buildContextPack({
     eraName: era.eraName,
@@ -60,29 +73,32 @@ export async function composeV2Item(
     context,
     sources,
   });
-  if (composed.status === 'hold') return { item, v2: { facts: item.facts, holdReason: composed.reason } };
+  const contextIds = context.items.map((i) => i.id);
+  if (composed.status === 'hold') {
+    return { item, v2: { facts: item.facts, holdReason: composed.reason }, trace: composed.trace, contextIds };
+  }
   return {
     item: { ...item, summary: composed.lead, detail: composed.body },
     v2: { facts: item.facts, writingScore: composed.writingScore },
+    trace: composed.trace,
+    contextIds,
   };
 }
 
-/** v2 merge: re-runs the writer once from the merged facts. On a pass, stores the new facts/score and returns the prose for the shared merge write; on a hold, returns an empty rewrite so the original row's copy stays unchanged and only sources/heat are added. */
+/** v2 merge: re-runs the writer once from the merged facts and returns the prose, facts and score for the shared merge write (one atomic update). A deferral is a retry (nothing written); a quality hold returns no rewrite so the original copy stays and only sources/heat are added. */
 export async function rewriteMergedOriginal(
   db: SupabaseClient,
   stores: { writer: ExtractUsageStore; judge: ExtractUsageStore },
-  originalId: string,
   item: V2Item,
   sources: readonly ClusterSource[],
   eraId: string,
-): Promise<{ mergedSummary?: string; mergedDetail?: string }> {
+): Promise<{ deferred?: true; mergedSummary?: string; mergedDetail?: string; mergedFacts?: ExtractedFact[]; writingScore?: number }> {
   const { item: written, v2 } = await composeV2Item(db, stores, item, sources, eraId);
-  if (v2.holdReason) return {};
-  const { error } = await db
-    .from('current_item')
-    .update({ facts: v2.facts, writing_score: v2.writingScore ?? null })
-    .eq('id', originalId)
-    .is('retracted_at', null);
-  if (error) throw new Error(`merged facts write failed: ${error.message}`);
-  return { mergedSummary: written.summary, mergedDetail: written.detail };
+  if (v2.holdReason) return DEFERRED_HOLDS.includes(v2.holdReason) ? { deferred: true } : {};
+  return {
+    mergedSummary: written.summary,
+    mergedDetail: written.detail,
+    mergedFacts: v2.facts as ExtractedFact[],
+    ...(v2.writingScore !== undefined ? { writingScore: v2.writingScore } : {}),
+  };
 }

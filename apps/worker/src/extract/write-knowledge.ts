@@ -265,6 +265,9 @@ export interface MergeIntoOriginalInput {
    * (discard-only path — spec §A "same_event + nothing new"). */
   mergedSummary?: string;
   mergedDetail?: string;
+  /** v2 merge: the merged fact list and judge score, written in the same update as the rewritten prose (only when the rewrite is accepted). */
+  mergedFacts?: readonly ExtractedFact[];
+  writingScore?: number;
   /** The duplicate news_story's sources, unioned into the original's. */
   duplicateSources: readonly ClusterSource[];
   /** The duplicate's resolved image_url, used to fill the original's image
@@ -313,6 +316,9 @@ export async function mergeNewFactsIntoOriginal(
     detail: rewriteDetail,
     imageUrl: imageUrl ?? undefined,
     redlineOk: rewriteScreen.ok,
+    ...(hasRewrite && input.mergedFacts
+      ? { facts: input.mergedFacts, sources: sources.map((s) => ({ name: s.outletName, url: s.url })) }
+      : {}),
   });
 
   // A failing rewrite must never overwrite the original's good copy: fall
@@ -346,6 +352,9 @@ export async function mergeNewFactsIntoOriginal(
     image_url: imageUrl,
     last_checked_on: new Date().toISOString().slice(0, 10),
     updated_at: new Date().toISOString(),
+    ...(hasRewrite && useRewrite && input.mergedFacts
+      ? { facts: input.mergedFacts, writing_score: input.writingScore ?? null }
+      : {}),
   };
   const visibility: Record<string, unknown> = {
     redline_ok: quality.ok,

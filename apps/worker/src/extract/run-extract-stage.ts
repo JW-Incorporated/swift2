@@ -10,7 +10,7 @@ import {
   resolveClusterSources,
   type PendingStory,
 } from './extract-stage-data';
-import { emptyResult, type ExtractStageResult } from './extract-stage-result';
+import { emptyResult, recordDiscard, recordV2Hold, type ExtractStageResult } from './extract-stage-result';
 import { runExtractMaintenance } from './extract-stage-maintenance';
 import { extractWithLLM } from './haiku-client';
 import { reresolveHeldImages } from './held-image-pass';
@@ -18,7 +18,10 @@ import { reresolveHeldTheoryImages } from './held-theory-image-pass';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { loadEraContext } from './context-loader';
-import { composeV2Item, createWriterStore, hasFacts, rewriteMergedOriginal, tierFloorHold, writerV2Enabled } from './v2-stage';
+import {
+  composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, rewriteMergedOriginal, tierFloorHold, writerMode,
+} from './v2-stage';
+import { runShadow } from './v2-shadow';
 import {
   mergeNewFactsIntoOriginal,
   projectKnowledgeDoc,
@@ -54,8 +57,11 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   const today = new Date().toISOString().slice(0, 10);
   const usage = await ExtractUsageStore.create(supabaseExtractUsageDb(db));
   const commentFetchState = createCommentFetchState();
-  const writerV2 = writerV2Enabled();
-  const writerUsage = writerV2 ? await createWriterStore(db) : undefined;
+  const mode = writerMode();
+  const writerV2 = mode === 'on';
+  const v2Stores = mode === 'off'
+    ? undefined
+    : { writer: await createWriterStore(db), judge: await createJudgeStore(db) };
 
   for (const story of (pending ?? []) as PendingStory[]) {
     result.clustersConsidered += 1;
@@ -96,10 +102,11 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
       if (extracted.kind === 'skip') {
         result.skipped += 1;
       } else {
-        let currentItem = extracted.currentItem;
+        const currentItem = extracted.currentItem;
         if (writerV2 && currentItem && !hasFacts(currentItem)) {
-          currentItem = undefined;
-          result.skipped += 1;
+          result.v2MissingFacts += 1;
+          console.warn(`news-worker: story ${story.id} returned a current_item without facts; retrying next cycle`);
+          continue;
         }
         const imageUrl = currentItem
           ? await resolveImageUrl(story.top_image_url, sources)
@@ -109,7 +116,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         if (currentItem) {
           let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
           const floorHold = writerV2 && hasFacts(currentItem) ? tierFloorHold(currentItem, sources) : undefined;
-          if (floorHold) decision = { action: 'publish' };
+          if (floorHold) decision = { action: 'hold', reason: 'below_tier_floor' };
           else try {
             const candidates = await loadDedupeCandidates(db, CURRENT_ERA_ID);
             decision = writerV2
@@ -122,17 +129,20 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           } catch (error) {
             decision = { action: 'hold', reason: (error as Error).message };
           }
-          if (decision.action === 'hold') {
+          if (floorHold) {
+            recordV2Hold(result, 'below_tier_floor');
+          } else if (decision.action === 'hold') {
             result.dedupeHeld += 1;
             errors.push(`dedupe gate held story ${story.id}: ${decision.reason}`);
             continue;
-          }
-          if (decision.action === 'attach_video') {
+          } else if (decision.action === 'attach_video') {
             result.attachedToVideo += 1;
           } else if (decision.action === 'discard' && decision.momentId) {
             result.dedupeDiscarded += 1;
+            recordDiscard(result, decision);
           } else if (decision.action === 'discard' || decision.action === 'merge') {
             result.dedupeDiscarded += decision.action === 'discard' ? 1 : 0;
+            if (decision.action === 'discard') recordDiscard(result, decision);
             result.dedupeMerged += decision.action === 'merge' ? 1 : 0;
             let dedupeOriginalImage: string | null;
             try {
@@ -147,16 +157,20 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                 theoryImageUrl = dedupeOriginalImage;
               }
               const rewritten = decision.action === 'merge' && decision.needsRewrite && decision.mergedFacts
-                && writerV2 && writerUsage && hasFacts(currentItem)
+                && writerV2 && v2Stores && hasFacts(currentItem)
                 ? await rewriteMergedOriginal(
                   db,
-                  { writer: writerUsage, judge: usage },
-                  decision.candidateId,
+                  v2Stores,
                   { ...currentItem, headline: original.headline as string, facts: decision.mergedFacts },
                   decision.mergedSources ?? sources,
                   CURRENT_ERA_ID,
                 )
                 : undefined;
+              if (rewritten?.deferred) {
+                result.dedupeMerged -= 1;
+                result.v2Deferred += 1;
+                continue;
+              }
               await mergeNewFactsIntoOriginal(
                 db,
                 decision.candidateId,
@@ -184,15 +198,19 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             }
           } else {
             let toWrite = currentItem;
-            let v2Write: WriterV2Write | undefined = floorHold;
-            if (writerV2 && writerUsage && !floorHold && hasFacts(currentItem)) {
-              ({ item: toWrite, v2: v2Write } = await composeV2Item(
-                db,
-                { writer: writerUsage, judge: usage },
-                currentItem,
-                sources,
-                CURRENT_ERA_ID,
-              ));
+            let v2Write: WriterV2Write | undefined;
+            if (writerV2 && v2Stores && hasFacts(currentItem)) {
+              const composed = await composeV2Item(db, v2Stores, currentItem, sources, CURRENT_ERA_ID);
+              if (composed.v2.holdReason && DEFERRED_HOLDS.includes(composed.v2.holdReason)) {
+                result.v2Deferred += 1;
+                continue;
+              }
+              toWrite = composed.item;
+              v2Write = composed.v2;
+            } else if (mode === 'shadow' && v2Stores && hasFacts(currentItem)) {
+              await runShadow(db, v2Stores, story.id, currentItem, sources, CURRENT_ERA_ID).catch((error: Error) => {
+                console.warn(`news-worker: v2 shadow failed for story ${story.id}: ${error.message}`);
+              });
             }
             const written = await writeCurrentItem(
               db,
@@ -204,7 +222,10 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               imageUrl,
               v2Write,
             );
-            if (!written.redlineOk) result.screenedOut += 1;
+            if (!written.redlineOk) {
+              if (v2Write?.holdReason) recordV2Hold(result, v2Write.holdReason);
+              else result.screenedOut += 1;
+            }
             else {
               result.extracted += 1;
               evidenceDocId = `current:${written.id}`;
