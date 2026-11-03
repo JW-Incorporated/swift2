@@ -31,6 +31,14 @@ export const THEORY_MINER_PER_RUN_CAP = 150;
 export const THEORY_MINER_DAILY_CAP = 300;
 const THEORY_MINER_SCOPE = 'theory-miner';
 
+/** Pass B (Sonnet writer) has its own budget and durable counter, separate
+ * from the Haiku extract caps above — Sonnet calls cost more, so they are
+ * capped tighter. Build the store with
+ * `ExtractUsageStore.create(supabaseWriterUsageDb(db), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP)`. */
+export const WRITER_PER_RUN_CAP = 60;
+export const WRITER_DAILY_CAP = 200;
+const WRITER_SCOPE = 'writer';
+
 export class ExtractUsageStore {
   private constructor(
     private db: UsageDb,
@@ -116,6 +124,29 @@ export function supabaseTheoryMinerUsageDb(
     },
     async incrementToday() {
       const { error } = await db.rpc('increment_usage_daily', { p_scope: THEORY_MINER_SCOPE });
+      if (error) throw error;
+    },
+  };
+}
+
+/** Real UsageDb backed by usage_daily / increment_usage_daily('writer'). */
+export function supabaseWriterUsageDb(
+  db: import('@supabase/supabase-js').SupabaseClient,
+): UsageDb {
+  return {
+    async todaysCallCount() {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data, error } = await db
+        .from('usage_daily')
+        .select('call_count')
+        .eq('scope', WRITER_SCOPE)
+        .eq('usage_date', today)
+        .maybeSingle();
+      if (error) throw error;
+      return data?.call_count ?? 0;
+    },
+    async incrementToday() {
+      const { error } = await db.rpc('increment_usage_daily', { p_scope: WRITER_SCOPE });
       if (error) throw error;
     },
   };
