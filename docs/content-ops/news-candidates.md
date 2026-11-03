@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 70
+
+## Taylor Swift Donates 'Wildest Dreams' Video Proceeds to Conservation
+
+- first seen: 2026-11-03 13:41 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has donated the proceeds from her 'Wildest Dreams' music video to support African conservation efforts. This initiative highlights her commitment to environmental causes.
+- sources:
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-donated-proceeds-from-her-wildest-dreams-music-video-to-african-conservation-the-organisation-now-manages-22-protected-areas-across-12-countries/articleshow/135494940.cms
 
 ## Taylor Swift has two new albums reportedly ready for release
 
