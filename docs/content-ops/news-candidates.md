@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## Hollywood Music in Media Awards Nominations and Oscar Insights
+
+- first seen: 2026-11-03 23:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An analysis of the significance of the nominations at the Hollywood Music in Media Awards in relation to the Oscars. The piece suggests ways in which these nominations may influence or indicate trends for the upcoming Academy Awards.
+- sources:
+  - [unverified] Gold Derby — https://www.goldderby.com/film/2026/hollywood-music-in-media-awards-noms-oscars-taylor-swift-analysis/
+
+## Abdul El-Sayed Comments on Taylor Swift's 'Life of a Showgirl'
+
+- first seen: 2026-11-03 23:56 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Abdul El-Sayed shared his opinion, stating that Taylor Swift's 'Life of a Showgirl' is not her best work. The comment reflects a critical perspective on the artist's latest offering.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/course-not-abdul-el-sayed-230036484.html
 
 ## A Look Back at Taylor Swift's Best Curly Hair Moments
 
@@ -120,11 +136,12 @@ Stories: 70
 ## Taylor Swift Discusses Her Role in 'Toy Story 5'
 
 - first seen: 2026-11-03 06:52 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift reveals her approach to securing her role in 'Toy Story 5' without displacing others from the cast. The insights reflect her efforts to collaborate harmoniously in the project.
 - sources:
   - [unverified] Contactmusic.com — https://www.contactmusic.com/story/467/3637997/taylor-swift-feared-she-d-lost-toy-story-5-song-after-months-long-delay
   - [unverified] IMDb — https://www.imdb.com/news/ni66092895/?ref_=nmnw_art_perm
+  - [unverified] Page Six — https://pagesix.com/2026/11/03/entertainment/taylor-swift-was-campaigning-for-an-oscar-at-nyc-toy-story-5-screening/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ensured-she-didn-060036386.html
 
 ## Taylor Swift Considers Hiring Private Investigators Due to Leaked Photos
@@ -600,11 +617,3 @@ Stories: 70
 - summary: Patrick Mahomes and his wife Brittany embraced Halloween by paying homage to Taylor Swift in their costume choice. The couple's celebration reflects their admiration for the pop star.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/patrick-mahomes-wife-brittany-kids-win-halloween-taylor-swift-nod/
-
-## Nelly Shares Story of Taylor Swift's Unique Payment Method
-
-- first seen: 2026-10-31 23:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly disclosed in an interview that Taylor Swift once compensated him for a performance with $50,000 in cash, presented in a McDonald's bag. This unusual method of payment highlights Swift's unconventional approach to business transactions.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-reveals-taylor-swift-once-173426424.html
