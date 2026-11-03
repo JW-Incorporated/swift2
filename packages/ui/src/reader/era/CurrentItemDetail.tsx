@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { AlertTriangle, ExternalLink, House, MessageCircleQuestion, X } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
+import { outletLabel, dedupeSourcesByOutlet } from '@swift2/shared';
 import type { Era } from '@swift2/experience';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useBackDismiss } from '../lib/useBackDismiss';
@@ -12,6 +13,13 @@ import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@swift2/experience';
 import { eraStyle } from '../lib/theme';
 import { useAppActions } from '../store';
 import { useHost } from '../../host/context';
+
+/** Same remote-vs-local-asset check every other card's `<Image>` call uses.
+ * `item.imageUrl` is always a hotlinked `https://` publisher URL, so this
+ * only ever picks the `unoptimized` branch. */
+function isRemoteUrl(url: string): boolean {
+  return /^https?:\/\//.test(url);
+}
 
 /**
  * The current-era live item's detail overlay (PLAN.md Stage 5). A lighter
@@ -40,8 +48,9 @@ export function CurrentItemDetail({
   onClose: () => void;
 }) {
   const { goHome } = useAppActions();
-  const { apiFetch } = useHost();
+  const { apiFetch, Image } = useHost();
   const [verifyState, setVerifyState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [imageFailed, setImageFailed] = useState(false);
   useScrollLock(item != null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   useBackDismiss(item != null, onClose);
@@ -50,6 +59,7 @@ export function CurrentItemDetail({
   if (!item) return null;
   const status = CURRENT_ITEM_STATUS_COPY[item.status];
   const outlet = outletFor(item);
+  const showImage = Boolean(item.imageUrl) && !imageFailed;
 
   async function verify() {
     if (!item || verifyState === 'sending') return;
@@ -117,6 +127,21 @@ export function CurrentItemDetail({
           {formatFullDate(item.observedOn)}
         </p>
 
+        {showImage && (
+          <div className="mt-5 aspect-[16/9] overflow-hidden rounded-xl">
+            <Image
+              src={item.imageUrl!}
+              alt={item.headline}
+              fill
+              unoptimized={isRemoteUrl(item.imageUrl!)}
+              loading="lazy"
+              sizes="(min-width: 768px) 100vw, 100vw"
+              className="object-cover"
+              onError={() => setImageFailed(true)}
+            />
+          </div>
+        )}
+
         <div
           role="note"
           aria-label={status.label}
@@ -137,20 +162,29 @@ export function CurrentItemDetail({
         <p className="mt-3 text-[15px] leading-relaxed text-[color:var(--era-ink-soft)]">{item.detail}</p>
 
         {item.sources.length > 0 && (
-          <ul className="mt-6 space-y-1.5">
-            {item.sources.map((s) => (
-              <li key={s.url}>
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-[color:var(--era-ink-soft)] underline underline-offset-2 hover:text-[color:var(--era-ink)]"
-                >
-                  {s.name} <ExternalLink className="h-3 w-3" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-6 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            <span className="font-semibold uppercase tracking-widest">Sources:</span>
+            {(() => {
+              const deduped = dedupeSourcesByOutlet(item.sources);
+              const nodes: React.ReactNode[] = [];
+              deduped.forEach((s, i) => {
+                if (i > 0) nodes.push(<span key={`sep-${i}`}> · </span>);
+                nodes.push(
+                  <a
+                    key={s.url}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-1.5 underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                  >
+                    {outletLabel(s)}
+                    <ExternalLink className="ml-0.5 inline h-3 w-3 align-[-1px]" />
+                  </a>,
+                );
+              });
+              return nodes;
+            })()}
+          </p>
         )}
 
         <button
