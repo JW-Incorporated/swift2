@@ -27,6 +27,15 @@ so far".
 
 Stories: 71
 
+## Taylor Swift Discusses Her Role in 'Toy Story 5'
+
+- first seen: 2026-11-03 06:52 UTC | category: business | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift reveals her approach to securing her role in 'Toy Story 5' without displacing others from the cast. The insights reflect her efforts to collaborate harmoniously in the project.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66092895/?ref_=nmnw_art_perm
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ensured-she-didn-060036386.html
+
 ## Taylor Swift Considers Hiring Private Investigators Due to Leaked Photos
 
 - first seen: 2026-11-03 05:51 UTC | category: relationship | importance: 7
@@ -608,11 +617,3 @@ Stories: 71
 - summary: Nelly disclosed that Taylor Swift compensated him with $50,000 in cash for making a surprise appearance at one of her concerts. This revelation highlights the financial aspects of artist collaborations in the music industry.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-reveals-taylor-swift-paid-021433410.html
-
-## Nelly Claims Taylor Swift Paid Him for Performance in McDonald’s Bag
-
-- first seen: 2026-10-31 06:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly has stated that Taylor Swift paid him $50,000 in a McDonald's bag for a brief three-minute performance. This claim was reported in a Yahoo article.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-says-taylor-swift-paid-023049596.html
