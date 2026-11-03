@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 69
+
+## Details Emerge on Taylor Swift's Next Career Move as Mrs. Kelce
+
+- first seen: 2026-11-03 20:06 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: New insights have surfaced regarding Taylor Swift's upcoming career direction as she transitions into life as Mrs. Kelce. The focus is on how this may impact her professional endeavors.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-next-career-move-191536769.html
+
+## Taylor Swift Embraces '90s Skirt Trend in Recent Appearance
+
+- first seen: 2026-11-03 20:06 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is spotted wearing a minimalist '90s skirt, highlighting its resurgence in fashion. This style choice showcases the ongoing influence of vintage trends in contemporary wardrobes.
+- sources:
+  - [unverified] www.women.com — https://www.women.com/2305127/taylor-swift-and-jenna-bush-hager-loving-90s-leather-pencil-skirt-trend-right-now/
 
 ## Insider Shares Details on Taylor Swift and Travis Kelce's Home Life
 
