@@ -5,7 +5,7 @@
 
 import { evaluateCurrentItemWriting } from '@swift2/shared';
 import type { ContextPack } from './context-pack';
-import { JUDGE_DIMENSIONS, JUDGE_PASS_SCORE, type JudgeDimension } from './judge-prompt';
+import { JUDGE_DIMENSIONS, JUDGE_MIN_SCORES, type JudgeDimension } from './judge-prompt';
 import { judgeWriting } from './judge-client';
 import type { ExtractedFact } from './types';
 import type { ExtractUsageStore } from './usage-store';
@@ -13,6 +13,8 @@ import { writePost, type WriterCitation, type WriterParagraph } from './writer-c
 
 export interface ComposeInput {
   headline: string;
+  /** ISO date the story was observed; the judge reads relative dates against it. */
+  observedOn: string;
   statusHint: string;
   facts: readonly ExtractedFact[];
   context: ContextPack;
@@ -92,7 +94,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         failure = { hold: `writing_quality:${gate.reasons[0]}`, reasons: gate.reasons };
       } else {
         const verdict = await judge(deps.judge, {
-          headline: input.headline,
+          observedOn: input.observedOn,
           lead,
           body,
           facts: factLines,
@@ -108,7 +110,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         failure = {
           hold: `writing_quality:${lowest}`,
           reasons: JUDGE_DIMENSIONS
-            .filter((d) => verdict.scores[d] < JUDGE_PASS_SCORE)
+            .filter((d) => verdict.scores[d] < JUDGE_MIN_SCORES[d])
             .map((d) => `${d} scored ${verdict.scores[d]}/5: ${verdict.reasons[d] || 'no reason given'}`),
         };
       }

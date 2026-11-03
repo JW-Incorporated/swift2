@@ -31,6 +31,10 @@ on:
         description: 'Optional repo-relative drafts.jsonl: skip the writer and judge these drafts (lines: {kitId, lead, paragraphs})'
         type: string
         default: ''
+      calibrate_models:
+        description: 'Optional comma list of judge models (e.g. claude-haiku-5-5,claude-sonnet-5-5,claude-opus-5-5): run scripts/news/calibrate-judge.mjs instead of the writer harness; non-zero exit when a model misses the bars'
+        type: string
+        default: ''
 
 permissions:
   actions: read
@@ -52,7 +56,12 @@ jobs:
           INPUT_CODE_REF: ${{ inputs.code_ref }}
           INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
           INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
         run: |
+          if ! [[ "$INPUT_CALIBRATE_MODELS" =~ ^[a-z0-9.,-]*$ ]]; then
+            echo "::error::calibrate_models must match ^[a-z0-9.,-]*$, got '$INPUT_CALIBRATE_MODELS'"
+            exit 1
+          fi
           if ! [[ "$INPUT_WRITER_MODEL" =~ ^[a-z0-9.-]*$ ]]; then
             echo "::error::writer_model must match ^[a-z0-9.-]*$, got '$INPUT_WRITER_MODEL'"
             exit 1
@@ -98,6 +107,7 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Download the writer eval kit
+        if: ${{ inputs.calibrate_models == '' }}
         uses: actions/download-artifact@v8
         with:
           name: backfill-report
@@ -106,6 +116,7 @@ jobs:
           path: ${{ runner.temp }}/kit
 
       - name: Run the writer tuning harness
+        if: ${{ inputs.calibrate_models == '' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
@@ -122,6 +133,19 @@ jobs:
           if [ -n "$INPUT_JUDGE_ONLY_FILE" ]; then EXTRA+=(--judge-only "$GITHUB_WORKSPACE/$INPUT_JUDGE_ONLY_FILE"); fi
           npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_DIR/writer-eval-kit.jsonl" "$OUT_DIR" --concurrency 2 "${EXTRA[@]}" | tee "$RUNNER_TEMP/summary.md"
           { echo '## Writer tuning'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run the judge calibration gate
+        if: ${{ inputs.calibrate_models != '' }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          OUT_DIR: ${{ runner.temp }}/writer-tune
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+        run: |
+          status=0
+          npx --no-install tsx scripts/news/calibrate-judge.mjs "$OUT_DIR" --models "$INPUT_CALIBRATE_MODELS" > "$RUNNER_TEMP/summary.md" || status=$?
+          { echo '## Judge calibration'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
 
       # The repo is PUBLIC: this holds only public news text and model output, no secrets.
       - name: Upload tuning output

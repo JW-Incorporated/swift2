@@ -48,6 +48,7 @@ async function runOne(stores, row, options = {}) {
   const deps = options.draft ? { ...stores, write: replayWriter(options.draft, row), noRewrite: true } : stores;
   const composed = await composePost(deps, {
     headline: row.headline,
+    observedOn: row.observedOn ?? new Date().toISOString().slice(0, 10),
     statusHint: row.statusHint,
     facts: row.facts,
     context: contextFromText(row.contextText),
