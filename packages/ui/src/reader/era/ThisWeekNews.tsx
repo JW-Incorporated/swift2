@@ -91,9 +91,9 @@ export function ThisWeekNews({
           </span>
           <span className="shrink-0 text-xs text-[color:var(--era-ink-soft)]">{count}</span>
           {!expanded && (
-            <span className="min-w-0 flex-1 truncate text-sm">{items[0]!.headline}</span>
+            <span className="hidden min-w-0 flex-1 truncate text-sm sm:block">{items[0]!.headline}</span>
           )}
-          {expanded && <span className="flex-1" />}
+          <span className={expanded ? 'flex-1' : 'flex-1 sm:hidden'} />
           <ChevronDown
             aria-hidden
             className={cn('h-4 w-4 shrink-0 transition-transform', expanded && 'rotate-180')}
