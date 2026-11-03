@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 69
 
 ## Cosmopolitan Discusses Sarah J Maas and Taylor Swift
 
@@ -600,11 +600,3 @@ Stories: 70
 - summary: Nelly disclosed in an interview that Taylor Swift once compensated him for a performance with $50,000 in cash, presented in a McDonald's bag. This unusual method of payment highlights Swift's unconventional approach to business transactions.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/nelly-reveals-taylor-swift-once-173426424.html
-
-## Tim McGraw Clarifies Wedding Rumor Involving Taylor Swift and Travis Kelce
-
-- first seen: 2026-10-31 21:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tim McGraw addresses and corrects misinformation surrounding a rumored wedding between Taylor Swift and Travis Kelce. This clarification comes amidst ongoing speculation about their relationship.
-- sources:
-  - [unverified] Wide Open Country — https://www.wideopencountry.com/no-this-country-star-didnt-perform-at-taylor-swift-travis-kelces-wedding/
