@@ -9,7 +9,7 @@ import { JUDGE_DIMENSIONS, JUDGE_PASS_SCORE, type JudgeDimension } from './judge
 import { judgeWriting } from './judge-client';
 import type { ExtractedFact } from './types';
 import type { ExtractUsageStore } from './usage-store';
-import { writePost, type WriterCitation } from './writer-client';
+import { writePost, type WriterCitation, type WriterParagraph } from './writer-client';
 
 export interface ComposeInput {
   headline: string;
@@ -24,6 +24,7 @@ export interface ComposeTrace {
   lead?: string;
   body?: string;
   citations?: WriterCitation[];
+  paragraphs?: WriterParagraph[];
   gateReasons?: string[];
   judgeScores?: Record<JudgeDimension, number>;
   rewrites: number;
@@ -50,7 +51,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
   let rewriteReasons: string[] | undefined;
   const trace: ComposeTrace = { rewrites: 0 };
   const sources = input.sources.map((s) => ({ name: s.outletName, url: s.url }));
-  const factLines = input.facts.map((f) => `${f.claim} (${f.attribution}, ${f.confidence})`);
+  const factLines = input.facts.map((f) => `[${f.id}] ${f.claim} (${f.attribution}, ${f.confidence})`);
 
   for (;;) {
     const written = await write(deps.writer, {
@@ -64,23 +65,31 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
 
     let failure: { hold: string; reasons: string[] } | undefined;
     if (written.status === 'invalid') {
-      trace.gateReasons = written.reasons;
+      const { lead, body, citations, paragraphs } = written.attempt ?? {};
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined });
       failure = { hold: 'writing_quality:invalid_draft', reasons: written.reasons };
     } else {
-      const { lead, body, citations } = written.draft;
-      Object.assign(trace, { lead, body, citations, gateReasons: undefined, judgeScores: undefined });
+      const { lead, body, citations, paragraphs } = written.draft;
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined });
       const gate = evaluateCurrentItemWriting({
         headline: input.headline,
         lead,
         body,
         sources,
-        citations: citations.map((c) => c.sentence),
+        sentenceRefs: paragraphs.flatMap((p) => p.sentences.map((sentence) => sentence.refs)),
       });
       if (!gate.ok) {
         trace.gateReasons = gate.reasons;
         failure = { hold: `writing_quality:${gate.reasons[0]}`, reasons: gate.reasons };
       } else {
-        const verdict = await judge(deps.judge, { headline: input.headline, lead, body, facts: factLines });
+        const verdict = await judge(deps.judge, {
+          headline: input.headline,
+          lead,
+          body,
+          facts: factLines,
+          context: input.context.text,
+          citations: paragraphs.flatMap((p) => p.sentences),
+        });
         if (verdict.status === 'deferred') return { status: 'hold', reason: 'judge_deferred', trace };
         trace.judgeScores = verdict.scores;
         if (verdict.pass) return { status: 'ok', lead, body, writingScore: verdict.writingScore, trace };
