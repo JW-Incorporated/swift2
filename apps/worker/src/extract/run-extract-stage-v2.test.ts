@@ -16,6 +16,9 @@ const mocks = vi.hoisted(() => ({
   storyMarks: { count: 0 },
   mergeNewFactsIntoOriginal: vi.fn(),
   updates: [] as unknown[],
+  storyPatches: [] as Record<string, unknown>[],
+  pending: [] as Record<string, unknown>[],
+  writerCapacity: { value: true },
 }));
 
 vi.mock('./held-image-pass', () => ({ reresolveHeldImages: async () => ({ checked: 0, published: 0, errors: [] }) }));
@@ -38,7 +41,7 @@ vi.mock('./dedupe-gate', () => ({
   evaluateSameEventGate: mocks.evaluateSameEventGate,
 }));
 vi.mock('./usage-store', () => ({
-  ExtractUsageStore: { create: async () => ({}) },
+  ExtractUsageStore: { create: async () => ({ hasCapacity: () => mocks.writerCapacity.value }) },
   supabaseExtractUsageDb: () => ({}),
   supabaseWriterUsageDb: () => ({}),
   supabaseJudgeUsageDb: () => ({}),
@@ -123,7 +126,7 @@ const FAIL = {
 
 function chain(result: { data?: unknown; error?: unknown }) {
   const query: Record<string, unknown> = { then: (resolve: (value: typeof result) => void) => resolve(result) };
-  for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update', 'gte', 'order', 'overlaps']) {
+  for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update', 'gte', 'order', 'overlaps', 'or']) {
     query[method] = () => query;
   }
   return query;
@@ -139,8 +142,9 @@ const ORIGINAL = {
 
 function markable() {
   const query = chain({ error: null });
-  query.update = () => {
-    mocks.storyMarks.count++;
+  query.update = (patch: Record<string, unknown>) => {
+    mocks.storyPatches.push(patch);
+    if (patch.extracted_at) mocks.storyMarks.count++;
     return query;
   };
   return query;
@@ -154,7 +158,7 @@ function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
       if (table === 'news_story') {
         storyCalls++;
         return storyCalls === 1
-          ? chain({ data: [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '' }], error: null })
+          ? chain({ data: mocks.pending, error: null })
           : markable();
       }
       if (table === 'current_item') {
@@ -195,6 +199,9 @@ describe('runExtractStage two-pass writer', () => {
     mocks.mergeNewFactsIntoOriginal.mockReset().mockResolvedValue({ redlineOk: true });
     mocks.updates.length = 0;
     mocks.storyMarks.count = 0;
+    mocks.storyPatches.length = 0;
+    mocks.pending = [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '' }];
+    mocks.writerCapacity.value = true;
     mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/photo.jpg');
   });
 
@@ -298,6 +305,61 @@ describe('runExtractStage two-pass writer', () => {
     warn.mockRestore();
   });
 
+  it('missing facts increments v2_attempts and stamps the attempt without marking the story extracted', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    mocks.pending = [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '', v2_attempts: 1 }];
+    const { result } = await run({ ...ITEM, facts: undefined });
+    expect(result.v2GaveUp).toBe(0);
+    expect(mocks.storyPatches).toHaveLength(1);
+    expect(mocks.storyPatches[0]).toMatchObject({ v2_attempts: 2, v2_last_attempt_at: expect.any(String) });
+    expect(mocks.storyPatches[0]).not.toHaveProperty('extracted_at');
+  });
+
+  it('gives up at the third missing-facts attempt: marks the story extracted and counts v2GaveUp', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    mocks.pending = [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '', v2_attempts: 2 }];
+    const { result } = await run({ ...ITEM, facts: undefined });
+    expect(result.v2GaveUp).toBe(1);
+    expect(result.v2GaveUpReasons).toEqual({ missing_facts: 1 });
+    expect(mocks.storyPatches[0]).toMatchObject({ v2_attempts: 3, extracted_at: expect.any(String) });
+  });
+
+  it('gives up on a story that keeps deferring, with the deferred reason', async () => {
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    mocks.judgeWriting.mockResolvedValue({ status: 'deferred', reason: 'budget_exhausted' });
+    mocks.pending = [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '', v2_attempts: 2 }];
+    const { result } = await run();
+    expect(result.v2Deferred).toBe(1);
+    expect(result.v2GaveUp).toBe(1);
+    expect(result.v2GaveUpReasons).toEqual({ deferred: 1 });
+    expect(mocks.storyPatches[0]).toMatchObject({ v2_attempts: 3, extracted_at: expect.any(String) });
+  });
+
+  it('stops before the pass-A extract call when the writer budget is spent, counting the rest as deferred', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    mocks.writerCapacity.value = false;
+    mocks.pending = [
+      { id: 'story-1', canonical_title: 'One', summary: '' },
+      { id: 'story-2', canonical_title: 'Two', summary: '' },
+    ];
+    const { result } = await run();
+    expect(mocks.extractWithLLM).not.toHaveBeenCalled();
+    expect(result.writerBudgetExhausted).toBe(true);
+    expect(result.deferred).toBe(2);
+    expect(result.clustersConsidered).toBe(0);
+    expect(mocks.storyPatches).toEqual([]);
+    expect(warn.mock.calls.filter(([message]) => String(message).includes('writerBudgetExhausted'))).toHaveLength(1);
+  });
+
+  it('defaults to off when NEWS_WRITER_V2 is unset: legacy row, no writer call, no budget check', async () => {
+    vi.stubEnv('NEWS_WRITER_V2', undefined);
+    mocks.writerCapacity.value = false;
+    const { row, result } = await run();
+    expect(mocks.writePost).not.toHaveBeenCalled();
+    expect(result.writerBudgetExhausted).toBe(false);
+    expect(row).toMatchObject({ summary: PASS_A_SUMMARY, redline_ok: true });
+  });
+
   it('NEWS_WRITER_V2=off writes the legacy row: pass-A text, no facts, no writer or judge call', async () => {
     vi.stubEnv('NEWS_WRITER_V2', 'off');
     const { row } = await run();
@@ -386,6 +448,9 @@ describe('runExtractStage shadow mode', () => {
     mocks.mergeNewFactsIntoOriginal.mockReset().mockResolvedValue({ redlineOk: true });
     mocks.updates.length = 0;
     mocks.storyMarks.count = 0;
+    mocks.storyPatches.length = 0;
+    mocks.pending = [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '' }];
+    mocks.writerCapacity.value = true;
   });
   afterEach(() => {
     vi.unstubAllEnvs();
@@ -403,6 +468,20 @@ describe('runExtractStage shadow mode', () => {
     expect(mocks.updates).toEqual([]);
     expect(shadow.result.v2Held + shadow.result.v2Deferred + shadow.result.v2MissingFacts).toBe(0);
     expect(mocks.writePost).toHaveBeenCalledOnce();
+  });
+
+  it('a throwing shadow (unwritable file) does not break or skip the legacy write', async () => {
+    vi.stubEnv('NEWS_WRITER_V2', 'shadow');
+    vi.stubEnv('NEWS_V2_SHADOW_FILE', join(file, '..'));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const { row, result } = await run();
+    expect(row).toMatchObject({ summary: PASS_A_SUMMARY, detail: PASS_A_DETAIL, redline_ok: true });
+    expect(result.extracted).toBe(1);
+    expect(result.errors).toEqual([]);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('v2 shadow failed'));
+    expect(mocks.storyPatches).toHaveLength(1);
+    expect(mocks.storyPatches[0]).not.toHaveProperty('v2_attempts');
+    warn.mockRestore();
   });
 
   it('appends one JSON line per item with the draft, gate, judge and context ids', async () => {

@@ -11,16 +11,15 @@ import {
   type PendingStory,
 } from './extract-stage-data';
 import { emptyResult, recordDiscard, recordV2Hold, type ExtractStageResult } from './extract-stage-result';
-import { runExtractMaintenance } from './extract-stage-maintenance';
+import { finishExtractStage } from './extract-stage-finish';
 import { extractWithLLM } from './haiku-client';
-import { reresolveHeldImages } from './held-image-pass';
-import { reresolveHeldTheoryImages } from './held-theory-image-pass';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { loadEraContext } from './context-loader';
 import {
   composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, rewriteMergedOriginal, tierFloorHold, writerMode,
 } from './v2-stage';
+import { loadPendingStories, recordV2Attempt } from './v2-retry';
 import { runShadow } from './v2-shadow';
 import {
   mergeNewFactsIntoOriginal,
@@ -43,12 +42,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   if (symbolError) errors.push(`symbol_lexicon load failed: ${symbolError.message}`);
   const symbolLexiconKeys = (symbolRows ?? []).map((row) => row.key as string);
 
-  const { data: pending, error: pendingError } = await db
-    .from('news_story')
-    .select('id, canonical_title, summary, top_image_url')
-    .not('classified_at', 'is', null)
-    .is('extracted_at', null)
-    .limit(MAX_CLUSTERS_PER_CYCLE);
+  const mode = writerMode();
+  const writerV2 = mode === 'on';
+  const { data: pending, error: pendingError } = await loadPendingStories(db, MAX_CLUSTERS_PER_CYCLE, writerV2);
   if (pendingError) {
     errors.push(`could not load pending clusters: ${pendingError.message}`);
     return result;
@@ -57,13 +53,18 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   const today = new Date().toISOString().slice(0, 10);
   const usage = await ExtractUsageStore.create(supabaseExtractUsageDb(db));
   const commentFetchState = createCommentFetchState();
-  const mode = writerMode();
-  const writerV2 = mode === 'on';
   const v2Stores = mode === 'off'
     ? undefined
     : { writer: await createWriterStore(db), judge: await createJudgeStore(db) };
 
-  for (const story of (pending ?? []) as PendingStory[]) {
+  const stories = (pending ?? []) as (PendingStory & { v2_attempts?: number })[];
+  for (const [index, story] of stories.entries()) {
+    if (writerV2 && v2Stores && !v2Stores.writer.hasCapacity()) {
+      result.writerBudgetExhausted = true;
+      result.deferred += stories.length - index;
+      console.warn('news-worker: writerBudgetExhausted; leaving the remaining stories for the next cycle');
+      break;
+    }
     result.clustersConsidered += 1;
     try {
       const [items, sources] = await Promise.all([
@@ -106,6 +107,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         if (writerV2 && currentItem && !hasFacts(currentItem)) {
           result.v2MissingFacts += 1;
           console.warn(`news-worker: story ${story.id} returned a current_item without facts; retrying next cycle`);
+          await recordV2Attempt(db, result, story.id, story.v2_attempts, 'missing_facts');
           continue;
         }
         const imageUrl = currentItem
@@ -169,6 +171,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               if (rewritten?.deferred) {
                 result.dedupeMerged -= 1;
                 result.v2Deferred += 1;
+                await recordV2Attempt(db, result, story.id, story.v2_attempts, 'deferred');
                 continue;
               }
               await mergeNewFactsIntoOriginal(
@@ -203,6 +206,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               const composed = await composeV2Item(db, v2Stores, currentItem, sources, CURRENT_ERA_ID);
               if (composed.v2.holdReason && DEFERRED_HOLDS.includes(composed.v2.holdReason)) {
                 result.v2Deferred += 1;
+                await recordV2Attempt(db, result, story.id, story.v2_attempts, 'deferred');
                 continue;
               }
               toWrite = composed.item;
@@ -276,20 +280,6 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
     }
   }
 
-  const maintenance = await runExtractMaintenance(db, today, CURRENT_ERA_ID);
-  result.abandonedTheories = maintenance.abandonedTheories;
-  result.countdownsResolved = maintenance.countdownsResolved;
-  errors.push(...maintenance.errors);
-  const held = await reresolveHeldImages(db);
-  result.heldImagesChecked = held.checked;
-  result.heldImagesPublished = held.published;
-  errors.push(...held.errors);
-  const heldTheories = await reresolveHeldTheoryImages(db);
-  result.heldImagesChecked += heldTheories.checked;
-  result.heldImagesPublished += heldTheories.published;
-  for (const [reason, count] of Object.entries(heldTheories.holdReasons)) {
-    result.heldPassReasons[reason] = (result.heldPassReasons[reason] ?? 0) + count;
-  }
-  errors.push(...heldTheories.errors);
+  await finishExtractStage(db, result, today, CURRENT_ERA_ID);
   return result;
 }

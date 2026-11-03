@@ -62,6 +62,11 @@ export class ExtractUsageStore {
     return new ExtractUsageStore(db, 0, initialCount, perRunCap, dailyCap);
   }
 
+  /** Read-only: true while both the per-run and the daily cap still have room. */
+  hasCapacity(): boolean {
+    return this.runCount < this.perRunCap && this.inProcessDailyCount < this.dailyCap;
+  }
+
   /**
    * Reserves budget for one extract call. Returns false once EITHER cap is
    * hit — the caller must defer the cluster to the next run, never call the

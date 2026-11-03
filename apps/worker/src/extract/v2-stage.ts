@@ -1,6 +1,6 @@
 // Glue between run-extract-stage.ts and the two-pass news writer
 // (docs/decisions.md 2026-11-03). NEWS_WRITER_V2=off restores the legacy
-// single-pass path exactly; unset or anything else means on.
+// single-pass path exactly; unset or anything unrecognised means off; shadow runs v2 beside it; only 'on' enables v2.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { composePost, type ComposeTrace } from './compose-post';
@@ -21,10 +21,10 @@ import { worthAPost } from './worth-gate';
 
 export type WriterMode = 'off' | 'shadow' | 'on';
 
-/** off = legacy path only; shadow = legacy writes, v2 runs and reports without touching the DB; on (default) = v2 writes. */
+/** off (default) = legacy path only; shadow = legacy writes, v2 runs and reports without touching the DB; on = v2 writes. */
 export function writerMode(env: NodeJS.ProcessEnv = process.env): WriterMode {
-  const value = (env.NEWS_WRITER_V2 ?? 'on').trim().toLowerCase();
-  return value === 'off' || value === 'shadow' ? value : 'on';
+  const value = (env.NEWS_WRITER_V2 ?? 'off').trim().toLowerCase();
+  return value === 'on' || value === 'shadow' ? value : 'off';
 }
 
 export const DEFERRED_HOLDS: readonly string[] = ['writer_deferred', 'judge_deferred'];
