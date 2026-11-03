@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 69
 
 ## Taylor Swift has two new albums reportedly ready for release
 
@@ -46,17 +46,19 @@ Stories: 72
 ## Taylor Swift Makes an Announcement Post Chiefs-Broncos Game
 
 - first seen: 2026-11-03 08:47 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift made an announcement following the Chiefs-Broncos game, as reported by Yahoo Sports. Details about the nature of the announcement were not disclosed in the report.
 - sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-never-complains-taylor-swift-115015323.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-announcement-made-chiefs-081859329.html
 
 ## Taylor Swift Discusses Her Role in 'Toy Story 5'
 
 - first seen: 2026-11-03 06:52 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift reveals her approach to securing her role in 'Toy Story 5' without displacing others from the cast. The insights reflect her efforts to collaborate harmoniously in the project.
 - sources:
+  - [unverified] Contactmusic.com — https://www.contactmusic.com/story/467/3637997/taylor-swift-feared-she-d-lost-toy-story-5-song-after-months-long-delay
   - [unverified] IMDb — https://www.imdb.com/news/ni66092895/?ref_=nmnw_art_perm
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ensured-she-didn-060036386.html
 
@@ -597,32 +599,3 @@ Stories: 72
 - sources:
   - [unverified] New York Post — https://nypost.com/2026/10/31/us-news/bill-maher-says-dining-with-trump-is-like-dating-taylor-swift/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/bill-maher-feud-trump-escalates-134008685.html
-
-## Taylor Swift's Wedding Guests Reportedly Treated Differently
-
-- first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift's wedding guests were treated based on their importance, leading to claims of some being relegated to 'D-list status'. The treatment of guests has sparked discussions in media outlets.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/relegated-d-list-status-taylor-100046368.html
-
-## Taylor Swift May Not Release Official Wedding Photos
-
-- first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report suggests that Taylor Swift may choose not to release any official wedding photos, indicating that her silence on the matter could convey more than images. The decision appears to focus on her private life rather than public shares.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/silence-may-ultimately-speak-louder-103036995.html
-
-## Travis Kelce Responds to Prince William's Taylor Swift Selfie Comment
-
-- first seen: 2026-10-31 11:57 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Travis Kelce has shared his thoughts on Prince William's unexpected remark regarding a selfie with Taylor Swift. The interaction highlights the crossover between celebrity culture and royal interests.
-- sources:
-  - [unverified] Central Oregon Daily — https://www.centraloregondaily.com/news/entertainment/tim-mcgraw-finally-addresses-ongoing-rumor-about-taylor-swifts-wedding/article_d37a910a-669e-5c74-b7e2-9abd84abc6e9.html
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-unexpected-move-wedding-travis-kelce/
-  - [unverified] thecomeback.com — https://thecomeback.com/pop-culture/relegated-to-d-list-status-taylor-swifts-wedding-guests-were-reportedly-treated-differently-based-on-importance.html
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/10/31/tim-mcgraw-taylor-swift-travis-kelce-wedding-rumor/92533217007/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reacts-prince-william-110000366.html
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/tim-mcgraw-denies-performing-taylor-160000579.html
