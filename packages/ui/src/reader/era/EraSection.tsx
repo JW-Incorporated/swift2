@@ -12,6 +12,7 @@ import { TrackGuideBar } from './TrackGuideBar';
 import { EraFeedList } from './EraFeedList';
 import { EraThreadsPivot } from './EraThreadsPivot';
 import { CurrentItemDetail } from './CurrentItemDetail';
+import { ThisWeekNews } from './ThisWeekNews';
 import {
   embeddedYoutubeIds,
   eraKnownVideoIds,
@@ -20,6 +21,7 @@ import {
   buildEraStreamViewModel,
   type EraFeedEntry,
   spaceDoorways,
+  streamExtraEntries,
 } from '@swift2/experience';
 import { useEraCurrentFeed } from '../lib/use-era-current-feed';
 import { feedCardImageHidden } from '../lib/video-affordance';
@@ -62,7 +64,7 @@ export function EraSection({
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
   // Stage 5 — live entries + overlay state (use-era-current-feed.ts).
-  const { liveEntries, openCurrentItem, setOpenCurrentItem } = useEraCurrentFeed(
+  const { liveEntries, openCurrentItem, setOpenCurrentItem, nowMs, weekItems } = useEraCurrentFeed(
     era.id,
     era.start,
     era.end,
@@ -86,15 +88,12 @@ export function EraSection({
     [q, era.id, embeddedVideoIds],
   );
   // Timeline doorways (PLAN.md P3 steps 13-15): one card per thread present in
-  // this era, one per theory/egg the guide has for it. Built here (not once,
-  // era-wide, elsewhere) because both builders need this era's own
-  // start/end — see doorways.ts for the anchoring rules (including the P3
+  // this era. Egg doorways no longer join the stream (2026-11-03: "Theories &
+  // eggs" lives in Threads). Built here because the builder needs this era's
+  // own start/end — see doorways.ts for the anchoring rules (including the P3
   // step 14a clamp for a thread point that falls outside the era's window).
   const doorwayEntries = useMemo(
-    () => [
-      ...q.threadDoorwaysForEra(era.id, era.start, era.end),
-      ...q.eggDoorwaysForEra(era.id, era.start, era.end),
-    ],
+    () => q.threadDoorwaysForEra(era.id, era.start, era.end),
     [q, era.id, era.start, era.end],
   );
   // Merge EVERY moment, video, doorway and live current-item into one
@@ -108,8 +107,11 @@ export function EraSection({
   // assemble the final render list. This is the OS-032 shared core (see
   // era-stream.ts) — the native renderer calls the same function.
   const mergedFeed = useMemo(
-    () => spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, [...doorwayEntries, ...liveEntries])),
-    [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries],
+    () =>
+      spaceDoorways(
+        mergeEraFeed(items, videoFeed, era.start, era.end, streamExtraEntries(doorwayEntries, liveEntries, nowMs)),
+      ),
+    [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries, nowMs],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
   // The filtered feed's moment items — everything downstream that reasons
@@ -162,8 +164,9 @@ export function EraSection({
         liveEntries,
         filters,
         imageHiddenIds,
+        nowMs,
       }),
-    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds],
+    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds, nowMs],
   );
 
   // A doorway tap (PLAN.md P3 step 16 — Joey: "back should take them right
@@ -268,6 +271,8 @@ export function EraSection({
           </div>
         </div>
       </div>
+
+      <ThisWeekNews items={weekItems} filters={filters} onOpen={setOpenCurrentItem} />
 
       {/* Era Secret (#688): the first thing inside every era — one sourced,
           genuinely-obscure fact, so a fan learns something the moment they
