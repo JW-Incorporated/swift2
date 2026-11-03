@@ -97,6 +97,18 @@ describe('evaluateCurrentItemWriting', () => {
     });
     expect(result).toEqual({ ok: true });
   });
+
+  it('checks structured per-sentence refs instead of splitter indexes', () => {
+    const refs = splitSentences(GOOD.body).map(() => ['f1']);
+    expect(evaluateCurrentItemWriting({ ...GOOD, citations: undefined, sentenceRefs: refs })).toEqual({ ok: true });
+    expect(reasonsOf({ ...GOOD, citations: undefined, sentenceRefs: [...refs.slice(1), []] })).toContain('uncited_sentence');
+    expect(reasonsOf({ ...GOOD, citations: undefined, sentenceRefs: [] })).toContain('uncited_sentence');
+  });
+
+  it('lets sentenceRefs take precedence over legacy citations', () => {
+    const refs = splitSentences(GOOD.body).map(() => ['f1']);
+    expect(evaluateCurrentItemWriting({ ...GOOD, citations: [0], sentenceRefs: refs })).toEqual({ ok: true });
+  });
 });
 
 describe('writing helpers', () => {

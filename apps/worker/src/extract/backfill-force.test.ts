@@ -28,27 +28,48 @@ function row(id: string, overrides: Record<string, unknown> = {}): Record<string
 
 interface Call { table: string; op: 'insert' | 'update'; values: Record<string, unknown>; id?: unknown; guards?: string[] }
 
-function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean; onInsert?: () => void } = {}) {
+function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean; onInsert?: () => void; missingMarker?: boolean } = {}) {
   const calls: Call[] = [];
+  const marks: { id: unknown; at: unknown }[] = [];
+  const orders: { column: string; ascending?: boolean; nullsFirst?: boolean }[] = [];
+  const selects: string[] = [];
   const from = (table: string) => {
     let pending: Call | undefined;
     let filtered = rows;
     let single = false;
+    let withMarker = false;
     const b: Record<string, unknown> = {};
-    b.select = () => b;
+    b.select = (cols?: string) => {
+      if (typeof cols === 'string' && !pending) {
+        selects.push(cols);
+        withMarker = cols.includes('backfill_attempted_at');
+      }
+      return b;
+    };
     b.is = (c: string, v: unknown) => {
       if (pending) pending.guards = [...(pending.guards ?? []), c];
       filtered = filtered.filter((r) => (r[c] ?? null) === v);
       return b;
     };
     b.eq = (c: string, v: unknown) => {
-      if (pending) pending.id = v;
+      if (pending && c === 'id') pending.id = v;
       filtered = filtered.filter((r) => r[c] === v);
       return b;
     };
     b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
-    b.order = () => b;
+    b.order = (column: string, o: { ascending?: boolean; nullsFirst?: boolean } = {}) => {
+      orders.push({ column, ...o });
+      filtered = [...filtered].sort((x, y) => {
+        const xv = x[column] ?? null;
+        const yv = y[column] ?? null;
+        if (xv === yv) return 0;
+        if (xv === null) return o.nullsFirst ? -1 : 1;
+        if (yv === null) return o.nullsFirst ? 1 : -1;
+        return (String(xv) < String(yv) ? -1 : 1) * (o.ascending === false ? -1 : 1);
+      });
+      return b;
+    };
     b.limit = () => b;
     b.maybeSingle = () => { single = true; return b; };
     b.update = (values: Record<string, unknown>) => { pending = { table, op: 'update', values }; return b; };
@@ -58,15 +79,23 @@ function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean
       return { error: opts.snapshotError ? { message: 'insert denied' } : null };
     };
     b.then = (resolve: (v: unknown) => void) => {
+      if (pending && 'backfill_attempted_at' in pending.values) {
+        if (opts.missingMarker) return resolve({ error: { code: '42703', message: 'column backfill_attempted_at does not exist' } });
+        marks.push({ id: pending.id, at: pending.values.backfill_attempted_at });
+        return resolve({ data: null, error: null });
+      }
       if (pending) {
         calls.push(pending);
         return resolve({ data: filtered.map((r) => ({ id: r.id })), error: null });
+      }
+      if (opts.missingMarker && withMarker) {
+        return resolve({ data: null, error: { code: '42703', message: 'column does not exist' } });
       }
       return resolve({ data: single ? (filtered[0] ?? null) : filtered, error: null });
     };
     return b;
   };
-  return { db: { from } as unknown as SupabaseClient, calls };
+  return { db: { from } as unknown as SupabaseClient, calls, marks, orders, selects };
 }
 
 const FACTS = [{ id: 'f1', claim: 'Taylor announced a release', attribution: 'People', confidence: 'reported' as const }];
@@ -108,11 +137,11 @@ function deps(overrides: Partial<ForceDeps> = {}): ForceDeps {
 const reportDir = () => mkdtempSync(join(tmpdir(), 'backfill-force-'));
 
 describe('loadForceCandidates', () => {
-  it('picks only visible, recent rows without facts', async () => {
+  it('picks only the rows the live feed shows that have no facts, with no observed_on window by default', async () => {
     const { db } = fakeDb([
       row('ok'),
       row('has-facts', { facts: FACTS }),
-      row('old', { observed_on: daysAgo(11) }),
+      row('old', { observed_on: daysAgo(40) }),
       row('merged', { merged_into: 'x' }),
       row('retracted', { retracted_at: '2026-01-01' }),
       row('promoted', { promoted_to: 'm' }),
@@ -121,6 +150,12 @@ describe('loadForceCandidates', () => {
       row('thin', { summary: 'Too short.' }),
     ]);
     const picked = await loadForceCandidates(db);
+    expect(picked.map((r: ForceCandidateRow) => r.id)).toEqual(['ok', 'old']);
+  });
+
+  it('narrows to the days override when one is given', async () => {
+    const { db } = fakeDb([row('ok'), row('old', { observed_on: daysAgo(40) })]);
+    const picked = await loadForceCandidates(db, 0, new Date(), 10);
     expect(picked.map((r: ForceCandidateRow) => r.id)).toEqual(['ok']);
   });
 });

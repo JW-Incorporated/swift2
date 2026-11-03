@@ -55,7 +55,7 @@ export function readmeText(count, schema) {
     '',
     '- `system-prompt.txt` is the exact system message the production writer receives.',
     '- For each line in `items.jsonl`, send `userMessage` as the user message with that system prompt.',
-    '- Reply with the `write_post` JSON object only: `{ "lead", "body", "citations": [{ "sentence", "ref" }] }`. No prose, no code fences.',
+    '- Reply with the `write_post` JSON object only: `{ "lead", "paragraphs": [{ "sentences": [{ "text", "refs": ["f1"] }] }] }` (2-4 paragraphs, one sentence per entry, at least one ref each; the body is the sentences joined, paragraphs separated by a blank line). No prose, no code fences.',
     '- `max_tokens` is 1200.',
     '- Cite only fact ids (f1, f2, ...) and context ids (c1, c2, ...) that appear in the item.',
     '- `sonnet-drafts.jsonl` holds the production model drafts keyed by `kitId`. Keep it away from the writer under test so scoring stays blind.',

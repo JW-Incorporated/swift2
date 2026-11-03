@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ForceOutcome, ForceSummary } from './backfill-types';
 import type { ExtractedFact } from './types';
-import type { WriterCitation } from './writer-client';
+import type { WriterCitation, WriterParagraph } from './writer-client';
 
 export interface ForceReportRow {
   id: string;
@@ -17,6 +17,7 @@ export interface ForceReportRow {
   newBody: string | null;
   facts: ExtractedFact[];
   citations: WriterCitation[];
+  paragraphs: WriterParagraph[];
   gateReasons: string[];
   judgeScores: Record<string, number> | null;
   outcome: ForceOutcome;
@@ -32,7 +33,7 @@ export interface WriterEvalKitRow {
   facts: { id: string; claim: string; attribution: string; confidence: string }[];
   contextText: string;
   userMessage: string;
-  sonnetDraft: { lead: string; body: string; citations: WriterCitation[] } | null;
+  sonnetDraft: { lead: string; body: string; citations: WriterCitation[]; paragraphs: WriterParagraph[] } | null;
 }
 
 /** Public-artifact hygiene: drops query-string URLs, JWTs, sk- keys and long hex, then caps at 200 chars. */
@@ -58,7 +59,7 @@ function renderMarkdown(rows: readonly ForceReportRow[], summary: ForceSummary, 
   const lines = [
     `# Backfill report (${dryRun ? 'DRY RUN, no current_item or snapshot rows written' : 'LIVE'})`,
     '',
-    `Eligible: ${summary.eligible}. Processed: ${summary.processed}. Passed: ${summary.passed}. Held (copy untouched): ${summary.held}. Remaining after a deferral: ${summary.remaining}.`,
+    `Eligible: ${summary.eligible}. Processed: ${summary.processed}. Passed: ${summary.passed}. Held (copy untouched): ${summary.held}. Remaining after a deferral: ${summary.remaining}. Retired below floor: ${summary.retired}.`,
     '',
     '## Outcomes',
     ...Object.entries(summary.outcomes).map(([outcome, count]) => `- ${outcome}: ${count}`),
@@ -78,6 +79,7 @@ function renderMarkdown(rows: readonly ForceReportRow[], summary: ForceSummary, 
       '',
       `New body: ${row.newBody ?? '(none)'}`,
     );
+    if (row.gateReasons.length > 0) lines.push('', `Gate reasons: ${row.gateReasons.join('; ')}`);
   }
   return `${lines.join('\n')}\n`;
 }

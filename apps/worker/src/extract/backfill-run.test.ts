@@ -24,18 +24,19 @@ function selectChain(data: unknown) {
       resolve({ data, error: null })
     ),
   };
-  for (const method of ['select', 'is', 'neq', 'gt', 'order', 'limit']) chain[method] = () => chain;
+  for (const method of ['select', 'is', 'neq', 'or', 'gt', 'order', 'limit']) chain[method] = () => chain;
   return chain;
 }
 
 afterEach(() => vi.unstubAllEnvs());
 
 describe('loadBackfillCandidates', () => {
-  it('includes worker-debunked and retracted current item rows', async () => {
+  it('includes worker-debunked and retracted current item rows but not retired-below-floor ones', async () => {
     let rows = [
       { id: 'ci-live', status: 'reported', promoted_to: null },
       { id: 'ci-retracted', status: 'reported', retracted_at: '2099-01-01', promoted_to: null },
       { id: 'ci-worker-debunked', status: 'debunked', retracted_at: null, promoted_to: null },
+      { id: 'ci-retired', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_below_floor' },
     ];
     const chain = {
       select: () => chain,
@@ -45,6 +46,11 @@ describe('loadBackfillCandidates', () => {
       },
       neq: (column: string, value: unknown) => {
         rows = rows.filter((row) => row[column as keyof typeof row] !== value);
+        return chain;
+      },
+      or: (filter: string) => {
+        expect(filter).toContain('retired_below_floor');
+        rows = rows.filter((row) => (row as { quality_hold_reason?: string }).quality_hold_reason !== 'retired_below_floor');
         return chain;
       },
       gt: () => chain,
