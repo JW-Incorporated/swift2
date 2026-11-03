@@ -26,6 +26,14 @@ describe('judgeWriting', () => {
     expect(call.user).toContain('1. Fact one');
   });
 
+  it('lists the fact attributions for the judge', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
+    const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 4, 5, 4]) })) as unknown as WorkerClaudeCaller;
+    await judgeWriting(await ExtractUsageStore.create(db), { ...INPUT, attributions: ['Variety', 'People'] }, claude);
+    const call = (claude as unknown as ReturnType<typeof vi.fn>).mock.calls[0]![0];
+    expect(call.user).toContain('ATTRIBUTIONS: Variety; People');
+  });
+
   it('fails when any score is below 4', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
     const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 5, 3, 5]) })) as unknown as WorkerClaudeCaller;
