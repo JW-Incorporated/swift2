@@ -49,12 +49,12 @@ describe('ThisWeekNews', () => {
     expect(screen.queryByText('Second headline')).toBeNull();
   });
 
-  it('expands on click and lists rows with outlet (hostname fallback)', () => {
+  it('expands on click and lists rows with outlet (label derived from the URL when the name is empty)', () => {
     mount({});
     fireEvent.click(screen.getByRole('button', { name: /This week's news/ }));
     expect(screen.getByText('Second headline')).toBeTruthy();
     expect(screen.getByText(/^People · Nov 2$/)).toBeTruthy();
-    expect(screen.getByText(/^people\.com · Oct 31$/)).toBeTruthy();
+    expect(screen.getByText(/^People · Oct 31$/)).toBeTruthy();
   });
 
   it('row click calls the open handler with the item; Collapse closes', () => {
@@ -64,7 +64,7 @@ describe('ThisWeekNews', () => {
     fireEvent.click(screen.getByRole('button', { name: /Second headline/ }));
     expect(onOpen).toHaveBeenCalledWith(items[1]);
     fireEvent.click(screen.getByRole('button', { name: /Collapse/ }));
-    expect(screen.queryByText(/^people\.com/)).toBeNull();
+    expect(screen.queryByText(/· Oct 31$/)).toBeNull();
   });
 
   it('is hidden under a non-All filter', () => {
