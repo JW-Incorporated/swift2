@@ -175,9 +175,10 @@ Stories: 72
 ## Taylor Swift Nominated at Hollywood Music in Media Awards
 
 - first seen: 2026-11-02 17:22 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift has received a nomination at the Hollywood Music in Media Awards, alongside titles like 'The Odyssey' and 'Michael'. The recognition highlights her contributions to the music industry.
 - sources:
+  - [established] Billboard — https://www.billboard.com/lists/hollywood-music-in-media-awards-2026-nominations-list/
   - [unverified] TheWrap — https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/
 
 ## Busker Wins The Voice UK, Inspired by Taylor Swift
