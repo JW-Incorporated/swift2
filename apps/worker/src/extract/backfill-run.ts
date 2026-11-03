@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { backfillOneItem, loadBackfillCandidates } from './backfill';
+import { runForceBackfill } from './backfill-force';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import type { BackfillRunResult, RunBackfillOptions } from './backfill-types';
 
@@ -9,6 +10,7 @@ export async function runBackfill(
   db: SupabaseClient,
   options: RunBackfillOptions,
 ): Promise<BackfillRunResult> {
+  if (options.mode === 'force') return runForceBackfill(db, options);
   const { dryRun, limit, fetchImpl = fetch } = options;
   const errors: string[] = [];
   const reports: BackfillRunResult['reports'] = [];

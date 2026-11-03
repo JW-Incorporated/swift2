@@ -3,7 +3,8 @@ import type { WorkerClaudeCaller } from '../claude-call';
 import { buildContextPack } from './context-pack';
 import { ExtractUsageStore, WRITER_DAILY_CAP, WRITER_PER_RUN_CAP, type UsageDb } from './usage-store';
 import { WRITER_SYSTEM_PROMPT } from './writer-prompt';
-import { splitBodySentences, writePost, type WriterInput } from './writer-client';
+import { splitSentences } from '@swift2/shared';
+import { writePost, type WriterInput } from './writer-client';
 
 function db(initial = 0): UsageDb {
   let count = initial;
@@ -189,8 +190,8 @@ describe('body length', () => {
   });
 });
 
-describe('splitBodySentences', () => {
+describe('shared splitSentences on writer bodies', () => {
   it('splits across paragraphs', () => {
-    expect(splitBodySentences(BODY)).toHaveLength(6);
+    expect(splitSentences(BODY)).toHaveLength(6);
   });
 });
