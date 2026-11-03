@@ -42,6 +42,7 @@ async function runOne(stores, row) {
     body: composed.trace.body,
     gateReasons: composed.trace.gateReasons,
     judgeScores: composed.trace.judgeScores,
+    judgeReasons: composed.trace.judgeReasons,
     rewrites: composed.trace.rewrites,
   };
 }
