@@ -1,0 +1,112 @@
+# Prompt-tuning runs for the two-pass news writer (docs/decisions.md 2026-11-03):
+# runs scripts/news/tune-writer.mjs (the real writer, writing gate and judge via
+# the claude -p wrapper) over the writer-eval-kit.jsonl from a content-backfill
+# run's `backfill-report` artifact. No database: the harness's usage store is
+# in-memory, so it never writes usage_daily or eats the production writer budget.
+#
+# workflow_dispatch only. code_ref lets a tuning branch's prompts run without
+# merging them.
+name: writer-tune
+
+on:
+  workflow_dispatch:
+    inputs:
+      kit_run_id:
+        description: 'Run id of the content-backfill run whose backfill-report artifact holds writer-eval-kit.jsonl'
+        type: string
+        required: true
+      n:
+        description: 'Optional: evenly sample this many kit items (empty = all)'
+        type: string
+        default: ''
+      code_ref:
+        description: 'Optional branch to check out (default: the dispatch ref)'
+        type: string
+        default: ''
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: writer-tune
+  cancel-in-progress: false
+
+jobs:
+  tune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Validate inputs
+        env:
+          INPUT_KIT_RUN_ID: ${{ inputs.kit_run_id }}
+          INPUT_N: ${{ inputs.n }}
+          INPUT_CODE_REF: ${{ inputs.code_ref }}
+        run: |
+          if ! [[ "$INPUT_KIT_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::kit_run_id must be a numeric run id, got '$INPUT_KIT_RUN_ID'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_N" =~ ^[0-9]*$ ]]; then
+            echo "::error::n must be empty or a non-negative integer, got '$INPUT_N'"
+            exit 1
+          fi
+          if [ -n "$INPUT_CODE_REF" ] && ! [[ "$INPUT_CODE_REF" =~ ^[A-Za-z0-9._/-]+$ ]]; then
+            echo "::error::code_ref must match ^[A-Za-z0-9._/-]+$, got '$INPUT_CODE_REF'"
+            exit 1
+          fi
+
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.code_ref || github.ref_name }}
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Download the writer eval kit
+        uses: actions/download-artifact@v8
+        with:
+          name: backfill-report
+          run-id: ${{ inputs.kit_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/kit
+
+      - name: Run the writer tuning harness
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          KIT_DIR: ${{ runner.temp }}/kit
+          OUT_DIR: ${{ runner.temp }}/writer-tune
+          INPUT_N: ${{ inputs.n }}
+        run: |
+          set -o pipefail
+          N_ARG=""
+          if [ -n "$INPUT_N" ]; then N_ARG="--n $INPUT_N"; fi
+          npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_DIR/writer-eval-kit.jsonl" "$OUT_DIR" --concurrency 2 $N_ARG | tee "$RUNNER_TEMP/summary.md"
+          { echo '## Writer tuning'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+
+      # The repo is PUBLIC: this holds only public news text and model output, no secrets.
+      - name: Upload tuning output
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: writer-tune
+          path: ${{ runner.temp }}/writer-tune
+          retention-days: 14
+          if-no-files-found: error
