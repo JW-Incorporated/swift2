@@ -13,11 +13,14 @@ export interface ContextMoment {
   summary: string;
   tags?: readonly string[];
   entities?: readonly string[];
+  /** YYYY-MM-DD or YYYY-MM (a month-only date counts as the first of that month); undated is kept. */
+  date?: string | null;
 }
 
 export interface PriorItemContext {
   headline: string;
   lead: string;
+  observedOn?: string | null;
   id?: string;
   mergedInto?: string | null;
   url?: string | null;
@@ -28,6 +31,8 @@ export interface ContextPackInput {
   eraSummary: string;
   headline: string;
   entities: readonly string[];
+  /** The item's observed date; moments and prior items dated after it are never given to the writer. */
+  observedOn?: string;
   /** Moments of the item's era; the pack keeps the best overlapping five. */
   moments: readonly ContextMoment[];
   /** Prior related current items, newest relevance first; the pack keeps three. */
@@ -94,6 +99,18 @@ export function isSameStory(input: ContextPackInput, prior: PriorItemContext): b
   return false;
 }
 
+function isoDay(date: string): string {
+  const d = date.trim();
+  if (/^\d{4}-\d{2}$/.test(d)) return `${d}-01`;
+  if (/^\d{4}$/.test(d)) return `${d}-01-01`;
+  return d.slice(0, 10);
+}
+
+function notAfter(date: string | null | undefined, observedOn: string | undefined): boolean {
+  if (!date || !observedOn) return true;
+  return isoDay(date) <= isoDay(observedOn);
+}
+
 function oneLine(text: string, max = MAX_ITEM_CHARS): string {
   return text.replace(/\s+/g, ' ').trim().slice(0, max);
 }
@@ -102,6 +119,7 @@ export function buildContextPack(input: ContextPackInput): ContextPack {
   const itemWords = new Set([...words(input.headline), ...input.entities.flatMap(words)]);
 
   const scored = input.moments
+    .filter((moment) => notAfter(moment.date, input.observedOn))
     .map((moment, index) => {
       const momentWords = new Set([
         ...words(moment.title),
@@ -122,7 +140,9 @@ export function buildContextPack(input: ContextPackInput): ContextPack {
   for (const { moment } of scored) {
     drafts.push({ kind: 'moment', text: oneLine(`${moment.title} — ${moment.summary}`) });
   }
-  const filteredPriors = input.priorItems.filter((prior) => !isSameStory(input, prior));
+  const filteredPriors = input.priorItems.filter(
+    (prior) => notAfter(prior.observedOn, input.observedOn) && !isSameStory(input, prior),
+  );
   for (const prior of filteredPriors.slice(0, MAX_PRIOR_ITEMS)) {
     if (!prior.headline.trim()) continue;
     drafts.push({ kind: 'prior', text: oneLine(`Earlier on our feed: ${prior.headline} — ${prior.lead}`) });

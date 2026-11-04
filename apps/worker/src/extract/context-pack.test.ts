@@ -98,3 +98,50 @@ describe('buildContextPack same-story exclusion', () => {
     expect(isSameStory({ ...base, moments: [] }, { headline: 'Other news entirely', lead: 'x' })).toBe(false);
   });
 });
+
+describe('buildContextPack date filter', () => {
+  const dated = { ...base, observedOn: '2026-11-01' };
+  const momentsOf = (pack: ReturnType<typeof buildContextPack>) => pack.items.filter((i) => i.kind === 'moment');
+  const moment = (title: string, date?: string) => ({ title: `Showgirl screening ${title}`, summary: 's', ...(date ? { date } : {}) });
+  const titles = (moments: ReturnType<typeof momentsOf>) => moments.map((m) => m.text.replace(/^Showgirl screening (\w+) .*/, '$1'));
+
+  it('drops a moment dated after the item and keeps a same-day one', () => {
+    const moments = [moment('future', '2026-11-02'), moment('same', '2026-11-01'), moment('past', '2026-10-30')];
+    expect(titles(momentsOf(buildContextPack({ ...dated, moments, priorItems: [] })))).toEqual(['same', 'past']);
+  });
+
+  it('treats a month-only date as the first of that month', () => {
+    const moments = [moment('thismonth', '2026-11'), moment('nextmonth', '2026-12'), moment('lastmonth', '2026-10')];
+    expect(titles(momentsOf(buildContextPack({ ...dated, moments, priorItems: [] })))).toEqual(['thismonth', 'lastmonth']);
+  });
+
+  it('keeps an undated moment and the era line', () => {
+    const pack = buildContextPack({ ...dated, moments: [moment('undated')], priorItems: [] });
+    expect(pack.items.map((i) => i.kind)).toEqual(['era', 'moment']);
+  });
+
+  it('applies no filter without observedOn', () => {
+    const pack = buildContextPack({ ...base, moments: [moment('future', '2099-01-01')], priorItems: [] });
+    expect(momentsOf(pack)).toHaveLength(1);
+  });
+
+  it('drops a prior item dated after the item, keeps same-day and undated', () => {
+    const priorItems = [
+      { headline: 'Future story A', lead: 'x', observedOn: '2026-11-02' },
+      { headline: 'Same day story B', lead: 'x', observedOn: '2026-11-01' },
+      { headline: 'Undated story C', lead: 'x' },
+    ];
+    const priors = buildContextPack({ ...dated, moments: [], priorItems }).items.filter((i) => i.kind === 'prior');
+    expect(priors.map((p) => p.text)).toEqual(['Same day story B', 'Undated story C'].map((h) => `Earlier on our feed: ${h} — x`));
+  });
+
+  it('still excludes the same story by id and by merged_into alongside the date filter', () => {
+    const priorItems = [
+      { headline: 'Other one', lead: 'x', id: 'a1', observedOn: '2026-10-30' },
+      { headline: 'Other two', lead: 'x', id: 'b2', mergedInto: 'a1', observedOn: '2026-10-30' },
+      { headline: 'Other three', lead: 'x', id: 'c3', observedOn: '2026-10-30' },
+    ];
+    const priors = buildContextPack({ ...dated, moments: [], itemId: 'a1', priorItems }).items.filter((i) => i.kind === 'prior');
+    expect(priors.map((p) => p.text)).toEqual(['Earlier on our feed: Other three — x']);
+  });
+});

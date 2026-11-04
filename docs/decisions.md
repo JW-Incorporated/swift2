@@ -7,6 +7,27 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-03 (amendment 2) — News writer pass B moves to Opus 5.5
+
+**Decision.** Pass B uses `claude-opus-5-5` instead of `claude-sonnet-5-5`. Writer caps drop from 60/run and 200/day to 40/run and 150/day, per the architect's switch plan.
+
+**Why.** The bake-off ran on the 31-item kit (`scripts/news/fixtures/writer-eval-kit-dry2.jsonl`), scored by the calibrated Opus judge:
+
+| Writer | Pass | Voice >= 4 | Grounding >= 4 | non_repetition >= 4 | Run |
+|---|---|---|---|---|---|
+| Sonnet | 9/31 (29%) | 10 | 20 | 24 | 41749205871 |
+| Opus | 17/31 (55%) | 25 | 20 | 25 | 41749210452 |
+
+- The architect's switch rule was ">= 2x Sonnet's pass rate". The result is 1.9x, just under the bar.
+- The PM switched anyway. The owner said quality comes first and tokens are plentiful, the 2x margin was mainly a budget guard, and the voice gap is decisive.
+- Opus's remaining holds are mostly grounding (6). That is the next lever.
+
+**Reversal.** One constant in `apps/worker/src/extract/writer-client.ts`.
+
+Approved by: PM (reversible); follows the owner's quality-first direction.
+
+---
+
 ## 2026-11-03 (amendment) — News quality judge: Opus 5.5, rewritten rubric, calibration gate
 
 **Decision.** This amends the judge in the entry below.
