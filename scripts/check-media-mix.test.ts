@@ -2,7 +2,27 @@
 // 1 video record, 3 live items (0 embed) gives a share of 2/6 = 33.3%.
 
 import { describe, it, expect } from 'vitest';
-import { mediaMixRow } from './check-media-mix.mjs';
+import { floorViolations, mediaMixRow } from './check-media-mix.mjs';
+
+function eraRow(id: string, videos: number, total: number) {
+  return { id, label: id, row: mediaMixRow(
+    Array.from({ length: total - videos }, (_, i) => ({ id: `m${i}` })),
+    Array.from({ length: videos }, (_, i) => ({ slug: `v${i}`, youtubeId: `y${i}` })),
+  ) };
+}
+
+describe('floorViolations', () => {
+  it('passes at exactly 15% and fails just below', () => {
+    expect(floorViolations([eraRow('red', 15, 100)])).toEqual([]);
+    expect(floorViolations([eraRow('red', 14, 100)])).toEqual([
+      { id: 'red', label: 'red', videoShare: expect.closeTo(0.14, 5) },
+    ]);
+  });
+
+  it('exempts tloas and eras with no entries', () => {
+    expect(floorViolations([eraRow('tloas', 1, 100), eraRow('empty', 0, 0)])).toEqual([]);
+  });
+});
 
 describe('mediaMixRow', () => {
   it('computes video share = (moments w/ video + video records + live w/ video) / total', () => {

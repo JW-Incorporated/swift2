@@ -16,6 +16,7 @@ import { extractWithLLM } from './haiku-client';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { loadEraContext } from './context-loader';
+import { dailyTextCapHold } from './daily-text-cap';
 import {
   composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, rewriteMergedOriginal, tierFloorHold, writerMode,
 } from './v2-stage';
@@ -204,7 +205,12 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
           } else {
             let toWrite = currentItem;
             let v2Write: WriterV2Write | undefined;
-            if (writerV2 && v2Stores && hasFacts(currentItem)) {
+            const capHold = writerV2 && v2Stores && hasFacts(currentItem)
+              ? await dailyTextCapHold(db, CURRENT_ERA_ID, currentItem.facts)
+              : undefined;
+            if (capHold) {
+              v2Write = capHold;
+            } else if (writerV2 && v2Stores && hasFacts(currentItem)) {
               const composed = await composeV2Item(db, v2Stores, currentItem, sources, CURRENT_ERA_ID);
               if (composed.v2.holdReason && DEFERRED_HOLDS.includes(composed.v2.holdReason)) {
                 result.v2Deferred += 1;
