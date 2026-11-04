@@ -26,6 +26,9 @@ export interface ForceSummary {
   passed: number;
   held: number;
   skippedWriteFailures: number;
+  /** Visible-by-query rows the read gate hides for a non-copy reason (image, redline): never sent to the writer or judge. */
+  skippedUnservable: number;
+  skippedUnservableReasons: Record<string, number>;
   /** Below-floor rows hidden by --retire-below-floor (0 on a dry run). */
   retired: number;
   /** Same-event groups found across rows (reported on a dry run too): keep is the surviving row id, null when no member passes. */

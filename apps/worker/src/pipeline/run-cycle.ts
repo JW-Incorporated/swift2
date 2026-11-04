@@ -73,6 +73,7 @@ export async function runCycle(
       attachedToVideo: 0,
       dedupeDiscardReasons: {},
       v2Held: 0,
+      dailyTextCapHeld: 0,
       v2Deferred: 0,
       v2MissingFacts: 0,
       v2GaveUp: 0,
