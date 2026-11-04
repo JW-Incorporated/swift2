@@ -3,7 +3,7 @@
 // extract stage uses (pass A facts, worth-a-post floor, Sonnet writer, writing
 // gate, judge, one rewrite). The old copy is snapshotted before any write.
 // A dry run writes no current_item or snapshot rows; LLM budget rows in usage_daily are still incremented.
-// OUT OF SCOPE: same-event dedupe of backfill rows against each other.
+// Rows are processed first, then grouped by same event (backfill-dedupe.ts), then written or retired.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { evaluateCurrentItemQuality } from '@swift2/shared';
@@ -11,30 +11,24 @@ import { screenTopic } from '@swift2/shared/redline';
 import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { extractWithLLM } from './haiku-client';
 import {
-  composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, tierFloorHold, type V2Item,
+  composeV2Item, DEFERRED_HOLDS, hasFacts, tierFloorHold, type V2Item,
 } from './v2-stage';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { buildUserMessage } from './writer-client';
-import { retireBelowFloor } from './backfill-retire';
+import { RETIRE_BELOW_FLOOR, RETIRE_DUPLICATE, RETIRE_UNWRITABLE, retireRow, type RetireKind } from './backfill-retire';
+import { createDedupeUsage, dedupeEntry, planDuplicates } from './backfill-dedupe';
+import { createBackfillJudgeStore, createBackfillWriterStore } from './backfill-budget';
+import { guardedWrite, SKIPPED_OUTCOMES, type RowResult } from './backfill-force-write';
 import { loadForceCandidates, markAttempted, type ForceCandidateRow } from './backfill-force-load';
 import { defaultReportDir, kitIdFor, writeForceArtifacts, type ForceReportRow, type WriterEvalKitRow } from './backfill-report';
 import type { BackfillRunResult, ForceDeps, ForceOutcome, ForceSummary, RunBackfillOptions } from './backfill-types';
 import type { ClusterSource } from './write-knowledge';
-import type { ExtractedFact } from './types';
 
 const WITHHELD = '[withheld: redline]';
 
 export { loadForceCandidates, type ForceCandidateRow };
 function screensClean(strings: readonly string[]): boolean {
   return strings.every((s) => !s || !screenTopic(s));
-}
-
-interface RowResult {
-  report: ForceReportRow;
-  kit?: WriterEvalKitRow;
-  deferred?: true;
-  retire?: true;
-  write?: { summary: string; detail: string; facts: ExtractedFact[]; writingScore: number };
 }
 
 async function processRow(
@@ -126,39 +120,8 @@ async function processRow(
   };
 }
 
-const SKIPPED_OUTCOMES: readonly ForceOutcome[] = ['snapshot_failed', 'write_failed', 'skipped_changed'];
-
-/** Re-reads the row, snapshots the re-read copy, then updates only while the row is still unchanged. */
-async function guardedWrite(
-  db: SupabaseClient,
-  id: string,
-  write: NonNullable<RowResult['write']>,
-): Promise<{ outcome: ForceOutcome; error?: string }> {
-  const { data: fresh, error: readError } = await db.from('current_item')
-    .select('id,headline,summary,detail,facts,merged_into,retracted_at,promoted_to')
-    .eq('id', id)
-    .maybeSingle();
-  if (readError) return { outcome: 'write_failed', error: readError.message };
-  if (!fresh || fresh.facts != null || fresh.merged_into || fresh.retracted_at || fresh.promoted_to) return { outcome: 'skipped_changed' };
-  const { error: snapshotError } = await db.from('current_item_copy_snapshot').insert({
-    current_item_id: id, headline: fresh.headline, summary: fresh.summary, detail: fresh.detail, facts: null, reason: 'backfill_v2',
-  });
-  if (snapshotError) return { outcome: 'snapshot_failed', error: snapshotError.message };
-  const { data: updated, error: updateError } = await db.from('current_item')
-    .update({ summary: write.summary, detail: write.detail, facts: write.facts, writing_score: write.writingScore })
-    .eq('id', id)
-    .is('facts', null)
-    .is('merged_into', null)
-    .is('retracted_at', null)
-    .is('promoted_to', null)
-    .select('id');
-  if (updateError) return { outcome: 'write_failed', error: updateError.message };
-  if (!updated || updated.length === 0) return { outcome: 'skipped_changed' };
-  return { outcome: 'pass' };
-}
-
 export async function runForceBackfill(db: SupabaseClient, options: RunBackfillOptions): Promise<BackfillRunResult> {
-  const { dryRun, limit, days, retireBelowFloor: retireFloor = false, fetchImpl = fetch } = options;
+  const { dryRun, limit, days, retireBelowFloor: retireFloor = false, retireUnwritable = false, fetchImpl = fetch } = options;
   const errors: string[] = [];
   const result: BackfillRunResult = {
     considered: 0, rewritten: 0, imagesResolved: 0, nowPassing: 0, stillHeld: 0, deferred: 0, wroteBack: 0, reports: [], errors,
@@ -168,7 +131,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
     compose: options.force?.compose ?? composeV2Item,
     fetchArticles: options.force?.fetchArticles ?? fetchTopArticleTexts,
     usage: options.force?.usage ?? await ExtractUsageStore.create(supabaseExtractUsageDb(db)),
-    stores: options.force?.stores ?? { writer: await createWriterStore(db), judge: await createJudgeStore(db) },
+    stores: options.force?.stores ?? { writer: await createBackfillWriterStore(db), judge: await createBackfillJudgeStore(db) },
   };
   const candidates = await loadForceCandidates(db, limit, new Date(), days);
   const today = new Date().toISOString().slice(0, 10);
@@ -176,7 +139,9 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
   const kit: WriterEvalKitRow[] = [];
   const outcomes: Record<string, number> = {};
   const summary: ForceSummary = {
-    eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, retired: 0, deferred: false, remaining: 0, outcomes,
+    eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, retired: 0,
+    duplicateGroups: [], dedupeChecks: 0, dedupeFailed: 0, dedupeIncomplete: false, duplicatesFound: 0, retiredDuplicates: 0, unwritableFound: 0, retiredUnwritable: 0,
+    deferred: false, remaining: 0, outcomes,
   };
   const tally = (outcome: string): void => { outcomes[outcome] = (outcomes[outcome] ?? 0) + 1; };
 
@@ -187,6 +152,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
     if (failure) errors.push(`backfill_attempted_at not set for ${id}: ${failure}`);
   };
 
+  const done: { row: ForceCandidateRow; res: RowResult }[] = [];
   for (const [index, row] of candidates.entries()) {
     result.considered++;
     let res: RowResult;
@@ -204,11 +170,40 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
       result.deferred++;
       break;
     }
-    if (res.retire && retireFloor && !dryRun) {
-      const retired = await retireBelowFloor(db, row.id);
-      if (retired.outcome === 'retired_below_floor') {
-        summary.retired++;
-        res.report = { ...res.report, outcome: 'retired_below_floor' };
+    done.push({ row, res });
+  }
+
+  const plan = await planDuplicates(
+    db,
+    options.force?.dedupeUsage ?? await createDedupeUsage(candidates.length),
+    candidates,
+    done.filter(({ res }) => !res.retire).map(({ row, res }) => dedupeEntry(row, res)),
+    errors,
+    options.force?.sameEvent,
+  );
+  const losers = plan.losers;
+  summary.duplicateGroups = plan.groups;
+  summary.dedupeChecks = plan.checks;
+  summary.dedupeFailed = plan.failed;
+  summary.dedupeIncomplete = plan.incomplete;
+  if (plan.incomplete) {
+    console.log(`::warning::backfill dedupe incomplete (${plan.failed}/${plan.checks} checks deferred or failed); no duplicates are retired this run`);
+  }
+  summary.duplicatesFound = losers.size;
+
+  const applyOwnPath = async ({ row, res }: { row: ForceCandidateRow; res: RowResult }): Promise<void> => {
+    const unwritable = res.report.outcome === 'no_facts' || res.report.outcome === 'writing_hold';
+    let kind: RetireKind | null = null;
+    if (unwritable) {
+      summary.unwritableFound++;
+      if (retireUnwritable) kind = RETIRE_UNWRITABLE;
+    } else if (res.retire && retireFloor) kind = RETIRE_BELOW_FLOOR;
+    if (kind && !dryRun) {
+      const retired = await retireRow(db, row.id, kind);
+      if (retired.outcome === kind.outcome) {
+        if (kind === RETIRE_BELOW_FLOOR) summary.retired++;
+        else summary.retiredUnwritable++;
+        res.report = { ...res.report, outcome: kind.outcome };
       } else {
         if (retired.error) errors.push(`${retired.outcome} for ${row.id}: ${retired.error}`);
         res.report = { ...res.report, outcome: retired.outcome, holdReason: retired.error ?? retired.outcome };
@@ -222,6 +217,33 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
         res.report = { ...res.report, outcome: written.outcome, holdReason: written.error ?? written.outcome };
       }
     }
+  };
+
+  // Survivors and every non-duplicate row first; a group's losers are retired only once the survivor's write is a pass.
+  for (const entry of done) if (!losers.has(entry.row.id)) await applyOwnPath(entry);
+  const finalOutcome = new Map<string, string>(done.map(({ row, res }) => [row.id, res.report.outcome]));
+  for (const keep of losers.values()) if (!finalOutcome.has(keep)) finalOutcome.set(keep, 'pass');
+  for (const { row, res } of done) {
+    const keep = losers.get(row.id);
+    if (!keep) continue;
+    delete res.write;
+    if (finalOutcome.get(keep) !== 'pass') {
+      errors.push(`duplicate ${row.id} left untouched: survivor ${keep} ended ${finalOutcome.get(keep)}`);
+      res.report = { ...res.report, outcome: 'skipped_changed', holdReason: `survivor_not_written:${keep}` };
+      continue;
+    }
+    res.report = { ...res.report, holdReason: `duplicate_of:${keep}` };
+    if (dryRun) { res.report.outcome = 'retired_duplicate'; continue; }
+    const retired = await retireRow(db, row.id, RETIRE_DUPLICATE, keep);
+    if (retired.outcome === RETIRE_DUPLICATE.outcome) {
+      summary.retiredDuplicates++;
+      res.report = { ...res.report, outcome: retired.outcome };
+    } else {
+      if (retired.error) errors.push(`${retired.outcome} for ${row.id}: ${retired.error}`);
+      res.report = { ...res.report, outcome: retired.outcome, holdReason: retired.error ?? retired.outcome };
+    }
+  }
+  for (const { row, res } of done) {
     await mark(row.id);
     summary.processed++;
     tally(res.report.outcome);

@@ -50,6 +50,10 @@ on:
         description: 'Force mode only, ignored on a dry run: hide rows that fail the worth-a-post floor (quality_hold_reason retired_below_floor; undo with restore-copy-snapshot.mjs --clear-retired)'
         type: boolean
         default: false
+      retire_unwritable:
+        description: 'Force mode only, ignored on a dry run: hide rows that end no_facts or writing_hold after the one rewrite (quality_hold_reason retired_unwritable; undo with restore-copy-snapshot.mjs --clear-retired)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -110,6 +114,7 @@ jobs:
           BACKFILL_LIMIT: ${{ inputs.limit }}
           BACKFILL_DAYS: ${{ inputs.days }}
           BACKFILL_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
+          BACKFILL_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
           BACKFILL_REPORT_DIR: ${{ runner.temp }}/backfill-report
         run: npx --no-install tsx scripts/news/backfill-current-items.mjs
 

@@ -53,6 +53,8 @@ function fakeDb(rows: Record<string, unknown>[], opts: { missingMarker?: boolean
     };
     b.gt = () => b;
     b.gte = () => b;
+    b.lte = () => b;
+    b.not = (c: string, _op: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) !== v); return b; };
     const specs: { column: string; ascending?: boolean; nullsFirst?: boolean }[] = [];
     b.order = (column: string, o: { ascending?: boolean; nullsFirst?: boolean } = {}) => {
       orders.push({ column, ...o });
