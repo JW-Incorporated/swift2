@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## Taylor Swift discusses Travis Kelce's unusual habit
+
+- first seen: 2026-11-04 08:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent reveal, Taylor Swift shares information about an unusual habit that Travis Kelce has to tolerate. The detail adds insight into their relationship dynamics.
+- sources:
+  - [unverified] Riviera Radio — https://www.rivieraradio.mc/article/taylor-swift-reveals-the-unusual-habit-travis-kelce-has-to-put-up-with-5HjdkrP_2/
 
 ## Taylor Swift Pays Nelly $50,000 for Performance
 
