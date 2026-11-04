@@ -7,6 +7,48 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-03 (amendment) — News quality judge: Opus 5.5, rewritten rubric, calibration gate
+
+**Decision.** This amends the judge in the entry below.
+- **Model:** the judge moves from Haiku to `claude-opus-5-5`. Sonnet is a candidate in the blind writer comparison (#6572), so using it as judge would invite self-preference.
+- **Pass rule:** `grounding >= 4 AND voice >= 4 AND context >= 3 AND non_repetition >= 3`, replacing "all >= 4". `writing_score` is the sum (4-20), and its DB check is widened.
+- **Rubric:**
+  - the headline is out of the judge's scope (pass A writes it);
+  - `OBSERVED_ON` is given, so "today" and "this week" are judged against the story date;
+  - lead teaser plus body detail is not repetition, but a third mention is;
+  - required outlet credits are never docked;
+  - one or two figurative phrases are fine;
+  - per-score anchors;
+  - no gold exemplars in the prompt.
+- **Calibration gate:** `scripts/news/calibrate-judge.mjs` runs before any judge change ships, using fixtures in `apps/worker/src/extract/__fixtures__/judge-calibration/`. A judge model passes only if:
+  - gold drafts pass across 3 runs, with at most one non-grounding miss in all 15 judgments and zero grounding misses;
+  - 5 targeted negatives fail on their expected dimension;
+  - at least ceil(n x 26/31) legacy posts fail (26 of the current 30).
+- **Caveats:**
+  - The gold set was revised against Opus during R2-R6, so it is partly circular; the negatives and legacy are the independent signal. Add a held-out gold item at the next judge change.
+  - `writing_score` rows written before this change hold the old 1-5 minimum, and rows after hold the 4-20 sum; never compare across the change.
+
+**Why.** The Haiku judge failed 5/5 PM-written gold drafts for out-of-scope reasons. It docked the headline, read teaser-then-detail as repetition, and treated required attribution as wire copy.
+- **Calibration R1 (all three models):** no model accepted. Gold per run was Haiku 0/0/0, Sonnet 1/1/1 and Opus 1/1/2. Negatives were 4/5 for each and legacy 30/30 for each.
+- **R2-R6 (fixture and rubric fixes):** Opus settled at gold 14/15 per round, negatives 5/5 and legacy 30/30. Every remaining Opus gold miss was valid (ungrounded phrases, a context item dated after the story) or a borderline voice score on a thin story. Haiku stayed at 1/5.
+- **Gold rule:** the original "5/5 on all 3 runs" rule was amended to tolerate one non-grounding miss in 15, because a single borderline voice call is run-to-run variance. Grounding misses are still never tolerated.
+
+**Alternatives.**
+- Haiku plus rubric fixes: calibrated at 1/5 gold, so rejected.
+- Sonnet as judge: rejected over self-preference in #6572.
+- Lowering the voice bar to 3: rejected, because voice is the fan-site differentiator.
+
+**Reversal.** Revert the commit. The calibration gate re-runs any change.
+
+**Open follow-ups.**
+- The context pack must exclude moments and prior items dated after the item's `observed_on` (an anachronism risk for backfill).
+- Wire id/merged_into/url into the context-pack self-exclusion (#6592).
+- Re-judge the 31 Sonnet and 31 Opus tune drafts, then apply the writer switch rule (Opus only if its pass rate is at least 2x Sonnet's).
+
+Approved by: architect (Fable) consult 2026-11-03 14:20; the calibration rule amendment by the PM (reversible), recorded here.
+
+---
+
 ## 2026-11-03 — News post quality engine: two-pass writer, writing gate, 30-day dedupe, daily text cap, snapshot backfill (owner-ordered; architect consult)
 
 **Owner asks (chat, 2026-11-03).** News posts read as flat summaries with no fan voice or context, are too short, and repeat the headline and lead in the body. They also have no image inside the post and show bare link icons. "We must ensure the quality of our posts remains high, and the balance of text to video stays solid." Fix every existing post and the engine. Video-first answers: Q1 demote news, plus a pinned "This week's news" section (rolling 7 days) at the top of the feed that replaces the egg doorway card. Q2 yes, Q3 yes, Q4 no, Q5 nypost.com images yes.
