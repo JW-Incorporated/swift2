@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 70
+
+## Taylor Swift Launches New Campaign
+
+- first seen: 2026-11-04 16:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has initiated a new campaign, titled 'Gossip Time', highlighting her latest projects and initiatives. Further details about the campaign were not disclosed in the snippet.
+- sources:
+  - [unverified] Gossip Time | Allie Jones — https://gossiptime.substack.com/p/taylor-swift-oscar-campaign-midterms
 
 ## Fallout from Taylor Swift’s Wedding Leak Involves Her Friends
 
@@ -600,35 +608,3 @@ Stories: 73
 - summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame along with fellow artist Lyle Lovett and others. This recognition highlights her contributions to the music industry.
 - sources:
   - [unverified] WXXV News 25 — https://www.wxxv25.com/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/
-
-## Possible Attendance of Taylor Swift at Chiefs vs Broncos Game
-
-- first seen: 2026-11-01 15:59 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Speculation surrounds Taylor Swift's potential presence at the Chiefs vs Broncos game. Current reports discuss what is known regarding her attendance today.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/01/will-taylor-swift-be-at-the-chiefs-vs-broncos-game-this-is-what-we-know-about-her-possible-attendance-today.html
-
-## Taylor Swift's Payment for Brief Performance Revealed
-
-- first seen: 2026-11-01 15:59 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report has disclosed the significant amount paid by Taylor Swift to a star for a three-minute performance. The financial details highlight the lucrative nature of celebrity appearances.
-- sources:
-  - [unverified] News.com.au — https://www.news.com.au/entertainment/celebrity-life/nelly-reveals-huge-amount-taylor-swift-paid-him-for-3minute-cameo-and-bizarre-way-she-gave-him-the-cash/news-story/328a542ad32729504bbdffa0da7b74b3
-
-## Guests voice complaints about food and decor at Taylor Swift's wedding
-
-- first seen: 2026-11-01 15:59 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that some guests at Taylor Swift's wedding expressed dissatisfaction with the food and decor, describing them as 'ghastly and tacky.' This feedback has sparked discussions among fans and media.
-- sources:
-  - [unverified] thecomeback.com — https://thecomeback.com/pop-culture/ghastly-and-tacky-taylor-swift-wedding-guests-reportedly-complained-about-food-and-decor.html
-
-## Travis Kelce Faces Neighborhood Issues with Ohio Mansion
-
-- first seen: 2026-11-01 15:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's $5.35 million Ohio mansion is reportedly facing three major points of contention from neighbors.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/01/travis-kelce-s-neighbors-are-major-problem-the-three-points-of-contention-regarding-his-5-35-million-ohio-mansion.html
