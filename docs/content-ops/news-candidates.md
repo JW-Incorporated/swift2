@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 65
 
 ## Taylor Swift Launches New Campaign
 
@@ -568,35 +568,3 @@ Stories: 69
   - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-the-chiefs-broncos-game-tonight
   - [unverified] IMDb — https://www.imdb.com/de/news/ni66090442/?ref_=nwc_art_perm
   - [unverified] Parade Magazine — https://parade.com/celebrities/is-taylor-swift-at-chiefs-game-today-november-1-2026
-
-## Dwayne Johnson appears to like post criticizing Taylor Swift
-
-- first seen: 2026-11-01 18:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dwayne Johnson has seemingly liked a social media post that criticizes Taylor Swift, attracting attention from fans and media alike. The interaction has raised questions about the context and implications of such a 'like'.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carefully-crafted-fake-dwayne-johnson-184320027.html
-
-## Taylor Swift Shares Inside Joke with Best Friend Abigail
-
-- first seen: 2026-11-01 18:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift discusses a longstanding inside joke she shares with her best friend, Abigail, highlighting their deep friendship. This revelation adds a personal touch to their relationship.
-- sources:
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/01/taylor-swift-impersonates-napoleon-dynamite-toy-story-5/92550328007/
-
-## Critique of Taylor Swift’s ‘The Life of A Showgirl: The Encore’
-
-- first seen: 2026-11-01 17:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An op-ed discusses perceived shortcomings in Taylor Swift's work on 'The Life of A Showgirl: The Encore', highlighting a lack of engagement from the audience.
-- sources:
-  - [unverified] The Huntington News — https://huntnewsnu.com/94624/editorial/op-ed-no-one-stayed-for-the-encore-reckoning-with-taylor-swifts-poor-quality-work-in-the-life-of-a-showgirl-the-encore/
-
-## Taylor Swift Endorses Comfortable Shoe Trend Making a Comeback
-
-- first seen: 2026-11-01 17:56 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has endorsed a comfortable shoe trend that is set to return in 2026. The trend has garnered attention for its comfort and style appeal.
-- sources:
-  - [unverified] Women.com — https://www.women.com/2297262/taylor-swift-cosigned-this-comfortable-shoe-trend-that-made-comeback-2026/
