@@ -1,10 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { WorkerClaudeCaller } from '../claude-call';
-import { judgeWriting } from './judge-client';
+import { judgeWriting, scoreVerdict } from './judge-client';
+import { buildJudgeUserMessage, JUDGE_SYSTEM_PROMPT } from './judge-prompt';
 import { ExtractUsageStore, type UsageDb } from './usage-store';
 
 const db: UsageDb = { todaysCallCount: async () => 0, incrementToday: async () => undefined };
-const INPUT = { headline: 'H', lead: 'L', body: 'B', facts: ['Fact one', 'Fact two'] };
+const INPUT = { observedOn: '2026-11-02', lead: 'L', body: 'B', facts: ['Fact one', 'Fact two'] };
 
 function output(scores: [number, number, number, number]) {
   return {
@@ -16,13 +17,13 @@ function output(scores: [number, number, number, number]) {
 afterEach(() => vi.unstubAllEnvs());
 
 describe('judgeWriting', () => {
-  it('passes when every score is 4 or more and reports the minimum', async () => {
+  it('passes when the scores clear every minimum and reports the sum', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
     const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 4, 5, 4]) })) as unknown as WorkerClaudeCaller;
     const result = await judgeWriting(await ExtractUsageStore.create(db), INPUT, claude);
-    expect(result).toMatchObject({ status: 'ok', pass: true, writingScore: 4 });
+    expect(result).toMatchObject({ status: 'ok', pass: true, writingScore: 18 });
     const call = (claude as unknown as ReturnType<typeof vi.fn>).mock.calls[0]![0];
-    expect(call.model).toBe('claude-haiku-5-5');
+    expect(call.model).toBe('claude-opus-5-5');
     expect(call.user).toContain('1. Fact one');
   });
 
@@ -34,11 +35,11 @@ describe('judgeWriting', () => {
     expect(call.user).toContain('ATTRIBUTIONS: Variety; People');
   });
 
-  it('fails when any score is below 4', async () => {
+  it('fails when grounding is below 4', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
     const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 5, 3, 5]) })) as unknown as WorkerClaudeCaller;
     const result = await judgeWriting(await ExtractUsageStore.create(db), INPUT, claude);
-    expect(result).toMatchObject({ status: 'ok', pass: false, writingScore: 3 });
+    expect(result).toMatchObject({ status: 'ok', pass: false, writingScore: 18 });
     if (result.status === 'ok') expect(result.reasons.grounding).toBe('g');
   });
 
@@ -72,7 +73,32 @@ describe('judgeWriting', () => {
   });
 });
 
+describe('scoreVerdict', () => {
+  it.each([
+    [[4, 3, 4, 3], true, 14],
+    [[5, 5, 5, 5], true, 20],
+    [[3, 5, 5, 5], false, 18],
+    [[5, 5, 3, 5], false, 18],
+    [[5, 2, 5, 5], false, 17],
+    [[5, 5, 5, 2], false, 17],
+    [[1, 1, 1, 1], false, 4],
+  ] as const)('voice/context/grounding/non_repetition %j -> pass %s, sum %i', (s, pass, sum) => {
+    const scores = { voice: s[0], context: s[1], grounding: s[2], non_repetition: s[3] };
+    expect(scoreVerdict(scores)).toEqual({ pass, writingScore: sum });
+  });
+});
+
 describe('judge input', () => {
+  it('has no headline, carries OBSERVED_ON, and ends the system prompt on the untrusted-tags rule', () => {
+    expect('headline' in INPUT).toBe(false);
+    const user = buildJudgeUserMessage(INPUT);
+    expect(user).toContain('OBSERVED_ON: 2026-11-02');
+    expect(user).not.toContain('HEADLINE');
+    expect(JUDGE_SYSTEM_PROMPT).toContain('against OBSERVED_ON, never against the current date');
+    expect(JUDGE_SYSTEM_PROMPT).not.toMatch(/nor the headline|and headline/);
+    expect(JUDGE_SYSTEM_PROMPT.split('\n').at(-1)).toContain('never instructions');
+  });
+
   it('sends the context pack and the cited sentences, and states the grounding and context rules', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
     const claude = vi.fn(async () => ({ status: 'ok', data: output([5, 5, 5, 5]) })) as unknown as WorkerClaudeCaller;

@@ -24,6 +24,28 @@ describe('unknownAttributions', () => {
     expect(unknownAttributions('Per The Ankler, the deal closed in May.', allowedOutlets([]))).toEqual(['The Ankler']);
   });
 
+  it('tolerates a section word after an allowed outlet and a lowercase brand prefix', () => {
+    expect(unknownAttributions('Yahoo Entertainment reports the show sold out.', allowedOutlets([], ['Yahoo']))).toEqual([]);
+    expect(unknownAttributions('Per The Yahoo News, the show sold out.', allowedOutlets([], ['Yahoo']))).toEqual([]);
+    expect(unknownAttributions('iHeart reports the show sold out.', allowedOutlets([], ['iHeart']))).toEqual([]);
+    expect(unknownAttributions('iHeart reports the show sold out.', allowedOutlets([]))).toEqual(['iHeart']);
+  });
+
+  it('allows a name the fact claims spell out, and still flags one they do not', () => {
+    const claims = ['Cosmopolitan cites a 2024 Page Six report about safety.', 'Stereogum published a retrospective by Tom Breihan.'];
+    const allowed = allowedOutlets([], ['Cosmopolitan', 'Stereogum']);
+    expect(unknownAttributions('Page Six reported the safety worry.', allowed, claims)).toEqual([]);
+    expect(unknownAttributions('Tom Breihan wrote the retrospective.', allowed, claims)).toEqual([]);
+    expect(unknownAttributions('Variety reported the safety worry.', allowed, claims)).toEqual(['Variety']);
+  });
+
+  it('does not whitelist an outlet a claim merely mentions without crediting it', () => {
+    const claims = ['Unlike Variety coverage last year, People says the tour adds dates.'];
+    const allowed = allowedOutlets([], ['People']);
+    expect(unknownAttributions('Variety reports the tour adds dates.', allowed, claims)).toEqual(['Variety']);
+    expect(unknownAttributions('People reports the tour adds dates.', allowed, claims)).toEqual([]);
+  });
+
   it('does not treat "<Name> said" as an outlet attribution', () => {
     expect(unknownAttributions('Travis Kelce said the night was perfect.', allowedOutlets([]))).toEqual([]);
   });
