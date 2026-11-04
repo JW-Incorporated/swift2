@@ -97,6 +97,7 @@ async function main() {
         `${f.held} held (copy untouched unless retired), ${f.retired} retired below floor, ` +
         `${f.duplicateGroups.length} duplicate group(s) (${f.retiredDuplicates} retired as duplicate, ${f.duplicatesFound} found), ` +
         `${f.retiredUnwritable} retired unwritable (${f.unwritableFound} found), ${f.skippedWriteFailures} write failure(s), ` +
+        `${f.skippedUnservable} skipped_unservable${Object.keys(f.skippedUnservableReasons).length ? ` (${Object.entries(f.skippedUnservableReasons).map(([k, v]) => `${k}: ${v}`).join(', ')})` : ''}, ` +
         `${f.deferred ? `deferred with ${f.remaining} remaining (re-run continues)` : 'not deferred'}.`,
     );
   }

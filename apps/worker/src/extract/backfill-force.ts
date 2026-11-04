@@ -19,7 +19,7 @@ import { RETIRE_BELOW_FLOOR, RETIRE_DUPLICATE, RETIRE_UNWRITABLE, retireRow, typ
 import { createDedupeUsage, dedupeEntry, planDuplicates } from './backfill-dedupe';
 import { createBackfillJudgeStore, createBackfillWriterStore } from './backfill-budget';
 import { guardedWrite, SKIPPED_OUTCOMES, type RowResult } from './backfill-force-write';
-import { loadForceCandidates, markAttempted, type ForceCandidateRow } from './backfill-force-load';
+import { loadForceCandidates, loadForceSelection, markAttempted, type ForceCandidateRow } from './backfill-force-load';
 import { defaultReportDir, kitIdFor, writeForceArtifacts, type ForceReportRow, type WriterEvalKitRow } from './backfill-report';
 import type { BackfillRunResult, ForceDeps, ForceOutcome, ForceSummary, RunBackfillOptions } from './backfill-types';
 import type { ClusterSource } from './write-knowledge';
@@ -133,17 +133,22 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
     usage: options.force?.usage ?? await ExtractUsageStore.create(supabaseExtractUsageDb(db)),
     stores: options.force?.stores ?? { writer: await createBackfillWriterStore(db), judge: await createBackfillJudgeStore(db) },
   };
-  const candidates = await loadForceCandidates(db, limit, new Date(), days);
+  const { candidates, unservable } = await loadForceSelection(db, limit, new Date(), days);
   const today = new Date().toISOString().slice(0, 10);
   const rows: ForceReportRow[] = [];
   const kit: WriterEvalKitRow[] = [];
   const outcomes: Record<string, number> = {};
   const summary: ForceSummary = {
-    eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, retired: 0,
+    eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, skippedUnservable: 0, skippedUnservableReasons: {}, retired: 0,
     duplicateGroups: [], dedupeChecks: 0, dedupeFailed: 0, dedupeIncomplete: false, duplicatesFound: 0, retiredDuplicates: 0, unwritableFound: 0, retiredUnwritable: 0,
     deferred: false, remaining: 0, outcomes,
   };
   const tally = (outcome: string): void => { outcomes[outcome] = (outcomes[outcome] ?? 0) + 1; };
+  for (const { reason } of unservable) {
+    summary.skippedUnservable++;
+    summary.skippedUnservableReasons[reason] = (summary.skippedUnservableReasons[reason] ?? 0) + 1;
+  }
+  if (summary.skippedUnservable > 0) outcomes['skipped_unservable'] = summary.skippedUnservable;
 
   /** Every attempted row is stamped whatever its outcome (not on a dry run, not on a budget deferral, which learned nothing). */
   const mark = async (id: string): Promise<void> => {
