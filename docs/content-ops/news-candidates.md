@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 74
+
+## Director Reacts to Taylor Swift's Swift Songwriting for Toy Story 5
+
+- first seen: 2026-11-04 09:01 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The director of Toy Story 5 shared a candid reaction upon learning that Taylor Swift wrote her song for the film in under a day. This reveals the impressive speed and talent Swift brings to her songwriting process.
+- sources:
+  - [unverified] Cinemablend — https://www.cinemablend.com/movies/not-pg-reaction-toy-story-5-director-had-found-out-taylor-swift-wrote-her-song-one-day
+
+## Taylor Swift Seeks to Identify Wedding Leaker Among Friends
+
+- first seen: 2026-11-04 09:01 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly making her friends uneasy as she searches for the individual who leaked details about her wedding plans. The situation has created tension within her social circle.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-making-friends-uncomfortable-081645809.html
+
+## Taylor Swift Initiates Campaign for Oscar Consideration
+
+- first seen: 2026-11-04 09:01 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Sources report that Taylor Swift has started a charm offensive for her Oscar campaign. The initiative aims to bolster her chances for recognition in the upcoming awards.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-launched-charm-offensive-082534320.html
 
 ## Taylor Swift discusses Travis Kelce's unusual habit
 
