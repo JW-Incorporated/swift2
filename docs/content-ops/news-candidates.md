@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## Taylor Swift's Oscar Aspirations Highlighted as Travis Kelce Discusses Chiefs' Errors
+
+- first seen: 2026-11-04 02:17 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The focus shifts to Taylor Swift's ambition for an Oscar while Travis Kelce comments on costly mistakes made by the Chiefs. This news connects Swift's career aspirations with insights from Kelce on the football team's performance.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-campaign-travis-kelce-struggles/
 
 ## Hollywood Music in Media Awards Nominations and Oscar Insights
 
