@@ -496,3 +496,17 @@ advance it only after observing the heartbeat that resets it. Likewise, jsdom
 history traversal is scheduled work; tests of Back-stack logic should dispatch
 the corresponding `popstate` explicitly and reset module/history state between
 cases instead of waiting on host timing.
+
+### An ISR route caches every fetch inside it
+
+In Next 16, a route handler that exports `revalidate` is rendered as ISR, and
+every `fetch` it makes, including supabase-js's internal one, lands in the
+Data Cache with that revalidate. If a refreshed response is over the Data
+Cache's per-item size limit, it is never re-stored, and the old entry is
+served indefinitely. A new deploy does not clear it. `/vault/live/tloas` served
+a 64-row snapshot from partway through a backfill while the DB had 95
+(2026-11-04, DEBUG ladder through the architect). Live reads pass a
+`cache: 'no-store'` fetch (`apps/web/lib/current.ts` `noStoreFetch`). The
+route's own `revalidate` is the only cache. When a feed count disagrees with
+the DB, compare the anon-role count (`inspect-current-items.yml`
+`policies=true`) before suspecting the gate.

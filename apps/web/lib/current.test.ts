@@ -4,7 +4,7 @@ vi.mock('./supabase-server', () => ({
   supabasePublicEnv: () => ({ supabaseUrl: 'https://example.supabase.co', supabaseKey: 'k' }),
 }));
 
-import { loadLiveTheories } from './current';
+import { loadCurrentItems, loadLiveTheories } from './current';
 
 const row = (id: string, image_url: string | null) => ({
   id,
@@ -41,5 +41,19 @@ describe('loadLiveTheories media gate', () => {
     expect(String(fetchMock.mock.calls[0]?.[0])).toContain('image_url');
     expect(theories.map((t) => t.id)).toEqual(['good']);
     expect(theories[0]?.imageUrl).toBe('https://www.people.com/photo.jpg');
+  });
+});
+
+describe('live reads bypass the Next Data Cache', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('sends every current_item and live_theory request with cache: no-store', async () => {
+    const fetchMock = vi.fn().mockImplementation(async () => new Response('[]', { status: 200, headers: { 'content-type': 'application/json' } }));
+    vi.stubGlobal('fetch', fetchMock);
+    await loadCurrentItems('tloas');
+    await loadLiveTheories();
+    expect(fetchMock.mock.calls.length).toBeGreaterThanOrEqual(2);
+    for (const call of fetchMock.mock.calls) expect((call[1] as RequestInit | undefined)?.cache).toBe('no-store');
+    expect(fetchMock.mock.calls.some((c) => String(c[0]).includes('/rest/v1/current_item'))).toBe(true);
   });
 });
