@@ -68,6 +68,7 @@ export async function composeV2Item(
   });
   const composed = await composePost(stores, {
     headline: item.headline,
+    observedOn: item.observedOn,
     statusHint: item.statusHint,
     facts: item.facts,
     context,
