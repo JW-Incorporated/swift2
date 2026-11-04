@@ -16,7 +16,8 @@
 //   node scripts/news/backfill-current-items.mjs --no-dry-run
 // Force mode (BACKFILL_MODE=force) also takes --days N (BACKFILL_DAYS; default = the
 // live feed's own window) and --retire-below-floor (BACKFILL_RETIRE_BELOW_FLOOR=true):
-// rows failing the worth-a-post floor are hidden, never deleted (undo: restore-copy-snapshot.mjs --clear-retired).
+// rows failing the worth-a-post floor are hidden, never deleted (undo: restore-copy-snapshot.mjs --clear-retired);
+// --retire-unwritable (BACKFILL_RETIRE_UNWRITABLE=true) does the same for rows ending no_facts or writing_hold.
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (degrades to a clean
 // no-op, same contract as every other privileged Community Engine script —
@@ -70,6 +71,7 @@ async function main() {
   const argv = process.argv.slice(2);
   const daysArg = argv.indexOf('--days');
   const retireBelowFloor = argv.includes('--retire-below-floor') || process.env.BACKFILL_RETIRE_BELOW_FLOOR === 'true';
+  const retireUnwritable = argv.includes('--retire-unwritable') || process.env.BACKFILL_RETIRE_UNWRITABLE === 'true';
   let limit;
   let days;
   try {
@@ -85,13 +87,17 @@ async function main() {
     ...(limit > 0 ? { limit } : {}),
     ...(mode === 'force' && days !== undefined ? { days } : {}),
     ...(mode === 'force' && retireBelowFloor ? { retireBelowFloor } : {}),
+    ...(mode === 'force' && retireUnwritable ? { retireUnwritable } : {}),
     ...(mode === 'force' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),
   });
   if (result.force) {
     const f = result.force;
     console.log(
       `backfill-current-items: force mode — ${f.eligible} eligible, ${f.processed} processed, ${f.passed} pass, ` +
-        `${f.held} held (copy untouched unless retired), ${f.retired} retired below floor, ${f.skippedWriteFailures} write failure(s), ` +
+        `${f.held} held (copy untouched unless retired), ${f.retired} retired below floor, ` +
+        `${f.duplicateGroups.length} duplicate group(s) (${f.retiredDuplicates} retired as duplicate, ${f.duplicatesFound} found), ` +
+        `${f.retiredUnwritable} retired unwritable (${f.unwritableFound} found), ${f.skippedWriteFailures} write failure(s), ` +
+        `${f.skippedUnservable} skipped_unservable${Object.keys(f.skippedUnservableReasons).length ? ` (${Object.entries(f.skippedUnservableReasons).map(([k, v]) => `${k}: ${v}`).join(', ')})` : ''}, ` +
         `${f.deferred ? `deferred with ${f.remaining} remaining (re-run continues)` : 'not deferred'}.`,
     );
   }

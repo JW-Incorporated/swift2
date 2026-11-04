@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import { loadForceCandidates, type ForceCandidateRow } from './backfill-force';
+import { loadForceSelection } from './backfill-force-load';
 import { sanitizeReason } from './backfill-report';
 import { runBackfill } from './backfill-run';
 import type { ForceDeps } from './backfill-types';
@@ -58,6 +59,8 @@ function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean
     };
     b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
+    b.lte = () => b;
+    b.not = (c: string, _op: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) !== v); return b; };
     b.order = (column: string, o: { ascending?: boolean; nullsFirst?: boolean } = {}) => {
       orders.push({ column, ...o });
       filtered = [...filtered].sort((x, y) => {
@@ -157,6 +160,38 @@ describe('loadForceCandidates', () => {
     const { db } = fakeDb([row('ok'), row('old', { observed_on: daysAgo(40) })]);
     const picked = await loadForceCandidates(db, 0, new Date(), 10);
     expect(picked.map((r: ForceCandidateRow) => r.id)).toEqual(['ok']);
+  });
+});
+
+describe('unservable rows', () => {
+  it('splits rows the read gate hides for image reasons out of the candidates, with a reason breakdown', async () => {
+    const { db } = fakeDb([
+      row('ok'),
+      row('no-image', { image_url: null }),
+      row('bad-host', { image_url: 'https://evil.example.org/a.jpg' }),
+      row('bad-host-2', { image_url: 'https://evil.example.org/b.jpg' }),
+    ]);
+    const { candidates, unservable } = await loadForceSelection(db);
+    expect(candidates.map((r) => r.id)).toEqual(['ok']);
+    expect(unservable).toEqual([
+      { id: 'no-image', reason: 'missing_image' },
+      { id: 'bad-host', reason: 'image_host_not_allowlisted' },
+      { id: 'bad-host-2', reason: 'image_host_not_allowlisted' },
+    ]);
+  });
+
+  it('reports skipped_unservable and never sends those rows to the writer', async () => {
+    const { db } = fakeDb([row('ok'), row('no-image', { image_url: null }), row('bad-host', { image_url: 'https://evil.example.org/a.jpg' })]);
+    const d = deps();
+    const dir = reportDir();
+    const result = await runBackfill(db, { dryRun: true, mode: 'force', reportDir: dir, force: d });
+    expect(d.extract).toHaveBeenCalledTimes(1);
+    expect(result.force).toMatchObject({
+      eligible: 1, processed: 1, passed: 1, skippedUnservable: 2,
+      skippedUnservableReasons: { missing_image: 1, image_host_not_allowlisted: 1 },
+    });
+    expect(result.force?.outcomes).toEqual({ pass: 1, skipped_unservable: 2 });
+    expect(readFileSync(join(dir, 'backfill-report.md'), 'utf8')).toContain('skipped_unservable: 2 (missing_image: 1, image_host_not_allowlisted: 1)');
   });
 });
 

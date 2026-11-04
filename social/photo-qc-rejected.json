@@ -2659,6 +2659,102 @@
       "sha256": "d1603045b36aaff55d4fc1b5face2d8a1c15d0843ef121521cfa380ecc87e1d7",
       "reason": "Stadium panorama; performer small, other people and crowd in frame, dim.",
       "date": "2026-11-02"
+    },
+    {
+      "id": "official-video-yfWgXcrNQIw-maxres1",
+      "sha256": "cce36b5f276775b7870673d4bb1179974736c16ccc1e7965a95ef1fbbf11771d",
+      "reason": "Three backup singers are prominent beside the central woman in red; not a single subject.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-tvnGBYMe9gM-maxres1",
+      "sha256": "22d87f3e6e7316ea60c67cea279f50d3399cfe005b4c7afe4dd5a6782e907e73",
+      "reason": "Four other people share the frame as co-subjects, so no single clear subject.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-yfWgXcrNQIw-maxres2",
+      "sha256": "21e9c016c58180d452f90a04f04ab5f3dd2c7754e56365bd2d39129a32a3a7bf",
+      "reason": "Two backup singers prominent behind; hands in foreground; not a single clear subject",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-yfWgXcrNQIw-maxres3",
+      "sha256": "e38acf507629549b58e16befee07f267dbecd362bd1cc75463fe6551d122fb55",
+      "reason": "Several people share the frame; two guitarists are as prominent as the central woman.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-tvnGBYMe9gM-maxres3",
+      "sha256": "6b001416952280a53f7b826afc7af28d7c2d42d20c02b1d11e4796763a873488",
+      "reason": "Four people share the frame; backup singers are prominent, no single main subject.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-rghH6QlT5a0-maxres1",
+      "sha256": "15fc55546842b02161b954136f542f805cee6038dfc05ed06cd335e4b17b9a91",
+      "reason": "Title card with large text overlay; graphic-style frame, not a clean photo",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-rghH6QlT5a0-maxres3",
+      "sha256": "b8430540cff0c38f9d2e3c685f3a72d4546e233710898f29a23a87a57d1395ea",
+      "reason": "Soft focus, blurry foreground blocks view, another woman also prominent",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-rghH6QlT5a0-maxres2",
+      "sha256": "874fcb8c771a48ee301fd8cd9340d0497ea7141fe825cc02279133a28cf3c1f9",
+      "reason": "Bearded man in hat and sunglasses; doesn't match caption about Taylor Swift.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-jinbX0hwYOo-maxres1",
+      "sha256": "2609384d201e12176acfbe0da82cc4200af0c3c66668ba4c0fdf01a5fc7cc070",
+      "reason": "Man in hat dominates the frame; several people, no single clear subject.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-jinbX0hwYOo-maxres3",
+      "sha256": "fdc155ebc80a657ee5f914047509229e2972b6bdfea481a09793b610d30f7fd1",
+      "reason": "Bearded man in a parka at night, dark; doesn't plausibly match the caption.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-jinbX0hwYOo-maxres2",
+      "sha256": "4ee717590ee77066d992a8f76d3d462781519d15066c990f529692fec5de578c",
+      "reason": "Bearded man in hat and sunglasses; caption implies Taylor Swift, mismatch",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "press-9bd6f59c1436",
+      "sha256": "f4d6654ab5c3f6acd8aec37a5a88e198c304a8f4c01c8365e871af3a938bb211",
+      "reason": "Animated Toy Story film still, not a photo of a person; doesn't match caption.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "press-0456367ca9af",
+      "sha256": "062b33fb6f2808e0d3359b386a4758913541194371489f59620aca39b1f21bb7",
+      "reason": "Edited cutout on gradient graphic; caption is about a startup article, not a fit.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "press-bd01380ebe51",
+      "sha256": "6b016bd9fc12312479e074853be90d95a5aae6fe5f81fc189ed6bfe58596d0a9",
+      "reason": "Business-talk speaker with headset mic; headline is about another billionaire, so caption doubtful.",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "press-1a57a5c5bbf2",
+      "sha256": "c8946c577fa0694e3bb6f3353f1cd24fb19d45f172a198e7f4141ab60f6e8af2",
+      "reason": "Film still of two people (one masked) with Guardian logo; not a Taylor Swift photo",
+      "date": "2026-11-03"
+    },
+    {
+      "id": "press-832f378f4bd4",
+      "sha256": "2f417aec0a388c10c6695ac9f93c4b741e0b37f317fb4c81d08ce6c83de0712a",
+      "reason": "Couple kissing amid crowd and cameras; not a single prominent subject.",
+      "date": "2026-11-03"
     }
   ]
 }

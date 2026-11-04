@@ -17,7 +17,7 @@ import {
   type WorkerClaudeCaller,
 } from '../claude-call';
 
-const MODEL = 'claude-sonnet-5-5';
+const MODEL = 'claude-opus-5-5';
 export const LEAD_MIN_CHARS = 200;
 export const LEAD_MAX_CHARS = 400;
 export const BODY_MIN_WORDS = 120;
@@ -31,6 +31,8 @@ export interface WriterInput {
   statusHint: string;
   facts: readonly ExtractedFact[];
   context: ContextPack;
+  /** Overrides the writer model (tuning harness only). */
+  model?: string;
   /** One-shot rewrite: the gate's reasons the previous attempt was rejected. */
   rewriteReasons?: readonly string[];
 }
@@ -161,7 +163,7 @@ async function attempt(input: WriterInput, claude: WorkerClaudeCaller): Promise<
   const response = await claude({
     caller: 'news-worker-writer',
     priority: 'P1',
-    model: MODEL,
+    model: input.model ?? MODEL,
     system: WRITER_SYSTEM_MESSAGE,
     user: buildUserMessage(input),
     schema: WRITE_POST_TOOL.input_schema,
@@ -179,8 +181,8 @@ async function attempt(input: WriterInput, claude: WorkerClaudeCaller): Promise<
 }
 
 /**
- * Runs pass B for one item. `usage` must be the writer-scoped store (60/run,
- * 200/day). Budget exhausted or no subscription token -> `deferred`, no call
+ * Runs pass B for one item. `usage` must be the writer-scoped store (40/run,
+ * 150/day). Budget exhausted or no subscription token -> `deferred`, no call
  * made. Output that fails validation -> `invalid` with reasons the caller may
  * pass back as `rewriteReasons` for its one-shot rewrite. Throws only on a
  * genuine API failure.

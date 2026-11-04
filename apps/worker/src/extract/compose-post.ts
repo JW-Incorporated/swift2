@@ -3,9 +3,9 @@
 // rewrite across all three steps. Any deferral or second failure is a hold; the
 // pass-A summary/detail text is never a fallback.
 
-import { evaluateCurrentItemWriting } from '@swift2/shared';
+import { evaluateCurrentItemWriting, factGrounding } from '@swift2/shared';
 import type { ContextPack } from './context-pack';
-import { JUDGE_DIMENSIONS, JUDGE_PASS_SCORE, type JudgeDimension } from './judge-prompt';
+import { JUDGE_DIMENSIONS, JUDGE_MIN_SCORES, type JudgeDimension } from './judge-prompt';
 import { judgeWriting } from './judge-client';
 import type { ExtractedFact } from './types';
 import type { ExtractUsageStore } from './usage-store';
@@ -13,10 +13,14 @@ import { writePost, type WriterCitation, type WriterParagraph } from './writer-c
 
 export interface ComposeInput {
   headline: string;
+  /** ISO date the story was observed; the judge reads relative dates against it. */
+  observedOn: string;
   statusHint: string;
   facts: readonly ExtractedFact[];
   context: ContextPack;
   sources: readonly { outletName: string; url: string }[];
+  /** Tuning harness only: override the writer model. */
+  writerModel?: string;
 }
 
 /** What the last attempt produced, for the shadow-mode report. */
@@ -27,6 +31,7 @@ export interface ComposeTrace {
   paragraphs?: WriterParagraph[];
   gateReasons?: string[];
   judgeScores?: Record<JudgeDimension, number>;
+  judgeReasons?: Record<JudgeDimension, string>;
   rewrites: number;
 }
 
@@ -39,6 +44,8 @@ export interface ComposeDeps {
   judge: ExtractUsageStore;
   write?: typeof writePost;
   judgeFn?: typeof judgeWriting;
+  /** Tuning harness only: judge a supplied draft once, no rewrite. */
+  noRewrite?: boolean;
 }
 
 function lowestDimension(scores: Record<JudgeDimension, number>): JudgeDimension {
@@ -51,7 +58,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
   let rewriteReasons: string[] | undefined;
   const trace: ComposeTrace = { rewrites: 0 };
   const sources = input.sources.map((s) => ({ name: s.outletName, url: s.url }));
-  const factAttributions = [...new Set(input.facts.map((f) => f.attribution.trim()).filter(Boolean))];
+  const { factAttributions, factClaims } = factGrounding(input.facts);
   const factLines = input.facts.map((f) => `[${f.id}] ${f.claim} (${f.attribution}, ${f.confidence})`);
 
   for (;;) {
@@ -60,6 +67,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
       statusHint: input.statusHint,
       facts: input.facts,
       context: input.context,
+      ...(input.writerModel ? { model: input.writerModel } : {}),
       ...(rewriteReasons ? { rewriteReasons } : {}),
     });
     if (written.status === 'deferred') return { status: 'hold', reason: 'writer_deferred', trace };
@@ -67,17 +75,18 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
     let failure: { hold: string; reasons: string[] } | undefined;
     if (written.status === 'invalid') {
       const { lead, body, citations, paragraphs } = written.attempt ?? {};
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined, judgeReasons: undefined });
       failure = { hold: 'writing_quality:invalid_draft', reasons: written.reasons };
     } else {
       const { lead, body, citations, paragraphs } = written.draft;
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined, judgeReasons: undefined });
       const gate = evaluateCurrentItemWriting({
         headline: input.headline,
         lead,
         body,
         sources,
         factAttributions,
+        factClaims,
         sentenceRefs: paragraphs.flatMap((p) => p.sentences.map((sentence) => sentence.refs)),
       });
       if (!gate.ok) {
@@ -85,7 +94,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         failure = { hold: `writing_quality:${gate.reasons[0]}`, reasons: gate.reasons };
       } else {
         const verdict = await judge(deps.judge, {
-          headline: input.headline,
+          observedOn: input.observedOn,
           lead,
           body,
           facts: factLines,
@@ -95,18 +104,19 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         });
         if (verdict.status === 'deferred') return { status: 'hold', reason: 'judge_deferred', trace };
         trace.judgeScores = verdict.scores;
+        trace.judgeReasons = verdict.reasons;
         if (verdict.pass) return { status: 'ok', lead, body, writingScore: verdict.writingScore, trace };
         const lowest = lowestDimension(verdict.scores);
         failure = {
           hold: `writing_quality:${lowest}`,
           reasons: JUDGE_DIMENSIONS
-            .filter((d) => verdict.scores[d] < JUDGE_PASS_SCORE)
+            .filter((d) => verdict.scores[d] < JUDGE_MIN_SCORES[d])
             .map((d) => `${d} scored ${verdict.scores[d]}/5: ${verdict.reasons[d] || 'no reason given'}`),
         };
       }
     }
 
-    if (rewriteReasons) return { status: 'hold', reason: failure.hold, trace };
+    if (rewriteReasons || deps.noRewrite) return { status: 'hold', reason: failure.hold, trace };
     rewriteReasons = failure.reasons;
     trace.rewrites = 1;
   }

@@ -29,6 +29,7 @@ export interface WriterEvalKitRow {
   headline: string;
   category: string;
   sourceTier: string;
+  observedOn: string;
   statusHint: string;
   facts: { id: string; claim: string; attribution: string; confidence: string }[];
   contextText: string;
@@ -55,11 +56,19 @@ export function defaultReportDir(env: NodeJS.ProcessEnv = process.env): string {
   return join(env.RUNNER_TEMP ?? env.TMPDIR ?? env.TEMP ?? '.', 'backfill-report');
 }
 
+function unservableBreakdown(summary: ForceSummary): string {
+  const parts = Object.entries(summary.skippedUnservableReasons).map(([reason, count]) => `${reason}: ${count}`);
+  return parts.length > 0 ? ` (${parts.join(', ')})` : '';
+}
+
 function renderMarkdown(rows: readonly ForceReportRow[], summary: ForceSummary, dryRun: boolean): string {
   const lines = [
     `# Backfill report (${dryRun ? 'DRY RUN, no current_item or snapshot rows written' : 'LIVE'})`,
     '',
-    `Eligible: ${summary.eligible}. Processed: ${summary.processed}. Passed: ${summary.passed}. Held (copy untouched): ${summary.held}. Remaining after a deferral: ${summary.remaining}. Retired below floor: ${summary.retired}.`,
+    `Eligible: ${summary.eligible}. Processed: ${summary.processed}. Passed: ${summary.passed}. Held (copy untouched): ${summary.held}. Remaining after a deferral: ${summary.remaining}. Retired below floor: ${summary.retired}. Duplicates found: ${summary.duplicatesFound} (retired ${summary.retiredDuplicates}). Unwritable found: ${summary.unwritableFound} (retired ${summary.retiredUnwritable}). skipped_unservable: ${summary.skippedUnservable}${unservableBreakdown(summary)}.`,
+    '',
+    `## Duplicate groups (dedupe checks: ${summary.dedupeChecks}, failed or deferred: ${summary.dedupeFailed}${summary.dedupeIncomplete ? ', INCOMPLETE, no duplicates retired' : ''})`,
+    ...summary.duplicateGroups.map((g) => `- keep ${g.keep ?? '(none passing)'}, span ${g.spanDays}d: ${g.members.join(', ')}`),
     '',
     '## Outcomes',
     ...Object.entries(summary.outcomes).map(([outcome, count]) => `- ${outcome}: ${count}`),

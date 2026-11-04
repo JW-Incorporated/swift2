@@ -5,10 +5,11 @@
  * packages/shared/src/current-item-writing.ts. Informational only: it exits 0
  * on success, it is NOT a CI gate.
  *
- * WHY THIS EXISTS: the writing checks are not enforced yet. Before they are,
- * the thresholds need calibrating against what is live today, and the
- * backfill needs a before/after number. Legacy rows carry no citations, so
- * `uncited_sentence` never fires here.
+ * WHY THIS EXISTS: the thresholds need calibrating against what is live
+ * today, and the backfill needs a before/after number. It scores exactly like
+ * the public read gate (evaluateCurrentItemQuality): the public feed carries no
+ * citations, so items score as legacy (`uncited_sentence` and `citations_missing`
+ * never fire) and fact attributions/claims credit outlets the way the writer did.
  *
  * USAGE (from the repo root):
  *   npx tsx scripts/news/eval-writing.mjs                  markdown report
@@ -20,6 +21,7 @@
 
 import { readFile } from 'node:fs/promises';
 import { evaluateCurrentItemWriting } from '../../packages/shared/src/current-item-writing.ts';
+import { factGrounding } from '../../packages/shared/src/current-item-attribution.ts';
 import { runMain } from '../lib/cli.mjs';
 
 // The public route the site itself reads — no Supabase env needed.
@@ -40,7 +42,8 @@ export function scoreItems(items) {
       body: item.detail ?? '',
       sources: Array.isArray(item.sources) ? item.sources : [],
       ...(Array.isArray(item.citations) ? { citations: item.citations } : {}),
-    }, { legacy: !Array.isArray(item.facts) });
+      ...factGrounding(item.facts),
+    }, { legacy: !Array.isArray(item.citations) });
     return { id: item.id ?? null, headline, ok: result.ok, reasons: result.ok ? [] : result.reasons };
   });
 }

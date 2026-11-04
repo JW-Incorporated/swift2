@@ -19,6 +19,7 @@ const mocks = vi.hoisted(() => ({
   storyPatches: [] as Record<string, unknown>[],
   pending: [] as Record<string, unknown>[],
   writerCapacity: { value: true },
+  publishedToday: { count: 0 },
 }));
 
 vi.mock('./held-image-pass', () => ({ reresolveHeldImages: async () => ({ checked: 0, published: 0, errors: [] }) }));
@@ -47,8 +48,8 @@ vi.mock('./usage-store', () => ({
   supabaseJudgeUsageDb: () => ({}),
   JUDGE_PER_RUN_CAP: 100,
   JUDGE_DAILY_CAP: 400,
-  WRITER_PER_RUN_CAP: 60,
-  WRITER_DAILY_CAP: 200,
+  WRITER_PER_RUN_CAP: 40,
+  WRITER_DAILY_CAP: 150,
 }));
 vi.mock('./extract-stage-data', () => ({
   createCommentFetchState: () => ({}),
@@ -125,7 +126,7 @@ const FAIL = {
   reasons: { voice: '', context: '', grounding: 'states a number the facts do not give', non_repetition: '' },
 };
 
-function chain(result: { data?: unknown; error?: unknown }) {
+function chain(result: { data?: unknown; count?: number; error?: unknown }) {
   const query: Record<string, unknown> = { then: (resolve: (value: typeof result) => void) => resolve(result) };
   for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update', 'gte', 'order', 'overlaps', 'or']) {
     query[method] = () => query;
@@ -164,7 +165,9 @@ function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
       }
       if (table === 'current_item') {
         return {
-          select: () => ({ eq: () => ({ single: async () => ({ data: ORIGINAL, error: null }) }) }),
+          select: (_columns: string, options?: { head?: boolean }) => options?.head
+            ? chain({ count: mocks.publishedToday.count, error: null })
+            : { eq: () => ({ single: async () => ({ data: ORIGINAL, error: null }) }) },
           update: (patch: unknown) => {
             mocks.updates.push(patch);
             return { eq: () => ({ is: async () => ({ error: null }) }) };
@@ -203,6 +206,7 @@ describe('runExtractStage two-pass writer', () => {
     mocks.storyPatches.length = 0;
     mocks.pending = [{ id: 'story-1', canonical_title: 'Studio sighting', summary: '' }];
     mocks.writerCapacity.value = true;
+    mocks.publishedToday.count = 0;
     mocks.resolveImageUrl.mockReset().mockResolvedValue('https://www.people.com/photo.jpg');
   });
 
@@ -224,6 +228,24 @@ describe('runExtractStage two-pass writer', () => {
     });
     expect(mocks.writePost).toHaveBeenCalledOnce();
     expect(mocks.judgeWriting).toHaveBeenCalledOnce();
+  });
+
+  it('lets the 6th item of the day through', async () => {
+    mocks.publishedToday.count = 5;
+    const { result, row } = await run();
+    expect(result.dailyTextCapHeld).toBe(0);
+    expect(row).toMatchObject({ summary: LEAD, redline_ok: true, quality_hold_reason: null });
+  });
+
+  it('holds the 7th item as daily_text_cap without spending a writer call', async () => {
+    mocks.publishedToday.count = 6;
+    const { result, row } = await run();
+    expect(mocks.writePost).not.toHaveBeenCalled();
+    expect(row).toMatchObject({ redline_ok: false, quality_hold_reason: 'daily_text_cap', facts: FACTS });
+    expect(result.dailyTextCapHeld).toBe(1);
+    expect(result.v2Held).toBe(1);
+    expect(result.heldPassReasons).toEqual({ daily_text_cap: 1 });
+    expect(mocks.storyMarks.count).toBe(1);
   });
 
   it('rejects below_tier_floor with no row and no writer call, and marks the story extracted', async () => {

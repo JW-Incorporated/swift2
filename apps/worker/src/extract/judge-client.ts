@@ -6,7 +6,7 @@ import {
 import {
   buildJudgeUserMessage,
   JUDGE_DIMENSIONS,
-  JUDGE_PASS_SCORE,
+  JUDGE_MIN_SCORES,
   JUDGE_SCHEMA,
   JUDGE_SYSTEM_PROMPT,
   type JudgeDimension,
@@ -14,7 +14,7 @@ import {
 } from './judge-prompt';
 import type { ExtractUsageStore } from './usage-store';
 
-const MODEL = 'claude-haiku-5-5';
+const MODEL = 'claude-opus-5-5';
 
 export type JudgeResult =
   | {
@@ -25,6 +25,13 @@ export type JudgeResult =
     reasons: Record<JudgeDimension, string>;
   }
   | { status: 'deferred'; reason: string };
+
+/** Pass rule: every dimension at or above its minimum. The writing score is the sum of the four (4-20). */
+export function scoreVerdict(scores: Record<JudgeDimension, number>): { pass: boolean; writingScore: number } {
+  const pass = JUDGE_DIMENSIONS.every((dimension) => scores[dimension] >= JUDGE_MIN_SCORES[dimension]);
+  const writingScore = JUDGE_DIMENSIONS.reduce((sum, dimension) => sum + scores[dimension], 0);
+  return { pass, writingScore };
+}
 
 function parseJudgeOutput(data: unknown): JudgeResult {
   const value = (data ?? {}) as Record<string, unknown>;
@@ -39,8 +46,7 @@ function parseJudgeOutput(data: unknown): JudgeResult {
     const reason = value[`${dimension}_reason`];
     reasons[dimension] = typeof reason === 'string' ? reason.trim() : '';
   }
-  const writingScore = Math.min(...JUDGE_DIMENSIONS.map((dimension) => scores[dimension]));
-  return { status: 'ok', pass: writingScore >= JUDGE_PASS_SCORE, writingScore, scores, reasons };
+  return { status: 'ok', ...scoreVerdict(scores), scores, reasons };
 }
 
 /** Scores one candidate post. A missing token or an exhausted/unavailable budget defers (never throws); the caller holds the item. */

@@ -12,15 +12,31 @@ on:
   workflow_dispatch:
     inputs:
       kit_run_id:
-        description: 'Run id of the content-backfill run whose backfill-report artifact holds writer-eval-kit.jsonl'
+        description: 'Run id of the content-backfill run whose backfill-report artifact holds writer-eval-kit.jsonl (not needed with kit_file or calibrate_models)'
         type: string
-        required: true
+        default: ''
+      kit_file:
+        description: 'Optional repo-relative writer-eval-kit.jsonl to use instead of downloading one (e.g. scripts/news/fixtures/writer-eval-kit-dry2.jsonl)'
+        type: string
+        default: ''
       n:
         description: 'Optional: evenly sample this many kit items (empty = all)'
         type: string
         default: ''
       code_ref:
         description: 'Optional branch to check out (default: the dispatch ref)'
+        type: string
+        default: ''
+      writer_model:
+        description: 'Optional writer model override (claude-sonnet-5-5 or claude-opus-5-5; empty = default)'
+        type: string
+        default: ''
+      judge_only_file:
+        description: 'Optional repo-relative drafts.jsonl: skip the writer and judge these drafts (lines: {kitId, lead, paragraphs})'
+        type: string
+        default: ''
+      calibrate_models:
+        description: 'Optional comma list of judge models (e.g. claude-haiku-5-5,claude-sonnet-5-5,claude-opus-5-5): run scripts/news/calibrate-judge.mjs instead of the writer harness; non-zero exit when a model misses the bars'
         type: string
         default: ''
 
@@ -40,11 +56,31 @@ jobs:
       - name: Validate inputs
         env:
           INPUT_KIT_RUN_ID: ${{ inputs.kit_run_id }}
+          INPUT_KIT_FILE: ${{ inputs.kit_file }}
           INPUT_N: ${{ inputs.n }}
           INPUT_CODE_REF: ${{ inputs.code_ref }}
+          INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
+          INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
         run: |
-          if ! [[ "$INPUT_KIT_RUN_ID" =~ ^[0-9]+$ ]]; then
-            echo "::error::kit_run_id must be a numeric run id, got '$INPUT_KIT_RUN_ID'"
+          if ! [[ "$INPUT_CALIBRATE_MODELS" =~ ^[a-z0-9.,-]*$ ]]; then
+            echo "::error::calibrate_models must match ^[a-z0-9.,-]*$, got '$INPUT_CALIBRATE_MODELS'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_WRITER_MODEL" =~ ^[a-z0-9.-]*$ ]]; then
+            echo "::error::writer_model must match ^[a-z0-9.-]*$, got '$INPUT_WRITER_MODEL'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_JUDGE_ONLY_FILE" =~ ^[A-Za-z0-9._/-]*$ ]] || [[ "$INPUT_JUDGE_ONLY_FILE" == /* ]] || [[ "$INPUT_JUDGE_ONLY_FILE" == *..* ]]; then
+            echo "::error::judge_only_file must be a repo-relative path matching ^[A-Za-z0-9._/-]*$ without '..', got '$INPUT_JUDGE_ONLY_FILE'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_KIT_FILE" =~ ^[A-Za-z0-9._/-]*$ ]] || [[ "$INPUT_KIT_FILE" == /* ]] || [[ "$INPUT_KIT_FILE" == *..* ]]; then
+            echo "::error::kit_file must be a repo-relative path matching ^[A-Za-z0-9._/-]*$ without '..', got '$INPUT_KIT_FILE'"
+            exit 1
+          fi
+          if [ -z "$INPUT_KIT_FILE" ] && [ -z "$INPUT_CALIBRATE_MODELS" ] && ! [[ "$INPUT_KIT_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::kit_run_id must be a numeric run id (or pass kit_file / calibrate_models), got '$INPUT_KIT_RUN_ID'"
             exit 1
           fi
           if ! [[ "$INPUT_N" =~ ^[0-9]*$ ]]; then
@@ -80,6 +116,7 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Download the writer eval kit
+        if: ${{ inputs.calibrate_models == '' && inputs.kit_file == '' }}
         uses: actions/download-artifact@v8
         with:
           name: backfill-report
@@ -88,18 +125,39 @@ jobs:
           path: ${{ runner.temp }}/kit
 
       - name: Run the writer tuning harness
+        if: ${{ inputs.calibrate_models == '' }}
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
           KIT_DIR: ${{ runner.temp }}/kit
           OUT_DIR: ${{ runner.temp }}/writer-tune
           INPUT_N: ${{ inputs.n }}
+          INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
+          INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
+          INPUT_KIT_FILE: ${{ inputs.kit_file }}
         run: |
           set -o pipefail
-          N_ARG=""
-          if [ -n "$INPUT_N" ]; then N_ARG="--n $INPUT_N"; fi
-          npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_DIR/writer-eval-kit.jsonl" "$OUT_DIR" --concurrency 2 $N_ARG | tee "$RUNNER_TEMP/summary.md"
+          KIT_PATH="$KIT_DIR/writer-eval-kit.jsonl"
+          if [ -n "$INPUT_KIT_FILE" ]; then KIT_PATH="$GITHUB_WORKSPACE/$INPUT_KIT_FILE"; fi
+          EXTRA=()
+          if [ -n "$INPUT_N" ]; then EXTRA+=(--n "$INPUT_N"); fi
+          if [ -n "$INPUT_WRITER_MODEL" ]; then EXTRA+=(--writer-model "$INPUT_WRITER_MODEL"); fi
+          if [ -n "$INPUT_JUDGE_ONLY_FILE" ]; then EXTRA+=(--judge-only "$GITHUB_WORKSPACE/$INPUT_JUDGE_ONLY_FILE"); fi
+          npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_PATH" "$OUT_DIR" --concurrency 2 "${EXTRA[@]}" | tee "$RUNNER_TEMP/summary.md"
           { echo '## Writer tuning'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run the judge calibration gate
+        if: ${{ inputs.calibrate_models != '' }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          OUT_DIR: ${{ runner.temp }}/writer-tune
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+        run: |
+          status=0
+          npx --no-install tsx scripts/news/calibrate-judge.mjs "$OUT_DIR" --models "$INPUT_CALIBRATE_MODELS" > "$RUNNER_TEMP/summary.md" || status=$?
+          { echo '## Judge calibration'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
 
       # The repo is PUBLIC: this holds only public news text and model output, no secrets.
       - name: Upload tuning output

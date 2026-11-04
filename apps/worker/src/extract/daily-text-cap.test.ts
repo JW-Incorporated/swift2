@@ -1,0 +1,69 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { describe, expect, it } from 'vitest';
+import { countTextPublishedToday, DAILY_TEXT_CAP, dailyTextCapHold, utcDayStart } from './daily-text-cap';
+
+interface Row {
+  era_id: string;
+  redline_ok: boolean;
+  merged_into: string | null;
+  retracted_at: string | null;
+  created_at: string;
+}
+
+function fakeDb(rows: Row[]): SupabaseClient {
+  const filters: ((row: Row) => boolean)[] = [];
+  const query: Record<string, unknown> = {
+    then: (resolve: (value: unknown) => void) =>
+      resolve({ count: rows.filter((row) => filters.every((f) => f(row))).length, error: null }),
+    eq: (column: keyof Row, value: unknown) => (filters.push((row) => row[column] === value), query),
+    is: (column: keyof Row, value: unknown) => (filters.push((row) => row[column] === value), query),
+    gte: (column: keyof Row, value: string) => (filters.push((row) => String(row[column]) >= value), query),
+  };
+  return { from: () => ({ select: () => query }) } as unknown as SupabaseClient;
+}
+
+const NOW = new Date('2026-11-04T15:30:00.000Z');
+const FACTS = [{ id: 'f1', claim: 'A claim.', attribution: 'People', confidence: 'reported' as const }];
+
+function published(count: number, overrides: Partial<Row> = {}): Row[] {
+  return Array.from({ length: count }, () => ({
+    era_id: 'tloas',
+    redline_ok: true,
+    merged_into: null,
+    retracted_at: null,
+    created_at: '2026-11-04T08:00:00.000Z',
+    ...overrides,
+  }));
+}
+
+describe('daily text cap', () => {
+  it('lets the 6th item through and holds the 7th', async () => {
+    expect(DAILY_TEXT_CAP).toBe(6);
+    expect(await dailyTextCapHold(fakeDb(published(5)), 'tloas', FACTS, NOW)).toBeUndefined();
+    expect(await dailyTextCapHold(fakeDb(published(6)), 'tloas', FACTS, NOW)).toEqual({
+      facts: FACTS,
+      holdReason: 'daily_text_cap',
+    });
+  });
+
+  it('resets on a new UTC day', async () => {
+    const yesterday = published(6, { created_at: '2026-11-03T23:59:59.000Z' });
+    expect(await countTextPublishedToday(fakeDb(yesterday), 'tloas', NOW)).toBe(0);
+    expect(await dailyTextCapHold(fakeDb(yesterday), 'tloas', FACTS, NOW)).toBeUndefined();
+    expect(await dailyTextCapHold(fakeDb(yesterday), 'tloas', FACTS, new Date('2026-11-03T23:59:59.500Z'))).toBeDefined();
+    expect(utcDayStart(NOW)).toBe('2026-11-04T00:00:00.000Z');
+  });
+
+  it('does not count other eras, held, merged or retracted rows', async () => {
+    const rows = [
+      ...published(6, { era_id: 'midnights' }),
+      ...published(2, { redline_ok: false }),
+      ...published(2, { merged_into: 'x' }),
+      ...published(2, { retracted_at: '2026-11-04T09:00:00.000Z' }),
+      ...published(3),
+    ];
+    expect(await countTextPublishedToday(fakeDb(rows), 'tloas', NOW)).toBe(3);
+    expect(await dailyTextCapHold(fakeDb(rows), 'tloas', FACTS, NOW)).toBeUndefined();
+    expect(await dailyTextCapHold(fakeDb(rows), 'midnights', FACTS, NOW)).toBeDefined();
+  });
+});

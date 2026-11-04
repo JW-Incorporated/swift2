@@ -71,7 +71,7 @@ export async function loadBackfillCandidates(
     .from('current_item')
     .select(CANDIDATE_COLS)
     .is('promoted_to', null)
-    .or('quality_hold_reason.is.null,quality_hold_reason.neq.retired_below_floor')
+    .or('quality_hold_reason.is.null,quality_hold_reason.not.in.(retired_below_floor,retired_duplicate,retired_unwritable)')
     .gt('expires_at', new Date().toISOString())
     .order('observed_on', { ascending: false })
     .limit(limit);

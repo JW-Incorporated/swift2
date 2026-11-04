@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #148 🟢 [UPGRADE] Swap the site's Supabase key from secret to publishable (~10 min)
+<!-- ha filed=2026-11-04 -->
+
+**Why:** Production `NEXT_PUBLIC_SUPABASE_ANON_KEY` holds an `sb_secret_` key, so the site's reads skip the database's visibility rules. That hid 31 posts (fixed in code by #6617). The key isn't in public JS today, but any future client import of that variable would publish full DB access.
+**Steps:**
+1. In Claude Code (Swift2), say: "HA #148: check nothing on the web relies on the public key bypassing RLS". Wait for its OK.
+2. Supabase → Swift2 → Settings → API Keys: copy the Publishable key.
+3. Vercel → swift2-web → Settings → Environment Variables → NEXT_PUBLIC_SUPABASE_ANON_KEY (Production) → Edit → paste it → Save.
+4. Vercel → Deployments → latest Production → Redeploy.
+**Worked if:** https://www.longlivets.com/vault/live/tloas still returns 95+ items after the redeploy.
 
 ## #146 🟡 [DECIDE] PR #5662 (expo bump) stuck red 10 days (~5 min)
 <!-- ha filed=2026-10-23 -->
