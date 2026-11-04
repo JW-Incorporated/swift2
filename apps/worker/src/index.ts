@@ -62,6 +62,7 @@ async function main() {
     dedupeHeld: result.extract.dedupeHeld,
     attachedToVideo: result.extract.attachedToVideo,
     v2Held: result.extract.v2Held,
+    dailyTextCapHeld: result.extract.dailyTextCapHeld,
     v2Deferred: result.extract.v2Deferred,
     v2MissingFacts: result.extract.v2MissingFacts,
     v2GaveUp: result.extract.v2GaveUp,
