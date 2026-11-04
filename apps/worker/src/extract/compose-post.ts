@@ -3,7 +3,7 @@
 // rewrite across all three steps. Any deferral or second failure is a hold; the
 // pass-A summary/detail text is never a fallback.
 
-import { evaluateCurrentItemWriting } from '@swift2/shared';
+import { evaluateCurrentItemWriting, factGrounding } from '@swift2/shared';
 import type { ContextPack } from './context-pack';
 import { JUDGE_DIMENSIONS, JUDGE_MIN_SCORES, type JudgeDimension } from './judge-prompt';
 import { judgeWriting } from './judge-client';
@@ -58,7 +58,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
   let rewriteReasons: string[] | undefined;
   const trace: ComposeTrace = { rewrites: 0 };
   const sources = input.sources.map((s) => ({ name: s.outletName, url: s.url }));
-  const factAttributions = [...new Set(input.facts.map((f) => f.attribution.trim()).filter(Boolean))];
+  const { factAttributions, factClaims } = factGrounding(input.facts);
   const factLines = input.facts.map((f) => `[${f.id}] ${f.claim} (${f.attribution}, ${f.confidence})`);
 
   for (;;) {
@@ -86,7 +86,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         body,
         sources,
         factAttributions,
-        factClaims: input.facts.map((f) => f.claim),
+        factClaims,
         sentenceRefs: paragraphs.flatMap((p) => p.sentences.map((sentence) => sentence.refs)),
       });
       if (!gate.ok) {
