@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 70
 
 ## Hollywood Music in Media Awards Nominations and Oscar Insights
 
@@ -609,11 +609,3 @@ Stories: 71
 - summary: Various stars, including Taylor Swift, were spotted celebrating Halloween in 2026. The event featured festive costumes and Halloween-themed activities.
 - sources:
   - [unverified] extratv.com — https://extratv.com/photos/image_jpg_20261030_321419990c374aa292d836dc0da08bcd/
-
-## Patrick Mahomes and Wife Celebrate Halloween with Taylor Swift Tribute
-
-- first seen: 2026-11-01 00:05 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Patrick Mahomes and his wife Brittany embraced Halloween by paying homage to Taylor Swift in their costume choice. The couple's celebration reflects their admiration for the pop star.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/patrick-mahomes-wife-brittany-kids-win-halloween-taylor-swift-nod/
