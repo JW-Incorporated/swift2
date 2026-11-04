@@ -93,5 +93,8 @@ jobs:
             echo
             echo '-- count as connecting role'
             echo "select count(*) as role_visible, min(observed_on), max(observed_on) from public.current_item where era_id='tloas' and promoted_to is null and merged_into is null and retracted_at is null;" | run_psql
+            echo
+            echo '-- freshness (compare with the public route payload)'
+            echo "select (select max(window_end) from public.fan_signal) as fan_signal_newest_window_end, (select count(*) from public.fan_signal where redline_ok and (expires_at is null or expires_at > now())) as fan_signal_visible, (select max(updated_at) from public.current_item) as current_item_newest_update, now() as db_now, pg_is_in_recovery() as is_replica;" | run_psql
             echo '```'
           } 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
