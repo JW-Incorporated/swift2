@@ -3,7 +3,21 @@
 // worst list most-reasons-first with the passing item excluded.
 
 import { describe, it, expect } from 'vitest';
-import { summarize } from './eval-writing.mjs';
+import { scoreItems, summarize } from './eval-writing.mjs';
+
+describe('scoreItems', () => {
+  it('scores a v2 item with no citations like the read gate, crediting fact attributions', () => {
+    const lead =
+      'Taylor stepped into a quiet Nashville recording room this week, and the photos that followed have fans wondering what the next chapter of The Life of a Showgirl might sound like. The visit was brief, but the timing lands in a stretch of careful silence.';
+    const body =
+      'The photos show Taylor outside Blackbird Studio in Nashville on Tuesday afternoon. According to Variety, the session ran long. Neither her team nor the studio has said what the session was for. Blackbird has hosted sessions for artists across country and pop for decades. Fans noticed the visit within hours and began comparing it with earlier studio sightings. Last autumn the album rollout began with a similarly quiet stretch of studio rumors. That history is why one afternoon outside a recording room now draws such attention. For now the only detail anyone can confirm is the location and the day. Everything about the purpose stays open until Taylor or her representatives say otherwise. Watch her official channels over the coming days, since announcements for this era have usually landed with very little warning, often on a weekday morning.';
+    const facts = [{ id: 'f1', claim: 'The session ran long.', attribution: 'Variety', confidence: 'reported' }];
+    const [scored] = scoreItems([{ id: 'v2', headline: 'Taylor at Blackbird', summary: lead, detail: body, sources: [], facts }]);
+    expect(scored?.reasons).not.toContain('citations_missing');
+    expect(scored?.reasons).not.toContain('attribution_unknown_outlet');
+    expect(scored?.ok).toBe(true);
+  });
+});
 
 describe('summarize', () => {
   const results = [
