@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 69
 
 ## Taylor Swift Launches New Campaign
 
@@ -600,11 +600,3 @@ Stories: 70
 - summary: Taylor Swift has endorsed a comfortable shoe trend that is set to return in 2026. The trend has garnered attention for its comfort and style appeal.
 - sources:
   - [unverified] Women.com — https://www.women.com/2297262/taylor-swift-cosigned-this-comfortable-shoe-trend-that-made-comeback-2026/
-
-## Taylor Swift Inducted into Nashville Songwriters Hall of Fame
-
-- first seen: 2026-11-01 16:57 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been inducted into the Nashville Songwriters Hall of Fame along with fellow artist Lyle Lovett and others. This recognition highlights her contributions to the music industry.
-- sources:
-  - [unverified] WXXV News 25 — https://www.wxxv25.com/taylor-swift-lyle-lovett-and-more-inducted-into-nashville-songwriters-hall-of-fame/
