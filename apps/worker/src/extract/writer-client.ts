@@ -17,7 +17,7 @@ import {
   type WorkerClaudeCaller,
 } from '../claude-call';
 
-const MODEL = 'claude-sonnet-5-5';
+const MODEL = 'claude-opus-5-5';
 export const LEAD_MIN_CHARS = 200;
 export const LEAD_MAX_CHARS = 400;
 export const BODY_MIN_WORDS = 120;
@@ -181,8 +181,8 @@ async function attempt(input: WriterInput, claude: WorkerClaudeCaller): Promise<
 }
 
 /**
- * Runs pass B for one item. `usage` must be the writer-scoped store (60/run,
- * 200/day). Budget exhausted or no subscription token -> `deferred`, no call
+ * Runs pass B for one item. `usage` must be the writer-scoped store (40/run,
+ * 150/day). Budget exhausted or no subscription token -> `deferred`, no call
  * made. Output that fails validation -> `invalid` with reasons the caller may
  * pass back as `rewriteReasons` for its one-shot rewrite. Throws only on a
  * genuine API failure.
