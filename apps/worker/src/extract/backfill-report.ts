@@ -29,6 +29,7 @@ export interface WriterEvalKitRow {
   headline: string;
   category: string;
   sourceTier: string;
+  observedOn: string;
   statusHint: string;
   facts: { id: string; claim: string; attribution: string; confidence: string }[];
   contextText: string;

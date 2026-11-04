@@ -85,6 +85,7 @@ async function processRow(
     headline: row.headline,
     category: row.category,
     sourceTier: row.source_tier ?? 'unknown',
+    observedOn: item.observedOn,
     statusHint: item.statusHint,
     facts: item.facts.map(({ id, claim, attribution, confidence }) => ({ id, claim, attribution, confidence })),
     contextText: composed.context.text,
