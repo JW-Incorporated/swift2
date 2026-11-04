@@ -1,3 +1,5 @@
+import { DAILY_TEXT_CAP_HOLD } from './daily-text-cap';
+
 export interface ExtractStageResult {
   clustersConsidered: number;
   extracted: number;
@@ -15,6 +17,8 @@ export interface ExtractStageResult {
   dedupeDiscardReasons: Record<string, number>;
   /** Two-pass writer: rows rejected for quality (also counted in heldPassReasons). */
   v2Held: number;
+  /** Items held because the era already published its daily text cap (also counted in v2Held). */
+  dailyTextCapHeld: number;
   /** Two-pass writer: transient writer/judge deferrals left for the next cycle. */
   v2Deferred: number;
   /** Two-pass writer: items that came back without facts, left for the next cycle. */
@@ -47,6 +51,7 @@ export function emptyResult(): ExtractStageResult {
     attachedToVideo: 0,
     dedupeDiscardReasons: {},
     v2Held: 0,
+    dailyTextCapHeld: 0,
     v2Deferred: 0,
     v2MissingFacts: 0,
     v2GaveUp: 0,
@@ -67,5 +72,6 @@ export function recordDiscard(result: ExtractStageResult, decision: { reason?: s
 
 export function recordV2Hold(result: ExtractStageResult, reason: string): void {
   result.v2Held += 1;
+  if (reason === DAILY_TEXT_CAP_HOLD) result.dailyTextCapHeld += 1;
   result.heldPassReasons[reason] = (result.heldPassReasons[reason] ?? 0) + 1;
 }
