@@ -49,13 +49,19 @@ const LIVE_THEORY_COLS =
 const FAN_SIGNAL_COLS =
   'id,window_start,window_end,platform,community,topic,summary,volume,heat,stance_mix,symbols,theory_ids,current_item_ids,sample_urls,expires_at,redline_ok';
 
+/** The RLS read policy of fan_signal and live_theory, repeated in the query so a
+ * key that bypasses RLS still gets only servable rows (2026-11-04). */
+export function servableFilter(now: Date = new Date()): string {
+  return `redline_ok=eq.true&or=(expires_at.is.null,expires_at.gt.${now.toISOString()})`;
+}
+
 async function restSelect<T>(
   env: { supabaseUrl: string; supabaseKey: string },
   table: string,
   cols: string,
   order: string,
 ): Promise<T[]> {
-  const url = `${env.supabaseUrl}/rest/v1/${table}?select=${cols}&order=${order}&limit=${MAX_ROWS}`;
+  const url = `${env.supabaseUrl}/rest/v1/${table}?select=${cols}&${servableFilter()}&order=${order}&limit=${MAX_ROWS}`;
   const res = await noStoreFetch(url, {
     headers: { apikey: env.supabaseKey, Authorization: `Bearer ${env.supabaseKey}` },
   });
