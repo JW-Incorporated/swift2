@@ -29,7 +29,7 @@ describe('fixtures', () => {
       expect(voiceCount(row)).toBeLessThanOrEqual(2);
       for (const p of row.paragraphs as Paragraph[]) expect(p.sentences.some((s) => s.refs.length > 0)).toBe(true);
     }
-    expect(gold.filter((row) => voiceCount(row) > 0)).toHaveLength(2);
+    expect(gold.filter((row) => voiceCount(row) > 0)).toHaveLength(4);
     for (const id of ['neg-voice-smuggled-fact', 'neg-voice-mean']) {
       expect(voiceCount(negatives.find((row) => row.kitId === id)!)).toBe(1);
     }
