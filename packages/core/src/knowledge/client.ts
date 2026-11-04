@@ -101,6 +101,8 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
     .from('current_item')
     .select(CURRENT_ITEM_COLS)
     .eq('era_id', eraId)
+    .eq('redline_ok', true)
+    .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
     .is('promoted_to', null)
     .is('merged_into', null)
     .is('retracted_at', null)
@@ -108,6 +110,10 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
     .limit(CURRENT_ITEM_MAX_ROWS);
 
   if (error) throw new Error(`getCurrentItems: ${error.message}`);
+  // The redline/expiry filters repeat the RLS policy in SQL so the row cap
+  // counts only servable rows whatever key the caller holds: a key that
+  // bypasses RLS let ~240 retired rows fill the 500-row window and push older
+  // passing rows off the feed (2026-11-04).
   // Content fix 3/6 hard publish gate: RLS already scopes anon reads to
   // `redline_ok = true` (which `writeCurrentItem` now only ever sets once a
   // row has cleared the SAME shared validator — see current-item-quality.ts),
