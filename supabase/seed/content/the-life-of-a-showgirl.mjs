@@ -4249,7 +4249,7 @@ export default {
       thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
-          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Taylor\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Taylor coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Taylor in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.',
+          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Taylor\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Taylor coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Taylor in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.\n\nOne aside from the night outlived the game. ESPN analyst Monica McNutt, working the Knicks radio broadcast, was caught on a hot mic before her segment was live: "She\'s not a Knicks fan. Get out of here, girl." The clip went viral and Swifties let her hear about it. In October, on The Pivot podcast, McNutt said she was still "mystified" about how the audio "got to the masses" and called it "a throwaway comment," explaining she had last seen Taylor at a Knicks game "with your man in no Knicks gear."',
         sources: [
           {
             outlet: 'Billboard',
@@ -4331,6 +4331,28 @@ export default {
             publisher: 'Yahoo Entertainment',
             source_type: 'reputable_press',
             accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          // Intake #6424 (Vault Run 2026-11-04): the McNutt hot-mic line and
+          // her October podcast revisit. Both pages loaded directly and carry
+          // the same quotes. Not carried: Yahoo's single-sourced claim that
+          // she apologized after Game 4, and the unverified Brunson angle.
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/taylor-swift-hot-mic-moment-still-has-espn-analyst-baffled-how-it-leaked',
+            source_title: 'Taylor Swift Hot Mic Moment Still Has ESPN Analyst Baffled by How It Leaked',
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-04',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Sports',
+            url: 'https://sports.yahoo.com/articles/taylor-swift-viral-nba-controversy-115058170.html',
+            source_title: "Taylor Swift's viral NBA controversy has ESPN analyst hitting out at criticism, 'That's on you…'",
+            publisher: 'Yahoo Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-04',
             reliability_score: 3,
           },
         ],
