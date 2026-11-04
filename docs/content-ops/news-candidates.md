@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 75
+
+## Taylor Swift's Soundtrack Contributions Reflect Her Musical Evolution
+
+- first seen: 2026-11-04 12:07 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: This article explores how Taylor Swift's songs featured in movie soundtracks illustrate her journey and growth as an artist in the music industry. It highlights her impact on Hollywood through her music.
+- sources:
+  - [unverified] Vermilion County First — https://vermilioncountyfirst.com/2026/11/04/taylor-swifts-movie-soundtrack-songs-highlight-her-musical-journey-through-hollywood/
+
+## National Review Discusses Swifties' Charisma
+
+- first seen: 2026-11-04 12:07 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: National Review published an article titled 'Zero Charisma for Swifties' discussing aspects related to Taylor Swift fans. The analysis may focus on the perception of fan engagement and enthusiasm.
+- sources:
+  - [unverified] National Review — https://www.nationalreview.com/2026/11/zero-charisma-for-swifties/
 
 ## Director Reacts to Taylor Swift's Swift Songwriting for Toy Story 5
 
