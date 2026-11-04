@@ -220,6 +220,21 @@ describe('two-pass (v2) rows: writing checks apply only when facts are present',
     expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: hedged })).ok).toBe(true);
   });
 
+  it('serves a v2 row crediting an outlet only through a fact attribution', () => {
+    const credited = BODY.replace('Neither her team', 'According to Variety, the session ran long. Neither her team');
+    const withVariety = [...facts, { id: 'f2', claim: 'The session ran long.', attribution: 'Variety', confidence: 'reported' }];
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: credited, facts: withVariety }))).toEqual({ ok: true });
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: credited, facts }))).toEqual({
+      ok: false,
+      reason: 'writing_quality',
+    });
+  });
+
+  it('does not throw on a malformed facts array', () => {
+    const malformed = [null, 7, 'x', { id: 'f1' }, { claim: 3, attribution: {} }, ...facts];
+    expect(evaluateCurrentItemQuality(baseItem({ summary: LEAD, detail: BODY, facts: malformed }))).toEqual({ ok: true });
+  });
+
   it('raises the detail floor to 120 words for v2 rows only', () => {
     const mid = Array(90).fill('word').join(' ');
     expect(evaluateCurrentItemQuality(baseItem({ detail: mid })).ok).toBe(true);

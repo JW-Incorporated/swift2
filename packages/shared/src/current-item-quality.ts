@@ -14,6 +14,7 @@
 // in one exported constant" instruction) — change the bar in one place.
 
 import { evaluateCurrentItemWriting } from './current-item-writing.ts';
+import { factGrounding } from './current-item-attribution.ts';
 import { IMAGE_HOST_ALLOWLIST, SCOPED_IMAGE_HOST_ALLOWLIST } from './current-item-image-hosts.ts';
 export { IMAGE_HOST_ALLOWLIST, SCOPED_IMAGE_HOST_ALLOWLIST, type ScopedImageHost } from './current-item-image-hosts.ts';
 
@@ -180,7 +181,7 @@ export function evaluateCurrentItemQuality(
   if (isV2) {
     // Stored rows carry no per-sentence citations; those are enforced by the worker before the write.
     const writing = evaluateCurrentItemWriting(
-      { headline: item.headline, lead: item.summary, body: item.detail, sources: item.sources ?? [] },
+      { headline: item.headline, lead: item.summary, body: item.detail, sources: item.sources ?? [], ...factGrounding(item.facts) },
       { legacy: true },
     );
     if (!writing.ok) return { ok: false, reason: 'writing_quality' };
