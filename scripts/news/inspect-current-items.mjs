@@ -82,7 +82,7 @@ const COLUMNS = [
   ['facts', 'facts'], ['gate', 'gate'],
 ];
 
-const cell = (v) => String(v).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
+const cell = (v) => String(v).replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
 
 export function formatMarkdown(summaries, unresolved = []) {
   const lines = [
