@@ -58,6 +58,8 @@ function fakeDb(rows: Record<string, unknown>[], opts: { snapshotError?: boolean
     };
     b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
+    b.lte = () => b;
+    b.not = (c: string, _op: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) !== v); return b; };
     b.order = (column: string, o: { ascending?: boolean; nullsFirst?: boolean } = {}) => {
       orders.push({ column, ...o });
       filtered = [...filtered].sort((x, y) => {
