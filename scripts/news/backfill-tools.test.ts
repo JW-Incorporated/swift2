@@ -112,6 +112,7 @@ describe('clearRetired', () => {
         if (pending) pending.guards[c] = v; else found = found.filter((r) => r[c] === v);
         return b;
       };
+      b.in = (c: string, v: unknown[]) => { found = found.filter((r) => v.includes(r[c])); return b; };
       b.gte = (c: string, v: string) => { found = found.filter((r) => String(r[c]) >= v); return b; };
       b.is = (c: string, v: unknown) => {
         if (pending) pending.guards[c] = v; else found = found.filter((r) => (r[c] ?? null) === v);
@@ -120,7 +121,7 @@ describe('clearRetired', () => {
       b.update = (values: Record<string, unknown>) => { pending = { values, guards: {} }; return b; };
       b.then = (resolve: (v: unknown) => void) => {
         if (pending) { updates.push(pending); return resolve({ error: null }); }
-        return resolve({ data: found.map((r) => (table === 'current_item_copy_snapshot' ? r : { id: r.id })), error: null });
+        return resolve({ data: found.map((r) => (table === 'current_item_copy_snapshot' ? r : { id: r.id, quality_hold_reason: r.quality_hold_reason })), error: null });
       };
       return b;
     };
@@ -140,6 +141,19 @@ describe('clearRetired', () => {
       values: { redline_ok: true, quality_hold_reason: null },
       guards: { id: 'a', quality_hold_reason: 'retired_below_floor', retracted_at: null },
     }]);
+  });
+
+  it('also clears retired_duplicate (and its merged_into) and retired_unwritable rows', async () => {
+    const more = [
+      { id: 'dup', quality_hold_reason: 'retired_duplicate', retracted_at: null },
+      { id: 'unw', quality_hold_reason: 'retired_unwritable', retracted_at: null },
+    ];
+    const { db, updates } = retiredDb(more);
+    expect(await clearRetired(db, { dryRun: false })).toMatchObject({ found: 2, restored: 2 });
+    expect(updates).toEqual([
+      { values: { redline_ok: true, quality_hold_reason: null, merged_into: null }, guards: { id: 'dup', quality_hold_reason: 'retired_duplicate', retracted_at: null } },
+      { values: { redline_ok: true, quality_hold_reason: null }, guards: { id: 'unw', quality_hold_reason: 'retired_unwritable', retracted_at: null } },
+    ]);
   });
 
   it('with --since only clears rows retired since then', async () => {
