@@ -17,8 +17,13 @@ import { supabasePublicEnv } from './supabase-server';
 export async function loadCurrentItems(eraId: string): Promise<CurrentItem[]> {
   const env = supabasePublicEnv();
   if (!env) return [];
-  return createKnowledgeClient(env).getCurrentItems(eraId);
+  return createKnowledgeClient({ ...env, fetch: noStoreFetch }).getCurrentItems(eraId);
 }
+
+/** Live reads bypass Next's Data Cache; the route's own `revalidate` is the
+ * only cache. A raw Supabase body over the Data Cache item limit is never
+ * re-stored, which froze `/vault/live` on a stale snapshot (2026-11-04). */
+export const noStoreFetch: typeof fetch = (input, init) => fetch(input, { ...init, cache: 'no-store' });
 
 // Server-side reads for `live_theory` / `fan_signal` (PLAN.md Stage 7) —
 // deliberately NOT routed through `packages/core/src/knowledge/` (a sibling
@@ -51,7 +56,7 @@ async function restSelect<T>(
   order: string,
 ): Promise<T[]> {
   const url = `${env.supabaseUrl}/rest/v1/${table}?select=${cols}&order=${order}&limit=${MAX_ROWS}`;
-  const res = await fetch(url, {
+  const res = await noStoreFetch(url, {
     headers: { apikey: env.supabaseKey, Authorization: `Bearer ${env.supabaseKey}` },
   });
   if (!res.ok) throw new Error(`${table}: HTTP ${res.status}`);

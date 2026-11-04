@@ -1,6 +1,14 @@
-// Guards .github/workflows/*.yml against the "forgot to install deps" trap.
+// Guards .github/workflows/*.yml against the two setup-repo traps:
+// "forgot to install deps" and "local action used before checkout".
 //
-// WHY. The local composite action .github/actions/setup-repo defaults
+// WHY (local action before checkout). A `uses: ./...` step is resolved from
+// files already on the runner's disk, so the job needs an actions/checkout
+// step BEFORE it — even when the local action is setup-repo, whose own first
+// step is the checkout. ops-ledger.yml made setup-repo its first step and was
+// red every run for weeks (#6610) with "Can't find 'action.yml' ... under
+// .github/actions/setup-repo". Per CLAUDE.md rule 8 it is now a check.
+//
+// WHY (deps). The local composite action .github/actions/setup-repo defaults
 // `npm-ci` to 'false'. A job that then runs `node scripts/x.mjs` / `npx tsx
 // ...` where x imports an npm package (@supabase/supabase-js) or a workspace
 // package (@swift2/*) dies with ERR_MODULE_NOT_FOUND — on a scheduled
@@ -122,10 +130,36 @@ function defaultRead(rel, root) {
   }
 }
 
+/**
+ * A `uses: ./...` step only resolves against files already on the runner, so
+ * the job must run actions/checkout first. Returns the offending step's `uses`
+ * value, or null when the job is fine (#6610).
+ */
+export function localActionBeforeCheckout(job) {
+  let checkedOut = false;
+  for (const step of job?.steps ?? []) {
+    const uses = String(step.uses ?? '');
+    if (!uses) continue;
+    if (/^actions\/checkout(@|$)/.test(uses)) {
+      checkedOut = true;
+      continue;
+    }
+    if (uses.startsWith('./') && !checkedOut) return uses;
+  }
+  return null;
+}
+
 export function checkWorkflow(file, doc, pkgScripts, opts = {}) {
   const problems = [];
   for (const [jobId, job] of Object.entries(doc?.jobs ?? {})) {
     if (ALLOWLIST[`${file}:${jobId}`]) continue;
+    const early = localActionBeforeCheckout(job);
+    if (early) {
+      problems.push(
+        `${file}:${jobId} uses the local action \`${early}\` before any actions/checkout step, ` +
+          'so the runner cannot find its action.yml (add `- uses: actions/checkout@v7` first)',
+      );
+    }
     const { installs, syncs } = jobInstallsDeps(job);
     const needs = new Set();
     const needsGen = new Set();
@@ -173,15 +207,18 @@ async function main() {
     problems.push(...checkWorkflow(f, doc, pkgScripts, { tracked }));
   }
   if (problems.length) {
-    console.error(`\n✗ ${problems.length} workflow dependency problem(s):\n`);
+    console.error(`\n✗ ${problems.length} workflow problem(s):\n`);
     for (const p of problems) console.error(`  • ${p}`);
     console.error(
       '\nsetup-repo defaults npm-ci to false; a job running a script that imports an npm\n' +
-        'or workspace package must install deps (#5219, #5224). Builtin-only scripts are exempt.\n',
+        'or workspace package must install deps (#5219, #5224). Builtin-only scripts are exempt.\n' +
+        'A `uses: ./...` local action needs an actions/checkout step before it (#6610).\n',
     );
     return 1;
   }
-  console.log(`✓ ${files.length} workflow file(s): every job that needs deps installs them.`);
+  console.log(
+    `✓ ${files.length} workflow file(s): deps installed where needed, local actions checked out first.`,
+  );
   return 0;
 }
 
