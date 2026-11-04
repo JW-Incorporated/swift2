@@ -15,7 +15,7 @@ const NEVER = new Set([
   'one', 'some', 'many', 'others',
 ]);
 
-const TOKEN = "(?:E!|[A-Z][A-Za-z0-9'’.-]*)";
+const TOKEN = "(?:E!|[a-z]?[A-Z][A-Za-z0-9'’.-]*)";
 const NAME = '((?:The\\s+)?' + TOKEN + '(?:\\s+(?:&\\s+)?' + TOKEN + '){0,3})';
 const PATTERNS = [
   new RegExp(`\\b[Pp]er\\s+${NAME}`, 'g'),
@@ -80,8 +80,21 @@ function isAllowed(name: string, allowed: readonly string[]): boolean {
   });
 }
 
-/** Outlet-style attributions in `body` whose outlet is not allowed; first-seen order, de-duplicated case-insensitively. */
-export function unknownAttributions(body: string, allowed: readonly string[]): string[] {
+function escapeForRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** True when a fact claim credits `n` as a source (citing / per / according to / by / from X, or X report/says/wrote), not merely mentions it. */
+function creditedInClaims(n: string, claimText: string): boolean {
+  const name = escapeForRegExp(n);
+  const before = new RegExp(` (?:citing|per|according to|by|from|in) (?:a |an |the |\\d{4} )*${name} `);
+  const after = new RegExp(` ${name} (?:s )?(?:report|reports|reported|says|said|wrote|story|article|piece|interview|retrospective) `);
+  return before.test(claimText) || after.test(claimText);
+}
+
+/** Outlet-style attributions in `body` whose outlet is not allowed; first-seen order, de-duplicated case-insensitively. A name the item's own fact claims spell out ("a 2024 Page Six report", "a retrospective by Tom Breihan") is grounded, not invented. */
+export function unknownAttributions(body: string, allowed: readonly string[], factClaims: readonly string[] = []): string[] {
+  const claimText = ` ${factClaims.map(normalize).join(' ')} `;
   const hits: { index: number; name: string }[] = [];
   for (const re of PATTERNS) {
     for (const m of body.matchAll(re)) {
@@ -100,7 +113,10 @@ export function unknownAttributions(body: string, allowed: readonly string[]): s
     if (seen.has(lower)) continue;
     seen.add(lower);
     if (NEVER.has(lower) || NEVER.has(lower.replace(/^the\s+/, ''))) continue;
-    if (!isAllowed(name, allowed)) out.push(name);
+    if (isAllowed(name, allowed)) continue;
+    const n = normalize(name);
+    if (n && creditedInClaims(n, claimText)) continue;
+    out.push(name);
   }
   return out;
 }
