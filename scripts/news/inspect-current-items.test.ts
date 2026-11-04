@@ -1,5 +1,36 @@
 import { describe, expect, it } from 'vitest';
-import { formatMarkdown, formatText, imageHost, parseIds, resolveIds, summarizeRow } from './inspect-current-items.mjs';
+import { aggregateEraStats, formatEraStats, formatMarkdown, formatText, imageHost, parseEra, parseIds, resolveIds, summarizeRow } from './inspect-current-items.mjs';
+
+describe('inspect-current-items era stats', () => {
+  const ok = (observedOn: string) => ({ observedOn, ok: true, reason: 'ok', facts: 'present' });
+  const bad = (observedOn: string, reason: string, facts = 'absent') => ({ observedOn, ok: false, reason, facts });
+
+  it('validates the era id', () => {
+    expect(parseEra(' tloas ')).toBe('tloas');
+    expect(() => parseEra('TLOAS')).toThrow(/invalid era/);
+    expect(() => parseEra('a b')).toThrow(/invalid era/);
+  });
+
+  it('counts the first-N window against the whole set', () => {
+    const entries = [bad('2026-11-02', 'r1'), bad('2026-11-01', 'r1', 'present'), ok('2026-10-20'), bad('2026-10-10', 'r2'), ok('2026-10-01')];
+    const s = aggregateEraStats(entries, 3);
+    expect(s.total).toBe(5);
+    expect(s.limitObservedOn).toBe('2026-10-20');
+    expect(s.headSize).toBe(3);
+    expect(s.passHead).toBe(1);
+    expect(s.passAll).toBe(2);
+    expect(s.failReasonsHead).toEqual({ r1: 2 });
+    expect(s.failReasonsAll).toEqual({ r1: 2, r2: 1 });
+    expect(s.failFacts).toEqual({ absent: 2, present: 1 });
+    expect(formatEraStats('tloas', s, 3)).toContain('pass gate in first 3: 1/3');
+  });
+
+  it('reports none when fewer rows than the limit', () => {
+    const s = aggregateEraStats([ok('2026-10-01')], 500);
+    expect(s.limitObservedOn).toBe('none');
+    expect(s.failReasonsAll).toEqual({});
+  });
+});
 
 const A = '43575689-aaaa-4bbb-8ccc-111111111111';
 const B = '43575689-bbbb-4bbb-8ccc-222222222222';
