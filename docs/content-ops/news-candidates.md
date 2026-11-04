@@ -27,6 +27,14 @@ so far".
 
 Stories: 75
 
+## Fallout from Taylor Swift’s Wedding Leak Involves Her Friends
+
+- first seen: 2026-11-04 13:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A recent report indicates that the fallout from the leak regarding Taylor Swift's wedding now includes implications for her friends. Details about the situation remain emerging.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-leak-fallout-124841600.html
+
 ## Taylor Swift and Travis Kelce Face Pushback from Ohio Neighbors
 
 - first seen: 2026-11-04 12:57 UTC | category: relationship | importance: 6
@@ -640,11 +648,3 @@ Stories: 75
 - summary: Taylor Swift has maintained her position at the top of the Top Movie Songs Chart for four consecutive months, showcasing her continued success in the music industry. Her presence in this chart highlights the popularity of her contributions to film soundtracks.
 - sources:
   - [unverified] Vermilion County First — https://vermilioncountyfirst.com/2026/11/01/taylor-swift-scores-four-months-atop-top-movie-songs-chart/
-
-## High School Crush of Taylor Swift Attempts to Reconnect After Hit Single
-
-- first seen: 2026-11-01 13:27 UTC | category: relationship | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: A high school crush of Taylor Swift recently tried to connect with her after being inspired by a hit single from 2007. However, the attempt was unsuccessful according to reports.
-- sources:
-  - [unverified] American Songwriter — https://americansongwriter.com/taylor-swifts-high-school-crush-unsuccessfully-tried-to-connect-with-her-after-hearing-this-hit-single-from-2007/
