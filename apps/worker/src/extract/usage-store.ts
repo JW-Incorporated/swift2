@@ -35,8 +35,8 @@ const THEORY_MINER_SCOPE = 'theory-miner';
  * from the Haiku extract caps above — Sonnet calls cost more, so they are
  * capped tighter. Build the store with
  * `ExtractUsageStore.create(supabaseWriterUsageDb(db), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP)`. */
-export const WRITER_PER_RUN_CAP = 60;
-export const WRITER_DAILY_CAP = 200;
+export const WRITER_PER_RUN_CAP = 40;
+export const WRITER_DAILY_CAP = 150;
 const WRITER_SCOPE = 'writer';
 
 export class ExtractUsageStore {

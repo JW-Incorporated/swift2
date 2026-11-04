@@ -73,7 +73,12 @@ async function processRow(
   const floor = tierFloorHold(item, sources);
   if (floor) return { ...hold('below_tier_floor', floor.holdReason ?? 'below_tier_floor', { facts: item.facts }), retire: true };
 
-  const composed = await deps.compose(db, deps.stores, item, sources, row.era_id);
+  const composed = await deps.compose(db, deps.stores, item, sources, row.era_id, {
+    id: row.id,
+    mergedInto: null,
+    url: sources[0]?.url ?? null,
+    observedOn: row.observed_on,
+  });
   const { trace, v2 } = composed;
   const withheld = !screensClean([trace.lead ?? '', trace.body ?? '']);
   const shownLead = withheld ? WITHHELD : trace.lead;
