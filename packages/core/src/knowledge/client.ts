@@ -36,6 +36,11 @@ export interface KnowledgeClientConfig {
    * public, scoped to `redline_ok = true`, not expired, and not retracted at the policy
    * level (supabase/migrations/20260901000000_knowledge_engine.sql). */
   supabaseKey: string;
+  /** Optional fetch for every Supabase request. The web passes a `no-store`
+   * fetch: inside an ISR route Next caches each inner fetch in its Data Cache,
+   * and a response over that cache's size limit is never re-stored, so the
+   * route served a frozen snapshot (DEBUG 2026-11-04). */
+  fetch?: typeof fetch;
 }
 
 /** Filters accepted by `search()` — at minimum tier/era/symbol overlap per PLAN.md Stage 9.
@@ -308,6 +313,7 @@ export async function getTrack(db: SupabaseClient, title: string, signal?: Abort
 export function createKnowledgeClient(config: KnowledgeClientConfig): KnowledgeDataSource {
   const supabase = createClient(config.supabaseUrl, config.supabaseKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    ...(config.fetch ? { global: { fetch: config.fetch } } : {}),
   });
 
   return {
