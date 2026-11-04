@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 64
+
+## Taylor Swift Expresses Anxiety Over Recent Backlash
+
+- first seen: 2026-11-04 19:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report claims Taylor Swift is feeling 'genuinely anxious' about the backlash she has been facing, leading to accusations of politician-like behavior. The situation highlights the pressures she experiences amid public scrutiny.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971014/taylor-swift-oscars-campaign/
+
+## Commentary on Nolan and Swift's Impact on Exclusivity
+
+- first seen: 2026-11-04 19:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses how Christopher Nolan and Taylor Swift have created a sense of exclusivity in their respective industries. The piece explores the implications of this trend.
+- sources:
+  - [unverified] The Ithacan — https://theithacan.org/70329/opinion/commentary/commentary-christopher-nolan-and-taylor-swift-monopolize-exclusivity/
 
 ## Taylor Swift Launches New Campaign
 
@@ -542,29 +558,3 @@ Stories: 65
 - summary: Taylor Swift showcases the leather pencil skirt in her latest outfit, emphasizing its status as a fall staple. The article details her fashion choice and its relevance for the season.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/
-
-## Taylor Swift Shares Longtime Inside Joke with Best Friend Abigail
-
-- first seen: 2026-11-01 19:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent reveal, Taylor Swift opened up about a longstanding inside joke shared with her best friend, Abigail. The revelation highlights the deep bond they share over the years.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-longtime-inside-184915859.html
-
-## Taylor Swift Comments on 'Husband' Before NFL Game
-
-- first seen: 2026-11-01 19:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Before the Chiefs-Broncos game, Taylor Swift made a rare remark referring to a 'husband'. Details of the comment were not disclosed, but it drew attention from fans and media alike.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-husband-comment-before-broncos-game/
-
-## Taylor Swift's Attendance at Chiefs Game on November 1 Speculated
-
-- first seen: 2026-11-01 19:51 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: There is speculation about Taylor Swift potentially attending the Chiefs game on November 1. Details regarding her plans remain unclear at this time.
-- sources:
-  - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-the-chiefs-broncos-game-tonight
-  - [unverified] IMDb — https://www.imdb.com/de/news/ni66090442/?ref_=nwc_art_perm
-  - [unverified] Parade Magazine — https://parade.com/celebrities/is-taylor-swift-at-chiefs-game-today-november-1-2026
