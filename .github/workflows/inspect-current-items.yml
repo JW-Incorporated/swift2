@@ -10,7 +10,16 @@ on:
       ids:
         description: 'Comma-separated current_item ids (full UUIDs or 8-char prefixes)'
         type: string
-        required: true
+        required: false
+      era:
+        description: 'Era id for stats mode (e.g. tloas); when set, ids is ignored'
+        type: string
+        required: false
+      policies:
+        description: 'Also print current_item RLS policies, anon/authenticated grants and anon-visible counts (read-only psql)'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -33,15 +42,56 @@ jobs:
       - name: Validate inputs
         env:
           INPUT_IDS: ${{ inputs.ids }}
+          INPUT_ERA: ${{ inputs.era }}
+          INPUT_POLICIES: ${{ inputs.policies }}
         run: |
-          if ! [[ "$INPUT_IDS" =~ ^[0-9a-fA-F,-]+$ ]]; then
-            echo "::error::ids must be comma-separated hex UUIDs or 8-char prefixes"
+          if [ "$INPUT_POLICIES" = "true" ] && [ -z "$INPUT_ERA" ] && [ -z "$INPUT_IDS" ]; then
+            exit 0
+          fi
+          if [ -n "$INPUT_ERA" ]; then
+            if ! [[ "$INPUT_ERA" =~ ^[a-z0-9-]+$ ]]; then
+              echo "::error::era must match ^[a-z0-9-]+$"
+              exit 1
+            fi
+          elif ! [[ "$INPUT_IDS" =~ ^[0-9a-fA-F,-]+$ ]]; then
+            echo "::error::ids (required when era is absent) must be comma-separated hex UUIDs or 8-char prefixes"
             exit 1
           fi
 
       - name: Inspect the rows
+        if: ${{ !inputs.policies || inputs.ids != '' || inputs.era != '' }}
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           INSPECT_IDS: ${{ inputs.ids }}
+          INSPECT_ERA: ${{ inputs.era }}
         run: npx --no-install tsx scripts/news/inspect-current-items.mjs --markdown
+
+      - name: Inspect current_item policies, grants and anon visibility (read-only)
+        if: ${{ inputs.policies }}
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          if ! command -v psql >/dev/null 2>&1; then
+            sudo apt-get install -y postgresql-client >/dev/null
+          fi
+          run_psql() {
+            psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -X -A -F ' | '
+          }
+          {
+            echo '### current_item policies, grants and anon visibility'
+            echo
+            echo '```'
+            echo '-- pg_policies'
+            echo "select policyname, permissive, roles, cmd, qual from pg_policies where schemaname='public' and tablename='current_item';" | run_psql
+            echo
+            echo '-- role_table_grants'
+            echo "select grantee, privilege_type from information_schema.role_table_grants where table_schema='public' and table_name='current_item' and grantee in ('anon','authenticated');" | run_psql
+            echo
+            echo '-- count as anon (set local role)'
+            echo "begin; set local role anon; select count(*) as anon_visible, min(observed_on), max(observed_on) from public.current_item where era_id='tloas' and promoted_to is null and merged_into is null and retracted_at is null; rollback;" | run_psql
+            echo
+            echo '-- count as connecting role'
+            echo "select count(*) as role_visible, min(observed_on), max(observed_on) from public.current_item where era_id='tloas' and promoted_to is null and merged_into is null and retracted_at is null;" | run_psql
+            echo '```'
+          } 2>&1 | tee -a "$GITHUB_STEP_SUMMARY"
