@@ -23,7 +23,10 @@ Format: date, decision, why, alternatives considered, who approved.
 - **Calibration gate:** `scripts/news/calibrate-judge.mjs` runs before any judge change ships, using fixtures in `apps/worker/src/extract/__fixtures__/judge-calibration/`. A judge model passes only if:
   - gold drafts pass across 3 runs, with at most one non-grounding miss in all 15 judgments and zero grounding misses;
   - 5 targeted negatives fail on their expected dimension;
-  - at least 26/30 legacy posts fail.
+  - at least ceil(n x 26/31) legacy posts fail (26 of the current 30).
+- **Caveats:**
+  - The gold set was revised against Opus during R2-R6, so it is partly circular; the negatives and legacy are the independent signal. Add a held-out gold item at the next judge change.
+  - `writing_score` rows written before this change hold the old 1-5 minimum, and rows after hold the 4-20 sum; never compare across the change.
 
 **Why.** The Haiku judge failed 5/5 PM-written gold drafts for out-of-scope reasons. It docked the headline, read teaser-then-detail as repetition, and treated required attribution as wire copy.
 - **Calibration R1 (all three models):** no model accepted. Gold per run was Haiku 0/0/0, Sonnet 1/1/1 and Opus 1/1/2. Negatives were 4/5 for each and legacy 30/30 for each.

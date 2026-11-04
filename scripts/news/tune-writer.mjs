@@ -23,6 +23,14 @@ import { ExtractUsageStore } from '../../apps/worker/src/extract/usage-store.ts'
 import { hasClaudeSubscriptionToken } from '../../apps/worker/src/claude-call.ts';
 import { contextFromText, renderSummary, sampleRows, summarizeRuns } from './tune-writer-summary.mjs';
 
+/** The judge reads "today"/"this week" against OBSERVED_ON, so a kit row without one must fail loudly, never default to now. */
+function requireObservedOn(row) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(row.observedOn ?? ''))) {
+    throw new Error(`kit row ${row.kitId ?? '?'} has no observedOn; re-cut the kit from a backfill run that records it`);
+  }
+  return row.observedOn;
+}
+
 function flag(args, name, fallback) {
   const i = args.indexOf(name);
   return i === -1 ? fallback : Number(args[i + 1]);
@@ -48,7 +56,7 @@ async function runOne(stores, row, options = {}) {
   const deps = options.draft ? { ...stores, write: replayWriter(options.draft, row), noRewrite: true } : stores;
   const composed = await composePost(deps, {
     headline: row.headline,
-    observedOn: row.observedOn ?? new Date().toISOString().slice(0, 10),
+    observedOn: requireObservedOn(row),
     statusHint: row.statusHint,
     facts: row.facts,
     context: contextFromText(row.contextText),

@@ -39,6 +39,13 @@ describe('unknownAttributions', () => {
     expect(unknownAttributions('Variety reported the safety worry.', allowed, claims)).toEqual(['Variety']);
   });
 
+  it('does not whitelist an outlet a claim merely mentions without crediting it', () => {
+    const claims = ['Unlike Variety coverage last year, People says the tour adds dates.'];
+    const allowed = allowedOutlets([], ['People']);
+    expect(unknownAttributions('Variety reports the tour adds dates.', allowed, claims)).toEqual(['Variety']);
+    expect(unknownAttributions('People reports the tour adds dates.', allowed, claims)).toEqual([]);
+  });
+
   it('does not treat "<Name> said" as an outlet attribution', () => {
     expect(unknownAttributions('Travis Kelce said the night was perfect.', allowedOutlets([]))).toEqual([]);
   });
