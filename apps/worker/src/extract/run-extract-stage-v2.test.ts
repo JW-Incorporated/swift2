@@ -47,8 +47,8 @@ vi.mock('./usage-store', () => ({
   supabaseJudgeUsageDb: () => ({}),
   JUDGE_PER_RUN_CAP: 100,
   JUDGE_DAILY_CAP: 400,
-  WRITER_PER_RUN_CAP: 60,
-  WRITER_DAILY_CAP: 200,
+  WRITER_PER_RUN_CAP: 40,
+  WRITER_DAILY_CAP: 150,
 }));
 vi.mock('./extract-stage-data', () => ({
   createCommentFetchState: () => ({}),

@@ -41,12 +41,12 @@ describe('ExtractUsageStore', () => {
     expect(await store.reserve()).toBe(false);
   });
 
-  it('the writer budget is 60 per run and 200 per day', async () => {
-    expect([WRITER_PER_RUN_CAP, WRITER_DAILY_CAP]).toEqual([60, 200]);
+  it('the writer budget is 40 per run and 150 per day', async () => {
+    expect([WRITER_PER_RUN_CAP, WRITER_DAILY_CAP]).toEqual([40, 150]);
     const perRun = await ExtractUsageStore.create(fakeDb(0), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP);
-    for (let i = 0; i < 60; i++) expect(await perRun.reserve()).toBe(true);
+    for (let i = 0; i < 40; i++) expect(await perRun.reserve()).toBe(true);
     expect(await perRun.reserve()).toBe(false);
-    const daily = await ExtractUsageStore.create(fakeDb(199), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP);
+    const daily = await ExtractUsageStore.create(fakeDb(149), WRITER_PER_RUN_CAP, WRITER_DAILY_CAP);
     expect(await daily.reserve()).toBe(true);
     expect(await daily.reserve()).toBe(false);
   });
