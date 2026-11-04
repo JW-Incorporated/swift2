@@ -27,6 +27,14 @@ so far".
 
 Stories: 75
 
+## Taylor Swift and Travis Kelce Face Pushback from Ohio Neighbors
+
+- first seen: 2026-11-04 12:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's new neighbors in Ohio are expressing concerns and opposition regarding their plans. The situation highlights the couple's integration into their new community.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-ohio-120045880.html
+
 ## Taylor Swift's Soundtrack Contributions Reflect Her Musical Evolution
 
 - first seen: 2026-11-04 12:07 UTC | category: music | importance: 6
@@ -70,10 +78,11 @@ Stories: 75
 ## Taylor Swift discusses Travis Kelce's unusual habit
 
 - first seen: 2026-11-04 08:07 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In a recent reveal, Taylor Swift shares information about an unusual habit that Travis Kelce has to tolerate. The detail adds insight into their relationship dynamics.
 - sources:
   - [unverified] Riviera Radio — https://www.rivieraradio.mc/article/taylor-swift-reveals-the-unusual-habit-travis-kelce-has-to-put-up-with-5HjdkrP_2/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-oscar-campaign-meets-112938694.html
 
 ## Taylor Swift Pays Nelly $50,000 for Performance
 
@@ -639,11 +648,3 @@ Stories: 75
 - summary: A high school crush of Taylor Swift recently tried to connect with her after being inspired by a hit single from 2007. However, the attempt was unsuccessful according to reports.
 - sources:
   - [unverified] American Songwriter — https://americansongwriter.com/taylor-swifts-high-school-crush-unsuccessfully-tried-to-connect-with-her-after-hearing-this-hit-single-from-2007/
-
-## Patrick Mahomes' Family Unveils Taylor Swift-Inspired Toy Story Costumes
-
-- first seen: 2026-11-01 12:27 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The family of Patrick Mahomes showcased their Halloween costumes inspired by Toy Story, featuring a twist related to Taylor Swift. The costumes highlight their creative approach to the holiday.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/patrick-mahomes-family-reveals-toy-121042684.html
