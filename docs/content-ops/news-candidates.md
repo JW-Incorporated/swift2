@@ -27,6 +27,22 @@ so far".
 
 Stories: 64
 
+## Taylor Swift Discusses Her Decision for Toy Story 5
+
+- first seen: 2026-11-04 21:22 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift revealed her initial concerns before agreeing to participate in Toy Story 5. The news provides insight into her decision-making process regarding the project.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437835/why-taylor-swift-almost-didnt-write-toy-story-5-song
+
+## MTSU Students Meet Taylor Swift at Nashville Gala
+
+- first seen: 2026-11-04 21:22 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: MTSU Recording Industry students had the opportunity to meet Taylor Swift during the Nashville Songwriters Hall of Fame Gala. The event showcased the connection between education and the music industry.
+- sources:
+  - [unverified] MTSU News — https://mtsunews.com/2026/11/04/recording-industry-students-attend-nashville-songwriters-hall-of-fame-gala/
+
 ## Taylor Swift Expresses Anxiety Over Recent Backlash
 
 - first seen: 2026-11-04 19:52 UTC | category: relationship | importance: 5
@@ -542,19 +558,3 @@ Stories: 64
 - summary: Taylor Swift was not present at the Kansas City Chiefs' road game against the Denver Broncos, as reported by Us Weekly.
 - sources:
   - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-chiefs-game-against-denver-broncos/
-
-## Taylor Swift Campaigns for Oscar at NYC Screening of Toy Story 5
-
-- first seen: 2026-11-01 20:51 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her desire to win an Oscar for her song featured in "Toy Story 5" during an all guild screening in New York City. She actively campaigned for the award at the event.
-- sources:
-  - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video
-
-## Taylor Swift Highlights Leather Pencil Skirt as Fall Essential
-
-- first seen: 2026-11-01 20:51 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift showcases the leather pencil skirt in her latest outfit, emphasizing its status as a fall staple. The article details her fashion choice and its relevance for the season.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74305563/taylor-swift-leather-pencil-skirt-toy-story-5-appearance/
