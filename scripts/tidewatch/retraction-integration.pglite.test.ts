@@ -90,10 +90,26 @@ class Query {
   }
 
   or(expression: string): this {
-    const clauses = expression.split(',').map((part) => {
-      const [column = '', op = '', value = ''] = part.split('.');
-      if (op === 'is' && value === 'null') return `${identifier(column)} is null`;
-      if (op === 'neq') return `${identifier(column)} <> ${this.param(value)}`;
+    const parts: string[] = [];
+    let depth = 0;
+    let current = '';
+    for (const ch of expression) {
+      if (ch === '(') depth++;
+      if (ch === ')') depth--;
+      if (ch === ',' && depth === 0) { parts.push(current); current = ''; } else current += ch;
+    }
+    parts.push(current);
+    const clauses = parts.map((part) => {
+      const [column = '', ...rest] = part.split('.');
+      const negated = rest[0] === 'not';
+      const [op = '', ...valueParts] = negated ? rest.slice(1) : rest;
+      const value = valueParts.join('.');
+      if (op === 'is' && value === 'null') return `${identifier(column)} is ${negated ? 'not ' : ''}null`;
+      if (op === 'neq' && !negated) return `${identifier(column)} <> ${this.param(value)}`;
+      if (op === 'in' && value.startsWith('(') && value.endsWith(')')) {
+        const params = value.slice(1, -1).split(',').map((item) => this.param(item.trim()));
+        return `${identifier(column)} ${negated ? 'not ' : ''}in (${params.join(',')})`;
+      }
       throw new Error(`unsupported or() clause ${part}`);
     });
     this.filters.push(`(${clauses.join(' or ')})`);
