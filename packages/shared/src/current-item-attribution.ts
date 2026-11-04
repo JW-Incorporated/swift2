@@ -68,6 +68,19 @@ export function allowedOutlets(
   return [...out];
 }
 
+/** The fact attributions (trimmed, de-duplicated) and claims the attribution check grounds against; entries that are not objects with string fields are skipped. */
+export function factGrounding(facts: readonly unknown[] | null | undefined): { factAttributions: string[]; factClaims: string[] } {
+  const attributions = new Set<string>();
+  const factClaims: string[] = [];
+  for (const fact of Array.isArray(facts) ? facts : []) {
+    if (fact === null || typeof fact !== 'object') continue;
+    const { attribution, claim } = fact as { attribution?: unknown; claim?: unknown };
+    if (typeof attribution === 'string' && attribution.trim()) attributions.add(attribution.trim());
+    if (typeof claim === 'string') factClaims.push(claim);
+  }
+  return { factAttributions: [...attributions], factClaims };
+}
+
 /** True when `name` equals an allowed entry, or one contains the other as whole words (People vs People.com). */
 function isAllowed(name: string, allowed: readonly string[]): boolean {
   const n = normalize(name);
