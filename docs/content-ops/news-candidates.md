@@ -27,6 +27,14 @@ so far".
 
 Stories: 71
 
+## Taylor Swift Pays Nelly $50,000 for Performance
+
+- first seen: 2026-11-04 04:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift compensated Nelly with $50,000 in a McDonald's bag for his performance of 'Hot in Herre'.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-paid-nelly-50-024204189.html
+
 ## Taylor Swift's Oscar Aspirations Highlighted as Travis Kelce Discusses Chiefs' Errors
 
 - first seen: 2026-11-04 02:17 UTC | category: business | importance: 6
@@ -609,11 +617,3 @@ Stories: 71
 - summary: Travis Kelce has addressed Prince William's recent admission about attempting to remove him from a photo with Taylor Swift. The interaction highlights the intriguing relationship dynamics involving the pop star.
 - sources:
   - [unverified] Parade Magazine — https://parade.com/entertainment/travis-kelce-finally-responds-after-prince-william-admits-he-tried-to-cut-him-out-of-taylor-swifts-photo
-
-## Stars Mark Halloween 2026 Celebrations
-
-- first seen: 2026-11-01 04:02 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Various stars, including Taylor Swift, were spotted celebrating Halloween in 2026. The event featured festive costumes and Halloween-themed activities.
-- sources:
-  - [unverified] extratv.com — https://extratv.com/photos/image_jpg_20261030_321419990c374aa292d836dc0da08bcd/
