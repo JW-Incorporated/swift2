@@ -9,7 +9,8 @@
 
 import { checkSameEvent } from './dedupe-gate-llm';
 import { buildShortlist, MAX_CANDIDATES_TO_LLM, MAX_SHORTLIST_UNION, normalizeEntity, sharesFact } from './dedupe-shortlist';
-import type { ForceCandidateRow } from './backfill-force-load';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { loadExistingV2Rows, type ExistingV2Row, type ForceCandidateRow } from './backfill-force-load';
 import type { RowResult } from './backfill-force-write';
 import { ExtractUsageStore } from './usage-store';
 
@@ -135,4 +136,96 @@ export async function findDuplicateGroups(
     });
   }
   return { groups, checks, failed };
+}
+
+export function existingEntry(row: ExistingV2Row): DedupeEntry {
+  return {
+    id: row.id,
+    headline: row.headline,
+    summary: row.summary,
+    detail: row.detail,
+    observedOn: row.observed_on,
+    entities: row.entities ?? [],
+    facts: row.facts,
+    writingScore: row.writing_score ?? 1,
+  };
+}
+
+/**
+ * Cross-batch dedupe: each candidate is compared with the visible rows that already carry v2 facts
+ * (an earlier batch), within 3 days and sharing a non-universal entity or fact claim. A candidate the
+ * gate matches to one of them is a duplicate of it; the existing row is never displaced.
+ */
+export async function matchExistingV2(
+  usage: ExtractUsageStore,
+  candidates: readonly DedupeEntry[],
+  existing: readonly DedupeEntry[],
+  errors: string[],
+  sameEvent: typeof checkSameEvent = checkSameEvent,
+): Promise<{ matches: Map<string, string>; checks: number; failed: number }> {
+  const matches = new Map<string, string>();
+  let checks = 0;
+  let failed = 0;
+  for (const candidate of candidates) {
+    const rivals = existing.filter((o) => o.id !== candidate.id && withinWindow(candidate.observedOn, o.observedOn) && sharesSubject(candidate, o));
+    if (rivals.length === 0) continue;
+    const shortlist = buildShortlist(candidate, rivals, MAX_CANDIDATES_TO_LLM, MAX_SHORTLIST_UNION);
+    checks++;
+    try {
+      const verdict = await sameEvent(
+        usage,
+        { headline: candidate.headline, summary: candidate.summary, detail: candidate.detail, facts: candidate.facts, observedOn: candidate.observedOn },
+        shortlist.map((o) => ({ id: o.id, headline: o.headline, summary: o.summary, detail: o.detail, observedOn: o.observedOn, facts: o.facts })),
+      );
+      if (verdict === null) {
+        errors.push(`existing-row duplicate check deferred for ${candidate.id} (no budget or key)`);
+        failed++;
+      } else if (verdict.sameEvent && verdict.matchId) matches.set(candidate.id, verdict.matchId);
+    } catch (err) {
+      errors.push(`existing-row duplicate check failed for ${candidate.id}: ${(err as Error).message}`);
+      failed++;
+    }
+  }
+  return { matches, checks, failed };
+}
+
+export interface DuplicatePlan {
+  groups: DuplicateGroup[];
+  /** duplicate id -> the row that survives (a group anchor, or an existing v2 row from an earlier batch). */
+  losers: Map<string, string>;
+  checks: number;
+  failed: number;
+  incomplete: boolean;
+}
+
+export async function planDuplicates(
+  db: SupabaseClient,
+  usage: ExtractUsageStore,
+  candidates: readonly ForceCandidateRow[],
+  entries: readonly DedupeEntry[],
+  errors: string[],
+  sameEvent?: typeof checkSameEvent,
+): Promise<DuplicatePlan> {
+  let existing: DedupeEntry[] = [];
+  let loadFailed = false;
+  try {
+    existing = (await loadExistingV2Rows(db, candidates)).map(existingEntry);
+  } catch (err) {
+    errors.push((err as Error).message);
+    loadFailed = true;
+  }
+  const cross = await matchExistingV2(usage, entries, existing, errors, sameEvent);
+  const rest = entries.filter((e) => !cross.matches.has(e.id));
+  const intra = await findDuplicateGroups(usage, rest, errors, sameEvent);
+  const checks = cross.checks + intra.checks + (loadFailed ? 1 : 0);
+  const failed = cross.failed + intra.failed + (loadFailed ? 1 : 0);
+  const incomplete = checks > 0 && failed / checks > DEDUPE_INCOMPLETE_RATIO;
+  const losers = new Map<string, string>();
+  if (!incomplete) {
+    for (const [id, keep] of cross.matches) losers.set(id, keep);
+    for (const group of intra.groups) {
+      if (group.keep) for (const id of group.members) if (id !== group.keep) losers.set(id, group.keep);
+    }
+  }
+  return { groups: intra.groups, losers, checks, failed, incomplete };
 }

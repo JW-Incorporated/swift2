@@ -11,12 +11,13 @@ import { screenTopic } from '@swift2/shared/redline';
 import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { extractWithLLM } from './haiku-client';
 import {
-  composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, tierFloorHold, type V2Item,
+  composeV2Item, DEFERRED_HOLDS, hasFacts, tierFloorHold, type V2Item,
 } from './v2-stage';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { buildUserMessage } from './writer-client';
 import { RETIRE_BELOW_FLOOR, RETIRE_DUPLICATE, RETIRE_UNWRITABLE, retireRow, type RetireKind } from './backfill-retire';
-import { createDedupeUsage, dedupeEntry, DEDUPE_INCOMPLETE_RATIO, findDuplicateGroups } from './backfill-dedupe';
+import { createDedupeUsage, dedupeEntry, planDuplicates } from './backfill-dedupe';
+import { createBackfillJudgeStore, createBackfillWriterStore } from './backfill-budget';
 import { guardedWrite, SKIPPED_OUTCOMES, type RowResult } from './backfill-force-write';
 import { loadForceCandidates, markAttempted, type ForceCandidateRow } from './backfill-force-load';
 import { defaultReportDir, kitIdFor, writeForceArtifacts, type ForceReportRow, type WriterEvalKitRow } from './backfill-report';
@@ -130,7 +131,7 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
     compose: options.force?.compose ?? composeV2Item,
     fetchArticles: options.force?.fetchArticles ?? fetchTopArticleTexts,
     usage: options.force?.usage ?? await ExtractUsageStore.create(supabaseExtractUsageDb(db)),
-    stores: options.force?.stores ?? { writer: await createWriterStore(db), judge: await createJudgeStore(db) },
+    stores: options.force?.stores ?? { writer: await createBackfillWriterStore(db), judge: await createBackfillJudgeStore(db) },
   };
   const candidates = await loadForceCandidates(db, limit, new Date(), days);
   const today = new Date().toISOString().slice(0, 10);
@@ -172,25 +173,21 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
     done.push({ row, res });
   }
 
-  const dedupe = await findDuplicateGroups(
+  const plan = await planDuplicates(
+    db,
     options.force?.dedupeUsage ?? await createDedupeUsage(candidates.length),
+    candidates,
     done.filter(({ res }) => !res.retire).map(({ row, res }) => dedupeEntry(row, res)),
     errors,
     options.force?.sameEvent,
   );
-  summary.duplicateGroups = dedupe.groups;
-  summary.dedupeChecks = dedupe.checks;
-  summary.dedupeFailed = dedupe.failed;
-  summary.dedupeIncomplete = dedupe.checks > 0 && dedupe.failed / dedupe.checks > DEDUPE_INCOMPLETE_RATIO;
-  if (summary.dedupeIncomplete) {
-    console.log(`::warning::backfill dedupe incomplete (${dedupe.failed}/${dedupe.checks} checks deferred or failed); no duplicates are retired this run`);
-  }
-  // Only a group with a surviving (passing) row has duplicates; a no-pass group's members follow their own outcome paths.
-  const losers = new Map<string, string>();
-  if (!summary.dedupeIncomplete) {
-    for (const group of summary.duplicateGroups) {
-      if (group.keep) for (const id of group.members) if (id !== group.keep) losers.set(id, group.keep);
-    }
+  const losers = plan.losers;
+  summary.duplicateGroups = plan.groups;
+  summary.dedupeChecks = plan.checks;
+  summary.dedupeFailed = plan.failed;
+  summary.dedupeIncomplete = plan.incomplete;
+  if (plan.incomplete) {
+    console.log(`::warning::backfill dedupe incomplete (${plan.failed}/${plan.checks} checks deferred or failed); no duplicates are retired this run`);
   }
   summary.duplicatesFound = losers.size;
 
@@ -224,7 +221,8 @@ export async function runForceBackfill(db: SupabaseClient, options: RunBackfillO
 
   // Survivors and every non-duplicate row first; a group's losers are retired only once the survivor's write is a pass.
   for (const entry of done) if (!losers.has(entry.row.id)) await applyOwnPath(entry);
-  const finalOutcome = new Map(done.map(({ row, res }) => [row.id, res.report.outcome]));
+  const finalOutcome = new Map<string, string>(done.map(({ row, res }) => [row.id, res.report.outcome]));
+  for (const keep of losers.values()) if (!finalOutcome.has(keep)) finalOutcome.set(keep, 'pass');
   for (const { row, res } of done) {
     const keep = losers.get(row.id);
     if (!keep) continue;

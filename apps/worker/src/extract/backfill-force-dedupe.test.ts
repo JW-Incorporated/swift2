@@ -59,6 +59,8 @@ function fakeDb(rows: Record<string, unknown>[]) {
     };
     b.gt = () => b;
     b.gte = () => b;
+    b.lte = () => b;
+    b.not = (c: string, _op: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) !== v); return b; };
     b.order = (column: string, o: { ascending?: boolean } = {}) => {
       filtered = [...filtered].sort((x, y) => (String(x[column]) < String(y[column]) ? -1 : 1) * (o.ascending === false ? -1 : 1));
       return b;
@@ -251,6 +253,67 @@ describe('cross-row duplicates', () => {
     const result = await runBackfill(db, { dryRun: true, mode: 'force', reportDir: reportDir(), force: deps() });
     expect(calls).toEqual([]);
     expect(result.force).toMatchObject({ duplicatesFound: 1, retiredDuplicates: 0, outcomes: { pass: 1, retired_duplicate: 1 } });
+  });
+});
+
+describe('cross-batch duplicates', () => {
+  const existing = (id: string, overrides: Record<string, unknown> = {}) => row(id, {
+    facts: [{ ...FACT, claim: `Claim about Story${id.slice(0, 1)} ${id}` }], writing_score: 4, ...overrides,
+  });
+
+  it('retires a candidate that matches an existing v2 row, merged_into that row, and never touches the existing row', async () => {
+    Object.assign(SCORES, { 'P-new': 5 });
+    const { db, calls } = fakeDb([row('P-new'), existing('P-old', { observed_on: daysAgo(2) })]);
+    const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps() });
+    const retire = calls.filter((c) => c.values.quality_hold_reason === 'retired_duplicate');
+    expect(retire).toHaveLength(1);
+    expect(retire[0]!.id).toBe('P-new');
+    expect(retire[0]!.values).toEqual({ redline_ok: false, quality_hold_reason: 'retired_duplicate', merged_into: 'P-old' });
+    expect(calls.filter((c) => c.table === 'current_item' && 'summary' in c.values)).toEqual([]);
+    expect(calls.some((c) => c.id === 'P-old')).toBe(false);
+    expect(result.force).toMatchObject({ duplicatesFound: 1, retiredDuplicates: 1 });
+  });
+
+  it('ignores existing rows outside 3 days or sharing no entity', async () => {
+    Object.assign(SCORES, { 'Q-new': 4, 'R-new': 4 });
+    const d = deps();
+    const { db } = fakeDb([
+      row('Q-new'), existing('Q-old', { observed_on: daysAgo(9) }),
+      row('R-new'), existing('R-old', { entities: ['Taylor Swift'] }),
+    ]);
+    const result = await runBackfill(db, { dryRun: true, mode: 'force', reportDir: reportDir(), force: d });
+    expect(result.force).toMatchObject({ duplicatesFound: 0, outcomes: { pass: 2 } });
+    expect(d.sameEvent).not.toHaveBeenCalled();
+  });
+});
+
+describe('backfill budget scopes', () => {
+  it('force mode uses the backfill-writer and backfill-judge scopes, not the live ones', async () => {
+    Object.assign(SCORES, { 'Z-1': 4 });
+    const scopes: string[] = [];
+    const rpcScopes: string[] = [];
+    const inner = fakeDb([row('Z-1')]).db as unknown as { from: (t: string) => Record<string, (...a: unknown[]) => unknown> };
+    const db = {
+      from: (table: string) => {
+        const b = inner.from(table);
+        if (table === 'usage_daily') {
+          const eq = b.eq!;
+          b.eq = (...a: unknown[]) => { if (a[0] === 'scope') scopes.push(String(a[1])); return eq(...a); };
+        }
+        return b;
+      },
+      rpc: async (_fn: string, args: { p_scope: string }) => { rpcScopes.push(args.p_scope); return { error: null }; },
+    } as unknown as SupabaseClient;
+    const base = deps();
+    const compose = vi.fn(async (...args: unknown[]) => {
+      const stores = args[1] as { writer: ExtractUsageStore; judge: ExtractUsageStore };
+      await stores.writer.reserve();
+      await stores.judge.reserve();
+      return (base.compose as unknown as (...a: unknown[]) => Promise<unknown>)(...args);
+    }) as unknown as ForceDeps['compose'];
+    await runBackfill(db, { dryRun: true, mode: 'force', reportDir: reportDir(), force: { ...base, stores: undefined, compose } });
+    expect(scopes.sort()).toEqual(['backfill-judge', 'backfill-writer']);
+    expect(rpcScopes.sort()).toEqual(['backfill-judge', 'backfill-writer']);
   });
 });
 
