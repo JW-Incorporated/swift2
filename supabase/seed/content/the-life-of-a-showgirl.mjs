@@ -5126,7 +5126,7 @@ export default {
             reportedOn: '2026-06-29',
             status: 'partially_confirmed',
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
-            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
+            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published. Re-checked 2026-11-04: still no published guest list. The only new wedding material since is the late-October leaked photos and renderings, which this desk does not use as sourcing, so nothing changes here.',
             sourceTier: 'tabloid',
             // Lifecycle re-checks: 2026-08-10 no complete guest list published;
             // 2026-08-31 re-checked (news digest + web search) — still none.
@@ -5135,7 +5135,7 @@ export default {
             // (several rumored names verified by arrival photos), so a `faded`
             // terminal state would understate what is actually on the record.
             // The roster as a whole was never published.
-            lastCheckedOn: '2026-08-31',
+            lastCheckedOn: '2026-11-04',
           },
           {
             claim:
