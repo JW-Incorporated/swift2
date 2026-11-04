@@ -82,3 +82,42 @@ export async function markAttempted(db: SupabaseClient, id: string, now = new Da
   if (error && error.code !== UNDEFINED_COLUMN) return error.message;
   return undefined;
 }
+
+export interface ExistingV2Row {
+  id: string;
+  headline: string;
+  summary: string;
+  detail: string;
+  observed_on: string;
+  entities: string[] | null;
+  facts: { claim: string }[];
+  writing_score: number | null;
+}
+
+const DAY_MS = 86_400_000;
+
+/** Visible rows that already carry facts (the v2 copy) within 3 days of any candidate: cross-batch dedupe anchors. */
+export async function loadExistingV2Rows(
+  db: SupabaseClient,
+  candidates: readonly Pick<ForceCandidateRow, 'observed_on'>[],
+  now = new Date(),
+): Promise<ExistingV2Row[]> {
+  if (candidates.length === 0) return [];
+  const times = candidates.map((c) => Date.parse(c.observed_on));
+  const from = new Date(Math.min(...times) - 3 * DAY_MS).toISOString().slice(0, 10);
+  const to = new Date(Math.max(...times) + 3 * DAY_MS).toISOString().slice(0, 10);
+  const { data, error } = await db
+    .from('current_item')
+    .select('id,headline,summary,detail,observed_on,entities,facts,writing_score')
+    .not('facts', 'is', null)
+    .is('promoted_to', null)
+    .is('merged_into', null)
+    .is('retracted_at', null)
+    .eq('redline_ok', true)
+    .gt('expires_at', now.toISOString())
+    .gte('observed_on', from)
+    .lte('observed_on', to)
+    .limit(FORCE_MAX_ROWS);
+  if (error) throw new Error(`existing v2 row load failed: ${error.message}`);
+  return ((data ?? []) as unknown as ExistingV2Row[]).filter((row) => Array.isArray(row.facts) && row.facts.length > 0);
+}
