@@ -49,6 +49,14 @@ export function tierFloorHold(item: V2Item, sources: readonly ClusterSource[]): 
   return worth.ok ? undefined : { facts: item.facts, holdReason: worth.reason };
 }
 
+/** The current item's stored identity, when it already has a row (the backfill); the live path has none yet. */
+export interface ItemIdentity {
+  id?: string;
+  mergedInto?: string | null;
+  url?: string | null;
+  observedOn?: string;
+}
+
 /** Runs pass B + the writing gate + the judge. A hold keeps the pass-A text on the (unservable) row; it is never served. */
 export async function composeV2Item(
   db: SupabaseClient,
@@ -56,6 +64,7 @@ export async function composeV2Item(
   item: V2Item,
   sources: readonly ClusterSource[],
   eraId: string,
+  identity: ItemIdentity = {},
 ): Promise<{ item: ExtractedCurrentItem; v2: WriterV2Write; trace: ComposeTrace; contextIds: string[]; context: ContextPack }> {
   const era = await loadEraContext(eraId);
   const context = buildContextPack({
@@ -63,8 +72,12 @@ export async function composeV2Item(
     eraSummary: era.eraSummary,
     headline: item.headline,
     entities: item.entities,
+    observedOn: identity.observedOn ?? item.observedOn,
     moments: era.moments,
-    priorItems: await loadPriorItems(db, eraId, item.entities),
+    priorItems: await loadPriorItems(db, eraId, item.entities, identity.observedOn ?? item.observedOn),
+    ...(identity.id ? { itemId: identity.id } : {}),
+    mergedInto: identity.mergedInto ?? null,
+    url: identity.url ?? sources[0]?.url ?? null,
   });
   const composed = await composePost(stores, {
     headline: item.headline,
