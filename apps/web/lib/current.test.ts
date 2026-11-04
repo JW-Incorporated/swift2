@@ -4,7 +4,7 @@ vi.mock('./supabase-server', () => ({
   supabasePublicEnv: () => ({ supabaseUrl: 'https://example.supabase.co', supabaseKey: 'k' }),
 }));
 
-import { loadCurrentItems, loadLiveTheories } from './current';
+import { loadCurrentItems, loadFanSignals, loadLiveTheories } from './current';
 
 const row = (id: string, image_url: string | null) => ({
   id,
@@ -55,5 +55,24 @@ describe('live reads bypass the Next Data Cache', () => {
     expect(fetchMock.mock.calls.length).toBeGreaterThanOrEqual(2);
     for (const call of fetchMock.mock.calls) expect((call[1] as RequestInit | undefined)?.cache).toBe('no-store');
     expect(fetchMock.mock.calls.some((c) => String(c[0]).includes('/rest/v1/current_item'))).toBe(true);
+  });
+});
+
+describe('live reads repeat the RLS read policy in the query', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('filters current_item, live_theory and fan_signal to redline_ok and unexpired rows', async () => {
+    const fetchMock = vi.fn().mockImplementation(async () => new Response('[]', { status: 200, headers: { 'content-type': 'application/json' } }));
+    vi.stubGlobal('fetch', fetchMock);
+    await loadCurrentItems('tloas');
+    await loadLiveTheories();
+    await loadFanSignals();
+    const urls = fetchMock.mock.calls.map((c) => decodeURIComponent(String(c[0])));
+    for (const table of ['current_item', 'live_theory', 'fan_signal']) {
+      const url = urls.find((u) => u.includes(`/rest/v1/${table}`));
+      expect(url, table).toBeDefined();
+      expect(url).toContain('redline_ok=eq.true');
+      expect(url).toMatch(/or=\(expires_at\.is\.null,expires_at\.gt\./);
+    }
   });
 });
