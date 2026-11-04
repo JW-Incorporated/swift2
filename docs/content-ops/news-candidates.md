@@ -25,15 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 63
 
-## Taylor Swift Discusses Her Decision for Toy Story 5
+## Abdul El-Sayed Acknowledges His Support for Taylor Swift After Senate Victory
 
-- first seen: 2026-11-04 21:22 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift revealed her initial concerns before agreeing to participate in Toy Story 5. The news provides insight into her decision-making process regarding the project.
+- first seen: 2026-11-04 22:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: After winning the Michigan Senate seat, Abdul El-Sayed acknowledged his admiration for Taylor Swift, showcasing his 'Swiftie' status. His victory marks a significant moment in his political career.
 - sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437835/why-taylor-swift-almost-didnt-write-toy-story-5-song
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/
 
 ## MTSU Students Meet Taylor Swift at Nashville Gala
 
@@ -42,6 +42,15 @@ Stories: 64
 - summary: MTSU Recording Industry students had the opportunity to meet Taylor Swift during the Nashville Songwriters Hall of Fame Gala. The event showcased the connection between education and the music industry.
 - sources:
   - [unverified] MTSU News — https://mtsunews.com/2026/11/04/recording-industry-students-attend-nashville-songwriters-hall-of-fame-gala/
+
+## Taylor Swift Discusses Her Decision for Toy Story 5
+
+- first seen: 2026-11-04 21:22 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift revealed her initial concerns before agreeing to participate in Toy Story 5. The news provides insight into her decision-making process regarding the project.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437835/why-taylor-swift-almost-didnt-write-toy-story-5-song
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-shook-off-one-204356003.html
 
 ## Taylor Swift Expresses Anxiety Over Recent Backlash
 
@@ -542,19 +551,3 @@ Stories: 64
   - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swifts-weird-habit-travis-kelce-has-to-put-up-with/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-weird-habit-065245109.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/love-tight-end-donald-trump-110037104.html
-
-## New Wedding Photos of Taylor Swift Surface for Fans
-
-- first seen: 2026-11-01 22:06 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Recently leaked never-before-seen photos show Taylor Swift as she walked down the aisle, providing fans with an exclusive glimpse into her wedding. The images reveal what guests experienced during the event.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234957069/taylor-swift-travis-kelce-new-wedding-photos/
-
-## Taylor Swift Does Not Attend Chiefs vs. Broncos Game
-
-- first seen: 2026-11-01 22:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was not present at the Kansas City Chiefs' road game against the Denver Broncos, as reported by Us Weekly.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-chiefs-game-against-denver-broncos/
