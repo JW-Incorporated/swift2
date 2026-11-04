@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 73
 
 ## Director Reacts to Taylor Swift's Swift Songwriting for Toy Story 5
 
@@ -631,13 +631,3 @@ Stories: 74
 - summary: The family of Patrick Mahomes showcased their Halloween costumes inspired by Toy Story, featuring a twist related to Taylor Swift. The costumes highlight their creative approach to the holiday.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/patrick-mahomes-family-reveals-toy-121042684.html
-
-## Bill Maher Compares Donald Trump to Taylor Swift
-
-- first seen: 2026-11-01 10:26 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Bill Maher makes a controversial comparison between Donald Trump and Taylor Swift, one that is expected to upset Travis Kelce. The remarks highlight Maher's views on the current political climate and celebrity culture.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74305255/taylor-swift-travis-kelce-chiefs-broncos-away-game-attendance-explained-2026/
-  - [unverified] Yahoo News UK — https://uk.news.yahoo.com/tearing-bill-maher-drops-brutal-094009546.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/jim-nantz-comments-travis-kelce-223147476.html
