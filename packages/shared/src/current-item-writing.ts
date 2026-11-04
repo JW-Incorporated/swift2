@@ -47,6 +47,8 @@ export interface WritingInput {
   sentenceRefs?: readonly (readonly string[])[];
   /** Outlet names the item's facts are attributed to; an attribution to any other outlet is invented. */
   factAttributions?: readonly string[];
+  /** The item's fact claims; an outlet or byline they name is grounded. */
+  factClaims?: readonly string[];
 }
 
 export interface WritingOptions {
@@ -267,7 +269,7 @@ export function evaluateCurrentItemWriting(
       break;
     }
   }
-  if (unknownAttributions(body, allowedOutlets(input.sources, input.factAttributions)).length > 0) {
+  if (unknownAttributions(body, allowedOutlets(input.sources, input.factAttributions), input.factClaims).length > 0) {
     reasons.push('attribution_unknown_outlet');
   }
 

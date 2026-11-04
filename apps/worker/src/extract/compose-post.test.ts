@@ -31,6 +31,7 @@ function attempt(paragraphs = PARAGRAPHS): WriterAttempt {
 
 const INPUT: ComposeInput = {
   headline: 'Taylor spotted outside a Nashville studio',
+  observedOn: '2026-11-02',
   statusHint: 'reported',
   facts: [{ id: 'f1', claim: 'Taylor was photographed outside Blackbird Studio.', attribution: 'People', confidence: 'reported' }],
   context: { items: [{ id: 'c1', kind: 'prior', text: 'Last autumn the album rollout began quietly.' }], text: '[c1] Last autumn the album rollout began quietly.' },
@@ -48,6 +49,8 @@ describe('composePost', () => {
     const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt() }));
     const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
     const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(judgeFn.mock.calls[0]![1]).toMatchObject({ observedOn: '2026-11-02' });
+    expect(judgeFn.mock.calls[0]![1]).not.toHaveProperty('headline');
     expect(result.status).toBe('ok');
     const judged = judgeFn.mock.calls[0]![1];
     expect(judged.context).toBe(INPUT.context.text);

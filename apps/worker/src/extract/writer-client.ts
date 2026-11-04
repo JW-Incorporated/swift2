@@ -31,6 +31,8 @@ export interface WriterInput {
   statusHint: string;
   facts: readonly ExtractedFact[];
   context: ContextPack;
+  /** Overrides the writer model (tuning harness only). */
+  model?: string;
   /** One-shot rewrite: the gate's reasons the previous attempt was rejected. */
   rewriteReasons?: readonly string[];
 }
@@ -161,7 +163,7 @@ async function attempt(input: WriterInput, claude: WorkerClaudeCaller): Promise<
   const response = await claude({
     caller: 'news-worker-writer',
     priority: 'P1',
-    model: MODEL,
+    model: input.model ?? MODEL,
     system: WRITER_SYSTEM_MESSAGE,
     user: buildUserMessage(input),
     schema: WRITE_POST_TOOL.input_schema,
