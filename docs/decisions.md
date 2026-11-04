@@ -7,6 +7,28 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-03 (amendment 3, dated 2026-11-04, owner) — News posts: fan-voice sentences
+
+**Decision.** This amends the news post quality engine entry below. Owner, 2026-11-04: "a fan would add their opinion" … "'Honestly, this is the most Taylor thing she's done all year' is a great example, we want that to be allowed." The rule becomes: every fact needs a source, but not every sentence needs a fact.
+- Sentences carrying no factual claim may have empty refs. These are opinion, reaction, transition and callback-to-feeling sentences.
+- Cap: at most 2 per post, named constant `MAX_VOICE_SENTENCES = 2`.
+- They must be warm or affectionate fan takes. Never insult or mock real people.
+- They must not assert any checkable fact: no numbers, dates, records, superlatives of fact, quotes, or events.
+- Grounding is judged on factual sentences only.
+
+**Enforcement.**
+- Gate: empty refs no longer fail `uncited_sentence` or `citations_missing`. New failures `too_many_voice_sentences` (count over the cap) and `voice_sentence_has_fact` (an empty-refs sentence with a digit, month name, 4-digit year, quoted span or outlet/credit pattern). Every paragraph still needs at least one cited sentence.
+- Judge: grounding scores only sentences that state facts, and an empty-refs sentence that smuggles a fact is a grounding problem. A well-placed genuine fan reaction helps earn a voice 5; wire-service register with no personality caps voice at 3; opinion that insults or mocks a real person fails voice.
+- Calibration: two gold drafts gain a voice line, and two negatives are added (`neg-voice-smuggled-fact`, `neg-voice-mean`). The Amendment 1 acceptance rule is unchanged and applies to the new set.
+
+**Why.** Posts that read as wire copy lack the fan-site personality that is the product's differentiator. The deterministic guard is a cheap backstop; the judge is the real check.
+
+**Reversal.** Revert the commit; the cap and guard are one constant and one check.
+
+Approved by: owner (chat, 2026-11-04).
+
+---
+
 ## 2026-11-03 (amendment 2) — News writer pass B moves to Opus 5.5
 
 **Decision.** Pass B uses `claude-opus-5-5` instead of `claude-sonnet-5-5`. Writer caps drop from 60/run and 200/day to 40/run and 150/day, per the architect's switch plan.
