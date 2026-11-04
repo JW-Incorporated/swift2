@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-02',
+  updatedOn: '2026-11-04',
   items: [
     {
       // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
@@ -147,7 +147,10 @@ export default {
       // anything "so obvious or fan-servicing".
       // Rechecked 2026-11-02 (Vault Run): still nothing announced. The
       // Nov 1-2 news cycle was Toy Story 5 awards campaigning, not a re-record.
-      lastCheckedOn: '2026-11-02',
+      // Rechecked 2026-11-04 (Vault Run): web search finds no announcement of
+      // either; results are speculation pieces only. Cosmopolitan (2 Nov) still
+      // frames fans as "clowning for Debut TV".
+      lastCheckedOn: '2026-11-04',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -336,11 +339,16 @@ export default {
       // announced.
       // Rechecked 2026-11-02 (Vault Run): still `reported`. No TS13 album,
       // title or timeline announced as of the Nov 1-2 news cycle.
+      // Rechecked 2026-11-04 (Vault Run, intake #6587): a second blind tip,
+      // a Daily Mail insider (via Cosmopolitan, 2 Nov) saying she has "enough
+      // material to fill her next two albums". Added as tabloid-tier support
+      // for the same open question. Still `reported`; nothing announced. The
+      // same insider's post-wedding relationship colour is deliberately left out.
       date: '2026-08-27',
-      lastCheckedOn: '2026-11-02',
+      lastCheckedOn: '2026-11-04',
       headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
-        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',
+        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. On 2 Nov 2026 a Daily Mail insider (via Cosmopolitan) went further, saying she has "enough material to fill her next two albums". That is another anonymous tip, not an announcement. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',
       sources: [
         {
           name: 'Page Six (via Just Jared)',
@@ -357,6 +365,10 @@ export default {
         {
           name: 'Business Insider',
           url: 'https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10',
+        },
+        {
+          name: 'Daily Mail (via Cosmopolitan)',
+          url: 'https://www.cosmopolitan.com/entertainment/celebs/a74310472/taylor-swift-two-new-albums/',
         },
       ],
       prompts: [
