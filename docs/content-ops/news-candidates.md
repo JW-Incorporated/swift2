@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 70
 
 ## Taylor Swift Pays Nelly $50,000 for Performance
 
@@ -609,11 +609,3 @@ Stories: 71
   - [established] Elle — https://www.elle.com/culture/celebrities/a74305255/taylor-swift-travis-kelce-chiefs-broncos-away-game-attendance-explained-2026/
   - [unverified] Yahoo News UK — https://uk.news.yahoo.com/tearing-bill-maher-drops-brutal-094009546.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/jim-nantz-comments-travis-kelce-223147476.html
-
-## Travis Kelce Responds to Prince William's Comment on Taylor Swift Photo
-
-- first seen: 2026-11-01 07:01 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has addressed Prince William's recent admission about attempting to remove him from a photo with Taylor Swift. The interaction highlights the intriguing relationship dynamics involving the pop star.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/entertainment/travis-kelce-finally-responds-after-prince-william-admits-he-tried-to-cut-him-out-of-taylor-swifts-photo
