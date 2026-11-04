@@ -912,6 +912,51 @@
       "sha256": "a82c4a7860370ac5770fd90f984000d919ae8e99c7f29a683d2c2ff6bf871a9b"
     },
     {
+      "id": "official-video-gQ0pP2z9niw-maxres1",
+      "mediaPath": "/social/library/photos/official-video-gQ0pP2z9niw-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=gQ0pP2z9niw",
+      "alt": "Still from Taylor Swift's official \"Red (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 54361,
+      "sha256": "b8847602089db497d5e85445c3318347e1fb2d5636871000a00ebd12713ab6b5"
+    },
+    {
+      "id": "official-video-gQ0pP2z9niw-maxres2",
+      "mediaPath": "/social/library/photos/official-video-gQ0pP2z9niw-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=gQ0pP2z9niw",
+      "alt": "Still from Taylor Swift's official \"Red (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 49814,
+      "sha256": "492903c3c439b9c66f58b2bbf1305e07cad9db36367ab2928d49f5449e138709"
+    },
+    {
+      "id": "official-video-gQ0pP2z9niw-maxres3",
+      "mediaPath": "/social/library/photos/official-video-gQ0pP2z9niw-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=gQ0pP2z9niw",
+      "alt": "Still from Taylor Swift's official \"Red (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 44360,
+      "sha256": "2767170bbc1ec003bc3ef70ab2128fdcd710e8c2db8b0ca0e6024c747eb1ac2a"
+    },
+    {
       "id": "official-video-h8DLofLM7No-maxres1",
       "mediaPath": "/social/library/photos/official-video-h8DLofLM7No-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1437,6 +1482,51 @@
       "sha256": "67fa6768ddbee2b9eeb5ae6486539281d0553699d45870b58d54d419e496b726"
     },
     {
+      "id": "official-video-RQuY8kERaU0-maxres1",
+      "mediaPath": "/social/library/photos/official-video-RQuY8kERaU0-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RQuY8kERaU0",
+      "alt": "Still from Taylor Swift's official \"Mean (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 55770,
+      "sha256": "5cc479b863e3cf490898fc91131ae30a81809302d58438027ce888c21a57b07c"
+    },
+    {
+      "id": "official-video-RQuY8kERaU0-maxres2",
+      "mediaPath": "/social/library/photos/official-video-RQuY8kERaU0-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RQuY8kERaU0",
+      "alt": "Still from Taylor Swift's official \"Mean (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 51468,
+      "sha256": "1eacf5caecc8d1b7baa43fe8473a238b8f294347bce26ac3a7fbf68f26a6c2f9"
+    },
+    {
+      "id": "official-video-RQuY8kERaU0-maxres3",
+      "mediaPath": "/social/library/photos/official-video-RQuY8kERaU0-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RQuY8kERaU0",
+      "alt": "Still from Taylor Swift's official \"Mean (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 65600,
+      "sha256": "d5b58297431f6241b05ebfddc2d41285f772d814b8bb39dde3fd4cc59a35423a"
+    },
+    {
       "id": "official-video-s8h0tZy0HqA-maxres2",
       "mediaPath": "/social/library/photos/official-video-s8h0tZy0HqA-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1495,6 +1585,21 @@
       "height": 720,
       "bytes": 37832,
       "sha256": "30380964cd6c085d1c2bd77820d701c89047b5275a4ee8a33a3a663c644fdad6"
+    },
+    {
+      "id": "official-video-tvnGBYMe9gM-maxres2",
+      "mediaPath": "/social/library/photos/official-video-tvnGBYMe9gM-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=tvnGBYMe9gM",
+      "alt": "Still from Taylor Swift's official \"You Belong with Me (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 51310,
+      "sha256": "898a820bc0265896168376c75ab451a3208c376e9653ec3feb9b881f25323ebf"
     },
     {
       "id": "official-video-Uzii44SDYFA-maxres1",
@@ -2073,6 +2178,20 @@
       "sha256": "02186e822ce42664560b14ce74ef62e073d97080edb4f602739670df7185a4cd"
     },
     {
+      "id": "press-3b61c165db4d",
+      "mediaPath": "/social/library/photos/press-3b61c165db4d.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-voters-travis-kelce/",
+      "alt": "Taylor Swift in the news: Taylor Swift’s Oscar Voter Meeting Caught on Video: Where Was Travis Kelce?",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 1200,
+      "height": 675,
+      "bytes": 53237,
+      "sha256": "de7029db33cbe08daa89125368ea7339ba2d28a2d9e9caee36b0758aa28497c1"
+    },
+    {
       "id": "press-4162ec4269a7",
       "mediaPath": "/social/library/photos/press-4162ec4269a7.webp",
       "source": "https://www.formula1.com/en/latest/article/one-decade-later-when-taylor-swift-performed-her-only-show-of-2016-at-the-united-states-grand-prix.5H18UiePOW5yJGtH5VO2QA",
@@ -2141,6 +2260,34 @@
       "height": 1154,
       "bytes": 289956,
       "sha256": "4c72b27204dae57a75386a989d6f65d435870458b8fed937ef3224d5d09ab0e5"
+    },
+    {
+      "id": "press-e18000b9120e",
+      "mediaPath": "/social/library/photos/press-e18000b9120e.webp",
+      "source": "https://www.cheatsheet.com/news/taylor-swift-surprises-fans-again-unexpected-choice-made-wedding-day.html/",
+      "alt": "Taylor Swift in the news: Taylor Swift Surprises Fans Again With Unexpected Choice She Made on Her Wedding Day",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Showbiz Cheat Sheet",
+      "width": 1200,
+      "height": 675,
+      "bytes": 330454,
+      "sha256": "5bff8147f85e4d8cd23dcaec8a305b6449b606fd49bbedba36abe75764fcdd99"
+    },
+    {
+      "id": "press-f2a339aeeea0",
+      "mediaPath": "/social/library/photos/press-f2a339aeeea0.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-announcement-made-after-broncos-game/",
+      "alt": "Taylor Swift in the news: Taylor Swift Announcement Made After Chiefs-Broncos Game",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 2048,
+      "height": 1154,
+      "bytes": 191674,
+      "sha256": "a3082126b09180aa5fd5fb4ce1cc00774d430e838c6f2deac7ecd668f90c7c18"
     },
     {
       "id": "red-inglewood-2023",
