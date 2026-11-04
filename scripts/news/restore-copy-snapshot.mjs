@@ -8,7 +8,7 @@
 //   node scripts/news/restore-copy-snapshot.mjs --id <current_item_id>
 //   node scripts/news/restore-copy-snapshot.mjs --since <iso>
 //   node scripts/news/restore-copy-snapshot.mjs --clear-retired [--id <current_item_id>] [--since <iso>]
-//     un-hides rows the force backfill retired (quality_hold_reason 'retired_below_floor').
+//     un-hides rows the force backfill retired (quality_hold_reason 'retired_below_floor', 'retired_duplicate' or 'retired_unwritable').
 //   add --no-dry-run to write; dry run is the default.
 
 import { serviceClient } from '../lib/supabase.mjs';
@@ -39,28 +39,30 @@ export async function restoreSnapshots(db, { id, since, dryRun = true }) {
 }
 
 export const RETIRED_HOLD_REASON = 'retired_below_floor';
+export const RETIRED_HOLD_REASONS = [RETIRED_HOLD_REASON, 'retired_duplicate', 'retired_unwritable'];
+const RETIRE_SNAPSHOT_REASONS = ['retire_below_floor', 'retire_duplicate', 'retire_unwritable'];
 
 /** Undoes --retire-below-floor: clears the hold reason and re-shows the row (the read-time gate still applies). */
 export async function clearRetired(db, { id, since, dryRun = true } = {}) {
-  let query = db.from('current_item').select('id').eq('quality_hold_reason', RETIRED_HOLD_REASON).is('retracted_at', null);
+  let query = db.from('current_item').select('id,quality_hold_reason').in('quality_hold_reason', RETIRED_HOLD_REASONS).is('retracted_at', null);
   if (id) query = query.eq('id', id);
   const { data, error } = await query;
   if (error) throw new Error(`retired load failed: ${error.message}`);
   let rows = data ?? [];
   if (since) {
     const { data: snaps, error: snapError } = await db.from('current_item_copy_snapshot')
-      .select('current_item_id').eq('reason', 'retire_below_floor').gte('snapshot_at', since);
+      .select('current_item_id').in('reason', RETIRE_SNAPSHOT_REASONS).gte('snapshot_at', since);
     if (snapError) throw new Error(`retire snapshot load failed: ${snapError.message}`);
     const retiredSince = new Set((snaps ?? []).map((snap) => snap.current_item_id));
     rows = rows.filter((row) => retiredSince.has(row.id));
   }
   const result = { found: rows.length, restored: 0, errors: [] };
-  for (const { id: itemId } of rows) {
+  for (const { id: itemId, quality_hold_reason: reason } of rows) {
     if (dryRun) continue;
     const { error: updateError } = await db.from('current_item')
-      .update({ redline_ok: true, quality_hold_reason: null })
+      .update({ redline_ok: true, quality_hold_reason: null, ...(reason === 'retired_duplicate' ? { merged_into: null } : {}) })
       .eq('id', itemId)
-      .eq('quality_hold_reason', RETIRED_HOLD_REASON)
+      .eq('quality_hold_reason', reason)
       .is('retracted_at', null);
     if (updateError) result.errors.push(`clear failed for ${itemId}: ${updateError.message}`);
     else result.restored++;

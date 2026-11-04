@@ -37,6 +37,8 @@ describe('loadBackfillCandidates', () => {
       { id: 'ci-retracted', status: 'reported', retracted_at: '2099-01-01', promoted_to: null },
       { id: 'ci-worker-debunked', status: 'debunked', retracted_at: null, promoted_to: null },
       { id: 'ci-retired', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_below_floor' },
+      { id: 'ci-retired-dup', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_duplicate' },
+      { id: 'ci-retired-unwritable', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_unwritable' },
     ];
     const chain = {
       select: () => chain,
@@ -49,8 +51,8 @@ describe('loadBackfillCandidates', () => {
         return chain;
       },
       or: (filter: string) => {
-        expect(filter).toContain('retired_below_floor');
-        rows = rows.filter((row) => (row as { quality_hold_reason?: string }).quality_hold_reason !== 'retired_below_floor');
+        for (const reason of ['retired_below_floor', 'retired_duplicate', 'retired_unwritable']) expect(filter).toContain(reason);
+        rows = rows.filter((row) => !String((row as { quality_hold_reason?: string }).quality_hold_reason).startsWith('retired_'));
         return chain;
       },
       gt: () => chain,
