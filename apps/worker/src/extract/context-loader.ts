@@ -56,7 +56,15 @@ async function readEraContext(eraId: string): Promise<EraContext> {
     };
     for (const item of seed.default.items ?? []) {
       if (!item.title || !item.snippet) continue;
-      moments.push({ title: item.title, summary: item.snippet, ...(item.category ? { tags: [item.category] } : {}) });
+      const momentDate = item.year
+        ? [String(item.year), item.month && String(item.month).padStart(2, '0'), item.month && item.day && String(item.day).padStart(2, '0')].filter(Boolean).join('-')
+        : '';
+      moments.push({
+        title: item.title,
+        summary: item.snippet,
+        ...(item.category ? { tags: [item.category] } : {}),
+        ...(momentDate ? { date: momentDate } : {}),
+      });
       if (item.slug && item.year && item.month && item.day) {
         const date = `${item.year}-${String(item.month).padStart(2, '0')}-${String(item.day).padStart(2, '0')}`;
         crossMoments.push({ id: item.slug, eraId, date, title: item.title, summary: item.snippet });
@@ -86,27 +94,38 @@ export function loadEraContext(eraId: string): Promise<EraContext> {
   return pending;
 }
 
-/** Last 30 days of servable same-era items sharing at least one entity, newest first, at most 3. */
+/** Last 30 days of servable same-era items sharing at least one entity, newest first, at most 3; with `observedOn`, none dated after it. */
 export async function loadPriorItems(
   db: SupabaseClient,
   eraId: string,
   entities: readonly string[],
+  observedOn?: string,
 ): Promise<PriorItemContext[]> {
   if (entities.length === 0) return [];
   const since = new Date(Date.now() - PRIOR_WINDOW_DAYS * 86_400_000).toISOString().slice(0, 10);
   try {
-    const { data, error } = await db
+    let query = db
       .from('current_item')
-      .select('headline, summary')
+      .select('id, headline, summary, observed_on, merged_into, sources')
       .eq('era_id', eraId)
       .eq('redline_ok', true)
       .is('merged_into', null)
       .gte('observed_on', since)
-      .overlaps('entities', [...entities])
-      .order('observed_on', { ascending: false })
-      .limit(MAX_PRIOR_ITEMS);
+      .overlaps('entities', [...entities]);
+    if (observedOn) query = query.lte('observed_on', observedOn);
+    const { data, error } = await query.order('observed_on', { ascending: false }).limit(MAX_PRIOR_ITEMS);
     if (error) return [];
-    return (data ?? []).map((row) => ({ headline: row.headline as string, lead: row.summary as string }));
+    return (data ?? []).map((row) => {
+      const sources = row.sources as { url?: string }[] | null;
+      return {
+        id: row.id as string,
+        headline: row.headline as string,
+        lead: row.summary as string,
+        observedOn: row.observed_on as string,
+        mergedInto: (row.merged_into as string | null) ?? null,
+        url: sources?.[0]?.url ?? null,
+      };
+    });
   } catch {
     return [];
   }
