@@ -1,15 +1,24 @@
 // Cross-row same-event grouping for force backfill. Reuses the live dedupe
-// gate's shortlist scorers and its same-event LLM check (dates in the prompt);
-// each row is compared only against rows observed within +-3 days. Within a
-// group the passing row with the highest writing score survives (ties: more
-// facts, then earlier observed_on); a group with no passing row keeps none.
+// gate's shortlist scorers and its same-event LLM check (dates in the prompt).
+// Rows are visited best-first (passing by writing score, then facts, then
+// earlier observed_on; non-passing last). The first unassigned row anchors a
+// group; a rival joins only when it shares a (non-universal) entity or a fact
+// claim with the anchor, the gate judged it the same event as the anchor, and
+// its observed_on is within +-3 days of EVERY member (no transitive chains).
+// A group survives only through a passing anchor; with none, keep is null.
 
 import { checkSameEvent } from './dedupe-gate-llm';
-import { buildShortlist, MAX_CANDIDATES_TO_LLM, MAX_SHORTLIST_UNION } from './dedupe-shortlist';
-import type { ExtractUsageStore } from './usage-store';
+import { buildShortlist, MAX_CANDIDATES_TO_LLM, MAX_SHORTLIST_UNION, normalizeEntity, sharesFact } from './dedupe-shortlist';
+import type { ForceCandidateRow } from './backfill-force-load';
+import type { RowResult } from './backfill-force-write';
+import { ExtractUsageStore } from './usage-store';
 
 export const DEDUPE_WINDOW_DAYS = 3;
+export const DEDUPE_MAX_CHECKS = 200;
+export const DEDUPE_INCOMPLETE_RATIO = 0.1;
+const MAX_ROUNDS_PER_ANCHOR = 4;
 const DAY_MS = 86_400_000;
+const EXCLUDED_ENTITIES: ReadonlySet<string> = new Set(['taylor swift', 'taylor', 'swift', 'travis kelce', 'travis', 'kelce']);
 
 export interface DedupeEntry {
   id: string;
@@ -26,16 +35,51 @@ export interface DedupeEntry {
 export interface DuplicateGroup {
   keep: string | null;
   members: string[];
+  /** Days between the earliest and latest observed_on in the group. */
+  spanDays: number;
+}
+
+export interface DedupeResult {
+  groups: DuplicateGroup[];
+  checks: number;
+  failed: number;
+}
+
+/** In-memory per-run budget for the dedupe checks, separate from every shared store: 2 x eligible rows, max 200. */
+export function createDedupeUsage(eligible: number): Promise<ExtractUsageStore> {
+  const cap = Math.min(DEDUPE_MAX_CHECKS, 2 * eligible);
+  return ExtractUsageStore.create({ todaysCallCount: async () => 0, incrementToday: async () => undefined }, cap, cap);
+}
+
+export function dedupeEntry(row: ForceCandidateRow, res: RowResult): DedupeEntry {
+  return {
+    id: row.id,
+    headline: row.headline,
+    summary: res.report.newLead ?? row.summary,
+    detail: res.report.newBody ?? row.detail,
+    observedOn: row.observed_on,
+    entities: row.entities ?? [],
+    facts: res.report.facts,
+    writingScore: res.write ? res.write.writingScore : null,
+  };
 }
 
 function withinWindow(a: string, b: string): boolean {
   return Math.abs(Date.parse(a) - Date.parse(b)) <= DEDUPE_WINDOW_DAYS * DAY_MS;
 }
 
-function betterKeeper(a: DedupeEntry, b: DedupeEntry): boolean {
-  if (a.writingScore !== b.writingScore) return (a.writingScore as number) > (b.writingScore as number);
-  if (a.facts.length !== b.facts.length) return a.facts.length > b.facts.length;
-  return a.observedOn < b.observedOn;
+function sharesSubject(a: DedupeEntry, b: DedupeEntry): boolean {
+  const own = (e: DedupeEntry) => new Set(e.entities.map(normalizeEntity).filter((x) => x && !EXCLUDED_ENTITIES.has(x)));
+  const left = own(a);
+  for (const entity of own(b)) if (left.has(entity)) return true;
+  return sharesFact(a.facts, b.facts);
+}
+
+function bestFirst(a: DedupeEntry, b: DedupeEntry): number {
+  if ((a.writingScore === null) !== (b.writingScore === null)) return a.writingScore === null ? 1 : -1;
+  if (a.writingScore !== null && b.writingScore !== null && a.writingScore !== b.writingScore) return b.writingScore - a.writingScore;
+  if (a.facts.length !== b.facts.length) return b.facts.length - a.facts.length;
+  return a.observedOn < b.observedOn ? -1 : a.observedOn > b.observedOn ? 1 : 0;
 }
 
 export async function findDuplicateGroups(
@@ -43,38 +87,52 @@ export async function findDuplicateGroups(
   entries: readonly DedupeEntry[],
   errors: string[],
   sameEvent: typeof checkSameEvent = checkSameEvent,
-): Promise<DuplicateGroup[]> {
-  const parent = new Map<string, string>(entries.map((e) => [e.id, e.id]));
-  const find = (id: string): string => {
-    let root = id;
-    while (parent.get(root) !== root) root = parent.get(root) as string;
-    return root;
-  };
-  for (const entry of entries) {
-    const rivals = entries.filter((o) => o.id !== entry.id && find(o.id) !== find(entry.id) && withinWindow(entry.observedOn, o.observedOn));
-    const shortlist = buildShortlist(entry, rivals, MAX_CANDIDATES_TO_LLM, MAX_SHORTLIST_UNION);
-    if (shortlist.length === 0) continue;
-    try {
-      const verdict = await sameEvent(
-        usage,
-        { headline: entry.headline, summary: entry.summary, detail: entry.detail, facts: entry.facts, observedOn: entry.observedOn },
-        shortlist.map((o) => ({ id: o.id, headline: o.headline, summary: o.summary, detail: o.detail, observedOn: o.observedOn, facts: o.facts })),
-      );
-      if (verdict === null) errors.push(`duplicate check deferred for ${entry.id} (no budget or key); its duplicates, if any, stay visible`);
-      else if (verdict.sameEvent && verdict.matchId) parent.set(find(verdict.matchId), find(entry.id));
-    } catch (err) {
-      errors.push(`duplicate check failed for ${entry.id}: ${(err as Error).message}`);
+): Promise<DedupeResult> {
+  const ordered = [...entries].sort(bestFirst);
+  const assigned = new Set<string>();
+  const groups: DuplicateGroup[] = [];
+  let checks = 0;
+  let failed = 0;
+  for (const anchor of ordered) {
+    if (assigned.has(anchor.id)) continue;
+    assigned.add(anchor.id);
+    const members = [anchor];
+    let rivals = ordered.filter((o) => !assigned.has(o.id) && withinWindow(anchor.observedOn, o.observedOn) && sharesSubject(anchor, o));
+    for (let round = 0; round < MAX_ROUNDS_PER_ANCHOR && rivals.length > 0; round++) {
+      const shortlist = buildShortlist(anchor, rivals, MAX_CANDIDATES_TO_LLM, MAX_SHORTLIST_UNION);
+      checks++;
+      let verdict: Awaited<ReturnType<typeof checkSameEvent>>;
+      try {
+        verdict = await sameEvent(
+          usage,
+          { headline: anchor.headline, summary: anchor.summary, detail: anchor.detail, facts: anchor.facts, observedOn: anchor.observedOn },
+          shortlist.map((o) => ({ id: o.id, headline: o.headline, summary: o.summary, detail: o.detail, observedOn: o.observedOn, facts: o.facts })),
+        );
+      } catch (err) {
+        errors.push(`duplicate check failed for ${anchor.id}: ${(err as Error).message}`);
+        failed++;
+        break;
+      }
+      if (verdict === null) {
+        errors.push(`duplicate check deferred for ${anchor.id} (no budget or key)`);
+        failed++;
+        break;
+      }
+      if (!verdict.sameEvent || !verdict.matchId) break;
+      const match = rivals.find((r) => r.id === verdict.matchId);
+      rivals = rivals.filter((r) => r.id !== verdict.matchId);
+      if (match && members.every((m) => withinWindow(m.observedOn, match.observedOn))) {
+        members.push(match);
+        assigned.add(match.id);
+      }
     }
+    if (members.length < 2) continue;
+    const times = members.map((m) => Date.parse(m.observedOn));
+    groups.push({
+      keep: anchor.writingScore !== null ? anchor.id : null,
+      members: members.map((m) => m.id),
+      spanDays: Math.round((Math.max(...times) - Math.min(...times)) / DAY_MS),
+    });
   }
-  const byRoot = new Map<string, DedupeEntry[]>();
-  for (const entry of entries) {
-    const root = find(entry.id);
-    byRoot.set(root, [...(byRoot.get(root) ?? []), entry]);
-  }
-  return [...byRoot.values()].filter((g) => g.length > 1).map((group) => {
-    const keeper = group.filter((e) => e.writingScore !== null).reduce<DedupeEntry | null>(
-      (best, e) => (best === null || betterKeeper(e, best) ? e : best), null,
-    );
-    return { keep: keeper?.id ?? null, members: group.map((e) => e.id) };
-  });
+  return { groups, checks, failed };
 }

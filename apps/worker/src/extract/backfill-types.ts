@@ -29,7 +29,11 @@ export interface ForceSummary {
   /** Below-floor rows hidden by --retire-below-floor (0 on a dry run). */
   retired: number;
   /** Same-event groups found across rows (reported on a dry run too): keep is the surviving row id, null when no member passes. */
-  duplicateGroups: { keep: string | null; members: string[] }[];
+  duplicateGroups: { keep: string | null; members: string[]; spanDays: number }[];
+  dedupeChecks: number;
+  dedupeFailed: number;
+  /** More than 10% of dedupe checks were deferred or failed: a live run retires no duplicates. */
+  dedupeIncomplete: boolean;
   /** Rows that lost their group (found on any run, retired only on a live run). */
   duplicatesFound: number;
   retiredDuplicates: number;
@@ -62,6 +66,8 @@ export interface ForceDeps {
   usage?: ExtractUsageStore;
   stores?: { writer: ExtractUsageStore; judge: ExtractUsageStore };
   sameEvent?: typeof checkSameEvent;
+  /** Separate per-run budget for the dedupe checks; production builds an in-memory one (2 x eligible, max 200). */
+  dedupeUsage?: ExtractUsageStore;
 }
 
 export interface RunBackfillOptions {

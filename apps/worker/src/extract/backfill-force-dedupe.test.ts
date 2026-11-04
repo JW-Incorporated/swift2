@@ -3,6 +3,7 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
+import { createDedupeUsage } from './backfill-dedupe';
 import { runBackfill } from './backfill-run';
 import type { ForceDeps } from './backfill-types';
 import type { checkSameEvent } from './dedupe-gate-llm';
@@ -30,7 +31,7 @@ function row(id: string, overrides: Record<string, unknown> = {}): Record<string
   return {
     id, headline: `Story${id.slice(0, 1)} ${id}`, summary: SUMMARY, detail: DETAIL, image_url: 'https://www.billboard.com/ok.jpg',
     sources: STRONG, era_id: 'tloas', observed_on: daysAgo(1), category: 'release', tags: [], status: 'reported',
-    source_tier: 'established', symbols: [], entities: [], redline_ok: true,
+    source_tier: 'established', symbols: [], entities: [`Ent${id.slice(0, 1)}`], redline_ok: true,
     promoted_to: null, merged_into: null, retracted_at: null, facts: null, expires_at: FUTURE,
     ...overrides,
   };
@@ -95,9 +96,9 @@ function deps(overrides: Partial<ForceDeps> = {}): ForceDeps & { sameEvent: Retu
     usage: {} as ExtractUsageStore,
     stores: { writer: {} as ExtractUsageStore, judge: {} as ExtractUsageStore },
     fetchArticles: vi.fn(async () => []),
-    extract: vi.fn(async () => ({
+    extract: vi.fn(async (_u: unknown, input: { items: { title: string }[] }) => ({
       kind: 'current_item' as const, redlineFlags: [],
-      currentItem: { observedOn: daysAgo(1), category: 'release', tags: [], headline: 'x', summary: 's', detail: 'd', symbols: [], entities: ['Taylor'], statusHint: 'reported', facts: [FACT] },
+      currentItem: { observedOn: daysAgo(1), category: 'release', tags: [], headline: 'x', summary: 's', detail: 'd', symbols: [], entities: ['Taylor'], statusHint: 'reported', facts: [{ ...FACT, claim: `Claim about ${input.items[0]!.title}` }] },
     })) as unknown as ForceDeps['extract'],
     compose: vi.fn(async (_db: unknown, _stores: unknown, item: { headline: string; facts: unknown[] }, _s: unknown, _e: unknown, ref: { id: string }) => {
       const score = SCORES[ref.id];
@@ -137,17 +138,95 @@ describe('cross-row duplicates', () => {
     expect(result.force).toMatchObject({ duplicatesFound: 1, retiredDuplicates: 1 });
   });
 
-  it('keeps none when no member passes and retires them all', async () => {
+  it('writes the survivor before retiring its losers', async () => {
+    Object.assign(SCORES, { 'W-low': 3, 'W-high': 5 });
+    const { db, calls } = fakeDb([row('W-low'), row('W-high')]);
+    await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps() });
+    const writeAt = calls.findIndex((c) => c.table === 'current_item' && c.id === 'W-high' && 'summary' in c.values);
+    const retireAt = calls.findIndex((c) => c.values.quality_hold_reason === 'retired_duplicate');
+    expect(writeAt).toBeGreaterThanOrEqual(0);
+    expect(writeAt).toBeLessThan(retireAt);
+  });
+
+  it('leaves the losers untouched when the survivor write is not a pass', async () => {
+    Object.assign(SCORES, { 'S-low': 3, 'S-high': 5 });
+    const rows = [row('S-low'), row('S-high')];
+    const { db, calls } = fakeDb(rows);
+    const base = deps();
+    const compose = vi.fn(async (...args: unknown[]) => {
+      if ((args[5] as { id: string }).id === 'S-high') rows[1]!.facts = [FACT];
+      return (base.compose as unknown as (...a: unknown[]) => Promise<unknown>)(...args);
+    }) as unknown as ForceDeps['compose'];
+    const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: { ...base, compose } });
+    expect(calls.filter((c) => c.values.quality_hold_reason === 'retired_duplicate')).toEqual([]);
+    expect(calls.filter((c) => c.table === 'current_item_copy_snapshot')).toEqual([]);
+    expect(result.force).toMatchObject({ retiredDuplicates: 0, outcomes: { skipped_changed: 2 } });
+    expect(result.errors.join(' ')).toContain('duplicate S-low left untouched');
+  });
+
+  it('a group with no passing member has no duplicates: members follow their own paths, never retired_duplicate', async () => {
     delete SCORES['C-1'];
     delete SCORES['C-2'];
-    const { db, calls } = fakeDb([row('C-1'), row('C-2')]);
-    const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: deps() });
-    expect(result.force?.duplicateGroups).toHaveLength(1);
-    expect(result.force?.duplicateGroups[0]?.keep).toBeNull();
-    const retired = calls.filter((c) => c.values.quality_hold_reason === 'retired_duplicate');
-    expect(retired).toHaveLength(2);
-    for (const r of retired) expect(r.values).not.toHaveProperty('merged_into');
-    expect(result.force?.retiredDuplicates).toBe(2);
+    for (const retireUnwritable of [false, true]) {
+      const { db, calls } = fakeDb([row('C-1'), row('C-2')]);
+      const result = await runBackfill(db, { dryRun: false, mode: 'force', retireUnwritable, reportDir: reportDir(), force: deps() });
+      expect(result.force?.duplicateGroups).toHaveLength(1);
+      expect(result.force?.duplicateGroups[0]?.keep).toBeNull();
+      expect(result.force).toMatchObject({ duplicatesFound: 0, retiredDuplicates: 0 });
+      expect(calls.filter((c) => c.values.quality_hold_reason === 'retired_duplicate')).toEqual([]);
+      const unwritable = calls.filter((c) => c.values.quality_hold_reason === 'retired_unwritable');
+      expect(unwritable).toHaveLength(retireUnwritable ? 2 : 0);
+      if (!retireUnwritable) expect(calls).toEqual([]);
+    }
+  });
+
+  it('does not chain a 0/3/6-day sequence into one group', async () => {
+    Object.assign(SCORES, { 'X-a': 3, 'X-b': 5, 'X-c': 4 });
+    const { db } = fakeDb([row('X-a', { observed_on: daysAgo(8) }), row('X-b', { observed_on: daysAgo(5) }), row('X-c', { observed_on: daysAgo(2) })]);
+    const result = await runBackfill(db, { dryRun: true, mode: 'force', reportDir: reportDir(), force: deps() });
+    const groups = result.force?.duplicateGroups ?? [];
+    expect(groups).toHaveLength(1);
+    expect(groups[0]!.members).toHaveLength(2);
+    expect(groups[0]!.spanDays).toBe(3);
+    expect(groups[0]!.keep).toBe('X-b');
+    expect(result.force?.duplicatesFound).toBe(1);
+  });
+
+  it('does not group distinct stories that share only Taylor or Travis Kelce', async () => {
+    Object.assign(SCORES, { 'N-1': 4, 'N-2': 4 });
+    const d = deps();
+    const { db } = fakeDb([row('N-1', { entities: ['Taylor Swift', 'Travis Kelce'] }), row('N-2', { entities: ['Taylor', 'Kelce'] })]);
+    const result = await runBackfill(db, { dryRun: true, mode: 'force', reportDir: reportDir(), force: d });
+    expect(result.force?.duplicateGroups).toEqual([]);
+    expect(d.sameEvent).not.toHaveBeenCalled();
+  });
+
+  it('uses its own capped budget store, not the shared extract store', async () => {
+    Object.assign(SCORES, { 'U-1': 4, 'U-2': 3 });
+    const d = deps();
+    const { db } = fakeDb([row('U-1'), row('U-2')]);
+    await runBackfill(db, { dryRun: true, mode: 'force', reportDir: reportDir(), force: d });
+    expect(d.sameEvent.mock.calls[0]![0]).not.toBe(d.usage);
+    for (const [eligible, cap] of [[3, 6], [150, 200]] as const) {
+      const store = await createDedupeUsage(eligible);
+      let granted = 0;
+      while (await store.reserve()) granted++;
+      expect(granted).toBe(cap);
+    }
+  });
+
+  it('flags dedupeIncomplete when over 10% of checks fail: writes passes, retires no duplicates, warns', async () => {
+    Object.assign(SCORES, { 'I-1': 4, 'I-2': 3 });
+    const sameEvent = vi.fn(async () => null) as unknown as typeof checkSameEvent;
+    const warn = vi.spyOn(console, 'log').mockImplementation(() => undefined);
+    const { db, calls } = fakeDb([row('I-1'), row('I-2')]);
+    const result = await runBackfill(db, { dryRun: false, mode: 'force', reportDir: reportDir(), force: { ...deps(), sameEvent } });
+    const warned = warn.mock.calls.some(([line]) => String(line).startsWith('::warning::'));
+    warn.mockRestore();
+    expect(warned).toBe(true);
+    expect(result.force).toMatchObject({ dedupeIncomplete: true, retiredDuplicates: 0, duplicatesFound: 0, passed: 2 });
+    expect(calls.filter((c) => c.values.quality_hold_reason === 'retired_duplicate')).toEqual([]);
+    expect(calls.filter((c) => c.table === 'current_item' && 'summary' in c.values)).toHaveLength(2);
   });
 
   it('breaks a score tie by more facts, then earlier observed_on', async () => {

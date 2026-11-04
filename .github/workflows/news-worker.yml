@@ -85,11 +85,11 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
-          # Two-pass news writer (docs/decisions.md 2026-11-03). 'on' = the v2 pipeline writes the rows
-          # (capped, hold-not-ship, retry-capped). Rollback: set 'shadow' (legacy path writes the rows
-          # while v2 runs beside it and only reports drafts, artifact news-v2-shadow) or 'off'
-          # (legacy single-pass path only).
-          NEWS_WRITER_V2: 'on'
+          # Two-pass news writer (docs/decisions.md 2026-11-03). 'shadow' = the legacy path writes
+          # the rows exactly as before while the v2 pipeline runs beside it and only reports drafts
+          # (artifact news-v2-shadow). Flip to 'on' after the PM reviews the shadow drafts.
+          # Rollback: set 'off'; the worker then runs the legacy single-pass path only.
+          NEWS_WRITER_V2: 'shadow'
           NEWS_V2_SHADOW_FILE: ${{ runner.temp }}/news-v2-shadow.jsonl
         run: npm run news --workspace @swift2/worker
 
