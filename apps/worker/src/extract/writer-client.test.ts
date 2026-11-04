@@ -76,7 +76,7 @@ describe('writePost', () => {
       status: 'ok',
       draft: { lead: LEAD, body: BODY, paragraphs: PARAGRAPHS, citations: CITATIONS },
     });
-    expect(claude).toHaveBeenCalledWith(expect.objectContaining({ model: 'claude-sonnet-5-5' }));
+    expect(claude).toHaveBeenCalledWith(expect.objectContaining({ model: 'claude-opus-5-5' }));
   });
 
   it('passes rewrite reasons into the prompt', async () => {
