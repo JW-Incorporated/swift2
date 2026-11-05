@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 61
+Stories: 60
 
 ## Exploring the Significance of Track 5 on Taylor Swift's Albums
 
@@ -515,11 +515,3 @@ Stories: 61
 - summary: This week's edition of The Weekly Blast highlights Taylor Swift's achievements, contrasting them with Meghan Markle's less favorable week. Further details on both personalities' recent activities are provided in the article.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/weekly-blast-taylor-swift-had-043000210.html
-
-## Exploring the Truth About Taylor Swift's Brother Austin
-
-- first seen: 2026-11-02 02:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article investigates the relationship and dynamics between Taylor Swift and her brother Austin. It provides insights into their familial bond.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/truth-taylor-swifts-brother-austin-131500180.html
