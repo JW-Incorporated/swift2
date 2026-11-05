@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 62
+
+## Stella Lefty Performs at Capital's Jingle Bell Ball, Following Taylor Swift
+
+- first seen: 2026-11-05 16:02 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Stella Lefty is noted as the first country artist to perform at Capital's Jingle Bell Ball since Taylor Swift. This marks a significant moment in the event's history for country music representation.
+- sources:
+  - [unverified] Holler Country — https://holler.country/news/breaking/stella-lefty-is-first-country-artist-since-taylor-swift-to-perform-at-capitals-jingle-bell-ball/
 
 ## Taylor Swift reportedly feels anxious after backlash
 
@@ -70,10 +78,11 @@ Stories: 63
 ## Carrie Coon Discusses Taylor Swift During Interview
 
 - first seen: 2026-11-05 14:07 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: In a recent interview, actress Carrie Coon spoke about Taylor Swift among other topics such as Matt Damon and her role in 'The Gilded Age'. The conversation sheds light on Coon's perspective on current pop culture.
 - sources:
   - [unverified] BroadwayWorld — https://www.broadwayworld.com/article/Carrie-Coon-on-Taylor-Swift-Matt-Damon-and-THE-GILDED-AGE-20261105
+  - [unverified] IMDb — https://www.imdb.com/news/ni66096678/?ref_=nmnw_art_perm
 
 ## Taylor Swift Considers Hiring Investigators for Wedding Leak
 
@@ -104,10 +113,11 @@ Stories: 63
 ## Celebrities Feature in Tommy Hilfiger's Winter Campaign
 
 - first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/05/travis-kelce-s-5-35-million-mansion-in-ohio-is-nightmare-his-neighbours-are-warning-of-potential-disaster.html
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317940000.html
   - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
 
 ## Exploring the Significance of Track 5 on Taylor Swift's Albums
@@ -526,19 +536,3 @@ Stories: 63
 - summary: Taylor Swift has moved away from her traditional beauty staple to adopt an office siren dressing style. This change has been highlighted by InStyle.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-black-leather-pencil-skirt-mauve-lipstick-toy-story-5-screening-12207025
-
-## Taylor Swift Reportedly Has Enough Material for Two New Albums
-
-- first seen: 2026-11-02 15:27 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A source informed 'The Daily Mail' that Taylor Swift has sufficient new music to create two additional albums. This development has caught the attention of fans and media alike.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74310472/taylor-swift-two-new-albums/
-
-## My Chemical Romance Achieves First #1 Album with The Black Parade After 20 Years
-
-- first seen: 2026-11-02 15:27 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: My Chemical Romance's album The Black Parade has reached #1 on the charts, marking the band's first time achieving this milestone 20 years after its original release.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2516272/my-chemical-romance-land-first-1-album-with-the-black-parade-20-years-after-its-original-release/news/
