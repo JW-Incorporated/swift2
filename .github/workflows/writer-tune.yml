@@ -35,6 +35,10 @@ on:
         description: 'Optional repo-relative drafts.jsonl: skip the writer and judge these drafts (lines: {kitId, lead, paragraphs})'
         type: string
         default: ''
+      judge_all:
+        description: 'Also judge drafts the writing gate rejected, so tone is scored on every draft (they still count as holds)'
+        type: boolean
+        default: false
       calibrate_models:
         description: 'Optional comma list of judge models (e.g. claude-haiku-5-5,claude-sonnet-5-5,claude-opus-5-5): run scripts/news/calibrate-judge.mjs instead of the writer harness; non-zero exit when a model misses the bars'
         type: string
@@ -62,7 +66,12 @@ jobs:
           INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
           INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
           INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+          INPUT_JUDGE_ALL: ${{ inputs.judge_all }}
         run: |
+          if [ "$INPUT_JUDGE_ALL" != "true" ] && [ "$INPUT_JUDGE_ALL" != "false" ]; then
+            echo "::error::judge_all must be true or false, got '$INPUT_JUDGE_ALL'"
+            exit 1
+          fi
           if ! [[ "$INPUT_CALIBRATE_MODELS" =~ ^[a-z0-9.,-]*$ ]]; then
             echo "::error::calibrate_models must match ^[a-z0-9.,-]*$, got '$INPUT_CALIBRATE_MODELS'"
             exit 1
@@ -135,6 +144,7 @@ jobs:
           INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
           INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
           INPUT_KIT_FILE: ${{ inputs.kit_file }}
+          INPUT_JUDGE_ALL: ${{ inputs.judge_all }}
         run: |
           set -o pipefail
           KIT_PATH="$KIT_DIR/writer-eval-kit.jsonl"
@@ -143,6 +153,7 @@ jobs:
           if [ -n "$INPUT_N" ]; then EXTRA+=(--n "$INPUT_N"); fi
           if [ -n "$INPUT_WRITER_MODEL" ]; then EXTRA+=(--writer-model "$INPUT_WRITER_MODEL"); fi
           if [ -n "$INPUT_JUDGE_ONLY_FILE" ]; then EXTRA+=(--judge-only "$GITHUB_WORKSPACE/$INPUT_JUDGE_ONLY_FILE"); fi
+          if [ "$INPUT_JUDGE_ALL" = "true" ]; then EXTRA+=(--judge-all); fi
           npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_PATH" "$OUT_DIR" --concurrency 2 "${EXTRA[@]}" | tee "$RUNNER_TEMP/summary.md"
           { echo '## Writer tuning'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
 
