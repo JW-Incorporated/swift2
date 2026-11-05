@@ -27,14 +27,6 @@ so far".
 
 Stories: 61
 
-## Carrie Coon Praises Taylor Swift's Impression of Her Character
-
-- first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
-- sources:
-  - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
-
 ## Taylor Swift Considers Hiring Investigators for Wedding Leak
 
 - first seen: 2026-11-05 11:21 UTC | category: relationship | importance: 6
@@ -43,13 +35,14 @@ Stories: 61
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-edge-taylor-swift-reportedly-110054535.html
 
-## Celebrities Feature in Tommy Hilfiger's Winter Campaign
+## Carrie Coon Praises Taylor Swift's Impression of Her Character
 
-- first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
+- first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
 - sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
+  - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carrie-coon-says-taylor-swift-111110750.html
 
 ## Taylor Swift's 'Patient Zero' Highlights Support for Domestic Violence Survivors
 
@@ -58,6 +51,15 @@ Stories: 61
 - summary: Taylor Swift's song 'Patient Zero' resonates with domestic violence survivors, emphasizing the importance of support services like Haven House. The piece discusses how the song connects to real-life situations and the assistance provided by organizations.
 - sources:
   - [unverified] nwitimes.com — https://nwitimes.com/news/local/video_6b97ba1e-0393-516b-8f67-af6df1acd936.html
+
+## Celebrities Feature in Tommy Hilfiger's Winter Campaign
+
+- first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/05/travis-kelce-s-5-35-million-mansion-in-ohio-is-nightmare-his-neighbours-are-warning-of-potential-disaster.html
+  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
 
 ## Exploring the Significance of Track 5 on Taylor Swift's Albums
 
