@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 66
+
+## Taylor Swift Mentioned in Article about Celebrity Weddings and Engagements
+
+- first seen: 2026-11-05 19:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses celebrity weddings and engagements, featuring Taylor Swift and Sophia Bush among the mentions. The focus includes events tied to Florida.
+- sources:
+  - [unverified] The Palm Beach Post — https://www.palmbeachpost.com/picture-gallery/entertainment/2026/11/05/taylor-swift-travis-kelce-sophia-bush-hannity-florida-celebrity-wedding-married/92515060007/
+
+## Travis Kelce Discusses First Holiday Season with Taylor Swift
+
+- first seen: 2026-11-05 19:57 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares his thoughts on celebrating his first holiday season as Taylor Swift's husband, highlighting the significance of the occasion.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-makes-sweet-admission-192919343.html
 
 ## Kylie Kelce Discusses Fame With Daughters Since Taylor Swift Joined Family
 
@@ -89,7 +105,7 @@ Stories: 65
 - verification_status: corroborated | source_count: 4
 - summary: Travis Kelce expresses his excitement for the upcoming holiday season, marking his first as a married man with Taylor Swift. He mentioned starting new traditions together during this special time.
 - sources:
-  - [unverified] E! News — http://fr.eonline.com/news/1437858/travis-kelce-teases-holiday-plans-after-taylor-swift-wedding
+  - [unverified] E! News — https://www.eonline.com/news/1437858/travis-kelce-teases-holiday-plans-after-taylor-swift-wedding
   - [unverified] InStyle — https://www.instyle.com/travis-kelce-first-holiday-taylor-swift-tommy-hilfiger-campaign-12238210
   - [established] People — https://people.com/travis-kelce-shares-his-excitement-for-first-holiday-season-with-taylor-swift-as-newlyweds-12237867
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-excited-first-165001962.html
@@ -97,11 +113,12 @@ Stories: 65
 ## Taylor Swift's Austria Eras Tour Shows Canceled, Doc to Explore Incident
 
 - first seen: 2026-11-05 17:02 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: A new documentary will focus on the canceled Eras Tour shows in Austria, detailing a thwarted terrorist plot and showcasing fan resilience. The film aims to shed light on the events surrounding the cancellation.
 - sources:
   - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-shows-austria-terror-plot-documentary-1236374736/
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-1235653111/
+  - [unverified] Rolling Stone Australia — https://au.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-103053/
 
 ## Stella Lefty Performs at Capital's Jingle Bell Ball, Following Taylor Swift
 
@@ -557,11 +574,3 @@ Stories: 65
 - summary: In a recent interview, Taylor Swift discussed some of her unusual habits that her partner, Kelce, has to adapt to. The insights provide a glimpse into their personal relationship dynamics.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-reveals--strange-thing-that-kelce-has-to-put-up-with
-
-## Wicker Receives 4DX Treatment Compared to Taylor Swift Concerts
-
-- first seen: 2026-11-02 19:17 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The film Wicker has been given a 4DX treatment, with its intense screams compared to those heard at a Taylor Swift concert, according to The Guardian.
-- sources:
-  - [established] The Guardian — https://www.theguardian.com/tv-and-radio/2026/nov/02/wicker-4dx-olivia-colman-movie
