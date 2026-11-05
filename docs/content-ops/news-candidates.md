@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 66
+
+## Taylor Swift Shines at Nashville Songwriters Hall of Fame Induction
+
+- first seen: 2026-11-05 23:37 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift, the youngest inductee into the Nashville Songwriters Hall of Fame, enhanced her look with luxurious Jimmy Choo footwear. The event highlighted her outstanding contributions to the music industry.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-nashville-songwriters-1239387187/
+
+## Taylor Swift Showcases Antique Gold Christmas Tree Decor
+
+- first seen: 2026-11-05 23:37 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift features an antique gold Christmas tree, highlighting a decorated style that embodies nostalgia and collected-over-time decor. The tree serves as a showcase for her unique decorating aesthetic.
+- sources:
+  - [unverified] Homes and Gardens — https://www.homesandgardens.com/celebrity-homes/taylor-swift-antique-gold-christmas-tree
 
 ## Travis Kelce Shares Holiday Video After Marriage to Taylor Swift
 
