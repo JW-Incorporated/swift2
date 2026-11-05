@@ -1,5 +1,40 @@
-import { describe, expect, it } from 'vitest';
-import { readPublisher } from './rss';
+import { describe, expect, it, vi } from 'vitest';
+import { parseFeed, readPublisher } from './rss';
+import { YOUTUBE_FEED_BASE_DELAY_MS, YOUTUBE_FEED_MAX_ATTEMPTS } from './retry';
+
+const YT_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g';
+
+describe('parseFeed retry policy', () => {
+  it('ingests a YouTube feed that fails 3 times then succeeds', async () => {
+    const sleep = vi.fn<(ms: number) => Promise<void>>(async () => {});
+    const parse = vi.fn()
+      .mockRejectedValueOnce(new Error('Status code 404'))
+      .mockRejectedValueOnce(new Error('Status code 404'))
+      .mockRejectedValueOnce(new Error('Status code 404'))
+      .mockResolvedValueOnce({ items: [{ title: 'ok' }] });
+    await expect(parseFeed(YT_URL, parse, sleep)).resolves.toEqual({ items: [{ title: 'ok' }] });
+    expect(parse).toHaveBeenCalledTimes(4);
+    expect(sleep.mock.calls.map((c) => c[0])).toEqual([
+      YOUTUBE_FEED_BASE_DELAY_MS,
+      YOUTUBE_FEED_BASE_DELAY_MS * 2,
+      YOUTUBE_FEED_BASE_DELAY_MS * 4,
+    ]);
+  });
+
+  it('gives up after the YouTube attempt budget with the original error', async () => {
+    const sleep = vi.fn(async () => {});
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
+    await expect(parseFeed(YT_URL, parse, sleep)).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(YOUTUBE_FEED_MAX_ATTEMPTS);
+  });
+
+  it('does not give a non-YouTube feed the YouTube attempt budget', async () => {
+    const sleep = vi.fn(async () => {});
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
+    await expect(parseFeed('https://example.com/feed.xml', parse, sleep)).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(3);
+  });
+});
 
 // Google News RSS sets <source url="…">Outlet</source> on every item. We were
 // discarding it and attributing every story to the feed instead, which capped
