@@ -33,6 +33,8 @@ export interface ComposeTrace {
   judgeScores?: Record<JudgeDimension, number>;
   judgeReasons?: Record<JudgeDimension, string>;
   rewrites: number;
+  /** judgeAll only: the rejected attempt had no usable lead and sentences to score. */
+  unjudgeable?: boolean;
 }
 
 export type ComposeResult =
@@ -63,6 +65,22 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
   const { factAttributions, factClaims } = factGrounding(input.facts);
   const factLines = input.facts.map((f) => `[${f.id}] ${f.claim} (${f.attribution}, ${f.confidence})`);
 
+  /** Harness only (judgeAll): score a draft the gate or validation rejected; the hold outcome is unchanged. */
+  const scoreAnyway = async (lead: string, body: string, citations: WriterParagraph['sentences']): Promise<void> => {
+    const scored = await judge(deps.judge, {
+      observedOn: input.observedOn,
+      lead,
+      body,
+      facts: factLines,
+      attributions: factAttributions,
+      context: input.context.text,
+      citations,
+    });
+    if (scored.status === 'deferred') return;
+    trace.judgeScores = scored.scores;
+    trace.judgeReasons = scored.reasons;
+  };
+
   for (;;) {
     const written = await write(deps.writer, {
       headline: input.headline,
@@ -77,11 +95,20 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
     let failure: { hold: string; reasons: string[] } | undefined;
     if (written.status === 'invalid') {
       const { lead, body, citations, paragraphs } = written.attempt ?? {};
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined, judgeReasons: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: written.reasons, judgeScores: undefined, judgeReasons: undefined, unjudgeable: undefined });
+      if (deps.judgeAll) {
+        const sentences = (paragraphs ?? []).flatMap((p) => p.sentences);
+        if (lead && sentences.length > 0) {
+          const known = new Set([...input.facts.map((f) => f.id), ...input.context.items.map((i) => i.id)]);
+          await scoreAnyway(lead, body ?? '', sentences.map((s) => ({ ...s, refs: s.refs.filter((r) => known.has(r)) })));
+        } else {
+          trace.unjudgeable = true;
+        }
+      }
       failure = { hold: 'writing_quality:invalid_draft', reasons: written.reasons };
     } else {
       const { lead, body, citations, paragraphs } = written.draft;
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined, judgeReasons: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined, judgeReasons: undefined, unjudgeable: undefined });
       const gate = evaluateCurrentItemWriting({
         headline: input.headline,
         lead,
@@ -93,21 +120,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
       });
       if (!gate.ok) {
         trace.gateReasons = gate.reasons;
-        if (deps.judgeAll) {
-          const scored = await judge(deps.judge, {
-            observedOn: input.observedOn,
-            lead,
-            body,
-            facts: factLines,
-            attributions: factAttributions,
-            context: input.context.text,
-            citations: paragraphs.flatMap((p) => p.sentences),
-          });
-          if (scored.status !== 'deferred') {
-            trace.judgeScores = scored.scores;
-            trace.judgeReasons = scored.reasons;
-          }
-        }
+        if (deps.judgeAll) await scoreAnyway(lead, body, paragraphs.flatMap((p) => p.sentences));
         failure = { hold: `writing_quality:${gate.reasons[0]}`, reasons: gate.reasons };
       } else {
         const verdict = await judge(deps.judge, {

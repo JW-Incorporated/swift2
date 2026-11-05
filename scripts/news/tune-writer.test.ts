@@ -50,6 +50,27 @@ describe('runOne --judge-all', () => {
     expect(judgeFn).toHaveBeenCalledTimes(1);
   });
 
+  it('scores a draft that fails validation (short lead, unknown ref) and still holds it', async () => {
+    const invalid = {
+      lead: 'Too short',
+      paragraphs: [{ sentences: sentences.map((text) => ({ text, refs: ['f9'] })) }],
+    };
+    const judgeFn = vi.fn(async () => verdict);
+    const result = await runOne(stores, kitRow, { draft: invalid, judgeAll: true, judgeFn });
+    expect(result.status).toBe('hold');
+    expect(result.reason).toBe('writing_quality:invalid_draft');
+    expect(result.judgeScores).toEqual(scores);
+    expect(result.unjudgeable).toBe(false);
+  });
+
+  it('flags an attempt with no usable text as unjudgeable', async () => {
+    const judgeFn = vi.fn(async () => verdict);
+    const result = await runOne(stores, kitRow, { draft: { lead: '', paragraphs: [] }, judgeAll: true, judgeFn });
+    expect(result.status).toBe('hold');
+    expect(result.unjudgeable).toBe(true);
+    expect(judgeFn).not.toHaveBeenCalled();
+  });
+
   it('skips the judge for a gate-failed draft without the flag', async () => {
     const judgeFn = vi.fn(async () => verdict);
     const result = await runOne(stores, kitRow, { draft: gateFailing, judgeFn });

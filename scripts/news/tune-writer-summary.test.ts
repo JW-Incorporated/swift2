@@ -41,6 +41,12 @@ describe('tone table', () => {
     expect(text).toContain('| grounding | 0 | 0 | 1 | 1 | 1 | 2/3 | 4 |');
   });
 
+  it('counts unjudgeable attempts', () => {
+    const s = summarizeRuns([{ status: 'hold', reason: 'writing_quality:invalid_draft', unjudgeable: true }]);
+    expect(s.unjudgeable).toBe(1);
+    expect(renderSummary(s)).toContain('Unjudgeable (no usable lead and sentences): 1');
+  });
+
   it('shows n/a with no judged drafts', () => {
     expect(renderSummary(summarizeRuns([{ status: 'hold', reason: 'writer_deferred' }]))).toContain('| voice | 0 | 0 | 0 | 0 | 0 | 0/0 | n/a |');
   });

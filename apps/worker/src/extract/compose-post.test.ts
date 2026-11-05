@@ -98,6 +98,30 @@ describe('composePost', () => {
     expect(result.trace.judgeScores).toEqual(PASS.scores);
   });
 
+  it('judgeAll scores an invalid attempt as-is, dropping unknown refs, and keeps it a hold', async () => {
+    const badRefs = PARAGRAPHS.map((p) => ({ sentences: p.sentences.map((s) => ({ ...s, refs: [...s.refs, 'f9'] })) }));
+    const invalid = { ...attempt(badRefs), lead: 'Too short' };
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'invalid', reasons: ['lead is 9 characters; the minimum is 200'], attempt: invalid }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn, judgeAll: true, noRewrite: true }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:invalid_draft' });
+    const judged = judgeFn.mock.calls[0]![1];
+    expect(judged.lead).toBe('Too short');
+    expect(judged.citations![0]).toEqual({ text: SENTENCES[0], refs: ['f1'] });
+    expect(result.trace.judgeScores).toEqual(PASS.scores);
+    expect(result.trace.gateReasons).toEqual(['lead is 9 characters; the minimum is 200']);
+  });
+
+  it('judgeAll marks an invalid attempt with no sentences as unjudgeable', async () => {
+    const empty = { lead: 'Too short', body: '', paragraphs: [], citations: [] };
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'invalid', reasons: ['paragraphs are missing'], attempt: empty }));
+    const judgeFn = vi.fn();
+    const result = await composePost({ writer: store, judge: store, write, judgeFn, judgeAll: true, noRewrite: true }, INPUT);
+    expect(result.status).toBe('hold');
+    expect(result.trace.unjudgeable).toBe(true);
+    expect(judgeFn).not.toHaveBeenCalled();
+  });
+
   it('records the last invalid attempt and its reasons in the trace', async () => {
     const invalid = { ...attempt(), lead: 'Too short' };
     const write = vi.fn(async (): Promise<WriterResult> => ({

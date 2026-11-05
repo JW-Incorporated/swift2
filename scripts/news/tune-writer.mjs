@@ -80,6 +80,7 @@ export async function runOne(stores, row, options = {}) {
     body: composed.trace.body,
     judgeScores: composed.trace.judgeScores,
     judgeReasons: composed.trace.judgeReasons ?? null,
+    unjudgeable: composed.trace.unjudgeable ?? false,
     gateReasons: composed.trace.gateReasons ?? null,
     rewrites: composed.trace.rewrites,
   };
