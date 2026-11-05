@@ -17327,6 +17327,68 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-11-05 (Vault Run, Content Shift lane) from intake #6650.
+      // Variety's report (Nick Vivarelli) was read via its Yahoo syndication;
+      // variety.com and rollingstone.com redirect bots to a paywall, so the
+      // Rolling Stone story is cited from the filing and search results, not
+      // a direct read. Scoped to the announcement: no security specifics,
+      // no suspect name (privacy-redlines.md §2).
+      slug: 'showgirl-taylor-swift-wien-vienna-documentary',
+      relatedIds: [
+        'moment:vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
+      year: 2026,
+      month: 11,
+      day: 5,
+      category: 'tour',
+      title: 'The cancelled Vienna shows get their own documentary, "Taylor Swift Wien"',
+      snippet:
+        'A German-Austrian documentary about the three Vienna nights cancelled in August 2024 is in production for ZDF, and it follows the fans who looked after each other afterwards.',
+      sourceUrl: 'https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Nov. 5, 2026, Variety reported that a documentary about the cancelled Vienna Eras Tour shows is in production under the working title "Taylor Swift Wien" (Wien is German for Vienna). Andreas Pichler and Veronika Kaserer are directing. Germany\'s Beetz Brothers is producing with Austria\'s Markand Media, and the film is set to air on the German broadcaster ZDF in October 2027, with an international rollout to follow.\n\nThe film tells three stories at once: the investigation that stopped the plot against the Aug. 8–10, 2024 shows at Ernst Happel Stadium, how the teenager behind it was radicalized online, and the Swifties of Vienna. That last strand follows three women who, once the shows were called off, organized psychological support for other fans. It is the same city where thousands gathered on Corneliusgasse the night the first show should have opened, trading bracelets and singing anyway.\n\nThis is not a Taylor project. Nothing in the reporting has her taking part; the producer told Variety only that her management has been made aware the film is being made. Her own account of Vienna is in The End of an Era, the Disney+ docuseries from December 2025.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/',
+            source_title: "Taylor Swift's Canceled Vienna Concerts Due to Thwarted Terrorist Plot to Be Subject of Documentary",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-05',
+            reliability_score: 4,
+            notes:
+              'By Nick Vivarelli, Nov. 5, 2026; read via Yahoo Entertainment syndication. Primary for the working title, directors, producers, ZDF October 2027 airing, the three story strands, and the management-informed line. Intake #6650.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-1235653111/',
+            source_title: 'A Doc Will Look at the Taylor Swift Concerts a Terror Plot Canceled',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-05',
+            reliability_score: 4,
+            notes: 'Nov. 5, 2026; independent confirmation of the announcement and its fan-resilience focus.',
+          },
+        ],
+        // Same public-domain venue image the TTPD Vienna moment uses — the
+        // film is not out, so no still exists yet. Re-verified 2026-11-05:
+        // HTTP 200, image/jpeg, 960px wide, viewed (Ernst Happel Stadion
+        // facade under a clear sky).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
+            credit: 'Peter Gugerell, public domain, via Wikimedia Commons',
+            caption: 'Reference image: Ernst Happel Stadium in Vienna, where the three August 2024 shows the documentary covers were cancelled.',
+            kind: 'reference',
+            focalPoint: '50% 58%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
