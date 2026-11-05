@@ -8,7 +8,7 @@
 
 import Parser from 'rss-parser';
 import type { NormalizedNewsItem } from '@swift2/shared/news';
-import { withRetry } from './retry';
+import { retryOptionsFor, withRetry, type RetryOptions } from './retry';
 import type { NewsSourceRow, SourceAdapter } from './types';
 
 /**
@@ -51,13 +51,21 @@ export function readPublisher(raw: unknown): { publisher?: string; publisherUrl?
 /** Per-source item cap — config, not a deploy (proposal §6). */
 const MAX_ITEMS_PER_SOURCE = 30;
 
+export function parseFeed(
+  url: string,
+  parse: (url: string) => ReturnType<typeof parser.parseURL> = (u) => parser.parseURL(u),
+  sleep?: RetryOptions['sleep'],
+) {
+  return withRetry(() => parse(url), { ...retryOptionsFor(url), sleep });
+}
+
 export const rssAdapter: SourceAdapter = {
   async fetch(source: NewsSourceRow): Promise<NormalizedNewsItem[]> {
     const url = source.config.url;
     if (typeof url !== 'string' || !url) {
       throw new Error(`rss source "${source.name}" has no config.url`);
     }
-    const feed = await withRetry(() => parser.parseURL(url));
+    const feed = await parseFeed(url);
     return (feed.items ?? [])
       .slice(0, MAX_ITEMS_PER_SOURCE)
       .map((item): NormalizedNewsItem => ({
