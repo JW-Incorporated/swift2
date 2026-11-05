@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 61
+Stories: 59
 
 ## Celebrities Feature in Tommy Hilfiger's Winter Campaign
 
@@ -507,19 +507,3 @@ Stories: 61
 - summary: Travis Kelce talks about Taylor Swift's distinct movie habits that he has to adjust to. The focus is on their relationship and how they navigate personal interests.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-live-taylor-swift-120129888.html
-
-## Taylor Swift and Travis Kelce's Wedding Faces Criticism Over Guest Treatment
-
-- first seen: 2026-11-02 05:37 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The wedding of Taylor Swift and Travis Kelce, reportedly costing $30 million, is facing backlash due to perceived unequal treatment of guests. This has sparked discussions among fans and media.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-s-30-million-wedding-faces-backlash-over-unequal-guest-treatment-12268879
-
-## Taylor Swift Reveals Unusual Habit Her Husband Tolerates
-
-- first seen: 2026-11-02 05:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Taylor Swift shares an unusual habit that her husband has to tolerate, highlighting aspects of their relationship. The singer's admission sheds light on her personal life and the dynamics of her marriage.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-confesses-unusual-habit-035446919.html
