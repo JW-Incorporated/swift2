@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 65
+
+## Travis Kelce Shares Holiday Video After Marriage to Taylor Swift
+
+- first seen: 2026-11-05 21:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce posted a video showcasing his holiday celebrations, marking his first Christmas since marrying Taylor Swift. The video gives fans a glimpse into the couple's festive season together.
+- sources:
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529736-travis-kelce-reveals-perfect-holiday-video-chiefs-tes-1st-christmas-marrying-taylor-swift
+
+## Travis Kelce Shares Christmas Day Experience with Taylor Swift
+
+- first seen: 2026-11-05 21:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce discusses how he spent Christmas Day with Taylor Swift, highlighting their time together during the holiday.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/11/05/travis-kelce-reveals-perfect-christmas-day-with-taylor-swift/
 
 ## Travis Kelce Shares Excitement for First Holiday Season with Taylor Swift
 
@@ -226,13 +242,14 @@ Stories: 64
 ## Celebrities Feature in Tommy Hilfiger's Winter Campaign
 
 - first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/05/travis-kelce-s-5-35-million-mansion-in-ohio-is-nightmare-his-neighbours-are-warning-of-potential-disaster.html
   - [unverified] Page Six — https://pagesix.com/2026/11/05/entertainment/travis-kelce-cant-wait-to-start-new-traditions-with-taylor-swift-in-first-christmas-as-a-married-man/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317940000.html
   - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-why-t-205113069.html
 
 ## Exploring the Significance of Track 5 on Taylor Swift's Albums
 
@@ -553,11 +570,3 @@ Stories: 64
 - summary: The latest information regarding Taylor Swift and Travis Kelce's marriage is discussed following a recent leak about their wedding plans.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970564/taylor-swift-travis-kelce-marriage-now/
-
-## Taylor Swift Contemplates Hiring Investigators for Leaked Photos
-
-- first seen: 2026-11-02 21:27 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly considering hiring private investigators to determine the source of the leak of her MSG wedding photos. This move highlights her ongoing efforts to protect her privacy amidst public scrutiny.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-considers-hiring-private-205906583.html
