@@ -25,7 +25,83 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 65
+
+## Kylie Kelce Discusses Fame With Daughters Since Taylor Swift Joined Family
+
+- first seen: 2026-11-05 19:02 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Kylie Kelce shares insights on managing fame while raising her four daughters, particularly since Taylor Swift became part of her family circle. The conversation highlights the impact of celebrity on their daily lives.
+- sources:
+  - [unverified] www.instyle.com — https://www.instyle.com/how-kylie-kelce-navigates-fame-four-daughters-after-taylor-swift-joined-family-12238254
+
+## Travis Kelce Discusses Christmas Plans with Taylor Swift
+
+- first seen: 2026-11-05 19:02 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shared his intentions for spending Christmas with Taylor Swift, marking their first holiday together. Details of the plans were not disclosed in the article.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-big-plans-first-183555612.html
+
+## Travis Kelce Looks Forward to Holiday as a Married Man with Taylor Swift
+
+- first seen: 2026-11-05 19:02 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce expresses his excitement about celebrating his first holiday season as a married man with Taylor Swift.
+- sources:
+  - [unverified] extratv.com — https://extratv.com/2026/11/05/travis-kelce-dishes-on-post-wedding-holiday-plans-with-taylor-swift/
+
+## Carrie Coon Praises Taylor Swift's Impression of Her Character
+
+- first seen: 2026-11-05 19:02 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Carrie Coon commends Taylor Swift for her impressive portrayal of Coon's character from 'The Gilded Age', calling it 'very good'.
+- sources:
+  - [unverified] TheWrap — https://www.thewrap.com/creative-content/tv-shows/taylor-swift-carrie-coon-gilded-age-impression-bertha-tonight-show/
+
+## Taylor Swift's Song Used in Abdul El-Sayed Campaign Amid Trump Muting
+
+- first seen: 2026-11-05 18:02 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The Abdul El-Sayed campaign utilized a Taylor Swift song without being forced to remove it, contrasting with an incident where Donald Trump's audio was muted. This highlights the intersection of music and political campaigning.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/never-forced-us-down-abdul-174441906.html
+
+## Blake Lively Allegedly Texted Taylor Swift for a Favor
+
+- first seen: 2026-11-05 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Blake Lively reached out to Taylor Swift via text asking for a lie to be told. The context and implications of the alleged texts are not detailed.
+- sources:
+  - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/blake-lively-taylor-swift-baldoni-texts-fallout/
+
+## 'Toy Story 5' Director Discusses Taylor Swift and Inclusion
+
+- first seen: 2026-11-05 17:02 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The director of 'Toy Story 5' shares insights on Taylor Swift's influence and the film's focus on inclusion, along with details about the character Jessie. The discussion highlights the evolving themes within animated films.
+- sources:
+  - [established] Deadline — https://deadline.com/2026/11/toy-story-5-andrew-stanton-interview-1237213590/
+
+## Travis Kelce Looks Forward to First Holiday Season with Taylor Swift
+
+- first seen: 2026-11-05 17:02 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 4
+- summary: Travis Kelce expresses his excitement for the upcoming holiday season, marking his first as a married man with Taylor Swift. He mentioned starting new traditions together during this special time.
+- sources:
+  - [unverified] E! News — http://fr.eonline.com/news/1437858/travis-kelce-teases-holiday-plans-after-taylor-swift-wedding
+  - [unverified] InStyle — https://www.instyle.com/travis-kelce-first-holiday-taylor-swift-tommy-hilfiger-campaign-12238210
+  - [established] People — https://people.com/travis-kelce-shares-his-excitement-for-first-holiday-season-with-taylor-swift-as-newlyweds-12237867
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-excited-first-165001962.html
+
+## Taylor Swift's Austria Eras Tour Shows Canceled, Doc to Explore Incident
+
+- first seen: 2026-11-05 17:02 UTC | category: tour | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: A new documentary will focus on the canceled Eras Tour shows in Austria, detailing a thwarted terrorist plot and showcasing fan resilience. The film aims to shed light on the events surrounding the cancellation.
+- sources:
+  - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-shows-austria-terror-plot-documentary-1236374736/
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-1235653111/
 
 ## Stella Lefty Performs at Capital's Jingle Bell Ball, Following Taylor Swift
 
@@ -95,10 +171,11 @@ Stories: 62
 ## Carrie Coon Praises Taylor Swift's Impression of Her Character
 
 - first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
 - sources:
   - [established] Billboard — https://www.billboard.com/culture/tv-film/carrie-coon-taylor-swift-so-bertha-impression-gilded-age-fallon-1236374687/
+  - [unverified] Entertainment Weekly — https://ew.com/carrie-coon-reacts-taylor-swift-impression-gilded-age-character-bertha-russell-12237918
   - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carrie-coon-says-taylor-swift-111110750.html
 
@@ -113,10 +190,11 @@ Stories: 62
 ## Celebrities Feature in Tommy Hilfiger's Winter Campaign
 
 - first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/05/travis-kelce-s-5-35-million-mansion-in-ohio-is-nightmare-his-neighbours-are-warning-of-potential-disaster.html
+  - [unverified] Page Six — https://pagesix.com/2026/11/05/entertainment/travis-kelce-cant-wait-to-start-new-traditions-with-taylor-swift-in-first-christmas-as-a-married-man/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317940000.html
   - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
 
@@ -487,52 +565,3 @@ Stories: 62
 - summary: The film Wicker has been given a 4DX treatment, with its intense screams compared to those heard at a Taylor Swift concert, according to The Guardian.
 - sources:
   - [established] The Guardian — https://www.theguardian.com/tv-and-radio/2026/nov/02/wicker-4dx-olivia-colman-movie
-
-## Taylor Swift and Friend Share Humor About Their Husbands
-
-- first seen: 2026-11-02 18:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has shared a lighthearted inside joke with her best friend regarding their husbands. The humorous exchange highlights their close friendship and the playful dynamics of their relationships.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-shares-hilarious-inside-144224760.html
-
-## Taylor Swift to Write End Credits Song for ‘Toy Story 5’
-
-- first seen: 2026-11-02 17:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has announced her involvement in ‘Toy Story 5’ by agreeing to write the end credits song, ensuring she didn’t replace anyone in the process.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-toy-story-5-song-didnt-want-to-kick-somebody-off-1236371936/
-
-## Taylor Swift Nominated at Hollywood Music in Media Awards
-
-- first seen: 2026-11-02 17:22 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift has received a nomination at the Hollywood Music in Media Awards, alongside titles like 'The Odyssey' and 'Michael'. The recognition highlights her contributions to the music industry.
-- sources:
-  - [established] Billboard — https://www.billboard.com/lists/hollywood-music-in-media-awards-2026-nominations-list/
-  - [unverified] TheWrap — https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/
-
-## Busker Wins The Voice UK, Inspired by Taylor Swift
-
-- first seen: 2026-11-02 16:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: A singer who started out busking has won The Voice UK, citing Taylor Swift as their inspiration. This achievement highlights the impact of Swift on aspiring artists.
-- sources:
-  - [established] BBC News — https://www.bbc.com/news/articles/cked3j989ex0o
-
-## Taylor Swift's 'I Knew It, I Knew You' Nominated for Awards
-
-- first seen: 2026-11-02 16:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift's song 'I Knew It, I Knew You' has been nominated for the Hollywood Music In Media Awards, alongside 'La Nieve' by La Bola Negra.
-- sources:
-  - [established] Variety — https://variety.com/2026/artisans/news/taylor-swift-la-bola-negra-nominees-hollywood-music-in-media-awards-1236936278/
-
-## Taylor Swift Adopts New Office Fashion Style
-
-- first seen: 2026-11-02 16:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has moved away from her traditional beauty staple to adopt an office siren dressing style. This change has been highlighted by InStyle.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-black-leather-pencil-skirt-mauve-lipstick-toy-story-5-screening-12207025
