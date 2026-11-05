@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-11-05-awKCW9dyuvQ",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-11-05T20:49:43.946Z",
+  "deadline": "2026-11-07T20:49:43.946Z",
+  "status": "open",
+  "facts": {
+    "channelName": "The Tonight Show Starring Jimmy Fallon",
+    "videoTitle": "Carrie Coon Says Taylor Swift Should Be on The Gilded Age, Discusses the Show's New Season",
+    "publishedAt": "2026-11-05T05:07:08+00:00",
+    "videoId": "awKCW9dyuvQ",
+    "url": "https://www.youtube.com/watch?v=awKCW9dyuvQ"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6645
+  }
+}
