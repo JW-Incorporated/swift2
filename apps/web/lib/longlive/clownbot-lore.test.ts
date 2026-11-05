@@ -120,10 +120,10 @@ describe('freshness is reported honestly', () => {
 
   it('keeps an older open claim live when the scheduled sweep rechecked it recently (#1997)', () => {
     const now = new Date(`${LORE_UPDATED_ON}T00:00:00Z`);
-    // Six open (rumor/reported) items were last checked inside the fresh
-    // window by the latest sweep: rep-tv-debut-tv, swifties-against-ai,
-    // green-ts-next-era, ts13-lilac-cipher, writing-new-music-post-wedding, and iki-oscar-campaign.
-    expect(loreFreshness(now).liveCount).toBe(6);
+    // Four open (rumor/reported) items were last checked inside the fresh
+    // window by the latest sweep: rep-tv-debut-tv, green-ts-next-era,
+    // writing-new-music-post-wedding, and iki-oscar-campaign.
+    expect(loreFreshness(now).liveCount).toBe(4);
   });
 
   it('daysBetween handles a malformed date without throwing', () => {
