@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 64
 
 ## Travis Kelce Shares Holiday Video After Marriage to Taylor Swift
 
@@ -124,14 +124,6 @@ Stories: 65
   - [unverified] NBC 5 Chicago — https://www.nbcchicago.com/entertainment/entertainment-news/abdul-el-sayed-says-life-of-a-showgirl-isnt-taylor-swifts-best-album/4012899/
   - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/never-forced-us-down-abdul-174441906.html
 
-## 'Toy Story 5' Director Discusses Taylor Swift and Inclusion
-
-- first seen: 2026-11-05 17:02 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The director of 'Toy Story 5' shares insights on Taylor Swift's influence and the film's focus on inclusion, along with details about the character Jessie. The discussion highlights the evolving themes within animated films.
-- sources:
-  - [established] Deadline — https://deadline.com/2026/11/toy-story-5-andrew-stanton-interview-1237213590/
-
 ## Travis Kelce Looks Forward to First Holiday Season with Taylor Swift
 
 - first seen: 2026-11-05 17:02 UTC | category: relationship | importance: 7
@@ -142,6 +134,15 @@ Stories: 65
   - [unverified] InStyle — https://www.instyle.com/travis-kelce-first-holiday-taylor-swift-tommy-hilfiger-campaign-12238210
   - [established] People — https://people.com/travis-kelce-shares-his-excitement-for-first-holiday-season-with-taylor-swift-as-newlyweds-12237867
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-excited-first-165001962.html
+
+## 'Toy Story 5' Director Discusses Taylor Swift and Inclusion
+
+- first seen: 2026-11-05 17:02 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: The director of 'Toy Story 5' shares insights on Taylor Swift's influence and the film's focus on inclusion, along with details about the character Jessie. The discussion highlights the evolving themes within animated films.
+- sources:
+  - [established] Deadline — https://deadline.com/2026/11/toy-story-5-andrew-stanton-interview-1237213590/
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235091110/taylor-swift-toy-story-5-concern/
 
 ## Taylor Swift's Austria Eras Tour Shows Canceled, Doc to Explore Incident
 
@@ -242,9 +243,10 @@ Stories: 65
 ## Celebrities Feature in Tommy Hilfiger's Winter Campaign
 
 - first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
 - sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-first-christmas-married-taylor-swift-1236375353/
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/05/travis-kelce-s-5-35-million-mansion-in-ohio-is-nightmare-his-neighbours-are-warning-of-potential-disaster.html
   - [unverified] Page Six — https://pagesix.com/2026/11/05/entertainment/travis-kelce-cant-wait-to-start-new-traditions-with-taylor-swift-in-first-christmas-as-a-married-man/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317940000.html
@@ -562,11 +564,3 @@ Stories: 65
 - summary: In a recent interview, Taylor Swift shared that she and her best friend Abigail enjoy impersonating a quirky character from a cult comedy. This fun revelation highlights their shared interests and playful dynamic.
 - sources:
   - [established] Harper's Bazaar — https://www.harpersbazaar.com/celebrity/latest/a74315568/taylor-swift-bff-abigail-anderson-impersonate-napoleon-dynamite-toy-story-5-panel/
-
-## Update on Taylor Swift and Travis Kelce's Relationship Following Wedding Leak
-
-- first seen: 2026-11-02 22:22 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The latest information regarding Taylor Swift and Travis Kelce's marriage is discussed following a recent leak about their wedding plans.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970564/taylor-swift-travis-kelce-marriage-now/
