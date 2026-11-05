@@ -2755,6 +2755,78 @@
       "sha256": "2f417aec0a388c10c6695ac9f93c4b741e0b37f317fb4c81d08ce6c83de0712a",
       "reason": "Couple kissing amid crowd and cameras; not a single prominent subject.",
       "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-NZnRUnOQZWU-maxres1",
+      "sha256": "8c2cb9563ef1ee4208c3492c1084551177ccb22968db8637525bb43594135bf5",
+      "reason": "Cropped hands, guitar neck and sleeve; no face; soft, dark frame.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-NZnRUnOQZWU-maxres2",
+      "sha256": "d3b3e7915331356fbf1a87f959c9b8db85f8754f7ea878e1302956a83a016c2f",
+      "reason": "Two guitarists, back-turned subject blocked by blown-out light glare",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-EuT6nQvdcpo-maxres1",
+      "sha256": "49b94f8598e2107e2cd87c9205235b6d2a917b8d8aa676cf40dc8b2b8f560eb7",
+      "reason": "Group of four women hugging; no single prominent subject.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-y7CsaOF3S5c-maxres2",
+      "sha256": "e06557ff1203034501ea5d7d3b86b95d35f70b4430fca53704d5b870b9957c4f",
+      "reason": "Two people share the frame; second performer is nearly as prominent.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-y7CsaOF3S5c-maxres3",
+      "sha256": "a085ac0653a2617d8e609cff5925e5806b3e26e9996e43073eb0b003d043ac2b",
+      "reason": "Two people share the frame equally; no single prominent subject.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-EuT6nQvdcpo-maxres2",
+      "sha256": "7c928dfe631b185d15a4291096fe33ceb2974cdebcfc6d3176e2f632931935b9",
+      "reason": "Other people's heads dominate foreground; soft, audience-style frame, not a Q&A fit.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-c1df60e13c81",
+      "sha256": "6888ffdc6080f7eaf8c1ffbf2079e7772f7177b4fedb03ef3edf8ed12892d79c",
+      "reason": "Two people share the frame; the man leaning on her is equally prominent.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-f4ff8fc8206c",
+      "sha256": "ccd5ed527050679e38dff95b709405bb4fdbe08d400b15c2f54572cd3bb04062",
+      "reason": "Collage of two photos plus cover art inset; not a single photo",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-4d090a27ebb4",
+      "sha256": "e6becd46fbb7e9fee4e2d8fb9e30f3b128676a9066765c4b9a30b83afeb8cc94",
+      "reason": "Several people prominent; a man in a red cap dominates, no single main subject.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-2e7d565d36c7",
+      "sha256": "db2fb207874b9e43f8783a8a8006b759d2d815be12d730649c62d9525cf77d93",
+      "reason": "Caption is about S Club's Jo at a Christmas event, not Taylor Swift; mismatch.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "wikimedia-137560624",
+      "sha256": "77a04d5f7466d353d1a6cb43bd0d69badf23e0c080dd3f4ce35feddadcca6132",
+      "reason": "Stadium panorama; performers tiny, audience heads dominate foreground.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "wikimedia-137560850",
+      "sha256": "7a49b21ac8dd42e374d34798800413827653d92670ef70b2d7e33f0eed035538",
+      "reason": "Wide stage shot with many dancers; performers small, foreground equipment blocks view",
+      "date": "2026-11-04"
     }
   ]
 }
