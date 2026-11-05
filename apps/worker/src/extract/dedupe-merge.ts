@@ -38,13 +38,14 @@ export function mergeFactLists(
   const addedFacts = mergedFacts.slice(kept.length);
 
   const urls = new Set(originalSources.map((source) => source.url));
-  const outlets = new Set(originalSources.map((source) => source.outletName.trim().toLowerCase()));
+  const outletKey = (source: ClusterSource) => (source.outletName ?? '').trim().toLowerCase();
+  const outlets = new Set(originalSources.map(outletKey).filter(Boolean));
   const mergedSources: ClusterSource[] = [...originalSources];
   for (const source of newSources) {
-    const outlet = source.outletName.trim().toLowerCase();
-    if (urls.has(source.url) || outlets.has(outlet)) continue;
+    const outlet = outletKey(source);
+    if (urls.has(source.url) || (outlet && outlets.has(outlet))) continue;
     urls.add(source.url);
-    outlets.add(outlet);
+    if (outlet) outlets.add(outlet);
     mergedSources.push(source);
   }
   return { needsRewrite: true, mergedFacts, addedFacts, mergedSources };
