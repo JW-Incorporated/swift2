@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 64
 
-## Taylor Swift Mentioned in Article about Celebrity Weddings and Engagements
+## Travis Kelce Shares Excitement for First Holiday Season with Taylor Swift
 
-- first seen: 2026-11-05 19:57 UTC | category: relationship | importance: 5
+- first seen: 2026-11-05 20:38 UTC | category: relationship | importance: 7
 - verification_status: rumor | source_count: 1
-- summary: An article discusses celebrity weddings and engagements, featuring Taylor Swift and Sophia Bush among the mentions. The focus includes events tied to Florida.
+- summary: Travis Kelce expresses his enthusiasm for celebrating the upcoming holiday season as a married couple with Taylor Swift. The couple's first holiday season together is generating positive buzz.
 - sources:
-  - [unverified] The Palm Beach Post — https://www.palmbeachpost.com/picture-gallery/entertainment/2026/11/05/taylor-swift-travis-kelce-sophia-bush-hannity-florida-celebrity-wedding-married/92515060007/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/why-travis-kelce-excited-first-200958493.html
+
+## Travis Kelce Shares Plans for His First Christmas with Taylor Swift
+
+- first seen: 2026-11-05 20:38 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce discussed his excitement for spending his first Christmas as a married couple with Taylor Swift. He revealed what he is looking forward to during this special time together.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-looking-forward-201151370.html
 
 ## Travis Kelce Discusses First Holiday Season with Taylor Swift
 
@@ -42,6 +50,14 @@ Stories: 66
 - summary: Travis Kelce shares his thoughts on celebrating his first holiday season as Taylor Swift's husband, highlighting the significance of the occasion.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-makes-sweet-admission-192919343.html
+
+## Taylor Swift Mentioned in Article about Celebrity Weddings and Engagements
+
+- first seen: 2026-11-05 19:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses celebrity weddings and engagements, featuring Taylor Swift and Sophia Bush among the mentions. The focus includes events tied to Florida.
+- sources:
+  - [unverified] The Palm Beach Post — https://www.palmbeachpost.com/picture-gallery/entertainment/2026/11/05/taylor-swift-travis-kelce-sophia-bush-hannity-florida-celebrity-wedding-married/92515060007/
 
 ## Kylie Kelce Discusses Fame With Daughters Since Taylor Swift Joined Family
 
@@ -75,14 +91,6 @@ Stories: 66
 - sources:
   - [unverified] TheWrap — https://www.thewrap.com/creative-content/tv-shows/taylor-swift-carrie-coon-gilded-age-impression-bertha-tonight-show/
 
-## Taylor Swift's Song Used in Abdul El-Sayed Campaign Amid Trump Muting
-
-- first seen: 2026-11-05 18:02 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The Abdul El-Sayed campaign utilized a Taylor Swift song without being forced to remove it, contrasting with an incident where Donald Trump's audio was muted. This highlights the intersection of music and political campaigning.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/never-forced-us-down-abdul-174441906.html
-
 ## Blake Lively Allegedly Texted Taylor Swift for a Favor
 
 - first seen: 2026-11-05 18:02 UTC | category: relationship | importance: 5
@@ -90,6 +98,15 @@ Stories: 66
 - summary: Reports suggest that Blake Lively reached out to Taylor Swift via text asking for a lie to be told. The context and implications of the alleged texts are not detailed.
 - sources:
   - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/blake-lively-taylor-swift-baldoni-texts-fallout/
+
+## Taylor Swift's Song Used in Abdul El-Sayed Campaign Amid Trump Muting
+
+- first seen: 2026-11-05 18:02 UTC | category: music | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: The Abdul El-Sayed campaign utilized a Taylor Swift song without being forced to remove it, contrasting with an incident where Donald Trump's audio was muted. This highlights the intersection of music and political campaigning.
+- sources:
+  - [unverified] NBC 5 Chicago — https://www.nbcchicago.com/entertainment/entertainment-news/abdul-el-sayed-says-life-of-a-showgirl-isnt-taylor-swifts-best-album/4012899/
+  - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/never-forced-us-down-abdul-174441906.html
 
 ## 'Toy Story 5' Director Discusses Taylor Swift and Inclusion
 
@@ -152,14 +169,6 @@ Stories: 66
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/sydney-sweeney-boyfriend-looking-one-133538639.html
 
-## Documentary to Cover Taylor Swift's Canceled Vienna Concerts
-
-- first seen: 2026-11-05 14:07 UTC | category: tour | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: A new documentary will explore the reasons behind the cancellation of Taylor Swift's concerts in Vienna, which were called off due to a thwarted terrorist plot. The topic highlights the intersection of music and security in the contemporary concert landscape.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/
-
 ## Swiftie Celebrates Victory in Michigan Without Taylor Swift's Endorsement
 
 - first seen: 2026-11-05 14:07 UTC | category: business | importance: 5
@@ -177,6 +186,15 @@ Stories: 66
   - [unverified] BroadwayWorld — https://www.broadwayworld.com/article/Carrie-Coon-on-Taylor-Swift-Matt-Damon-and-THE-GILDED-AGE-20261105
   - [unverified] IMDb — https://www.imdb.com/news/ni66096678/?ref_=nmnw_art_perm
 
+## Documentary to Cover Taylor Swift's Canceled Vienna Concerts
+
+- first seen: 2026-11-05 14:07 UTC | category: tour | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: A new documentary will explore the reasons behind the cancellation of Taylor Swift's concerts in Vienna, which were called off due to a thwarted terrorist plot. The topic highlights the intersection of music and security in the contemporary concert landscape.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/
+  - [unverified] Variety Australia — https://au.variety.com/2026/film/news/taylor-swift-cancelled-vienna-concerts-documentary-42320/
+
 ## Taylor Swift Considers Hiring Investigators for Wedding Leak
 
 - first seen: 2026-11-05 11:21 UTC | category: relationship | importance: 6
@@ -188,13 +206,14 @@ Stories: 66
 ## Carrie Coon Praises Taylor Swift's Impression of Her Character
 
 - first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
 - sources:
   - [established] Billboard — https://www.billboard.com/culture/tv-film/carrie-coon-taylor-swift-so-bertha-impression-gilded-age-fallon-1236374687/
   - [unverified] Entertainment Weekly — https://ew.com/carrie-coon-reacts-taylor-swift-impression-gilded-age-character-bertha-russell-12237918
   - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carrie-coon-says-taylor-swift-111110750.html
+  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/carrie-coon-applauds-taylor-swift-185338866.html
 
 ## Taylor Swift's 'Patient Zero' Highlights Support for Domestic Violence Survivors
 
@@ -542,35 +561,3 @@ Stories: 66
 - summary: Taylor Swift is reportedly considering hiring private investigators to determine the source of the leak of her MSG wedding photos. This move highlights her ongoing efforts to protect her privacy amidst public scrutiny.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-considers-hiring-private-205906583.html
-
-## Ashanti Discusses Her Friendship With Taylor Swift
-
-- first seen: 2026-11-02 20:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Ashanti has opened up about her friendship with Taylor Swift in a recent interview. The revelation highlights the connections between artists in the music industry.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ashanti-reveals-her-friendship-taylor-193829039.html
-
-## Taylor Swift Absent During Chiefs' Recent Loss
-
-- first seen: 2026-11-02 20:26 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was not present at the Chiefs' latest game where they experienced a loss. The absence has been noted in various reports.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-skips-chiefs-heartbreaking-192904000.html
-
-## Taylor Swift Engages with Oscar Voters
-
-- first seen: 2026-11-02 20:26 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is actively reaching out to Oscar voters as part of her promotional efforts. The strategy appears to be focused on gaining recognition for her work in the film industry.
-- sources:
-  - [unverified] The Ankler — https://theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time/
-
-## Taylor Swift shares unique habits in her relationship with Kelce
-
-- first seen: 2026-11-02 20:26 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Taylor Swift discussed some of her unusual habits that her partner, Kelce, has to adapt to. The insights provide a glimpse into their personal relationship dynamics.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-reveals--strange-thing-that-kelce-has-to-put-up-with
