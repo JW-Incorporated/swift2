@@ -46,6 +46,8 @@ export interface ComposeDeps {
   judgeFn?: typeof judgeWriting;
   /** Tuning harness only: judge a supplied draft once, no rewrite. */
   noRewrite?: boolean;
+  /** Tuning harness only: also judge a draft the writing gate rejected; the hold outcome is unchanged. */
+  judgeAll?: boolean;
 }
 
 function lowestDimension(scores: Record<JudgeDimension, number>): JudgeDimension {
@@ -91,6 +93,21 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
       });
       if (!gate.ok) {
         trace.gateReasons = gate.reasons;
+        if (deps.judgeAll) {
+          const scored = await judge(deps.judge, {
+            observedOn: input.observedOn,
+            lead,
+            body,
+            facts: factLines,
+            attributions: factAttributions,
+            context: input.context.text,
+            citations: paragraphs.flatMap((p) => p.sentences),
+          });
+          if (scored.status !== 'deferred') {
+            trace.judgeScores = scored.scores;
+            trace.judgeReasons = scored.reasons;
+          }
+        }
         failure = { hold: `writing_quality:${gate.reasons[0]}`, reasons: gate.reasons };
       } else {
         const verdict = await judge(deps.judge, {

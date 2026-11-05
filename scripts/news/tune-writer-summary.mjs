@@ -3,6 +3,7 @@
 // markdown table shown in PR bodies.
 
 const DIMENSIONS = ['voice', 'context', 'grounding', 'non_repetition'];
+const TONE_DIMENSIONS = ['voice', 'grounding'];
 
 function bump(map, key) {
   map[key] = (map[key] ?? 0) + 1;
@@ -21,7 +22,14 @@ export function summarizeRuns(results) {
     if (r.judgeScores) for (const d of DIMENSIONS) bump(scores[d], r.judgeScores[d]);
   }
   const total = results.length;
-  return { total, passed, passRate: total > 0 ? passed / total : 0, holds, gateReasons, scores };
+  const judged = results.filter((r) => r.judgeScores);
+  const tone = Object.fromEntries(TONE_DIMENSIONS.map((d) => {
+    const values = judged.map((r) => r.judgeScores[d]).sort((a, b) => a - b);
+    const mid = values.length >> 1;
+    const median = values.length === 0 ? null : values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
+    return [d, { judged: values.length, atLeast4: values.filter((v) => v >= 4).length, median }];
+  }));
+  return { total, passed, passRate: total > 0 ? passed / total : 0, holds, gateReasons, scores, tone };
 }
 
 export function renderSummary(summary) {
@@ -35,6 +43,15 @@ export function renderSummary(summary) {
     '| Judge score | 1 | 2 | 3 | 4 | 5 |',
     '|---|---|---|---|---|---|',
     ...DIMENSIONS.map((d) => `| ${d} | ${[1, 2, 3, 4, 5].map((n) => summary.scores[d][n]).join(' | ')} |`),
+    '',
+    'Tone (all drafts)',
+    '',
+    '| Dimension | 1 | 2 | 3 | 4 | 5 | >=4 | Median |',
+    '|---|---|---|---|---|---|---|---|',
+    ...TONE_DIMENSIONS.map((d) => {
+      const t = summary.tone[d];
+      return `| ${d} | ${[1, 2, 3, 4, 5].map((n) => summary.scores[d][n]).join(' | ')} | ${t.atLeast4}/${t.judged} | ${t.median ?? 'n/a'} |`;
+    }),
   ];
   return lines.join('\n');
 }

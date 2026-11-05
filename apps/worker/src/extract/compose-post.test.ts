@@ -88,6 +88,16 @@ describe('composePost', () => {
     expect(judgeFn).not.toHaveBeenCalled();
   });
 
+  it('judgeAll scores a gate-rejected draft but keeps it a hold', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([5, 6, 7, 8, 9])) }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn, judgeAll: true, noRewrite: true }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:uncited_sentence' });
+    expect(judgeFn).toHaveBeenCalledTimes(1);
+    expect(result.trace.gateReasons?.length).toBeGreaterThan(0);
+    expect(result.trace.judgeScores).toEqual(PASS.scores);
+  });
+
   it('records the last invalid attempt and its reasons in the trace', async () => {
     const invalid = { ...attempt(), lead: 'Too short' };
     const write = vi.fn(async (): Promise<WriterResult> => ({

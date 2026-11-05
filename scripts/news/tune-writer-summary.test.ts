@@ -20,6 +20,32 @@ describe('summarizeRuns', () => {
   });
 });
 
+describe('tone table', () => {
+  const scored = (voice: number, grounding: number) => ({ voice, context: 4, grounding, non_repetition: 4 });
+  const summary = summarizeRuns([
+    { status: 'ok', judgeScores: scored(5, 4) },
+    { status: 'hold', reason: 'writing_quality:uncited_sentence', gateReasons: ['uncited_sentence'], judgeScores: scored(2, 3) },
+    { status: 'hold', reason: 'writing_quality:invalid_draft', gateReasons: ['x'] },
+    { status: 'hold', reason: 'writing_quality:voice', judgeScores: scored(4, 5) },
+  ]);
+
+  it('counts voice >=4 and the median over every judged draft', () => {
+    expect(summary.tone.voice).toEqual({ judged: 3, atLeast4: 2, median: 4 });
+    expect(summary.tone.grounding).toEqual({ judged: 3, atLeast4: 2, median: 4 });
+  });
+
+  it('renders the Tone (all drafts) table', () => {
+    const text = renderSummary(summary);
+    expect(text).toContain('Tone (all drafts)');
+    expect(text).toContain('| voice | 0 | 1 | 0 | 1 | 1 | 2/3 | 4 |');
+    expect(text).toContain('| grounding | 0 | 0 | 1 | 1 | 1 | 2/3 | 4 |');
+  });
+
+  it('shows n/a with no judged drafts', () => {
+    expect(renderSummary(summarizeRuns([{ status: 'hold', reason: 'writer_deferred' }]))).toContain('| voice | 0 | 0 | 0 | 0 | 0 | 0/0 | n/a |');
+  });
+});
+
 describe('sampleRows', () => {
   const text = [1, 2, 3, 4].map((i) => JSON.stringify({ i })).join('\n');
   it('returns all rows without n and an even sample with n', () => {
