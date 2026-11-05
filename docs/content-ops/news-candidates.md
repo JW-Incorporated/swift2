@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 60
+Stories: 62
+
+## Documentary to Cover Taylor Swift's Canceled Vienna Concerts
+
+- first seen: 2026-11-05 14:07 UTC | category: tour | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: A new documentary will explore the reasons behind the cancellation of Taylor Swift's concerts in Vienna, which were called off due to a thwarted terrorist plot. The topic highlights the intersection of music and security in the contemporary concert landscape.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/
+
+## Swiftie Celebrates Victory in Michigan Without Taylor Swift's Endorsement
+
+- first seen: 2026-11-05 14:07 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A fervent Taylor Swift fan achieved victory in Michigan despite not receiving an endorsement from the artist. The news highlights the influence of fan communities in political arenas.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/taylor-swift-didn-t-endorse-125028571.html
+
+## Carrie Coon Discusses Taylor Swift During Interview
+
+- first seen: 2026-11-05 14:07 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, actress Carrie Coon spoke about Taylor Swift among other topics such as Matt Damon and her role in 'The Gilded Age'. The conversation sheds light on Coon's perspective on current pop culture.
+- sources:
+  - [unverified] BroadwayWorld — https://www.broadwayworld.com/article/Carrie-Coon-on-Taylor-Swift-Matt-Damon-and-THE-GILDED-AGE-20261105
 
 ## Taylor Swift Considers Hiring Investigators for Wedding Leak
 
@@ -38,9 +62,10 @@ Stories: 60
 ## Carrie Coon Praises Taylor Swift's Impression of Her Character
 
 - first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
 - sources:
+  - [established] Billboard — https://www.billboard.com/culture/tv-film/carrie-coon-taylor-swift-so-bertha-impression-gilded-age-fallon-1236374687/
   - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carrie-coon-says-taylor-swift-111110750.html
 
@@ -509,11 +534,3 @@ Stories: 60
 - summary: Taylor Swift was notably absent during the Kansas City Chiefs' recent game against the Denver Broncos, which has generated some discussion among fans and media.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-apparent-absence-adds-131658881.html
-
-## Taylor Swift and Olivia Rodrigo Embrace New Fall 2026 Hat Trend
-
-- first seen: 2026-11-02 13:32 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Olivia Rodrigo are spotted wearing a trendy new hat style for the Fall 2026 season, moving away from traditional beanies. This shift showcases their influence in current fashion trends.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/how-to-style-baseball-cap-fall-2026/
