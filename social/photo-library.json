@@ -672,6 +672,21 @@
       "sha256": "e0f24d38bf5acb65955335adb9074d124931865075912c6da62aa5b8cac5eca2"
     },
     {
+      "id": "official-video-3H21433WdtU-maxres1",
+      "mediaPath": "/social/library/photos/official-video-3H21433WdtU-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=3H21433WdtU",
+      "alt": "Still from Taylor Swift's official \"\"Holy Ground\" Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 50785,
+      "sha256": "f735bab6c24f86604bdb3bb67fcd92c74e95e946380dbc4c2b7ce5bb7f8612a9"
+    },
+    {
       "id": "official-video-70Ps-GzbSfw-maxres2",
       "mediaPath": "/social/library/photos/official-video-70Ps-GzbSfw-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -880,6 +895,21 @@
       "height": 720,
       "bytes": 43041,
       "sha256": "0557b21e599f0af208afabd2f4e15cae637364f289316b961af75660f6d8469a"
+    },
+    {
+      "id": "official-video-EuT6nQvdcpo-maxres3",
+      "mediaPath": "/social/library/photos/official-video-EuT6nQvdcpo-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=EuT6nQvdcpo",
+      "alt": "Still from Taylor Swift's official \"Q&A with Taylor on Taylor By Taylor Swift, the Fragrance\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 70489,
+      "sha256": "3c80c92192d3a25b02d903500804c137307d218211b693a81aaff03c5292569e"
     },
     {
       "id": "official-video-FuXNumBwDOM-maxres1",
@@ -1315,6 +1345,66 @@
       "height": 1080,
       "bytes": 85295,
       "sha256": "8ab6d057903ef0aa4c67c65cacd24b8dea71f0e55c051c70afcd25f150443f58"
+    },
+    {
+      "id": "official-video-Nx-5bHeC6xo-maxres1",
+      "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Nx-5bHeC6xo",
+      "alt": "Still from Taylor Swift's official \"\"Sparks Fly\" (Acoustic) Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 56476,
+      "sha256": "23ed5e0b76d79996fe3622e5e6d035e5265bcc35a0a6fac5e8f848e710c6af29"
+    },
+    {
+      "id": "official-video-Nx-5bHeC6xo-maxres2",
+      "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Nx-5bHeC6xo",
+      "alt": "Still from Taylor Swift's official \"\"Sparks Fly\" (Acoustic) Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 40802,
+      "sha256": "6deca68b6b749e1c9a6b67cede89527a4a34032d2a7aeb7c4d884b1a45069136"
+    },
+    {
+      "id": "official-video-Nx-5bHeC6xo-maxres3",
+      "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Nx-5bHeC6xo",
+      "alt": "Still from Taylor Swift's official \"\"Sparks Fly\" (Acoustic) Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 54893,
+      "sha256": "5c3f0523a6323d55bd442b4c645a7d720a4b7b50af72b1adfd3508a69d0a7b8a"
+    },
+    {
+      "id": "official-video-NZnRUnOQZWU-maxres3",
+      "mediaPath": "/social/library/photos/official-video-NZnRUnOQZWU-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=NZnRUnOQZWU",
+      "alt": "Still from Taylor Swift's official \"\"Red\" Guitar Solo — RED Tour Opening Night\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 38048,
+      "sha256": "86e5e7e9aa533c31427cf19b95131fe1acbc48796ca6a5772f51352c84a81a0f"
     },
     {
       "id": "official-video-o5SQIECedTY-maxres2",
@@ -1782,6 +1872,21 @@
       "sha256": "bd314ded5a6a808d40750bcdc17b3f9be3395036b17ef1d2e839a962dd274c3e"
     },
     {
+      "id": "official-video-y7CsaOF3S5c-maxres1",
+      "mediaPath": "/social/library/photos/official-video-y7CsaOF3S5c-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=y7CsaOF3S5c",
+      "alt": "Still from Taylor Swift's official \"You're So Vain — with Carly Simon\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 40465,
+      "sha256": "5b21c62ef91da9c3755231e09aacd3164e13e4aade4af6ed584ce56c70d60de7"
+    },
+    {
       "id": "official-video-zdYy6-P_ggQ-maxres1",
       "mediaPath": "/social/library/photos/official-video-zdYy6-P_ggQ-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -2164,6 +2269,20 @@
       "sha256": "cf7e19f02f22f08744f769ac17fe5ff97e58612a0ecd2457075a2d8040dff244"
     },
     {
+      "id": "press-1419703a277e",
+      "mediaPath": "/social/library/photos/press-1419703a277e.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-new-album-mrs-kelce/",
+      "alt": "Taylor Swift in the news: Taylor Swift's Next Career Move Revealed After Marrying Travis Kelce",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 167417,
+      "sha256": "534c8ccbcdbb04c66ff8fc87d9baa9c21021b89e76e007b4e290e2b04b5f7244"
+    },
+    {
       "id": "press-2aed23b54ae7",
       "mediaPath": "/social/library/photos/press-2aed23b54ae7.jpg",
       "source": "https://www.cinemablend.com/streaming-news/swifties-known-wild-theories-buying-into-taylor-swift-debut",
@@ -2232,6 +2351,20 @@
       "height": 769,
       "bytes": 94696,
       "sha256": "f061feab4ba1b50a621461cfb7591b378c36b5548ce23b6390abaa4e609d6877"
+    },
+    {
+      "id": "press-874fcba42ef6",
+      "mediaPath": "/social/library/photos/press-874fcba42ef6.webp",
+      "source": "https://www.cheatsheet.com/news/music/furious-taylor-swift-considers-hiring-private-investigators-after-wedding-photo-leaks.html/",
+      "alt": "Taylor Swift in the news: Furious Taylor Swift Considers Hiring Private Investigators After Wedding Photo Leaks",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Showbiz Cheat Sheet",
+      "width": 1200,
+      "height": 675,
+      "bytes": 29360,
+      "sha256": "1ac7e09681d2f709bce267306dc3b6f2b831baceacdaec7aa38d33a01196ffad"
     },
     {
       "id": "press-92b5be0f5252",
