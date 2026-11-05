@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 59
+Stories: 61
+
+## Carrie Coon Praises Taylor Swift's Impression of Her Character
+
+- first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
+- sources:
+  - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
+
+## Taylor Swift Considers Hiring Investigators for Wedding Leak
+
+- first seen: 2026-11-05 11:21 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly feeling anxious and is contemplating hiring private investigators to track down the source behind the leak of her wedding details.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-edge-taylor-swift-reportedly-110054535.html
 
 ## Celebrities Feature in Tommy Hilfiger's Winter Campaign
 
