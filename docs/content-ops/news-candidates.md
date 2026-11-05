@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 61
+
+## Exploring the Significance of Track 5 on Taylor Swift's Albums
+
+- first seen: 2026-11-05 02:27 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: This article delves into the importance of track 5 on each of Taylor Swift's albums, highlighting all 12 songs and their meanings. It provides insights into why this particular track holds a special place in her discography.
+- sources:
+  - [unverified] Just Jared — https://www.justjared.com/2026/11/03/why-is-track-5-on-every-taylor-swift-album-so-important-all-12-songs-their-meanings-revealed/
 
 ## Taylor Swift and Travis Kelce Upset Over Ohio Neighbor Friction
 
@@ -515,47 +523,3 @@ Stories: 64
 - summary: An article investigates the relationship and dynamics between Taylor Swift and her brother Austin. It provides insights into their familial bond.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/truth-taylor-swifts-brother-austin-131500180.html
-
-## Taylor Swift to Miss Chiefs vs. Broncos Game Today
-
-- first seen: 2026-11-02 01:37 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has announced that she will not be attending the Kansas City Chiefs game against the Denver Broncos today. Fans will have to watch the game without her presence in the stands.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wont-attend-chiefs-211720387.html
-
-## Taylor Swift discusses Travis Kelce's unique quirk
-
-- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
-- summary: In a recent feature, Taylor Swift opened up about an unusual quirk that her partner Travis Kelce has to manage. The light-hearted conversation added to the insight into their relationship dynamics.
-- sources:
-  - [unverified] HELLO! — https://www.hellomagazine.com/us/932530/taylor-swift-reveals-the-unusual-habit-her-husband-travis-kelce-has-to-put-up-with/
-  - [unverified] The Comeback — https://thecomeback.com/nfl/taylor-swift-shares-strange-quirk-travis-kelce-has-to-put-up-with.html
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-hyper-ambitious-taylor-swift-032839988.html
-
-## Taylor Swift Does Not Attend Chiefs Game as Spouse Travis Kelce Plays
-
-- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift was not present at the Kansas City Chiefs game against the Denver Broncos, where her husband, Travis Kelce, played. This absence has been noted amid ongoing discussions about their relationship.
-- sources:
-  - [unverified] New York Post — https://nypost.com/2026/11/01/sports/taylor-swift-appears-to-skip-supporting-chiefs-travis-klece-during-loss-to-broncos/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-revealed-unusual-quirk-135101369.html
-
-## Taylor Swift Shares Quirky Habit with BFF Abigail Anderson
-
-- first seen: 2026-11-02 01:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 10
-- summary: Taylor Swift talks about a unique habit that she and her best friend Abigail Anderson have, which their husbands must tolerate. The revelation highlights the friendship between Swift and Anderson.
-- sources:
-  - [unverified] Bustle — https://www.bustle.com/entertainment/taylor-swift-abigail-anderson-napoleon-dynamite-impressions
-  - [unverified] E! News — https://www.eonline.com/news/1437716/taylor-swift-details-weird-habit-husband-travis-kelce-had-to-deal-with
-  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-reveals-weird-habit-travis-kelce-has-to-put-up-with-12207229
-  - [unverified] Extra — https://extratv.com/2026/11/02/taylor-swift-reveals-quirk-that-travis-kelce-has-to-put-up-with-involving-her-bff-abigail-anderson/
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-abigail-anderson-quirk-she-shares-high-school-bff-12206970
-  - [unverified] Page Six — https://pagesix.com/2026/11/02/entertainment/taylor-swift-confesses-to-weird-habit-husband-travis-kelce-has-to-put-up-with/
-  - [established] People — https://people.com/taylor-swift-reveals-weird-thing-she-and-bff-abigail-anderson-do-that-their-husbands-have-to-put-up-with-12206320
-  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swifts-weird-habit-travis-kelce-has-to-put-up-with/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reveals-weird-habit-065245109.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/love-tight-end-donald-trump-110037104.html
