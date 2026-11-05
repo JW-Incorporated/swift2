@@ -16195,7 +16195,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.',
+          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.\n\nThe Kelce family answered in public within days. On the Sept. 30 episode of New Heights, Travis said "Cleveland is rocking right now!" and thanked Taylor for giving the city "a little more life," while Jason called it "incredible" and said he and his wife, Kylie, had been playing it a lot at home (PinkNews).',
         // No `video` field on purpose (same reasoning as
         // 'patient-zero-released-spotify-records' above): the official lyric-video
         // frame is used as a plain credited photo and the video is cited as a
@@ -16251,6 +16251,17 @@ export default {
             reliability_score: 3,
             notes:
               'Fetched 2026-10-26. Independently describes the home footage of Travis driving Taylor into the city, road signs, a passenger-seat selfie, drone shots and two people roller-skating, and places the song on The Encore.',
+          },
+          {
+            outlet: 'PinkNews',
+            url: 'https://www.thepinknews.com/2026/09/30/taylor-swift-cleveland-song/',
+            source_title: 'Travis and Jason Kelce react to Taylor Swift\'s \'Cleveland!\' on New Heights podcast',
+            publisher: 'PinkNews',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-05',
+            reliability_score: 3,
+            notes:
+              'Fetched 2026-11-05. Reports the Sept. 30 New Heights reactions: Travis ("Cleveland is rocking right now!", thanks to Taylor) and Jason ("that song is incredible", played often at home with Kylie).',
           },
         ],
       },
