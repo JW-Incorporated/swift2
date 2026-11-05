@@ -81,7 +81,7 @@ describe('evaluateCurrentItemWriting', () => {
       { body: `${'some plain words here and there. '.repeat(30)}` },
       'thin_substance',
     ],
-    ['uncited sentence', { citations: [0, 1, 2] }, 'uncited_sentence'],
+    ['too many voice sentences', { citations: [0, 1, 2] }, 'too_many_voice_sentences'],
   ];
 
   it.each(cases)('%s', (_label, override, reason) => {
@@ -101,7 +101,7 @@ describe('evaluateCurrentItemWriting', () => {
   it('checks structured per-sentence refs instead of splitter indexes', () => {
     const refs = splitSentences(GOOD.body).map(() => ['f1']);
     expect(evaluateCurrentItemWriting({ ...GOOD, citations: undefined, sentenceRefs: refs })).toEqual({ ok: true });
-    expect(reasonsOf({ ...GOOD, citations: undefined, sentenceRefs: [...refs.slice(1), []] })).toContain('uncited_sentence');
+    expect(reasonsOf({ ...GOOD, citations: undefined, sentenceRefs: [...refs.slice(1), []] })).toContain('voice_sentence_has_fact');
     expect(reasonsOf({ ...GOOD, citations: undefined, sentenceRefs: [] })).toContain('uncited_sentence');
   });
 

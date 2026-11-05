@@ -14,7 +14,7 @@ describe('fixtures', () => {
     const negatives = rows('negatives.jsonl');
     const legacy = rows('legacy.jsonl');
     expect(gold).toHaveLength(5);
-    expect(negatives).toHaveLength(5);
+    expect(negatives).toHaveLength(7);
     expect(legacy.length).toBeGreaterThanOrEqual(26);
     for (const row of [...gold, ...negatives, ...legacy]) {
       expect(row.kitId).toBeTruthy();
@@ -23,7 +23,16 @@ describe('fixtures', () => {
       expect(row.lead.length).toBeGreaterThan(0);
       expect(row.paragraphs.length).toBeGreaterThan(0);
     }
-    for (const row of gold) expect(row.paragraphs.flatMap((p: { sentences: { refs: string[] }[] }) => p.sentences).every((s) => s.refs.length > 0)).toBe(true);
+    type Paragraph = { sentences: { refs: string[] }[] };
+    const voiceCount = (row: { paragraphs: Paragraph[] }) => row.paragraphs.flatMap((p) => p.sentences).filter((s) => s.refs.length === 0).length;
+    for (const row of gold) {
+      expect(voiceCount(row)).toBeLessThanOrEqual(2);
+      for (const p of row.paragraphs as Paragraph[]) expect(p.sentences.some((s) => s.refs.length > 0)).toBe(true);
+    }
+    expect(gold.filter((row) => voiceCount(row) > 0)).toHaveLength(4);
+    for (const id of ['neg-voice-smuggled-fact', 'neg-voice-mean']) {
+      expect(voiceCount(negatives.find((row) => row.kitId === id)!)).toBe(1);
+    }
     for (const row of legacy) expect(row.paragraphs.flatMap((p: { sentences: { refs: string[] }[] }) => p.sentences).every((s) => s.refs.length === 0)).toBe(true);
   });
 
