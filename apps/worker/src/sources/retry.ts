@@ -15,6 +15,27 @@ export interface RetryOptions {
   sleep?: (ms: number) => Promise<void>;
 }
 
+// YouTube's feed endpoint answers 404 for most requests and 200 for the rest
+// (5 sequential fetches measured: 404 404 404 404 200), so it gets a deeper
+// budget than other feeds: 5 attempts, 0.5s/1s/2s/4s between them.
+export const YOUTUBE_FEED_MAX_ATTEMPTS = 5;
+export const YOUTUBE_FEED_BASE_DELAY_MS = 500;
+
+export function isYouTubeFeedUrl(url: string): boolean {
+  try {
+    const { hostname, pathname } = new URL(url);
+    return /(^|\.)youtube\.com$/i.test(hostname) && pathname === '/feeds/videos.xml';
+  } catch {
+    return false;
+  }
+}
+
+export function retryOptionsFor(url: string): RetryOptions {
+  return isYouTubeFeedUrl(url)
+    ? { retries: YOUTUBE_FEED_MAX_ATTEMPTS - 1, baseDelayMs: YOUTUBE_FEED_BASE_DELAY_MS }
+    : {};
+}
+
 export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions = {}): Promise<T> {
   const { retries = 2, baseDelayMs = 1000, sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = opts;
   for (let attempt = 0; ; attempt++) {
