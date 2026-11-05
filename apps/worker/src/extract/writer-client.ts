@@ -131,7 +131,7 @@ export function validateDraft(
         const text = typeof r.text === 'string' ? clean(r.text) : '';
         const refs = Array.isArray(r.refs) ? r.refs.filter((x): x is string => typeof x === 'string') : [];
         if (!text) reasons.push(`paragraph ${pi} sentence ${si} has no text`);
-        if (refs.length === 0) reasons.push(`paragraph ${pi} sentence ${si} has no refs`);
+        if (!Array.isArray(r.refs)) reasons.push(`paragraph ${pi} sentence ${si} has no refs array`);
         for (const ref of refs) {
           if (!allowedRefs.has(ref)) reasons.push(`ref ${ref} is not a provided fact or context id`);
         }
