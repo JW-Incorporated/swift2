@@ -9,10 +9,11 @@
 //
 // Usage:
 //   npx tsx scripts/news/tune-writer.mjs <writer-eval-kit.jsonl> <out-dir> [--n 10] [--concurrency 2]
-//        [--writer-model claude-sonnet-5-5|claude-opus-5-5] [--judge-only <drafts.jsonl>]
+//        [--writer-model claude-sonnet-5-5|claude-opus-5-5] [--judge-only <drafts.jsonl>] [--judge-all]
 //
 // --judge-only skips the writer: each drafts.jsonl line is {kitId, lead, paragraphs:[{sentences:[{text, refs}]}]},
 // matched to the kit item by kitId, then run through the same validation, writing gate and judge.
+// --judge-all also judges drafts the writing gate rejected (scores recorded next to gateReasons; they still hold).
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -52,8 +53,13 @@ export function replayWriter(draft, row) {
   };
 }
 
-async function runOne(stores, row, options = {}) {
-  const deps = options.draft ? { ...stores, write: replayWriter(options.draft, row), noRewrite: true } : stores;
+export async function runOne(stores, row, options = {}) {
+  const base = options.draft ? { ...stores, write: replayWriter(options.draft, row), noRewrite: true } : stores;
+  const deps = {
+    ...base,
+    ...(options.judgeAll ? { judgeAll: true } : {}),
+    ...(options.judgeFn ? { judgeFn: options.judgeFn } : {}),
+  };
   const composed = await composePost(deps, {
     headline: row.headline,
     observedOn: requireObservedOn(row),
@@ -74,6 +80,7 @@ async function runOne(stores, row, options = {}) {
     body: composed.trace.body,
     judgeScores: composed.trace.judgeScores,
     judgeReasons: composed.trace.judgeReasons ?? null,
+    unjudgeable: composed.trace.unjudgeable ?? false,
     gateReasons: composed.trace.gateReasons ?? null,
     rewrites: composed.trace.rewrites,
   };
@@ -89,6 +96,7 @@ async function main() {
   const writerModel = textFlag(args, '--writer-model');
   if (writerModel && !WRITER_MODELS.includes(writerModel)) throw new Error(`--writer-model must be one of ${WRITER_MODELS.join(', ')}`);
   const judgeOnly = textFlag(args, '--judge-only');
+  const judgeAll = args.includes('--judge-all');
   let rows = sampleRows(readFileSync(resolve(kitPath), 'utf8'), judgeOnly ? 0 : flag(args, '--n', 0));
   const drafts = new Map();
   if (judgeOnly) {
@@ -103,6 +111,7 @@ async function main() {
   const out = resolve(outDir);
   mkdirSync(out, { recursive: true });
 
+  // In-memory only (no-op db): caps of 10,000 cover --judge-all on any kit, and usage_daily is never touched.
   const db = { todaysCallCount: async () => 0, incrementToday: async () => undefined };
   const stores = {
     writer: await ExtractUsageStore.create(db, 10_000, 10_000),
@@ -113,14 +122,14 @@ async function main() {
   await Promise.all(Array.from({ length: concurrency }, async () => {
     while (next < rows.length) {
       const i = next++;
-      results[i] = await runOne(stores, rows[i], { writerModel, draft: drafts.get(rows[i].kitId) });
+      results[i] = await runOne(stores, rows[i], { writerModel, judgeAll, draft: drafts.get(rows[i].kitId) });
       writeFileSync(join(out, `${rows[i].kitId}.json`), JSON.stringify(results[i], null, 2));
       console.error(`[${i + 1}/${rows.length}] ${rows[i].kitId} ${results[i].status}${results[i].reason ? ` ${results[i].reason}` : ''}`);
     }
   }));
 
   const summary = summarizeRuns(results);
-  writeFileSync(join(out, 'summary.json'), JSON.stringify({ codeSha: process.env.GITHUB_SHA ?? null, writerModel: writerModel ?? 'default', judgeOnly: Boolean(judgeOnly), summary, results }, null, 2));
+  writeFileSync(join(out, 'summary.json'), JSON.stringify({ codeSha: process.env.GITHUB_SHA ?? null, writerModel: writerModel ?? 'default', judgeOnly: Boolean(judgeOnly), judgeAll, summary, results }, null, 2));
   console.log(renderSummary(summary));
   return 0;
 }
