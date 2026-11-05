@@ -57,13 +57,19 @@ export async function loadDedupeCandidates(
     headline: row.headline as string,
     summary: row.summary as string,
     detail: (row.detail as string) ?? '',
-    sources: ((row.sources as unknown[]) ?? []).map((source) => source as ClusterSource),
+    sources: ((row.sources as unknown[]) ?? []).map(storedSourceToCluster),
     imageUrl: (row.image_url as string | null) ?? null,
     heat: (row.heat as number) ?? 0,
     observedOn: (row.observed_on as string | null) ?? null,
     entities: (row.entities as string[] | null) ?? [],
     facts: (row.facts as ExtractedFact[] | null) ?? null,
   }));
+}
+
+/** current_item.sources is persisted as {name, url, tier}; the cluster shape names the outlet outletName. */
+export function storedSourceToCluster(source: unknown): ClusterSource {
+  const row = source as Partial<ClusterSource> & { name?: string };
+  return { ...row, outletName: row.outletName ?? row.name ?? '' } as ClusterSource;
 }
 
 export function shortlistCandidates(
