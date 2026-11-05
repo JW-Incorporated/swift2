@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 63
+
+## Taylor Swift reportedly feels anxious after backlash
+
+- first seen: 2026-11-05 15:07 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is said to be genuinely anxious following recent backlash she received. The report highlights her emotional state in response to the criticism.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-genuinely-anxious-141106629.html
+
+## Exploring Taylor Swift's $18M Rhode Island Home Hosting 'Taymerica' Parties
+
+- first seen: 2026-11-05 15:07 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article details Taylor Swift's $18 million Rhode Island home, known for hosting her renowned 'Taymerica' parties. The piece offers insight into the luxurious features and ambiance of this celebrity retreat.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-rhode-island-home-history-12137399
+
+## Sydney Sweeney’s boyfriend aims to impress at wedding
+
+- first seen: 2026-11-05 15:07 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A source reports that Sydney Sweeney’s boyfriend is looking to outshine Taylor Swift at their upcoming wedding. The details are scarce, but the intention to create a memorable moment is highlighted.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/sydney-sweeney-boyfriend-looking-one-133538639.html
 
 ## Documentary to Cover Taylor Swift's Canceled Vienna Concerts
 
@@ -518,19 +542,3 @@ Stories: 62
 - summary: My Chemical Romance's album The Black Parade has reached #1 on the charts, marking the band's first time achieving this milestone 20 years after its original release.
 - sources:
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2516272/my-chemical-romance-land-first-1-album-with-the-black-parade-20-years-after-its-original-release/news/
-
-## Burgundy Flats: The Fall Trend Inspired by Celebrities
-
-- first seen: 2026-11-02 14:27 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: This fall, burgundy flats have emerged as a trendy alternative to sneakers, inspired by a French-girl aesthetic. Available from $23, these flats are gaining popularity among celebrities and fashion enthusiasts alike.
-- sources:
-  - [unverified] Travel + Leisure — https://www.travelandleisure.com/taylor-swift-burgundy-loafers-inspired-shoe-trend-fall-fashion-12202668
-
-## Taylor Swift reportedly absent during Chiefs' game against Broncos
-
-- first seen: 2026-11-02 14:27 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was notably absent during the Kansas City Chiefs' recent game against the Denver Broncos, which has generated some discussion among fans and media.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-apparent-absence-adds-131658881.html
