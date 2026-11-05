@@ -87,6 +87,7 @@
     "social:select-photo": "node scripts/social/select-photo.mjs",
     "social:import-photo-library": "node scripts/social/import-photo-library.mjs",
     "social:photo-coverage": "node scripts/social/photo-coverage.mjs",
+    "social:backfill-era-tags": "node scripts/social/backfill-era-tags.mjs",
     "photos:frames:local": "node scripts/social/source-video-frames.mjs --mode a --output .artifacts/video-frames-candidates.json",
     "news:dedupe": "tsx scripts/news/dedupe-current-items.mjs",
     "news:dedupe:live": "tsx scripts/news/dedupe-current-items.mjs --live"

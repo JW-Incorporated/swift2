@@ -60,6 +60,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { runMain } from '../lib/cli.mjs';
 import { topPosts } from '../lib/reddit-rss.mjs';
+import { ERA_KEYWORD_HINTS, guessEraTag } from './lib/era-tags.mjs';
 
 /* global AbortSignal */ // Node 18+ global, same pragma as crawl.mjs
 
@@ -97,36 +98,13 @@ const NON_CONCERT_TITLE_RE =
 const CONCERT_SIGNAL_RE = /\b(eras tour|concert|show|stage|live|tour stop|night \d+)\b/i;
 
 // Era-tag inference (2026-09-29, founder directive: fix per-era photo
-// starvation). A conservative, explicit keyword list per era slug (matching
-// `supabase/seed/eras-data.mjs`'s canonical slugs) — a title must contain an
-// unambiguous album/tour-name signal to earn an era tag. NEVER inferred from
-// outfit color, venue, or any other indirect signal: a wrong era tag is
-// worse than no era tag at all (an off-era photo would ship on a themed
-// post — the exact failure `select-photo.mjs --era`'s hard-fail-closed
-// filter exists to prevent). When no pattern matches, the photo keeps only
-// the generic `fan-photo`/`eras-tour` tags, same as before this change.
-export const ERA_KEYWORD_HINTS = [
-  { era: 'debut', re: /\b(debut era|taylor swift \(album\)|self[- ]titled album)\b/i },
-  { era: 'fearless', re: /\bfearless\b/i },
-  { era: 'speak-now', re: /\bspeak now\b/i },
-  { era: 'red', re: /\bred (era|tour|act)\b/i },
-  { era: '1989', re: /\b1989\s*(era|tour|act)\b/i },
-  { era: 'reputation', re: /\breputation\b/i },
-  { era: 'lover', re: /\blover (era|fest|tour|act)\b/i },
-  { era: 'folklore', re: /\bfolklore\b/i },
-  { era: 'evermore', re: /\bevermore\b/i },
-  { era: 'midnights', re: /\bmidnights?\b/i },
-  { era: 'tortured-poets', re: /\b(tortured poets|ttpd)\b/i },
-  { era: 'the-life-of-a-showgirl', re: /\b(life of a showgirl|tloas|showgirl)\b/i },
-];
-
-/** Best-effort era slug from a post title's explicit album/tour-name mention. */
-export function guessEraTag(title) {
-  for (const hint of ERA_KEYWORD_HINTS) {
-    if (hint.re.test(title ?? '')) return hint.era;
-  }
-  return null;
-}
+// starvation) now lives in lib/era-tags.mjs, because applying it only at
+// ingest left every photo sourced before an era joined the list permanently
+// un-era'd (issue #6644 — Showgirl). Re-exported here so this adapter's own
+// public API is unchanged and there is still exactly one keyword list.
+// When no pattern matches, the photo keeps only the generic
+// `fan-photo`/`eras-tour` tags, same as before.
+export { ERA_KEYWORD_HINTS, guessEraTag };
 
 // Known Eras Tour venue/date pairs a post title might explicitly name.
 // Deliberately a small, reviewable, EXPLICIT list, never a free-text date
@@ -268,8 +246,11 @@ export function buildCandidate(subreddit, post) {
   const { venue, date } = guessVenueDate(post.title);
   const tags = ['fan-photo', 'eras-tour'];
   if (CONCERT_SIGNAL_RE.test(post.title ?? '')) tags.push('concert');
+  // Era FIRST: `photo-coverage.mjs` reports `tags[0]` as a photo's era, so an
+  // era tag appended last is invisible to the very report that exists to show
+  // which eras are starved of photos (issue #6644).
   const eraTag = guessEraTag(post.title);
-  if (eraTag) tags.push(eraTag);
+  if (eraTag) tags.unshift(eraTag);
   return {
     id,
     mediaPath: `/social/library/photos/${id}.${ext}`,
