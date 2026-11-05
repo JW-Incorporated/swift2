@@ -11,6 +11,7 @@
 // cannot depend on a scripts/ .mjs).
 
 import { allowedOutlets, unknownAttributions } from './current-item-attribution.ts';
+import { voiceCitationReasons } from './current-item-voice.ts';
 
 export const WRITING_THRESHOLDS = {
   bodyMaxHedges: 2,
@@ -282,20 +283,15 @@ export function evaluateCurrentItemWriting(
   if (options.legacy) {
     // Legacy rows carry no citations.
   } else if (input.sentenceRefs) {
-    if (input.sentenceRefs.length === 0 || input.sentenceRefs.some((refs) => refs.length === 0)) {
-      reasons.push('uncited_sentence');
-    }
+    if (input.sentenceRefs.length === 0) reasons.push('uncited_sentence');
+    else reasons.push(...voiceCitationReasons(body, input.sentenceRefs.map((refs) => refs.length > 0), splitSentences));
   } else if (!input.citations) {
     reasons.push('citations_missing');
   } else {
     const count = input.bodySentenceCount ?? splitSentences(body).length;
-    const cited = new Set(input.citations);
-    for (let i = 0; i < count; i++) {
-      if (!cited.has(i)) {
-        reasons.push('uncited_sentence');
-        break;
-      }
-    }
+    const citedSet = new Set(input.citations);
+    const cited = Array.from({ length: count }, (_, i) => citedSet.has(i));
+    reasons.push(...voiceCitationReasons(body, cited, splitSentences));
   }
 
   return reasons.length === 0 ? { ok: true } : { ok: false, reasons };

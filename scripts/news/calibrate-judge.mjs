@@ -2,8 +2,8 @@
 // Judge calibration gate (docs/decisions.md 2026-11-03). Runs ONLY the judge,
 // through the worker's claude -p wrapper with an in-memory usage store, over
 // three fixture sets in apps/worker/src/extract/__fixtures__/judge-calibration/:
-//   gold.jsonl       5 hand-written drafts that must pass, 3 repeated runs
-//   negatives.jsonl  5 gold copies with one defect each; must fail ON the expected dimension
+//   gold.jsonl       5 hand-written drafts (two carry a fan-voice line) that must pass, 3 repeated runs
+//   negatives.jsonl  7 gold copies with one defect each; must fail ON the expected dimension
 //   legacy.jsonl     the old pre-engine copy (no refs); at least 26/31 (scaled to the row count)
 //                    must fail. Judged without the deterministic gate and without a citations
 //                    block; this is for calibration only.
