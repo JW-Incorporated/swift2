@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 60
+Stories: 61
+
+## Celebrities Feature in Tommy Hilfiger's Winter Campaign
+
+- first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
+
+## Taylor Swift's 'Patient Zero' Highlights Support for Domestic Violence Survivors
+
+- first seen: 2026-11-05 05:27 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's song 'Patient Zero' resonates with domestic violence survivors, emphasizing the importance of support services like Haven House. The piece discusses how the song connects to real-life situations and the assistance provided by organizations.
+- sources:
+  - [unverified] nwitimes.com — https://nwitimes.com/news/local/video_6b97ba1e-0393-516b-8f67-af6df1acd936.html
 
 ## Exploring the Significance of Track 5 on Taylor Swift's Albums
 
@@ -507,11 +523,3 @@ Stories: 60
 - summary: In a recent interview, Taylor Swift shares an unusual habit that her husband has to tolerate, highlighting aspects of their relationship. The singer's admission sheds light on her personal life and the dynamics of her marriage.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-confesses-unusual-habit-035446919.html
-
-## Taylor Swift Enjoys a Successful Week
-
-- first seen: 2026-11-02 04:37 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: This week's edition of The Weekly Blast highlights Taylor Swift's achievements, contrasting them with Meghan Markle's less favorable week. Further details on both personalities' recent activities are provided in the article.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/weekly-blast-taylor-swift-had-043000210.html
