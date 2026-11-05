@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 61
+Stories: 60
 
 ## Taylor Swift Considers Hiring Investigators for Wedding Leak
 
@@ -517,11 +517,3 @@ Stories: 61
 - summary: Taylor Swift and Olivia Rodrigo are spotted wearing a trendy new hat style for the Fall 2026 season, moving away from traditional beanies. This shift showcases their influence in current fashion trends.
 - sources:
   - [unverified] Grazia — https://graziamagazine.com/us/articles/how-to-style-baseball-cap-fall-2026/
-
-## Travis Kelce Discusses Taylor Swift's Unique Movie Preferences
-
-- first seen: 2026-11-02 12:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce talks about Taylor Swift's distinct movie habits that he has to adjust to. The focus is on their relationship and how they navigate personal interests.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-live-taylor-swift-120129888.html
