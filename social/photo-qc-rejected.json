@@ -2827,6 +2827,48 @@
       "sha256": "7a49b21ac8dd42e374d34798800413827653d92670ef70b2d7e33f0eed035538",
       "reason": "Wide stage shot with many dancers; performers small, foreground equipment blocks view",
       "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-FTA4kzsTmxc-maxres3",
+      "sha256": "341f849c8f3a2405bb1677b69b56a8c041175d2f9073f2e27509a674ea0cccec",
+      "reason": "Two featured women plus dancers; no single dominant subject",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-FTA4kzsTmxc-maxres2",
+      "sha256": "45f40c3b38ee7bd945f960a30287d44abe5df9ccab0eae7bb7a81ab5a89e13f5",
+      "reason": "Four performers share the frame; no single person is the main subject.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-FTA4kzsTmxc-maxres1",
+      "sha256": "865550d309d1544b87232ea2344c0ce541bf8bba8a5374052cff872ca97a0940",
+      "reason": "Two performers on stage; second person competes as a main subject.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-DJXfSaOJXOQ-maxres3",
+      "sha256": "bf289d5379a56f261215ab5077eb4e39021564313f92caa3372ff4037fba8490",
+      "reason": "Large group crowd; many people dominant, no single main subject",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-sIjKXPXjVxU-maxres1",
+      "sha256": "6a2eaa654ccffaa660f1d8a3f6342d69d54f761eb5ecd17dc6646a564257ef27",
+      "reason": "Dark, soft video frame seen through car window; second person partly in frame",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-sIjKXPXjVxU-maxres2",
+      "sha256": "802c608ce9cc92d89ee4cb00c49e17eb80c3715da1e768d2e617b8317761f726",
+      "reason": "Two men share the frame; no single main subject, doesn't match caption.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "wikimedia-137560727",
+      "sha256": "b424e6fd2c7be2f9671d6fb7c2bc20ff4dc7a33f5c7f43776bab6ce854631eb6",
+      "reason": "Stadium stage panorama; performers tiny, multiple people, dark scene.",
+      "date": "2026-11-05"
     }
   ]
 }
