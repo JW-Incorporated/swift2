@@ -11,6 +11,7 @@ export * from './current-item-quality';
 export * from './outlet-label';
 export * from './current-item-writing';
 export * from './current-item-attribution';
+export * from './current-item-voice';
 export * from './notifications-types';
 export * from './device-registration';
 export * from './notification-deep-links';

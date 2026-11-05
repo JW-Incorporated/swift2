@@ -59,13 +59,32 @@ describe('composePost', () => {
     expect(judged.citations![5]).toEqual({ text: SENTENCES[5], refs: ['c1'] });
   });
 
-  it('holds a sentence with no refs as uncited_sentence from the structure, not the splitter', async () => {
-    const broken = [{ sentences: [{ text: SENTENCES[0]!, refs: [] }, ...PARAGRAPHS[0]!.sentences.slice(1)] }, PARAGRAPHS[1]!];
-    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(broken) }));
+  const voiced = (indexes: number[]) => PARAGRAPHS.map((p, pi) => ({
+    sentences: p.sentences.map((s, si) => (indexes.includes(pi * 5 + si) ? { ...s, refs: [] } : s)),
+  }));
+
+  it('lets an empty-refs fan-voice sentence through to the judge, keeping its empty refs', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([0])) }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(result.status).toBe('ok');
+    expect(judgeFn.mock.calls[0]![1].citations![0]).toEqual({ text: SENTENCES[0], refs: [] });
+  });
+
+  it('holds more than two empty-refs sentences as too_many_voice_sentences', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([0, 2, 7])) }));
+    const judgeFn = vi.fn();
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:too_many_voice_sentences' });
+    expect(write).toHaveBeenCalledTimes(2);
+    expect(judgeFn).not.toHaveBeenCalled();
+  });
+
+  it('holds a paragraph with no cited sentence as uncited_sentence', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([5, 6, 7, 8, 9])) }));
     const judgeFn = vi.fn();
     const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
     expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:uncited_sentence' });
-    expect(write).toHaveBeenCalledTimes(2);
     expect(judgeFn).not.toHaveBeenCalled();
   });
 
