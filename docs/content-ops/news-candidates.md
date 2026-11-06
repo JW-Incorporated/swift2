@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 83
+
+## Omaha Man Who Founded Taylor Swift Fan Club Passes Away at 95
+
+- first seen: 2026-11-06 22:57 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A 95-year-old man from Omaha, who was the founder of a Taylor Swift fan club, has passed away. His contributions to the fan community are remembered fondly.
+- sources:
+  - [unverified] KETV — https://www.ketv.com/article/omaha-man-frank-uryasz-taylor-swift-fan-club-dies/74361123
+
+## Knicks Representative Acknowledges Taylor Swift's Support Over the Years
+
+- first seen: 2026-11-06 22:57 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A representative from the New York Knicks has expressed gratitude to Taylor Swift for her longstanding support of the team. This acknowledgment follows comments made by Tyler Kolek.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/knicks-thanks-taylor-swift-many-years-fan-support-1237216026/
+
+## Knicks Support Taylor Swift Amid Tyler Kolek's Comments
+
+- first seen: 2026-11-06 22:57 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The New York Knicks have defended Taylor Swift after player Tyler Kolek referred to her as a 'performative' fan. A spokesperson for the team emphasized her long-standing support for the Knicks, while Kolek's girlfriend also contributed her thoughts on the matter.
+- sources:
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/news/general-news/new-york-knicks-defend-taylor-swift-tyler-kolek-1236749740/
+
+## Taylor Swift Reportedly Upset Over Alleged Betrayal on Wedding Day
+
+- first seen: 2026-11-06 22:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report claims that Taylor Swift is furious due to a perceived betrayal related to her wedding. The news adds to the ongoing negative coverage surrounding her nuptials.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-faces-more-212943952.html
+
+## Taylor Swift discusses business ventures in Time Magazine
+
+- first seen: 2026-11-06 22:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares insights about her business endeavors in a feature by Time Magazine. The interview highlights her approach to the music industry and her entrepreneurial spirit.
+- sources:
+  - [unverified] Time Magazine — https://time.com/3578249/taylor-swift-interview/
 
 ## Taylor Swift and Travis Kelce Discuss Holiday Plans as Newlyweds
 
@@ -683,11 +723,3 @@ Stories: 79
 - summary: Abdul El-Sayed shared his opinion, stating that Taylor Swift's 'Life of a Showgirl' is not her best work. The comment reflects a critical perspective on the artist's latest offering.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/course-not-abdul-el-sayed-230036484.html
-
-## A Look Back at Taylor Swift's Best Curly Hair Moments
-
-- first seen: 2026-11-03 22:57 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Yahoo highlights Taylor Swift's iconic curly hair moments throughout her career, showcasing her evolving style. The article features various instances where her curls took center stage in her public appearances.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/slideshows/taylor-swifts-best-curly-hair-213500260.html
