@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #149 🟡 [DECIDE] Work-ownership stalePr budget breached for 10+ days (~5 min)
+<!-- ha filed=2026-11-06 -->
+
+**Why:** Watchdog alert #6341 has stayed open ~11 days: `stalePr` is at 11 open non-draft PRs older than 7 days vs budget 9, mostly recurring Tree social-draft and dependabot PRs nobody returns to close.
+**Steps:**
+1. Open https://github.com/JW-Incorporated/swift2/issues/6341 for the current list of stale PRs.
+2. Decide: `raise` — raise stalePr budget in `.github/work-ownership-budget.json` if this volume is now expected steady-state; `route` — send the stale PRs to triage for cleanup instead.
+**Worked if:** Issue #6341 closes (watchdog self-closes once stalePr is back at or under budget).
 
 ## #148 🟢 [UPGRADE] Swap the site's Supabase key from secret to publishable (~10 min)
 <!-- ha filed=2026-11-04 -->
