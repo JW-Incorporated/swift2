@@ -3,7 +3,8 @@
 // deterministic about today's run — calendar slots, what is already drafted
 // (on main AND in open draft PRs), the never-used photo per slot, active
 // rules, the owner's recent rejection reasons, uncovered time-sensitive
-// events — and writes ONE JSON file the model reads instead of searching.
+// events, verified lens counts off the seed — and writes ONE JSON file the
+// model reads instead of searching.
 // Run by routine-tree-daily-draft.yml's `prepare` job before the model starts;
 // safe locally (`--no-gh` skips every GitHub read).
 //
@@ -15,7 +16,7 @@
 import { execFileSync } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
 import { runEventStatusCli } from './check-event-transition.mjs';
 import { buildDraftInputs, summarizeInputs } from './lib/draft-inputs.mjs';
@@ -47,6 +48,24 @@ export function collectGithub(runGh, { nowMs, repo, warnings }) {
   // Titles reach the model, and the intake form auto-labels for ANY user — keep only the news desk and repo insiders.
   const intakeIssues = guard('intake issues', () => JSON.parse(runGh(['api', `repos/${repo}/issues?labels=intake&state=open&per_page=40`])).map(fromRestIssue).filter((i) => i && isTrustedAuthor(i)), []);
   return { openDrafts, closedPrs, intakeIssues };
+}
+
+/**
+ * The hidden-clues lens seed (`CLUE_PAIRS`) — the authored source the site renders,
+ * read straight from `supabase/seed/lenses/` so a lens count never needs the built
+ * `content-vault.generated.ts` the draft job does not build (issue #6505). An
+ * unreadable seed becomes a warning and `null`, so the count is omitted, not guessed.
+ */
+export async function readCluePairs(root, warnings) {
+  const file = path.join(root, 'supabase', 'seed', 'lenses', 'clue-pairs.mjs');
+  try {
+    const { CLUE_PAIRS } = await import(pathToFileURL(file).href);
+    if (!Array.isArray(CLUE_PAIRS) || !CLUE_PAIRS.length) throw new Error('CLUE_PAIRS is not a non-empty array');
+    return CLUE_PAIRS;
+  } catch (err) {
+    warnings.push(`hidden-clues lens seed could not be read (${String(err.message).split('\n')[0].slice(0, 120)}) — no lens count is provided; do not assert one`);
+    return null;
+  }
 }
 
 async function main() {
@@ -81,9 +100,11 @@ async function main() {
   const { usable: igUsable, unreadable } = await igUsablePhotos(library, path.join(ROOT, 'apps', 'web', 'public'));
   if (unreadable.length) warnings.push(`${unreadable.length} library photo file(s) could not be read and were treated as unusable: ${unreadable.slice(0, 5).join(', ')}`);
 
+  const cluePairs = await readCluePairs(ROOT, warnings);
+
   const inputs = buildDraftInputs({
     now, library, calendarMd: await readText('calendar.md'), lessonsMd: await readText('lessons.md'),
-    posted, queue, intents, eventStatus, warnings, igUsable, ...github,
+    posted, queue, intents, eventStatus, warnings, igUsable, cluePairs, ...github,
   });
   await mkdir(path.dirname(out), { recursive: true });
   await writeFile(out, `${JSON.stringify(inputs, null, 2)}\n`, 'utf8');

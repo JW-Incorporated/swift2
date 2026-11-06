@@ -1,6 +1,6 @@
 // Bots v2 W8: the deterministic pre-compute Tree's daily run reads instead of searching.
 import { describe, expect, it } from 'vitest';
-import { BACKLOG_SKIP_AT, activeRules, buildDraftInputs, filledBeats, parseCalendarBeats, parsePhotoHints, parseRedraftNotes, recentRejections, summarizeInputs, uncoveredEvents } from './lib/draft-inputs.mjs';
+import { BACKLOG_SKIP_AT, activeRules, buildDraftInputs, filledBeats, hiddenCluesFacts, parseCalendarBeats, parsePhotoHints, parseRedraftNotes, recentRejections, summarizeInputs, uncoveredEvents } from './lib/draft-inputs.mjs';
 import { assignBeatPhotos, buildPhotoLedger, eraAvailability, eraTagsOf, photoIdOf } from './lib/photo-ledger.mjs';
 
 const photo = (id: string, tags: string[] = ['eras-tour'], credit = 'Real Person (CC BY 2.0)') => ({
@@ -190,6 +190,50 @@ describe('buildDraftInputs', () => {
     expect(inputs.inbox).toEqual([]);
     expect(summarizeInputs(inputs)).toContain('new on site (2026-10-15): 2 moment(s)');
     expect(buildDraftInputs(base).newOnSite).toBeNull();
+  });
+});
+
+// Issue #6505: the Decode thread-hero `behind-the-data` beat deferred because the draft
+// job could not count lens membership without a built content-vault. The count now comes
+// off the seed — and must still be OMITTED, never guessed, when that seed cannot be read.
+describe('hidden-clues lens count', () => {
+  const base = {
+    now: '2026-10-01T11:00:00Z', library: LIB, calendarMd: CALENDAR, lessonsMd: '', posted: [], queue: [], openDrafts: [], closedPrs: [], intents: [], intakeIssues: [],
+  };
+
+  it('matches a direct count of live lens members in the seed, and lists its source file', async () => {
+    const { CLUE_PAIRS } = await import('../../supabase/seed/lenses/clue-pairs.mjs');
+    const facts = hiddenCluesFacts(CLUE_PAIRS);
+    expect(facts.clues).toBe(CLUE_PAIRS.length); // every seeded pair is live — DecodeThread filters none
+    expect(facts.confirmed + facts.theory).toBe(CLUE_PAIRS.length);
+    expect(facts.confirmed).toBe(CLUE_PAIRS.filter((c: { confirmed?: boolean }) => c.confirmed === true).length);
+    expect(facts.sources).toEqual(['supabase/seed/lenses/clue-pairs.mjs']);
+    expect(facts.earliestPlant).toBe(CLUE_PAIRS.map((c: { plant: { date: string } }) => c.plant.date).sort()[0]);
+    expect(buildDraftInputs({ ...base, cluePairs: CLUE_PAIRS }).lenses['hidden-clues'].clues).toBe(CLUE_PAIRS.length);
+  });
+
+  it('counts eras, the densest era and the longest plant→payoff gap off the same rows', () => {
+    const pair = (id: string, plant: string, payoff: string, eraId: string, confirmed = true) => ({
+      id, title: `t ${id}`, plant: { date: plant, eraId }, payoff: { date: payoff, eraId }, confirmed,
+    });
+    const facts = hiddenCluesFacts([
+      pair('a', '2018-01-01', '2019-01-01', 'reputation'),
+      pair('b', '2019-01-01', '2024-07-01', 'lover', false),
+      pair('c', '2019-06-01', '2020-01-01', 'lover'),
+    ]);
+    expect(facts).toMatchObject({
+      lens: 'hidden-clues', clues: 3, confirmed: 2, theory: 1, erasWithClues: 2,
+      earliestPlant: '2018-01-01', latestPayoff: '2024-07-01',
+      densestEra: { eraId: 'lover', clues: 2 }, longestGap: { id: 'b', years: 5 },
+    });
+  });
+
+  it('omits the count entirely when the seed is unread, and says so in the summary', () => {
+    expect(hiddenCluesFacts(null)).toBeNull();
+    expect(hiddenCluesFacts([])).toBeNull();
+    const inputs = buildDraftInputs(base);
+    expect('lenses' in inputs).toBe(false);
+    expect(summarizeInputs(inputs)).toContain('hidden-clues lens: not counted (seed unread)');
   });
 });
 
