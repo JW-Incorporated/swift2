@@ -4249,7 +4249,7 @@ export default {
       thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
-          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Taylor\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Taylor coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Taylor in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.\n\nOne aside from the night outlived the game. ESPN analyst Monica McNutt, working the Knicks radio broadcast, was caught on a hot mic before her segment was live: "She\'s not a Knicks fan. Get out of here, girl." The clip went viral and Swifties let her hear about it. In October, on The Pivot podcast, McNutt said she was still "mystified" about how the audio "got to the masses" and called it "a throwaway comment," explaining she had last seen Taylor at a Knicks game "with your man in no Knicks gear."',
+          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Taylor\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Taylor coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Taylor in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.\n\nOne aside from the night outlived the game. ESPN analyst Monica McNutt, working the Knicks radio broadcast, was caught on a hot mic before her segment was live: "She\'s not a Knicks fan. Get out of here, girl." The clip went viral and Swifties let her hear about it. In October, on The Pivot podcast, McNutt said she was still "mystified" about how the audio "got to the masses" and called it "a throwaway comment," explaining she had last seen Taylor at a Knicks game "with your man in no Knicks gear."\n\nIn November the doubt came from inside the locker room, and the team itself answered it. On an NBA 2K livestream posted by Deflected on Nov. 5, guards Tyler Kolek and Miles "Deuce" McBride were asked to name the fakest celebrity Knicks fan. "Maybe Taylor Swift," Kolek said, and McBride agreed. "I don\'t know if I\'ve seen her at any other games. I\'m gonna get some hate from the Swifties," Kolek added. "I guess she\'s got a lot going on, so she can\'t come all the time. But it\'s a little performative." The two singled out Ben Stiller and Tracy Morgan as the regulars. The Knicks did not let it stand: a team spokesperson told Billboard that "Taylor Swift has been a Knicks fan for many years, has a long history with Madison Square Garden, and we are incredibly appreciative of her support of the organization."',
         sources: [
           {
             outlet: 'Billboard',
@@ -4354,6 +4354,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-11-04',
             reliability_score: 3,
+          },
+          // Intake #6670 (Vault Run 2026-11-06): Kolek/McBride on the Deflected
+          // NBA 2K stream and the Knicks' statement to Billboard. Billboard and
+          // SI both loaded directly and carry the same quotes. People 403'd and
+          // is not cited.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/',
+            source_title: "Taylor Swift Called the 'Fakest' New York Knicks Fan by 2 of Team's Players: 'It's a Little Performative'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/knicks-star-takes-serious-issue-with-taylor-swifts-courtside-behavior',
+            source_title: "Knicks Star Takes Serious Issue With Taylor Swift's Courtside Behavior",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
           },
         ],
         // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
@@ -17400,6 +17422,60 @@ export default {
             caption: 'Reference image: Ernst Happel Stadium in Vienna, where the three August 2024 shows the documentary covers were cancelled.',
             kind: 'reference',
             focalPoint: '50% 58%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-06 (Vault Run, Content Shift lane) from intake #6649.
+      // Rolling Stone and NBC Chicago both loaded directly and carry the same
+      // Boy Problems quotes. Family references from the podcast are left out
+      // on purpose (privacy-redlines.md §5).
+      slug: 'showgirl-abdul-el-sayed-swiftie-senator-elect',
+      year: 2026,
+      month: 11,
+      day: 3,
+      category: 'music',
+      title: 'A Swiftie wins Michigan\'s Senate seat, and reviews Showgirl on the way',
+      snippet:
+        'Abdul El-Sayed soundtracked one of his most-watched campaign videos with "You Belong With Me (Taylor\'s Version)," won Michigan\'s open Senate seat, and gave a podcast a careful verdict on The Life of a Showgirl.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Abdul El-Sayed won Michigan\'s open U.S. Senate seat on Nov. 3, 2026, and Swifties had a reason to notice. Over the summer his campaign posted a TikTok of him dancing on a balcony in a flag-print cowboy hat to "You Belong With Me (Taylor\'s Version)," with the lyrics rewritten to jab at his opponent, Mike Rogers, and a caption that read "Happy Taylor wedding… err, July 4th weekend." It reached 5.7 million views, one of his most-watched clips, and self-described Swifties in the comments promised him their votes.\n\nTaylor never endorsed him, and the video also never came down. Asked by a constituent how she had responded, El-Sayed said: "Here\'s the interesting thing — they never forced us to take it down." That stands out next to the Trump and White House videos that tried to use her songs and had the audio muted, a contrast drawn in Rolling Stone\'s write-up.\n\nA few days before the election, El-Sayed went on Liz Plank\'s Boy Problems podcast and got the hard question: was The Life of a Showgirl actually good? His answer was a fan\'s answer. "She is one of the most self-understanding artists of our time," he said. "Is it as good relative to Taylor doing what Taylor does the most naturally? Of course not. But is it an artist reflecting a different or flexing a different muscle and taking a risk? Yes. And I think we need to empower artists when they do that because they\'re pushing the frame of themselves in their own art."',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/',
+            source_title: 'Abdul El-Sayed, a Taylor Swift Fan, Won the Michigan U.S. Senate Seat',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+            notes:
+              'Nov. 4, 2026. Primary for the TikTok (song, rewritten lyrics, caption, 5.7M views), the "never forced us to take it down" quote, the muted White House videos contrast, and the Boy Problems quotes.',
+          },
+          {
+            outlet: 'NBC Chicago',
+            url: 'https://www.nbcchicago.com/entertainment/entertainment-news/abdul-el-sayed-says-life-of-a-showgirl-isnt-taylor-swifts-best-album/4012899/',
+            source_title: "Abdul El-Sayed says 'Life of a Showgirl' isn't Taylor Swift's best album",
+            publisher: 'NBC Chicago',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+            notes: 'Nov. 5, 2026; independent confirmation of the Senate win, the Boy Problems quotes and the TikTok caption.',
+          },
+        ],
+        // Downloaded and viewed 2026-11-06: HTTP 200, image/jpeg, 685x881,
+        // El-Sayed meeting voters at Michigan Tech, Oct. 22, 2025. CC BY-SA 4.0.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Abdul_El-Sayed_meet-and-greet_by_Conlan_Houston_5_%28cropped%29.jpg',
+            credit: 'Conlan Houston, CC BY-SA 4.0, via Wikimedia Commons',
+            caption: 'Abdul El-Sayed meeting voters at Michigan Technological University during the campaign, Oct. 22, 2025.',
+            kind: 'reference',
+            focalPoint: '50% 35%',
           },
         ],
       },
