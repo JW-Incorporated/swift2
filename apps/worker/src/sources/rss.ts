@@ -20,9 +20,13 @@ import type { NewsSourceRow, SourceAdapter } from './types';
 // `author` is declared alongside `source` because naming the Item generic
 // replaces rss-parser's permissive index signature — without it, fields the
 // library does not declare (author among them) stop type-checking.
+export const USER_AGENT =
+  'Swift2KnowledgeEngine/1.0 (+https://longlivets.com; contact via github.com/JW-Incorporated/swift2/issues)';
+
 const parser = new Parser<unknown, { source?: unknown; author?: string }>({
   timeout: 10_000,
   customFields: { item: ['source'] },
+  headers: { 'User-Agent': USER_AGENT },
 });
 
 /**

@@ -3,7 +3,7 @@
 // whole run; the ingest stage downgrades these to warnings.
 
 const UPSTREAM_ERROR =
-  /Status code (404|408|429|5\d\d)|HTTP (404|408|429|5\d\d)|ENOTFOUND|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|socket hang up|fetch failed|timed? ?out/i;
+  /Status code (403|404|408|429|5\d\d)|HTTP (403|404|408|429|5\d\d)|ENOTFOUND|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|socket hang up|fetch failed|timed? ?out/i;
 
 export function isUpstreamError(err: unknown): boolean {
   return UPSTREAM_ERROR.test(err instanceof Error ? err.message : String(err));
