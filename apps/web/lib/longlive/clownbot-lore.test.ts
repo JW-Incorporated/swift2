@@ -120,10 +120,34 @@ describe('freshness is reported honestly', () => {
 
   it('keeps an older open claim live when the scheduled sweep rechecked it recently (#1997)', () => {
     const now = new Date(`${LORE_UPDATED_ON}T00:00:00Z`);
-    // Four open (rumor/reported) items were last checked inside the fresh
-    // window by the latest sweep: rep-tv-debut-tv, green-ts-next-era,
-    // writing-new-music-post-wedding, and iki-oscar-campaign.
-    expect(loreFreshness(now).liveCount).toBe(4);
+    // Derived from LORE, never pinned to a sweep (#6673). A literal count is a
+    // property of today's data, not of the behaviour under test: every
+    // editorial sweep moves `lastCheckedOn` dates, so the old `toBe(4)` turned
+    // the Vault Run's publish gate red whenever an open item crossed the fresh
+    // window (#6630 repinned it by hand once already). The invariant that
+    // matters is the RULE — an open claim is live iff its RECHECK is inside the
+    // window, regardless of how old the claim itself is.
+    const ageDays = (iso: string) =>
+      Math.max(0, Math.floor((now.getTime() - Date.parse(`${iso}T00:00:00Z`)) / 86_400_000));
+    const openItems = LORE.filter((i) => i.status === 'rumor' || i.status === 'reported');
+    const liveByRecheck = openItems.filter((i) => ageDays(i.lastCheckedOn) <= FRESH_WINDOW_DAYS);
+
+    expect(loreFreshness(now).liveCount).toBe(liveByRecheck.length);
+
+    // Teeth. The assertion above only catches a regression to date-based
+    // counting while the two rules actually disagree for this corpus, so both
+    // conditions are asserted rather than assumed: the count is non-vacuous,
+    // and at least one counted claim is older than the window and live purely
+    // because the sweep rechecked it — the exact #1997 case. If this second
+    // one ever fails, the lore no longer exercises #1997 and the guard needs a
+    // fixture, not a repinned number.
+    expect(liveByRecheck.length, 'no open claim is live — #1997 guard is vacuous').toBeGreaterThan(
+      0,
+    );
+    expect(
+      liveByRecheck.filter((i) => ageDays(i.date) > FRESH_WINDOW_DAYS).length,
+      'no older-than-window open claim is kept live by a recheck — #1997 is untested',
+    ).toBeGreaterThan(0);
   });
 
   it('daysBetween handles a malformed date without throwing', () => {
