@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 69
+
+## Documentary to Focus on Taylor Swift's Canceled Vienna Shows
+
+- first seen: 2026-11-06 15:48 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new documentary will explore the circumstances surrounding Taylor Swift's canceled concerts in Vienna. This project is expected to provide insights into the reasons behind the cancellations.
+- sources:
+  - [unverified] CNN — https://www.cnn.com/2026/11/06/entertainment/video/entertainment-showbiz-hollywood-minute-taylor-swift-vienna-concerts-documentary-elon-musk-rocky-50th-anniversary
+
+## Jennifer Beals Discusses Taylor Swift in Recent Interview
+
+- first seen: 2026-11-06 15:48 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview, Jennifer Beals mentioned Taylor Swift while reflecting on her career and other projects, including ‘Flashdance' and ‘Percy Jackson'.
+- sources:
+  - [unverified] NBC 7 San Diego — https://www.nbcsandiego.com/video/news/national-international/jennifer-beals-talks-flashdance-taylor-swift-and-percy-jackson/4098109/
 
 ## Taylor Swift's mother-in-law sells Florida condo for significant profit
 
@@ -76,14 +92,6 @@ Stories: 67
   - [unverified] New York Post — https://nypost.com/2026/11/06/sports/knicks-star-tyler-kolek-calls-out-taylor-swift-as-teams-fakest-celebrity-fan/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-knicks-fandom-questioned-again-tyler-kolek-reveals-fakest-fan-pick/
 
-## Director Calls Taylor Swift's 'Toy Story 5' Song a Perfect Match
-
-- first seen: 2026-11-06 11:22 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The director of 'Toy Story 5' describes Taylor Swift's song for the film as a serendipitous fit, referencing the song's alignment with the movie's themes. This collaboration highlights Swift's continued involvement in prominent film projects.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-toy-story-5-093500842.html
-
 ## Taylor Swift's mother-in-law sells Florida home for six-figure profit
 
 - first seen: 2026-11-06 11:22 UTC | category: business | importance: 5
@@ -91,6 +99,14 @@ Stories: 67
 - summary: A report indicates that Taylor Swift's mother-in-law has successfully sold her Florida home, achieving a significant profit in the six-figure range.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-mother-law-scores-095439185.html
+
+## Director Calls Taylor Swift's 'Toy Story 5' Song a Perfect Match
+
+- first seen: 2026-11-06 11:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The director of 'Toy Story 5' describes Taylor Swift's song for the film as a serendipitous fit, referencing the song's alignment with the movie's themes. This collaboration highlights Swift's continued involvement in prominent film projects.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-toy-story-5-093500842.html
 
 ## Caitlin Clark Acknowledges Donna Kelce with Reference to Taylor Swift
 
@@ -119,9 +135,10 @@ Stories: 67
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529885-taylor-swift-named-fakest-celebrity-knicks-fan-tyler-kolek-deuce-mcbride-trending-video
   - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
 
