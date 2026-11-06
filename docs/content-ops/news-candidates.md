@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 66
+
+## Review of Taylor Swift's 'TLOAS' Sparks Fan Discussion
+
+- first seen: 2026-11-06 13:52 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Abdul El-Sayed has shared his review of Taylor Swift's 'TLOAS', which has generated considerable conversation among fans. The review appears to have resonated within the community, highlighting different perspectives on the album.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/abdul-el-sayed-review-taylor-125019853.html
+
+## Nelly and Ashanti Discuss Their Friendship with Taylor Swift
+
+- first seen: 2026-11-06 13:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Nelly and Ashanti have shared insights into their longstanding friendship with Taylor Swift. The discussion highlights the connections and experiences they've had with the pop star over the years.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-ashanti-open-longtime-relationship-123000599.html
 
 ## Jennifer Beals Mentions Taylor Swift in Recent Interview
 
@@ -87,9 +103,10 @@ Stories: 65
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
+  - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
 
 ## Documentary on Vienna concert threat to release in fall 2027
@@ -561,11 +578,3 @@ Stories: 65
 - summary: Taylor Swift shares a quirky aspect of her marriage, mentioning a 'weird' quirk that her husband, Travis Kelce, has to adjust to.
 - sources:
   - [unverified] 93.7 KRQ — https://krq.iheart.com/content/2026-11-02-taylor-swift-reveals-weird-quirk-that-husband-travis-kelce-has-to-put-up-with/
-
-## Taylor Swift Donates 'Wildest Dreams' Video Proceeds to Conservation
-
-- first seen: 2026-11-03 13:41 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has donated the proceeds from her 'Wildest Dreams' music video to support African conservation efforts. This initiative highlights her commitment to environmental causes.
-- sources:
-  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-donated-proceeds-from-her-wildest-dreams-music-video-to-african-conservation-the-organisation-now-manages-22-protected-areas-across-12-countries/articleshow/135494940.cms
