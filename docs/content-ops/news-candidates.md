@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 77
 
 ## Opinion Piece Expresses Dislike for Taylor Swift
 
@@ -670,11 +670,3 @@ Stories: 78
 - summary: Taylor Swift is spotted wearing a minimalist '90s skirt, highlighting its resurgence in fashion. This style choice showcases the ongoing influence of vintage trends in contemporary wardrobes.
 - sources:
   - [unverified] www.women.com — https://www.women.com/2305127/taylor-swift-and-jenna-bush-hager-loving-90s-leather-pencil-skirt-trend-right-now/
-
-## Insider Shares Details on Taylor Swift and Travis Kelce's Home Life
-
-- first seen: 2026-11-03 19:28 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An insider has provided insights into the home life of Taylor Swift and Travis Kelce, revealing unexpected developments. This report sheds light on their relationship dynamics.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-and-travis-kelce-s-home-life-takes-unexpected-turn-insider-reveals
