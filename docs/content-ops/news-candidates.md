@@ -27,13 +27,22 @@ so far".
 
 Stories: 65
 
+## Jennifer Beals Mentions Taylor Swift in Recent Interview
+
+- first seen: 2026-11-06 12:21 UTC | category: music | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: In a new interview, Jennifer Beals discusses her career and mentions Taylor Swift while also touching on 'Flashdance' and 'Percy Jackson'.
+- sources:
+  - [unverified] BroadwayWorld — https://www.broadwayworld.com/bwwtv/article/Jennifer-Beals-Talks-Flashdance-Taylor-Swift-and-PERCY-JACKSON-20261106
+
 ## Tyler Kolek Criticizes Taylor Swift as Knicks' 'Fakest' Fan
 
 - first seen: 2026-11-06 11:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Knicks player Tyler Kolek describes Taylor Swift as the team's 'fakest' celebrity fan, labeling her support as 'a little performative.'
 - sources:
   - [unverified] New York Post — https://nypost.com/2026/11/06/sports/knicks-star-tyler-kolek-calls-out-taylor-swift-as-teams-fakest-celebrity-fan/
+  - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-knicks-fandom-questioned-again-tyler-kolek-reveals-fakest-fan-pick/
 
 ## Director Calls Taylor Swift's 'Toy Story 5' Song a Perfect Match
 
@@ -560,11 +569,3 @@ Stories: 65
 - summary: Taylor Swift has donated the proceeds from her 'Wildest Dreams' music video to support African conservation efforts. This initiative highlights her commitment to environmental causes.
 - sources:
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-donated-proceeds-from-her-wildest-dreams-music-video-to-african-conservation-the-organisation-now-manages-22-protected-areas-across-12-countries/articleshow/135494940.cms
-
-## Taylor Swift has two new albums reportedly ready for release
-
-- first seen: 2026-11-03 11:41 UTC | category: release | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift has two new albums prepared and ready to be released. Details on the albums are currently not available.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-reportedly-two-albums-111012088.html
