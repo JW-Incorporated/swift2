@@ -1017,6 +1017,36 @@
       "sha256": "0557b21e599f0af208afabd2f4e15cae637364f289316b961af75660f6d8469a"
     },
     {
+      "id": "official-video-eQVhAN7-IAw-maxres2",
+      "mediaPath": "/social/library/photos/official-video-eQVhAN7-IAw-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=eQVhAN7-IAw",
+      "alt": "Still from Taylor Swift's official \"The Making of a Song: \"Delicate\"\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 80087,
+      "sha256": "ff5796527965ed069f51e43777da3f0bc79d44508bd32237bcf60f17ed2ee230"
+    },
+    {
+      "id": "official-video-eQVhAN7-IAw-maxres3",
+      "mediaPath": "/social/library/photos/official-video-eQVhAN7-IAw-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=eQVhAN7-IAw",
+      "alt": "Still from Taylor Swift's official \"The Making of a Song: \"Delicate\"\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 78162,
+      "sha256": "ef6bbdb942286d408ec7691b39b60e5b8f34efdb7688f7618cf0e423ff2a1998"
+    },
+    {
       "id": "official-video-EuT6nQvdcpo-maxres3",
       "mediaPath": "/social/library/photos/official-video-EuT6nQvdcpo-maxres3.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1210,6 +1240,21 @@
       "height": 720,
       "bytes": 36875,
       "sha256": "078fde49dd0acec8bae67c25b4dc26001dbefd2ef5823931ee579d5057f46842"
+    },
+    {
+      "id": "official-video-kGOmPmILndU-maxres1",
+      "mediaPath": "/social/library/photos/official-video-kGOmPmILndU-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=kGOmPmILndU",
+      "alt": "Still from Taylor Swift's official \"The reputation Secret Sessions\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 86346,
+      "sha256": "3bc5a299ee08836d9211c9a94f7e210b7ad3bee86cf35602762ce4a7b3cb869a"
     },
     {
       "id": "official-video-kjD3LoXp-Pw-maxres2",
@@ -1467,6 +1512,21 @@
       "sha256": "8ab6d057903ef0aa4c67c65cacd24b8dea71f0e55c051c70afcd25f150443f58"
     },
     {
+      "id": "official-video-np4Nw0tBun8-maxres1",
+      "mediaPath": "/social/library/photos/official-video-np4Nw0tBun8-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=np4Nw0tBun8",
+      "alt": "Still from Taylor Swift's official \"Look What You Made Me Do - Looks\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 106585,
+      "sha256": "12c021b6be1d52fb57a6c08deeef30cc24fb5fb1d88e40b5280d726f23bd1656"
+    },
+    {
       "id": "official-video-Nx-5bHeC6xo-maxres1",
       "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1692,6 +1752,51 @@
       "sha256": "67fa6768ddbee2b9eeb5ae6486539281d0553699d45870b58d54d419e496b726"
     },
     {
+      "id": "official-video-RamgJyJsep4-maxres1",
+      "mediaPath": "/social/library/photos/official-video-RamgJyJsep4-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RamgJyJsep4",
+      "alt": "Still from Taylor Swift's official \"Angels (with Robbie Williams) — reputation Stadium Tour, Wembley\" performance video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 72270,
+      "sha256": "cef8c41bc0ce5cf999100a15a790e1879da566d97014d6c87bc45a8154139e89"
+    },
+    {
+      "id": "official-video-RamgJyJsep4-maxres2",
+      "mediaPath": "/social/library/photos/official-video-RamgJyJsep4-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RamgJyJsep4",
+      "alt": "Still from Taylor Swift's official \"Angels (with Robbie Williams) — reputation Stadium Tour, Wembley\" performance video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 66359,
+      "sha256": "d4c81da2cf7691690c2b6888d180631546fcdac422b4e77ab7a77ddd9892bc12"
+    },
+    {
+      "id": "official-video-RamgJyJsep4-maxres3",
+      "mediaPath": "/social/library/photos/official-video-RamgJyJsep4-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RamgJyJsep4",
+      "alt": "Still from Taylor Swift's official \"Angels (with Robbie Williams) — reputation Stadium Tour, Wembley\" performance video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 62088,
+      "sha256": "849164b727fbdd4f9211324651bafc8a9623f7c76aef94b77d8bd0656765ebe1"
+    },
+    {
       "id": "official-video-RQuY8kERaU0-maxres1",
       "mediaPath": "/social/library/photos/official-video-RQuY8kERaU0-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1752,6 +1857,21 @@
       "sha256": "0a2a93bd1e53f51a74af540579e86095554a5fb80d174af124bc1f675d4588de"
     },
     {
+      "id": "official-video-sEr7bAtZ8rY-maxres3",
+      "mediaPath": "/social/library/photos/official-video-sEr7bAtZ8rY-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=sEr7bAtZ8rY",
+      "alt": "Still from Taylor Swift's official \"Delicate Music Video Dance Rehearsal Part 1\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 35300,
+      "sha256": "67aa1852ab598432be30a9b88f118669e01f2580df5a3c29b26b98a4e4bb05d7"
+    },
+    {
       "id": "official-video-sIjKXPXjVxU-maxres3",
       "mediaPath": "/social/library/photos/official-video-sIjKXPXjVxU-maxres3.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1780,6 +1900,21 @@
       "height": 720,
       "bytes": 71244,
       "sha256": "026b45b60c04f557d92763b13e3f61f07f0ca338d7f73cbaa99d2b2e8b3ccfbf"
+    },
+    {
+      "id": "official-video-tCXGJQYZ9JA-maxres3",
+      "mediaPath": "/social/library/photos/official-video-tCXGJQYZ9JA-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=tCXGJQYZ9JA",
+      "alt": "Still from Taylor Swift's official \"Delicate\" music video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 36688,
+      "sha256": "ca7da43a66d6999e1f2393fc5a953d6797e64ada558c5763861d88cd7f54db51"
     },
     {
       "id": "official-video-TEpTNFHHjNg-maxres1",
