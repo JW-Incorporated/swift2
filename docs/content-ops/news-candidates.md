@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 62
 
 ## Caitlin Clark Acknowledges Donna Kelce with Reference to Taylor Swift
 
@@ -544,21 +544,3 @@ Stories: 64
 - summary: Reports indicate that Taylor Swift has two new albums prepared and ready to be released. Details on the albums are currently not available.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-reportedly-two-albums-111012088.html
-
-## Source Reports Taylor Swift's Post-Wedding Plans Cause Concern Among Friends
-
-- first seen: 2026-11-03 08:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A source reveals that Taylor Swift’s recent decisions following her wedding are causing unease among her friends. The circumstances surrounding her move have raised some concerns.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-post-wedding-move-075850815.html
-
-## Taylor Swift Makes an Announcement Post Chiefs-Broncos Game
-
-- first seen: 2026-11-03 08:47 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift made an announcement following the Chiefs-Broncos game, as reported by Yahoo Sports. Details about the nature of the announcement were not disclosed in the report.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970745/who-leak-taylor-swift-wedding-photos/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-never-complains-taylor-swift-115015323.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-announcement-made-chiefs-081859329.html
