@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-04',
+  updatedOn: '2026-11-06',
   items: [
     {
       // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
@@ -276,7 +276,8 @@ export default {
       // Rechecked 2026-10-26 (Vault Run): the debut's 20th anniversary (24 Oct)
       // passed with no release (Variety), so the "anniversary drop" reading
       // didn't happen. Still unconnected to anything official.
-      lastCheckedOn: '2026-10-26',
+      // Rechecked 2026-11-06 (Vault Run): no album or re-record announced.
+      lastCheckedOn: '2026-11-06',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -295,7 +296,7 @@ export default {
         },
       ],
       prompts: [
-        'Green TS logo, green Empire State Building, and a 20th anniversary coming: debut, reputation, TS13, or pure trolling? Pick one.',
+        'Green TS logo, green Empire State Building, and a debut 20th anniversary that came and went with no release: reputation, TS13, or pure trolling? Pick one.',
       ],
       tags: ['re-records', 'ts13', 'easter-eggs'],
     },
@@ -306,7 +307,8 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
       // activity was the Showgirl Encore, not a TS13 reveal — no album title,
       // color system, or release plan has been confirmed.
-      lastCheckedOn: '2026-10-20',
+      // Rechecked 2026-11-06 (Vault Run): still no TS13 announcement.
+      lastCheckedOn: '2026-11-06',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
