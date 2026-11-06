@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 65
 
 ## Podcast Features Joey Discussing Meeting Taylor Swift
 
@@ -573,11 +573,3 @@ Stories: 66
 - sources:
   - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235090605/taylor-swift-hiring-private-investigators/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-considering-hiring-040000753.html
-
-## Taylor Swift's Oscar Voter Meeting Filmed, Travis Kelce Absent
-
-- first seen: 2026-11-03 03:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A video captures Taylor Swift during an Oscar voter meeting, with noticeable absence of Travis Kelce. The footage highlights Swift's involvement in the awards process.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/taylor-swift-oscar-voter-meeting-022457684.html
