@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 66
+
+## Podcast Features Joey Discussing Meeting Taylor Swift
+
+- first seen: 2026-11-06 03:27 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In the latest episode of the Awards Radar Podcast, Joey shares his experience of meeting Taylor Swift while discussing upcoming award categories in animation and documentaries.
+- sources:
+  - [unverified] Awards Radar — https://awardsradar.com/2026/11/05/awards-radar-podcast-315-joey-tells-kate-about-meeting-taylor-swift-before-looking-at-the-races-for-best-animated-feature-best-documentary-feature-and-best-international-feature/
+
+## Knicks Champion Criticizes Taylor Swift as 'Fakest Fan' at MSG
+
+- first seen: 2026-11-06 03:27 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A New York Knicks champion publicly referred to Taylor Swift as the 'fakest fan' during a game at Madison Square Garden. The remarks were made from the celebrity row, drawing attention to her presence at the event.
+- sources:
+  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/new-york-knicks-champion-calls-out-taylor-swift-fakest-fan-msgs-celebrity-row
 
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
