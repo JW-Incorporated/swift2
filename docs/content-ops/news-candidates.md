@@ -27,6 +27,14 @@ so far".
 
 Stories: 64
 
+## Caitlin Clark Acknowledges Donna Kelce with Reference to Taylor Swift
+
+- first seen: 2026-11-06 07:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark expresses admiration for Donna Kelce and subtly references Taylor Swift in her remarks. The connection between Clark and Swift highlights the intersection of sports and pop culture.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/caitlin-clark-praises-donna-kelce-and-gives-subtle-nod-to-taylor-swift
+
 ## Podcast Features Joey Discussing Meeting Taylor Swift
 
 - first seen: 2026-11-06 03:27 UTC | category: sighting | importance: 5
@@ -554,14 +562,3 @@ Stories: 64
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970745/who-leak-taylor-swift-wedding-photos/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-never-complains-taylor-swift-115015323.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-announcement-made-chiefs-081859329.html
-
-## Taylor Swift Discusses Her Role in 'Toy Story 5'
-
-- first seen: 2026-11-03 06:52 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift reveals her approach to securing her role in 'Toy Story 5' without displacing others from the cast. The insights reflect her efforts to collaborate harmoniously in the project.
-- sources:
-  - [unverified] Contactmusic.com — https://www.contactmusic.com/story/467/3637997/taylor-swift-feared-she-d-lost-toy-story-5-song-after-months-long-delay
-  - [unverified] IMDb — https://www.imdb.com/news/ni66092895/?ref_=nmnw_art_perm
-  - [unverified] Page Six — https://pagesix.com/2026/11/03/entertainment/taylor-swift-was-campaigning-for-an-oscar-at-nyc-toy-story-5-screening/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ensured-she-didn-060036386.html
