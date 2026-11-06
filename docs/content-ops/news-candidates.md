@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 64
 
 ## Podcast Features Joey Discussing Meeting Taylor Swift
 
@@ -565,12 +565,3 @@ Stories: 65
   - [unverified] IMDb — https://www.imdb.com/news/ni66092895/?ref_=nmnw_art_perm
   - [unverified] Page Six — https://pagesix.com/2026/11/03/entertainment/taylor-swift-was-campaigning-for-an-oscar-at-nyc-toy-story-5-screening/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-ensured-she-didn-060036386.html
-
-## Taylor Swift Considers Hiring Private Investigators Due to Leaked Photos
-
-- first seen: 2026-11-03 05:51 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Reports indicate that Taylor Swift is mulling over the idea of hiring private investigators following concerns about leaked wedding photos that have left her feeling unsettled.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235090605/taylor-swift-hiring-private-investigators/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-considering-hiring-040000753.html
