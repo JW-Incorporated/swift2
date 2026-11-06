@@ -1174,19 +1174,6 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Miss_Americana',
       thumbnailUrl: null,
       moment: {
-        photos: [
-          {
-            url: 'https://i.ytimg.com/vi/JqIt0H6XqpA/maxresdefault.jpg',
-            focalPoint: '35% 35%',
-            // 1280x720 maxres frame curl-verified 200 image/jpeg, downloaded and
-            // viewed: Taylor on stage beside the film's director at the Sundance
-            // opening-night Q&A. oEmbed verified 2026-11-05: "Taylor Swift: Miss
-            // Americana - Sundance 2020 World Premiere Q&A", author Scott D. Menzel.
-            credit: 'Scott D. Menzel (Sundance 2020 premiere Q&A, YouTube)',
-            caption: 'Taylor on stage at the Sundance opening-night Q&A for Miss Americana, Jan. 23, 2020.',
-            kind: 'primary',
-          },
-        ],
         context:
           'The film tracks the deliberate dismantling of the "good girl" reflex — built around the 2018 decision to break political silence over her team\'s objections — and gave fans the era\'s defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.\n\nThe title comes from "Miss Americana & the Heartbreak Prince," the Lover track about political disillusionment, and the disclosures went well beyond politics: her struggles with body dysmorphia and an eating disorder, her mother\'s cancer, the toxic online pile-ons, and the sexual assault trial all get direct treatment for the first time. Critics received it as a turning point — a 91% Rotten Tomatoes score, a National Board of Review selection as one of 2020\'s five best documentaries, and a consensus that the film marked "a pivotal moment" in how Taylor told her own story.\n\nThe film is a Tremolo Productions documentary directed by Lana Wilson (After Tiller, The Departure) and produced by Morgan Neville, Caitrin Rogers and Christine O\'Malley; reporting at the time indicates Netflix had the project in hand well before Sundance rather than acquiring it out of the festival. Its dramatic pivot is the 2018 scene where Taylor argues with her father and team over publicly opposing Marsha Blackburn in the Tennessee Senate race — a fight she won. Her Oct. 7, 2018 Instagram endorsement of Blackburn\'s opponent had an immediate, measurable effect: Vote.org reported roughly 65,000 new registrations nationwide in the 24 hours after the post (versus 190,178 for the entire month of September), and Tennessee itself saw more than 5,000 new registrations by the following Tuesday, more than double the prior month\'s total.\n\n"Only the Young," the get-out-the-vote protest song Taylor wrote in the endorsement\'s aftermath, closes the film\'s credits and was released as a single the same day the documentary hit Netflix, Jan. 31, 2020; nine months later it soundtracked a pro-Biden ad Taylor approved days before the 2020 election. Reviewers were more measured than the audience-facing numbers suggest: Metacritic\'s weighted score sits at 65/100 across 23 critics, with both The New York Times and IndieWire naming it a "Critic\'s Pick" alongside some notices calling the film "stage-managed" even as they found it compelling. Netflix has never disclosed viewership figures for the film, and it remains available on the service as of 2026 — Taylor\'s only stand-alone personal documentary, distinct from the later, tour-focused "Eras Tour" concert film.',
         sources: [
@@ -1274,6 +1261,17 @@ export default {
               'Arriving for the Sundance premiere of Miss Americana at the Eccles Theatre in Park City, Jan. 23, 2020.',
             kind: 'archival',
             focalPoint: '48% 31%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/JqIt0H6XqpA/maxresdefault.jpg',
+            focalPoint: '35% 35%',
+            // 1280x720 maxres frame curl-verified 200 image/jpeg, downloaded and
+            // viewed: Taylor on stage beside the film's director at the Sundance
+            // opening-night Q&A. oEmbed verified 2026-11-05: "Taylor Swift: Miss
+            // Americana - Sundance 2020 World Premiere Q&A", author Scott D. Menzel.
+            credit: 'Scott D. Menzel (Sundance 2020 premiere Q&A, YouTube)',
+            caption: 'Taylor on stage at the Sundance opening-night Q&A for Miss Americana, Jan. 23, 2020.',
+            kind: 'video-still',
           },
         ],
       },
