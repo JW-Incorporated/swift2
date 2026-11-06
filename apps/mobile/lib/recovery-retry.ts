@@ -7,6 +7,7 @@ import { STRIKES_TO_FALLBACK, freshRecord, type WatchdogRecord } from './watchdo
 import { QUARANTINE_AFTER_FALLBACK_CYCLES } from './watchdog-policy';
 import { currentBuildKey, loadWatchdogRecord } from './watchdog-store';
 import { currentWatchdogWriter } from './watchdog-writer';
+import { persistRetainedLink } from './retained-link';
 
 export type RetryOutcome = 'reload-requested' | 'save-failed' | 'reload-failed';
 
@@ -63,6 +64,7 @@ export async function retryDomAttempt(now: () => number = Date.now, onPhase?: (p
     return 'save-failed';
   }
   await fetchPendingUpdate(onPhase);
+  await persistRetainedLink();
   try {
     await Updates.reloadAsync();
     return 'reload-requested';
