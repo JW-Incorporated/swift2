@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 63
 
 ## Taylor Swift Shines at Nashville Songwriters Hall of Fame Induction
 
@@ -197,9 +197,10 @@ Stories: 66
 ## Sydney Sweeney’s boyfriend aims to impress at wedding
 
 - first seen: 2026-11-05 15:07 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: A source reports that Sydney Sweeney’s boyfriend is looking to outshine Taylor Swift at their upcoming wedding. The details are scarce, but the intention to create a memorable moment is highlighted.
 - sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971368/travis-kelce-taylor-swift-marriage-update-holidays/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/sydney-sweeney-boyfriend-looking-one-133538639.html
 
 ## Swiftie Celebrates Victory in Michigan Without Taylor Swift's Endorsement
@@ -556,27 +557,3 @@ Stories: 66
 - summary: Taylor Swift was spotted in an all-black outfit that evokes a 'Welcome to New York' vibe. The article includes shopping suggestions for inspired pencil skirts and tops starting from $9.
 - sources:
   - [established] People — https://people.com/taylor-swift-pencil-skirt-black-long-sleeve-shirt-amazon-november-2026-12187417
-
-## Taylor Swift and Travis Kelce's Marriage Has Unexpected Aspects
-
-- first seen: 2026-11-03 00:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent article discusses the dynamics of Taylor Swift and Travis Kelce's married life, highlighting an unexpected element that influences their relationship. Details about their marriage were shared by MARCA.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/02/taylor-swift-and-travis-kelce-s-married-life-comes-with-one-huge-unexpected-catch.html
-
-## Taylor Swift's Burgundy Loafers Highlight Fall Fashion Trends
-
-- first seen: 2026-11-03 00:22 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been spotted wearing burgundy loafers, which are being touted as the must-have French-girl shoe of the fall season. This style choice emphasizes seasonal fashion trends associated with the star.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/goodbye-brown-shoes-taylor-swifts-burgundy-loafers-are-the-french-girl-shoe-of-fall-25497/
-
-## Taylor Swift Talks About Impersonating Comedy Character with BFF Abigail
-
-- first seen: 2026-11-03 00:22 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: In a recent interview, Taylor Swift shared that she and her best friend Abigail enjoy impersonating a quirky character from a cult comedy. This fun revelation highlights their shared interests and playful dynamic.
-- sources:
-  - [established] Harper's Bazaar — https://www.harpersbazaar.com/celebrity/latest/a74315568/taylor-swift-bff-abigail-anderson-impersonate-napoleon-dynamite-toy-story-5-panel/
