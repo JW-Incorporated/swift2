@@ -2755,6 +2755,234 @@
       "sha256": "2f417aec0a388c10c6695ac9f93c4b741e0b37f317fb4c81d08ce6c83de0712a",
       "reason": "Couple kissing amid crowd and cameras; not a single prominent subject.",
       "date": "2026-11-03"
+    },
+    {
+      "id": "official-video-NZnRUnOQZWU-maxres1",
+      "sha256": "8c2cb9563ef1ee4208c3492c1084551177ccb22968db8637525bb43594135bf5",
+      "reason": "Cropped hands, guitar neck and sleeve; no face; soft, dark frame.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-NZnRUnOQZWU-maxres2",
+      "sha256": "d3b3e7915331356fbf1a87f959c9b8db85f8754f7ea878e1302956a83a016c2f",
+      "reason": "Two guitarists, back-turned subject blocked by blown-out light glare",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-EuT6nQvdcpo-maxres1",
+      "sha256": "49b94f8598e2107e2cd87c9205235b6d2a917b8d8aa676cf40dc8b2b8f560eb7",
+      "reason": "Group of four women hugging; no single prominent subject.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-y7CsaOF3S5c-maxres2",
+      "sha256": "e06557ff1203034501ea5d7d3b86b95d35f70b4430fca53704d5b870b9957c4f",
+      "reason": "Two people share the frame; second performer is nearly as prominent.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-y7CsaOF3S5c-maxres3",
+      "sha256": "a085ac0653a2617d8e609cff5925e5806b3e26e9996e43073eb0b003d043ac2b",
+      "reason": "Two people share the frame equally; no single prominent subject.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-EuT6nQvdcpo-maxres2",
+      "sha256": "7c928dfe631b185d15a4291096fe33ceb2974cdebcfc6d3176e2f632931935b9",
+      "reason": "Other people's heads dominate foreground; soft, audience-style frame, not a Q&A fit.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-c1df60e13c81",
+      "sha256": "6888ffdc6080f7eaf8c1ffbf2079e7772f7177b4fedb03ef3edf8ed12892d79c",
+      "reason": "Two people share the frame; the man leaning on her is equally prominent.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-f4ff8fc8206c",
+      "sha256": "ccd5ed527050679e38dff95b709405bb4fdbe08d400b15c2f54572cd3bb04062",
+      "reason": "Collage of two photos plus cover art inset; not a single photo",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-4d090a27ebb4",
+      "sha256": "e6becd46fbb7e9fee4e2d8fb9e30f3b128676a9066765c4b9a30b83afeb8cc94",
+      "reason": "Several people prominent; a man in a red cap dominates, no single main subject.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "press-2e7d565d36c7",
+      "sha256": "db2fb207874b9e43f8783a8a8006b759d2d815be12d730649c62d9525cf77d93",
+      "reason": "Caption is about S Club's Jo at a Christmas event, not Taylor Swift; mismatch.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "wikimedia-137560624",
+      "sha256": "77a04d5f7466d353d1a6cb43bd0d69badf23e0c080dd3f4ce35feddadcca6132",
+      "reason": "Stadium panorama; performers tiny, audience heads dominate foreground.",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "wikimedia-137560850",
+      "sha256": "7a49b21ac8dd42e374d34798800413827653d92670ef70b2d7e33f0eed035538",
+      "reason": "Wide stage shot with many dancers; performers small, foreground equipment blocks view",
+      "date": "2026-11-04"
+    },
+    {
+      "id": "official-video-FTA4kzsTmxc-maxres3",
+      "sha256": "341f849c8f3a2405bb1677b69b56a8c041175d2f9073f2e27509a674ea0cccec",
+      "reason": "Two featured women plus dancers; no single dominant subject",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-FTA4kzsTmxc-maxres2",
+      "sha256": "45f40c3b38ee7bd945f960a30287d44abe5df9ccab0eae7bb7a81ab5a89e13f5",
+      "reason": "Four performers share the frame; no single person is the main subject.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-FTA4kzsTmxc-maxres1",
+      "sha256": "865550d309d1544b87232ea2344c0ce541bf8bba8a5374052cff872ca97a0940",
+      "reason": "Two performers on stage; second person competes as a main subject.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-DJXfSaOJXOQ-maxres3",
+      "sha256": "bf289d5379a56f261215ab5077eb4e39021564313f92caa3372ff4037fba8490",
+      "reason": "Large group crowd; many people dominant, no single main subject",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-sIjKXPXjVxU-maxres1",
+      "sha256": "6a2eaa654ccffaa660f1d8a3f6342d69d54f761eb5ecd17dc6646a564257ef27",
+      "reason": "Dark, soft video frame seen through car window; second person partly in frame",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-sIjKXPXjVxU-maxres2",
+      "sha256": "802c608ce9cc92d89ee4cb00c49e17eb80c3715da1e768d2e617b8317761f726",
+      "reason": "Two men share the frame; no single main subject, doesn't match caption.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "wikimedia-137560727",
+      "sha256": "b424e6fd2c7be2f9671d6fb7c2bc20ff4dc7a33f5c7f43776bab6ce854631eb6",
+      "reason": "Stadium stage panorama; performers tiny, multiple people, dark scene.",
+      "date": "2026-11-05"
+    },
+    {
+      "id": "official-video-tCXGJQYZ9JA-maxres1",
+      "sha256": "d3d9983a47d2d3327962b2b974b09f5a206d559e93b14518eb952baa474e9ca7",
+      "reason": "Man in gray suit amid crowd; doesn't fit a caption about Taylor Swift's video still.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-tCXGJQYZ9JA-maxres2",
+      "sha256": "7b6b1c6cdc7e88740c55a27d6bd046c43fb796a8a7360e107af68f57a83917d5",
+      "reason": "Four women share the frame; no single prominent subject.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-sEr7bAtZ8rY-maxres1",
+      "sha256": "2ddeead268aee9b599d289be50e22438c8da33d6c946eb3b04dae3b7bab12a5a",
+      "reason": "Split-screen of two scenes; bystanders present, subjects small, soft video frame.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-sEr7bAtZ8rY-maxres2",
+      "sha256": "8918bc056d3664dd0c97613828133679f0661765ad7be86a7e97696b757ecbe7",
+      "reason": "Split-screen with two scenes and background dancers; no single dominant subject",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-zGSneb3McDo-maxres1",
+      "sha256": "493dec81b0881709025abb9886554632e65430016ad91fa7557936d1967fa52d",
+      "reason": "Split-screen with black bars, two clips; motion blur, subject small",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-zGSneb3McDo-maxres2",
+      "sha256": "9f637308616058b3a17b376165a8365dc829341681ddd08c919d88173b63c067",
+      "reason": "Split-screen video frame with two people, small in frame, letterboxed.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-zGSneb3McDo-maxres3",
+      "sha256": "5f3acb62df91919df8ddc7bb5bf692857614de17f479ac39ad995cdbc4ee368b",
+      "reason": "Split-screen video frame with two people, black bars, small subjects, low quality",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-kGOmPmILndU-maxres2",
+      "sha256": "e38ab2e01baa09d434aa935584761c08dd9af2367bedf5eb04c7749b10614c6d",
+      "reason": "Clear close-up, but likely a fan-interview moment; caption match doubtful.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-kGOmPmILndU-maxres3",
+      "sha256": "8743075f79fcd331b9025134df8b04557e6bf6de131225e32fe97c85e4160dc0",
+      "reason": "Fan group in a crowd with several people; no clear single subject matching the caption.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-np4Nw0tBun8-maxres2",
+      "sha256": "edebb134ed0d7e4013c758fe49a4a563f62e06323616bd414182a3f26d7fc097",
+      "reason": "Several cheerleaders in frame; center person's face is partly hidden by hair.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "official-video-np4Nw0tBun8-maxres3",
+      "sha256": "f17e1f966355d4e86e6fbc489941fe5c40c0394f828d6b23c649b3120a2370f2",
+      "reason": "Many similar-looking people in frame; no single prominent subject.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "press-2311deaf3226",
+      "sha256": "dd7458a98493edf1bb58495b945b75829b0748c76dd21f5aee0e7ebedccd3e6c",
+      "reason": "Two prominent people; a man in the foreground competes with the woman.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "press-70f298b4a2c9",
+      "sha256": "3e23db8233ea80bcb0f2b5a02b5916ad6381b5955f0fffc473de8feea796b4f1",
+      "reason": "Two prominent people; a man on the right is equally dominant, not a single subject.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "press-a7d6fb6772d8",
+      "sha256": "f5babee0fb558104480a12d3df070a5fbe893e5c68a03dc483d30a52a1865c7a",
+      "reason": "Two people equally prominent; looks like an edited composite, not a single-subject photo",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "press-53774b1cb3c1",
+      "sha256": "45d6c64740fcd650a89b2baecc9fb11fa66f2b6b3c2246e4e354c8be3dd22a2b",
+      "reason": "Press-conference shot before a sponsor wall; likely the article's other subject, not Swift.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "press-d6c14a4255cc",
+      "sha256": "177335686e2d65d09110bdcdb89ea625fb6a40bc972b36ecfbaec79d34a13c12",
+      "reason": "Split-screen collage of two people; man takes half the frame.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "wikimedia-137560211",
+      "sha256": "d316598420643a7cdf489ea7b9e3aa6f70364202aac4d5524578c4e8e0014475",
+      "reason": "Wide stage shot of a bowing group; no single dominant subject, dark, small figures",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "wikimedia-137561032",
+      "sha256": "357a3fb732943fade05dbd5c15986d770ee97fe38fb661ea1b32d44313fbe28b",
+      "reason": "Wide stage panorama; performer small, giant clouds and other dancers dominate.",
+      "date": "2026-11-06"
+    },
+    {
+      "id": "wikimedia-137561064",
+      "sha256": "3ac6290402ba7d593d6690419de7255bbb78fda88aef945962e78ddf5b02e09c",
+      "reason": "Stadium panorama; performer is small in the frame against a huge crowd.",
+      "date": "2026-11-06"
     }
   ]
 }

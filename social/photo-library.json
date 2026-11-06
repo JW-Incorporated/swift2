@@ -672,6 +672,66 @@
       "sha256": "e0f24d38bf5acb65955335adb9074d124931865075912c6da62aa5b8cac5eca2"
     },
     {
+      "id": "official-video-2obMo7y-rvA-maxres1",
+      "mediaPath": "/social/library/photos/official-video-2obMo7y-rvA-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=2obMo7y-rvA",
+      "alt": "Still from Taylor Swift's official \"Acoustic Performances from RED Album\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 74040,
+      "sha256": "ef6f1ffe7b8c52e558f39a0bfa0b33f159a40211ac1dab5aa641845e2975d47a"
+    },
+    {
+      "id": "official-video-2obMo7y-rvA-maxres2",
+      "mediaPath": "/social/library/photos/official-video-2obMo7y-rvA-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=2obMo7y-rvA",
+      "alt": "Still from Taylor Swift's official \"Acoustic Performances from RED Album\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 72431,
+      "sha256": "1a04f509486d9ab2bcd815c4f7598cb2f8fe2f47715fc13c6139139361af5879"
+    },
+    {
+      "id": "official-video-2obMo7y-rvA-maxres3",
+      "mediaPath": "/social/library/photos/official-video-2obMo7y-rvA-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=2obMo7y-rvA",
+      "alt": "Still from Taylor Swift's official \"Acoustic Performances from RED Album\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 76677,
+      "sha256": "616ba94ae6cd773726f422289c649000c29d99144c94c7875a66f69b324bf8b2"
+    },
+    {
+      "id": "official-video-3H21433WdtU-maxres1",
+      "mediaPath": "/social/library/photos/official-video-3H21433WdtU-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=3H21433WdtU",
+      "alt": "Still from Taylor Swift's official \"\"Holy Ground\" Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 50785,
+      "sha256": "f735bab6c24f86604bdb3bb67fcd92c74e95e946380dbc4c2b7ce5bb7f8612a9"
+    },
+    {
       "id": "official-video-70Ps-GzbSfw-maxres2",
       "mediaPath": "/social/library/photos/official-video-70Ps-GzbSfw-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -822,6 +882,81 @@
       "sha256": "61b54f025f2a70cad06ec1fc8a1417cc3ade3d4d38fff0f83855ee5d61010145"
     },
     {
+      "id": "official-video-cQ5tlnGg4wc-maxres1",
+      "mediaPath": "/social/library/photos/official-video-cQ5tlnGg4wc-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=cQ5tlnGg4wc",
+      "alt": "Still from Taylor Swift's official \"Begin Again (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 56471,
+      "sha256": "a7922d2176a85555dc386171eed19cb5c899184c32558eec08ac6976c9039b25"
+    },
+    {
+      "id": "official-video-cQ5tlnGg4wc-maxres2",
+      "mediaPath": "/social/library/photos/official-video-cQ5tlnGg4wc-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=cQ5tlnGg4wc",
+      "alt": "Still from Taylor Swift's official \"Begin Again (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 64425,
+      "sha256": "323e51abd68901cf2bca40618fef08a7214300b18302efd653ef3f5acad71975"
+    },
+    {
+      "id": "official-video-cQ5tlnGg4wc-maxres3",
+      "mediaPath": "/social/library/photos/official-video-cQ5tlnGg4wc-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=cQ5tlnGg4wc",
+      "alt": "Still from Taylor Swift's official \"Begin Again (Live from New York City)\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 68903,
+      "sha256": "929e5cc1e2ace20309b18fa1602f36fb05925d7ae9f93a76b079024ec96a6707"
+    },
+    {
+      "id": "official-video-DJXfSaOJXOQ-maxres1",
+      "mediaPath": "/social/library/photos/official-video-DJXfSaOJXOQ-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=DJXfSaOJXOQ",
+      "alt": "Still from Taylor Swift's official \"RED Tour Nashville Week\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 33641,
+      "sha256": "dfb5290e7c746c409415486be368a2f965e2be72f09f1202c60d93df5f1f652c"
+    },
+    {
+      "id": "official-video-DJXfSaOJXOQ-maxres2",
+      "mediaPath": "/social/library/photos/official-video-DJXfSaOJXOQ-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=DJXfSaOJXOQ",
+      "alt": "Still from Taylor Swift's official \"RED Tour Nashville Week\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 64822,
+      "sha256": "4174a18e8099907cc51b8b4ebf051058afedac37034079a68582246948d48227"
+    },
+    {
       "id": "official-video-Dkk9gvTmCXY-maxres1",
       "mediaPath": "/social/library/photos/official-video-Dkk9gvTmCXY-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -880,6 +1015,51 @@
       "height": 720,
       "bytes": 43041,
       "sha256": "0557b21e599f0af208afabd2f4e15cae637364f289316b961af75660f6d8469a"
+    },
+    {
+      "id": "official-video-eQVhAN7-IAw-maxres2",
+      "mediaPath": "/social/library/photos/official-video-eQVhAN7-IAw-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=eQVhAN7-IAw",
+      "alt": "Still from Taylor Swift's official \"The Making of a Song: \"Delicate\"\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 80087,
+      "sha256": "ff5796527965ed069f51e43777da3f0bc79d44508bd32237bcf60f17ed2ee230"
+    },
+    {
+      "id": "official-video-eQVhAN7-IAw-maxres3",
+      "mediaPath": "/social/library/photos/official-video-eQVhAN7-IAw-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=eQVhAN7-IAw",
+      "alt": "Still from Taylor Swift's official \"The Making of a Song: \"Delicate\"\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 78162,
+      "sha256": "ef6bbdb942286d408ec7691b39b60e5b8f34efdb7688f7618cf0e423ff2a1998"
+    },
+    {
+      "id": "official-video-EuT6nQvdcpo-maxres3",
+      "mediaPath": "/social/library/photos/official-video-EuT6nQvdcpo-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=EuT6nQvdcpo",
+      "alt": "Still from Taylor Swift's official \"Q&A with Taylor on Taylor By Taylor Swift, the Fragrance\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 70489,
+      "sha256": "3c80c92192d3a25b02d903500804c137307d218211b693a81aaff03c5292569e"
     },
     {
       "id": "official-video-FuXNumBwDOM-maxres1",
@@ -1060,6 +1240,21 @@
       "height": 720,
       "bytes": 36875,
       "sha256": "078fde49dd0acec8bae67c25b4dc26001dbefd2ef5823931ee579d5057f46842"
+    },
+    {
+      "id": "official-video-kGOmPmILndU-maxres1",
+      "mediaPath": "/social/library/photos/official-video-kGOmPmILndU-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=kGOmPmILndU",
+      "alt": "Still from Taylor Swift's official \"The reputation Secret Sessions\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 86346,
+      "sha256": "3bc5a299ee08836d9211c9a94f7e210b7ad3bee86cf35602762ce4a7b3cb869a"
     },
     {
       "id": "official-video-kjD3LoXp-Pw-maxres2",
@@ -1317,6 +1512,81 @@
       "sha256": "8ab6d057903ef0aa4c67c65cacd24b8dea71f0e55c051c70afcd25f150443f58"
     },
     {
+      "id": "official-video-np4Nw0tBun8-maxres1",
+      "mediaPath": "/social/library/photos/official-video-np4Nw0tBun8-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=np4Nw0tBun8",
+      "alt": "Still from Taylor Swift's official \"Look What You Made Me Do - Looks\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 106585,
+      "sha256": "12c021b6be1d52fb57a6c08deeef30cc24fb5fb1d88e40b5280d726f23bd1656"
+    },
+    {
+      "id": "official-video-Nx-5bHeC6xo-maxres1",
+      "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Nx-5bHeC6xo",
+      "alt": "Still from Taylor Swift's official \"\"Sparks Fly\" (Acoustic) Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 56476,
+      "sha256": "23ed5e0b76d79996fe3622e5e6d035e5265bcc35a0a6fac5e8f848e710c6af29"
+    },
+    {
+      "id": "official-video-Nx-5bHeC6xo-maxres2",
+      "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Nx-5bHeC6xo",
+      "alt": "Still from Taylor Swift's official \"\"Sparks Fly\" (Acoustic) Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 40802,
+      "sha256": "6deca68b6b749e1c9a6b67cede89527a4a34032d2a7aeb7c4d884b1a45069136"
+    },
+    {
+      "id": "official-video-Nx-5bHeC6xo-maxres3",
+      "mediaPath": "/social/library/photos/official-video-Nx-5bHeC6xo-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=Nx-5bHeC6xo",
+      "alt": "Still from Taylor Swift's official \"\"Sparks Fly\" (Acoustic) Live on the RED Tour\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 54893,
+      "sha256": "5c3f0523a6323d55bd442b4c645a7d720a4b7b50af72b1adfd3508a69d0a7b8a"
+    },
+    {
+      "id": "official-video-NZnRUnOQZWU-maxres3",
+      "mediaPath": "/social/library/photos/official-video-NZnRUnOQZWU-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=NZnRUnOQZWU",
+      "alt": "Still from Taylor Swift's official \"\"Red\" Guitar Solo — RED Tour Opening Night\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 38048,
+      "sha256": "86e5e7e9aa533c31427cf19b95131fe1acbc48796ca6a5772f51352c84a81a0f"
+    },
+    {
       "id": "official-video-o5SQIECedTY-maxres2",
       "mediaPath": "/social/library/photos/official-video-o5SQIECedTY-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1482,6 +1752,51 @@
       "sha256": "67fa6768ddbee2b9eeb5ae6486539281d0553699d45870b58d54d419e496b726"
     },
     {
+      "id": "official-video-RamgJyJsep4-maxres1",
+      "mediaPath": "/social/library/photos/official-video-RamgJyJsep4-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RamgJyJsep4",
+      "alt": "Still from Taylor Swift's official \"Angels (with Robbie Williams) — reputation Stadium Tour, Wembley\" performance video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 72270,
+      "sha256": "cef8c41bc0ce5cf999100a15a790e1879da566d97014d6c87bc45a8154139e89"
+    },
+    {
+      "id": "official-video-RamgJyJsep4-maxres2",
+      "mediaPath": "/social/library/photos/official-video-RamgJyJsep4-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RamgJyJsep4",
+      "alt": "Still from Taylor Swift's official \"Angels (with Robbie Williams) — reputation Stadium Tour, Wembley\" performance video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 66359,
+      "sha256": "d4c81da2cf7691690c2b6888d180631546fcdac422b4e77ab7a77ddd9892bc12"
+    },
+    {
+      "id": "official-video-RamgJyJsep4-maxres3",
+      "mediaPath": "/social/library/photos/official-video-RamgJyJsep4-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=RamgJyJsep4",
+      "alt": "Still from Taylor Swift's official \"Angels (with Robbie Williams) — reputation Stadium Tour, Wembley\" performance video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 62088,
+      "sha256": "849164b727fbdd4f9211324651bafc8a9623f7c76aef94b77d8bd0656765ebe1"
+    },
+    {
       "id": "official-video-RQuY8kERaU0-maxres1",
       "mediaPath": "/social/library/photos/official-video-RQuY8kERaU0-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1542,6 +1857,36 @@
       "sha256": "0a2a93bd1e53f51a74af540579e86095554a5fb80d174af124bc1f675d4588de"
     },
     {
+      "id": "official-video-sEr7bAtZ8rY-maxres3",
+      "mediaPath": "/social/library/photos/official-video-sEr7bAtZ8rY-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=sEr7bAtZ8rY",
+      "alt": "Still from Taylor Swift's official \"Delicate Music Video Dance Rehearsal Part 1\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 35300,
+      "sha256": "67aa1852ab598432be30a9b88f118669e01f2580df5a3c29b26b98a4e4bb05d7"
+    },
+    {
+      "id": "official-video-sIjKXPXjVxU-maxres3",
+      "mediaPath": "/social/library/photos/official-video-sIjKXPXjVxU-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=sIjKXPXjVxU",
+      "alt": "Still from Taylor Swift's official \"\"I Knew You Were Trouble.\" Behind-The-Scenes #2\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 83882,
+      "sha256": "504fa5c08fc91e464cfc8e0ec41da1c5698786e9c7e8c3808741435b7249dfde"
+    },
+    {
       "id": "official-video-SVY8I46dkb0-maxres1",
       "mediaPath": "/social/library/photos/official-video-SVY8I46dkb0-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1555,6 +1900,21 @@
       "height": 720,
       "bytes": 71244,
       "sha256": "026b45b60c04f557d92763b13e3f61f07f0ca338d7f73cbaa99d2b2e8b3ccfbf"
+    },
+    {
+      "id": "official-video-tCXGJQYZ9JA-maxres3",
+      "mediaPath": "/social/library/photos/official-video-tCXGJQYZ9JA-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=tCXGJQYZ9JA",
+      "alt": "Still from Taylor Swift's official \"Delicate\" music video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 36688,
+      "sha256": "ca7da43a66d6999e1f2393fc5a953d6797e64ada558c5763861d88cd7f54db51"
     },
     {
       "id": "official-video-TEpTNFHHjNg-maxres1",
@@ -1707,6 +2067,51 @@
       "sha256": "48f5846327a67738292a23b943203d4607693e1ee9303413b825ca186eb3191f"
     },
     {
+      "id": "official-video-wIft-t-MQuE-maxres1",
+      "mediaPath": "/social/library/photos/official-video-wIft-t-MQuE-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=wIft-t-MQuE",
+      "alt": "Still from Taylor Swift's official \"...Ready for It?\" music video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 25711,
+      "sha256": "fa99f06c54979a91e03fdaf72fd252884cce6b7f83ef795f51b4c7b93d4a76f3"
+    },
+    {
+      "id": "official-video-wIft-t-MQuE-maxres2",
+      "mediaPath": "/social/library/photos/official-video-wIft-t-MQuE-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=wIft-t-MQuE",
+      "alt": "Still from Taylor Swift's official \"...Ready for It?\" music video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 29321,
+      "sha256": "d04a529c34b1420b3110e19ed8798fa8c06e58f16dd915a8f436ec806defa36c"
+    },
+    {
+      "id": "official-video-wIft-t-MQuE-maxres3",
+      "mediaPath": "/social/library/photos/official-video-wIft-t-MQuE-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=wIft-t-MQuE",
+      "alt": "Still from Taylor Swift's official \"...Ready for It?\" music video.",
+      "tags": [
+        "official-video",
+        "reputation"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 29617,
+      "sha256": "a8dcc4dbceed8e38cf760f10f8a3b74499c27d432fc88892ed4c2322be9f2258"
+    },
+    {
       "id": "official-video-wyK7YuwUWsU-maxres1",
       "mediaPath": "/social/library/photos/official-video-wyK7YuwUWsU-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1780,6 +2185,21 @@
       "height": 720,
       "bytes": 38039,
       "sha256": "bd314ded5a6a808d40750bcdc17b3f9be3395036b17ef1d2e839a962dd274c3e"
+    },
+    {
+      "id": "official-video-y7CsaOF3S5c-maxres1",
+      "mediaPath": "/social/library/photos/official-video-y7CsaOF3S5c-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=y7CsaOF3S5c",
+      "alt": "Still from Taylor Swift's official \"You're So Vain — with Carly Simon\" performance video.",
+      "tags": [
+        "official-video",
+        "red"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 40465,
+      "sha256": "5b21c62ef91da9c3755231e09aacd3164e13e4aade4af6ed584ce56c70d60de7"
     },
     {
       "id": "official-video-zdYy6-P_ggQ-maxres1",
@@ -2164,6 +2584,20 @@
       "sha256": "cf7e19f02f22f08744f769ac17fe5ff97e58612a0ecd2457075a2d8040dff244"
     },
     {
+      "id": "press-1419703a277e",
+      "mediaPath": "/social/library/photos/press-1419703a277e.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-new-album-mrs-kelce/",
+      "alt": "Taylor Swift in the news: Taylor Swift's Next Career Move Revealed After Marrying Travis Kelce",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 167417,
+      "sha256": "534c8ccbcdbb04c66ff8fc87d9baa9c21021b89e76e007b4e290e2b04b5f7244"
+    },
+    {
       "id": "press-2aed23b54ae7",
       "mediaPath": "/social/library/photos/press-2aed23b54ae7.jpg",
       "source": "https://www.cinemablend.com/streaming-news/swifties-known-wild-theories-buying-into-taylor-swift-debut",
@@ -2232,6 +2666,20 @@
       "height": 769,
       "bytes": 94696,
       "sha256": "f061feab4ba1b50a621461cfb7591b378c36b5548ce23b6390abaa4e609d6877"
+    },
+    {
+      "id": "press-874fcba42ef6",
+      "mediaPath": "/social/library/photos/press-874fcba42ef6.webp",
+      "source": "https://www.cheatsheet.com/news/music/furious-taylor-swift-considers-hiring-private-investigators-after-wedding-photo-leaks.html/",
+      "alt": "Taylor Swift in the news: Furious Taylor Swift Considers Hiring Private Investigators After Wedding Photo Leaks",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Showbiz Cheat Sheet",
+      "width": 1200,
+      "height": 675,
+      "bytes": 29360,
+      "sha256": "1ac7e09681d2f709bce267306dc3b6f2b831baceacdaec7aa38d33a01196ffad"
     },
     {
       "id": "press-92b5be0f5252",

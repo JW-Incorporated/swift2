@@ -1,0 +1,49 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "quick one for the string theorists 🧶 in the 'willow' video she keeps tugging a single golden thread — which earlier song's motif is that paying off? map every clue and payoff in the Clue Web → longlivets.com/?lens=easter-eggs&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-evermore-arlington-2023-2-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "evermore-arlington-2023-2-ig45",
+  "photoEra": "evermore",
+  "mediaCredit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Evermore_act_Arlington.jpg",
+  "scheduledAt": "2026-11-06T23:00:00Z",
+  "altText": [
+    "Taylor Swift in a long burnt-orange gown standing on the mossy stage during the evermore set of the Eras Tour in Arlington, Texas, 2023."
+  ],
+  "campaign": "thread:easter-eggs:quiz-poll:2026-11-hero",
+  "why": "X sibling of the Clue Web thread-hero slot (Calendar 2026-11-06 23:00Z, quiz-poll angle, window 11-06→10). Hook = honest question, posed as a trivia challenge (not a date-stamp, not 'the clue web has one theory', not 'ok swifties', not the clowns). Anchored on EGG_NODES egg-string-willow (evermore, 2020, confirmed:true): the golden thread in 'willow' paying off the 'invisible string' motif planted in folklore. Quizzes a DIFFERENT egg than 10-27's reputation snake. Evermore era-matched photo per themed-campaign photoEra rule + W8; X carries the image, not text-only. ~205 weighted chars, one /?lens=easter-eggs link.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "The X half of the Clue Web thread hero, posed as a tight trivia challenge: the golden thread in 'willow' pays off which earlier motif? A verifiable egg (string-willow, folklore→evermore), a different subject from the 10-27 snake, one link. Evermore-era stage photo carries both halves.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-05T18:52:53.486Z",
+    "pr": 6642,
+    "message": "social-tree-approve run 42088325505",
+    "contentHash": "sha256:2ef7ae0c2eeab187a93aada1b817782572dea843c6cf1849719171316a194610",
+    "mediaDigest": "sha256:6d2d1be83bc247a86914b0709ede2d62073e6ed9a9e49a6f17c7ffad8fd950ce",
+    "sig": "hmac-sha256:3be3b3b17aae2da9bbfed15160886dc1c6c519a05d0501af1850c4c99ab42eaf"
+  },
+  "postedAt": "2026-11-06T23:02:00.515Z",
+  "platformPostId": "2118841402540937350",
+  "url": "https://x.com/longlivetscom/status/2118841402540937350"
+}

@@ -48,7 +48,7 @@ describe('review round 1', () => {
     const uncited: WritingInput = { ...GOOD };
     expect(evaluateCurrentItemWriting(uncited)).toEqual({ ok: false, reasons: ['citations_missing'] });
     expect(evaluateCurrentItemWriting(uncited, { legacy: true })).toEqual({ ok: true });
-    expect(reasonsOf({ ...GOOD, citations: [0] })).toContain('uncited_sentence');
+    expect(reasonsOf({ ...GOOD, citations: [0] })).toContain('too_many_voice_sentences');
     expect(evaluateCurrentItemWriting({ ...GOOD, citations: [0] }, { legacy: true })).toEqual({ ok: true });
   });
 

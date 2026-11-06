@@ -59,13 +59,66 @@ describe('composePost', () => {
     expect(judged.citations![5]).toEqual({ text: SENTENCES[5], refs: ['c1'] });
   });
 
-  it('holds a sentence with no refs as uncited_sentence from the structure, not the splitter', async () => {
-    const broken = [{ sentences: [{ text: SENTENCES[0]!, refs: [] }, ...PARAGRAPHS[0]!.sentences.slice(1)] }, PARAGRAPHS[1]!];
-    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(broken) }));
+  const voiced = (indexes: number[]) => PARAGRAPHS.map((p, pi) => ({
+    sentences: p.sentences.map((s, si) => (indexes.includes(pi * 5 + si) ? { ...s, refs: [] } : s)),
+  }));
+
+  it('lets an empty-refs fan-voice sentence through to the judge, keeping its empty refs', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([0])) }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(result.status).toBe('ok');
+    expect(judgeFn.mock.calls[0]![1].citations![0]).toEqual({ text: SENTENCES[0], refs: [] });
+  });
+
+  it('holds more than two empty-refs sentences as too_many_voice_sentences', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([0, 2, 7])) }));
+    const judgeFn = vi.fn();
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:too_many_voice_sentences' });
+    expect(write).toHaveBeenCalledTimes(2);
+    expect(judgeFn).not.toHaveBeenCalled();
+  });
+
+  it('holds a paragraph with no cited sentence as uncited_sentence', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([5, 6, 7, 8, 9])) }));
     const judgeFn = vi.fn();
     const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
     expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:uncited_sentence' });
-    expect(write).toHaveBeenCalledTimes(2);
+    expect(judgeFn).not.toHaveBeenCalled();
+  });
+
+  it('judgeAll scores a gate-rejected draft but keeps it a hold', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: attempt(voiced([5, 6, 7, 8, 9])) }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn, judgeAll: true, noRewrite: true }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:uncited_sentence' });
+    expect(judgeFn).toHaveBeenCalledTimes(1);
+    expect(result.trace.gateReasons?.length).toBeGreaterThan(0);
+    expect(result.trace.judgeScores).toEqual(PASS.scores);
+  });
+
+  it('judgeAll scores an invalid attempt as-is, dropping unknown refs, and keeps it a hold', async () => {
+    const badRefs = PARAGRAPHS.map((p) => ({ sentences: p.sentences.map((s) => ({ ...s, refs: [...s.refs, 'f9'] })) }));
+    const invalid = { ...attempt(badRefs), lead: 'Too short' };
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'invalid', reasons: ['lead is 9 characters; the minimum is 200'], attempt: invalid }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn, judgeAll: true, noRewrite: true }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:invalid_draft' });
+    const judged = judgeFn.mock.calls[0]![1];
+    expect(judged.lead).toBe('Too short');
+    expect(judged.citations![0]).toEqual({ text: SENTENCES[0], refs: ['f1'] });
+    expect(result.trace.judgeScores).toEqual(PASS.scores);
+    expect(result.trace.gateReasons).toEqual(['lead is 9 characters; the minimum is 200']);
+  });
+
+  it('judgeAll marks an invalid attempt with no sentences as unjudgeable', async () => {
+    const empty = { lead: 'Too short', body: '', paragraphs: [], citations: [] };
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'invalid', reasons: ['paragraphs are missing'], attempt: empty }));
+    const judgeFn = vi.fn();
+    const result = await composePost({ writer: store, judge: store, write, judgeFn, judgeAll: true, noRewrite: true }, INPUT);
+    expect(result.status).toBe('hold');
+    expect(result.trace.unjudgeable).toBe(true);
     expect(judgeFn).not.toHaveBeenCalled();
   });
 

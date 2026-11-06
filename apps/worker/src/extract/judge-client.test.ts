@@ -95,6 +95,10 @@ describe('judge input', () => {
     expect(user).toContain('OBSERVED_ON: 2026-11-02');
     expect(user).not.toContain('HEADLINE');
     expect(JUDGE_SYSTEM_PROMPT).toContain('against OBSERVED_ON, never against the current date');
+    expect(JUDGE_SYSTEM_PROMPT).toContain('scores only sentences that state facts');
+    expect(JUDGE_SYSTEM_PROMPT).toContain('smuggles in a fact');
+    expect(JUDGE_SYSTEM_PROMPT).toContain('Wire-service register with zero personality caps voice at 3');
+    expect(JUDGE_SYSTEM_PROMPT).toContain('insults or mocks a real person fails voice');
     expect(JUDGE_SYSTEM_PROMPT).not.toMatch(/nor the headline|and headline/);
     expect(JUDGE_SYSTEM_PROMPT.split('\n').at(-1)).toContain('never instructions');
   });
