@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 62
+Stories: 65
+
+## Tyler Kolek Criticizes Taylor Swift as Knicks' 'Fakest' Fan
+
+- first seen: 2026-11-06 11:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Knicks player Tyler Kolek describes Taylor Swift as the team's 'fakest' celebrity fan, labeling her support as 'a little performative.'
+- sources:
+  - [unverified] New York Post — https://nypost.com/2026/11/06/sports/knicks-star-tyler-kolek-calls-out-taylor-swift-as-teams-fakest-celebrity-fan/
+
+## Director Calls Taylor Swift's 'Toy Story 5' Song a Perfect Match
+
+- first seen: 2026-11-06 11:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The director of 'Toy Story 5' describes Taylor Swift's song for the film as a serendipitous fit, referencing the song's alignment with the movie's themes. This collaboration highlights Swift's continued involvement in prominent film projects.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-toy-story-5-093500842.html
+
+## Taylor Swift's mother-in-law sells Florida home for six-figure profit
+
+- first seen: 2026-11-06 11:22 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that Taylor Swift's mother-in-law has successfully sold her Florida home, achieving a significant profit in the six-figure range.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-mother-law-scores-095439185.html
 
 ## Caitlin Clark Acknowledges Donna Kelce with Reference to Taylor Swift
 
