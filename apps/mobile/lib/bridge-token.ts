@@ -1,3 +1,5 @@
+import { optionalCrypto } from './optional-native';
+
 type Cryptoish = { getRandomValues?: (a: Uint8Array) => Uint8Array };
 let counter = 0;
 
@@ -28,13 +30,14 @@ function mixedBytes(): Uint8Array {
 
 /**
  * 32 hex chars, fresh per epoch. Never put it in DOM props: injectedJavaScriptObject is readable from any iframe on Android.
- * Uses crypto.getRandomValues when the runtime has it. The shipped binary has no CSPRNG module, so on device this
- * may be the mixed fallback (#5084 adds expo-crypto) (generated in the RN JS runtime, which a WebView iframe cannot observe); expo-crypto is the durable fix.
+ * Prefers expo-crypto's native CSPRNG (store builds that include it; #5084), then crypto.getRandomValues, then the mixed
+ * fallback for older installed binaries that have neither.
  */
-export function newBridgeToken(): string {
+export function newBridgeToken(native: { getRandomBytes(n: number): Uint8Array } | null = optionalCrypto()): string {
   const c = (globalThis as { crypto?: Cryptoish }).crypto;
   let bytes: Uint8Array;
-  if (c?.getRandomValues) {
+  if (native) bytes = native.getRandomBytes(16);
+  else if (c?.getRandomValues) {
     bytes = new Uint8Array(16);
     c.getRandomValues(bytes);
   } else bytes = mixedBytes();

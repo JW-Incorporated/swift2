@@ -1,6 +1,7 @@
 // Real expo-file-system / expo-clipboard ports for "Share as image" (see ui-deps ShareCardPorts).
 import * as Clipboard from 'expo-clipboard';
 import { Directory, File, Paths } from 'expo-file-system';
+import { optionalSharing } from './optional-native';
 import { assertCardFile, MAX_CARD_BYTES } from './share-card-guard';
 import type { ShareCardPorts } from './ui-deps';
 
@@ -34,6 +35,8 @@ export const shareCardPorts: ShareCardPorts = {
     }
   },
   copyImage: (base64) => Clipboard.setImageAsync(base64),
+  // Present only when the installed binary includes expo-sharing (#5055); absent = Android keeps the clipboard path.
+  shareFile: optionalSharing() ? (uri) => optionalSharing()!.shareAsync(uri, { mimeType: 'image/png' }) : undefined,
   async prune(keep) {
     try {
       const dir = new Directory(Paths.cache, 'share');
