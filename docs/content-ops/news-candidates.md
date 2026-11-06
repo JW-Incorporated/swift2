@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 76
+
+## Knicks Players Mention Taylor Swift's Presence at Games
+
+- first seen: 2026-11-06 17:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: New York Knicks players have noted Taylor Swift's appearance at games, drawing attention from fans and media. Their comments highlight her visibility during recent Knicks events.
+- sources:
+  - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/11/knicks-players-call-out-taylor-swift-over-what-they-noticed-at-games.html
+
+## Knicks star critiques Taylor Swift as a celebrity fan
+
+- first seen: 2026-11-06 17:46 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Knicks player expressed his opinion about Taylor Swift, calling her the 'fakest celebrity' fan and describing her behavior as 'a little performative'.
+- sources:
+  - [unverified] Entertainment Weekly — https://ew.com/knicks-star-says-taylor-swift-is-fakest-celebrity-fan-12240090
+
+## Old Gold & Black Reviews Latest Taylor Swift Song
+
+- first seen: 2026-11-06 17:46 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The publication 'Old Gold & Black' discusses a new song by Taylor Swift, highlighting its significance among her discography. The analysis aims to provide insights into the song's themes and musical style.
+- sources:
+  - [unverified] Old Gold & Black — https://wfuogb.com/31097/opinion/not-just-another-taylor-swift-song/
 
 ## Taylor Swift Guitar Supports Foster Kids in Mesa
 
@@ -175,10 +199,12 @@ Stories: 73
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 5
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529885-taylor-swift-named-fakest-celebrity-knicks-fan-tyler-kolek-deuce-mcbride-trending-video
+  - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-knicks-fakest-celebrity-fan-tyler-kolek-deuce-mcbride/6568660/
   - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
 
