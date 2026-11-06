@@ -32,11 +32,12 @@ on:
         type: boolean
         default: true
       mode:
-        description: 'floors = thin-copy backfill; force = v2 rewrite of every row the live feed shows that has no facts yet (snapshots old copy first)'
+        description: 'floors = thin-copy backfill; force = v2 rewrite of every row the live feed shows that has no facts yet (snapshots old copy first); rewrite = re-run the current writer on live rows that already have facts (snapshots copy, facts and score; never retires)'
         type: choice
         options:
           - floors
           - force
+          - rewrite
         default: floors
       limit:
         description: 'Max rows to process (0 = all)'
@@ -44,6 +45,10 @@ on:
         default: '0'
       days:
         description: 'Force mode only: optional observed_on window in days. Empty = the live feed''s own window (every unexpired visible row)'
+        type: string
+        default: ''
+      ids:
+        description: 'Rewrite mode only: optional comma-separated current_item UUIDs to rewrite (max 200). Empty = every live row with facts not yet rewritten'
         type: string
         default: ''
       retire_below_floor:
@@ -93,6 +98,10 @@ jobs:
         env:
           INPUT_LIMIT: ${{ inputs.limit }}
           INPUT_DAYS: ${{ inputs.days }}
+          INPUT_IDS: ${{ inputs.ids }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
+          INPUT_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
         run: |
           if ! [[ "$INPUT_LIMIT" =~ ^[0-9]+$ ]]; then
             echo "::error::limit must be a non-negative integer (0 = all), got '$INPUT_LIMIT'"
@@ -100,6 +109,19 @@ jobs:
           fi
           if ! [[ "$INPUT_DAYS" =~ ^[0-9]*$ ]]; then
             echo "::error::days must be empty or a non-negative integer, got '$INPUT_DAYS'"
+            exit 1
+          fi
+          UUID_RE='[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+          if ! [[ "$INPUT_IDS" =~ ^(${UUID_RE}(,${UUID_RE}){0,199})?$ ]]; then
+            echo "::error::ids must be empty or comma-separated UUIDs without spaces (max 200)"
+            exit 1
+          fi
+          if [ -n "$INPUT_IDS" ] && [ "$INPUT_MODE" != "rewrite" ]; then
+            echo "::error::ids is only valid with mode=rewrite"
+            exit 1
+          fi
+          if [ "$INPUT_MODE" = "rewrite" ] && { [ "$INPUT_RETIRE_BELOW_FLOOR" = "true" ] || [ "$INPUT_RETIRE_UNWRITABLE" = "true" ]; }; then
+            echo "::error::rewrite mode never retires: leave retire_below_floor and retire_unwritable off"
             exit 1
           fi
 
@@ -113,6 +135,7 @@ jobs:
           BACKFILL_MODE: ${{ inputs.mode }}
           BACKFILL_LIMIT: ${{ inputs.limit }}
           BACKFILL_DAYS: ${{ inputs.days }}
+          BACKFILL_IDS: ${{ inputs.ids }}
           BACKFILL_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
           BACKFILL_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
           BACKFILL_REPORT_DIR: ${{ runner.temp }}/backfill-report
