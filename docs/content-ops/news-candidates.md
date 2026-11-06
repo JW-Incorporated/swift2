@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 67
+
+## Taylor Swift's mother-in-law sells Florida condo for significant profit
+
+- first seen: 2026-11-06 14:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Donna Kelce, Taylor Swift's mother-in-law, has sold her Florida condo for a substantial profit. The transaction highlights her successful real estate endeavor.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/06/donna-kelce-raking-it-in-taylor-swift-s-mother-in-law-sells-her-florida-condo-for-huge-profit.html
+
+## Knicks Player Critiques Taylor Swift's Fandom
+
+- first seen: 2026-11-06 14:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Knicks guard Tyler Kolek has labeled singer Taylor Swift as the 'fakest' celebrity fan of the team. His comments may stir discussions among fans and the media regarding celebrity involvement in sports.
+- sources:
+  - [unverified] TV Insider — https://www.tvinsider.com/1302022/knicks-guard-tyler-kolek-calls-taylor-swift-the-teams-fakest-celebrity-fan/
 
 ## Review of Taylor Swift's 'TLOAS' Sparks Fan Discussion
 
@@ -570,11 +586,3 @@ Stories: 66
 - summary: Taylor Swift makes a statement regarding her relationship with Travis Kelce following reports of her anger over a wedding-related issue. The news hints at tension surrounding a supposed betrayal.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970658/taylor-swift-travis-kelce-marriage-wedding-photos/
-
-## Taylor Swift Discusses Unique Quirk of Husband Travis Kelce
-
-- first seen: 2026-11-03 14:42 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares a quirky aspect of her marriage, mentioning a 'weird' quirk that her husband, Travis Kelce, has to adjust to.
-- sources:
-  - [unverified] 93.7 KRQ — https://krq.iheart.com/content/2026-11-02-taylor-swift-reveals-weird-quirk-that-husband-travis-kelce-has-to-put-up-with/
