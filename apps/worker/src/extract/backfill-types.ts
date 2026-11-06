@@ -5,7 +5,7 @@ import type { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import type { composeV2Item } from './v2-stage';
 import type { ExtractUsageStore } from './usage-store';
 
-export type BackfillMode = 'floors' | 'force';
+export type BackfillMode = 'floors' | 'force' | 'rewrite';
 
 export type ForceOutcome =
   | 'pass'
@@ -18,6 +18,8 @@ export type ForceOutcome =
   | 'snapshot_failed'
   | 'write_failed'
   | 'skipped_changed'
+  | 'concurrent_change'
+  | `rewrite_failed:${string}`
   | 'deferred';
 
 export interface ForceSummary {
@@ -83,7 +85,9 @@ export interface RunBackfillOptions {
   /** Force mode only: hide rows ending no_facts or writing_hold after the one rewrite (quality_hold_reason retired_unwritable). Ignored on a dry run. */
   retireUnwritable?: boolean;
   fetchImpl?: typeof fetch;
-  /** 'floors' (default) is the original thin-copy backfill; 'force' rewrites every eligible recent row through the v2 writer. */
+  /** Rewrite mode only: operator-picked current_item ids (UUIDs); unset = every live row that has facts. */
+  ids?: string[];
+  /** 'floors' (default) is the original thin-copy backfill; 'force' rewrites every eligible recent row through the v2 writer; 'rewrite' re-runs the writer on live rows that already have facts (never retires). */
   mode?: BackfillMode;
   /** Force mode writes backfill-report.jsonl/.md and writer-eval-kit.jsonl here. */
   reportDir?: string;

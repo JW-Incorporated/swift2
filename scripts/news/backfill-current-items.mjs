@@ -18,6 +18,8 @@
 // live feed's own window) and --retire-below-floor (BACKFILL_RETIRE_BELOW_FLOOR=true):
 // rows failing the worth-a-post floor are hidden, never deleted (undo: restore-copy-snapshot.mjs --clear-retired);
 // --retire-unwritable (BACKFILL_RETIRE_UNWRITABLE=true) does the same for rows ending no_facts or writing_hold.
+// Rewrite mode (BACKFILL_MODE=rewrite) re-runs the writer on live rows that already have facts (optional
+// BACKFILL_IDS=<uuid,uuid>, plus days/limit); it never retires and rejects both retire flags.
 //
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (degrades to a clean
 // no-op, same contract as every other privileged Community Engine script —
@@ -32,7 +34,7 @@
 
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseDays, parseLimit } from './backfill-args.mjs';
+import { parseDays, parseIds, parseLimit } from './backfill-args.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { runBackfill } from '../../apps/worker/src/extract/backfill-run.ts';
@@ -67,16 +69,22 @@ async function main() {
   }
 
   console.log(`backfill-current-items: starting (${dryRun ? 'DRY RUN — no current_item or snapshot writes; LLM budget counters still increment' : 'LIVE — writing back'})`);
-  const mode = process.env.BACKFILL_MODE === 'force' ? 'force' : 'floors';
+  const mode = ['force', 'rewrite'].includes(process.env.BACKFILL_MODE) ? process.env.BACKFILL_MODE : 'floors';
   const argv = process.argv.slice(2);
   const daysArg = argv.indexOf('--days');
   const retireBelowFloor = argv.includes('--retire-below-floor') || process.env.BACKFILL_RETIRE_BELOW_FLOOR === 'true';
   const retireUnwritable = argv.includes('--retire-unwritable') || process.env.BACKFILL_RETIRE_UNWRITABLE === 'true';
   let limit;
   let days;
+  let ids;
   try {
     limit = parseLimit(process.env.BACKFILL_LIMIT);
     days = parseDays(daysArg >= 0 ? argv[daysArg + 1] : process.env.BACKFILL_DAYS);
+    ids = parseIds(process.env.BACKFILL_IDS);
+    if (mode === 'rewrite' && (retireBelowFloor || retireUnwritable)) {
+      throw new Error('rewrite mode never retires: retire_below_floor and retire_unwritable are not allowed');
+    }
+    if (ids && mode !== 'rewrite') throw new Error('ids is only valid with mode=rewrite');
   } catch (err) {
     console.error(`backfill-current-items: ${err.message}`);
     return 1;
@@ -85,10 +93,11 @@ async function main() {
     dryRun,
     mode,
     ...(limit > 0 ? { limit } : {}),
-    ...(mode === 'force' && days !== undefined ? { days } : {}),
+    ...(mode !== 'floors' && days !== undefined ? { days } : {}),
+    ...(mode === 'rewrite' && ids ? { ids } : {}),
     ...(mode === 'force' && retireBelowFloor ? { retireBelowFloor } : {}),
     ...(mode === 'force' && retireUnwritable ? { retireUnwritable } : {}),
-    ...(mode === 'force' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),
+    ...(mode !== 'floors' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),
   });
   if (result.force) {
     const f = result.force;
