@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 64
+
+## NBA Players Criticize Taylor Swift's Performative Actions
+
+- first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
+
+## Documentary on Vienna concert threat to release in fall 2027
+
+- first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A documentary focusing on the terrorist threat during a Taylor Swift concert in Vienna is set to arrive in fall 2027, as reported by Paste Magazine.
+- sources:
+  - [unverified] Paste Magazine — https://www.pastemagazine.com/music/taylor-swift/documentary-about-the-taylor-swift-concert-terrorist-threat-in-vienna-arriving-in-fall-2027
 
 ## Taylor Swift Shines at Nashville Songwriters Hall of Fame Induction
 
@@ -549,11 +565,3 @@ Stories: 63
 - summary: A video captures Taylor Swift during an Oscar voter meeting, with noticeable absence of Travis Kelce. The footage highlights Swift's involvement in the awards process.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/taylor-swift-oscar-voter-meeting-022457684.html
-
-## Taylor Swift Wears All-Black Outfit in New York
-
-- first seen: 2026-11-03 02:21 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted in an all-black outfit that evokes a 'Welcome to New York' vibe. The article includes shopping suggestions for inspired pencil skirts and tops starting from $9.
-- sources:
-  - [established] People — https://people.com/taylor-swift-pencil-skirt-black-long-sleeve-shirt-amazon-november-2026-12187417
