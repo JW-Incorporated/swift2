@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 73
+
+## Taylor Swift Guitar Supports Foster Kids in Mesa
+
+- first seen: 2026-11-06 16:46 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A guitar associated with Taylor Swift is contributing to charitable efforts for foster children in Mesa. The instrument continues to provide benefits to the community.
+- sources:
+  - [unverified] AZ Family — https://www.azfamily.com/2026/11/06/taylor-swift-guitar-that-keeps-giving-back-foster-kids-mesa/
+
+## Taylor Swift Celebrates 20 Years in Music Career
+
+- first seen: 2026-11-06 16:46 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's career milestone of 20 years is highlighted. The State Times discusses her impact and achievements over two decades in the music industry.
+- sources:
+  - [unverified] The State Times — https://thestatetimes.com/2026/11/06/taylor-swifts-career-turns-20/
+
+## Taylor Swift Criticized as Insincere at Knicks Games
+
+- first seen: 2026-11-06 16:46 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report by Kolek and McBride refers to Taylor Swift as the 'fakest celeb' at recent Knicks games, sparking discussion about her presence at sporting events. The article highlights perceptions of celebrity authenticity in public appearances.
+- sources:
+  - [unverified] theScore — https://www.thescore.com/nba/news/3646864/kolek-mc-bride-taylor-swift-fakest-celeb-at-knicks-games
+
+## Taylor Swift Looks to Hire Investigators Over Leaked Wedding Photos
+
+- first seen: 2026-11-06 16:46 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly considering hiring private investigators to uncover the source of the leak related to her wedding photos from Madison Square Garden.
+- sources:
+  - [unverified] starmagazine.com — https://starmagazine.com/taylor-swift-considers-hiring-private-investigators-to-find-out-who-leaked-her-msg-wedding-photos/
+
+## Knicks Players Label Taylor Swift as 'Fakest Celebrity Fan'
+
+- first seen: 2026-11-06 16:46 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: New York Knicks players have humorously dubbed Taylor Swift the 'Fakest Celebrity Fan' during an event. This title has drawn attention to her support for the team amidst her ongoing fame.
+- sources:
+  - [unverified] Consequence of Sound — https://consequence.net/2026/11/taylor-swift-new-york-knicks-fake-fan/
 
 ## Documentary to Focus on Taylor Swift's Canceled Vienna Shows
 
@@ -595,11 +635,3 @@ Stories: 69
 - summary: An insider has provided insights into the home life of Taylor Swift and Travis Kelce, revealing unexpected developments. This report sheds light on their relationship dynamics.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-and-travis-kelce-s-home-life-takes-unexpected-turn-insider-reveals
-
-## Taylor Swift Addresses Reported Wedding Confession Amid Rumors
-
-- first seen: 2026-11-03 16:37 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift makes a statement regarding her relationship with Travis Kelce following reports of her anger over a wedding-related issue. The news hints at tension surrounding a supposed betrayal.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234970658/taylor-swift-travis-kelce-marriage-wedding-photos/
