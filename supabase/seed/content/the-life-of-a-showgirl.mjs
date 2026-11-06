@@ -13680,6 +13680,7 @@ export default {
         'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
         'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-i-knew-it-i-knew-you-picks-up-a-hollywood-music-in-media-nod',
       ],
       year: 2026,
       month: 9,
@@ -16195,7 +16196,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.',
+          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.\n\nThe Kelce family answered in public within days. On the Sept. 30 episode of New Heights, Travis said "Cleveland is rocking right now!" and thanked Taylor for giving the city "a little more life," while Jason called it "incredible" and said he and his wife, Kylie, had been playing it a lot at home (PinkNews).',
         // No `video` field on purpose (same reasoning as
         // 'patient-zero-released-spotify-records' above): the official lyric-video
         // frame is used as a plain credited photo and the video is cited as a
@@ -16251,6 +16252,17 @@ export default {
             reliability_score: 3,
             notes:
               'Fetched 2026-10-26. Independently describes the home footage of Travis driving Taylor into the city, road signs, a passenger-seat selfie, drone shots and two people roller-skating, and places the song on The Encore.',
+          },
+          {
+            outlet: 'PinkNews',
+            url: 'https://www.thepinknews.com/2026/09/30/taylor-swift-cleveland-song/',
+            source_title: 'Travis and Jason Kelce react to Taylor Swift\'s \'Cleveland!\' on New Heights podcast',
+            publisher: 'PinkNews',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-05',
+            reliability_score: 3,
+            notes:
+              'Fetched 2026-11-05. Reports the Sept. 30 New Heights reactions: Travis ("Cleveland is rocking right now!", thanks to Taylor) and Jason ("that song is incredible", played often at home with Kylie).',
           },
         ],
       },
@@ -17284,7 +17296,10 @@ export default {
       // TheWrap loaded directly and carries the full category slate. Variety
       // (the filing's first outlet) was not loadable, so it is not cited.
       slug: 'showgirl-i-knew-it-i-knew-you-hmma-nomination',
-      relatedIds: ['moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom'],
+      relatedIds: [
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-i-knew-it-i-knew-you-tops-pop-airplay-a-record-extending-16t',
+      ],
       year: 2026,
       month: 11,
       day: 2,
@@ -17323,6 +17338,68 @@ export default {
             reliability_score: 5,
             notes:
               'The nominated song; oEmbed re-checked 2026-11-02 (HTTP 200). The visual for this moment, not a source for the nomination.',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-05 (Vault Run, Content Shift lane) from intake #6650.
+      // Variety's report (Nick Vivarelli) was read via its Yahoo syndication;
+      // variety.com and rollingstone.com redirect bots to a paywall, so the
+      // Rolling Stone story is cited from the filing and search results, not
+      // a direct read. Scoped to the announcement: no security specifics,
+      // no suspect name (privacy-redlines.md §2).
+      slug: 'showgirl-taylor-swift-wien-vienna-documentary',
+      relatedIds: [
+        'moment:vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
+      year: 2026,
+      month: 11,
+      day: 5,
+      category: 'tour',
+      title: 'The cancelled Vienna shows get their own documentary, "Taylor Swift Wien"',
+      snippet:
+        'A German-Austrian documentary about the three Vienna nights cancelled in August 2024 is in production for ZDF, and it follows the fans who looked after each other afterwards.',
+      sourceUrl: 'https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The three cancelled Vienna nights are getting their own film: a documentary about them is in production under the working title "Taylor Swift Wien" (Wien is German for Vienna), per Variety on Nov. 5, 2026. Andreas Pichler and Veronika Kaserer are directing. Germany\'s Beetz Brothers is producing with Austria\'s Markand Media, and the film is set to air on the German broadcaster ZDF in October 2027, with an international rollout to follow.\n\nThe film tells three stories at once: the investigation that stopped the plot against the Aug. 8–10, 2024 shows at Ernst Happel Stadium, how the teenager behind it was radicalized online, and the Swifties of Vienna. That last strand follows three women who, once the shows were called off, organized psychological support for other fans. It is the same city where thousands gathered on Corneliusgasse the night the first show should have opened, trading bracelets and singing anyway.\n\nThis is not a Taylor project. Nothing in the reporting has her taking part; the producer told Variety only that her management has been made aware the film is being made. Her own account of Vienna is in The End of an Era, the Disney+ docuseries from December 2025.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/',
+            source_title: "Taylor Swift's Canceled Vienna Concerts Due to Thwarted Terrorist Plot to Be Subject of Documentary",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-05',
+            reliability_score: 4,
+            notes:
+              'By Nick Vivarelli, Nov. 5, 2026; read via Yahoo Entertainment syndication. Primary for the working title, directors, producers, ZDF October 2027 airing, the three story strands, and the management-informed line. Intake #6650.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-1235653111/',
+            source_title: 'A Doc Will Look at the Taylor Swift Concerts a Terror Plot Canceled',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-05',
+            reliability_score: 4,
+            notes: 'Nov. 5, 2026; independent confirmation of the announcement and its fan-resilience focus.',
+          },
+        ],
+        // Same public-domain venue image the TTPD Vienna moment uses — the
+        // film is not out, so no still exists yet. Re-verified 2026-11-05:
+        // HTTP 200, image/jpeg, 960px wide, viewed (Ernst Happel Stadion
+        // facade under a clear sky).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
+            credit: 'Peter Gugerell, public domain, via Wikimedia Commons',
+            caption: 'Reference image: Ernst Happel Stadium in Vienna, where the three August 2024 shows the documentary covers were cancelled.',
+            kind: 'reference',
+            focalPoint: '50% 58%',
           },
         ],
       },
