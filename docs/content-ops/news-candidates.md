@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 78
+
+## Travis Kelce Seeks to Calm Taylor Swift Amid Wedding Leak
+
+- first seen: 2026-11-06 19:57 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce is reportedly making efforts to soothe Taylor Swift following a leak about their wedding. Sources indicate that Swift is finding it difficult to ignore the situation.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/hard-her-shrug-off-travis-114050849.html
 
 ## Opinion Piece Expresses Dislike for Taylor Swift
 
