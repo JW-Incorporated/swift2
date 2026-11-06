@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 79
+
+## Knicks Respond to Criticism of Taylor Swift's Support as a Fan
+
+- first seen: 2026-11-06 20:57 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The New York Knicks address comments made by two players who referred to Taylor Swift as the 'fakest' celebrity fan, defending her support for the team.
+- sources:
+  - [established] The New York Times — https://www.nytimes.com/athletic/7759966/2026/11/06/taylor-swift-knicks-fan-statement-support/
+
+## Knicks Organization Backs Taylor Swift Amid Criticism from Players
+
+- first seen: 2026-11-06 20:57 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks organization has publicly supported singer Taylor Swift after players described her as the 'fakest celebrity fan.' This endorsement comes in response to recent comments highlighting the interaction between the sports team and the pop star.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/11/06/knicks-support-taylor-swift-after-players-call-her-fakest-fan/
+
+## Knicks Express Appreciation for Taylor Swift Amid Fandom Questions
+
+- first seen: 2026-11-06 20:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks have expressed their appreciation for Taylor Swift following questions from players Kolek and McBride about their fandom. This interaction highlights the crossover between sports and celebrity culture.
+- sources:
+  - [unverified] ESPN — https://www.espn.com/nba/story/_/id/50401522/knicks-appreciative-taylor-swift-players-comments
 
 ## Travis Kelce Seeks to Calm Taylor Swift Amid Wedding Leak
 
@@ -223,11 +247,13 @@ Stories: 78
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 8
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529885-taylor-swift-named-fakest-celebrity-knicks-fan-tyler-kolek-deuce-mcbride-trending-video
+  - [unverified] Entertainment Weekly — https://ew.com/knicks-respond-tyler-kolek-claim-taylor-swift-performative-fan-12240663
+  - [unverified] HoopsHype — https://www.hoopshype.com/story/sports/nba/rumors/2026/11/06/knicks-release-statement-defending-taylor-swift-from-tyler-kolek-fake-claims-appreciative-support/92646308007/
   - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-knicks-fakest-celebrity-fan-tyler-kolek-deuce-mcbride/6568660/
   - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
   - [established] People — https://people.com/knicks-tyler-kolek-calls-taylor-swift-courtside-appearance-madison-square-garden-little-performative-12239815
@@ -662,19 +688,3 @@ Stories: 78
 - summary: A Cosmopolitan article explores the connection between author Sarah J Maas and Taylor Swift, highlighting insights and perspectives on their relationship. The discussion sheds light on the impact of Swift's music in Maas's life and work.
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/books/a74286653/sarah-j-maas-court-of-splintered-harmony-taylor-swift-comparison/
-
-## Details Emerge on Taylor Swift's Next Career Move as Mrs. Kelce
-
-- first seen: 2026-11-03 20:06 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: New insights have surfaced regarding Taylor Swift's upcoming career direction as she transitions into life as Mrs. Kelce. The focus is on how this may impact her professional endeavors.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-next-career-move-191536769.html
-
-## Taylor Swift Embraces '90s Skirt Trend in Recent Appearance
-
-- first seen: 2026-11-03 20:06 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is spotted wearing a minimalist '90s skirt, highlighting its resurgence in fashion. This style choice showcases the ongoing influence of vintage trends in contemporary wardrobes.
-- sources:
-  - [unverified] www.women.com — https://www.women.com/2305127/taylor-swift-and-jenna-bush-hager-loving-90s-leather-pencil-skirt-trend-right-now/
