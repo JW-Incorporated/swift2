@@ -10,6 +10,8 @@ export interface CycleOptions {
   adapterFor?: (sourceType: string) => SourceAdapter | undefined;
 }
 
+const ESCALATION_THRESHOLD = 3;
+
 interface IngestResult {
   sourcesPolled: number;
   itemsIngested: number;
@@ -28,7 +30,9 @@ export async function runIngestStage(
   options: CycleOptions,
   result: IngestResult,
 ): Promise<string[] | null> {
-  let query = db.from('news_source').select('id, name, source_type, config, last_polled_at');
+  let query = db
+    .from('news_source')
+    .select('id, name, source_type, config, last_polled_at, consecutive_failures');
   if (!options.primary) query = query.eq('is_enabled', true);
   const { data: sources, error } = await query;
   if (error) {
@@ -61,11 +65,26 @@ export async function runIngestStage(
       const message = `ingest failed for "${source.name}": ${(fetchError as Error).message}`;
       const lastOk = source.last_polled_at ? Date.parse(source.last_polled_at) : NaN;
       const stale = !(Date.now() - lastOk < STALE_SOURCE_MS);
-      if (!isUpstreamError(fetchError) || stale) {
-        result.errors.push(stale && isUpstreamError(fetchError) ? `${message} (no success in >48h)` : message);
+      const prevFailures = (source.consecutive_failures as number | undefined) ?? 0;
+      const newFailures = prevFailures + 1;
+      const escalate = !isUpstreamError(fetchError) || stale || newFailures >= ESCALATION_THRESHOLD;
+      if (escalate) {
+        const reason =
+          !isUpstreamError(fetchError)
+            ? ''
+            : stale
+              ? ' (no success in >48h)'
+              : newFailures >= ESCALATION_THRESHOLD
+                ? ` (${newFailures} consecutive failures)`
+                : '';
+        result.errors.push(message + reason);
       } else {
         result.warnings.push(message);
       }
+      await db
+        .from('news_source')
+        .update({ consecutive_failures: newFailures })
+        .eq('id', source.id);
       failedFetches++;
       continue;
     }
@@ -98,16 +117,22 @@ export async function runIngestStage(
         }
       }
       result.sourcesPolled++;
+      const nowIso = new Date().toISOString();
       await db
         .from('news_source')
-        .update({ last_polled_at: new Date().toISOString() })
+        .update({ last_polled_at: nowIso, last_ok_at: nowIso, consecutive_failures: 0 })
         .eq('id', source.id);
     } catch (stageError) {
       result.errors.push(`ingest failed for "${source.name}": ${(stageError as Error).message}`);
     }
   }
-  if (selected.length > 0 && failedFetches === selected.length) {
-    result.errors.push(`all ${selected.length} source(s) failed to fetch this run`);
+  if (selected.length > 0 && failedFetches > selected.length / 2 && failedFetches > 0) {
+    const ratio = failedFetches / selected.length;
+    if (failedFetches === selected.length) {
+      result.errors.push(`all ${selected.length} source(s) failed to fetch this run`);
+    } else {
+      result.errors.push(`${failedFetches} of ${selected.length} source(s) failed to fetch this run (${Math.round(ratio * 100)}%)`);
+    }
   }
   return selected.map((source) => source.id);
 }

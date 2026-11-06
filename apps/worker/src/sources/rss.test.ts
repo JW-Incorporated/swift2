@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { parseFeed, readPublisher } from './rss';
+import { parseFeed, readPublisher, USER_AGENT } from './rss';
 import { YOUTUBE_FEED_BASE_DELAY_MS, YOUTUBE_FEED_MAX_ATTEMPTS } from './retry';
 
 const YT_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g';
@@ -33,6 +33,11 @@ describe('parseFeed retry policy', () => {
     const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
     await expect(parseFeed('https://example.com/feed.xml', parse, sleep)).rejects.toThrow('Status code 404');
     expect(parse).toHaveBeenCalledTimes(3);
+  });
+
+  it('exports a USER_AGENT that identifies the app', () => {
+    expect(USER_AGENT).toMatch(/Swift2KnowledgeEngine/);
+    expect(USER_AGENT).toMatch(/longlivets\.com/);
   });
 });
 
