@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 78
+
+## Opinion Piece Expresses Dislike for Taylor Swift
+
+- first seen: 2026-11-06 18:47 UTC | category: music | importance: 2
+- verification_status: rumor | source_count: 1
+- summary: An opinion article published by Her Campus voices a negative sentiment towards Taylor Swift, reflecting a personal perspective on her music and public persona.
+- sources:
+  - [unverified] Her Campus — https://www.hercampus.com/school/jmu/hot-take-i-dont-like-taylor-swift/
+
+## Knicks Star Criticizes Taylor Swift's Behavior at Courtside
+
+- first seen: 2026-11-06 18:47 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Knicks star has expressed dissatisfaction with Taylor Swift's behavior while sitting courtside at a game. The comments highlight a notable moment involving the pop icon during a recent sporting event.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/knicks-star-takes-serious-issue-with-taylor-swifts-courtside-behavior
 
 ## Knicks Players Mention Taylor Swift's Presence at Games
 
@@ -199,13 +215,14 @@ Stories: 76
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529885-taylor-swift-named-fakest-celebrity-knicks-fan-tyler-kolek-deuce-mcbride-trending-video
   - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-knicks-fakest-celebrity-fan-tyler-kolek-deuce-mcbride/6568660/
   - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
+  - [established] People — https://people.com/knicks-tyler-kolek-calls-taylor-swift-courtside-appearance-madison-square-garden-little-performative-12239815
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
 
 ## Documentary on Vienna concert threat to release in fall 2027
