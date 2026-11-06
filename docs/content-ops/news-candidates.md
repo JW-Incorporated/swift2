@@ -27,6 +27,14 @@ so far".
 
 Stories: 79
 
+## Taylor Swift and Travis Kelce Discuss Holiday Plans as Newlyweds
+
+- first seen: 2026-11-06 21:56 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are engaging in discussions about their Christmas plans during their first holiday season as a married couple. The couple's conversation highlights their shared experiences as they navigate this festive period together.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-debate-204447744.html
+
 ## Knicks Respond to Criticism of Taylor Swift's Support as a Fan
 
 - first seen: 2026-11-06 20:57 UTC | category: business | importance: 6
@@ -204,14 +212,6 @@ Stories: 79
   - [unverified] New York Post — https://nypost.com/2026/11/06/sports/knicks-star-tyler-kolek-calls-out-taylor-swift-as-teams-fakest-celebrity-fan/
   - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-knicks-fandom-questioned-again-tyler-kolek-reveals-fakest-fan-pick/
 
-## Taylor Swift's mother-in-law sells Florida home for six-figure profit
-
-- first seen: 2026-11-06 11:22 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that Taylor Swift's mother-in-law has successfully sold her Florida home, achieving a significant profit in the six-figure range.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-mother-law-scores-095439185.html
-
 ## Director Calls Taylor Swift's 'Toy Story 5' Song a Perfect Match
 
 - first seen: 2026-11-06 11:22 UTC | category: music | importance: 7
@@ -219,6 +219,14 @@ Stories: 79
 - summary: The director of 'Toy Story 5' describes Taylor Swift's song for the film as a serendipitous fit, referencing the song's alignment with the movie's themes. This collaboration highlights Swift's continued involvement in prominent film projects.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-toy-story-5-093500842.html
+
+## Taylor Swift's mother-in-law sells Florida home for six-figure profit
+
+- first seen: 2026-11-06 11:22 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report indicates that Taylor Swift's mother-in-law has successfully sold her Florida home, achieving a significant profit in the six-figure range.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-mother-law-scores-095439185.html
 
 ## Caitlin Clark Acknowledges Donna Kelce with Reference to Taylor Swift
 
@@ -247,12 +255,15 @@ Stories: 79
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 11
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529885-taylor-swift-named-fakest-celebrity-knicks-fan-tyler-kolek-deuce-mcbride-trending-video
+  - [unverified] CBS Sports — https://www.cbssports.com/nba/news/knicks-defend-taylor-swift-tyler-kolek-deuce-mcbride/
   - [unverified] Entertainment Weekly — https://ew.com/knicks-respond-tyler-kolek-claim-taylor-swift-performative-fan-12240663
+  - [unverified] ESPN — https://www.espn.com/nba/story/_/id/50401300/taylor-swift-knicks-fan-tyler-kolek-miles-mcbride
+  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/knicks-defend-taylor-swift-fandom-guard-tyler-kolek-calls-support-very-performative
   - [unverified] HoopsHype — https://www.hoopshype.com/story/sports/nba/rumors/2026/11/06/knicks-release-statement-defending-taylor-swift-from-tyler-kolek-fake-claims-appreciative-support/92646308007/
   - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-knicks-fakest-celebrity-fan-tyler-kolek-deuce-mcbride/6568660/
   - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
@@ -680,11 +691,3 @@ Stories: 79
 - summary: Yahoo highlights Taylor Swift's iconic curly hair moments throughout her career, showcasing her evolving style. The article features various instances where her curls took center stage in her public appearances.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/slideshows/taylor-swifts-best-curly-hair-213500260.html
-
-## Cosmopolitan Discusses Sarah J Maas and Taylor Swift
-
-- first seen: 2026-11-03 21:02 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Cosmopolitan article explores the connection between author Sarah J Maas and Taylor Swift, highlighting insights and perspectives on their relationship. The discussion sheds light on the impact of Swift's music in Maas's life and work.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/books/a74286653/sarah-j-maas-court-of-splintered-harmony-taylor-swift-comparison/
