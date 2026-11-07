@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 87
 
 ## New York Knicks Support Taylor Swift Amid Player Comments
 
@@ -150,11 +150,12 @@ Stories: 89
 ## Knicks Respond to Players' Comments on Taylor Swift
 
 - first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
 - sources:
   - [unverified] CBS News — https://www.cbsnews.com/newyork/news/knicks-tyler-kolek-taylor-swift/
   - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50405740/tyler-kolek-questions-taylor-swift-knicks-fandom
+  - [unverified] Newsday — https://www.newsday.com/sports/basketball/knicks/taylor-swift-knicks-qnxepdhj
   - [unverified] roundtable.io — https://roundtable.io/sports/wnba/news/caitlin-clark-gives-jimmy-fallon-exclusive-taylor-swift-inspired-nike-shoes
   - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
 
@@ -758,20 +759,3 @@ Stories: 89
 - summary: After winning the Michigan Senate seat, Abdul El-Sayed acknowledged his admiration for Taylor Swift, showcasing his 'Swiftie' status. His victory marks a significant moment in his political career.
 - sources:
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/
-
-## MTSU Students Meet Taylor Swift at Nashville Gala
-
-- first seen: 2026-11-04 21:22 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: MTSU Recording Industry students had the opportunity to meet Taylor Swift during the Nashville Songwriters Hall of Fame Gala. The event showcased the connection between education and the music industry.
-- sources:
-  - [unverified] MTSU News — https://mtsunews.com/2026/11/04/recording-industry-students-attend-nashville-songwriters-hall-of-fame-gala/
-
-## Taylor Swift Discusses Her Decision for Toy Story 5
-
-- first seen: 2026-11-04 21:22 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift revealed her initial concerns before agreeing to participate in Toy Story 5. The news provides insight into her decision-making process regarding the project.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437835/why-taylor-swift-almost-didnt-write-toy-story-5-song
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-shook-off-one-204356003.html
