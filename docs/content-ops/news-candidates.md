@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 90
+
+## Knicks Support Taylor Swift Amid Criticism from Tyler Kolek
+
+- first seen: 2026-11-07 05:51 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The New York Knicks have shown their support for Taylor Swift following Tyler Kolek's comments describing her as a 'performative' fan. The statement has sparked discussion around celebrity fandom in sports.
+- sources:
+  - [established] People — https://people.com/knicks-respond-after-tyler-kolek-calls-taylor-swift-performative-fan-12241290
 
 ## Bill Maher Comments on Taylor Swift While Discussing Politics
 
