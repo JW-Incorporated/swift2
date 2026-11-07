@@ -150,11 +150,12 @@ Stories: 89
 ## Knicks Respond to Players' Comments on Taylor Swift
 
 - first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
 - sources:
   - [unverified] CBS News — https://www.cbsnews.com/newyork/news/knicks-tyler-kolek-taylor-swift/
   - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50405740/tyler-kolek-questions-taylor-swift-knicks-fandom
+  - [unverified] roundtable.io — https://roundtable.io/sports/wnba/news/caitlin-clark-gives-jimmy-fallon-exclusive-taylor-swift-inspired-nike-shoes
   - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
 
 ## Knicks Defend Taylor Swift Amid Player Criticism
