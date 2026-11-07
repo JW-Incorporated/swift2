@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 86
+
+## Taylor Swift Paid Nelly $50k in Unique Manner
+
+- first seen: 2026-11-07 15:02 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In an unusual payment method, Taylor Swift reportedly paid rapper Nelly $50,000 in a McDonald's bag. This incident highlights Swift's unique approach to transactions within the music industry.
+- sources:
+  - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-paid-nelly-50k-in-mcdonalds-bag
+
+## Retired Professor Becomes Scholar of Taylor Swift
+
+- first seen: 2026-11-07 15:02 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A retired professor has transitioned into a role as a scholar focusing on the work and impact of Taylor Swift. This shift demonstrates a unique approach to academic engagement with popular culture.
+- sources:
+  - [unverified] MarketWatch — https://www.marketwatch.com/story/this-retired-professor-has-reinvented-himself-as-a-taylor-swift-scholar-88456c8d
 
 ## Travis Kelce Discusses Holidays with Taylor Swift
 
@@ -208,9 +224,10 @@ Stories: 84
 ## Travis Kelce Seeks to Calm Taylor Swift Amid Wedding Leak
 
 - first seen: 2026-11-06 19:57 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Travis Kelce is reportedly making efforts to soothe Taylor Swift following a leak about their wedding. Sources indicate that Swift is finding it difficult to ignore the situation.
 - sources:
+  - [unverified] InStyle — https://www.instyle.com/donna-kelce-sells-florida-condo-485000-profit-12240418
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/hard-her-shrug-off-travis-114050849.html
 
 ## Opinion Piece Expresses Dislike for Taylor Swift
