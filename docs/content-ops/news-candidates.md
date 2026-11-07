@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 89
+
+## New York Knicks Support Taylor Swift Amid Player Comments
+
+- first seen: 2026-11-07 20:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks are standing by Taylor Swift after some players referred to her as their 'fakest celebrity fan.' This defense comes amid discussions regarding her involvement with the team.
+- sources:
+  - [unverified] The Telegraph — https://www.telegraph.co.uk/world-news/2026/11/07/new-york-knicks-defend-taylor-swift-players-say-fake-fan/
 
 ## Caitlin Clark Presents Jimmy Fallon with Taylor Swift-Inspired Shoes
 
@@ -766,19 +774,3 @@ Stories: 90
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437835/why-taylor-swift-almost-didnt-write-toy-story-5-song
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-shook-off-one-204356003.html
-
-## Taylor Swift Expresses Anxiety Over Recent Backlash
-
-- first seen: 2026-11-04 19:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report claims Taylor Swift is feeling 'genuinely anxious' about the backlash she has been facing, leading to accusations of politician-like behavior. The situation highlights the pressures she experiences amid public scrutiny.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971014/taylor-swift-oscars-campaign/
-
-## Commentary on Nolan and Swift's Impact on Exclusivity
-
-- first seen: 2026-11-04 19:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses how Christopher Nolan and Taylor Swift have created a sense of exclusivity in their respective industries. The piece explores the implications of this trend.
-- sources:
-  - [unverified] The Ithacan — https://theithacan.org/70329/opinion/commentary/commentary-christopher-nolan-and-taylor-swift-monopolize-exclusivity/
