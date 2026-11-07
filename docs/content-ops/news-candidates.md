@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Knicks Defend Taylor Swift Amid Player Criticism
+
+- first seen: 2026-11-07 00:53 UTC | category: relationship | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The New York Knicks have issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride questioned her authenticity as a fan. The players labeled her courtside appearances as ‘performative’, but the Knicks affirmed her longstanding support for the team.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/06/taylor-swift-knicks-tyler-kolek-miles-mcbride-fake-fan
 
 ## Knicks players defend Taylor Swift amid 'fakest' fan claims
 
