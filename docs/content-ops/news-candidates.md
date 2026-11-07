@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 89
+
+## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
+
+- first seen: 2026-11-07 23:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bill Maher made remarks about Taylor Swift's romantic life during a recent segment, receiving a mixed response from the audience, which included both groans and applause.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/11/07/entertainment/bill-maher-takes-new-dig-at-taylor-swifts-love-life/
 
 ## Ideas for Fall-Inspired Manicures Inspired by Taylor Swift
 
@@ -46,9 +54,10 @@ Stories: 88
 ## New York Knicks Support Taylor Swift Amid Player Comments
 
 - first seen: 2026-11-07 20:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The New York Knicks are standing by Taylor Swift after some players referred to her as their 'fakest celebrity fan.' This defense comes amid discussions regarding her involvement with the team.
 - sources:
+  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-knicks-fan-statement-b3081094.html
   - [unverified] The Telegraph — https://www.telegraph.co.uk/world-news/2026/11/07/new-york-knicks-defend-taylor-swift-players-say-fake-fan/
 
 ## Caitlin Clark Presents Jimmy Fallon with Taylor Swift-Inspired Shoes
