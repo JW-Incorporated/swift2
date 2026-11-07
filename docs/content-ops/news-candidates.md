@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 84
+
+## Knicks defend Taylor Swift amid player comments
+
+- first seen: 2026-11-07 13:02 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: New York Knicks players referred to Taylor Swift as 'a little performative' during NBA games, sparking a defense from the team. The comments highlight the ongoing interaction between Swift and sports culture.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/c6rmyymw1zz1o?at_medium=RSS&at_campaign=rss
 
 ## Knicks Support Taylor Swift Amid Criticism from Tyler Kolek
 
@@ -725,27 +733,3 @@ Stories: 86
 - summary: A recent report indicates that the fallout from the leak regarding Taylor Swift's wedding now includes implications for her friends. Details about the situation remain emerging.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-leak-fallout-124841600.html
-
-## Taylor Swift and Travis Kelce Face Pushback from Ohio Neighbors
-
-- first seen: 2026-11-04 12:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's new neighbors in Ohio are expressing concerns and opposition regarding their plans. The situation highlights the couple's integration into their new community.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-ohio-120045880.html
-
-## Taylor Swift's Soundtrack Contributions Reflect Her Musical Evolution
-
-- first seen: 2026-11-04 12:07 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: This article explores how Taylor Swift's songs featured in movie soundtracks illustrate her journey and growth as an artist in the music industry. It highlights her impact on Hollywood through her music.
-- sources:
-  - [unverified] Vermilion County First — https://vermilioncountyfirst.com/2026/11/04/taylor-swifts-movie-soundtrack-songs-highlight-her-musical-journey-through-hollywood/
-
-## National Review Discusses Swifties' Charisma
-
-- first seen: 2026-11-04 12:07 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: National Review published an article titled 'Zero Charisma for Swifties' discussing aspects related to Taylor Swift fans. The analysis may focus on the perception of fan engagement and enthusiasm.
-- sources:
-  - [unverified] National Review — https://www.nationalreview.com/2026/11/zero-charisma-for-swifties/
