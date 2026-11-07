@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 90
+
+## Caitlin Clark Presents Jimmy Fallon with Taylor Swift-Inspired Shoes
+
+- first seen: 2026-11-07 18:37 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has gifted Jimmy Fallon shoes inspired by Taylor Swift, highlighting the crossover between sports and music. The gesture showcases Clark's admiration for Swift's influence in pop culture.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/caitlin-clark-gifts-jimmy-fallon-171141400.html
+
+## Caitlin Clark Gives Jimmy Fallon Taylor Swift-Inspired Bracelet
+
+- first seen: 2026-11-07 18:37 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark presented Jimmy Fallon with a Taylor Swift-inspired Nike Caitlin 1 friendship bracelet. The gesture highlights the influence of Taylor Swift's style and fandom in contemporary culture.
+- sources:
+  - [unverified] Sole Retriever — https://www.soleretriever.com/news/articles/caitlin-clark-gifts-jimmy-fallon-nike-caitlin-1-friendship-bracelet
 
 ## Taylor Swift and Other Grammy Hopefuls Plan Strategy for Awards
 
