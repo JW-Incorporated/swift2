@@ -27,6 +27,14 @@ so far".
 
 Stories: 86
 
+## Knicks Player Comments on Taylor Swift's Engagement with Team
+
+- first seen: 2026-11-07 16:37 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Knicks player referred to Taylor Swift's involvement with the team as 'performative', though the organization supports her. This incident highlights varying perspectives on celebrity involvement in sports.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-branded-performative-knicks-142551515.html
+
 ## Taylor Swift Paid Nelly $50k in Unique Manner
 
 - first seen: 2026-11-07 15:02 UTC | category: business | importance: 5
@@ -742,11 +750,3 @@ Stories: 86
 - summary: An article discusses how Christopher Nolan and Taylor Swift have created a sense of exclusivity in their respective industries. The piece explores the implications of this trend.
 - sources:
   - [unverified] The Ithacan — https://theithacan.org/70329/opinion/commentary/commentary-christopher-nolan-and-taylor-swift-monopolize-exclusivity/
-
-## Taylor Swift Launches New Campaign
-
-- first seen: 2026-11-04 16:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has initiated a new campaign, titled 'Gossip Time', highlighting her latest projects and initiatives. Further details about the campaign were not disclosed in the snippet.
-- sources:
-  - [unverified] Gossip Time | Allie Jones — https://gossiptime.substack.com/p/taylor-swift-oscar-campaign-midterms
