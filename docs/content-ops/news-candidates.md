@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 89
+
+## Bill Maher Comments on Taylor Swift While Discussing Politics
+
+- first seen: 2026-11-07 04:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent segment, Bill Maher referenced Taylor Swift while addressing the GOP's midterm losses and former President Trump's actions. His remarks included critiques of both political figures and the impact of celebrity culture.
+- sources:
+  - [unverified] TheWrap — https://www.thewrap.com/creative-content/tv-shows/bill-maher-takes-another-shot-taylor-swift-real-time-monologue/
+
+## Knicks Show Support for Taylor Swift Amid Comments from Players
+
+- first seen: 2026-11-07 04:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks expressed their support for Taylor Swift following remarks made by some players who referred to her as the 'fakest' fan. This development highlights the ongoing relationship between celebrities and sports teams.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/story/sports/nba/knicks/2026/11/06/new-york-knicks-support-taylor-swift-fakest-fan/92652797007/
 
 ## Documentary to Focus on Canceled Taylor Swift Concerts Due to Terror Plot
 
@@ -757,11 +773,3 @@ Stories: 88
 - sources:
   - [unverified] Riviera Radio — https://www.rivieraradio.mc/article/taylor-swift-reveals-the-unusual-habit-travis-kelce-has-to-put-up-with-5HjdkrP_2/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-oscar-campaign-meets-112938694.html
-
-## Taylor Swift Pays Nelly $50,000 for Performance
-
-- first seen: 2026-11-04 04:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift compensated Nelly with $50,000 in a McDonald's bag for his performance of 'Hot in Herre'.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-paid-nelly-50-024204189.html
