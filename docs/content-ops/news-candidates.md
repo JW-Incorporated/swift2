@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 88
+
+## Documentary to Focus on Canceled Taylor Swift Concerts Due to Terror Plot
+
+- first seen: 2026-11-07 03:52 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new documentary is set to delve into the events surrounding the canceled Taylor Swift concerts in Vienna, exploring the terror plot that led to the decision. The film aims to provide insight into the serious circumstances affecting the concert's safety.
+- sources:
+  - [unverified] kare11.com — https://www.kare11.com/article/news/nation-world/documentary-terror-plot-taylor-swift-concerts-vienna/507-841b272d-ab98-4f6e-9c60-2d82612630a4
 
 ## Raffle for Signed Taylor Swift Guitar Announced in Arizona
 
