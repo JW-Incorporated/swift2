@@ -17404,6 +17404,68 @@ export default {
         ],
       },
     },
+    {
+      // Intake #6648 (2026-11-07 Vault Run, Content Shift). Quotes read
+      // directly from WWD's Nov. 5 campaign story (the primary: Kelce said
+      // them to WWD) and matched in E! News. Relationship category, two
+      // independent outlets, on-record words from one of the principals; no
+      // location or private detail beyond "the holidays".
+      slug: 'showgirl-travis-kelce-first-holiday-married-tommy-hilfiger',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
+      year: 2026,
+      month: 11,
+      day: 5,
+      category: 'relationship',
+      confidence: 'confirmed_interview',
+      title: 'Travis Kelce on his "first holiday as a married man"',
+      snippet:
+        'Fronting Tommy Hilfiger\'s winter campaign, Travis told WWD he is "excited for my first holiday as a married man" and "can\'t wait to start some new ones" when it comes to traditions with Taylor.',
+      sourceUrl:
+        'https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.',
+        sources: [
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/',
+            source_title: "Travis Kelce, Jisoo, Josh Hart and Others Appear in Tommy Hilfiger's Winter Campaign",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-07',
+            reliability_score: 4,
+            notes:
+              'Published Nov. 5, 2026; read in full. Primary for the three Kelce quotes (said to WWD), the campaign cast and the weekly-video rollout. Intake #6648.',
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1437858/travis-kelce-teases-holiday-plans-after-taylor-swift-wedding',
+            source_title: "Travis Kelce Teases Celebrating First Holidays as a 'Married Man' After Taylor Swift Wedding",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-07',
+            reliability_score: 3,
+            notes: 'Nov. 5, 2026; independent pickup carrying the same quotes, attributed to WWD.',
+          },
+        ],
+        // Official campaign image published by WWD ("Courtesy of Tommy
+        // Hilfiger"). Verified 2026-11-07: HTTP 200, image/jpeg, ?w=1200
+        // rendition; original 4237x5649. Viewed: Kelce seated in a navy coat
+        // beside a lit Christmas tree, wedding band visible.
+        photos: [
+          {
+            url: 'https://wwd.com/wp-content/uploads/2026/11/WI26_TH_PerfectHoliday_MSW_TRAVISKELCE_03.jpg?w=1200',
+            credit: 'Tommy Hilfiger, via WWD',
+            caption: "Travis Kelce by the tree in Tommy Hilfiger's winter 2026 holiday campaign.",
+            kind: 'primary',
+            focalPoint: '60% 25%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
