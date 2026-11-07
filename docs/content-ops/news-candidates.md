@@ -27,6 +27,14 @@ so far".
 
 Stories: 84
 
+## Travis Kelce Discusses Holidays with Taylor Swift
+
+- first seen: 2026-11-07 14:02 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce made a rare comment indicating his relationship status while discussing plans for the holidays with Taylor Swift. The remarks were highlighted in a recent interview by Sports Illustrated.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-makes-rare-married-man-comment-when-talking-about-the-holidays-with-taylor-swift-01m6ry9q3x1r
+
 ## Knicks defend Taylor Swift amid player comments
 
 - first seen: 2026-11-07 13:02 UTC | category: relationship | importance: 5
@@ -725,11 +733,3 @@ Stories: 84
 - summary: Taylor Swift has initiated a new campaign, titled 'Gossip Time', highlighting her latest projects and initiatives. Further details about the campaign were not disclosed in the snippet.
 - sources:
   - [unverified] Gossip Time | Allie Jones — https://gossiptime.substack.com/p/taylor-swift-oscar-campaign-midterms
-
-## Fallout from Taylor Swift’s Wedding Leak Involves Her Friends
-
-- first seen: 2026-11-04 13:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A recent report indicates that the fallout from the leak regarding Taylor Swift's wedding now includes implications for her friends. Details about the situation remain emerging.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-leak-fallout-124841600.html
