@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 88
+
+## Ideas for Fall-Inspired Manicures Inspired by Taylor Swift
+
+- first seen: 2026-11-07 22:47 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Discover manicure ideas inspired by Taylor Swift that are perfect for the fall season. These nail designs can be easily copied for a fashionable look this autumn.
+- sources:
+  - [unverified] Women.com — https://www.women.com/2307081/taylor-swift-manicures-perfect-nail-inspo-fall-2026/
+
+## Jimmy Fallon Acquires Unreleased Taylor Swift-Inspired Sneakers from Caitlin Clark
+
+- first seen: 2026-11-07 22:47 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Jimmy Fallon, known for his sneaker collection, has obtained unreleased sneakers inspired by Taylor Swift, created by Caitlin Clark. This acquisition highlights the blend of celebrity culture and fashion in the sneaker world.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/sneaker-news/jimmy-fallon-caitlin-clark-taylor-swift-nike-sneakers-1239405659/
 
 ## New York Knicks Support Taylor Swift Amid Player Comments
 
@@ -150,11 +166,12 @@ Stories: 87
 ## Knicks Respond to Players' Comments on Taylor Swift
 
 - first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
 - sources:
   - [unverified] CBS News — https://www.cbsnews.com/newyork/news/knicks-tyler-kolek-taylor-swift/
   - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50405740/tyler-kolek-questions-taylor-swift-knicks-fandom
+  - [unverified] HITC — https://www.hitc.com/swifties-respond-to-knicks-tyler-kolek-after-fake-taylor-swift-accusations/
   - [unverified] Newsday — https://www.newsday.com/sports/basketball/knicks/taylor-swift-knicks-qnxepdhj
   - [unverified] roundtable.io — https://roundtable.io/sports/wnba/news/caitlin-clark-gives-jimmy-fallon-exclusive-taylor-swift-inspired-nike-shoes
   - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
@@ -751,11 +768,3 @@ Stories: 87
 - summary: Taylor Swift and Travis Kelce are reportedly unhappy due to conflicts with their new Ohio neighbors following renovations on their $5.35 million mansion, which have disrupted the local peace.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reportedly-140027888.html
-
-## Abdul El-Sayed Acknowledges His Support for Taylor Swift After Senate Victory
-
-- first seen: 2026-11-04 22:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: After winning the Michigan Senate seat, Abdul El-Sayed acknowledged his admiration for Taylor Swift, showcasing his 'Swiftie' status. His victory marks a significant moment in his political career.
-- sources:
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/
