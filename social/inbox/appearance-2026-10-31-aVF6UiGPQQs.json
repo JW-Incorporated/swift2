@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-10-31-aVF6UiGPQQs",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-10-31T01:02:16.545Z",
+  "deadline": "2026-11-02T01:02:16.545Z",
+  "status": "open",
+  "facts": {
+    "channelName": "New Heights",
+    "videoTitle": "Prince William Tried to Kick Travis Out of His Photo With Taylor Swift",
+    "publishedAt": "2026-10-30T23:00:01+00:00",
+    "videoId": "aVF6UiGPQQs",
+    "url": "https://www.youtube.com/watch?v=aVF6UiGPQQs"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6464
+  }
+}
