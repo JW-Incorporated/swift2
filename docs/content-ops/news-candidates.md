@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 86
 
 ## Knicks Support Taylor Swift Amid Criticism from Tyler Kolek
 
@@ -70,10 +70,11 @@ Stories: 90
 ## Knicks Respond to Players' Comments on Taylor Swift
 
 - first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
 - sources:
   - [unverified] CBS News — https://www.cbsnews.com/newyork/news/knicks-tyler-kolek-taylor-swift/
+  - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50405740/tyler-kolek-questions-taylor-swift-knicks-fandom
   - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
 
 ## Knicks Defend Taylor Swift Amid Player Criticism
@@ -748,36 +749,3 @@ Stories: 90
 - summary: National Review published an article titled 'Zero Charisma for Swifties' discussing aspects related to Taylor Swift fans. The analysis may focus on the perception of fan engagement and enthusiasm.
 - sources:
   - [unverified] National Review — https://www.nationalreview.com/2026/11/zero-charisma-for-swifties/
-
-## Director Reacts to Taylor Swift's Swift Songwriting for Toy Story 5
-
-- first seen: 2026-11-04 09:01 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The director of Toy Story 5 shared a candid reaction upon learning that Taylor Swift wrote her song for the film in under a day. This reveals the impressive speed and talent Swift brings to her songwriting process.
-- sources:
-  - [unverified] Cinemablend — https://www.cinemablend.com/movies/not-pg-reaction-toy-story-5-director-had-found-out-taylor-swift-wrote-her-song-one-day
-
-## Taylor Swift Seeks to Identify Wedding Leaker Among Friends
-
-- first seen: 2026-11-04 09:01 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly making her friends uneasy as she searches for the individual who leaked details about her wedding plans. The situation has created tension within her social circle.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-making-friends-uncomfortable-081645809.html
-
-## Taylor Swift Initiates Campaign for Oscar Consideration
-
-- first seen: 2026-11-04 09:01 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Sources report that Taylor Swift has started a charm offensive for her Oscar campaign. The initiative aims to bolster her chances for recognition in the upcoming awards.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-launched-charm-offensive-082534320.html
-
-## Taylor Swift discusses Travis Kelce's unusual habit
-
-- first seen: 2026-11-04 08:07 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: In a recent reveal, Taylor Swift shares information about an unusual habit that Travis Kelce has to tolerate. The detail adds insight into their relationship dynamics.
-- sources:
-  - [unverified] Riviera Radio — https://www.rivieraradio.mc/article/taylor-swift-reveals-the-unusual-habit-travis-kelce-has-to-put-up-with-5HjdkrP_2/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-oscar-campaign-meets-112938694.html
