@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Knicks players defend Taylor Swift amid 'fakest' fan claims
+
+- first seen: 2026-11-06 23:57 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift faces criticism from some Knicks players who call her the 'fakest' celebrity fan. In response, the team comes to her defense, emphasizing her support for the team.
+- sources:
+  - [unverified] NBC News — https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-fakest-celeb-knicks-fan-players-say-team-rushes-defense-rcna607909
+
+## Knicks Players Show Support for Taylor Swift Amid Controversy
+
+- first seen: 2026-11-06 23:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks expressed their support for Taylor Swift following comments from a player who labeled her the 'fakest celeb fan.' The team's response highlights their backing of the pop star during this discussion.
+- sources:
+  - [unverified] TODAY.com — https://www.today.com/news/sports/knicks-support-taylor-swift-player-calls-fakest-celebrity-fan-rcna607925
+
+## Knicks Show Support for Taylor Swift Following Player's Comments
+
+- first seen: 2026-11-06 23:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A player from the New York Knicks made unexpected comments in support of Taylor Swift, leading to the team's backing of the pop star. This incident highlights the connection between sports and entertainment.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/knicks-defend-taylor-swift-tyler-kolek-fan-comments-12240762
+
+## New York Knicks Support Taylor Swift Amid Criticism from Tyler Kolek
+
+- first seen: 2026-11-06 23:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks have come to Taylor Swift's defense after player Tyler Kolek referred to her as the 'fakest celeb fan'. This public support highlights the ongoing engagement between celebrities and sports teams.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437909/new-york-knicks-defend-taylor-swift-after-tyler-kolek-calls-her-fakest-fan
 
 ## Omaha Man Who Founded Taylor Swift Fan Club Passes Away at 95
 
@@ -707,19 +739,3 @@ Stories: 83
 - summary: The focus shifts to Taylor Swift's ambition for an Oscar while Travis Kelce comments on costly mistakes made by the Chiefs. This news connects Swift's career aspirations with insights from Kelce on the football team's performance.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-campaign-travis-kelce-struggles/
-
-## Hollywood Music in Media Awards Nominations and Oscar Insights
-
-- first seen: 2026-11-03 23:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An analysis of the significance of the nominations at the Hollywood Music in Media Awards in relation to the Oscars. The piece suggests ways in which these nominations may influence or indicate trends for the upcoming Academy Awards.
-- sources:
-  - [unverified] Gold Derby — https://www.goldderby.com/film/2026/hollywood-music-in-media-awards-noms-oscars-taylor-swift-analysis/
-
-## Abdul El-Sayed Comments on Taylor Swift's 'Life of a Showgirl'
-
-- first seen: 2026-11-03 23:56 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Abdul El-Sayed shared his opinion, stating that Taylor Swift's 'Life of a Showgirl' is not her best work. The comment reflects a critical perspective on the artist's latest offering.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/course-not-abdul-el-sayed-230036484.html
