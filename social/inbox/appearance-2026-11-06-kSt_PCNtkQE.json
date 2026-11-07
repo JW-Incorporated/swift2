@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-11-06-kSt_PCNtkQE",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-11-06T20:04:57.906Z",
+  "deadline": "2026-11-08T20:04:57.906Z",
+  "status": "open",
+  "facts": {
+    "channelName": "The Tonight Show Starring Jimmy Fallon",
+    "videoTitle": "Jennifer Beals Praises Taylor Swift, Says She Was a Mythology Nerd Before Starring in Percy Jackson",
+    "publishedAt": "2026-11-06T05:05:19+00:00",
+    "videoId": "kSt_PCNtkQE",
+    "url": "https://www.youtube.com/watch?v=kSt_PCNtkQE"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6667
+  }
+}
