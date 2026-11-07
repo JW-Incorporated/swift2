@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "i did not expect to tear up today but here we are 🥹\n\nthe Nashville Songwriters Hall of Fame inducted Taylor — and the person who inducted her was Brad Paisley. an elder of the room she grew up writing in, welcoming her into it.\n\nthink about where this one started: a teenager in Nashville writing-rooms, songs nobody had heard yet. and now her name goes on that wall, next to the writers she learned from.\n\nit's a songwriter's honour, not a pop-star one. that's the part that gets me — the industry that makes its name on the words saying hers belong.\n\ntag the friend who's loved her writing since the very first album 💛\n\nphoto: Brian Cantoni (CC BY 2.0), via Wikimedia Commons\nlonglivets.com/?item=vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-debut-yahoo-2007-2.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-yahoo-2007-2",
+  "photoEra": "debut",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_at_Yahoo_2007.jpg",
+  "scheduledAt": "2026-11-07T23:00:00Z",
+  "altText": [
+    "A young Taylor Swift in a white sundress singing at a microphone during a 2007 debut-album promotional appearance at Yahoo, next to a host."
+  ],
+  "campaign": "heartbeat:era-deep-cut:brad-paisley-songwriters-hall:2026-11-07",
+  "why": "IG sibling of the 2026-11-07 NEWS RESERVE #2 named fallback (ask #6520, second moment). Same story as the X half — Brad Paisley inducting Taylor into the Nashville Songwriters Hall of Fame (vault moment vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall, 2026-10-26) — but a structurally distinct opener and vocabulary ('i did not expect to tear up' vs 'okay i'm a little emotional'), longer prose, the songwriter-honour framing. No sourced Paisley quote in the repo, so stated as fact without quoting or characterising him. Debut era per the era note. Credited photo (Brian Cantoni), honest tag hook (heartbeat share-design).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "IG half of the news-reserve fallback (ask #6520): a longer gush on Taylor's induction into the Nashville Songwriters Hall of Fame by Brad Paisley, framed as a songwriter's honour from the industry that lives on words. Era-matched debut photo, credited, honest tag hook, sourced to the vault moment.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}
