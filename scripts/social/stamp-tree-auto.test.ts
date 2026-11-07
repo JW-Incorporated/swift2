@@ -152,6 +152,15 @@ describe('runCheckDrafts — credentials never reach the checker (L8)', () => {
 // tree-daily-draft.md says to (the pre-compute's never-used photo on BOTH
 // halves), written briefly into the real social/queue/, stamped with the real
 // runCheckDrafts, then removed. The stamper's own writes are captured, not applied.
+//
+// The pre-compute is fed the LIVE queue (issue #6686): with `queue: []` it
+// handed back a photo a real queued draft was already using, and the real
+// gate's queue-vs-queue reuse rules (L001, founder rule #5990) then refused
+// the stamp — the publish gate went red on what was in social/queue/ that day,
+// not on anything about the stamper. The gate reads the real social/queue/
+// directory by its own ROOT, so the pair has to be written there (its names
+// carry the pid and are removed in `finally`); staying immune to what else is
+// queued is therefore the pick's job, exactly as it is the drafter's.
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale: 'Executes the calendar slot with the record as the hook; the photo is the era it is about. A dated, checkable number carries it.', rulesChecked: ['L001'], revision: 1 };
 const CALENDAR = '## 2026-10-01 (Thu) — a Speak Now beat\n\n- **`23:00Z` · `heartbeat:era-deep-cut:speak-now-record`** — direction only.\n';
@@ -159,15 +168,23 @@ const CALENDAR = '## 2026-10-01 (Thu) — a Speak Now beat\n\n- **`23:00Z` · `h
 describe('stampTreeAuto — a real passing draft through the real check-drafts', () => {
   it('stamps a drafter-happy-path pair, and the stamp verifies against the real media bytes', async () => {
     const library = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;
+    const queueDir = path.join(ROOT, 'social', 'queue');
     const posted = await readJsonDir(path.join(ROOT, 'social', 'posted'));
+    const liveQueue = await readJsonDir(queueDir);
     const { usable } = await igUsablePhotos(library, path.join(ROOT, 'apps', 'web', 'public'));
-    const inputs = buildDraftInputs({ now: '2026-10-01T11:00:00Z', library, igUsable: usable, calendarMd: CALENDAR, lessonsMd: readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8'), posted, queue: [], openDrafts: [], closedPrs: [], intents: [], intakeIssues: [] });
+    const inputs = buildDraftInputs({ now: '2026-10-01T11:00:00Z', library, igUsable: usable, calendarMd: CALENDAR, lessonsMd: readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8'), posted, queue: liveQueue, openDrafts: [], closedPrs: [], intents: [], intakeIssues: [] });
     const photo = inputs.photos.eras.debut.next;
+    // Null only if the debut era has no never-used, IG-sized photo left at all — a library
+    // problem, not a stamper one; say so instead of dying on `photo.media`.
+    expect(photo, 'the pre-compute has no never-used debut photo left for this test to draft with').toBeTruthy();
+    // The regression itself: the pick must not be a photo the live queue already holds.
+    const queuedMedia = new Set(liveQueue.flatMap((q) => ((q.data as { media?: string[] }).media ?? []).map(String)));
+    expect(photo.media.filter((m: string) => queuedMedia.has(m)), 'pre-compute pick collides with a live queued draft (#6686)').toEqual([]);
     const base = { lane: 'calendar', campaign: 'heartbeat:era-deep-cut:debut-2007-2026-10-01', scheduledAt: '2026-10-01T23:00:00Z', media: photo.media, mediaKind: 'photo', photoId: photo.photoId, photoEra: 'debut', mediaCredit: photo.mediaCredit, mediaSource: photo.mediaSource, altText: photo.altText, why: 'Calendar 10-01 beat; one never-used debut photo from the pre-compute on both halves of the pair.', critique };
     const ig = { ...base, platform: 'instagram', body: 'the very first album was written by a sixteen year old in her bedroom and it still holds up. a debut that went platinum on her own songs, one very loud answer to everyone who doubted it. tag the friend who knows every word.\n\nlonglivets.com/?era=debut&utm_source=instagram&utm_medium=social&utm_campaign=debut-2007' };
     const x = { ...base, platform: 'x', body: 'Sixteen, a guitar, and a self-titled debut that went platinum. Every song still on the record is hers. https://longlivets.com/?era=debut&utm_source=x&utm_medium=social&utm_campaign=debut-2007' };
-    const names = ['zz-p3a-real-ig.json', 'zz-p3a-real-x.json'];
-    const queueDir = path.join(ROOT, 'social', 'queue');
+    // Pid-scoped so a leftover from a crashed run can never be mistaken for this run's pair.
+    const names = [`zz-p3a-real-${process.pid}-ig.json`, `zz-p3a-real-${process.pid}-x.json`];
     mkdirSync(queueDir, { recursive: true });
     try {
       writeFileSync(path.join(queueDir, names[0]), JSON.stringify(ig, null, 2) + '\n');
