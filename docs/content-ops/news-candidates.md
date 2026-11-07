@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 88
+
+## Knicks Respond to Players' Comments on Taylor Swift
+
+- first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
+
+## Raffle for Signed Taylor Swift Guitar Announced in Arizona
+
+- first seen: 2026-11-07 01:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A signed guitar by Taylor Swift is set to be raffled off in Arizona, providing fans with a chance to win a unique piece of memorabilia. The event has been reported by FOX 10 Phoenix.
+- sources:
+  - [unverified] FOX 10 Phoenix — https://www.fox10phoenix.com/video/fmc-zq3kfm9ajl4wy5ao
 
 ## Knicks Defend Taylor Swift Amid Player Criticism
 
@@ -91,14 +107,6 @@ Stories: 86
 - sources:
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/news/general-news/new-york-knicks-defend-taylor-swift-tyler-kolek-1236749740/
 
-## Taylor Swift Reportedly Upset Over Alleged Betrayal on Wedding Day
-
-- first seen: 2026-11-06 22:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report claims that Taylor Swift is furious due to a perceived betrayal related to her wedding. The news adds to the ongoing negative coverage surrounding her nuptials.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-faces-more-212943952.html
-
 ## Taylor Swift discusses business ventures in Time Magazine
 
 - first seen: 2026-11-06 22:57 UTC | category: business | importance: 5
@@ -106,6 +114,14 @@ Stories: 86
 - summary: Taylor Swift shares insights about her business endeavors in a feature by Time Magazine. The interview highlights her approach to the music industry and her entrepreneurial spirit.
 - sources:
   - [unverified] Time Magazine — https://time.com/3578249/taylor-swift-interview/
+
+## Taylor Swift Reportedly Upset Over Alleged Betrayal on Wedding Day
+
+- first seen: 2026-11-06 22:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A report claims that Taylor Swift is furious due to a perceived betrayal related to her wedding. The news adds to the ongoing negative coverage surrounding her nuptials.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971568/taylor-swift-wedding-scooter-braun/
 
 ## Taylor Swift and Travis Kelce Discuss Holiday Plans as Newlyweds
 
