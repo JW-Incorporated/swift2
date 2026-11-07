@@ -1,0 +1,49 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "screaming a little. the Nashville Songwriters Hall of Fame inducted Taylor, and Brad Paisley walked her in — the girl who started writing in those exact rooms, now one of the greats 🥹 tag the swiftie who always knew\n\nlonglivets.com/?item=vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-debut-yahoo-2007-2.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "debut-yahoo-2007-2",
+  "photoEra": "debut",
+  "mediaCredit": "Brian Cantoni (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_at_Yahoo_2007.jpg",
+  "scheduledAt": "2026-11-07T23:00:00Z",
+  "altText": [
+    "A young Taylor Swift in a white sundress singing at a microphone during a 2007 debut-album promotional appearance at Yahoo, next to a host."
+  ],
+  "campaign": "heartbeat:era-deep-cut:brad-paisley-songwriters-hall:2026-11-07",
+  "why": "X half of the 2026-11-07 NEWS RESERVE #2 named fallback (ask #6520, second moment), written first as its own post. Subject: Brad Paisley inducting Taylor into the Nashville Songwriters Hall of Fame (vault moment vault-tloas-brad-paisley-inducts-her-into-the-nashville-songwriters-hall, dated 2026-10-26, an award that §1(e2) counts as major). No sourced Paisley quote exists in the repo, so stated as fact without quoting or characterising him, per the calendar's 'quote exactly or not at all'. Debut era per the era note (where she started writing). Heartbeat share-hook included. No real uncovered 48h event beat the fallback — see PR body.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "X half of the news-reserve fallback (ask #6520): the Nashville Songwriters Hall of Fame inducting Taylor, with Brad Paisley doing the honours, framed as her debut-era writing rooms welcoming her in. Warm, sourced to the vault moment, one verifiable fact, a tag hook, and a debut-era photo.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-07T16:57:02.460Z",
+    "pr": 6682,
+    "message": "social-tree-approve run 42393731941",
+    "contentHash": "sha256:ca58fe37ba13c7a77255b51b6f28ae6f3b55954fe5b6b3542e92e80c350bb3f0",
+    "mediaDigest": "sha256:3bb6fc4ab1fcfd306ff4085493e59e7d3f8d42f65fcdb2315d77772b22e2848e",
+    "sig": "hmac-sha256:49c27fdd456ab4dea52e5bc57a50a85bc30ba86bb90f6ef464f8bdc452804a76"
+  },
+  "postedAt": "2026-11-07T23:06:58.189Z",
+  "platformPostId": "2119205039696650738",
+  "url": "https://x.com/longlivetscom/status/2119205039696650738"
+}
