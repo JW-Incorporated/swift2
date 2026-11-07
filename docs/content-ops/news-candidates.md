@@ -25,15 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
-
-## Knicks Respond to Players' Comments on Taylor Swift
-
-- first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
+Stories: 87
 
 ## Raffle for Signed Taylor Swift Guitar Announced in Arizona
 
@@ -42,6 +34,15 @@ Stories: 88
 - summary: A signed guitar by Taylor Swift is set to be raffled off in Arizona, providing fans with a chance to win a unique piece of memorabilia. The event has been reported by FOX 10 Phoenix.
 - sources:
   - [unverified] FOX 10 Phoenix — https://www.fox10phoenix.com/video/fmc-zq3kfm9ajl4wy5ao
+
+## Knicks Respond to Players' Comments on Taylor Swift
+
+- first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
+- sources:
+  - [unverified] CBS News — https://www.cbsnews.com/newyork/news/knicks-tyler-kolek-taylor-swift/
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
 
 ## Knicks Defend Taylor Swift Amid Player Criticism
 
@@ -351,7 +352,7 @@ Stories: 88
 ## NBA Players Criticize Taylor Swift's Performative Actions
 
 - first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 11
+- verification_status: corroborated | source_count: 12
 - summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/
@@ -364,6 +365,7 @@ Stories: 88
   - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-knicks-fakest-celebrity-fan-tyler-kolek-deuce-mcbride/6568660/
   - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
   - [established] People — https://people.com/knicks-tyler-kolek-calls-taylor-swift-courtside-appearance-madison-square-garden-little-performative-12239815
+  - [unverified] Sportsnet.ca — https://www.sportsnet.ca/nba/article/knicks-issue-statement-after-tyler-kolek-calls-taylor-swift-performative/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
 
 ## Documentary on Vienna concert threat to release in fall 2027
@@ -755,11 +757,3 @@ Stories: 88
 - summary: Taylor Swift compensated Nelly with $50,000 in a McDonald's bag for his performance of 'Hot in Herre'.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-paid-nelly-50-024204189.html
-
-## Taylor Swift's Oscar Aspirations Highlighted as Travis Kelce Discusses Chiefs' Errors
-
-- first seen: 2026-11-04 02:17 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The focus shifts to Taylor Swift's ambition for an Oscar while Travis Kelce comments on costly mistakes made by the Chiefs. This news connects Swift's career aspirations with insights from Kelce on the football team's performance.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-campaign-travis-kelce-struggles/
