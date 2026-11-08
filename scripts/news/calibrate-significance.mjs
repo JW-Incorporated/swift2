@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 // Significance calibration gate (docs/decisions.md 2026-11-08). Runs the layer-1
 // rules and then the Opus judge over scripts/news/fixtures/significance-labels.jsonl
-// (live items labeled IMPORTANT / MARGINAL / NOISE), SIGNIFICANCE_RUNS times.
-// A row is held when a rule trips or the judge says tier 3. Acceptance, every run:
-// at least 90% of NOISE held, at least 95% of IMPORTANT kept, nothing deferred.
+// (live items labeled IMPORTANT / MARGINAL / NOISE), SIGNIFICANCE_RUNS times,
+// plus the held-out set significance-holdout.jsonl, reported separately. A row is held
+// when a rule trips or the judge says tier 3 (a deferred judge counts as held, so a
+// deferred NOISE row counts as held, but any deferral still fails the run). Acceptance,
+// every run on BOTH sets: at least 90% of NOISE held, at least 95% of IMPORTANT kept.
 // Rows a rule already holds skip the judge. Exit code 0 only when every model passes.
 //
 // Needs CLAUDE_CODE_OAUTH_TOKEN (never read or printed here).
@@ -20,15 +22,21 @@ import { judgeSignificance } from '../../apps/worker/src/extract/significance-cl
 import { ExtractUsageStore } from '../../apps/worker/src/extract/usage-store.ts';
 import {
   SIGNIFICANCE_RUNS,
-  evaluateRuns,
+  evaluateSets,
   judgeInputFor,
   layerOneResults,
+  normalizeRow,
   renderTable,
   runOutcomes,
 } from './calibrate-significance-score.mjs';
 
-const FIXTURE = resolve(dirname(fileURLToPath(import.meta.url)), 'fixtures/significance-labels.jsonl');
+const FIXTURES = resolve(dirname(fileURLToPath(import.meta.url)), 'fixtures');
+const SETS = { fixture: 'significance-labels.jsonl', holdout: 'significance-holdout.jsonl' };
 const MODEL_PATTERN = /^[a-z0-9.-]+$/;
+
+function readSet(file) {
+  return readFileSync(join(FIXTURES, file), 'utf8').split(/\r?\n/).filter((l) => l.trim()).map((l) => normalizeRow(JSON.parse(l)));
+}
 
 function textFlag(args, name) {
   const i = args.indexOf(name);
@@ -60,23 +68,27 @@ async function main() {
   const out = resolve(outDir);
   mkdirSync(out, { recursive: true });
 
-  const rows = readFileSync(FIXTURE, 'utf8').split(/\r?\n/).filter((l) => l.trim()).map((l) => JSON.parse(l));
-  const rules = layerOneResults(rows);
+  const sets = Object.fromEntries(Object.entries(SETS).map(([name, file]) => [name, readSet(file)]));
+  const rules = Object.fromEntries(Object.entries(sets).map(([name, rows]) => [name, layerOneResults(rows)]));
   const db = { todaysCallCount: async () => 0, incrementToday: async () => undefined };
   const usage = await ExtractUsageStore.create(db, 10_000, 10_000);
 
   const byModel = {};
   for (const model of models) {
     const claude = (request) => callWorkerClaude({ ...request, model });
-    const runs = [];
-    const raw = [];
-    for (let run = 0; run < SIGNIFICANCE_RUNS; run += 1) {
-      const verdicts = await mapLimit(rows, concurrency, (row, i) => (rules[i] ? null : judgeSignificance(usage, judgeInputFor(row), claude)));
-      raw.push(verdicts);
-      runs.push(runOutcomes(rows, rules, verdicts));
+    const runsBySet = {};
+    const detail = {};
+    for (const [name, rows] of Object.entries(sets)) {
+      runsBySet[name] = [];
+      const raw = [];
+      for (let run = 0; run < SIGNIFICANCE_RUNS; run += 1) {
+        const verdicts = await mapLimit(rows, concurrency, (row, i) => (rules[name][i] ? null : judgeSignificance(usage, judgeInputFor(row), claude)));
+        raw.push(verdicts);
+        runsBySet[name].push(runOutcomes(rows, rules[name], verdicts));
+      }
+      detail[name] = rows.map((row, i) => ({ id: row.id, headline: row.headline, label: row.label, rule: rules[name][i], verdicts: raw.map((v) => v[i]) }));
     }
-    byModel[model] = evaluateRuns(runs);
-    const detail = rows.map((row, i) => ({ id: row.id, headline: row.headline, label: row.label, rule: rules[i], verdicts: raw.map((v) => v[i]) }));
+    byModel[model] = evaluateSets(runsBySet);
     writeFileSync(join(out, `${model}.json`), JSON.stringify({ evaluation: byModel[model], detail }, null, 2));
     console.error(`${model}: accepted=${byModel[model].accepted}`);
   }

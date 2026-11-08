@@ -27,7 +27,7 @@ function parseSignificanceOutput(data: unknown): SignificanceVerdict {
   return { status: 'ok', tier, reason, model: MODEL };
 }
 
-/** Tiers one candidate. A missing token, an exhausted budget or an unavailable judge defers (never throws); the caller holds the item and retries. */
+/** Tiers one candidate. A missing token, an exhausted budget, an unavailable judge or invalid output defers (never throws); the caller holds the item and retries. */
 export async function judgeSignificance(
   usage: ExtractUsageStore,
   input: SignificanceInput,
@@ -49,5 +49,6 @@ export async function judgeSignificance(
     console.warn(`news-worker significance deferred: ${response.reason}`);
     return { status: 'deferred', reason: response.reason };
   }
-  throw new Error(`Claude significance judge returned invalid output: ${response.reason}`);
+  console.warn(`news-worker significance deferred: invalid output: ${response.reason}`);
+  return { status: 'deferred', reason: `invalid_output: ${response.reason}` };
 }

@@ -1,6 +1,7 @@
 // Pure scoring and acceptance for scripts/news/calibrate-significance.mjs. No model calls.
 
 import { significanceRuleHold } from '../../apps/worker/src/extract/significance-rules.ts';
+import { isEstablishedName } from '../../packages/shared/src/source-tiers.ts';
 
 export const SIGNIFICANCE_RUNS = 3;
 export const NOISE_HELD_MIN = 0.9;
@@ -12,6 +13,25 @@ function hostOf(url) {
   } catch {
     return url;
   }
+}
+
+/**
+ * Fills what a labeled row may lack (the held-out set has only headline, outlet,
+ * url, category and label): status reported, heat 1, no facts, and one source
+ * whose tier comes from the existing outlet-name lookup, else unverified.
+ */
+export function normalizeRow(row) {
+  return {
+    ...row,
+    status: row.status ?? 'reported',
+    heat: row.heat ?? 1,
+    facts: row.facts ?? [],
+    sources: row.sources ?? [{
+      name: row.outlet ?? '',
+      url: row.url ?? '',
+      tier: isEstablishedName(row.outlet) ? 'established' : 'unverified',
+    }],
+  };
 }
 
 /** The layer-1 input for a fixture row. */
@@ -33,7 +53,7 @@ export function judgeInputFor(row) {
     status: row.status,
     heat: row.heat,
     facts: row.facts.map((f) => `${f.claim} (${f.attribution})`),
-    sources: [...new Set(row.sources.map((s) => hostOf(s.url)))],
+    sources: [...new Set(row.sources.map((s) => s.name || hostOf(s.url)))],
   };
 }
 
@@ -72,18 +92,33 @@ export function evaluateRuns(runs) {
   return { perRun, noiseOk, importantOk, deferredNone, accepted: noiseOk && importantOk && deferredNone };
 }
 
+const NOTE = 'A deferred judge call counts as held (fail closed), so a deferred NOISE row counts as held. Any deferral still fails the run (deferredNone), because it hides what the judge would have said.';
+
+export function evaluateSets(sets) {
+  const evaluations = Object.fromEntries(Object.entries(sets).map(([name, runs]) => [name, evaluateRuns(runs)]));
+  return { ...evaluations, accepted: Object.values(evaluations).every((e) => e.accepted) };
+}
+
 export function renderTable(byModel) {
   const mark = (ok) => (ok ? 'ok' : 'FAIL');
   const fmt = (r) => `${r.n}/${r.total}`;
-  return [
-    '| Model | NOISE held per run | IMPORTANT kept per run | Deferred per run | Accepted |',
-    '|---|---|---|---|---|',
-    ...Object.entries(byModel).map(([model, e]) => `| ${[
-      model,
-      `${e.perRun.map((r) => fmt(r.noiseHeld)).join(', ')} ${mark(e.noiseOk)}`,
-      `${e.perRun.map((r) => fmt(r.importantKept)).join(', ')} ${mark(e.importantOk)}`,
-      `${e.perRun.map((r) => r.deferred).join(', ')} ${mark(e.deferredNone)}`,
-      e.accepted ? 'YES' : 'NO',
-    ].join(' | ')} |`),
-  ].join('\n');
+  const lines = [
+    '| Model | Set | NOISE held per run | IMPORTANT kept per run | Deferred per run | Accepted |',
+    '|---|---|---|---|---|---|',
+  ];
+  for (const [model, result] of Object.entries(byModel)) {
+    for (const [set, e] of Object.entries(result)) {
+      if (set === 'accepted') continue;
+      lines.push(`| ${[
+        model,
+        set,
+        `${e.perRun.map((r) => fmt(r.noiseHeld)).join(', ')} ${mark(e.noiseOk)}`,
+        `${e.perRun.map((r) => fmt(r.importantKept)).join(', ')} ${mark(e.importantOk)}`,
+        `${e.perRun.map((r) => r.deferred).join(', ')} ${mark(e.deferredNone)}`,
+        e.accepted ? 'YES' : 'NO',
+      ].join(' | ')} |`);
+    }
+    lines.push(`| ${model} | both sets | | | | ${result.accepted ? 'YES' : 'NO'} |`);
+  }
+  return [...lines, '', NOTE].join('\n');
 }
