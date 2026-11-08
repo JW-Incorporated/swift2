@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 81
+
+## Tyler Kolek Responds to Taylor Swift Comment with Song Cover
+
+- first seen: 2026-11-08 20:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tyler Kolek reacts to a comment about Taylor Swift being a 'fakest' Knicks fan and showcases his talent by covering one of her songs in a new viral video.
+- sources:
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25530671-tyler-kolek-addresses-taylor-swift-fakest-knicks-fan-comment-covers-song-new-viral-video
+
+## Taylor Swift and Karlie Kloss Attend Chiefs Game Together
+
+- first seen: 2026-11-08 20:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss were spotted attending a game for the Kansas City Chiefs, amid previous rumors of a feud between the two friends. Their appearance together is drawing attention from fans and media.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/11/08/taylor-swift-karlie-kloss-attend-travis-kelce-chiefs-game/
 
 ## Taylor Swift Attends Chiefs Game with Karlie Kloss
 
@@ -153,12 +169,16 @@ Stories: 83
 ## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
 
 - first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 8
 - summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
 - sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-wears-red-sweater-polo-cheer-travis-kelce-chiefs-12240975
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/taylor-swift-goes-absolutely-wild-at-arrowhead-as-travis-kelce-scores-touchdown-video.html
   - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
   - [unverified] Page Six — https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/
   - [established] The New York Times — https://www.nytimes.com/athletic/7762791/2026/11/08/taylor-swift-knicks-fandom-tyler-kolek-apology/
+  - [unverified] USA Today — https://www.usatoday.com/story/sports/nfl/chiefs/2026/11/08/taylor-swift-karlie-kloss-chiefs-game/92679917007/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/digital/news/taylor-swift-karlie-kloss-reunite-travis-kelce-chiefs-game-1236942684/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/why-taylor-swift-fans-mad-154200587.html
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
@@ -684,35 +704,3 @@ Stories: 83
 - summary: Travis Kelce discusses how he spent Christmas Day with Taylor Swift, highlighting their time together during the holiday.
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/11/05/travis-kelce-reveals-perfect-christmas-day-with-taylor-swift/
-
-## Travis Kelce Shares Excitement for First Holiday Season with Taylor Swift
-
-- first seen: 2026-11-05 20:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expresses his enthusiasm for celebrating the upcoming holiday season as a married couple with Taylor Swift. The couple's first holiday season together is generating positive buzz.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/why-travis-kelce-excited-first-200958493.html
-
-## Travis Kelce Shares Plans for His First Christmas with Taylor Swift
-
-- first seen: 2026-11-05 20:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce discussed his excitement for spending his first Christmas as a married couple with Taylor Swift. He revealed what he is looking forward to during this special time together.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-looking-forward-201151370.html
-
-## Travis Kelce Discusses First Holiday Season with Taylor Swift
-
-- first seen: 2026-11-05 19:57 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shares his thoughts on celebrating his first holiday season as Taylor Swift's husband, highlighting the significance of the occasion.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-makes-sweet-admission-192919343.html
-
-## Taylor Swift Mentioned in Article about Celebrity Weddings and Engagements
-
-- first seen: 2026-11-05 19:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses celebrity weddings and engagements, featuring Taylor Swift and Sophia Bush among the mentions. The focus includes events tied to Florida.
-- sources:
-  - [unverified] The Palm Beach Post — https://www.palmbeachpost.com/picture-gallery/entertainment/2026/11/05/taylor-swift-travis-kelce-sophia-bush-hannity-florida-celebrity-wedding-married/92515060007/
