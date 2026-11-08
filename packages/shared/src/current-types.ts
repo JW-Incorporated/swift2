@@ -66,6 +66,20 @@ export interface CurrentItemFact {
   confidence: string;
 }
 
+/** `current_item.media_kind`. */
+export const CURRENT_MEDIA_KINDS = ['video', 'image', 'text'] as const;
+export type CurrentMediaKind = (typeof CURRENT_MEDIA_KINDS)[number];
+
+/** `current_item.embed` — a verified, playable video (video-first slice 3). */
+export interface CurrentItemEmbed {
+  provider: 'youtube';
+  videoId: string;
+  title?: string;
+  channelId?: string;
+  /** ISO 8601 timestamp of the oEmbed check that proved it plays. */
+  verifiedAt?: string;
+}
+
 export interface CurrentItem {
   id: string;
   /** The news_story cluster it came from; undefined for social-only rows. */
@@ -92,6 +106,9 @@ export interface CurrentItem {
   locationLevel?: LocationLevel;
   /** Hotlink from an allowlisted host, or undefined. Never rehosted. */
   imageUrl?: string;
+  /** Verified video embed; undefined for every non-video row. */
+  embed?: CurrentItemEmbed;
+  mediaKind?: CurrentMediaKind;
   socialPost?: { platform: 'instagram'; shortcode: string; postedOn?: string };
   symbols: string[];
   entities: string[];

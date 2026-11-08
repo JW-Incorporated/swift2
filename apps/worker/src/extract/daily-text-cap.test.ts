@@ -1,6 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { describe, expect, it } from 'vitest';
-import { countTextPublishedToday, DAILY_TEXT_CAP, dailyTextCapHold, utcDayStart } from './daily-text-cap';
+import {
+  countTextPublishedToday, DAILY_TEXT_CAP, dailyTextCapHold, TIER2_DAILY_CAP, tierCapDecision, utcDayStart,
+} from './daily-text-cap';
 
 interface Row {
   era_id: string;
@@ -65,5 +67,21 @@ describe('daily text cap', () => {
     expect(await countTextPublishedToday(fakeDb(rows), 'tloas', NOW)).toBe(3);
     expect(await dailyTextCapHold(fakeDb(rows), 'tloas', FACTS, NOW)).toBeUndefined();
     expect(await dailyTextCapHold(fakeDb(rows), 'midnights', FACTS, NOW)).toBeDefined();
+  });
+});
+
+describe('tier-aware cap', () => {
+  it('never caps tier 1', () => {
+    expect(tierCapDecision(1, 0)).toEqual({ publish: true });
+    expect(tierCapDecision(1, 99)).toEqual({ publish: true });
+  });
+
+  it('lets the 4th tier 2 item through and holds the 5th', () => {
+    expect(tierCapDecision(2, TIER2_DAILY_CAP - 1)).toEqual({ publish: true });
+    expect(tierCapDecision(2, TIER2_DAILY_CAP)).toEqual({ publish: false, reason: 'daily_tier2_cap' });
+  });
+
+  it('never publishes tier 3', () => {
+    expect(tierCapDecision(3, 0)).toEqual({ publish: false, reason: 'not_notable:tier3' });
   });
 });

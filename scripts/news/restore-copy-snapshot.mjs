@@ -9,7 +9,7 @@
 //   node scripts/news/restore-copy-snapshot.mjs --id <current_item_id>
 //   node scripts/news/restore-copy-snapshot.mjs --since <iso>
 //   node scripts/news/restore-copy-snapshot.mjs --clear-retired [--id <current_item_id>] [--since <iso>]
-//     un-hides rows the force backfill retired (quality_hold_reason 'retired_below_floor', 'retired_duplicate' or 'retired_unwritable').
+//     un-hides rows the force backfill retired (quality_hold_reason 'retired_below_floor', 'retired_duplicate', 'retired_unwritable' or 'retired_not_notable').
 //   add --no-dry-run to write; dry run is the default.
 
 import { serviceClient } from '../lib/supabase.mjs';
@@ -43,8 +43,8 @@ export async function restoreSnapshots(db, { id, since, dryRun = true }) {
 }
 
 export const RETIRED_HOLD_REASON = 'retired_below_floor';
-export const RETIRED_HOLD_REASONS = [RETIRED_HOLD_REASON, 'retired_duplicate', 'retired_unwritable'];
-const RETIRE_SNAPSHOT_REASONS = ['retire_below_floor', 'retire_duplicate', 'retire_unwritable'];
+export const RETIRED_HOLD_REASONS = [RETIRED_HOLD_REASON, 'retired_duplicate', 'retired_unwritable', 'retired_not_notable'];
+const RETIRE_SNAPSHOT_REASONS = ['retire_below_floor', 'retire_duplicate', 'retire_unwritable', 'retire_not_notable'];
 
 /** Undoes --retire-below-floor: clears the hold reason and re-shows the row (the read-time gate still applies). */
 export async function clearRetired(db, { id, since, dryRun = true } = {}) {

@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **12 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #149 🔴 [BLOCKING] Add SOCIAL_JUDGE_KEY to the social environment (~3 min)
+<!-- ha filed=2026-11-08 -->
+
+**Why:** Until this secret exists, Tree's independent social judge writes unsigned scores and the approval gate does not enforce it (it prints `judge not enforced`), so a self-scored caption can still ship.
+**Steps:**
+1. In PowerShell run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))` and copy the output.
+2. Open https://github.com/JW-Incorporated/swift2/settings/environments and click `social`.
+3. Under Environment secrets click Add environment secret, Name `SOCIAL_JUDGE_KEY`, paste the value, click Add secret.
+**Worked if:** Settings > Environments > social lists SOCIAL_JUDGE_KEY under Environment secrets.
 
 ## #148 🟢 [UPGRADE] Swap the site's Supabase key from secret to publishable (~10 min)
 <!-- ha filed=2026-11-04 -->
