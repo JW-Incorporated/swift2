@@ -83,4 +83,42 @@ describe('CurrentItemCard image rendering', () => {
     fireEvent.click(screen.getByRole('button'));
     expect(onOpen).toHaveBeenCalledTimes(1);
   });
+
+  describe('video embed', () => {
+    const videoItem = {
+      ...baseItem,
+      imageUrl: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+      mediaKind: 'video',
+      embed: { provider: 'youtube', videoId: 'dQw4w9WgXcQ', title: '<b>Official</b> video' },
+    } as unknown as CurrentItem;
+
+    it('shows a play poster, no iframe until clicked, then mounts the player', () => {
+      const { container } = mount(videoItem);
+      expect(container.querySelector('iframe')).toBeNull();
+      const play = screen.getByRole('button', { name: 'Play video: <b>Official</b> video' });
+      fireEvent.click(play);
+      const frame = container.querySelector('iframe')!;
+      expect(frame.getAttribute('src')).toContain('youtube-nocookie.com/embed/dQw4w9WgXcQ');
+      expect(container.querySelector('b')).toBeNull();
+    });
+
+    it('truncates a long oEmbed title to ~100 chars', () => {
+      mount({ ...videoItem, embed: { provider: 'youtube', videoId: 'dQw4w9WgXcQ', title: 'x'.repeat(300) } } as never);
+      const label = screen.getByRole('button', { name: /^Play video: x+…$/ }).getAttribute('aria-label')!;
+      expect(label.length).toBeLessThanOrEqual('Play video: '.length + 100);
+    });
+
+    it('keeps the open button separate from the player and still opens the detail', () => {
+      const onOpen = vi.fn();
+      mount(videoItem, onOpen);
+      fireEvent.click(screen.getByText(videoItem.headline));
+      expect(onOpen).toHaveBeenCalledTimes(1);
+    });
+
+    it('renders as before when mediaKind is video but the embed is missing or malformed', () => {
+      mount({ ...videoItem, embed: undefined } as never);
+      expect(screen.queryByRole('button', { name: /^Play/ })).toBeNull();
+      expect(screen.getByAltText(videoItem.headline)).toBeTruthy();
+    });
+  });
 });

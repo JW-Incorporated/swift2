@@ -13,6 +13,8 @@ import { CURRENT_ITEM_STATUS_COPY, outletFor } from '@swift2/experience';
 import { eraStyle } from '../lib/theme';
 import { useAppActions } from '../store';
 import { useHost } from '../../host/context';
+import { MomentVideo } from './MomentVideo';
+import { currentItemVideo } from './current-item-video';
 
 /** Same remote-vs-local-asset check every other card's `<Image>` call uses.
  * `item.imageUrl` is always a hotlinked `https://` publisher URL, so this
@@ -59,7 +61,8 @@ export function CurrentItemDetail({
   if (!item) return null;
   const status = CURRENT_ITEM_STATUS_COPY[item.status];
   const outlet = outletFor(item);
-  const showImage = Boolean(item.imageUrl) && !imageFailed;
+  const video = currentItemVideo(item);
+  const showImage = !video && Boolean(item.imageUrl) && !imageFailed;
 
   async function verify() {
     if (!item || verifyState === 'sending') return;
@@ -126,6 +129,8 @@ export function CurrentItemDetail({
         <p className="mt-1 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
           {formatFullDate(item.observedOn)}
         </p>
+
+        {video && <MomentVideo video={video} caption={null} playNoun="video" className="mt-5" />}
 
         {showImage && (
           <div className="relative mt-5 aspect-[16/9] overflow-hidden rounded-xl">
