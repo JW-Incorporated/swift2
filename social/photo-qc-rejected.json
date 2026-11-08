@@ -3175,6 +3175,90 @@
       "sha256": "df66e90bd4e5a1744422b284716d7476ab7856613522ef98b362fa242b93199d",
       "reason": "Wide dark stage panorama with many dancers; subject tiny and not prominent.",
       "date": "2026-11-07"
+    },
+    {
+      "id": "official-video-OOPFMrF7v4Q-maxres1",
+      "sha256": "c2139c1ce1e385bfa48b6bf7a774dc481dff30c128370c80b3d747eb924e80ab",
+      "reason": "Man in suit holding a mic at a panel; doesn't fit a Taylor Swift performance caption.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "official-video-dLfkQNnzh2o-maxres1",
+      "sha256": "4b3a1f163ddf429cc5b9dd63756ce13a87dc4e564ee5bcf0fbe9275014e5c954",
+      "reason": "Double-exposure blend of three people; no single dominant subject, hazy.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "official-video-ko70cExuzZM-maxres1",
+      "sha256": "50b4368f5ea3874e08f06ef76ef52727ba02535178b3138771b4018f98c90113",
+      "reason": "A second person is equally prominent, and the backstage scene is dim and soft.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "official-video-ko70cExuzZM-maxres2",
+      "sha256": "15f633827e7a9b425ae2ae31081206cc780e4d1a8702bddc64b4522c411b1a07",
+      "reason": "Wide group dance shot; many dancers compete with the central figure.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "official-video-ko70cExuzZM-maxres3",
+      "sha256": "e1ef72bb19bbcce92df5c33d121d0b046bc6ec77a3648a505386d6ff3593990c",
+      "reason": "Multiple showgirl dancers share the frame; no single prominent subject.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "official-video-1FVF-9KQiPo-maxres2",
+      "sha256": "129859f3e0c895b896dccf961e6f8fc429cbd9997e812b93b4f7c286b059e177",
+      "reason": "Two people share the frame, so no single main subject; letterboxed video frame.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-7f2700116066",
+      "sha256": "809efc6177cf2277c1eeb912f300a3e2a738a746218c435591764188c3dcd421",
+      "reason": "Two-person split collage; a man shares the frame equally, so it isn't a single-subject photo.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-75111b5f5dd5",
+      "sha256": "ece16a20e57b959842f7ee4a14de5379b62061c8c1a0aba45e19b3973b899e27",
+      "reason": "Close-up of sneakers only; no person shown, so it doesn't show the pictured subject.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-89259b8a1c3f",
+      "sha256": "70a7309bb33295fa567f8766b6dcb15953e6a0be6b8a7abab78bd31e9f36e2b1",
+      "reason": "Guardian logo overlay; article is about an author, not clearly the caption's subject.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-268834b99995",
+      "sha256": "e508955163d2597422f3cc1efd8593ed1bde0c6eff12007187a2232730478092",
+      "reason": "Telegraph logo overlay; large man at right competes with the woman.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-c301aa89b1d3",
+      "sha256": "b02ee81996b628e194a91cd540066c6597b841a11cf44d1a38c37fad46328491",
+      "reason": "Two prominent women share the frame, plus people in the foreground; no single subject.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-129daf5933c1",
+      "sha256": "45f9be0279da71ed4262cf2746b7810d590815b6bd174e91b77bd1243d934b3e",
+      "reason": "Side-by-side collage of two TV screen grabs with two people; not a single subject",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "press-db88f8fe285e",
+      "sha256": "1662b614d00e3b500babb11abf6101e7a2cd9be67021e8aa10f264aefc7fd1b3",
+      "reason": "Three women share the frame amid a crowd; no single prominent subject.",
+      "date": "2026-11-08"
+    },
+    {
+      "id": "openverse-dc8cf9e0-2684-41d1-ba03-1c96744e2d7d",
+      "sha256": "15c9e359fd5d03c1d40f600f0f574337fb014df893a46eb13276fbad39069678",
+      "reason": "Wide dark stadium shot; performer is small in frame and dim.",
+      "date": "2026-11-08"
     }
   ]
 }
