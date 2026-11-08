@@ -34,8 +34,15 @@ const FIXTURES = resolve(dirname(fileURLToPath(import.meta.url)), 'fixtures');
 const SETS = { fixture: 'significance-labels.jsonl', holdout: 'significance-holdout.jsonl' };
 const MODEL_PATTERN = /^[a-z0-9.-]+$/;
 
+// Production never judges a factless item (pass A drops fewer than 2 facts), so a held-out
+// row without facts gets ONE fact: its headline, attributed to its outlet. Labels are untouched.
+function withHeadlineFact(row) {
+  return row.facts ? row : { ...row, facts: [{ claim: row.headline, attribution: row.outlet ?? '', confidence: 'reported' }] };
+}
+
 function readSet(file) {
-  return readFileSync(join(FIXTURES, file), 'utf8').split(/\r?\n/).filter((l) => l.trim()).map((l) => normalizeRow(JSON.parse(l)));
+  return readFileSync(join(FIXTURES, file), 'utf8').split(/\r?\n/).filter((l) => l.trim())
+    .map((l) => normalizeRow(withHeadlineFact(JSON.parse(l))));
 }
 
 function textFlag(args, name) {
@@ -94,6 +101,7 @@ async function main() {
   }
   writeFileSync(join(out, 'summary.json'), JSON.stringify({ codeSha: process.env.GITHUB_SHA ?? null, byModel }, null, 2));
   console.log(renderTable(byModel));
+  console.log('\nHeld-out rows had no facts, so each was judged with one fact: its headline, attributed to its outlet.');
   return models.every((m) => byModel[m].accepted) ? 0 : 1;
 }
 
