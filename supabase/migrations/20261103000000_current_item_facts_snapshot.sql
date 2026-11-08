@@ -6,7 +6,9 @@
 alter table public.current_item add column if not exists facts jsonb;
 alter table public.current_item add column if not exists writing_score smallint;
 alter table public.current_item drop constraint if exists current_item_writing_score_range;
-alter table public.current_item add constraint current_item_writing_score_range check (writing_score between 1 and 5);
+-- 1-20 (not the original 1-5): db-migrate re-applies every file with no
+-- ledger, and live rows now carry the summed score that 20261103030000 allows.
+alter table public.current_item add constraint current_item_writing_score_range check (writing_score between 1 and 20);
 
 create table if not exists public.current_item_copy_snapshot (
   id               bigint generated always as identity primary key,

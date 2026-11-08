@@ -43,3 +43,20 @@ export async function dailyTextCapHold(
   const published = await countTextPublishedToday(db, eraId, now);
   return published >= DAILY_TEXT_CAP ? { facts, holdReason: DAILY_TEXT_CAP_HOLD } : undefined;
 }
+
+// Tier-aware cap (docs/decisions.md 2026-11-08). Pure logic; the live path
+// still uses dailyTextCapHold above until the significance stage is wired.
+export const TIER2_DAILY_CAP = 4;
+export const TIER2_CAP_HOLD = 'daily_tier2_cap';
+export const TIER3_HOLD = 'not_notable:tier3';
+
+export type TierCapDecision = { publish: true } | { publish: false; reason: string };
+
+/** Tier 1 is never capped, tier 2 is capped per era per UTC day, tier 3 is never published. */
+export function tierCapDecision(tier: 1 | 2 | 3, tier2PublishedToday: number): TierCapDecision {
+  if (tier === 1) return { publish: true };
+  if (tier === 2) {
+    return tier2PublishedToday >= TIER2_DAILY_CAP ? { publish: false, reason: TIER2_CAP_HOLD } : { publish: true };
+  }
+  return { publish: false, reason: TIER3_HOLD };
+}
