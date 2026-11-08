@@ -7,6 +7,12 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-08 — Video-first slice 3: `current_item.embed` + `media_kind` (architect call)
+
+**Decision.** `current_item` gains a nullable `embed` jsonb (`{provider:'youtube', videoId, title?, channelId?, verifiedAt?}`) and `media_kind` text (`video`|`image`|`text`, check-constrained, default `text`, backfilled to `image` where `image_url` is set). A trigger derives `video` from a non-null embed and `image` from a set `image_url`, so existing writers need no change. No unified feed-item table; no automatic `video_work` rows. Readers expose both fields unchanged (no view exists; the row-level public-read policy covers all columns). `check-media-mix` counts `media_kind='video'` live items as video. Worker fill is slice 4, rendering slice 5. Reverse: drop the trigger, constraints and the two columns.
+
+---
+
 ## 2026-11-03 (amendment 3, dated 2026-11-04, owner) — News posts: fan-voice sentences
 
 **Decision.** This amends the news post quality engine entry below. Owner, 2026-11-04: "a fan would add their opinion" … "'Honestly, this is the most Taylor thing she's done all year' is a great example, we want that to be allowed." The rule becomes: every fact needs a source, but not every sentence needs a fact.
