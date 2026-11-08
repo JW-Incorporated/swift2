@@ -22,8 +22,8 @@
   },
   "formulaFrames": {
     "contrast": [
-      { "id": "isnt-x-its-y", "pattern": "\\b(?:isn['’]t|aren['’]t|wasn['’]t|is not|are not|was not)\\b[^.!?\\n]{1,80}?[,;:—–-]\\s*(?:it['’]s|it is|they['’]re|they are|that['’]s|but)\\b", "flags": "i" },
-      { "id": "not-just", "pattern": "\\bnot just\\b", "flags": "i" },
+      { "id": "isnt-x-its-y", "pattern": "\\b(?:isn['’]t|aren['’]t|wasn['’]t|is not|are not|was not)\\b[^.!?\\n]{1,80}?[,;:—–-]\\s*(?:it['’]s|it is|they['’]re|they are|that['’]s)\\b", "flags": "i" },
+      { "id": "not-just", "pattern": "\\bnot just\\b[^.!?\\n]{1,80}?[,;:—–-]\\s*(?:it['’]s|it is|they['’]re|they are|that['’]s|but)\\b", "flags": "i" },
       { "id": "its-not-x-its-y", "pattern": "\\bit['’]s not\\b[^.!?\\n]{1,80}?[,;:—–-]\\s*it['’]s\\b", "flags": "i" }
     ],
     "tagAFriend": [
