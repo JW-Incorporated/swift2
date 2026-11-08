@@ -14,8 +14,9 @@ import { writeSignificanceArtifacts, type SignificanceReportRow, type Significan
 import type { BackfillRunResult, RunBackfillOptions } from './backfill-types';
 import { judgeSignificance } from './significance-client';
 import type { SignificanceInput, SignificanceTier, SignificanceVerdictRecord } from './significance-prompt';
-import { significanceHoldReason, significanceRuleHold } from './significance-rules';
+import { significanceRuleHold } from './significance-rules';
 
+export const LIVE_MAX_LIMIT = 100;
 const STOP_REASONS: readonly string[] = ['budget_exhausted', 'no_token'];
 
 const hostOf = (url: string): string => {
@@ -45,6 +46,9 @@ export async function runSignificanceBackfill(db: SupabaseClient, options: RunBa
     throw new Error('significance mode retires only not_notable: retire_below_floor and retire_unwritable are not allowed with BACKFILL_MODE=significance');
   }
   const { dryRun, limit, days, ids } = options;
+  if (!dryRun && !(ids && ids.length > 0) && !(limit !== undefined && limit > 0 && limit <= LIVE_MAX_LIMIT)) {
+    throw new Error(`a live significance run needs ids or a limit between 1 and ${LIVE_MAX_LIMIT}`);
+  }
   const errors: string[] = [];
   const result: BackfillRunResult = {
     considered: 0, rewritten: 0, imagesResolved: 0, nowPassing: 0, stillHeld: 0, deferred: 0, wroteBack: 0, reports: [], errors,
@@ -75,7 +79,7 @@ export async function runSignificanceBackfill(db: SupabaseClient, options: RunBa
     });
     let decision: Decision;
     if (rule) {
-      decision = { by: 'rule', tier: 3, reason: significanceHoldReason(rule), model: 'rules' };
+      decision = { by: 'rule', tier: 3, reason: `rule:${rule}`, model: 'rules' };
     } else {
       const verdict = await judge(store, judgeInput(row));
       if (verdict.status !== 'ok') {
@@ -102,25 +106,27 @@ export async function runSignificanceBackfill(db: SupabaseClient, options: RunBa
     if (retire) summary.wouldRetire++;
     let outcome = retire ? 'would_retire' : 'keep';
     if (!dryRun) {
-      const record: SignificanceVerdictRecord = {
-        tier: decision.tier, reason: decision.reason, model: decision.model, at: new Date().toISOString(),
-      };
-      const { error } = await db.from('current_item').update({ significance_verdict: record }).eq('id', row.id).is('retracted_at', null);
-      if (error) {
-        errors.push(`verdict not written for ${row.id}: ${error.message}`);
-        summary.skippedWriteFailures++;
-        outcome = 'write_failed';
-      } else {
-        result.wroteBack++;
-        if (retire) {
-          const retired = await retireRow(db, row.id, RETIRE_NOT_NOTABLE);
-          outcome = retired.outcome;
-          if (retired.outcome === 'retired_not_notable') summary.retired++;
-          else {
-            summary.skippedWriteFailures++;
-            if (retired.error) errors.push(`${retired.outcome} for ${row.id}: ${retired.error}`);
-          }
+      let landed = true;
+      if (retire) {
+        const retired = await retireRow(db, row.id, RETIRE_NOT_NOTABLE);
+        outcome = retired.outcome;
+        if (retired.outcome === 'retired_not_notable') summary.retired++;
+        else {
+          landed = false;
+          summary.skippedWriteFailures++;
+          if (retired.error) errors.push(`${retired.outcome} for ${row.id}: ${retired.error}`);
         }
+      }
+      if (landed) {
+        const record: SignificanceVerdictRecord = {
+          tier: decision.tier, reason: decision.reason, model: decision.model, at: new Date().toISOString(),
+        };
+        const { error } = await db.from('current_item').update({ significance_verdict: record }).eq('id', row.id).is('retracted_at', null);
+        if (error) {
+          errors.push(`verdict not written for ${row.id}: ${error.message}`);
+          summary.skippedWriteFailures++;
+          if (!retire) outcome = 'write_failed';
+        } else result.wroteBack++;
       }
     }
     bump(outcome);

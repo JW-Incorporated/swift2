@@ -5,7 +5,8 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { runBackfill } from '../../apps/worker/src/extract/backfill-run';
 import type { ExtractUsageStore } from '../../apps/worker/src/extract/usage-store';
-import { clearRetired } from './restore-copy-snapshot.mjs';
+import { RETIRED_REASONS } from '../../apps/worker/src/extract/backfill-retire';
+import { RETIRED_HOLD_REASONS, clearRetired } from './restore-copy-snapshot.mjs';
 
 const SUMMARY = 'A surprise release landed overnight and the fandom is already dissecting it track by track. The tracklist spans eleven songs, and the early read is that it leans toward the stripped-back sound of her folklore years.';
 const DETAIL = [
@@ -28,6 +29,11 @@ function fakeDb(items: Record<string, unknown>[], snapshots: Record<string, unkn
     b.is = (c: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) === v); return b; };
     b.eq = (c: string, v: unknown) => { filtered = filtered.filter((r) => r[c] === v); return b; };
     b.in = (c: string, vs: unknown[]) => { filtered = filtered.filter((r) => vs.includes(r[c])); return b; };
+    b.or = (filter: string) => {
+      const excluded = /not\.in\.\(([^)]*)\)/.exec(filter)![1]!.split(',');
+      filtered = filtered.filter((r) => !excluded.includes(String(r.quality_hold_reason)));
+      return b;
+    };
     b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
     b.order = () => b;
@@ -65,7 +71,7 @@ describe('retired_not_notable round trip', () => {
     const db = fakeDb([item], snapshots);
     const store = {} as ExtractUsageStore;
     await runBackfill(db, {
-      dryRun: false, mode: 'significance', reportDir: mkdtempSync(join(tmpdir(), 'sig-roundtrip-')),
+      dryRun: false, mode: 'significance', limit: 100, reportDir: mkdtempSync(join(tmpdir(), 'sig-roundtrip-')),
       significance: { store, judge: async () => ({ status: 'ok', tier: 3, reason: 'noise', model: 'claude-opus-5-5' }) },
     });
     expect(item).toMatchObject({ redline_ok: false, quality_hold_reason: 'retired_not_notable' });
@@ -75,5 +81,20 @@ describe('retired_not_notable round trip', () => {
     expect(result).toMatchObject({ found: 1, restored: 1, errors: [] });
     expect(item).toMatchObject({ redline_ok: true, quality_hold_reason: null, summary: SUMMARY, detail: DETAIL });
     expect(item.significance_verdict).toMatchObject({ tier: 3 });
+  });
+
+  it('a default floors run never loads or revives a retired_not_notable row', async () => {
+    const retired: Record<string, unknown> = {
+      id: 'nn', headline: 'Noise', summary: SUMMARY, detail: DETAIL, image_url: null, sources: [], redline_ok: false,
+      quality_hold_reason: 'retired_not_notable', promoted_to: null, merged_into: null, retracted_at: null,
+      expires_at: new Date(Date.now() + 86_400_000).toISOString(),
+    };
+    const db = fakeDb([retired], []);
+    await runBackfill(db, { dryRun: false });
+    expect(retired).toMatchObject({ redline_ok: false, quality_hold_reason: 'retired_not_notable' });
+  });
+
+  it('keeps the clear-retired reason list in step with the worker RETIRED_REASONS', () => {
+    expect([...RETIRED_HOLD_REASONS].sort()).toEqual([...RETIRED_REASONS].sort());
   });
 });

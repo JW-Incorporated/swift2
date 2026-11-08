@@ -87,7 +87,7 @@ const ok = (tier: 1 | 2 | 3, reason = `tier ${tier}`): SignificanceVerdict => ({
 const store = {} as ExtractUsageStore;
 const reportDir = () => mkdtempSync(join(tmpdir(), 'backfill-significance-'));
 const run = (db: SupabaseClient, judge: SignificanceDeps['judge'], extra: Record<string, unknown> = {}) =>
-  runBackfill(db, { dryRun: false, mode: 'significance', reportDir: reportDir(), significance: { judge, store }, ...extra });
+  runBackfill(db, { dryRun: false, mode: 'significance', limit: 100, reportDir: reportDir(), significance: { judge, store }, ...extra });
 const verdictWrites = (calls: Call[]) => calls.filter((c) => c.table === 'current_item' && 'significance_verdict' in c.values);
 
 describe('loadSignificanceSelection', () => {
@@ -140,8 +140,8 @@ describe('significance backfill', () => {
     const snapshot = calls.find((c) => c.table === 'current_item_copy_snapshot')!;
     expect(snapshot.values).toMatchObject({ current_item_id: 't3', summary: SUMMARY, facts: FACTS, writing_score: 3, reason: 'retire_not_notable' });
     const order = calls.map((c) => `${c.table}:${c.op}`);
-    expect(order).toEqual(['current_item:update', 'current_item_copy_snapshot:insert', 'current_item:update']);
-    const hide = calls[2]!;
+    expect(order).toEqual(['current_item_copy_snapshot:insert', 'current_item:update', 'current_item:update']);
+    const hide = calls[1]!;
     expect(hide.values).toEqual({ redline_ok: false, quality_hold_reason: 'retired_not_notable' });
     expect(hide.guards).toEqual(['merged_into', 'retracted_at', 'promoted_to']);
   });
@@ -158,7 +158,7 @@ describe('significance backfill', () => {
     const judge = vi.fn(async () => ok(1));
     const result = await run(db, judge as SignificanceDeps['judge']);
     expect(judge).not.toHaveBeenCalled();
-    expect(verdictWrites(calls)[0]!.values.significance_verdict).toMatchObject({ tier: 3, reason: 'not_notable:listicle', model: 'rules' });
+    expect(verdictWrites(calls)[0]!.values.significance_verdict).toMatchObject({ tier: 3, reason: 'rule:listicle', model: 'rules' });
     expect(items[0]).toMatchObject({ quality_hold_reason: 'retired_not_notable' });
     expect(result.significance).toMatchObject({ ruleHeld: 1, tier3: 1, retired: 1 });
   });
@@ -213,11 +213,11 @@ describe('significance backfill', () => {
     expect(md).toContain('Would retire: 1');
   });
 
-  it('does not retire a row whose verdict could not be written', async () => {
+  it('reports a verdict write failure after a landed retire; the row stays hidden', async () => {
     const { db, items } = fakeDb([row('t3')], { verdictError: true });
     const result = await run(db, async () => ok(3));
-    expect(items[0]).toMatchObject({ redline_ok: true });
-    expect(result.significance).toMatchObject({ retired: 0, skippedWriteFailures: 1, wouldRetire: 1 });
+    expect(items[0]).toMatchObject({ redline_ok: false, quality_hold_reason: 'retired_not_notable' });
+    expect(result.significance).toMatchObject({ retired: 1, skippedWriteFailures: 1 });
     expect(result.errors[0]).toContain('verdict not written');
   });
 
@@ -226,6 +226,28 @@ describe('significance backfill', () => {
     const result = await run(db, async () => { Object.assign(items[0]!, { retracted_at: '2026-11-08' }); return ok(3); });
     expect(result.significance).toMatchObject({ retired: 0, skippedWriteFailures: 1 });
     expect(items[0]).toMatchObject({ redline_ok: true });
+    expect(items[0]!.significance_verdict).toBeNull();
+  });
+
+  it('requires ids or a limit of 1-100 for a live run, but not for a dry run', async () => {
+    const { db } = fakeDb([row('a')]);
+    const base = { dryRun: false, mode: 'significance' as const, reportDir: reportDir(), significance: { judge: async () => ok(2), store } };
+    await expect(runBackfill(db, base)).rejects.toThrow(/needs ids or a limit/);
+    await expect(runBackfill(db, { ...base, limit: 0 })).rejects.toThrow(/needs ids or a limit/);
+    await expect(runBackfill(db, { ...base, limit: 101 })).rejects.toThrow(/needs ids or a limit/);
+    await expect(runBackfill(db, { ...base, limit: 100 })).resolves.toBeDefined();
+    await expect(runBackfill(db, { ...base, ids: ['a'] })).resolves.toBeDefined();
+    await expect(runBackfill(db, { ...base, dryRun: true })).resolves.toBeDefined();
+  });
+
+  it('never judges or retires a row with a NULL headline', async () => {
+    const { db, calls, items } = fakeDb([row('nullhead', { headline: null }), row('emptyhead', { headline: '' })]);
+    const judge = vi.fn(async () => ok(3));
+    const result = await run(db, judge);
+    expect(judge).not.toHaveBeenCalled();
+    expect(calls).toEqual([]);
+    expect(items.every((i) => i.redline_ok === true)).toBe(true);
+    expect(result.significance).toMatchObject({ eligible: 0, skippedUnservable: 2 });
   });
 
   it('rejects both retire flags', async () => {

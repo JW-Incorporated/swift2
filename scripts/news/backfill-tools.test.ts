@@ -248,6 +248,20 @@ describe('content-backfill workflow inputs', () => {
     expect(validate({ INPUT_MODE: 'significance', INPUT_RETIRE_BELOW_FLOOR: 'true' }).status).toBe(1);
     expect(validate({ INPUT_MODE: 'significance', INPUT_RETIRE_UNWRITABLE: 'true' }).status).toBe(1);
   });
+
+  it.skipIf(bash.error !== undefined)('requires ids or a limit of 1-100 for a live significance run', () => {
+    const live = { INPUT_MODE: 'significance', INPUT_DRY_RUN: 'false' };
+    expect(validate({ ...live, INPUT_LIMIT: '0' }).status).toBe(1);
+    expect(validate({ ...live, INPUT_LIMIT: '101' }).status).toBe(1);
+    expect(validate({ ...live, INPUT_LIMIT: '100' }).status).toBe(0);
+    expect(validate({ ...live, INPUT_LIMIT: '0', INPUT_IDS: uuid }).status).toBe(0);
+    expect(validate({ INPUT_MODE: 'significance', INPUT_DRY_RUN: 'true', INPUT_LIMIT: '0' }).status).toBe(0);
+    expect(validate({ INPUT_MODE: 'force', INPUT_DRY_RUN: 'false', INPUT_LIMIT: '0' }).status).toBe(0);
+  });
+
+  it('documents that a restored row keeps its tier-3 verdict', () => {
+    expect(yml).toContain('A restored row keeps its tier-3 verdict, so re-judging it needs ids');
+  });
 });
 
 describe('argument validation', () => {

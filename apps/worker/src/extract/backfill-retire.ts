@@ -11,6 +11,9 @@ import type { ForceOutcome } from './backfill-types';
 export const RETIRED_HOLD_REASON = 'retired_below_floor';
 export const RETIRE_SNAPSHOT_REASON = 'retire_below_floor';
 
+/** Every quality_hold_reason a retirement writes; loaders that must never revive a retired row exclude all of them. */
+export const RETIRED_REASONS = ['retired_below_floor', 'retired_duplicate', 'retired_unwritable', 'retired_not_notable'] as const;
+
 export interface RetireKind {
   holdReason: string;
   snapshotReason: string;

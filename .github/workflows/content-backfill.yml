@@ -32,7 +32,7 @@ on:
         type: boolean
         default: true
       mode:
-        description: 'floors = thin-copy backfill; force = v2 rewrite of every row the live feed shows that has no facts yet (snapshots old copy first); rewrite = re-run the current writer on live rows that already have facts (snapshots copy, facts and score; never retires); significance = tier live rows (rules, then the Opus judge), write significance_verdict and retire tier 3 as retired_not_notable (undo with restore-copy-snapshot.mjs --clear-retired)'
+        description: 'floors = thin-copy backfill; force = v2 rewrite of every row the live feed shows that has no facts yet (snapshots old copy first); rewrite = re-run the current writer on live rows that already have facts (snapshots copy, facts and score; never retires); significance = tier live rows (rules, then the Opus judge), write significance_verdict and retire tier 3 as retired_not_notable (undo with restore-copy-snapshot.mjs --clear-retired). A live significance run needs ids or a limit of 1-100. A restored row keeps its tier-3 verdict, so re-judging it needs ids'
         type: choice
         options:
           - floors
@@ -105,6 +105,7 @@ jobs:
           INPUT_DAYS: ${{ inputs.days }}
           INPUT_IDS: ${{ inputs.ids }}
           INPUT_MODE: ${{ inputs.mode }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
           INPUT_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
           INPUT_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
         run: |
@@ -131,6 +132,10 @@ jobs:
           fi
           if [ "$INPUT_MODE" = "significance" ] && { [ "$INPUT_RETIRE_BELOW_FLOOR" = "true" ] || [ "$INPUT_RETIRE_UNWRITABLE" = "true" ]; }; then
             echo "::error::significance mode retires only not_notable: leave retire_below_floor and retire_unwritable off"
+            exit 1
+          fi
+          if [ "$INPUT_MODE" = "significance" ] && [ "$INPUT_DRY_RUN" = "false" ] && [ -z "$INPUT_IDS" ] && { [ "$INPUT_LIMIT" -lt 1 ] || [ "$INPUT_LIMIT" -gt 100 ]; }; then
+            echo "::error::a live significance run (dry_run=false) needs ids or a limit between 1 and 100"
             exit 1
           fi
 

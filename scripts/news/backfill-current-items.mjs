@@ -94,6 +94,9 @@ async function main() {
     if (mode === 'significance' && (retireBelowFloor || retireUnwritable)) {
       throw new Error('significance mode retires only not_notable: retire_below_floor and retire_unwritable are not allowed');
     }
+    if (mode === 'significance' && !dryRun && !ids && !(limit > 0 && limit <= 100)) {
+      throw new Error('a live significance run needs ids or a limit between 1 and 100');
+    }
     if (ids && mode !== 'rewrite' && mode !== 'significance') throw new Error('ids is only valid with mode=rewrite or mode=significance');
   } catch (err) {
     console.error(`backfill-current-items: ${err.message}`);
