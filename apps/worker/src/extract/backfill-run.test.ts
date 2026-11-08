@@ -3,6 +3,7 @@ import {
   loadBackfillCandidates,
   type BackfillCandidateRow,
 } from './backfill';
+import { RETIRED_REASONS } from './backfill-retire';
 import { runBackfill } from './backfill-run';
 
 function baseItem(overrides: Partial<BackfillCandidateRow> = {}): BackfillCandidateRow {
@@ -31,7 +32,7 @@ function selectChain(data: unknown) {
 afterEach(() => vi.unstubAllEnvs());
 
 describe('loadBackfillCandidates', () => {
-  it('includes worker-debunked and retracted current item rows but not retired-below-floor ones', async () => {
+  it('includes worker-debunked and retracted current item rows but never a retired one', async () => {
     let rows = [
       { id: 'ci-live', status: 'reported', promoted_to: null },
       { id: 'ci-retracted', status: 'reported', retracted_at: '2099-01-01', promoted_to: null },
@@ -39,6 +40,7 @@ describe('loadBackfillCandidates', () => {
       { id: 'ci-retired', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_below_floor' },
       { id: 'ci-retired-dup', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_duplicate' },
       { id: 'ci-retired-unwritable', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_unwritable' },
+      { id: 'ci-retired-nn', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_not_notable' },
     ];
     const chain = {
       select: () => chain,
@@ -51,8 +53,9 @@ describe('loadBackfillCandidates', () => {
         return chain;
       },
       or: (filter: string) => {
-        for (const reason of ['retired_below_floor', 'retired_duplicate', 'retired_unwritable']) expect(filter).toContain(reason);
-        rows = rows.filter((row) => !String((row as { quality_hold_reason?: string }).quality_hold_reason).startsWith('retired_'));
+        for (const reason of RETIRED_REASONS) expect(filter).toContain(reason);
+        const excluded = /not\.in\.\(([^)]*)\)/.exec(filter)![1]!.split(',');
+        rows = rows.filter((row) => !excluded.includes(String((row as { quality_hold_reason?: string }).quality_hold_reason)));
         return chain;
       },
       gt: () => chain,

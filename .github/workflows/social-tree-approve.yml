@@ -153,6 +153,7 @@ jobs:
       - name: Mint the tree-auto stamp (main's check-drafts first, credentials scrubbed; writes nothing if it fails)
         env:
           SOCIAL_APPROVAL_KEY: ${{ secrets.SOCIAL_APPROVAL_KEY }}
+          SOCIAL_JUDGE_KEY: ${{ secrets.SOCIAL_JUDGE_KEY }}
         run: |
           set -euo pipefail
           mapfile -t QUEUE < "$RUNNER_TEMP/gate/queue-files.txt"
