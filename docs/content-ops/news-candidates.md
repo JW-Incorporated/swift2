@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 88
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
 
@@ -769,11 +769,3 @@ Stories: 89
 - summary: This article delves into the importance of track 5 on each of Taylor Swift's albums, highlighting all 12 songs and their meanings. It provides insights into why this particular track holds a special place in her discography.
 - sources:
   - [unverified] Just Jared — https://www.justjared.com/2026/11/03/why-is-track-5-on-every-taylor-swift-album-so-important-all-12-songs-their-meanings-revealed/
-
-## Taylor Swift and Travis Kelce Upset Over Ohio Neighbor Friction
-
-- first seen: 2026-11-05 01:22 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly unhappy due to conflicts with their new Ohio neighbors following renovations on their $5.35 million mansion, which have disrupted the local peace.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-reportedly-140027888.html
