@@ -27,6 +27,22 @@ so far".
 
 Stories: 82
 
+## Taylor Swift Defends New York Knicks in 2014
+
+- first seen: 2026-11-08 18:52 UTC | category: business | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: In 2014, Taylor Swift expressed her support for the New York Knicks when faced with negative comments about the team's performance. Her defense highlights her loyalty as a fan despite the team's struggles.
+- sources:
+  - [unverified] HITC — https://www.hitc.com/what-taylor-swift-said-in-2014-to-defend-the-new-york-knicks-after-being-told-theyre-not-very-good/
+
+## Update on Taylor Swift's Attendance at Chiefs-Jets Game
+
+- first seen: 2026-11-08 18:52 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Latest news on whether Taylor Swift is attending the Chiefs vs. Jets game today, according to Yahoo. Fans are eager to know about her presence at the event.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-chiefs-jets-game-175626396.html
+
 ## Taylor Swift and Travis Kelce Discuss First Christmas Plans Together
 
 - first seen: 2026-11-08 17:51 UTC | category: relationship | importance: 6
@@ -46,9 +62,11 @@ Stories: 82
 ## Taylor Swift's Possible Attendance at Chiefs Game on November 8
 
 - first seen: 2026-11-08 16:52 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: The latest information discusses whether Taylor Swift will attend the Chiefs game on November 8. Fans are eager to know about her potential appearance at the event.
 - sources:
+  - [unverified] Athlon Sports — https://athlonsports.com/nfl/kansas-city-chiefs/is-taylor-swift-at-the-chiefs-game-today-latest-update-for-jets-week-9-matchup
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74368440/is-taylor-swift-at-chiefs-game-nov-8/
   - [unverified] IMDb — https://www.imdb.com/news/ni66101293/?ref_=nwc_art_perm
 
 ## Where to Watch Jets vs. Chiefs with Taylor Swift Insights
@@ -689,20 +707,3 @@ Stories: 82
 - summary: Carrie Coon commends Taylor Swift for her impressive portrayal of Coon's character from 'The Gilded Age', calling it 'very good'.
 - sources:
   - [unverified] TheWrap — https://www.thewrap.com/creative-content/tv-shows/taylor-swift-carrie-coon-gilded-age-impression-bertha-tonight-show/
-
-## Blake Lively Allegedly Texted Taylor Swift for a Favor
-
-- first seen: 2026-11-05 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest that Blake Lively reached out to Taylor Swift via text asking for a lie to be told. The context and implications of the alleged texts are not detailed.
-- sources:
-  - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/blake-lively-taylor-swift-baldoni-texts-fallout/
-
-## Taylor Swift's Song Used in Abdul El-Sayed Campaign Amid Trump Muting
-
-- first seen: 2026-11-05 18:02 UTC | category: music | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: The Abdul El-Sayed campaign utilized a Taylor Swift song without being forced to remove it, contrasting with an incident where Donald Trump's audio was muted. This highlights the intersection of music and political campaigning.
-- sources:
-  - [unverified] NBC 5 Chicago — https://www.nbcchicago.com/entertainment/entertainment-news/abdul-el-sayed-says-life-of-a-showgirl-isnt-taylor-swifts-best-album/4012899/
-  - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/never-forced-us-down-abdul-174441906.html
