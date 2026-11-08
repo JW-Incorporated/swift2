@@ -13,7 +13,7 @@ export interface WorthSource {
 
 export type WorthResult = { ok: true } | { ok: false; reason: 'below_tier_floor' };
 
-function hostOf(url: string): string | null {
+export function hostOf(url: string): string | null {
   try {
     return new URL(url).hostname.replace(/^www\./, '').toLowerCase();
   } catch {
