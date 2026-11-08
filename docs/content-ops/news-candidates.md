@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Insider Shares Knicks Locker Room Activity Post-Cavs Win Amid Taylor Swift Discussion
+
+- first seen: 2026-11-08 21:06 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Following the Knicks' victory over the Cavaliers, an insider disclosed details about locker room activities, which coincided with discussions about Taylor Swift's fan status. The commentary highlights ongoing conversations surrounding her influence in sports culture.
+- sources:
+  - [unverified] EssentiallySports — https://www.essentiallysports.com/nba-active-basketball-news-insider-reveals-not-so-subtle-knicks-locker-room-activity-after-win-over-cavs-amid-taylor-swift-fake-fan-controversy/
 
 ## Tyler Kolek Responds to Taylor Swift Comment with Song Cover
 
@@ -105,7 +113,7 @@ Stories: 81
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift and Travis Kelce are reportedly facing their first Christmas dilemma as a married couple and are considering making a significant change for the holiday. This marks a new chapter in their relationship as they navigate family traditions.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-face-171948105.html
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-christmas-dilemma/
 
 ## Knicks Work to Address Comments on Taylor Swift's Fan Status
 
