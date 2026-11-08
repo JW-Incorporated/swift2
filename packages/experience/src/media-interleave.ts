@@ -1,4 +1,5 @@
 import type { RenderFeedEntry } from './era-feed-clusters';
+import { isPlayableVideoItem } from './current-feed';
 import type { VideoNote } from './types';
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -6,7 +7,7 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 /** Longest run of consecutive text/image entries the 7-day window allows while a video is still waiting. */
 export const MAX_TEXT_RUN = 2;
 
-/** Whether an entry plays video: a video record, a moment carrying an embed, or a live item with a verified embed. */
+/** Whether an entry plays video: a video record, a moment carrying an embed, or a live item with a playable embed. */
 export function isVideoEntry<V extends VideoNote>(entry: RenderFeedEntry<V>): boolean {
   switch (entry.kind) {
     case 'video':
@@ -14,7 +15,7 @@ export function isVideoEntry<V extends VideoNote>(entry: RenderFeedEntry<V>): bo
     case 'moment':
       return Boolean(entry.item.video?.youtubeId);
     case 'current':
-      return entry.item.mediaKind === 'video' || Boolean(entry.item.embed);
+      return isPlayableVideoItem(entry.item);
     default:
       return false;
   }

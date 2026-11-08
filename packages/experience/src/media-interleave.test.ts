@@ -118,6 +118,33 @@ describe('interleaveRecentVideo', () => {
     expect(feed.map(key)).toEqual(['t00', 't01', 't02', 't03', 'nope']);
   });
 
+  it('pulls forward only live items with a playable embed', () => {
+    const cur = (id: string, date: string, extra: Record<string, unknown>): RenderFeedEntry =>
+      ({
+        kind: 'current',
+        item: { id, ...extra },
+        anchor: { sortDate: date, displayDate: date, via: 'exact' },
+      }) as unknown as RenderFeedEntry;
+    const embed = (provider: string, videoId: string) => ({ mediaKind: 'video', embed: { provider, videoId } });
+    const [m1, m2] = rendered(textMoments(2), []);
+    const list = [
+      m1!,
+      m2!,
+      cur('bad-provider', '2026-11-06', embed('vimeo', 'dQw4w9WgXcQ')),
+      cur('bad-id', '2026-11-06', embed('youtube', 'nope')),
+      cur('good', '2026-11-05', embed('youtube', 'dQw4w9WgXcQ')),
+    ];
+    expect(list.map(isVideoEntry)).toEqual([false, false, false, false, true]);
+    expect(interleaveRecentVideo(list, NOW).map(key)).toEqual(['t00', 't01', 'current', 'current', 'current']);
+    expect(interleaveRecentVideo(list, NOW).map((e) => (e.kind === 'current' ? e.item.id : ''))).toEqual([
+      '',
+      '',
+      'good',
+      'bad-provider',
+      'bad-id',
+    ]);
+  });
+
   it('is pure recency without a clock', () => {
     const withClock = rendered(textMoments(9), [video('clip', '2026-11-02')], NOW);
     const without = rendered(textMoments(9), [video('clip', '2026-11-02')]);
