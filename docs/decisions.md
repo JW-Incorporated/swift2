@@ -7,6 +7,74 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-08 — News significance policy: tiers, hold-not-skip, tier-aware cap, Opus judge (amends 2026-11-03)
+
+**Owner ask (chat, 2026-11-08).** "Only important news, never noise real fans don't care about." The 2026-11-03 engine gates source quality, corroboration, dedupe, volume and prose, and nothing in it asks whether a story matters. A read of the 98 live tloas items found about 57% noise (gossip, other celebrities remarking on her, outfits, Travis game items, Grammy predictions, anniversaries, listicles).
+
+**Decision.**
+- Every candidate is tiered by significance. Tier 1 is official or Taylor-originated and fandom-wide (releases, tour, videos, her own statements). Tier 2 is a concrete development from a reputable source (verified charts and records, award nominations and wins, confirmed collaborations, official merch, on-record interviews, catalog and industry news). Tier 3 is noise and is never published.
+- Owner rulings, final: (1) Travis or relationship news posts only when Taylor or Travis say it on record, never on anonymous sources. (2) Fashion and sightings post only when tied to a tier-1 or tier-2 event, for example her red carpet at an awards show she is nominated at. (3) Noise already live is retired (hidden, reversible), never deleted.
+- A significance stage runs between pass A and the worth gate in `apps/worker/src/extract/run-extract-stage.ts`. It holds, it never skips: `quality_hold_reason` is `not_notable:<rule>` (deterministic layer) or `not_notable:judge` (LLM layer). No skip reason is added to `prompt.ts`.
+- Layer 1 is pure and deterministic (`significance-rules.ts`, no I/O): anonymous-source relationship, wedding and baby stories, sightings and fashion with no tier-1/2 event, other celebrities remarking on her, Travis sports filler, listicles, anniversaries, net worth and jet items, "fans think" speculation.
+- Layer 2 is a structured Opus 5.5 judgment, `{tier, reason}`, through the existing judge client, with the rubric above and `heat` (distinct host count) as an input. A judge error or exhausted budget defers the item for retry (fail closed).
+- The result is stored in `current_item.significance` (`{tier, reason, model, at}`), additive migration.
+- The daily text cap becomes tier-aware: tier 1 never capped, tier 2 capped at 4 per day, tier 3 never published. This replaces first-come-first-served for the 6-per-day cap of 2026-11-03 once wired.
+- Rollout: the logic and calibration ship first with no live wiring. Wiring the live path and retiring existing noise are later slices. Acceptance on the labeled fixture set: at least 90% of NOISE held and at least 95% of IMPORTANT kept, across 3 runs.
+
+**Why.** Tier is outlet quality, not story quality, so People, Elle and Billboard gossip clears every existing gate. Holding rather than skipping keeps the decision reversible and visible in the hold reasons.
+
+**Alternatives considered.** A new skip reason in the Haiku prompt (rejected: skips are unrecoverable and the cheap model is the wrong judge of fan importance). Deterministic rules only (rejected: cannot judge "is this a development"). Reusing the unused classify `importance` score (rejected: never calibrated).
+
+**Reversal.** The stage is a single call site; remove it and the hold reasons stop. Retired rows are restored by clearing the hidden flag.
+
+Approved by: owner (chat, 2026-11-08). Design: architect (Fable) consult.
+
+---
+
+## 2026-11-08 — Shared voice system with layered registers (amends 2026-08-25 by constraint, not reversal)
+
+**Decision.** News and social share one voice core (the rules in `docs/content-ops/editorial-voice-and-pipeline.md`: Taylor naming, AI-tell cut list, no fabrication, length discipline) and add a register on top.
+- News register: third-person fan editor, as today.
+- Social register: first-person fan gush stays allowed. It is constrained by the shared core plus an independent Opus judge.
+- The judge for Tree's social drafts is a separate Opus call from the writer, never the writer grading itself.
+- `social-tree-approve.yml` stays deterministic. No LLM runs in that workflow.
+
+**Why.** The 2026-08-25 ruling (no human review before publish) stands. This adds a quality constraint inside the draft step and does not reintroduce a human gate. Shared rules stop news and social drifting apart.
+
+**Alternatives considered.** One register for both (rejected: the owner wants first-person gush on social). An LLM check inside the approve workflow (rejected: it keeps the approval path deterministic and auditable).
+
+**Reversal.** Drop the judge call from the drafting step; the voice core is additive.
+
+Approved by: owner (chat, 2026-11-08).
+
+---
+
+## 2026-11-08 — Backfill `rewrite` mode with a snapshot of facts
+
+**Decision.** `BACKFILL_MODE=rewrite` re-writes live v2 posts from their stored `facts` (no pass A) with the current writer, judge and gate. Before any write it snapshots the old copy, facts and writing score; it writes only if the facts hash is unchanged, keeps the old copy on any failure, and never retires. `restore-copy-snapshot` restores facts and score when the snapshot carries them.
+
+**Why.** Force mode only handles rows without facts, so the ~98 live posts could not get the current fan-voice writer. Retiring noise is a separate step driven by the significance tiers.
+
+**Alternatives considered.** Re-running pass A on live rows (rejected: it can change which event the row describes). Rewriting without a snapshot (rejected: not reversible).
+
+**Reversal.** Run `restore-copy-snapshot`.
+
+Approved by: owner (chat, 2026-11-08); PM call recorded here (reversible).
+
+---
+
+## 2026-11-08 — YouTube Data API key deferred, with a revisit trigger
+
+**Decision.** No YouTube Data API key for now. This keeps the "Not doing" line of `docs/plans/2026-10-31-video-first.md` §6 and adds a trigger. Revisit when any of these is true: slice 6 ships; the weekly YouTube soft-miss rate exceeds 10%; or fan-shot footage is approved (Q4).
+
+**Why.** The key is a spend/credential call and the current supply path works. The trigger names the evidence that would change that.
+
+**Reversal.** Not applicable; nothing is built.
+
+Approved by: owner (chat, 2026-11-08).
+
+---
+
 ## 2026-11-03 (amendment 3, dated 2026-11-04, owner) — News posts: fan-voice sentences
 
 **Decision.** This amends the news post quality engine entry below. Owner, 2026-11-04: "a fan would add their opinion" … "'Honestly, this is the most Taylor thing she's done all year' is a great example, we want that to be allowed." The rule becomes: every fact needs a source, but not every sentence needs a fact.
