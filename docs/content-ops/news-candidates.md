@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift Attends Chiefs Game with Karlie Kloss
+
+- first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted at a Kansas City Chiefs game alongside her friend Karlie Kloss. The appearance marks her continued support for her husband, Travis Kelce, who plays for the team.
+- sources:
+  - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
+
+## Taylor Swift Spotted at Chiefs-Jets Game with Supermodel
+
+- first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was seen attending the Chiefs-Jets game at Arrowhead Stadium alongside a supermodel. The sighting attracted attention from fans and media alike.
+- sources:
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317976330.html
+
+## Kolek Clarifies Comment on Taylor Swift Fan Status
+
+- first seen: 2026-11-08 19:52 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Knicks player Kolek has clarified that his previous statement calling Taylor Swift a fake fan was a mistake. This comment has attracted attention in the sports and music communities.
+- sources:
+  - [unverified] theScore — https://www.thescore.com/nba/news/3648893/knicks-kolek-misspoke-when-calling-taylor-swift-fake-fan
+
+## Taylor Swift's Frustration Affects Travis Kelce
+
+- first seen: 2026-11-08 19:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The article discusses the challenges Travis Kelce is facing due to Taylor Swift's frustration in their relationship. It highlights the difficulties she is navigating currently.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/it-s-hard-for-her-taylor-swift-s-frustration-leaves-travis-kelce-facing-tough-challenge-12298753
+
+## Taylor Swift Hiring Investigators Over Leaked Wedding Photos
+
+- first seen: 2026-11-08 19:52 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: According to reports, Taylor Swift is feeling uneasy and has engaged private investigators to determine who leaked photos from her wedding to Travis Kelce at Madison Square Garden.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-edge-hiring-080057907.html
 
 ## Taylor Swift Defends New York Knicks in 2014
 
@@ -113,10 +153,11 @@ Stories: 82
 ## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
 
 - first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
 - sources:
   - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
+  - [unverified] Page Six — https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/
   - [established] The New York Times — https://www.nytimes.com/athletic/7762791/2026/11/08/taylor-swift-knicks-fandom-tyler-kolek-apology/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/why-taylor-swift-fans-mad-154200587.html
 
@@ -675,35 +716,3 @@ Stories: 82
 - summary: An article discusses celebrity weddings and engagements, featuring Taylor Swift and Sophia Bush among the mentions. The focus includes events tied to Florida.
 - sources:
   - [unverified] The Palm Beach Post — https://www.palmbeachpost.com/picture-gallery/entertainment/2026/11/05/taylor-swift-travis-kelce-sophia-bush-hannity-florida-celebrity-wedding-married/92515060007/
-
-## Kylie Kelce Discusses Fame With Daughters Since Taylor Swift Joined Family
-
-- first seen: 2026-11-05 19:02 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Kylie Kelce shares insights on managing fame while raising her four daughters, particularly since Taylor Swift became part of her family circle. The conversation highlights the impact of celebrity on their daily lives.
-- sources:
-  - [unverified] www.instyle.com — https://www.instyle.com/how-kylie-kelce-navigates-fame-four-daughters-after-taylor-swift-joined-family-12238254
-
-## Travis Kelce Discusses Christmas Plans with Taylor Swift
-
-- first seen: 2026-11-05 19:02 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce shared his intentions for spending Christmas with Taylor Swift, marking their first holiday together. Details of the plans were not disclosed in the article.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-big-plans-first-183555612.html
-
-## Travis Kelce Looks Forward to Holiday as a Married Man with Taylor Swift
-
-- first seen: 2026-11-05 19:02 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expresses his excitement about celebrating his first holiday season as a married man with Taylor Swift.
-- sources:
-  - [unverified] extratv.com — https://extratv.com/2026/11/05/travis-kelce-dishes-on-post-wedding-holiday-plans-with-taylor-swift/
-
-## Carrie Coon Praises Taylor Swift's Impression of Her Character
-
-- first seen: 2026-11-05 19:02 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Carrie Coon commends Taylor Swift for her impressive portrayal of Coon's character from 'The Gilded Age', calling it 'very good'.
-- sources:
-  - [unverified] TheWrap — https://www.thewrap.com/creative-content/tv-shows/taylor-swift-carrie-coon-gilded-age-impression-bertha-tonight-show/
