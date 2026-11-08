@@ -2,6 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { backfillOneItem, loadBackfillCandidates } from './backfill';
 import { runForceBackfill } from './backfill-force';
 import { runRewriteBackfill } from './backfill-rewrite';
+import { runSignificanceBackfill } from './backfill-significance';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import type { BackfillRunResult, RunBackfillOptions } from './backfill-types';
 
@@ -13,6 +14,7 @@ export async function runBackfill(
 ): Promise<BackfillRunResult> {
   if (options.mode === 'force') return runForceBackfill(db, options);
   if (options.mode === 'rewrite') return runRewriteBackfill(db, options);
+  if (options.mode === 'significance') return runSignificanceBackfill(db, options);
   const { dryRun, limit, fetchImpl = fetch } = options;
   const errors: string[] = [];
   const reports: BackfillRunResult['reports'] = [];

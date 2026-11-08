@@ -21,6 +21,10 @@
 // Rewrite mode (BACKFILL_MODE=rewrite) re-runs the writer on live rows that already have facts (optional
 // BACKFILL_IDS=<uuid,uuid>, plus days/limit); it never retires and rejects both retire flags.
 //
+// Significance mode (BACKFILL_MODE=significance) runs the live significance stage (rules, then the Opus judge) over
+// live rows (optional BACKFILL_IDS, days, limit): every judged row gets a significance_verdict and tier 3 is hidden
+// as retired_not_notable (undo: restore-copy-snapshot.mjs --clear-retired). It rejects both retire flags.
+//
 // Needs SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY (degrades to a clean
 // no-op, same contract as every other privileged Community Engine script —
 // scripts/lib/supabase.mjs's header). CLAUDE_CODE_OAUTH_TOKEN is optional:
@@ -69,7 +73,7 @@ async function main() {
   }
 
   console.log(`backfill-current-items: starting (${dryRun ? 'DRY RUN — no current_item or snapshot writes; LLM budget counters still increment' : 'LIVE — writing back'})`);
-  const mode = ['force', 'rewrite'].includes(process.env.BACKFILL_MODE) ? process.env.BACKFILL_MODE : 'floors';
+  const mode = ['force', 'rewrite', 'significance'].includes(process.env.BACKFILL_MODE) ? process.env.BACKFILL_MODE : 'floors';
   const argv = process.argv.slice(2);
   const daysArg = argv.indexOf('--days');
   const retireBelowFloor = argv.includes('--retire-below-floor') || process.env.BACKFILL_RETIRE_BELOW_FLOOR === 'true';
@@ -87,7 +91,13 @@ async function main() {
     if (mode === 'rewrite' && (retireBelowFloor || retireUnwritable)) {
       throw new Error('rewrite mode never retires: retire_below_floor and retire_unwritable are not allowed');
     }
-    if (ids && mode !== 'rewrite') throw new Error('ids is only valid with mode=rewrite');
+    if (mode === 'significance' && (retireBelowFloor || retireUnwritable)) {
+      throw new Error('significance mode retires only not_notable: retire_below_floor and retire_unwritable are not allowed');
+    }
+    if (mode === 'significance' && !dryRun && !ids && !(limit > 0 && limit <= 100)) {
+      throw new Error('a live significance run needs ids or a limit between 1 and 100');
+    }
+    if (ids && mode !== 'rewrite' && mode !== 'significance') throw new Error('ids is only valid with mode=rewrite or mode=significance');
   } catch (err) {
     console.error(`backfill-current-items: ${err.message}`);
     return 1;
@@ -97,7 +107,7 @@ async function main() {
     mode,
     ...(limit > 0 ? { limit } : {}),
     ...(mode !== 'floors' && days !== undefined ? { days } : {}),
-    ...(mode === 'rewrite' && ids ? { ids } : {}),
+    ...((mode === 'rewrite' || mode === 'significance') && ids ? { ids } : {}),
     ...(mode === 'rewrite' && rewriteSince ? { rewriteSince } : {}),
     ...(mode === 'force' && retireBelowFloor ? { retireBelowFloor } : {}),
     ...(mode === 'force' && retireUnwritable ? { retireUnwritable } : {}),
@@ -112,6 +122,16 @@ async function main() {
         `${f.retiredUnwritable} retired unwritable (${f.unwritableFound} found), ${f.skippedWriteFailures} write failure(s), ` +
         `${f.skippedUnservable} skipped_unservable${Object.keys(f.skippedUnservableReasons).length ? ` (${Object.entries(f.skippedUnservableReasons).map(([k, v]) => `${k}: ${v}`).join(', ')})` : ''}, ` +
         `${f.deferred ? `deferred with ${f.remaining} remaining (re-run continues)` : 'not deferred'}.`,
+    );
+  }
+
+  if (result.significance) {
+    const s = result.significance;
+    console.log(
+      `backfill-current-items: significance mode — ${s.eligible} eligible, ${s.judged} judged (${s.ruleHeld} by rules), ` +
+        `tier 1: ${s.tier1}, tier 2: ${s.tier2}, tier 3: ${s.tier3}, ${s.deferred} deferred (kept), ` +
+        `${s.wouldRetire} would retire, ${s.retired} retired, ${s.skippedWriteFailures} write failure(s), ` +
+        `${s.skippedUnservable} skipped_unservable, ${s.stoppedEarly ? `stopped early with ${s.remaining} remaining (re-run continues)` : 'not stopped early'}.`,
     );
   }
 
