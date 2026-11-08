@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 // Restores current_item copy from current_item_copy_snapshot (the backfill's
 // reversal path, docs/decisions.md 2026-11-03 §5). For each item the LATEST
-// snapshot's headline/summary/detail is written back and facts/writing_score
-// are set null.
+// snapshot's headline/summary/detail is written back. A snapshot that carries
+// facts (BACKFILL_MODE=rewrite) also restores facts and writing_score; one
+// without (force/floors snapshots) sets both null, as before.
 //
 // Usage:
 //   node scripts/news/restore-copy-snapshot.mjs --id <current_item_id>
 //   node scripts/news/restore-copy-snapshot.mjs --since <iso>
 //   node scripts/news/restore-copy-snapshot.mjs --clear-retired [--id <current_item_id>] [--since <iso>]
-//     un-hides rows the force backfill retired (quality_hold_reason 'retired_below_floor', 'retired_duplicate' or 'retired_unwritable').
+//     un-hides rows the force backfill retired (quality_hold_reason 'retired_below_floor', 'retired_duplicate', 'retired_unwritable' or 'retired_not_notable').
 //   add --no-dry-run to write; dry run is the default.
 
 import { serviceClient } from '../lib/supabase.mjs';
@@ -18,7 +19,7 @@ import { runMain } from '../lib/cli.mjs';
 export async function restoreSnapshots(db, { id, since, dryRun = true }) {
   if (!id && !since) throw new Error('restoreSnapshots needs id or since');
   let query = db.from('current_item_copy_snapshot')
-    .select('id,current_item_id,headline,summary,detail,snapshot_at');
+    .select('id,current_item_id,headline,summary,detail,facts,writing_score,snapshot_at');
   query = id ? query.eq('current_item_id', id) : query.gte('snapshot_at', since);
   const { data, error } = await query.order('snapshot_at', { ascending: false });
   if (error) throw new Error(`snapshot load failed: ${error.message}`);
@@ -30,7 +31,10 @@ export async function restoreSnapshots(db, { id, since, dryRun = true }) {
   for (const [itemId, snap] of latest) {
     if (dryRun) continue;
     const { error: updateError } = await db.from('current_item')
-      .update({ headline: snap.headline, summary: snap.summary, detail: snap.detail, facts: null, writing_score: null })
+      .update({
+        headline: snap.headline, summary: snap.summary, detail: snap.detail,
+        facts: snap.facts ?? null, writing_score: snap.facts ? (snap.writing_score ?? null) : null,
+      })
       .eq('id', itemId);
     if (updateError) result.errors.push(`restore failed for ${itemId}: ${updateError.message}`);
     else result.restored++;
@@ -39,8 +43,8 @@ export async function restoreSnapshots(db, { id, since, dryRun = true }) {
 }
 
 export const RETIRED_HOLD_REASON = 'retired_below_floor';
-export const RETIRED_HOLD_REASONS = [RETIRED_HOLD_REASON, 'retired_duplicate', 'retired_unwritable'];
-const RETIRE_SNAPSHOT_REASONS = ['retire_below_floor', 'retire_duplicate', 'retire_unwritable'];
+export const RETIRED_HOLD_REASONS = [RETIRED_HOLD_REASON, 'retired_duplicate', 'retired_unwritable', 'retired_not_notable'];
+const RETIRE_SNAPSHOT_REASONS = ['retire_below_floor', 'retire_duplicate', 'retire_unwritable', 'retire_not_notable'];
 
 /** Undoes --retire-below-floor: clears the hold reason and re-shows the row (the read-time gate still applies). */
 export async function clearRetired(db, { id, since, dryRun = true } = {}) {

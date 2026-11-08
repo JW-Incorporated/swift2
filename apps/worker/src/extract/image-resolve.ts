@@ -160,13 +160,18 @@ function bestTrustedSourceForImage(sources: readonly ClusterSource[]): ClusterSo
   );
 }
 
+/** Deterministic hotlink poster for a YouTube video id. */
+export function youtubeThumbnail(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
 /** A video item from an official YouTube source has a deterministic hotlink,
  * so it does not depend on an article fetch or a rehosted copy. */
 export function officialYouTubeThumbnail(sources: readonly ClusterSource[]): string | undefined {
   for (const source of sources) {
     if (source.tier !== 'official') continue;
     const id = extractYouTubeId(source.url);
-    if (id) return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    if (id) return youtubeThumbnail(id);
   }
   return undefined;
 }

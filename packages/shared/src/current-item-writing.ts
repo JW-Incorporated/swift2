@@ -5,30 +5,14 @@
 // two-pass engine, so the existing live rows are not hidden.
 //
 // Every tunable number lives in `WRITING_THRESHOLDS`. The AI-tell list
-// mirrors `AI_TELLS` in scripts/content-engine/checkers/voice.mjs and the
-// "Cut on sight" list in docs/content-ops/editorial-voice-and-pipeline.md.
-// MIRROR, NOT IMPORT (same boundary rule as current-item-quality.ts: shared
-// cannot depend on a scripts/ .mjs).
+// lives in voice/rules.json, shared with scripts/content-engine/checkers/voice.mjs
+// and the "Cut on sight" list in docs/content-ops/editorial-voice-and-pipeline.md.
 
 import { allowedOutlets, unknownAttributions } from './current-item-attribution.ts';
 import { voiceCitationReasons } from './current-item-voice.ts';
+import rules from './voice/rules.json' with { type: 'json' };
 
-export const WRITING_THRESHOLDS = {
-  bodyMaxHedges: 2,
-  leadMaxHedges: 0,
-  headlineMaxHedges: 1,
-  headlineMinContentTokens: 4,
-  leadBodyOverlapMax: 0.25,
-  headlineLeadOverlapMax: 0.7,
-  bodySelfRepeatMax: 0.5,
-  shingleSize: 4,
-  minSentenceWordsForRepeat: 4,
-  outletMaxMentionsInBody: 1,
-  bodyMinWords: 120,
-  leadMinChars: 200,
-  leadMaxChars: 400,
-  minDistinctEntities: 2,
-} as const;
+export const WRITING_THRESHOLDS = rules.thresholds.writing;
 
 export interface WritingSource {
   name?: string;
@@ -62,19 +46,11 @@ export type WritingResult = { ok: true } | { ok: false; reasons: string[] };
 const HEDGE_WORDS = /\b(?:reportedly|according to|allegedly|sources say|it is said|rumou?red)\b/gi;
 const HEDGE_PER = /\b[Pp]er [A-Z]\w+/g;
 
-/** Mirror of voice.mjs `AI_TELLS` plus the doc's "exclamation-stacked hype". */
+/** voice.mjs `AI_TELLS` plus the doc's "exclamation-stacked hype", both from voice/rules.json. */
 export const AI_TELL_PATTERNS: readonly { phrase: string; re: RegExp }[] = [
-  { phrase: 'in this article', re: /\bin this article\b/i },
-  { phrase: 'it is worth noting that', re: /\bit is worth noting that\b/i },
-  {
-    phrase: 'taylor swift, the american singer-songwriter',
-    re: /\bTaylor Swift,\s*the\s+(?:American\s+)?(?:singer(?:-songwriter)?|musician|artist|pop star)\b/i,
-  },
-  { phrase: 'it seems', re: /\bit seems\b/i },
-  { phrase: 'reportedly appears to', re: /\breportedly appears to\b/i },
-  { phrase: 'we will explore', re: /\bwe will explore\b/i },
-  { phrase: 'exclamation-stacked hype', re: /!\s*!/ },
-];
+  ...rules.aiTells.core,
+  ...rules.aiTells.newsExtra,
+].map(({ phrase, pattern, flags }) => ({ phrase, re: new RegExp(pattern, flags) }));
 
 const STOPWORDS = new Set([
   'a', 'an', 'the', 'and', 'or', 'but', 'of', 'to', 'in', 'on', 'at', 'for', 'with', 'that',

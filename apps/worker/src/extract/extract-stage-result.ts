@@ -1,4 +1,4 @@
-import { DAILY_TEXT_CAP_HOLD } from './daily-text-cap';
+import { DAILY_TEXT_CAP_HOLD, TIER2_CAP_HOLD } from './daily-text-cap';
 
 export interface ExtractStageResult {
   clustersConsidered: number;
@@ -28,6 +28,18 @@ export interface ExtractStageResult {
   v2GaveUpReasons: Record<string, number>;
   /** True when the cycle stopped early because the day's writer budget was spent. */
   writerBudgetExhausted: boolean;
+  /** Significance stage: holds by `not_notable:<rule|judge>` reason (shadow mode counts what it would hold). */
+  significanceHeld: Record<string, number>;
+  /** Significance stage: judge deferrals (error, budget, invalid) left for the next cycle. */
+  significanceDeferred: number;
+  /** Significance stage: final-attempt judge outages resolved by the rule-based fallback. */
+  significanceFallback: number;
+  /** Significance stage: true when the judge budget (per run or per day) ran out this cycle. */
+  significanceBudgetExhausted: boolean;
+  /** Tier-2 items held by the daily tier-2 cap (also counted in v2Held). */
+  tier2CapHeld: number;
+  /** Significance stage: verdicts per tier, keyed '1' | '2' | '3'. */
+  tierCounts: Record<string, number>;
   heldImagesChecked: number;
   heldImagesPublished: number;
   theoryHoldReasons: Record<string, number>;
@@ -57,6 +69,12 @@ export function emptyResult(): ExtractStageResult {
     v2GaveUp: 0,
     v2GaveUpReasons: {},
     writerBudgetExhausted: false,
+    significanceHeld: {},
+    significanceDeferred: 0,
+    significanceFallback: 0,
+    significanceBudgetExhausted: false,
+    tier2CapHeld: 0,
+    tierCounts: {},
     heldImagesChecked: 0,
     heldImagesPublished: 0,
     theoryHoldReasons: {},
@@ -73,5 +91,6 @@ export function recordDiscard(result: ExtractStageResult, decision: { reason?: s
 export function recordV2Hold(result: ExtractStageResult, reason: string): void {
   result.v2Held += 1;
   if (reason === DAILY_TEXT_CAP_HOLD) result.dailyTextCapHeld += 1;
+  if (reason === TIER2_CAP_HOLD) result.tier2CapHeld += 1;
   result.heldPassReasons[reason] = (result.heldPassReasons[reason] ?? 0) + 1;
 }

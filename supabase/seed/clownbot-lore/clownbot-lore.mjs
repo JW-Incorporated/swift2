@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-04',
+  updatedOn: '2026-11-08',
   items: [
     {
       // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
@@ -46,7 +46,8 @@ export default {
       id: 'iki-oscar-campaign',
       status: 'reported',
       date: '2026-11-01',
-      lastCheckedOn: '2026-11-02',
+      // Rechecked 2026-11-08 (Vault Run): still `reported`, no nomination yet; the Academy's Original Song shortlist is due Dec. 15.
+      lastCheckedOn: '2026-11-08',
       headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
       detail:
         'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
@@ -150,7 +151,8 @@ export default {
       // Rechecked 2026-11-04 (Vault Run): web search finds no announcement of
       // either; results are speculation pieces only. Cosmopolitan (2 Nov) still
       // frames fans as "clowning for Debut TV".
-      lastCheckedOn: '2026-11-04',
+      // Rechecked 2026-11-08 (Vault Run): neither reputation TV nor debut TV has been announced or dated.
+      lastCheckedOn: '2026-11-08',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -241,7 +243,8 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. Nothing in the
       // 25 Sept Encore news cycle revisited the promo-video AI question; her
       // team has still neither confirmed nor denied it.
-      lastCheckedOn: '2026-10-20',
+      // Rechecked 2026-11-08 (Vault Run): no new coverage found; her team still has not confirmed or denied it.
+      lastCheckedOn: '2026-11-08',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -276,7 +279,8 @@ export default {
       // Rechecked 2026-10-26 (Vault Run): the debut's 20th anniversary (24 Oct)
       // passed with no release (Variety), so the "anniversary drop" reading
       // didn't happen. Still unconnected to anything official.
-      lastCheckedOn: '2026-10-26',
+      // Rechecked 2026-11-08 (Vault Run): nothing official connects the green TS images to a release.
+      lastCheckedOn: '2026-11-08',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -306,7 +310,8 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
       // activity was the Showgirl Encore, not a TS13 reveal — no album title,
       // color system, or release plan has been confirmed.
-      lastCheckedOn: '2026-10-20',
+      // Rechecked 2026-11-08 (Vault Run): no TS13 title, color system or release plan announced.
+      lastCheckedOn: '2026-11-08',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -345,7 +350,8 @@ export default {
       // for the same open question. Still `reported`; nothing announced. The
       // same insider's post-wedding relationship colour is deliberately left out.
       date: '2026-08-27',
-      lastCheckedOn: '2026-11-04',
+      // Rechecked 2026-11-08 (Vault Run): still no album announced; an early-Nov. Daily Mail insider report (via Yahoo) of two albums of unreleased music keeps it `reported`.
+      lastCheckedOn: '2026-11-08',
       headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. On 2 Nov 2026 a Daily Mail insider (via Cosmopolitan) went further, saying she has "enough material to fill her next two albums". That is another anonymous tip, not an announcement. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',

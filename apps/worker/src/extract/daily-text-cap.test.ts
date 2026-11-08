@@ -1,8 +1,12 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { describe, expect, it } from 'vitest';
-import { countTextPublishedToday, DAILY_TEXT_CAP, dailyTextCapHold, utcDayStart } from './daily-text-cap';
+import {
+  countTextPublishedToday, countTier2PublishedToday, DAILY_TEXT_CAP, dailyTextCapHold, TIER2_DAILY_CAP,
+  tierCapDecision, tierCapHold, utcDayStart,
+} from './daily-text-cap';
 
 interface Row {
+  'significance_verdict->>tier'?: string;
   era_id: string;
   redline_ok: boolean;
   merged_into: string | null;
@@ -65,5 +69,71 @@ describe('daily text cap', () => {
     expect(await countTextPublishedToday(fakeDb(rows), 'tloas', NOW)).toBe(3);
     expect(await dailyTextCapHold(fakeDb(rows), 'tloas', FACTS, NOW)).toBeUndefined();
     expect(await dailyTextCapHold(fakeDb(rows), 'midnights', FACTS, NOW)).toBeDefined();
+  });
+});
+
+describe('tier-aware cap', () => {
+  it('never caps tier 1', () => {
+    expect(tierCapDecision(1, 0)).toEqual({ publish: true });
+    expect(tierCapDecision(1, 99)).toEqual({ publish: true });
+  });
+
+  it('lets the 4th tier 2 item through and holds the 5th', () => {
+    expect(tierCapDecision(2, TIER2_DAILY_CAP - 1)).toEqual({ publish: true });
+    expect(tierCapDecision(2, TIER2_DAILY_CAP)).toEqual({ publish: false, reason: 'daily_tier2_cap' });
+  });
+
+  it('never publishes tier 3', () => {
+    expect(tierCapDecision(3, 0)).toEqual({ publish: false, reason: 'not_notable:tier3' });
+  });
+});
+
+describe('tierCapHold', () => {
+  const tiered = (tiers: (number | undefined)[]) => tiers.map((tier) => ({
+    ...published(1)[0]!,
+    'significance_verdict->>tier': tier === undefined ? undefined : String(tier),
+  }));
+
+  it('publishes tier 1 after 6 text posts', async () => {
+    const rows = tiered([2, 2, 2, 2, 1, undefined]);
+    expect(await tierCapHold(fakeDb(rows as Row[]), 'tloas', FACTS, 1, NOW)).toBeUndefined();
+  });
+
+  it('counts only tier-2 rows toward the tier-2 cap', async () => {
+    const three = tiered([2, 2, 2, 1, 1, undefined]);
+    expect(await countTier2PublishedToday(fakeDb(three as Row[]), 'tloas', NOW)).toBe(3);
+    expect(await tierCapHold(fakeDb(three as Row[]), 'tloas', FACTS, 2, NOW)).toBeUndefined();
+    const four = tiered([2, 2, 2, 2]);
+    expect(await tierCapHold(fakeDb(four as Row[]), 'tloas', FACTS, 2, NOW)).toEqual({
+      facts: FACTS,
+      holdReason: 'daily_tier2_cap',
+    });
+  });
+
+  it('holds tier 3 regardless of count', async () => {
+    expect(await tierCapHold(fakeDb([]), 'tloas', FACTS, 3, NOW)).toEqual({ facts: FACTS, holdReason: 'not_notable:tier3' });
+  });
+
+  it('falls back to counting every published item when the column is missing', async () => {
+    const errorQuery: Record<string, unknown> = {
+      then: (resolve: (value: unknown) => void) => resolve({
+        count: null,
+        error: { code: '42703', message: 'column current_item.significance_verdict does not exist' },
+      }),
+    };
+    for (const method of ['eq', 'is', 'gte']) errorQuery[method] = () => errorQuery;
+    let calls = 0;
+    const db = {
+      from: () => ({
+        select: () => {
+          calls++;
+          if (calls === 1) return errorQuery;
+          const ok: Record<string, unknown> = { then: (resolve: (value: unknown) => void) => resolve({ count: 5, error: null }) };
+          for (const method of ['eq', 'is', 'gte']) ok[method] = () => ok;
+          return ok;
+        },
+      }),
+    } as unknown as SupabaseClient;
+    expect(await countTier2PublishedToday(db, 'tloas', NOW)).toBe(5);
   });
 });

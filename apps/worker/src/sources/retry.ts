@@ -9,17 +9,24 @@ export function isUpstreamError(err: unknown): boolean {
   return UPSTREAM_ERROR.test(err instanceof Error ? err.message : String(err));
 }
 
+// A 403 is a block, not a blip: never retried, but still a source-level failure.
+export function isBlockedError(err: unknown): boolean {
+  return /Status code 403|HTTP 403/i.test(err instanceof Error ? err.message : String(err));
+}
+
 export interface RetryOptions {
   retries?: number;
   baseDelayMs?: number;
+  /** Explicit waits between attempts; overrides retries/baseDelayMs. */
+  delaysMs?: readonly number[];
   sleep?: (ms: number) => Promise<void>;
 }
 
 // YouTube's feed endpoint answers 404 for most requests and 200 for the rest
-// (5 sequential fetches measured: 404 404 404 404 200), so it gets a deeper
-// budget than other feeds: 5 attempts, 0.5s/1s/2s/4s between them.
-export const YOUTUBE_FEED_MAX_ATTEMPTS = 5;
-export const YOUTUBE_FEED_BASE_DELAY_MS = 500;
+// (5 sequential fetches measured: 404 404 404 404 200). Keyless, so the fix is
+// patience rather than a key: 3 attempts at
+// 0s / 20s / 60s, well inside the hourly run's time limit.
+export const YOUTUBE_FEED_RETRY_DELAYS_MS: readonly number[] = [20_000, 40_000];
 
 export function isYouTubeFeedUrl(url: string): boolean {
   try {
@@ -32,18 +39,19 @@ export function isYouTubeFeedUrl(url: string): boolean {
 
 export function retryOptionsFor(url: string): RetryOptions {
   return isYouTubeFeedUrl(url)
-    ? { retries: YOUTUBE_FEED_MAX_ATTEMPTS - 1, baseDelayMs: YOUTUBE_FEED_BASE_DELAY_MS }
+    ? { delaysMs: YOUTUBE_FEED_RETRY_DELAYS_MS }
     : {};
 }
 
 export async function withRetry<T>(fn: () => Promise<T>, opts: RetryOptions = {}): Promise<T> {
-  const { retries = 2, baseDelayMs = 1000, sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = opts;
+  const { baseDelayMs = 1000, delaysMs, sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = opts;
+  const retries = delaysMs ? delaysMs.length : (opts.retries ?? 2);
   for (let attempt = 0; ; attempt++) {
     try {
       return await fn();
     } catch (err) {
       if (attempt >= retries || !isUpstreamError(err)) throw err;
-      await sleep(baseDelayMs * 2 ** attempt);
+      await sleep(delaysMs ? delaysMs[attempt]! : baseDelayMs * 2 ** attempt);
     }
   }
 }
