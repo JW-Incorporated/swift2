@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 83
 
 ## Where to Watch Jets vs. Chiefs with Taylor Swift Insights
 
@@ -717,28 +717,3 @@ Stories: 86
 - summary: Stella Lefty is noted as the first country artist to perform at Capital's Jingle Bell Ball since Taylor Swift. This marks a significant moment in the event's history for country music representation.
 - sources:
   - [unverified] Holler Country — https://holler.country/news/breaking/stella-lefty-is-first-country-artist-since-taylor-swift-to-perform-at-capitals-jingle-bell-ball/
-
-## Taylor Swift reportedly feels anxious after backlash
-
-- first seen: 2026-11-05 15:07 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is said to be genuinely anxious following recent backlash she received. The report highlights her emotional state in response to the criticism.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-genuinely-anxious-141106629.html
-
-## Exploring Taylor Swift's $18M Rhode Island Home Hosting 'Taymerica' Parties
-
-- first seen: 2026-11-05 15:07 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article details Taylor Swift's $18 million Rhode Island home, known for hosting her renowned 'Taymerica' parties. The piece offers insight into the luxurious features and ambiance of this celebrity retreat.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-rhode-island-home-history-12137399
-
-## Sydney Sweeney’s boyfriend aims to impress at wedding
-
-- first seen: 2026-11-05 15:07 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: A source reports that Sydney Sweeney’s boyfriend is looking to outshine Taylor Swift at their upcoming wedding. The details are scarce, but the intention to create a memorable moment is highlighted.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971368/travis-kelce-taylor-swift-marriage-update-holidays/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/sydney-sweeney-boyfriend-looking-one-133538639.html
