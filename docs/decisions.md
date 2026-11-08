@@ -7,6 +7,12 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-08 — Video-first slice 3: `current_item.embed` + `media_kind` (architect call)
+
+**Decision.** `current_item` gains a nullable `embed` jsonb (`{provider:'youtube', videoId, title?, channelId?, verifiedAt?}`) and `media_kind` text (`video`|`image`|`text`, check-constrained, default `text`, backfilled to `image` where `image_url` is set). A trigger derives `video` from a non-null embed and `image` from a set `image_url`, so existing writers need no change. No unified feed-item table; no automatic `video_work` rows. Readers expose both fields unchanged (no view exists; the row-level public-read policy covers all columns). `check-media-mix` counts `media_kind='video'` live items as video. Worker fill is slice 4, rendering slice 5. Reverse: drop the trigger, constraints and the two columns.
+
+---
+
 ## 2026-11-08 — News significance policy: tiers, hold-not-skip, tier-aware cap, Opus judge (amends 2026-11-03)
 
 **Owner ask (chat, 2026-11-08).** "Only important news, never noise real fans don't care about." The 2026-11-03 engine gates source quality, corroboration, dedupe, volume and prose, and nothing in it asks whether a story matters. A read of the 98 live tloas items found about 57% noise (gossip, other celebrities remarking on her, outfits, Travis game items, Grammy predictions, anniversaries, listicles).
