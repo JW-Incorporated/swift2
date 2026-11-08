@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { parseFeed, readPublisher, USER_AGENT } from './rss';
-import { YOUTUBE_FEED_BASE_DELAY_MS, YOUTUBE_FEED_MAX_ATTEMPTS } from './retry';
+import { YOUTUBE_FEED_RETRY_DELAYS_MS } from './retry';
 
 const parserOptions = vi.hoisted(() => ({ seen: [] as unknown[] }));
 vi.mock('rss-parser', () => ({
@@ -14,27 +14,45 @@ vi.mock('rss-parser', () => ({
 const YT_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g';
 
 describe('parseFeed retry policy', () => {
-  it('ingests a YouTube feed that fails 3 times then succeeds', async () => {
+  it('ingests a YouTube feed that fails twice then succeeds, spaced 20s then 40s apart', async () => {
     const sleep = vi.fn<(ms: number) => Promise<void>>(async () => {});
     const parse = vi.fn()
       .mockRejectedValueOnce(new Error('Status code 404'))
       .mockRejectedValueOnce(new Error('Status code 404'))
-      .mockRejectedValueOnce(new Error('Status code 404'))
       .mockResolvedValueOnce({ items: [{ title: 'ok' }] });
     await expect(parseFeed(YT_URL, parse, sleep)).resolves.toEqual({ items: [{ title: 'ok' }] });
-    expect(parse).toHaveBeenCalledTimes(4);
-    expect(sleep.mock.calls.map((c) => c[0])).toEqual([
-      YOUTUBE_FEED_BASE_DELAY_MS,
-      YOUTUBE_FEED_BASE_DELAY_MS * 2,
-      YOUTUBE_FEED_BASE_DELAY_MS * 4,
-    ]);
+    expect(parse).toHaveBeenCalledTimes(3);
+    expect(sleep.mock.calls.map((c) => c[0])).toEqual([20_000, 40_000]);
+    expect(YOUTUBE_FEED_RETRY_DELAYS_MS).toEqual([20_000, 40_000]);
   });
 
-  it('gives up after the YouTube attempt budget with the original error', async () => {
+  it('gives up after 3 YouTube attempts with the original error', async () => {
     const sleep = vi.fn(async () => {});
     const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
     await expect(parseFeed(YT_URL, parse, sleep)).rejects.toThrow('Status code 404');
-    expect(parse).toHaveBeenCalledTimes(YOUTUBE_FEED_MAX_ATTEMPTS);
+    expect(parse).toHaveBeenCalledTimes(3);
+  });
+
+  it('really waits between YouTube attempts (fake timers)', async () => {
+    vi.useFakeTimers();
+    try {
+      const parse = vi.fn()
+        .mockRejectedValueOnce(new Error('Status code 404'))
+        .mockRejectedValueOnce(new Error('Status code 404'))
+        .mockResolvedValueOnce({ items: [] });
+      const done = parseFeed(YT_URL, parse);
+      await vi.advanceTimersByTimeAsync(19_999);
+      expect(parse).toHaveBeenCalledTimes(1);
+      await vi.advanceTimersByTimeAsync(1);
+      expect(parse).toHaveBeenCalledTimes(2);
+      await vi.advanceTimersByTimeAsync(39_999);
+      expect(parse).toHaveBeenCalledTimes(2);
+      await vi.advanceTimersByTimeAsync(1);
+      await expect(done).resolves.toEqual({ items: [] });
+      expect(parse).toHaveBeenCalledTimes(3);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('does not give a non-YouTube feed the YouTube attempt budget', async () => {

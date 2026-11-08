@@ -149,7 +149,7 @@ export async function runSignificanceStep(args: {
   if (assessment.kind === 'hold' && mode === 'on') {
     await writeCurrentItem(
       db, story.id, args.eraId, item, sources, args.countdownTargetAt, args.imageUrl,
-      { facts: item.facts ?? [], holdReason: assessment.holdReason }, assessment.verdict,
+      { facts: item.facts ?? [], holdReason: assessment.holdReason }, undefined, assessment.verdict,
     );
     recordV2Hold(result, assessment.holdReason);
     return { action: 'held', verdict: assessment.verdict };

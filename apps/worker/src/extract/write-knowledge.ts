@@ -8,7 +8,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
-import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import type { CurrentItemCategory, CurrentItemEmbed, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
 import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, outletLabel, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFact, ExtractedFanSignal, ExtractedTheory } from './types';
@@ -188,6 +188,14 @@ export interface WriterV2Write {
   holdReason?: string;
 }
 
+/** The embed column predates its migration on some databases; the row is then written without it. */
+function isMissingEmbedColumn(error: { message: string; code?: string }): boolean {
+  return (
+    /embed/.test(error.message) &&
+    (error.code === '42703' || error.code === 'PGRST204' || /does not exist|schema cache/i.test(error.message))
+  );
+}
+
 export async function writeCurrentItem(
   db: SupabaseClient,
   storyId: string,
@@ -197,6 +205,7 @@ export async function writeCurrentItem(
   countdownTargetAt?: string,
   imageUrl?: string,
   v2?: WriterV2Write,
+  embed?: CurrentItemEmbed,
   significance?: SignificanceVerdictRecord,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
@@ -257,15 +266,18 @@ export async function writeCurrentItem(
     countdown_target_at: countdownTargetAt ?? null,
     ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
-  const withVerdict: Record<string, unknown> = significance ? { ...row, significance_verdict: significance } : row;
-  let { data, error } = await db
-    .from('current_item')
-    .insert(withVerdict)
-    .select('id')
-    .single();
-  if (error && significance && isMissingSignificanceColumn(error)) {
-    console.warn(`news-worker: significance_verdict column unavailable (${error.message}); inserting without it`);
-    ({ data, error } = await db.from('current_item').insert(row).select('id').single());
+  const optional: Record<string, unknown> = {
+    ...(embed ? { embed } : {}),
+    ...(significance ? { significance_verdict: significance } : {}),
+  };
+  let { data, error } = await db.from('current_item').insert({ ...row, ...optional }).select('id').single();
+  for (let attempt = 0; error && attempt < 2; attempt++) {
+    if ('embed' in optional && isMissingEmbedColumn(error)) delete optional.embed;
+    else if ('significance_verdict' in optional && isMissingSignificanceColumn(error)) {
+      console.warn(`news-worker: significance_verdict column unavailable (${error.message}); inserting without it`);
+      delete optional.significance_verdict;
+    } else break;
+    ({ data, error } = await db.from('current_item').insert({ ...row, ...optional }).select('id').single());
   }
   if (error || !data) throw new Error(`current_item insert failed: ${error?.message ?? 'no row returned'}`);
   const id = data.id as string;

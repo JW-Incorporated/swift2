@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
 import { runCheckDrafts, scrubbedEnv, stampTreeAuto } from './stamp-tree-auto.mjs';
 import { approvalStatus, mediaDigest } from './lib/queue.mjs';
+import { JUDGE_MODEL, buildJudgeRecord, signJudge } from './lib/judge-rubric.mjs';
 import { buildDraftInputs } from './lib/draft-inputs.mjs';
 import { igUsablePhotos } from './lib/photo-dimensions.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
@@ -145,6 +146,70 @@ describe('runCheckDrafts — credentials never reach the checker (L8)', () => {
 
   it('the real runCheckDrafts fails closed on a file that does not exist under social/queue/', () => {
     expect(runCheckDrafts(['social/queue/zz-definitely-missing-p3a.json']).ok).toBe(false);
+  });
+
+  it('SOCIAL_JUDGE_KEY never reaches the child; JUDGE_VERIFIED is set only when the parent verified', () => {
+    const env = { SOCIAL_APPROVAL_KEY: 'k', SOCIAL_JUDGE_KEY: 'jk', JUDGE_VERIFIED: '1', PATH: '/bin' };
+    expect(scrubbedEnv(env).SOCIAL_JUDGE_KEY).toBeUndefined();
+    const childEnv = (opts: Record<string, unknown>) => {
+      const spawnImpl = vi.fn(() => ({ status: 0, stdout: '', stderr: '' }));
+      runCheckDrafts(['social/queue/a.json'], { spawnImpl, env, ...opts });
+      return (spawnImpl.mock.calls as unknown as unknown[][])[0][2] as { env: Record<string, string> };
+    };
+    const unverified = childEnv({});
+    expect(unverified.env.JUDGE_VERIFIED).toBeUndefined();
+    expect(JSON.stringify(unverified)).not.toMatch(/SOCIAL_JUDGE_KEY|jk/);
+    const verified = childEnv({ judgeVerified: true });
+    expect(verified.env.JUDGE_VERIFIED).toBe('1');
+    expect(JSON.stringify(verified)).not.toMatch(/SOCIAL_JUDGE_KEY|"jk"/);
+  });
+});
+
+describe('stampTreeAuto — judge enforcement in the parent (SOCIAL_JUDGE_KEY)', () => {
+  const JKEY = 'judge-key';
+  const FILE = '2026-10-10-a-x.json';
+  const scores = { onVoice: 4, specific: 5, formula: 4, notEmbarrassed: 5 };
+  const signed = (over: Record<string, unknown> = {}, body = ITEM.body) => {
+    const judge: Record<string, unknown> = { ...buildJudgeRecord({ model: JUDGE_MODEL, scores, body, at: AT }), ...over };
+    return { ...ITEM, critique: { judge: { ...judge, sig: signJudge(judge, FILE, JKEY) } } };
+  };
+  const run = (item: Record<string, unknown>, judgeKey = JKEY) => {
+    const h = harness(item);
+    return { h, r: stampTreeAuto([FILE], { pr: 12, at: AT, key: KEY, judgeKey, ...h }) };
+  };
+
+  it('passes a validly signed, current, all-scores>=4 record and tells the child JUDGE_VERIFIED', () => {
+    const { h, r } = run(signed());
+    expect(r.ok).toBe(true);
+    expect(h.checkDraftsImpl).toHaveBeenCalledWith([`social/queue/${FILE}`], { root: expect.any(String), judgeVerified: true });
+  });
+
+  it('refuses a missing record, an unsigned one, a forged one, a tampered body and a low score — nothing written', () => {
+    const unsigned = { ...ITEM, critique: { judge: buildJudgeRecord({ model: JUDGE_MODEL, scores, body: ITEM.body, at: AT }) } };
+    const forged = signed();
+    (forged.critique.judge as Record<string, unknown>).sig = signJudge(forged.critique.judge, FILE, 'attacker-key');
+    const low = signed({ scores: { ...scores, formula: 3 } });
+    const cases: [string, Record<string, unknown>, RegExp][] = [
+      ['missing', { ...ITEM }, /critique\.judge is missing/],
+      ['unsigned', unsigned, /sig is missing or does not verify/],
+      ['forged', forged, /sig is missing or does not verify/],
+      ['tampered', { ...signed(), body: 'edited after judging' }, /bodyHash does not match/],
+      ['low score', low, /formula is 3/],
+    ];
+    for (const [, item, pattern] of cases) {
+      const { h, r } = run(item);
+      expect(r.ok).toBe(false);
+      expect(r.reason).toMatch(pattern);
+      expect(r.reason).toContain(`social/queue/${FILE}`);
+      expect(h.checkDraftsImpl).not.toHaveBeenCalled();
+      expect(h.writeFileImpl).not.toHaveBeenCalled();
+    }
+  });
+
+  it('with no key it keeps rollout behavior: no judge requirement, and the child is NOT told the judge was verified', () => {
+    const { h, r } = run({ ...ITEM }, '');
+    expect(r.ok).toBe(true);
+    expect(h.checkDraftsImpl).toHaveBeenCalledWith([`social/queue/${FILE}`], { root: expect.any(String) });
   });
 });
 
