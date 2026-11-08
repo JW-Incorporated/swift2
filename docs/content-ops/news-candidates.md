@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
+
+- first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
+- sources:
+  - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
 
