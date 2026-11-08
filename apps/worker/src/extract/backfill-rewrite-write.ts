@@ -35,6 +35,7 @@ export async function guardedRewrite(
     .eq('id', id)
     .eq('summary', fresh.summary)
     .eq('detail', fresh.detail)
+    .eq('facts', JSON.stringify(fresh.facts))
     .not('facts', 'is', null)
     .is('merged_into', null)
     .is('retracted_at', null)

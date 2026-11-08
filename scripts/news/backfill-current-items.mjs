@@ -34,7 +34,7 @@
 
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { parseDays, parseIds, parseLimit } from './backfill-args.mjs';
+import { parseDays, parseIds, parseIsoDate, parseLimit } from './backfill-args.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { runBackfill } from '../../apps/worker/src/extract/backfill-run.ts';
@@ -77,10 +77,13 @@ async function main() {
   let limit;
   let days;
   let ids;
+  let rewriteSince;
   try {
     limit = parseLimit(process.env.BACKFILL_LIMIT);
     days = parseDays(daysArg >= 0 ? argv[daysArg + 1] : process.env.BACKFILL_DAYS);
     ids = parseIds(process.env.BACKFILL_IDS);
+    if (process.env.BACKFILL_REWRITE_SINCE) rewriteSince = parseIsoDate(process.env.BACKFILL_REWRITE_SINCE);
+    if (rewriteSince && mode !== 'rewrite') throw new Error('rewrite_since is only valid with mode=rewrite');
     if (mode === 'rewrite' && (retireBelowFloor || retireUnwritable)) {
       throw new Error('rewrite mode never retires: retire_below_floor and retire_unwritable are not allowed');
     }
@@ -95,6 +98,7 @@ async function main() {
     ...(limit > 0 ? { limit } : {}),
     ...(mode !== 'floors' && days !== undefined ? { days } : {}),
     ...(mode === 'rewrite' && ids ? { ids } : {}),
+    ...(mode === 'rewrite' && rewriteSince ? { rewriteSince } : {}),
     ...(mode === 'force' && retireBelowFloor ? { retireBelowFloor } : {}),
     ...(mode === 'force' && retireUnwritable ? { retireUnwritable } : {}),
     ...(mode !== 'floors' ? { reportDir: process.env.BACKFILL_REPORT_DIR || join(process.env.RUNNER_TEMP || tmpdir(), 'backfill-report') } : {}),

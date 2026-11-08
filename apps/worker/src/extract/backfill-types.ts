@@ -87,6 +87,8 @@ export interface RunBackfillOptions {
   fetchImpl?: typeof fetch;
   /** Rewrite mode only: operator-picked current_item ids (UUIDs); unset = every live row that has facts. */
   ids?: string[];
+  /** Rewrite mode only: ISO timestamp; only backfill_rewrite snapshots created at or after it mark a row as already rewritten. Unset = REWRITE_SINCE. */
+  rewriteSince?: string;
   /** 'floors' (default) is the original thin-copy backfill; 'force' rewrites every eligible recent row through the v2 writer; 'rewrite' re-runs the writer on live rows that already have facts (never retires). */
   mode?: BackfillMode;
   /** Force mode writes backfill-report.jsonl/.md and writer-eval-kit.jsonl here. */

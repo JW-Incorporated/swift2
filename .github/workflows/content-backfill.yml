@@ -51,6 +51,10 @@ on:
         description: 'Rewrite mode only: optional comma-separated current_item UUIDs to rewrite (max 200). Empty = every live row with facts not yet rewritten'
         type: string
         default: ''
+      rewrite_since:
+        description: 'Rewrite mode only: ISO date/time. A row counts as already rewritten only if its backfill_rewrite snapshot was created at or after this. Empty = the writer-version default (REWRITE_SINCE in backfill-rewrite-load.ts, 2026-11-08); set a later date after a writer change to re-run every row without listing ids'
+        type: string
+        default: ''
       retire_below_floor:
         description: 'Force mode only, ignored on a dry run: hide rows that fail the worth-a-post floor (quality_hold_reason retired_below_floor; undo with restore-copy-snapshot.mjs --clear-retired)'
         type: boolean
@@ -136,6 +140,7 @@ jobs:
           BACKFILL_LIMIT: ${{ inputs.limit }}
           BACKFILL_DAYS: ${{ inputs.days }}
           BACKFILL_IDS: ${{ inputs.ids }}
+          BACKFILL_REWRITE_SINCE: ${{ inputs.rewrite_since }}
           BACKFILL_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
           BACKFILL_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
           BACKFILL_REPORT_DIR: ${{ runner.temp }}/backfill-report

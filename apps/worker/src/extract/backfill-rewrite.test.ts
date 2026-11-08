@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-import { factsHash, loadRewriteSelection } from './backfill-rewrite-load';
+import { factsHash, loadRewriteSelection, REWRITE_SINCE } from './backfill-rewrite-load';
 import { guardedRewrite } from './backfill-rewrite-write';
 import { runBackfill } from './backfill-run';
 import type { ForceDeps } from './backfill-types';
@@ -53,10 +53,10 @@ function fakeDb(items: Record<string, unknown>[], snapshots: Record<string, unkn
     b.select = () => b;
     b.is = (c: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) === v); return b; };
     b.not = (c: string, _op: string, v: unknown) => { filtered = filtered.filter((r) => (r[c] ?? null) !== v); return b; };
-    b.eq = (c: string, v: unknown) => { filtered = filtered.filter((r) => r[c] === v); return b; };
+    b.eq = (c: string, v: unknown) => { filtered = filtered.filter((r) => (c === 'facts' ? JSON.stringify(r[c]) === v : r[c] === v)); return b; };
     b.in = (c: string, vs: unknown[]) => { filtered = filtered.filter((r) => vs.includes(r[c])); return b; };
-    b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.gte = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) >= v); return b; };
+    b.gt = (c: string, v: string) => { filtered = filtered.filter((r) => String(r[c]) > v); return b; };
     b.order = () => b;
     b.limit = () => b;
     b.maybeSingle = () => { single = true; return b; };
@@ -67,7 +67,7 @@ function fakeDb(items: Record<string, unknown>[], snapshots: Record<string, unkn
         if (!('backfill_attempted_at' in pending)) for (const r of filtered) { updates.push({ id: r.id, values: pending }); Object.assign(r, pending); }
         return resolve({ data: filtered.map((r) => ({ id: r.id })), error: null });
       }
-      return resolve({ data: single ? (filtered[0] ?? null) : filtered, error: null });
+      return resolve({ data: single ? (filtered[0] ? { ...filtered[0] } : null) : filtered, error: null });
     };
     return b;
   };
@@ -110,11 +110,30 @@ describe('loadRewriteSelection', () => {
 
   it('honours limit, days and ids, and skips rows already rewritten unless targeted by id', async () => {
     const items = [row('a'), row('b', { observed_on: daysAgo(10) }), row('c'), row('done')];
-    const { db } = fakeDb(items, [{ current_item_id: 'done', reason: 'backfill_rewrite' }]);
+    const { db } = fakeDb(items, [{ current_item_id: 'done', reason: 'backfill_rewrite', created_at: '2026-11-09T00:00:00Z' }]);
     expect((await loadRewriteSelection(db)).candidates.map((c) => c.id).sort()).toEqual(['a', 'b', 'c']);
     expect((await loadRewriteSelection(db, 1)).candidates).toHaveLength(1);
     expect((await loadRewriteSelection(db, 0, new Date(), 3)).candidates.map((c) => c.id).sort()).toEqual(['a', 'c']);
     expect((await loadRewriteSelection(db, 0, new Date(), undefined, ['done', 'b'])).candidates.map((c) => c.id).sort()).toEqual(['b', 'done']);
+  });
+
+  it('counts only snapshots created since the writer-version marker as already rewritten', async () => {
+    const items = [row('old'), row('new')];
+    const snaps = [
+      { current_item_id: 'old', reason: 'backfill_rewrite', created_at: '2026-11-01T00:00:00Z' },
+      { current_item_id: 'new', reason: 'backfill_rewrite', created_at: '2026-11-09T00:00:00Z' },
+    ];
+    const { db } = fakeDb(items, snaps);
+    expect((await loadRewriteSelection(db)).candidates.map((c) => c.id)).toEqual(['old']);
+    expect((await loadRewriteSelection(db, 0, new Date(), undefined, undefined, '2026-11-10T00:00:00Z')).candidates.map((c) => c.id).sort()).toEqual(['new', 'old']);
+    expect(REWRITE_SINCE).toBe('2026-11-08T00:00:00.000Z');
+  });
+
+  it('reports rows failing the read-time quality gate as unservable read_gate_failed', async () => {
+    const { db } = fakeDb([row('ok'), row('thin', { summary: 'Too short.', detail: 'Too short.' })]);
+    const sel = await loadRewriteSelection(db);
+    expect(sel.candidates.map((c) => c.id)).toEqual(['ok']);
+    expect(sel.unservable).toEqual([{ id: 'thin', reason: 'read_gate_failed' }]);
   });
 });
 
@@ -137,6 +156,24 @@ describe('guardedRewrite', () => {
     expect(out.outcome).toBe('concurrent_change');
     expect(inserts).toEqual([]);
     expect(updates).toEqual([]);
+  });
+
+  it('treats a facts edit landing between the snapshot and the update as concurrent_change', async () => {
+    const f = fakeDb([row('a')]);
+    const realFrom = (f.db as unknown as { from: (t: string) => Record<string, unknown> }).from;
+    const wrapped = {
+      from: (table: string) => {
+        const b = realFrom(table);
+        if (table === 'current_item_copy_snapshot') {
+          const ins = b.insert as (v: Record<string, unknown>) => Promise<unknown>;
+          b.insert = async (v: Record<string, unknown>) => { const r = await ins(v); f.items[0]!.facts = [{ ...FACTS[0], claim: 'edited after snapshot' }]; return r; };
+        }
+        return b;
+      },
+    } as unknown as SupabaseClient;
+    const out = await guardedRewrite(wrapped, 'a', factsHash(FACTS), write);
+    expect(out.outcome).toBe('concurrent_change');
+    expect(f.items[0]).toMatchObject({ summary: OLD_SUMMARY, detail: OLD_DETAIL, writing_score: 3 });
   });
 
   it('skips a row merged or retracted since load', async () => {

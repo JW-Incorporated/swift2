@@ -86,14 +86,14 @@ export async function runRewriteBackfill(db: SupabaseClient, options: RunBackfil
   if (options.retireBelowFloor || options.retireUnwritable) {
     throw new Error('rewrite mode never retires: retire_below_floor and retire_unwritable are not allowed with BACKFILL_MODE=rewrite');
   }
-  const { dryRun, limit, days, ids } = options;
+  const { dryRun, limit, days, ids, rewriteSince } = options;
   const errors: string[] = [];
   const result: BackfillRunResult = {
     considered: 0, rewritten: 0, imagesResolved: 0, nowPassing: 0, stillHeld: 0, deferred: 0, wroteBack: 0, reports: [], errors,
   };
   const compose = options.force?.compose ?? composeV2Item;
   const stores = options.force?.stores ?? { writer: await createBackfillWriterStore(db), judge: await createBackfillJudgeStore(db) };
-  const { candidates, unservable } = await loadRewriteSelection(db, limit, new Date(), days, ids);
+  const { candidates, unservable } = await loadRewriteSelection(db, limit, new Date(), days, ids, rewriteSince);
   const outcomes: Record<string, number> = {};
   const summary: ForceSummary = {
     eligible: candidates.length, processed: 0, passed: 0, held: 0, skippedWriteFailures: 0, skippedUnservable: unservable.length, skippedUnservableReasons: {}, retired: 0,
