@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 86
+
+## Where to Watch Jets vs. Chiefs with Taylor Swift Insights
+
+- first seen: 2026-11-08 14:22 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: A guide to watching the Jets vs. Chiefs game for free, including information related to Taylor Swift.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/11/08/entertainment/where-to-watch-jets-chiefs-for-free-time-taylor-swift-intel/
+
+## Tim McGraw Debunks Taylor Swift and Travis Kelce Wedding Rumor
+
+- first seen: 2026-11-08 14:22 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Tim McGraw has addressed and debunked rumors regarding a potential wedding between Taylor Swift and Travis Kelce. The speculation has been a topic of discussion among fans and media.
+- sources:
+  - [unverified] PureWow — https://www.purewow.com/news/tim-mcgraw-debunks-taylor-swift-travis-kelce-wedding-rumor
 
 ## Taylor Swift and Travis Kelce Celebrate First Christmas Together
 
@@ -726,29 +742,3 @@ Stories: 87
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971368/travis-kelce-taylor-swift-marriage-update-holidays/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/sydney-sweeney-boyfriend-looking-one-133538639.html
-
-## Swiftie Celebrates Victory in Michigan Without Taylor Swift's Endorsement
-
-- first seen: 2026-11-05 14:07 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A fervent Taylor Swift fan achieved victory in Michigan despite not receiving an endorsement from the artist. The news highlights the influence of fan communities in political arenas.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/taylor-swift-didn-t-endorse-125028571.html
-
-## Carrie Coon Discusses Taylor Swift During Interview
-
-- first seen: 2026-11-05 14:07 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: In a recent interview, actress Carrie Coon spoke about Taylor Swift among other topics such as Matt Damon and her role in 'The Gilded Age'. The conversation sheds light on Coon's perspective on current pop culture.
-- sources:
-  - [unverified] BroadwayWorld — https://www.broadwayworld.com/article/Carrie-Coon-on-Taylor-Swift-Matt-Damon-and-THE-GILDED-AGE-20261105
-  - [unverified] IMDb — https://www.imdb.com/news/ni66096678/?ref_=nmnw_art_perm
-
-## Documentary to Cover Taylor Swift's Canceled Vienna Concerts
-
-- first seen: 2026-11-05 14:07 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: A new documentary will explore the reasons behind the cancellation of Taylor Swift's concerts in Vienna, which were called off due to a thwarted terrorist plot. The topic highlights the intersection of music and security in the contemporary concert landscape.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/
-  - [unverified] Variety Australia — https://au.variety.com/2026/film/news/taylor-swift-cancelled-vienna-concerts-documentary-42320/
