@@ -2,7 +2,7 @@
 // I/O; the phrase and frame lists live in ./rules.json (single source of truth).
 
 import { containment, shingles } from '../current-item-writing.ts';
-import rules from './rules.json';
+import rules from './rules.json' with { type: 'json' };
 
 export type AiTellSurface = 'voice' | 'news' | 'community';
 

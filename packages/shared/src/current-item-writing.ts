@@ -10,7 +10,7 @@
 
 import { allowedOutlets, unknownAttributions } from './current-item-attribution.ts';
 import { voiceCitationReasons } from './current-item-voice.ts';
-import rules from './voice/rules.json';
+import rules from './voice/rules.json' with { type: 'json' };
 
 export const WRITING_THRESHOLDS = rules.thresholds.writing;
 

@@ -2,7 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import rules from './rules.json';
+import rules from './rules.json' with { type: 'json' };
 
 const ROOT = fileURLToPath(new URL('../../../../', import.meta.url));
 const SKIP_DIRS = new Set(['node_modules', '.next', '.git', '.scratch', 'dist', 'coverage', 'artifacts', 'docs']);
