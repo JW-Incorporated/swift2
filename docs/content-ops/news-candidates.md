@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 82
+
+## Taylor Swift and Travis Kelce Discuss First Christmas Plans Together
+
+- first seen: 2026-11-08 17:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly facing their first Christmas dilemma as a married couple and are considering making a significant change for the holiday. This marks a new chapter in their relationship as they navigate family traditions.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-face-171948105.html
 
 ## Knicks Work to Address Comments on Taylor Swift's Fan Status
 
@@ -698,33 +706,3 @@ Stories: 84
 - sources:
   - [unverified] NBC 5 Chicago — https://www.nbcchicago.com/entertainment/entertainment-news/abdul-el-sayed-says-life-of-a-showgirl-isnt-taylor-swifts-best-album/4012899/
   - [unverified] Yahoo — https://www.yahoo.com/news/politics/articles/never-forced-us-down-abdul-174441906.html
-
-## Travis Kelce Looks Forward to First Holiday Season with Taylor Swift
-
-- first seen: 2026-11-05 17:02 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 4
-- summary: Travis Kelce expresses his excitement for the upcoming holiday season, marking his first as a married man with Taylor Swift. He mentioned starting new traditions together during this special time.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437858/travis-kelce-teases-holiday-plans-after-taylor-swift-wedding
-  - [unverified] InStyle — https://www.instyle.com/travis-kelce-first-holiday-taylor-swift-tommy-hilfiger-campaign-12238210
-  - [established] People — https://people.com/travis-kelce-shares-his-excitement-for-first-holiday-season-with-taylor-swift-as-newlyweds-12237867
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-says-excited-first-165001962.html
-
-## 'Toy Story 5' Director Discusses Taylor Swift and Inclusion
-
-- first seen: 2026-11-05 17:02 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The director of 'Toy Story 5' shares insights on Taylor Swift's influence and the film's focus on inclusion, along with details about the character Jessie. The discussion highlights the evolving themes within animated films.
-- sources:
-  - [established] Deadline — https://deadline.com/2026/11/toy-story-5-andrew-stanton-interview-1237213590/
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235091110/taylor-swift-toy-story-5-concern/
-
-## Taylor Swift's Austria Eras Tour Shows Canceled, Doc to Explore Incident
-
-- first seen: 2026-11-05 17:02 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: A new documentary will focus on the canceled Eras Tour shows in Austria, detailing a thwarted terrorist plot and showcasing fan resilience. The film aims to shed light on the events surrounding the cancellation.
-- sources:
-  - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-shows-austria-terror-plot-documentary-1236374736/
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-1235653111/
-  - [unverified] Rolling Stone Australia — https://au.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-103053/
