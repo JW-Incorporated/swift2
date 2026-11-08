@@ -4732,9 +4732,9 @@ export default {
             reportedOn: '2026-04-07',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
-            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location. Re-checked 2026-11-08: nothing announced; still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           {
             claim:
@@ -4743,9 +4743,9 @@ export default {
             reportedOn: '2026-07-21',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
-            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
+            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location. Re-checked 2026-11-08: no album announced; still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
           // distinct next-project thread from the TS13 tips above — this one
@@ -4763,9 +4763,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Still live 2026-09-02 (Icon Sessions easter-egg cluster: PureWow, Yardbarker) and 2026-11-08; nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -4789,7 +4789,7 @@ export default {
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
             note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #4893): a distinct
           // thread from the TS13 / debut-TV tips above — the revived "lost
@@ -4806,9 +4806,9 @@ export default {
             reportedOn: '2026-09-30',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/fans-think-taylor-swift-lost-192409707.html',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location. Re-checked 2026-11-08: still quiet.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-10',
+            lastCheckedOn: '2026-11-08',
           },
         ],
       },
@@ -17462,6 +17462,75 @@ export default {
             caption: "Travis Kelce by the tree in Tommy Hilfiger's winter 2026 holiday campaign.",
             kind: 'primary',
             focalPoint: '60% 25%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-08 (Vault Run, Content Shift lane) from intake #6713.
+      // Page Six read in full (curl, browser UA); Just Jared read in full. People
+      // (filed) returned 403 and the KC Star would not connect, so neither is
+      // cited. Documented past public event at a named venue (L2). CUT: Page
+      // Six's "frenemies" framing and its 2019 anonymous-source claim about why
+      // the friendship cooled, Scott Swift (Just Jared only; Page Six names
+      // Andrea and Donna Kelce), and the final score (not in either source).
+      // Photo: Just Jared's wide frame (pagesix.com is not an allowlisted photo
+      // host); see the note on the photo for why this frame.
+      slug: 'showgirl-arrowhead-karlie-kloss-jets-2026',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      year: 2026,
+      month: 11,
+      day: 8,
+      category: 'sighting',
+      title: 'Karlie Kloss back beside Taylor, this time in the Arrowhead suite',
+      snippet:
+        'For the Chiefs\' Nov. 8 home game against the Jets, Taylor watched from the suite with Karlie Kloss, her mom Andrea and Donna Kelce, four months after Kloss turned up at the wedding.',
+      sourceUrl:
+        'https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.',
+        photos: [
+          {
+            url: 'https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg',
+            // Verified 2026-11-08: HTTP 200, image/jpeg, 788x525 rendition from
+            // the Just Jared article (credited Getty there). Viewed: Taylor in red
+            // at the suite window, Karlie Kloss to her right, Donna Kelce behind,
+            // Andrea Swift in sunglasses to her left, fans below. Chosen over the
+            // tighter crops, where a child in the suite is large and unblurred;
+            // here the child is small and mostly hidden, and the focal point keeps
+            // the crop on Taylor.
+            focalPoint: '43% 18%',
+            credit: 'Getty Images (via Just Jared)',
+            caption: 'Taylor between Karlie Kloss and her mom Andrea in the Arrowhead suite during the Chiefs-Jets game, Nov. 8, 2026.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/',
+            source_title:
+              'Frenemies Taylor Swift and Karlie Kloss reunite at Chiefs game after surprise Travis Kelce wedding invite',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-08',
+            reliability_score: 3,
+            notes:
+              'By Chris Rogers, Nov. 8, 2026; read in full. Primary for Arrowhead vs. the Jets, the suite in the first half, Andrea Swift and Donna Kelce, the Tommy Hilfiger sweater polo, Kloss and Kushner at the July wedding, the 2013 start of the friendship, the 2015 Vogue cover and the 2018 rumors. Intake #6713.',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/11/08/taylor-swift-karlie-kloss-travis-kelce-chiefs-game-reunion-november-2026/',
+            source_title:
+              "Taylor Swift Watches Travis Kelce's Chiefs Game With Karlie Kloss & Her Parents, Years After Rumored Friendship Rift",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-08',
+            reliability_score: 3,
+            notes:
+              'By Bradley Stern, Nov. 8, 2026; read in full. Independent confirmation of Kloss in the private suite at Arrowhead vs. the Jets and the red sweater. Primary for Kelce\'s 200th NFL appearance and Kloss\'s 2018 New York Times quote.',
           },
         ],
       },
