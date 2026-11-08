@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Taylor Swift and Travis Kelce Celebrate First Christmas Together
+
+- first seen: 2026-11-08 12:21 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have decided to put aside family rivalry as they celebrate their first Christmas together. The couple's holiday plans highlight their commitment to each other amid personal dynamics.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-set-aside-family-rivalry-for-their-first-christmas-together-12298708
 
 ## Report Suggests Taylor Swift Influenced Travis Kelce's Career Decision
 
