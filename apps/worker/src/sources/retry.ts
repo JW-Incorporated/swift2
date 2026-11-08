@@ -9,6 +9,11 @@ export function isUpstreamError(err: unknown): boolean {
   return UPSTREAM_ERROR.test(err instanceof Error ? err.message : String(err));
 }
 
+// A 403 is a block, not a blip: never retried, but still a source-level failure.
+export function isBlockedError(err: unknown): boolean {
+  return /Status code 403|HTTP 403/i.test(err instanceof Error ? err.message : String(err));
+}
+
 export interface RetryOptions {
   retries?: number;
   baseDelayMs?: number;
