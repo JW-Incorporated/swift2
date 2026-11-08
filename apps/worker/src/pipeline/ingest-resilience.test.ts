@@ -1,28 +1,36 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { runIngestStage } from './ingest-stage';
-import { withRetry } from '../sources/retry';
+import { isUpstreamError, withRetry } from '../sources/retry';
 
 const recent = new Date(Date.now() - 3_600_000).toISOString();
 const old = new Date(Date.now() - 72 * 3_600_000).toISOString();
 
-function fakeDb(
-  sources: unknown[],
-  upsertError: { message: string } | null = null,
-  updateLog: Array<Record<string, unknown>> = [],
-) {
+type UpdateEntry = { id: string; patch: Record<string, unknown> };
+interface DbOptions {
+  upsertError?: { message: string } | null;
+  updateLog?: UpdateEntry[];
+  trackedSelectError?: { message: string; code?: string } | null;
+  updateError?: { message: string } | null;
+}
+
+function fakeDb(sources: unknown[], opts: DbOptions = {}) {
+  const { upsertError = null, updateLog = [], trackedSelectError = null, updateError = null } = opts;
   return {
     from: (table: string) =>
       table === 'news_source'
         ? {
-            select: () => {
-              const q = Promise.resolve({ data: sources, error: null });
+            select: (columns: string) => {
+              const failing = trackedSelectError && columns.includes('consecutive_failures');
+              const q = Promise.resolve(
+                failing ? { data: null, error: trackedSelectError } : { data: sources, error: null },
+              );
               return Object.assign(q, { eq: () => q });
             },
             update: (patch: Record<string, unknown>) => ({
-              eq: () => {
-                updateLog.push(patch);
-                return Promise.resolve({ error: null });
+              eq: (_column: string, id: string) => {
+                updateLog.push({ id, patch });
+                return Promise.resolve({ error: updateError });
               },
             }),
           }
@@ -30,19 +38,26 @@ function fakeDb(
   } as unknown as SupabaseClient;
 }
 
-const src = (id: string, last_polled_at: string | null = recent, consecutive_failures = 0) => ({
+const hoursAgo = (h: number) => new Date(Date.now() - h * 3_600_000).toISOString();
+const src = (
+  id: string,
+  last_polled_at: string | null = recent,
+  consecutive_failures = 0,
+  last_ok_at: string | null = null,
+) => ({
   id,
   name: id,
   source_type: 'rss',
   config: {},
   last_polled_at,
   consecutive_failures,
+  last_ok_at,
 });
 const fresh = () => ({ sourcesPolled: 0, itemsIngested: 0, errors: [] as string[], warnings: [] as string[] });
 const item = { externalId: 'e', url: 'https://x.test/a', title: 'Taylor Swift news' };
-const adapterFor = (fail: string[]) => () => ({
+const adapterFor = (fail: string[], message = 'Status code 404') => () => ({
   fetch: async (s: { id: string }) => {
-    if (fail.includes(s.id)) throw new Error('Status code 404');
+    if (fail.includes(s.id)) throw new Error(message);
     return [item];
   },
 });
@@ -67,6 +82,16 @@ describe('withRetry', () => {
   });
 });
 
+describe('403 handling', () => {
+  it('is not retried by withRetry', async () => {
+    const sleep = vi.fn().mockResolvedValue(undefined);
+    const blocked = vi.fn().mockRejectedValue(new Error('Status code 403'));
+    await expect(withRetry(blocked, { sleep })).rejects.toThrow('403');
+    expect(blocked).toHaveBeenCalledTimes(1);
+    expect(isUpstreamError(new Error('Status code 403'))).toBe(false);
+  });
+});
+
 describe('runIngestStage source resilience', () => {
   it('turns a single-source 404 into a warning, not an error', async () => {
     const result = fresh();
@@ -76,34 +101,116 @@ describe('runIngestStage source resilience', () => {
     expect(result.sourcesPolled).toBe(1);
   });
 
-  it('escalates to an error at the 3rd consecutive failure for the same source', async () => {
+  it('escalates at the 3rd consecutive failure when there is no recent success', async () => {
     const result = fresh();
-    await runIngestStage(fakeDb([src('yt', recent, 2), src('ok')]), { adapterFor: adapterFor(['yt']) }, result);
+    const updateLog: UpdateEntry[] = [];
+    await runIngestStage(
+      fakeDb([src('yt', recent, 2, hoursAgo(5)), src('ok')], { updateLog }),
+      { adapterFor: adapterFor(['yt']) },
+      result,
+    );
     expect(result.errors.join()).toMatch(/3 consecutive failures/);
     expect(result.warnings).toEqual([]);
+    expect(updateLog).toContainEqual({ id: 'yt', patch: { consecutive_failures: 3 } });
   });
 
-  it('does not escalate below the 3-consecutive-failure threshold', async () => {
+  it('escalates on the counter alone when last_ok_at is null', async () => {
     const result = fresh();
-    await runIngestStage(fakeDb([src('yt', recent, 1), src('ok')]), { adapterFor: adapterFor(['yt']) }, result);
+    await runIngestStage(fakeDb([src('yt', recent, 2, null), src('ok')]), { adapterFor: adapterFor(['yt']) }, result);
+    expect(result.errors.join()).toMatch(/3 consecutive failures/);
+  });
+
+  it('stays a warning at 3 failures when the last success was under 3h ago', async () => {
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([src('yt', recent, 2, hoursAgo(1)), src('ok')]),
+      { adapterFor: adapterFor(['yt']) },
+      result,
+    );
     expect(result.errors).toEqual([]);
     expect(result.warnings).toHaveLength(1);
   });
 
-  it('resets the consecutive-failure counter on a successful fetch', async () => {
-    const updateLog: Array<Record<string, unknown>> = [];
+  it('does not escalate below the 3-failure threshold even with an old last_ok_at', async () => {
     const result = fresh();
-    // Source that previously had 2 failures but now succeeds.
+    const updateLog: UpdateEntry[] = [];
     await runIngestStage(
-      fakeDb([src('yt', recent, 2), src('ok')], null, updateLog),
+      fakeDb([src('yt', recent, 1, hoursAgo(10)), src('ok')], { updateLog }),
+      { adapterFor: adapterFor(['yt']) },
+      result,
+    );
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toHaveLength(1);
+    expect(updateLog).toContainEqual({ id: 'yt', patch: { consecutive_failures: 2 } });
+  });
+
+  it('classifies a 403 as a source-level upstream failure (warning, not error)', async () => {
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([src('yt'), src('ok')]),
+      { adapterFor: adapterFor(['yt'], 'Status code 403') },
+      result,
+    );
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toHaveLength(1);
+  });
+
+  it('warns when the failure counter update errors', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([src('yt'), src('ok')], { updateError: { message: 'write denied' } }),
+      { adapterFor: adapterFor(['yt']) },
+      result,
+    );
+    expect(warn.mock.calls.join()).toMatch(/could not record failure count for "yt".*write denied/);
+    warn.mockRestore();
+  });
+
+  it('resets the consecutive-failure counter on the succeeding source row', async () => {
+    const updateLog: UpdateEntry[] = [];
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([src('yt', recent, 2), src('ok')], { updateLog }),
       { adapterFor: adapterFor([]) },
       result,
     );
     expect(result.errors).toEqual([]);
     expect(result.warnings).toEqual([]);
-    // The update for 'yt' (first source) should reset consecutive_failures to 0.
-    const ytUpdate = updateLog.find((u) => u.consecutive_failures === 0);
-    expect(ytUpdate).toBeDefined();
+    const ytUpdate = updateLog.find((u) => u.id === 'yt');
+    expect(ytUpdate?.patch).toMatchObject({ consecutive_failures: 0 });
+    expect(ytUpdate?.patch.last_ok_at).toEqual(expect.any(String));
+  });
+
+  it('falls back to untracked behavior when the error-state columns are missing', async () => {
+    const updateLog: UpdateEntry[] = [];
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([src('yt'), src('ok')], {
+        updateLog,
+        trackedSelectError: { message: 'column news_source.consecutive_failures does not exist', code: '42703' },
+      }),
+      { adapterFor: adapterFor(['yt']) },
+      result,
+    );
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toContain('error-state columns missing (migration pending)');
+    expect(result.warnings).toHaveLength(2);
+    expect(result.sourcesPolled).toBe(1);
+    expect(updateLog).toHaveLength(1);
+    expect(updateLog[0]?.id).toBe('ok');
+    expect(Object.keys(updateLog[0]?.patch ?? {})).toEqual(['last_polled_at']);
+  });
+
+  it('still fails ingestion on an unrelated select error', async () => {
+    const result = fresh();
+    const ids = await runIngestStage(
+      fakeDb([], { trackedSelectError: { message: 'permission denied for table news_source' } }),
+      { adapterFor: adapterFor([]) },
+      result,
+    );
+    expect(ids).toBeNull();
+    expect(result.errors.join()).toMatch(/could not load news_source rows/);
   });
 
   it('errors when more than 50% of sources fail in one cycle', async () => {
@@ -144,7 +251,7 @@ describe('runIngestStage source resilience', () => {
 
   it('still reports a DB write failure as a real error', async () => {
     const result = fresh();
-    await runIngestStage(fakeDb([src('ok')], { message: 'permission denied' }), { adapterFor: adapterFor([]) }, result);
+    await runIngestStage(fakeDb([src('ok')], { upsertError: { message: 'permission denied' } }), { adapterFor: adapterFor([]) }, result);
     expect(result.errors.join()).toMatch(/upsert failed.*permission denied/);
   });
 });
