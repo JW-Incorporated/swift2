@@ -37,7 +37,10 @@ const MAX_LEAD_AGE_HOURS = 48;
 /** Words that turn "a fan sharing a picture" into an ad. The picture does the talking. */
 const PITCH_RE =
   /(https?:\/\/|www\.|\b\w+\.(com|net|org|io|app|co)\b|longlive|\bcheck (it|this|that|us|out)\b|\bvisit\b|\b(my|our|this|the) (site|website|app|page|project)\b|\blink\b|\bdm me\b|\bfollow (me|us)\b|\bhashtag|#\w)/i;
-const AI_TELL_RE = /\b(great question|as an ai|delve|tapestry)\b|—/i;
+const [communityTell] = JSON.parse(
+  readFileSync(new URL('../../packages/shared/src/voice/rules.json', import.meta.url), 'utf8'),
+).aiTells.communityExtra;
+const AI_TELL_RE = new RegExp(communityTell.pattern, communityTell.flags);
 
 /** Returns a list of problems with a drafted reply; empty means it passes. */
 export function lintReply(text) {
