@@ -19,6 +19,7 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { checkJudge } from './lib/judge-rubric.mjs';
 import { TREE_AUTO_BY, TREE_AUTO_KIND, approvalStatus, contentHash, mediaDigest, signApproval } from './lib/queue.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -34,13 +35,17 @@ export function scrubbedEnv(env = process.env) {
   return Object.fromEntries(Object.entries(env).filter(([name]) => !SECRETISH_ENV.test(name)));
 }
 
-/** Runs the trusted check-drafts over `relPaths` with a scrubbed env; returns { ok, output }. */
-export function runCheckDrafts(relPaths, { root = ROOT, spawnImpl = spawnSync, env = process.env } = {}) {
+/** Runs the trusted check-drafts over `relPaths` with a scrubbed env; returns { ok, output }. The only thing the child learns about
+ * the judge is the non-secret JUDGE_VERIFIED=1, set solely when this process verified the signatures itself. */
+export function runCheckDrafts(relPaths, { root = ROOT, spawnImpl = spawnSync, env = process.env, judgeVerified = false } = {}) {
+  const childEnv = scrubbedEnv(env);
+  delete childEnv.JUDGE_VERIFIED;
+  if (judgeVerified === true) childEnv.JUDGE_VERIFIED = '1';
   const result = spawnImpl(process.execPath, [path.join(HERE, 'check-drafts.mjs'), ...relPaths], {
     cwd: root,
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024,
-    env: scrubbedEnv(env),
+    env: childEnv,
   });
   const output = `${result.stdout ?? ''}${result.stderr ?? ''}`;
   return { ok: result.status === 0 && !result.error, output };
@@ -48,13 +53,13 @@ export function runCheckDrafts(relPaths, { root = ROOT, spawnImpl = spawnSync, e
 
 /**
  * @param {string[]} files - social/queue/*.json paths (basename is what counts).
- * @param {{ pr: number, at: string, message: string, key: string, root?: string,
+ * @param {{ pr: number, at: string, message: string, key: string, judgeKey?: string, root?: string,
  *   checkDraftsImpl?: Function, readFileImpl?: Function, writeFileImpl?: Function }} opts
  * @returns {{ ok: boolean, reason?: string, stamped: string[] }}
  */
 export function stampTreeAuto(
   files,
-  { pr, at, message = '', key, root = ROOT, checkDraftsImpl = runCheckDrafts, readFileImpl = readFileSync, writeFileImpl = writeFileSync, readMediaImpl } = {},
+  { pr, at, message = '', key, judgeKey = '', root = ROOT, checkDraftsImpl = runCheckDrafts, readFileImpl = readFileSync, writeFileImpl = writeFileSync, readMediaImpl } = {},
 ) {
   const refuse = (reason) => ({ ok: false, reason: `refused — ${reason}; nothing stamped`, stamped: [] });
   if (!key) return refuse('no SOCIAL_APPROVAL_KEY available to sign with');
@@ -95,6 +100,14 @@ export function stampTreeAuto(
     items.push(item);
   }
 
+  // Enforced HERE, in the parent, because the child's env is scrubbed of SOCIAL_JUDGE_KEY.
+  if (judgeKey) {
+    const failures = relPaths.flatMap((relPath, i) =>
+      checkJudge(items[i], { required: true, key: judgeKey, file: path.posix.basename(relPath) }).map((finding) => `${relPath}: ${finding}`),
+    );
+    if (failures.length > 0) return refuse(`the independent judge requirement failed:\n${failures.join('\n')}`);
+  }
+
   // Digest of the media BYTES, signed into the stamp (the content hash only covers the path strings).
   const readMedia =
     readMediaImpl ??
@@ -112,7 +125,7 @@ export function stampTreeAuto(
     digests.push(digest);
   }
 
-  const gate = checkDraftsImpl(relPaths, { root });
+  const gate = checkDraftsImpl(relPaths, judgeKey ? { root, judgeVerified: true } : { root });
   if (!gate?.ok) return refuse(`trusted check-drafts did not pass${gate?.output ? `:\n${String(gate.output).trim()}` : ''}`);
 
   const stamped = [];
@@ -137,7 +150,9 @@ function parseArgs(argv) {
 
 function main() {
   const { pr, message, files } = parseArgs(process.argv.slice(2));
-  const result = stampTreeAuto(files, { pr, message, at: new Date().toISOString(), key: process.env.SOCIAL_APPROVAL_KEY });
+  const judgeKey = process.env.SOCIAL_JUDGE_KEY ?? '';
+  if (!judgeKey) console.warn('::warning::judge not enforced: SOCIAL_JUDGE_KEY missing');
+  const result = stampTreeAuto(files, { pr, message, at: new Date().toISOString(), key: process.env.SOCIAL_APPROVAL_KEY, judgeKey });
   if (!result.ok) {
     console.error(`::error::stamp-tree-auto: ${result.reason}`);
     process.exit(1);
