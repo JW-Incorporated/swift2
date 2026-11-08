@@ -12,7 +12,7 @@ const OEMBED_URL = 'https://www.youtube.com/oembed';
 const OEMBED_TIMEOUT_MS = 5_000;
 const MAX_CANDIDATES = 3;
 const TIER_ORDER = ['official', 'established', 'fan', 'unverified'] as const;
-const TAYLOR_TITLE = /taylor\s+swift|\bSwift\b/;
+const TAYLOR_TITLE = /taylor\s+swift/i;
 
 export interface OEmbedResult {
   title?: string;
