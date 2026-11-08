@@ -54,9 +54,10 @@ Stories: 83
 ## Report Suggests Taylor Swift Influenced Travis Kelce's Career Decision
 
 - first seen: 2026-11-08 11:21 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Yahoo Sports reports that Nick Wright suggests Taylor Swift may have played a significant role in Travis Kelce's decision to continue his football career instead of retiring.
 - sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/will-taylor-swift-be-supporting-travis-kelce-at-the-chiefs-vs-jets-game.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/not-taylor-retired-taylor-swift-110021100.html
 
 ## Taylor Swift Shares Insightful Quote of the Day
@@ -70,10 +71,11 @@ Stories: 83
 ## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
 
 - first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
 - sources:
   - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
+  - [established] The New York Times — https://www.nytimes.com/athletic/7762791/2026/11/08/taylor-swift-knicks-fandom-tyler-kolek-apology/
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
 
