@@ -16,6 +16,16 @@ export function parseDays(raw) {
   return days > 0 ? days : undefined;
 }
 
+/** BACKFILL_IDS: unset or empty means no id filter; otherwise a comma list of UUIDs (max 200). */
+export function parseIds(raw) {
+  if (raw === undefined || raw.trim() === '') return undefined;
+  const ids = raw.split(',').map((s) => s.trim());
+  if (ids.length > 200 || !ids.every((s) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s))) {
+    throw new Error(`invalid ids ${JSON.stringify(raw.slice(0, 80))}: expected up to 200 comma-separated UUIDs`);
+  }
+  return ids.map((s) => s.toLowerCase());
+}
+
 /** An ISO-8601 date or datetime; returns the canonical ISO string. */
 export function parseIsoDate(raw) {
   if (typeof raw !== 'string' || !/^\d{4}-\d{2}-\d{2}(T[\d:.]+(Z|[+-]\d{2}:\d{2})?)?$/.test(raw)) {
