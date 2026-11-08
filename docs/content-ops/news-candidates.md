@@ -75,14 +75,6 @@ Stories: 83
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/11/08/taylor-swift-karlie-kloss-attend-travis-kelce-chiefs-game/
 
-## Taylor Swift Attends Chiefs Game with Karlie Kloss
-
-- first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted at a Kansas City Chiefs game alongside her friend Karlie Kloss. The appearance marks her continued support for her husband, Travis Kelce, who plays for the team.
-- sources:
-  - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
-
 ## Taylor Swift Spotted at Chiefs-Jets Game with Supermodel
 
 - first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 5
@@ -114,6 +106,15 @@ Stories: 83
 - summary: According to reports, Taylor Swift is feeling uneasy and has engaged private investigators to determine who leaked photos from her wedding to Travis Kelce at Madison Square Garden.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-edge-hiring-080057907.html
+
+## Taylor Swift Attends Chiefs Game with Karlie Kloss
+
+- first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift was spotted at a Kansas City Chiefs game alongside her friend Karlie Kloss. The appearance marks her continued support for her husband, Travis Kelce, who plays for the team.
+- sources:
+  - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-chiefs-game
 
 ## Taylor Swift Defends New York Knicks in 2014
 
@@ -201,13 +202,14 @@ Stories: 83
 ## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
 
 - first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-wears-red-sweater-polo-cheer-travis-kelce-chiefs-12240975
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/taylor-swift-goes-absolutely-wild-at-arrowhead-as-travis-kelce-scores-touchdown-video.html
   - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
   - [unverified] Page Six — https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article317986017.html
   - [established] The New York Times — https://www.nytimes.com/athletic/7762791/2026/11/08/taylor-swift-knicks-fandom-tyler-kolek-apology/
   - [unverified] USA Today — https://www.usatoday.com/story/sports/nfl/chiefs/2026/11/08/taylor-swift-karlie-kloss-chiefs-game/92679917007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/digital/news/taylor-swift-karlie-kloss-reunite-travis-kelce-chiefs-game-1236942684/
