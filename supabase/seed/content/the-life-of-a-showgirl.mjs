@@ -17466,6 +17466,75 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-11-08 (Vault Run, Content Shift lane) from intake #6713.
+      // Page Six read in full (curl, browser UA); Just Jared read in full. People
+      // (filed) returned 403 and the KC Star would not connect, so neither is
+      // cited. Documented past public event at a named venue (L2). CUT: Page
+      // Six's "frenemies" framing and its 2019 anonymous-source claim about why
+      // the friendship cooled, Scott Swift (Just Jared only; Page Six names
+      // Andrea and Donna Kelce), and the final score (not in either source).
+      // Photo: Just Jared's wide frame (pagesix.com is not an allowlisted photo
+      // host); see the note on the photo for why this frame.
+      slug: 'showgirl-arrowhead-karlie-kloss-jets-2026',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      year: 2026,
+      month: 11,
+      day: 8,
+      category: 'sighting',
+      title: 'Karlie Kloss back beside Taylor, this time in the Arrowhead suite',
+      snippet:
+        'For the Chiefs\' Nov. 8 home game against the Jets, Taylor watched from the suite with Karlie Kloss, her mom Andrea and Donna Kelce, four months after Kloss turned up at the wedding.',
+      sourceUrl:
+        'https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.',
+        photos: [
+          {
+            url: 'https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg',
+            // Verified 2026-11-08: HTTP 200, image/jpeg, 788x525 rendition from
+            // the Just Jared article (credited Getty there). Viewed: Taylor in red
+            // at the suite window, Karlie Kloss to her right, Donna Kelce behind,
+            // Andrea Swift in sunglasses to her left, fans below. Chosen over the
+            // tighter crops, where a child in the suite is large and unblurred;
+            // here the child is small and mostly hidden, and the focal point keeps
+            // the crop on Taylor.
+            focalPoint: '43% 18%',
+            credit: 'Getty Images (via Just Jared)',
+            caption: 'Taylor between Karlie Kloss and her mom Andrea in the Arrowhead suite during the Chiefs-Jets game, Nov. 8, 2026.',
+            kind: 'primary',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'Page Six',
+            url: 'https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/',
+            source_title:
+              'Frenemies Taylor Swift and Karlie Kloss reunite at Chiefs game after surprise Travis Kelce wedding invite',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-08',
+            reliability_score: 3,
+            notes:
+              'By Chris Rogers, Nov. 8, 2026; read in full. Primary for Arrowhead vs. the Jets, the suite in the first half, Andrea Swift and Donna Kelce, the Tommy Hilfiger sweater polo, Kloss and Kushner at the July wedding, the 2013 start of the friendship, the 2015 Vogue cover and the 2018 rumors. Intake #6713.',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2026/11/08/taylor-swift-karlie-kloss-travis-kelce-chiefs-game-reunion-november-2026/',
+            source_title:
+              "Taylor Swift Watches Travis Kelce's Chiefs Game With Karlie Kloss & Her Parents, Years After Rumored Friendship Rift",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-08',
+            reliability_score: 3,
+            notes:
+              'By Bradley Stern, Nov. 8, 2026; read in full. Independent confirmation of Kloss in the private suite at Arrowhead vs. the Jets and the red sweater. Primary for Kelce\'s 200th NFL appearance and Kloss\'s 2018 New York Times quote.',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
