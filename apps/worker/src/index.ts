@@ -73,6 +73,7 @@ async function main() {
     heldPassReasons: result.extract.heldPassReasons,
     significanceHeld: result.extract.significanceHeld,
     significanceDeferred: result.extract.significanceDeferred,
+    significanceFallback: result.extract.significanceFallback,
     tierCounts: result.extract.tierCounts,
     theoriesUpserted: result.extract.theoriesUpserted,
     theoryHoldReasons: result.extract.theoryHoldReasons,

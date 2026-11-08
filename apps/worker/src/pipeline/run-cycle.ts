@@ -81,6 +81,7 @@ export async function runCycle(
       writerBudgetExhausted: false,
       significanceHeld: {},
       significanceDeferred: 0,
+      significanceFallback: 0,
       tierCounts: {},
       heldImagesChecked: 0,
       heldImagesPublished: 0,

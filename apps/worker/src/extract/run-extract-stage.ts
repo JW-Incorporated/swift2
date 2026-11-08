@@ -27,11 +27,11 @@ import { loadPendingStories, recordV2Attempt } from './v2-retry';
 import { runShadow } from './v2-shadow';
 import {
   mergeNewFactsIntoOriginal,
-  projectKnowledgeDoc,
   writeCurrentItem,
   type ClusterSource,
   type WriterV2Write,
 } from './write-knowledge';
+import { projectCurrentItemDoc } from './project-current-item';
 import { writeFanSignalTheories } from './write-fan-signal-theories';
 
 const CURRENT_ERA_ID = 'tloas';
@@ -256,27 +256,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             else {
               result.extracted += 1;
               evidenceDocId = `current:${written.id}`;
-              await projectKnowledgeDoc(db, {
-                id: evidenceDocId,
-                kind: 'current_item',
-                title: toWrite.headline,
-                text: `${toWrite.summary} ${toWrite.detail}`.trim(),
-                date: toWrite.observedOn,
-                recencyDate: toWrite.observedOn,
-                open: ['rumor', 'reported'].includes(toWrite.statusHint),
-                status: toWrite.statusHint,
-                sourceTier: sources[0]?.tier ?? 'unverified',
-                sources: sources.map((source) => ({
-                  name: source.outletName,
-                  url: source.url,
-                  tier: source.tier,
-                })),
-                eraId: CURRENT_ERA_ID,
-                symbols: toWrite.symbols,
-                entities: toWrite.entities,
-                expiresAt: written.expiresAt,
-                redlineOk: written.redlineOk,
-              });
+              await projectCurrentItemDoc(db, evidenceDocId, toWrite, sources, CURRENT_ERA_ID, written);
             }
           }
         }

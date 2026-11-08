@@ -5,7 +5,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { recordV2Hold, type ExtractStageResult } from './extract-stage-result';
-import { recordV2Attempt } from './v2-retry';
+import { recordV2Attempt, V2_MAX_ATTEMPTS } from './v2-retry';
+import { hostOf } from './worth-gate';
 import { judgeSignificance, type SignificanceVerdict } from './significance-client';
 import type { SignificanceVerdictRecord } from './significance-prompt';
 import { significanceHoldReason, significanceRuleHold } from './significance-rules';
@@ -86,6 +87,27 @@ export async function assessSignificance(
   return judged.tier === 3 ? { kind: 'hold', holdReason: JUDGE_HOLD, verdict } : { kind: 'pass', verdict };
 }
 
+export const JUDGE_UNAVAILABLE_HOLD = 'not_notable:judge_unavailable';
+
+/** Rule-based stand-in when the judge is down on the final attempt: an official source or two distinct established hosts continues as tier 2, anything else is held. Layer 1 has already passed. */
+export function judgeUnavailableFallback(
+  sources: readonly ClusterSource[],
+  now: Date = new Date(),
+): SignificanceAssessment {
+  const established = new Set(
+    sources.filter((source) => source.tier === 'established').map((source) => hostOf(source.url)).filter((host) => host !== null),
+  );
+  const trusted = sources.some((source) => source.tier === 'official') || established.size >= 2;
+  const at = now.toISOString();
+  return trusted
+    ? { kind: 'pass', verdict: { tier: 2, reason: 'fallback:judge_unavailable', model: 'rules', at } }
+    : {
+      kind: 'hold',
+      holdReason: JUDGE_UNAVAILABLE_HOLD,
+      verdict: { tier: 3, reason: 'fallback:judge_unavailable', model: 'rules', at },
+    };
+}
+
 export interface SignificanceStep {
   /** proceed = continue the normal path; held = a quality-hold row was written; retry = deferred, leave the story pending. */
   action: 'proceed' | 'held' | 'retry';
@@ -106,8 +128,13 @@ export async function runSignificanceStep(args: {
   imageUrl: string | undefined;
 }): Promise<SignificanceStep> {
   const { db, result, mode, store, story, item, sources } = args;
-  const assessment = await assessSignificance(store, item, sources);
+  let assessment = await assessSignificance(store, item, sources);
   recordSignificance(result, assessment);
+  if (assessment.kind === 'deferred' && (story.v2_attempts ?? 0) + 1 >= V2_MAX_ATTEMPTS) {
+    assessment = judgeUnavailableFallback(sources);
+    result.significanceFallback += 1;
+    recordSignificance(result, assessment);
+  }
   if (assessment.kind === 'deferred') {
     if (mode !== 'on') return { action: 'proceed' };
     console.warn(`news-worker: significance deferred for story ${story.id} (${assessment.reason}); retrying next cycle`);

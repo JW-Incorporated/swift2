@@ -32,6 +32,8 @@ export interface ExtractStageResult {
   significanceHeld: Record<string, number>;
   /** Significance stage: judge deferrals (error, budget, invalid) left for the next cycle. */
   significanceDeferred: number;
+  /** Significance stage: final-attempt judge outages resolved by the rule-based fallback. */
+  significanceFallback: number;
   /** Significance stage: verdicts per tier, keyed '1' | '2' | '3'. */
   tierCounts: Record<string, number>;
   heldImagesChecked: number;
@@ -65,6 +67,7 @@ export function emptyResult(): ExtractStageResult {
     writerBudgetExhausted: false,
     significanceHeld: {},
     significanceDeferred: 0,
+    significanceFallback: 0,
     tierCounts: {},
     heldImagesChecked: 0,
     heldImagesPublished: 0,

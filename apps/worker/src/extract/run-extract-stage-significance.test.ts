@@ -142,10 +142,10 @@ function fakeDb(inserted: Record<string, unknown>[]): SupabaseClient {
   } as unknown as SupabaseClient;
 }
 
-async function run(item: unknown) {
+async function run(item: unknown, sources: unknown[] = SOURCES) {
   mocks.extractWithLLM.mockResolvedValue({ kind: 'current_item', currentItem: item, redlineFlags: [] });
-  mocks.loadClusterSources.mockResolvedValue(SOURCES);
-  mocks.resolveClusterSources.mockResolvedValue(SOURCES);
+  mocks.loadClusterSources.mockResolvedValue(sources);
+  mocks.resolveClusterSources.mockResolvedValue(sources);
   const inserted: Record<string, unknown>[] = [];
   const result = await runExtractStage(fakeDb(inserted));
   return { result, row: inserted[0], inserted };
@@ -221,6 +221,51 @@ describe('runExtractStage significance gate', () => {
     expect(result.significanceDeferred).toBe(1);
     expect(mocks.storyMarks.count).toBe(0);
     expect(mocks.storyPatches).toEqual([expect.objectContaining({ v2_attempts: 1 })]);
+  });
+
+  describe('judge outage', () => {
+    const DEFERRED = { status: 'deferred', reason: 'no_token' };
+    const OFFICIAL = [{ outletName: 'Taylor Swift', url: 'https://www.taylorswift.com/news', tier: 'official' }];
+    const THIN = [{ outletName: 'A Blog', url: 'https://blog.example.com/a', tier: 'unverified' }];
+
+    it('final attempt: publishes an official-source story as tier 2 via the fallback', async () => {
+      mocks.judgeSignificance.mockResolvedValue(DEFERRED);
+      mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 2 }];
+      const { result, row } = await run(TOUR_ITEM, OFFICIAL);
+      expect(row).toMatchObject({
+        redline_ok: true,
+        significance_verdict: { tier: 2, reason: 'fallback:judge_unavailable', model: 'rules' },
+      });
+      expect(result.significanceFallback).toBe(1);
+      expect(result.tierCounts).toEqual({ '2': 1 });
+    });
+
+    it('final attempt: holds a single unverified-source story as not_notable:judge_unavailable', async () => {
+      mocks.judgeSignificance.mockResolvedValue(DEFERRED);
+      mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 2 }];
+      const { result, row } = await run(TOUR_ITEM, THIN);
+      expect(row).toMatchObject({ redline_ok: false, quality_hold_reason: 'not_notable:judge_unavailable' });
+      expect(result.significanceFallback).toBe(1);
+      expect(result.significanceHeld).toEqual({ 'not_notable:judge_unavailable': 1 });
+    });
+
+    it('non-final attempt still defers', async () => {
+      mocks.judgeSignificance.mockResolvedValue(DEFERRED);
+      mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 1 }];
+      const { result, inserted } = await run(TOUR_ITEM, OFFICIAL);
+      expect(inserted).toEqual([]);
+      expect(result.significanceFallback).toBe(0);
+      expect(mocks.storyPatches).toEqual([expect.objectContaining({ v2_attempts: 2 })]);
+    });
+
+    it('shadow mode only records the would-be fallback', async () => {
+      vi.stubEnv('NEWS_SIGNIFICANCE', 'shadow');
+      mocks.judgeSignificance.mockResolvedValue(DEFERRED);
+      mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 2 }];
+      const { result, row } = await run(TOUR_ITEM);
+      expect(row).toMatchObject({ redline_ok: true, quality_hold_reason: null, significance_verdict: { reason: 'fallback:judge_unavailable' } });
+      expect(result.significanceFallback).toBe(1);
+    });
   });
 
   it('publishes a tier 1 item even after 6 text posts, storing its verdict', async () => {
