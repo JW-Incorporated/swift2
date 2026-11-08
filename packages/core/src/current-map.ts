@@ -8,6 +8,7 @@
 import type {
   CurrentItem,
   CurrentItemCategory,
+  CurrentItemEmbed,
   CurrentItemFact,
   CurrentItemStatus,
   EggLedgerEntry,
@@ -40,6 +41,19 @@ function asKnowledgeSources(value: unknown): KnowledgeSource[] {
     .filter((s) => s.url !== '');
 }
 
+function asCurrentEmbed(value: unknown): CurrentItemEmbed | undefined {
+  if (!value || typeof value !== 'object') return undefined;
+  const e = value as Record<string, unknown>;
+  if (e['provider'] !== 'youtube' || typeof e['videoId'] !== 'string' || e['videoId'] === '') return undefined;
+  return {
+    provider: 'youtube',
+    videoId: e['videoId'],
+    ...(typeof e['title'] === 'string' ? { title: e['title'] } : {}),
+    ...(typeof e['channelId'] === 'string' ? { channelId: e['channelId'] } : {}),
+    ...(typeof e['verifiedAt'] === 'string' ? { verifiedAt: e['verifiedAt'] } : {}),
+  };
+}
+
 export interface CurrentItemRow {
   id: string;
   story_id: string | null;
@@ -56,6 +70,8 @@ export interface CurrentItemRow {
   sources: unknown;
   location_level: string | null;
   image_url: string | null;
+  embed?: unknown;
+  media_kind?: string | null;
   social_post: unknown;
   symbols: unknown;
   entities: unknown;
@@ -91,6 +107,10 @@ export function mapCurrentItem(row: CurrentItemRow): CurrentItem {
     sources: asKnowledgeSources(row.sources),
     ...(row.location_level ? { locationLevel: row.location_level as LocationLevel } : {}),
     ...(row.image_url ? { imageUrl: row.image_url } : {}),
+    ...(asCurrentEmbed(row.embed) ? { embed: asCurrentEmbed(row.embed) } : {}),
+    ...(row.media_kind === 'video' || row.media_kind === 'image' || row.media_kind === 'text'
+      ? { mediaKind: row.media_kind }
+      : {}),
     ...(socialPost && typeof socialPost['shortcode'] === 'string'
       ? {
           socialPost: {
