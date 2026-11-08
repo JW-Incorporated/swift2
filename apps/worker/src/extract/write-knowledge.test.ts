@@ -164,6 +164,77 @@ describe('writeCurrentItem', () => {
     expect(inserted[0]?.image_url).toBe('https://www.people.com/photo.jpg');
   });
 
+  describe('video embed', () => {
+    const videoItem = {
+      observedOn: '2026-08-23',
+      category: 'release',
+      tags: ['music'],
+      headline: 'New single announced',
+      summary:
+        'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+      detail:
+        'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+      symbols: [],
+      entities: [],
+      statusHint: 'reported',
+    } as never;
+    const sources = [{ outletName: 'YouTube', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', tier: 'official' as const }];
+    const embed = { provider: 'youtube' as const, videoId: 'dQw4w9WgXcQ', channelId: 'UCqECaJ8Gagnn7YCbPEzWH6g', verifiedAt: '2026-11-08T12:00:00.000Z' };
+    const poster = 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg';
+
+    function recordingDb(errorFor: (row: Record<string, unknown>) => unknown) {
+      const inserted: Record<string, unknown>[] = [];
+      const db = fakeDb(() => {
+        let current: Record<string, unknown> = {};
+        const c = chain({ data: { id: 'item-v' }, error: null }) as Record<string, unknown>;
+        c.insert = (row: Record<string, unknown>) => {
+          inserted.push(row);
+          current = row;
+          return c;
+        };
+        c.then = (resolve: (r: unknown) => void) => {
+          const error = errorFor(current);
+          resolve(error ? { data: null, error } : { data: { id: 'item-v' }, error: null });
+        };
+        return c;
+      });
+      return { db, inserted };
+    }
+
+    it('includes the embed in the inserted row', async () => {
+      const { db, inserted } = recordingDb(() => null);
+      const result = await writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster, undefined, embed);
+      expect(result.redlineOk).toBe(true);
+      expect(inserted[0]?.embed).toEqual(embed);
+    });
+
+    it('omits the embed key when there is none', async () => {
+      const { db, inserted } = recordingDb(() => null);
+      await writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster);
+      expect(inserted[0]).not.toHaveProperty('embed');
+    });
+
+    it.each([
+      { code: '42703', message: 'column "embed" of relation "current_item" does not exist' },
+      { code: 'PGRST204', message: "Could not find the 'embed' column of 'current_item' in the schema cache" },
+    ])('retries without the embed when the column is absent ($code)', async (missing) => {
+      const { db, inserted } = recordingDb((row) => ('embed' in row ? missing : null));
+      const result = await writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster, undefined, embed);
+      expect(result.id).toBe('item-v');
+      expect(inserted).toHaveLength(2);
+      expect(inserted[0]).toHaveProperty('embed');
+      expect(inserted[1]).not.toHaveProperty('embed');
+    });
+
+    it('still throws on an unrelated insert failure', async () => {
+      const { db, inserted } = recordingDb(() => ({ code: '23505', message: 'duplicate key' }));
+      await expect(
+        writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster, undefined, embed),
+      ).rejects.toThrow('current_item insert failed: duplicate key');
+      expect(inserted).toHaveLength(1);
+    });
+  });
+
   it('holds a redline-failing row without inserting an events row', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-2' }, error: null }));
     const result = await writeCurrentItem(
