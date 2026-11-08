@@ -1,0 +1,33 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1tl4pqb-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1tl4pqb/she_knows_exactly_how_good_she_looks_in_this/",
+  "scheduledAt": "2026-11-09T15:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: She knows exactly how good she looks in this outfit."
+  ],
+  "campaign": "heartbeat:event-news:taylor-karlie-arrowhead-2026-11-08",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1tl4pqb-ig45.jpg"
+  ],
+  "body": "i can't stop smiling about this 🥹❤️\n\non sunday taylor brought her longtime friend karlie kloss to arrowhead to watch travis and the chiefs play the jets at home.\n\nshe was in chiefs red with her signature red lip, up in a suite with karlie and her mom andrea.\n\nfriends who show up for each other's big days are the best kind, and seeing these two cheering side by side made my whole weekend.\n\ncatch up on everything the showgirl era has given us so far → https://longlivets.com/?era=the-life-of-a-showgirl&utm_source=instagram&utm_medium=social&utm_campaign=news\n\n#TaylorSwift #KarlieKloss #Chiefs #Swifties #LongLive",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 20,
+    "rationale": "Gush-first IG caption for a confirmed same-day sighting: who, where, what she wore, all from People. Feud narrative and unconfirmed companions left out. Photo is a generic Taylor tile, so media scores 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "Same-day news: Taylor brought Karlie Kloss to the Chiefs-Jets game at Arrowhead on Sun 11-08 (intake #6713, confirmed by People via Yahoo and Just Jared). takes 11-09 heartbeat; heartbeat → 11-10. Photo is the reserved eventPhoto (Eras Tour, not the game); copy never claims it is from Arrowhead."
+}

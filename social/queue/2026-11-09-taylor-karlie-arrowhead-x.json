@@ -1,0 +1,33 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1tl4pqb",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1tl4pqb/she_knows_exactly_how_good_she_looks_in_this/",
+  "scheduledAt": "2026-11-09T15:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: She knows exactly how good she looks in this outfit."
+  ],
+  "campaign": "heartbeat:event-news:taylor-karlie-arrowhead-2026-11-08",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1tl4pqb.jpg"
+  ],
+  "body": "TAYLOR + KARLIE, SAME SUITE 😭 kansas city got a best-friend moment on game day and i'm not okay (in the best way) https://longlivets.com/?era=the-life-of-a-showgirl&utm_source=x&utm_medium=social&utm_campaign=news",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 20,
+    "rationale": "Confirmed, warm, time-boxed reunion; X leads with the who-and-where in one line. Feud framing deliberately left out. Photo is a generic Taylor tile, not from the game, so media scores 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "Same-day news: Taylor brought Karlie Kloss to the Chiefs-Jets game at Arrowhead on Sun 11-08 (intake #6713, confirmed by People via Yahoo and Just Jared). takes 11-09 heartbeat; heartbeat → 11-10. Photo is the reserved eventPhoto (Eras Tour, not the game); copy never claims it is from Arrowhead. X written first; hook = the artifact (karlie in the suite)."
+}
