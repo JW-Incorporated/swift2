@@ -1,0 +1,23 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "fifty grand. in cash. stuffed inside a mcdonald's bag 😭 that was the price to get nelly onstage with taylor in houston, 2011 — and these days he swears he'd have shown up for nothing. tag someone who'd do the same https://longlivets.com/?item=vault-speak-now-nelly-surprises-houston-for-just-a-dream-and-he-revealed-15-&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": ["/social/library/photos/taylor-speaknow-inglewood-2023-3.jpg"],
+  "mediaKind": "photo",
+  "photoId": "speaknow-inglewood-2023-3",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109885890).jpg",
+  "scheduledAt": "2026-11-08T23:00:00Z",
+  "altText": ["Taylor Swift in a sparkling ball gown playing a blue acoustic guitar at the microphone during the Speak Now set of the Eras Tour, Inglewood 2023, lit in violet."],
+  "photoEra": "speak-now",
+  "campaign": "heartbeat:era-deep-cut:nelly-houston-just-a-dream:2026-11-08",
+  "critique": {
+    "v": 1,
+    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 5 },
+    "total": 22,
+    "rationale": "Nelly's $50,000-in-a-McDonald's-bag reveal is a jaw-dropping, fully sourced story that leads with the number and lands the 'I would've done it for free' quote. The share hook ties to his loyalty, and the Speak Now era photo matches the 2011 duet.",
+    "rulesChecked": ["L002"],
+    "revision": 1
+  },
+  "why": "NEWS RESERVE #3 (11-08, 23:00Z): named fallback drafted. Evaluated events.uncovered #6670 (Knicks players call Taylor 'fakest' fan) as the news:<event-slug> option and rejected it — amplifying a negative 'fakest fan' drama cycle fails notEmbarrassed for a fan-gush account. The Nelly reveal (The Breakfast Club, aired 2026-10-28) is fresh, warm and real. X half written first; the money is the hook, the surprise the setup."
+}
