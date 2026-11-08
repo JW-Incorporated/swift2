@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 85
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
 
@@ -304,7 +304,7 @@ Stories: 87
 - summary: Travis Kelce is reportedly making efforts to soothe Taylor Swift following a leak about their wedding. Sources indicate that Swift is finding it difficult to ignore the situation.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/donna-kelce-sells-florida-condo-485000-profit-12240418
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/hard-her-shrug-off-travis-114050849.html
+  - [unverified] The Comeback — https://thecomeback.com/nfl/hard-for-her-to-shrug-it-off-travis-kelce-reportedly-trying-to-calm-taylor-swift-down-after-wedding-leak.html
 
 ## Opinion Piece Expresses Dislike for Taylor Swift
 
@@ -740,24 +740,3 @@ Stories: 87
   - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carrie-coon-says-taylor-swift-111110750.html
   - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/carrie-coon-applauds-taylor-swift-185338866.html
-
-## Taylor Swift's 'Patient Zero' Highlights Support for Domestic Violence Survivors
-
-- first seen: 2026-11-05 05:27 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's song 'Patient Zero' resonates with domestic violence survivors, emphasizing the importance of support services like Haven House. The piece discusses how the song connects to real-life situations and the assistance provided by organizations.
-- sources:
-  - [unverified] nwitimes.com — https://nwitimes.com/news/local/video_6b97ba1e-0393-516b-8f67-af6df1acd936.html
-
-## Celebrities Feature in Tommy Hilfiger's Winter Campaign
-
-- first seen: 2026-11-05 05:27 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Travis Kelce, Jisoo, Josh Hart, and other stars are featured in Tommy Hilfiger's new winter campaign, showcasing various interpretations of the holiday season.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-first-christmas-married-taylor-swift-1236375353/
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/05/travis-kelce-s-5-35-million-mansion-in-ohio-is-nightmare-his-neighbours-are-warning-of-potential-disaster.html
-  - [unverified] Page Six — https://pagesix.com/2026/11/05/entertainment/travis-kelce-cant-wait-to-start-new-traditions-with-taylor-swift-in-first-christmas-as-a-married-man/
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317940000.html
-  - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-why-t-205113069.html
