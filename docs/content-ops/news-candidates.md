@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 86
+
+## Report Suggests Taylor Swift Influenced Travis Kelce's Career Decision
+
+- first seen: 2026-11-08 11:21 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Yahoo Sports reports that Nick Wright suggests Taylor Swift may have played a significant role in Travis Kelce's decision to continue his football career instead of retiring.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/not-taylor-retired-taylor-swift-110021100.html
 
 ## Taylor Swift Shares Insightful Quote of the Day
 
@@ -736,23 +744,3 @@ Stories: 87
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/global/taylor-swift-canceled-vienna-concerts-documentary-1236939153/
   - [unverified] Variety Australia — https://au.variety.com/2026/film/news/taylor-swift-cancelled-vienna-concerts-documentary-42320/
-
-## Taylor Swift Considers Hiring Investigators for Wedding Leak
-
-- first seen: 2026-11-05 11:21 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly feeling anxious and is contemplating hiring private investigators to track down the source behind the leak of her wedding details.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/she-edge-taylor-swift-reportedly-110054535.html
-
-## Carrie Coon Praises Taylor Swift's Impression of Her Character
-
-- first seen: 2026-11-05 11:21 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 5
-- summary: Carrie Coon comments on Taylor Swift's impression of her character from 'The Gilded Age', describing it as 'very good' and noting that Swift captures the essence of the character well. The remarks were featured in a Yahoo article.
-- sources:
-  - [established] Billboard — https://www.billboard.com/culture/tv-film/carrie-coon-taylor-swift-so-bertha-impression-gilded-age-fallon-1236374687/
-  - [unverified] Entertainment Weekly — https://ew.com/carrie-coon-reacts-taylor-swift-impression-gilded-age-character-bertha-russell-12237918
-  - [established] People — https://people.com/carrie-coon-reacts-to-taylor-swifts-impression-of-her-on-the-gilded-age-12237574
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/carrie-coon-says-taylor-swift-111110750.html
-  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/carrie-coon-applauds-taylor-swift-185338866.html
