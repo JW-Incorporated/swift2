@@ -1,0 +1,46 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "i will never get over this one 🫒\n\nreputation tour, opening night — glendale, may 2018. taylor walks into her dressing room and finds an actual olive branch waiting for her.\n\nit came with a handwritten note from katy perry. the first line? \"hello old friend.\"\n\nfour years of the most-talked-about feud in pop — the one everyone tied to \"bad blood\" — quietly ended right there, backstage. \"this means so much,\" taylor said from her dressing room. \"thank you katy.\"\n\na year later they'd stand side by side in the \"you need to calm down\" video. this was the moment it turned.\n\ntag the friend you're so glad you made up with.\n\nread the whole thing on longlivets.com → https://longlivets.com/?item=vault-reputation-katy-perry-sends-a-literal-olive-branch-on-opening-night&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n📷 Paolo Villanueva (CC BY 2.0), via Wikimedia Commons\n\n#TaylorSwift #Reputation #KatyPerry #Swifties #LongLive",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-3-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-3-ig45",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53108877077).jpg",
+  "scheduledAt": "2026-11-09T23:00:00Z",
+  "altText": [
+    "Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "photoEra": "reputation",
+  "campaign": "heartbeat:era-deep-cut:reputation-katy-perry-olive-branch:2026-11-09",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "The Katy Perry olive branch and 'hello old friend' note, told in full on IG with Taylor's exact backstage words, is one of reputation's warmest moments — the public end of pop's longest feud. Reputation is untouched this fortnight; drafted as the day-0 fallback.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of the reputation olive-branch pair, the launch:photo-viewer DAY 0 fallback (invariant-6 phone gate couldn't be verified in an automated run). Credited reputation era photo (never used).",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-08T17:14:06.221Z",
+    "pr": 6697,
+    "message": "social-tree-approve run 42503847344",
+    "contentHash": "sha256:84ee0e308e88b928dbb30a9fc5095d3cc405db0d0def7c8dfbc05d367d31a536",
+    "mediaDigest": "sha256:975dbd661a94bb6c1fb8e3da1ad4593362a00b6d1ab0b714a1e5bbc9022aab3a",
+    "sig": "hmac-sha256:46de0933723c63a637139450ac75d9bfe8fb42afdc4238ec16811dca42bcbe9a"
+  }
+}
