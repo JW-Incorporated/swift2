@@ -1,4 +1,4 @@
-import { DAILY_TEXT_CAP_HOLD } from './daily-text-cap';
+import { DAILY_TEXT_CAP_HOLD, TIER2_CAP_HOLD } from './daily-text-cap';
 
 export interface ExtractStageResult {
   clustersConsidered: number;
@@ -28,6 +28,12 @@ export interface ExtractStageResult {
   v2GaveUpReasons: Record<string, number>;
   /** True when the cycle stopped early because the day's writer budget was spent. */
   writerBudgetExhausted: boolean;
+  /** Significance stage: holds by `not_notable:<rule|judge>` reason (shadow mode counts what it would hold). */
+  significanceHeld: Record<string, number>;
+  /** Significance stage: judge deferrals (error, budget, invalid) left for the next cycle. */
+  significanceDeferred: number;
+  /** Significance stage: verdicts per tier, keyed '1' | '2' | '3'. */
+  tierCounts: Record<string, number>;
   heldImagesChecked: number;
   heldImagesPublished: number;
   theoryHoldReasons: Record<string, number>;
@@ -57,6 +63,9 @@ export function emptyResult(): ExtractStageResult {
     v2GaveUp: 0,
     v2GaveUpReasons: {},
     writerBudgetExhausted: false,
+    significanceHeld: {},
+    significanceDeferred: 0,
+    tierCounts: {},
     heldImagesChecked: 0,
     heldImagesPublished: 0,
     theoryHoldReasons: {},
@@ -72,6 +81,6 @@ export function recordDiscard(result: ExtractStageResult, decision: { reason?: s
 
 export function recordV2Hold(result: ExtractStageResult, reason: string): void {
   result.v2Held += 1;
-  if (reason === DAILY_TEXT_CAP_HOLD) result.dailyTextCapHeld += 1;
+  if (reason === DAILY_TEXT_CAP_HOLD || reason === TIER2_CAP_HOLD) result.dailyTextCapHeld += 1;
   result.heldPassReasons[reason] = (result.heldPassReasons[reason] ?? 0) + 1;
 }

@@ -16,7 +16,10 @@ import { extractWithLLM } from './haiku-client';
 import { resolveImageUrl } from './image-resolve';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { loadEraContext } from './context-loader';
-import { dailyTextCapHold } from './daily-text-cap';
+import { dailyTextCapHold, tierCapHold } from './daily-text-cap';
+import {
+  createSignificanceStore, runSignificanceStep, significanceMode, type SignificanceStep,
+} from './significance-stage';
 import {
   composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, rewriteMergedOriginal, tierFloorHold, writerMode,
 } from './v2-stage';
@@ -57,6 +60,8 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   const v2Stores = mode === 'off'
     ? undefined
     : { writer: await createWriterStore(db), judge: await createJudgeStore(db) };
+  const sigMode = significanceMode();
+  const sigStore = sigMode === 'off' ? undefined : await createSignificanceStore(db);
 
   const stories = (pending ?? []) as (PendingStory & { v2_attempts?: number })[];
   for (const [index, story] of stories.entries()) {
@@ -116,9 +121,16 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
         const imageUrl = currentItem
           ? await resolveImageUrl(story.top_image_url, sources)
           : undefined;
+        const sig: SignificanceStep = currentItem && sigStore
+          ? await runSignificanceStep({
+            db, result, mode: sigMode, store: sigStore, story, item: currentItem, sources,
+            eraId: CURRENT_ERA_ID, countdownTargetAt, imageUrl,
+          })
+          : { action: 'proceed' };
+        if (sig.action === 'retry') continue;
         let evidenceDocId: string | undefined;
         let theoryImageUrl: string | null | undefined = imageUrl;
-        if (currentItem) {
+        if (currentItem && sig.action !== 'held') {
           let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
           const floorHold = writerV2 && hasFacts(currentItem) ? tierFloorHold(currentItem, sources) : undefined;
           if (floorHold) decision = { action: 'hold', reason: 'below_tier_floor' };
@@ -206,7 +218,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
             let toWrite = currentItem;
             let v2Write: WriterV2Write | undefined;
             const capHold = writerV2 && v2Stores && hasFacts(currentItem)
-              ? await dailyTextCapHold(db, CURRENT_ERA_ID, currentItem.facts)
+              ? sigMode === 'on' && sig.verdict
+                ? await tierCapHold(db, CURRENT_ERA_ID, currentItem.facts, sig.verdict.tier)
+                : await dailyTextCapHold(db, CURRENT_ERA_ID, currentItem.facts)
               : undefined;
             if (capHold) {
               v2Write = capHold;
@@ -233,6 +247,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               countdownTargetAt,
               imageUrl,
               v2Write,
+              sig.verdict,
             );
             if (!written.redlineOk) {
               if (v2Write?.holdReason) recordV2Hold(result, v2Write.holdReason);

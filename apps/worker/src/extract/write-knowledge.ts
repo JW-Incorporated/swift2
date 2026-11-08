@@ -18,6 +18,8 @@ import {
   FAN_SIGNAL_EXPIRY_DAYS,
   LIVE_THEORY_EXPIRY_DAYS,
 } from './expiry';
+import { isMissingSignificanceColumn } from './daily-text-cap';
+import type { SignificanceVerdictRecord } from './significance-prompt';
 import { findTheoryMatch } from './theory-match';
 import { mergeEvidenceIds, theoryImageFields, type TheoryEvidence } from './live-theory-image';
 
@@ -195,6 +197,7 @@ export async function writeCurrentItem(
   countdownTargetAt?: string,
   imageUrl?: string,
   v2?: WriterV2Write,
+  significance?: SignificanceVerdictRecord,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -254,9 +257,18 @@ export async function writeCurrentItem(
     countdown_target_at: countdownTargetAt ?? null,
     ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
-  const { data, error } = await db.from('current_item').insert(row).select('id').single();
+  const withVerdict: Record<string, unknown> = significance ? { ...row, significance_verdict: significance } : row;
+  let { data, error } = await db
+    .from('current_item')
+    .insert(withVerdict)
+    .select('id')
+    .single();
+  if (error && significance && isMissingSignificanceColumn(error)) {
+    console.warn(`news-worker: significance_verdict column unavailable (${error.message}); inserting without it`);
+    ({ data, error } = await db.from('current_item').insert(row).select('id').single());
+  }
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
-  const id = data.id as string;
+  const id = data!.id as string;
   if (row.redline_ok) {
     await emitLaunchCategoryEvent(db, id, item);
   }
