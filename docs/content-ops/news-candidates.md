@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift reacts to Travis Kelce's touchdown after injury scare
+
+- first seen: 2026-11-08 22:02 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift had a memorable reaction to Travis Kelce's touchdown during a game, which followed an injury scare involving Patrick Mahomes. The moment highlighted her support for Kelce amidst ongoing interest in their relationship.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-priceless-reaction-travis-kelce-touchdown/
+
+## Taylor Swift Celebrates Travis Kelce's Touchdown on CBS
+
+- first seen: 2026-11-08 22:02 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was visibly excited during a CBS live broadcast after Travis Kelce scored his first touchdown since Week 3. The moment highlighted her support for the NFL player amid their relationship.
+- sources:
+  - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50423524/taylor-swift-pumped-travis-kelce-first-td-week-3
+
+## Taylor Swift Cheers for Travis Kelce's Touchdown Against Jets
+
+- first seen: 2026-11-08 22:02 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted standing and cheering after Travis Kelce scored a touchdown during the game against the Jets. This appearance continues to highlight her support for the NFL star.
+- sources:
+  - [established] People — https://people.com/taylor-swift-celebrates-travis-kelce-scores-second-touchdown-chiefs-jets-12131173
 
 ## Insider Shares Knicks Locker Room Activity Post-Cavs Win Amid Taylor Swift Discussion
 
@@ -350,9 +374,10 @@ Stories: 82
 ## Knicks Defend Taylor Swift Amid Player Criticism
 
 - first seen: 2026-11-07 00:53 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The New York Knicks have issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride questioned her authenticity as a fan. The players labeled her courtside appearances as ‘performative’, but the Knicks affirmed her longstanding support for the team.
 - sources:
+  - [unverified] The Guardian — https://www.aol.com/articles/saved-sunday-sarah-j-maas-210021000.html
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/06/taylor-swift-knicks-tyler-kolek-miles-mcbride-fake-fan
 
 ## Knicks players defend Taylor Swift amid 'fakest' fan claims
@@ -696,19 +721,3 @@ Stories: 82
 - summary: Taylor Swift, the youngest inductee into the Nashville Songwriters Hall of Fame, enhanced her look with luxurious Jimmy Choo footwear. The event highlighted her outstanding contributions to the music industry.
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-nashville-songwriters-1239387187/
-
-## Travis Kelce Shares Holiday Video After Marriage to Taylor Swift
-
-- first seen: 2026-11-05 21:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce posted a video showcasing his holiday celebrations, marking his first Christmas since marrying Taylor Swift. The video gives fans a glimpse into the couple's festive season together.
-- sources:
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529736-travis-kelce-reveals-perfect-holiday-video-chiefs-tes-1st-christmas-marrying-taylor-swift
-
-## Travis Kelce Shares Christmas Day Experience with Taylor Swift
-
-- first seen: 2026-11-05 21:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce discusses how he spent Christmas Day with Taylor Swift, highlighting their time together during the holiday.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/2026/11/05/travis-kelce-reveals-perfect-christmas-day-with-taylor-swift/
