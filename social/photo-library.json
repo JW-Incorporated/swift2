@@ -672,6 +672,36 @@
       "sha256": "e0f24d38bf5acb65955335adb9074d124931865075912c6da62aa5b8cac5eca2"
     },
     {
+      "id": "official-video-1FVF-9KQiPo-maxres1",
+      "mediaPath": "/social/library/photos/official-video-1FVF-9KQiPo-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=1FVF-9KQiPo",
+      "alt": "Still from Taylor Swift's official \"Opalite\" music video.",
+      "tags": [
+        "official-video",
+        "the-life-of-a-showgirl"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 27892,
+      "sha256": "be6d5be7cd095bd5dedcb55643e22e94f9ebd9256ac3ea0729d63436a143ed01"
+    },
+    {
+      "id": "official-video-1FVF-9KQiPo-maxres3",
+      "mediaPath": "/social/library/photos/official-video-1FVF-9KQiPo-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=1FVF-9KQiPo",
+      "alt": "Still from Taylor Swift's official \"Opalite\" music video.",
+      "tags": [
+        "official-video",
+        "the-life-of-a-showgirl"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 52444,
+      "sha256": "36a96cce8686fe33206a0eaf35a89a7ec2ac799c27c690e5689f53f64a1080a8"
+    },
+    {
       "id": "official-video-2obMo7y-rvA-maxres1",
       "mediaPath": "/social/library/photos/official-video-2obMo7y-rvA-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -1030,6 +1060,36 @@
       "height": 720,
       "bytes": 69795,
       "sha256": "91530d335a201f50a52ccac1c57a621893b97436d619ff060eb1069e93a8684b"
+    },
+    {
+      "id": "official-video-dLfkQNnzh2o-maxres2",
+      "mediaPath": "/social/library/photos/official-video-dLfkQNnzh2o-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=dLfkQNnzh2o",
+      "alt": "Still from Taylor Swift's official \"Safe & Sound (The Hunger Games: Songs From District 12 And Beyond - The Collaboration)\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 46056,
+      "sha256": "9d3baae3d9ff1fa3698602111ea2878228826044e16bfce589efbb262643cc18"
+    },
+    {
+      "id": "official-video-dLfkQNnzh2o-maxres3",
+      "mediaPath": "/social/library/photos/official-video-dLfkQNnzh2o-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=dLfkQNnzh2o",
+      "alt": "Still from Taylor Swift's official \"Safe & Sound (The Hunger Games: Songs From District 12 And Beyond - The Collaboration)\" behind-the-scenes video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 35393,
+      "sha256": "9d9369ef2019d37de13cf46e9a1eaa217cbf25fb4093cc66fd7033576b76fec6"
     },
     {
       "id": "official-video-dmipFjOtMA8-maxres2",
@@ -1737,6 +1797,21 @@
       "sha256": "85f688c8fc51b5ef27e32e2543492e633d7b97b4947c43d8e982a31173b4c6f2"
     },
     {
+      "id": "official-video-OOPFMrF7v4Q-maxres2",
+      "mediaPath": "/social/library/photos/official-video-OOPFMrF7v4Q-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=OOPFMrF7v4Q",
+      "alt": "Still from Taylor Swift's official \"YouTube Presents Taylor Swift\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 63552,
+      "sha256": "a489a71eff9c7105890427c91e4ef726e0714732ebf37b5785e2fe7d59e2aa47"
+    },
+    {
       "id": "official-video-orXAg5dIMa8-maxres1",
       "mediaPath": "/social/library/photos/official-video-orXAg5dIMa8-maxres1.jpg",
       "credit": "Taylor Swift (official video)",
@@ -2262,6 +2337,51 @@
       "sha256": "27cf37608b7701a6739e504efb2d2bf498a9aec8652b7c2b37e1076fbda51a25"
     },
     {
+      "id": "official-video-xcLIGAIkztc-maxres1",
+      "mediaPath": "/social/library/photos/official-video-xcLIGAIkztc-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=xcLIGAIkztc",
+      "alt": "Still from Taylor Swift's official \"Mine (Live on Letterman)\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 63545,
+      "sha256": "95facaaaae5cd8c5262ef6d19b9ab225cba9009da5a802412cbae431a62d4d68"
+    },
+    {
+      "id": "official-video-xcLIGAIkztc-maxres2",
+      "mediaPath": "/social/library/photos/official-video-xcLIGAIkztc-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=xcLIGAIkztc",
+      "alt": "Still from Taylor Swift's official \"Mine (Live on Letterman)\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 41294,
+      "sha256": "26fee668a3b60c47e1c9aeee9e1763b2466c47c7ea8c32672183e0909385119a"
+    },
+    {
+      "id": "official-video-xcLIGAIkztc-maxres3",
+      "mediaPath": "/social/library/photos/official-video-xcLIGAIkztc-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=xcLIGAIkztc",
+      "alt": "Still from Taylor Swift's official \"Mine (Live on Letterman)\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 69671,
+      "sha256": "6aa2a6e29848e4674f6f11802e912cf18ef2d096021ff46f299ecdc8e5fb90b1"
+    },
+    {
       "id": "official-video-XPBwXKgDTdE-maxres2",
       "mediaPath": "/social/library/photos/official-video-XPBwXKgDTdE-maxres2.jpg",
       "credit": "Taylor Swift (official video)",
@@ -2395,6 +2515,51 @@
       "height": 720,
       "bytes": 67908,
       "sha256": "0095858055cbaeec64d5743168b0aa27be7db4ab76da15f054dcc46de61780db"
+    },
+    {
+      "id": "official-video-zudLJdajX5Y-maxres1",
+      "mediaPath": "/social/library/photos/official-video-zudLJdajX5Y-maxres1.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=zudLJdajX5Y",
+      "alt": "Still from Taylor Swift's official \"You Belong With Me (Live on Letterman)\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 58185,
+      "sha256": "c48ebb673a5595130af1df787258e5dbfadb20939d08bf37ff66429f6250beec"
+    },
+    {
+      "id": "official-video-zudLJdajX5Y-maxres2",
+      "mediaPath": "/social/library/photos/official-video-zudLJdajX5Y-maxres2.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=zudLJdajX5Y",
+      "alt": "Still from Taylor Swift's official \"You Belong With Me (Live on Letterman)\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 38545,
+      "sha256": "6234f3bfaa31a02eea9132f3f1e63273c559a49b5a113ae5b59cefcc9f969e88"
+    },
+    {
+      "id": "official-video-zudLJdajX5Y-maxres3",
+      "mediaPath": "/social/library/photos/official-video-zudLJdajX5Y-maxres3.jpg",
+      "credit": "Taylor Swift (official video)",
+      "source": "https://www.youtube.com/watch?v=zudLJdajX5Y",
+      "alt": "Still from Taylor Swift's official \"You Belong With Me (Live on Letterman)\" performance video.",
+      "tags": [
+        "official-video",
+        "speak-now"
+      ],
+      "width": 1280,
+      "height": 720,
+      "bytes": 62967,
+      "sha256": "82cbff54afe365bd8422a52abe2c3c3da10cdac2252e906744b5c080e658cd47"
     },
     {
       "id": "openverse-00d105eb-a853-426e-b587-4862a1b0ad60",
@@ -2801,6 +2966,20 @@
       "height": 1024,
       "bytes": 90473,
       "sha256": "37f10d6926e2734c6798b47b8aa7c33dc58fdd99cec135fbb7f3cac65eb29bf2"
+    },
+    {
+      "id": "press-04ac931fd121",
+      "mediaPath": "/social/library/photos/press-04ac931fd121.jpg",
+      "source": "https://www.sportbible.com/nba/taylor-swift-new-york-knicks-fake-fan-tyler-kolek-miles-mcbride-447499-20261107",
+      "alt": "Taylor Swift in the news: Taylor Swift issued 'would be the greatest performance ever' verdict amid ‘fake’ New York Knicks fan drama",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via SPORTbible",
+      "width": 1200,
+      "height": 675,
+      "bytes": 76201,
+      "sha256": "b23e9b06f07619a145045245c6f6dcbc2d5ec4524d6a5bd7d789cdf0b2acc2e5"
     },
     {
       "id": "press-1419703a277e",
