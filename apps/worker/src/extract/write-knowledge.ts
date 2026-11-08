@@ -18,6 +18,8 @@ import {
   FAN_SIGNAL_EXPIRY_DAYS,
   LIVE_THEORY_EXPIRY_DAYS,
 } from './expiry';
+import { isMissingSignificanceColumn } from './daily-text-cap';
+import type { SignificanceVerdictRecord } from './significance-prompt';
 import { findTheoryMatch } from './theory-match';
 import { mergeEvidenceIds, theoryImageFields, type TheoryEvidence } from './live-theory-image';
 
@@ -204,6 +206,7 @@ export async function writeCurrentItem(
   imageUrl?: string,
   v2?: WriterV2Write,
   embed?: CurrentItemEmbed,
+  significance?: SignificanceVerdictRecord,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -263,12 +266,21 @@ export async function writeCurrentItem(
     countdown_target_at: countdownTargetAt ?? null,
     ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
-  let { data, error } = await db.from('current_item').insert(embed ? ({ ...row, embed } as Record<string, unknown>) : row).select('id').single();
-  if (error && embed && isMissingEmbedColumn(error)) {
-    ({ data, error } = await db.from('current_item').insert(row).select('id').single());
+  const optional: Record<string, unknown> = {
+    ...(embed ? { embed } : {}),
+    ...(significance ? { significance_verdict: significance } : {}),
+  };
+  let { data, error } = await db.from('current_item').insert({ ...row, ...optional }).select('id').single();
+  for (let attempt = 0; error && attempt < 2; attempt++) {
+    if ('embed' in optional && isMissingEmbedColumn(error)) delete optional.embed;
+    else if ('significance_verdict' in optional && isMissingSignificanceColumn(error)) {
+      console.warn(`news-worker: significance_verdict column unavailable (${error.message}); inserting without it`);
+      delete optional.significance_verdict;
+    } else break;
+    ({ data, error } = await db.from('current_item').insert({ ...row, ...optional }).select('id').single());
   }
-  if (error) throw new Error(`current_item insert failed: ${error.message}`);
-  const id = data?.id as string;
+  if (error || !data) throw new Error(`current_item insert failed: ${error?.message ?? 'no row returned'}`);
+  const id = data.id as string;
   if (row.redline_ok) {
     await emitLaunchCategoryEvent(db, id, item);
   }
