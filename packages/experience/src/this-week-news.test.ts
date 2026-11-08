@@ -61,7 +61,15 @@ describe('thisWeekNewsItems', () => {
   });
 });
 
+const embedOf = (videoId: string) => ({ provider: 'youtube' as const, videoId });
+
 describe('isThisWeekNews', () => {
+  it('keeps a malformed-id video pinned', () => {
+    const bad = currentItem({ id: 'b', observedOn: '2026-11-02', mediaKind: 'video', embed: embedOf('short') });
+    expect(isThisWeekNews(bad, NOW)).toBe(true);
+    expect(thisWeekNewsItems([bad], NOW).map((i) => i.id)).toEqual(['b']);
+  });
+
   it('is false for a playable video, so it renders as a stream card', () => {
     const video = currentItem({ id: 'v', observedOn: '2026-11-02', mediaKind: 'video', embed: { provider: 'youtube', videoId: 'dQw4w9WgXcQ' } });
     expect(isThisWeekNews(video, NOW)).toBe(false);
@@ -84,6 +92,15 @@ describe('streamExtraEntries', () => {
   );
   const egg = { kind: 'egg' } as never;
   const thread = { kind: 'thread' } as never;
+
+  it('shows an in-window playable video exactly once, as a stream card and not pinned', () => {
+    const video = currentItem({ id: 'v', observedOn: '2026-11-02', mediaKind: 'video', embed: embedOf('dQw4w9WgXcQ') });
+    const entries = currentFeedEntries([video], '2026-01-01', '2026-12-31');
+    const inStream = streamExtraEntries([], entries, NOW).filter((e) => e.kind === 'current' && e.item.id === 'v');
+    const pinned = thisWeekNewsItems([video], NOW).filter((i) => i.id === 'v');
+    expect(inStream.length + pinned.length).toBe(1);
+    expect(inStream).toHaveLength(1);
+  });
 
   it('drops egg doorways, keeps other doorways', () => {
     expect(streamExtraEntries([egg, thread], [], NOW)).toEqual([thread]);

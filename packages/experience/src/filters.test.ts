@@ -179,6 +179,15 @@ describe('filtersForEntry', () => {
     expect(filtersForEntry(make(['Videos']), noOwners)).toEqual(['Videos']);
   });
 
+  it('a current video item with a malformed embed id gets no Videos chip', () => {
+    const entry: EraFeedEntry = {
+      kind: 'current',
+      item: { tags: ['Music'], mediaKind: 'video', embed: { provider: 'youtube', videoId: 'short' } } as unknown as CurrentItem,
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Music']);
+  });
+
   it('a current item without an embed does not match Videos', () => {
     const entry: EraFeedEntry = {
       kind: 'current',
