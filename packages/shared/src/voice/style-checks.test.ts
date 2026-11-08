@@ -21,7 +21,7 @@ describe('hasContrastFrame', () => {
     "This isn't a comeback, it's a coronation.",
     "It isn't about the money — it's about the music.",
     "It's not a rumor — it's a confirmed date.",
-    'Not just a single, an entire era.',
+    'Not just a single, but an entire era.',
   ])('flags %s', (text) => {
     expect(hasContrastFrame(text)).toBe(true);
   });
@@ -30,6 +30,8 @@ describe('hasContrastFrame', () => {
     'The album drops Friday and the tour follows in spring.',
     "She isn't commenting on the report.",
     'Not everyone agrees.',
+    "It wasn't perfect, but she kept going.",
+    'She did it not just once.',
   ])('passes %s', (text) => {
     expect(hasContrastFrame(text)).toBe(false);
   });
