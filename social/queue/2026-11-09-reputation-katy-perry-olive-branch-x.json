@@ -2,22 +2,45 @@
   "platform": "x",
   "lane": "calendar",
   "body": "pop's longest-running feud settled with a literal olive branch 🫒 katy perry left one backstage for taylor on reputation opening night, 2018, carrying a message: \"hello old friend.\" tag whoever you need to text first https://longlivets.com/?item=vault-reputation-katy-perry-sends-a-literal-olive-branch-on-opening-night&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
-  "media": ["/social/library/photos/taylor-reputation-inglewood-2023-3.jpg"],
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-3.jpg"
+  ],
   "mediaKind": "photo",
   "photoId": "reputation-inglewood-2023-3",
   "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
   "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53108877077).jpg",
   "scheduledAt": "2026-11-09T23:00:00Z",
-  "altText": ["Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023."],
+  "altText": [
+    "Taylor Swift in a black-and-red snake-sequined one-legged bodysuit, pointing skyward during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
   "photoEra": "reputation",
   "campaign": "heartbeat:era-deep-cut:reputation-katy-perry-olive-branch:2026-11-09",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 4, "onVoice": 5, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 5 },
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
     "total": 22,
     "rationale": "The Katy Perry olive branch and 'hello old friend' note on reputation opening night is one of the era's warmest, best-sourced moments — the public end of pop's longest feud. Reputation is untouched this fortnight; drafted as the day-0 fallback after the phone gate couldn't be verified.",
-    "rulesChecked": ["L002"],
+    "rulesChecked": [
+      "L002"
+    ],
     "revision": 1
   },
-  "why": "11-09 23:00Z was launch:photo-viewer DAY 0, which has a HARD phone pinch-zoom gate (invariant 6) an automated run cannot perform. Per the beat's own fallback, drafted a heartbeat:era-deep-cut on reputation (untouched this fortnight) instead; the launch arc waits for a run that can verify the feature on a real phone. X half written first; hook = the artifact (olive branch)."
+  "why": "11-09 23:00Z was launch:photo-viewer DAY 0, which has a HARD phone pinch-zoom gate (invariant 6) an automated run cannot perform. Per the beat's own fallback, drafted a heartbeat:era-deep-cut on reputation (untouched this fortnight) instead; the launch arc waits for a run that can verify the feature on a real phone. X half written first; hook = the artifact (olive branch).",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-08T17:14:06.221Z",
+    "pr": 6697,
+    "message": "social-tree-approve run 42503847344",
+    "contentHash": "sha256:7e236abb8cb914b0ce58433547c8ae4d5e11614eb1b5e8ae94699bb0b0d4a9c0",
+    "mediaDigest": "sha256:189d7aa310928725d9916f28f3cc2c1bd6fa43ec3a44f16d39ccbc559f41ef2f",
+    "sig": "hmac-sha256:d2aab49c14450fb7d862c8f176e6c97d439c02da17dac3614cd3cde84f24357c"
+  }
 }

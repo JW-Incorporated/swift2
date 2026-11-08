@@ -2,22 +2,45 @@
   "platform": "instagram",
   "lane": "calendar",
   "body": "i cannot stop thinking about this one 🥹\n\nhouston, november 2011. the speak now tour pulls into minute maid park, a sold-out 42,000 in the room — and out walks NELLY to sing \"just a dream\" with taylor.\n\nhere's the part we only just learned: fifteen years on, nelly revealed she paid him $50,000, handed over at his own request in a mcdonald's bag flown in from st. louis.\n\nhis verdict on all of it? \"i would've done it for free.\"\n\ntag the friend who'd turn up for you like that, no questions asked.\n\nthe full story lives on longlivets.com → https://longlivets.com/?item=vault-speak-now-nelly-surprises-houston-for-just-a-dream-and-he-revealed-15-&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n📷 Paolo Villanueva (CC BY 2.0), via Wikimedia Commons\n\n#TaylorSwift #SpeakNow #Nelly #JustADream #Swifties #LongLive",
-  "media": ["/social/library/photos/taylor-speaknow-inglewood-2023-3-ig45.jpg"],
+  "media": [
+    "/social/library/photos/taylor-speaknow-inglewood-2023-3-ig45.jpg"
+  ],
   "mediaKind": "photo",
   "photoId": "speaknow-inglewood-2023-3-ig45",
   "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
   "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53109885890).jpg",
   "scheduledAt": "2026-11-08T23:00:00Z",
-  "altText": ["Taylor Swift in a sparkling ball gown playing a blue acoustic guitar at the microphone during the Speak Now set of the Eras Tour, Inglewood 2023, lit in violet."],
+  "altText": [
+    "Taylor Swift in a sparkling ball gown playing a blue acoustic guitar at the microphone during the Speak Now set of the Eras Tour, Inglewood 2023, lit in violet."
+  ],
   "photoEra": "speak-now",
   "campaign": "heartbeat:era-deep-cut:nelly-houston-just-a-dream:2026-11-08",
   "critique": {
     "v": 1,
-    "scores": { "onStrategy": 5, "onVoice": 4, "specific": 5, "mediaEarnsItsPlace": 3, "notEmbarrassed": 5 },
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
     "total": 22,
     "rationale": "Nelly's $50,000-in-a-McDonald's-bag reveal is a jaw-dropping, fully sourced story told in full on IG with the surprise setup and the 'I would've done it for free' quote. The share hook ties to his loyalty, and the Speak Now era photo matches the 2011 duet.",
-    "rulesChecked": ["L002"],
+    "rulesChecked": [
+      "L002"
+    ],
     "revision": 1
   },
-  "why": "NEWS RESERVE #3 (11-08, 23:00Z) IG sibling of the Nelly pair. Sourced to the Vault moment + The Breakfast Club reveal (aired 2026-10-28). Credited Speak Now era photo (never used)."
+  "why": "NEWS RESERVE #3 (11-08, 23:00Z) IG sibling of the Nelly pair. Sourced to the Vault moment + The Breakfast Club reveal (aired 2026-10-28). Credited Speak Now era photo (never used).",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-08T17:14:06.221Z",
+    "pr": 6697,
+    "message": "social-tree-approve run 42503847344",
+    "contentHash": "sha256:ded5721617ea0fda09ca6202a05bb07dd93a48ca9e36298ba2b985062a8ad29e",
+    "mediaDigest": "sha256:ea42b3794bcb0e1d3897898c2248764a60d7d676748852135e9e2e94f9ce02c2",
+    "sig": "hmac-sha256:cbd7a3e7ce3b0dc146115a351a93fc476c3e11d3b82f3c8da5f9f1efc7482152"
+  }
 }
