@@ -1,6 +1,8 @@
+import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { readmeText, splitKit, stratify } from './build-writer-eval-kit.mjs';
-import { parseDays, parseIsoDate, parseLimit } from './backfill-args.mjs';
+import { parseDays, parseIds, parseIsoDate, parseLimit } from './backfill-args.mjs';
 import { clearRetired, restoreSnapshots } from './restore-copy-snapshot.mjs';
 
 function kitRow(i: number, category: string, sourceTier: string) {
@@ -83,6 +85,15 @@ describe('restoreSnapshots', () => {
     const result = await restoreSnapshots(db, { id: 'a', dryRun: false });
     expect(result).toMatchObject({ found: 1, restored: 1 });
     expect(updates).toEqual([{ id: 'a', values: { headline: 'H newer', summary: 'S newer', detail: 'D newer', facts: null, writing_score: null } }]);
+  });
+
+  it('round-trips facts and writing_score from a rewrite snapshot', async () => {
+    const facts = [{ id: 'f1', claim: 'c', attribution: 'People', confidence: 'reported' }];
+    const { db, updates } = snapshotDb([
+      { current_item_id: 'r', headline: 'Hr', summary: 'Sr', detail: 'Dr', facts, writing_score: 3, reason: 'backfill_rewrite', snapshot_at: '2026-11-04T00:00:00Z' },
+    ]);
+    await restoreSnapshots(db, { id: 'r', dryRun: false });
+    expect(updates).toEqual([{ id: 'r', values: { headline: 'Hr', summary: 'Sr', detail: 'Dr', facts, writing_score: 3 } }]);
   });
 
   it('restores everything since a timestamp', async () => {
@@ -175,6 +186,35 @@ describe('clearRetired', () => {
   });
 });
 
+describe('content-backfill workflow inputs', () => {
+  const yml = readFileSync(new URL('../../.github/workflows/content-backfill.yml', import.meta.url), 'utf8');
+  const script = yml.split('- name: Validate inputs')[1]!.split('run: |\n')[1]!.split('\n      - name:')[0]!
+    .split('\n').map((l) => l.replace(/^ {10}/, '')).join('\n');
+  const bash = spawnSync('bash', ['-c', 'true']);
+  const validate = (env: Record<string, string>) =>
+    spawnSync('bash', ['-c', script], { env: { PATH: process.env.PATH ?? '', INPUT_LIMIT: '0', INPUT_DAYS: '', INPUT_IDS: '', INPUT_MODE: 'rewrite', ...env }, encoding: 'utf8' });
+  const uuid = '123e4567-e89b-12d3-a456-426614174000';
+
+  it('offers rewrite, an ids input, and keeps dry_run defaulting to true', () => {
+    expect(yml).toMatch(/options:\s+- floors\s+- force\s+- rewrite/);
+    expect(yml).toMatch(/\n {6}ids:\n/);
+    expect(yml).toMatch(/dry_run:[\s\S]*?default: true/);
+    expect(yml).toContain('BACKFILL_IDS: ${{ inputs.ids }}');
+    expect(yml).toContain('INPUT_IDS: ${{ inputs.ids }}');
+  });
+
+  it.skipIf(bash.error !== undefined)('validates ids, and refuses retire flags in rewrite mode', () => {
+    expect(validate({}).status).toBe(0);
+    expect(validate({ INPUT_IDS: `${uuid},${uuid}` }).status).toBe(0);
+    expect(validate({ INPUT_IDS: `${uuid};rm -rf` }).status).toBe(1);
+    expect(validate({ INPUT_IDS: 'abc' }).status).toBe(1);
+    expect(validate({ INPUT_IDS: uuid, INPUT_MODE: 'force' }).status).toBe(1);
+    expect(validate({ INPUT_RETIRE_BELOW_FLOOR: 'true' }).status).toBe(1);
+    expect(validate({ INPUT_RETIRE_UNWRITABLE: 'true' }).status).toBe(1);
+    expect(validate({ INPUT_MODE: 'force', INPUT_RETIRE_UNWRITABLE: 'true' }).status).toBe(0);
+  });
+});
+
 describe('argument validation', () => {
   it('treats empty days as the feed window and rejects non-integers', () => {
     expect(parseDays(undefined)).toBeUndefined();
@@ -189,6 +229,15 @@ describe('argument validation', () => {
     expect(parseLimit('0')).toBe(0);
     expect(parseLimit(undefined)).toBe(0);
     for (const bad of ['ten', '-5', '', '1.5', ' 3']) expect(() => parseLimit(bad)).toThrow(/invalid limit/);
+  });
+
+  it('accepts only comma-separated UUIDs for ids', () => {
+    const a = '123e4567-e89b-12d3-a456-426614174000';
+    const b = '123E4567-E89B-12D3-A456-426614174001';
+    expect(parseIds(undefined)).toBeUndefined();
+    expect(parseIds('')).toBeUndefined();
+    expect(parseIds(`${a},${b}`)).toEqual([a, b.toLowerCase()]);
+    for (const bad of ['abc', `${a},`, `${a};${b}`, `${a},not-a-uuid`]) expect(() => parseIds(bad)).toThrow(/invalid ids/);
   });
 
   it('fails closed on a malformed --since', () => {

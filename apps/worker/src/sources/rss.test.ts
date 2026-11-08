@@ -1,6 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
-import { parseFeed, readPublisher } from './rss';
+import { parseFeed, readPublisher, USER_AGENT } from './rss';
 import { YOUTUBE_FEED_BASE_DELAY_MS, YOUTUBE_FEED_MAX_ATTEMPTS } from './retry';
+
+const parserOptions = vi.hoisted(() => ({ seen: [] as unknown[] }));
+vi.mock('rss-parser', () => ({
+  default: class {
+    constructor(options: unknown) {
+      parserOptions.seen.push(options);
+    }
+  },
+}));
 
 const YT_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g';
 
@@ -33,6 +42,12 @@ describe('parseFeed retry policy', () => {
     const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
     await expect(parseFeed('https://example.com/feed.xml', parse, sleep)).rejects.toThrow('Status code 404');
     expect(parse).toHaveBeenCalledTimes(3);
+  });
+
+  it('constructs the parser with the identifying User-Agent header', () => {
+    expect(USER_AGENT).toMatch(/Swift2KnowledgeEngine/);
+    expect(parserOptions.seen).toHaveLength(1);
+    expect(parserOptions.seen[0]).toMatchObject({ headers: { 'User-Agent': USER_AGENT } });
   });
 });
 

@@ -48,7 +48,12 @@
 // single-quote span detection impractical without a real parser, and the
 // false-negative cost (a quote's "Swift" counted as bare) is much cheaper
 // than the false-positive cost (silently excluding real running prose).
+import { readFileSync } from 'node:fs';
 import { makeFinding } from '../lib/finding.mjs';
+
+const voiceRules = JSON.parse(
+  readFileSync(new URL('../../../packages/shared/src/voice/rules.json', import.meta.url), 'utf8'),
+);
 
 export const id = 'content.voice';
 
@@ -123,17 +128,10 @@ export async function checkSurnameOveruse(items) {
 // docs/content-ops/editorial-voice-and-pipeline.md § "Cut on sight". Kept as
 // literal substrings/patterns matching the doc's own list, not a fuzzy
 // model — a deterministic checker should never guess at tone.
-const AI_TELLS = [
-  { label: '"In this article..." throat-clearing', re: /\bin this article\b/i },
-  { label: '"It is worth noting that..." hedge', re: /\bit is worth noting that\b/i },
-  {
-    label: 'Wire-style full-name-plus-bio opener ("Taylor Swift, the American singer-songwriter...")',
-    re: /\bTaylor Swift,\s*the\s+(?:American\s+)?(?:singer(?:-songwriter)?|musician|artist|pop star)\b/i,
-  },
-  { label: 'Hedging qualifier ("it seems")', re: /\bit seems\b/i },
-  { label: 'Hedging qualifier ("reportedly appears to")', re: /\breportedly appears to\b/i },
-  { label: 'Corporate throat-clearing ("we will explore")', re: /\bwe will explore\b/i },
-];
+const AI_TELLS = voiceRules.aiTells.core.map(({ label, pattern, flags }) => ({
+  label,
+  re: new RegExp(pattern, flags),
+}));
 
 export async function checkAiTells(items) {
   const findings = [];

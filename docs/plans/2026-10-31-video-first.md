@@ -72,7 +72,7 @@ Baseline (`check:media-mix`, #6480, 2026-10-31): tloas 6.1% video (25/408), all 
 - **Q4.** Auto-ingest fan-shot concert footage? **Not yet.** It's where the volume is, but "real, non-AI" can't be verified without a key. Revisit if the success signal misses.
 
 ## 6. Not doing
-- No YouTube Data API key.
+- No YouTube Data API key. Deferred 2026-11-08 (`docs/decisions.md`); revisit when slice 6 ships, or the weekly YouTube soft-miss rate is above 10%, or fan-shot footage (Q4) is approved.
 - No re-hosting.
 - No auto-created video_work rows.
 - No read-time tag inference.
