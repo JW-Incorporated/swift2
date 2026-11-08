@@ -336,6 +336,35 @@ describe('getRecentItems', () => {
     const result = await getRecentItems(db, 7);
     expect(result.map((r) => r.id)).not.toContain('ci:unqualified');
   });
+
+  it('retries once without embed,media_kind when the columns are not migrated yet, reading rows as text', async () => {
+    const selects: string[] = [];
+    const db = {
+      from: () => ({
+        select: (cols: string) => {
+          selects.push(cols);
+          if (cols.includes('media_kind')) {
+            const failing: Record<string, unknown> = {
+              then: (resolve: (r: { data: null; error: { message: string } }) => void) =>
+                resolve({ data: null, error: { message: 'column current_item.embed does not exist' } }),
+            };
+            for (const m of ['gte', 'eq', 'is', 'order', 'limit']) failing[m] = () => failing;
+            return failing;
+          }
+          return makeQueryBuilder(items);
+        },
+      }),
+    } as unknown as SupabaseClient;
+    const result = await getRecentItems(db, 7);
+    expect(selects).toHaveLength(2);
+    expect(selects[1]).not.toMatch(/embed|media_kind/);
+    expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:6', 'ci:2']);
+    expect(result.every((r) => r.embed === undefined && r.mediaKind === 'text')).toBe(true);
+  });
+
+  it('does not retry on an unrelated error', async () => {
+    await expect(getRecentItems(errorDb('network unreachable'), 7)).rejects.toThrow('recent: network unreachable');
+  });
 });
 
 describe('getChatter', () => {

@@ -25,8 +25,7 @@
  *                     (moments + video records + live items)
  *
  * One row per era + an ALL row. With --json the same data is printed as
- * JSON instead. Live data is only fetched when --live is passed (today the
- * live count is always 0 — no live items embed a video yet).
+ * JSON instead. Live data is only fetched when --live is passed (live items count as video when media_kind is 'video').
  */
 
 import { runMain } from './lib/cli.mjs';
@@ -36,7 +35,7 @@ import { runMain } from './lib/cli.mjs';
  *
  * @param {Array<{ id: string, video?: { youtubeId?: string, watchUrl?: string } | null }>} moments
  * @param {Array<{ slug: string, youtubeId?: string | null, watchUrl?: string | null }>} videoRecords
- * @param {Array<{ id: string, embed?: unknown }>} liveItems
+ * @param {Array<{ id: string, mediaKind?: string }>} liveItems
  * @param {number} [liveVideoCount] — how many live items have a video (pre-computed)
  * @returns {object} row with counts + total + videoShare
  */
@@ -56,6 +55,11 @@ export function mediaMixRow(moments, videoRecords = [], liveItems = [], liveVide
     total,
     videoShare,
   };
+}
+
+/** A live item counts as video when its media_kind says so (the embed alone is not trusted). */
+export function isLiveVideo(item) {
+  return item.mediaKind === 'video';
 }
 
 export const VIDEO_SHARE_FLOOR = 0.15;
@@ -129,7 +133,7 @@ async function main() {
     }
   }
 
-  const liveVideoCount = liveItems.filter((item) => item.embed != null).length;
+  const liveVideoCount = liveItems.filter(isLiveVideo).length;
 
   // Build per-era rows + the ALL aggregate.
   const rows = [];

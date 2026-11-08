@@ -8,7 +8,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
-import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import type { CurrentItemCategory, CurrentItemEmbed, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
 import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, outletLabel, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFact, ExtractedFanSignal, ExtractedTheory } from './types';
@@ -186,6 +186,14 @@ export interface WriterV2Write {
   holdReason?: string;
 }
 
+/** The embed column predates its migration on some databases; the row is then written without it. */
+function isMissingEmbedColumn(error: { message: string; code?: string }): boolean {
+  return (
+    /embed/.test(error.message) &&
+    (error.code === '42703' || error.code === 'PGRST204' || /does not exist|schema cache/i.test(error.message))
+  );
+}
+
 export async function writeCurrentItem(
   db: SupabaseClient,
   storyId: string,
@@ -195,6 +203,7 @@ export async function writeCurrentItem(
   countdownTargetAt?: string,
   imageUrl?: string,
   v2?: WriterV2Write,
+  embed?: CurrentItemEmbed,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -254,9 +263,12 @@ export async function writeCurrentItem(
     countdown_target_at: countdownTargetAt ?? null,
     ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
-  const { data, error } = await db.from('current_item').insert(row).select('id').single();
+  let { data, error } = await db.from('current_item').insert(embed ? ({ ...row, embed } as Record<string, unknown>) : row).select('id').single();
+  if (error && embed && isMissingEmbedColumn(error)) {
+    ({ data, error } = await db.from('current_item').insert(row).select('id').single());
+  }
   if (error) throw new Error(`current_item insert failed: ${error.message}`);
-  const id = data.id as string;
+  const id = data?.id as string;
   if (row.redline_ok) {
     await emitLaunchCategoryEvent(db, id, item);
   }
