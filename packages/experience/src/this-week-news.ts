@@ -1,6 +1,6 @@
 import type { CurrentItem } from '@swift2/shared';
 import { passesCurrentItemQualityGate } from '@swift2/shared';
-import { collapseMergedDuplicates } from './current-feed';
+import { collapseMergedDuplicates, isPlayableVideoItem } from './current-feed';
 import type { EraFeedEntry } from './era-feed';
 import type { VideoNote } from './types';
 
@@ -8,8 +8,11 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 /** Whether a live item was observed within the last 7 days — the one window
  * both the pinned "This week's news" section and the stream's exclusion of
- * those same items read, so the two can never overlap or leave a gap. */
+ * those same items read, so the two can never overlap or leave a gap.
+ * A playable video is never pinned: it renders as its own stream card so it
+ * can play in the feed (video-first slice 5). */
 export function isThisWeekNews(item: CurrentItem, nowMs: number): boolean {
+  if (isPlayableVideoItem(item)) return false;
   const t = Date.parse(item.observedOn);
   return !Number.isNaN(t) && t >= nowMs - WEEK_MS;
 }
