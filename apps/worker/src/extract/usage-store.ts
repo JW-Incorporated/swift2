@@ -164,6 +164,36 @@ export const JUDGE_PER_RUN_CAP = 100;
 export const JUDGE_DAILY_CAP = 400;
 const JUDGE_SCOPE = 'judge';
 
+/** The significance judge (Opus) has its own budget and durable counter. One call per cluster that
+ * layer 1 does not hold; a busy hour is ~10 clusters, so 30/run leaves 3x headroom and 400/day covers
+ * ~10 busy hours plus retries of deferred stories. */
+export const SIGNIFICANCE_PER_RUN_CAP = 30;
+export const SIGNIFICANCE_DAILY_CAP = 400;
+const SIGNIFICANCE_SCOPE = 'significance';
+
+/** Real UsageDb backed by usage_daily / increment_usage_daily('significance'). */
+export function supabaseSignificanceUsageDb(
+  db: import('@supabase/supabase-js').SupabaseClient,
+): UsageDb {
+  return {
+    async todaysCallCount() {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data, error } = await db
+        .from('usage_daily')
+        .select('call_count')
+        .eq('scope', SIGNIFICANCE_SCOPE)
+        .eq('usage_date', today)
+        .maybeSingle();
+      if (error) throw error;
+      return data?.call_count ?? 0;
+    },
+    async incrementToday() {
+      const { error } = await db.rpc('increment_usage_daily', { p_scope: SIGNIFICANCE_SCOPE });
+      if (error) throw error;
+    },
+  };
+}
+
 /** Real UsageDb backed by usage_daily / increment_usage_daily('judge'). */
 export function supabaseJudgeUsageDb(
   db: import('@supabase/supabase-js').SupabaseClient,
