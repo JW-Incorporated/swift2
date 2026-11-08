@@ -58,7 +58,7 @@ async function alreadyRewritten(db: SupabaseClient, ids: readonly string[], sinc
       .from('current_item_copy_snapshot')
       .select('current_item_id')
       .eq('reason', REWRITE_SNAPSHOT_REASON)
-      .gte('created_at', since)
+      .gte('snapshot_at', since)
       .in('current_item_id', ids.slice(i, i + SNAPSHOT_ID_CHUNK));
     if (error) throw new Error(`rewrite backfill snapshot load failed: ${error.message}`);
     for (const r of (data ?? []) as unknown as { current_item_id: string }[]) done.add(r.current_item_id);
