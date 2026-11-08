@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Knicks Work to Address Comments on Taylor Swift's Fan Status
+
+- first seen: 2026-11-08 16:52 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Knicks are reportedly taking steps to manage the fallout after Tyler Kolek referred to Taylor Swift as a 'fake fan'. This follows recent discussions surrounding celebrity involvement in sports fandom.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2516990/the-knicks-attempt-damage-control-after-tyler-kolek-calls-taylor-swift-a-fake-fan/news/
+
+## Taylor Swift's Possible Attendance at Chiefs Game on November 8
+
+- first seen: 2026-11-08 16:52 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The latest information discusses whether Taylor Swift will attend the Chiefs game on November 8. Fans are eager to know about her potential appearance at the event.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66101293/?ref_=nwc_art_perm
 
 ## Where to Watch Jets vs. Chiefs with Taylor Swift Insights
 
@@ -71,11 +87,12 @@ Stories: 83
 ## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
 
 - first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
 - sources:
   - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
   - [established] The New York Times — https://www.nytimes.com/athletic/7762791/2026/11/08/taylor-swift-knicks-fandom-tyler-kolek-apology/
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/why-taylor-swift-fans-mad-154200587.html
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
 
@@ -711,11 +728,3 @@ Stories: 83
   - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-shows-austria-terror-plot-documentary-1236374736/
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-1235653111/
   - [unverified] Rolling Stone Australia — https://au.rollingstone.com/music/music-news/taylor-swift-vienna-terror-concert-documentary-103053/
-
-## Stella Lefty Performs at Capital's Jingle Bell Ball, Following Taylor Swift
-
-- first seen: 2026-11-05 16:02 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Stella Lefty is noted as the first country artist to perform at Capital's Jingle Bell Ball since Taylor Swift. This marks a significant moment in the event's history for country music representation.
-- sources:
-  - [unverified] Holler Country — https://holler.country/news/breaking/stella-lefty-is-first-country-artist-since-taylor-swift-to-perform-at-capitals-jingle-bell-ball/
