@@ -74,6 +74,8 @@ async function main() {
     significanceHeld: result.extract.significanceHeld,
     significanceDeferred: result.extract.significanceDeferred,
     significanceFallback: result.extract.significanceFallback,
+    significanceBudgetExhausted: result.extract.significanceBudgetExhausted,
+    tier2CapHeld: result.extract.tier2CapHeld,
     tierCounts: result.extract.tierCounts,
     theoriesUpserted: result.extract.theoriesUpserted,
     theoryHoldReasons: result.extract.theoryHoldReasons,

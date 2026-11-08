@@ -187,6 +187,26 @@ describe('runExtractStage significance gate', () => {
     vi.unstubAllEnvs();
   });
 
+  it.each([
+    ['discard', { action: 'discard', reason: 'no_new_info' }],
+    ['attach_video', { action: 'attach_video' }],
+    ['dedupe hold', { action: 'hold', reason: 'unsure' }],
+    ['merge', { action: 'merge', candidateId: 'c1', needsRewrite: false }],
+  ])('skips the stage entirely for a %s decision', async (_name, decision) => {
+    mocks.evaluateSameEventGate.mockResolvedValue(decision);
+    const { result } = await run(SIGHTING_ITEM);
+    expect(mocks.judgeSignificance).not.toHaveBeenCalled();
+    expect(result.tierCounts).toEqual({});
+    expect(result.significanceHeld).toEqual({});
+  });
+
+  it('judges only a story that becomes a new row, after the dedupe decision', async () => {
+    const { result } = await run(TOUR_ITEM);
+    expect(mocks.evaluateSameEventGate.mock.invocationCallOrder[0]).toBeLessThan(mocks.judgeSignificance.mock.invocationCallOrder[0]!);
+    expect(mocks.judgeSignificance).toHaveBeenCalledOnce();
+    expect(result.extracted).toBe(1);
+  });
+
   it('holds a layer-1 rule match as not_notable:<rule> without calling the judge or writer', async () => {
     const { result, row } = await run(SIGHTING_ITEM);
     expect(mocks.judgeSignificance).not.toHaveBeenCalled();
@@ -226,21 +246,31 @@ describe('runExtractStage significance gate', () => {
   describe('judge outage', () => {
     const DEFERRED = { status: 'deferred', reason: 'no_token' };
     const OFFICIAL = [{ outletName: 'Taylor Swift', url: 'https://www.taylorswift.com/news', tier: 'official' }];
-    const THIN = [{ outletName: 'A Blog', url: 'https://blog.example.com/a', tier: 'unverified' }];
+    const THIN = [
+      { outletName: 'A Blog', url: 'https://blog.example.com/a', tier: 'unverified' },
+      { outletName: 'Another Blog', url: 'https://other.example.org/b', tier: 'unverified' },
+    ];
 
-    it('final attempt: publishes an official-source story as tier 2 via the fallback', async () => {
+    it('final attempt: publishes an official-source story as uncapped tier 1 via the fallback', async () => {
       mocks.judgeSignificance.mockResolvedValue(DEFERRED);
       mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 2 }];
       const { result, row } = await run(TOUR_ITEM, OFFICIAL);
       expect(row).toMatchObject({
         redline_ok: true,
-        significance_verdict: { tier: 2, reason: 'fallback:judge_unavailable', model: 'rules' },
+        significance_verdict: { tier: 1, reason: 'fallback:judge_unavailable', model: 'rules' },
       });
       expect(result.significanceFallback).toBe(1);
-      expect(result.tierCounts).toEqual({ '2': 1 });
+      expect(result.tierCounts).toEqual({ '1': 1 });
     });
 
-    it('final attempt: holds a single unverified-source story as not_notable:judge_unavailable', async () => {
+    it('final attempt: publishes a two-established-host story as tier 2 and ignores the tier-2 cap only for tier 1', async () => {
+      mocks.judgeSignificance.mockResolvedValue(DEFERRED);
+      mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 2 }];
+      const { row } = await run(TOUR_ITEM);
+      expect(row).toMatchObject({ redline_ok: true, significance_verdict: { tier: 2, reason: 'fallback:judge_unavailable' } });
+    });
+
+    it('final attempt: holds a two-unverified-host story as not_notable:judge_unavailable', async () => {
       mocks.judgeSignificance.mockResolvedValue(DEFERRED);
       mocks.pending = [{ id: 'story-1', canonical_title: 'Album', summary: '', v2_attempts: 2 }];
       const { result, row } = await run(TOUR_ITEM, THIN);
@@ -287,7 +317,8 @@ describe('runExtractStage significance gate', () => {
     const capped = await run(TOUR_ITEM);
     expect(mocks.writePost).not.toHaveBeenCalled();
     expect(capped.row).toMatchObject({ redline_ok: false, quality_hold_reason: 'daily_tier2_cap' });
-    expect(capped.result.dailyTextCapHeld).toBe(1);
+    expect(capped.result.tier2CapHeld).toBe(1);
+    expect(capped.result.dailyTextCapHeld).toBe(0);
 
     mocks.publishedToday.count = 3;
     const open = await run(TOUR_ITEM);

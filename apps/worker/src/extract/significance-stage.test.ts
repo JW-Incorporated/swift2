@@ -1,6 +1,11 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { describe, expect, it, vi } from 'vitest';
 import type { ExtractUsageStore } from './usage-store';
-import { assessSignificance, recordSignificance, significanceMode } from './significance-stage';
+import { assessSignificance, recordSignificance, runSignificanceStep, significanceMode } from './significance-stage';
+import type { SignificanceAssessment } from './significance-stage';
+
+const judgeMock = vi.hoisted(() => vi.fn());
+vi.mock('./significance-client', () => ({ judgeSignificance: judgeMock }));
 import { emptyResult } from './extract-stage-result';
 import type { ExtractedCurrentItem } from './types';
 
@@ -72,6 +77,46 @@ describe('recordSignificance', () => {
     recordSignificance(result, { kind: 'deferred', reason: 'no_token' });
     expect(result.tierCounts).toEqual({ '1': 1, '3': 2 });
     expect(result.significanceHeld).toEqual({ 'not_notable:judge': 2 });
+    expect(result.significanceDeferred).toBe(1);
+  });
+});
+
+describe('assessSignificance without a store', () => {
+  it('defers (never calls the judge) when the store could not be created', async () => {
+    const judge = vi.fn();
+    expect(await assessSignificance(undefined, item(), SOURCES, judge, NOW)).toEqual({ kind: 'deferred', reason: 'store_unavailable' });
+    expect(judge).not.toHaveBeenCalled();
+  });
+});
+
+describe('runSignificanceStep', () => {
+  const args = (result = emptyResult(), memo = new Map<string, SignificanceAssessment>()) => ({
+    db: {} as SupabaseClient,
+    result,
+    mode: 'shadow' as const,
+    store: STORE,
+    memo,
+    story: { id: 's1' },
+    item: item(),
+    sources: SOURCES,
+    eraId: 'tloas',
+    countdownTargetAt: undefined,
+    imageUrl: undefined,
+  });
+
+  it('judges a story at most once per run', async () => {
+    judgeMock.mockReset().mockResolvedValue({ status: 'ok', tier: 2, reason: 'r', model: 'm' });
+    const memo = new Map<string, SignificanceAssessment>();
+    await runSignificanceStep(args(emptyResult(), memo));
+    await runSignificanceStep(args(emptyResult(), memo));
+    expect(judgeMock).toHaveBeenCalledOnce();
+  });
+
+  it('flags an exhausted judge budget', async () => {
+    judgeMock.mockReset().mockResolvedValue({ status: 'deferred', reason: 'budget_exhausted' });
+    const result = emptyResult();
+    expect((await runSignificanceStep(args(result))).action).toBe('proceed');
+    expect(result.significanceBudgetExhausted).toBe(true);
     expect(result.significanceDeferred).toBe(1);
   });
 });

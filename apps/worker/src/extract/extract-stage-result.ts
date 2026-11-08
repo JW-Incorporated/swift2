@@ -34,6 +34,10 @@ export interface ExtractStageResult {
   significanceDeferred: number;
   /** Significance stage: final-attempt judge outages resolved by the rule-based fallback. */
   significanceFallback: number;
+  /** Significance stage: true when the judge budget (per run or per day) ran out this cycle. */
+  significanceBudgetExhausted: boolean;
+  /** Tier-2 items held by the daily tier-2 cap (also counted in v2Held). */
+  tier2CapHeld: number;
   /** Significance stage: verdicts per tier, keyed '1' | '2' | '3'. */
   tierCounts: Record<string, number>;
   heldImagesChecked: number;
@@ -68,6 +72,8 @@ export function emptyResult(): ExtractStageResult {
     significanceHeld: {},
     significanceDeferred: 0,
     significanceFallback: 0,
+    significanceBudgetExhausted: false,
+    tier2CapHeld: 0,
     tierCounts: {},
     heldImagesChecked: 0,
     heldImagesPublished: 0,
@@ -84,6 +90,7 @@ export function recordDiscard(result: ExtractStageResult, decision: { reason?: s
 
 export function recordV2Hold(result: ExtractStageResult, reason: string): void {
   result.v2Held += 1;
-  if (reason === DAILY_TEXT_CAP_HOLD || reason === TIER2_CAP_HOLD) result.dailyTextCapHeld += 1;
+  if (reason === DAILY_TEXT_CAP_HOLD) result.dailyTextCapHeld += 1;
+  if (reason === TIER2_CAP_HOLD) result.tier2CapHeld += 1;
   result.heldPassReasons[reason] = (result.heldPassReasons[reason] ?? 0) + 1;
 }

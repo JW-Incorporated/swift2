@@ -85,7 +85,8 @@ export async function countTier2PublishedToday(
 
 /** True when an error says `significance_verdict` does not exist yet (migration pending). */
 export function isMissingSignificanceColumn(error: { message: string; code?: string }): boolean {
-  return error.code === '42703' || error.code === 'PGRST204' || /significance_verdict/.test(error.message);
+  return /significance_verdict/.test(error.message)
+    && (error.code === '42703' || error.code === 'PGRST204' || /column/.test(error.message));
 }
 
 /** A hold when a tier-2 item would exceed its daily cap or the tier is 3, undefined when it may publish. Tier 1 never reads the count. */

@@ -267,8 +267,8 @@ export async function writeCurrentItem(
     console.warn(`news-worker: significance_verdict column unavailable (${error.message}); inserting without it`);
     ({ data, error } = await db.from('current_item').insert(row).select('id').single());
   }
-  if (error) throw new Error(`current_item insert failed: ${error.message}`);
-  const id = data!.id as string;
+  if (error || !data) throw new Error(`current_item insert failed: ${error?.message ?? 'no row returned'}`);
+  const id = data.id as string;
   if (row.redline_ok) {
     await emitLaunchCategoryEvent(db, id, item);
   }

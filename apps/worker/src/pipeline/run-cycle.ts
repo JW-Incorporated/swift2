@@ -82,6 +82,8 @@ export async function runCycle(
       significanceHeld: {},
       significanceDeferred: 0,
       significanceFallback: 0,
+      significanceBudgetExhausted: false,
+      tier2CapHeld: 0,
       tierCounts: {},
       heldImagesChecked: 0,
       heldImagesPublished: 0,

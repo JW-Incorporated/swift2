@@ -52,7 +52,7 @@ function distinctHosts(sources: readonly ClusterSource[]): number {
 
 /** Layer 1 (rules), then layer 2 (judge). Never throws; a judge failure is a deferral. */
 export async function assessSignificance(
-  store: ExtractUsageStore,
+  store: ExtractUsageStore | undefined,
   item: ExtractedCurrentItem,
   sources: readonly ClusterSource[],
   judge: typeof judgeSignificance = judgeSignificance,
@@ -74,6 +74,7 @@ export async function assessSignificance(
       verdict: { tier: 3, reason: `rule:${rule}`, model: 'rules', at },
     };
   }
+  if (!store) return { kind: 'deferred', reason: 'store_unavailable' };
   const judged: SignificanceVerdict = await judge(store, {
     headline: item.headline,
     category: item.category,
@@ -89,7 +90,7 @@ export async function assessSignificance(
 
 export const JUDGE_UNAVAILABLE_HOLD = 'not_notable:judge_unavailable';
 
-/** Rule-based stand-in when the judge is down on the final attempt: an official source or two distinct established hosts continues as tier 2, anything else is held. Layer 1 has already passed. */
+/** Rule-based stand-in when the judge is down on the final attempt: an official source continues as tier 1 (uncapped), two distinct established hosts as tier 2, anything else is held. Layer 1 has already passed. */
 export function judgeUnavailableFallback(
   sources: readonly ClusterSource[],
   now: Date = new Date(),
@@ -97,10 +98,10 @@ export function judgeUnavailableFallback(
   const established = new Set(
     sources.filter((source) => source.tier === 'established').map((source) => hostOf(source.url)).filter((host) => host !== null),
   );
-  const trusted = sources.some((source) => source.tier === 'official') || established.size >= 2;
+  const official = sources.some((source) => source.tier === 'official');
   const at = now.toISOString();
-  return trusted
-    ? { kind: 'pass', verdict: { tier: 2, reason: 'fallback:judge_unavailable', model: 'rules', at } }
+  return official || established.size >= 2
+    ? { kind: 'pass', verdict: { tier: official ? 1 : 2, reason: 'fallback:judge_unavailable', model: 'rules', at } }
     : {
       kind: 'hold',
       holdReason: JUDGE_UNAVAILABLE_HOLD,
@@ -119,7 +120,9 @@ export async function runSignificanceStep(args: {
   db: SupabaseClient;
   result: ExtractStageResult;
   mode: SignificanceMode;
-  store: ExtractUsageStore;
+  store: ExtractUsageStore | undefined;
+  /** Per-run memo: a story is judged at most once per run. */
+  memo: Map<string, SignificanceAssessment>;
   story: { id: string; v2_attempts?: number };
   item: ExtractedCurrentItem;
   sources: readonly ClusterSource[];
@@ -127,8 +130,10 @@ export async function runSignificanceStep(args: {
   countdownTargetAt: string | undefined;
   imageUrl: string | undefined;
 }): Promise<SignificanceStep> {
-  const { db, result, mode, store, story, item, sources } = args;
-  let assessment = await assessSignificance(store, item, sources);
+  const { db, result, mode, store, memo, story, item, sources } = args;
+  let assessment = memo.get(story.id) ?? await assessSignificance(store, item, sources);
+  memo.set(story.id, assessment);
+  if (assessment.kind === 'deferred' && assessment.reason === 'budget_exhausted') result.significanceBudgetExhausted = true;
   recordSignificance(result, assessment);
   if (assessment.kind === 'deferred' && (story.v2_attempts ?? 0) + 1 >= V2_MAX_ATTEMPTS) {
     assessment = judgeUnavailableFallback(sources);

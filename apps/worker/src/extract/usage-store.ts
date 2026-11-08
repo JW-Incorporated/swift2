@@ -165,10 +165,10 @@ export const JUDGE_DAILY_CAP = 400;
 const JUDGE_SCOPE = 'judge';
 
 /** The significance judge (Opus) has its own budget and durable counter. One call per cluster that
- * layer 1 does not hold; a busy hour is ~10 clusters, so 30/run leaves 3x headroom and 250/day covers
+ * layer 1 does not hold; a busy hour is ~10 clusters, so 30/run leaves 3x headroom and 400/day covers
  * ~10 busy hours plus retries of deferred stories. */
 export const SIGNIFICANCE_PER_RUN_CAP = 30;
-export const SIGNIFICANCE_DAILY_CAP = 250;
+export const SIGNIFICANCE_DAILY_CAP = 400;
 const SIGNIFICANCE_SCOPE = 'significance';
 
 /** Real UsageDb backed by usage_daily / increment_usage_daily('significance'). */
