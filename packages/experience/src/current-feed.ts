@@ -5,6 +5,11 @@ import { formatRelativeTime } from './format';
 import type { EraFeedEntry } from './era-feed';
 import type { VideoNote } from './types';
 
+/** A live item that carries a verified, playable video embed. */
+export function isPlayableVideoItem(item: CurrentItem): boolean {
+  return item.mediaKind === 'video' && item.embed != null;
+}
+
 /**
  * Builds the fifth `EraFeedEntry` kind ('current') from the current era's
  * live `current_item` rows — see era-feed.ts's header doc for the union.

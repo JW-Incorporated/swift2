@@ -62,6 +62,12 @@ describe('thisWeekNewsItems', () => {
 });
 
 describe('isThisWeekNews', () => {
+  it('is false for a playable video, so it renders as a stream card', () => {
+    const video = currentItem({ id: 'v', observedOn: '2026-11-02', mediaKind: 'video', embed: { provider: 'youtube', videoId: 'dQw4w9WgXcQ' } });
+    expect(isThisWeekNews(video, NOW)).toBe(false);
+    expect(thisWeekNewsItems([video], NOW)).toEqual([]);
+  });
+
   it('is false for an unparseable date', () => {
     expect(isThisWeekNews(currentItem({ id: 'x', observedOn: 'soon' }), NOW)).toBe(false);
   });

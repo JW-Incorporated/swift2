@@ -167,6 +167,26 @@ describe('filtersForEntry', () => {
     };
     expect(filtersForEntry(entry, noOwners)).toEqual(['Lore']);
   });
+
+  it('a current video item with an embed also matches Videos, once', () => {
+    const embed = { provider: 'youtube', videoId: 'dQw4w9WgXcQ' };
+    const make = (tags: string[]): EraFeedEntry => ({
+      kind: 'current',
+      item: { tags, mediaKind: 'video', embed } as unknown as CurrentItem,
+      anchor: ANCHOR,
+    });
+    expect(filtersForEntry(make(['Music']), noOwners)).toEqual(['Music', 'Videos']);
+    expect(filtersForEntry(make(['Videos']), noOwners)).toEqual(['Videos']);
+  });
+
+  it('a current item without an embed does not match Videos', () => {
+    const entry: EraFeedEntry = {
+      kind: 'current',
+      item: { tags: ['Music'], mediaKind: 'image' } as unknown as CurrentItem,
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Music']);
+  });
 });
 
 describe('filterForThread', () => {
