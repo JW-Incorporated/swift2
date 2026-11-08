@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHost, useResolveUrl } from '../../host/context';
 import { useAppActions, useAppState } from '../store';
 import { eraStyle } from '../lib/theme';
@@ -68,6 +68,12 @@ export function EraSection({
     era.end,
     currentItems,
   );
+  // Two clocks, on purpose: `nowMs` (use-era-current-feed.ts) sizes the pinned
+  // week-news window; `interleaveNowMs` gates the media-aware video interleave and
+  // stays undefined (pure recency) through SSR and the first client render, so
+  // hydration matches, then is set once on mount.
+  const [interleaveNowMs, setInterleaveNowMs] = useState<number | undefined>(undefined);
+  useEffect(() => setInterleaveNowMs(Date.now()), []);
   // The filter is now global (R2) — one set of six FilterIds, OR-matched,
   // owned by the store and rendered once by FilterBar in EraStream. This
   // section only reads the active set; it no longer owns filter state.
@@ -95,19 +101,19 @@ export function EraSection({
     [q, era.id, era.start, era.end],
   );
   // Merge EVERY moment, video, doorway and live current-item into one
-  // unfiltered feed (newest-first, with the media-aware 7-day interleave), space
-  // the doorways ('current' entries pass through untouched), then filter in one
-  // pass (R2). The shared merge is mergeEraStreamFeed (era-stream.ts); selection
-  // itself lives in packages/experience/src/era-feed.ts (pure + unit-tested). Computed directly here (not via buildEraStreamViewModel
-  // below) only to get `visible` — the filtered moment list —  which
+  // unfiltered feed (newest-first), space the doorways ('current' entries pass
+  // through untouched), then filter in one pass (R2). The shared merge is
+  // mergeEraStreamFeed (era-stream.ts); selection itself lives in
+  // packages/experience/src/era-feed.ts (pure + unit-tested). Computed directly
+  // here (not via buildEraStreamViewModel below) only to get `visible` — the filtered moment list —  which
   // `imageHiddenIds` needs BEFORE the tier pass; buildEraStreamViewModel
   // then redoes this same, pure, deterministic merge/filter internally to
   // assemble the final render list. This is the OS-032 shared core (see
   // era-stream.ts) — the native renderer calls the same function.
   const mergedFeed = useMemo(
     () =>
-      mergeEraStreamFeed({ era, items, videoFeed, doorwayEntries, liveEntries, nowMs }),
-    [era, items, videoFeed, doorwayEntries, liveEntries, nowMs],
+      mergeEraStreamFeed({ era: { start: era.start, end: era.end }, items, videoFeed, doorwayEntries, liveEntries, nowMs }),
+    [era.start, era.end, items, videoFeed, doorwayEntries, liveEntries, nowMs],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
   // The filtered feed's moment items — everything downstream that reasons
@@ -161,8 +167,9 @@ export function EraSection({
         filters,
         imageHiddenIds,
         nowMs,
+        interleaveNowMs,
       }),
-    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds, nowMs],
+    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds, nowMs, interleaveNowMs],
   );
 
   // A doorway tap (PLAN.md P3 step 16 — Joey: "back should take them right

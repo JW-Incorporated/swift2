@@ -1,4 +1,4 @@
-import type { EraFeedEntry } from './feed-types';
+import type { RenderFeedEntry } from './era-feed-clusters';
 import type { VideoNote } from './types';
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -7,7 +7,7 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 export const MAX_TEXT_RUN = 2;
 
 /** Whether an entry plays video: a video record, a moment carrying an embed, or a live item with a verified embed. */
-export function isVideoEntry<V extends VideoNote>(entry: EraFeedEntry<V>): boolean {
+export function isVideoEntry<V extends VideoNote>(entry: RenderFeedEntry<V>): boolean {
   switch (entry.kind) {
     case 'video':
       return true;
@@ -20,14 +20,15 @@ export function isVideoEntry<V extends VideoNote>(entry: EraFeedEntry<V>): boole
   }
 }
 
-function isTextEntry<V extends VideoNote>(entry: EraFeedEntry<V>): boolean {
-  return (entry.kind === 'moment' || entry.kind === 'current') && !isVideoEntry(entry);
+function isTextEntry<V extends VideoNote>(entry: RenderFeedEntry<V>): boolean {
+  return (entry.kind === 'moment' || entry.kind === 'current' || entry.kind === 'cluster') && !isVideoEntry(entry);
 }
 
 /**
  * Media-aware interleave for the rolling 7-day window (video-first slice 1).
  *
- * `sorted` is `mergeEraFeed`'s newest-first order. Entries dated inside the
+ * `sorted` is the rendered card list (clusters already folded in, so
+ * "in a row" counts cards the reader sees). Entries dated inside the
  * window (the leading run, since the input is date-descending) keep their
  * relative order, except that once `MAX_TEXT_RUN` text/image entries have
  * appeared in a row and a video from the window is still waiting, the next
@@ -36,20 +37,20 @@ function isTextEntry<V extends VideoNote>(entry: EraFeedEntry<V>): boolean {
  * nothing is dropped or duplicated, and the result depends only on the input.
  */
 export function interleaveRecentVideo<V extends VideoNote>(
-  sorted: EraFeedEntry<V>[],
+  sorted: RenderFeedEntry<V>[],
   nowMs: number,
-): EraFeedEntry<V>[] {
+): RenderFeedEntry<V>[] {
   const cutoff = new Date(nowMs - WEEK_MS).toISOString().slice(0, 10);
   const windowEnd = sorted.findIndex((e) => e.anchor.sortDate.slice(0, 10) < cutoff);
   const head = windowEnd === -1 ? sorted : sorted.slice(0, windowEnd);
   const tail = windowEnd === -1 ? [] : sorted.slice(windowEnd);
 
-  const videos: { idx: number; entry: EraFeedEntry<V> }[] = [];
-  const others: { idx: number; entry: EraFeedEntry<V> }[] = [];
+  const videos: { idx: number; entry: RenderFeedEntry<V> }[] = [];
+  const others: { idx: number; entry: RenderFeedEntry<V> }[] = [];
   head.forEach((entry, idx) => (isVideoEntry(entry) ? videos : others).push({ idx, entry }));
   if (videos.length === 0 || others.length === 0) return sorted;
 
-  const out: EraFeedEntry<V>[] = [];
+  const out: RenderFeedEntry<V>[] = [];
   let v = 0;
   let o = 0;
   let run = 0;

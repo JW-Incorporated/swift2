@@ -18,6 +18,7 @@ import type { EraFeedEntry } from './feed-types';
 import { mergeEraFeed, visibleFeed, inlineVideoMomentIds } from './era-feed';
 import { spaceDoorways } from './space-doorways';
 import { clusterSameDayMoments, type RenderFeedEntry } from './era-feed-clusters';
+import { interleaveRecentVideo } from './media-interleave';
 import { streamExtraEntries } from './this-week-news';
 import { assignFeedTiers, withInlineVideoTiers, type CardTier } from './feed-tiers';
 
@@ -44,6 +45,8 @@ export interface EraStreamInputs<V extends VideoNote> {
   imageHiddenIds?: ReadonlySet<string>;
   /** Clock for the "This week's news" window (live items inside it are pinned, not streamed). Defaults to `Date.now()`. */
   nowMs?: number;
+  /** Clock for the media-aware 7-day interleave (media-interleave.ts). Separate from `nowMs` on purpose: leave it undefined for pure recency (SSR, first client render, snapshots) and set it only after mount, so hydration never sees a clock-dependent order. */
+  interleaveNowMs?: number;
 }
 
 /** Everything a renderer needs to draw one era section, in final render order. */
@@ -60,24 +63,18 @@ export interface EraStreamViewModel<V extends VideoNote> {
 }
 
 /**
- * The single merge both renderers run: merge -> media-aware 7-day interleave
- * -> space doorways, over the unfiltered feed. The interleave only applies
- * when the caller supplies `nowMs` (the web does; clockless callers such as
- * the snapshot builder keep pure recency).
+ * The single merge both renderers run: merge -> space doorways, over the
+ * unfiltered feed (pure recency; the media interleave runs later, over the
+ * rendered cards — see buildEraStreamViewModel).
  */
 export function mergeEraStreamFeed<V extends VideoNote>(
-  inputs: Pick<EraStreamInputs<V>, 'era' | 'items' | 'videoFeed' | 'doorwayEntries' | 'liveEntries' | 'nowMs'>,
+  inputs: Pick<EraStreamInputs<V>, 'items' | 'videoFeed' | 'doorwayEntries' | 'liveEntries' | 'nowMs'> & {
+    era: Pick<Era, 'start' | 'end'>;
+  },
 ): EraFeedEntry<V>[] {
-  const { era, items, videoFeed, doorwayEntries = [], liveEntries = [], nowMs } = inputs;
+  const { era, items, videoFeed, doorwayEntries = [], liveEntries = [], nowMs = Date.now() } = inputs;
   return spaceDoorways(
-    mergeEraFeed(
-      items,
-      videoFeed,
-      era.start,
-      era.end,
-      streamExtraEntries(doorwayEntries, liveEntries, nowMs ?? Date.now()),
-      nowMs,
-    ),
+    mergeEraFeed(items, videoFeed, era.start, era.end, streamExtraEntries(doorwayEntries, liveEntries, nowMs)),
   );
 }
 
@@ -85,7 +82,8 @@ export function mergeEraStreamFeed<V extends VideoNote>(
  * Builds the ordered, tiered render list for one era — the same sequence
  * `EraSection.tsx` runs: merge (`mergeEraFeed`) → space doorways
  * (`spaceDoorways`) → filter (`visibleFeed`) → cluster same-day moments
- * (`clusterSameDayMoments`) for the entries; and, over the filtered
+ * (`clusterSameDayMoments`) → optional 7-day video interleave
+ * (`interleaveRecentVideo`, rendered cards, only when `interleaveNowMs` is set) for the entries; and, over the filtered
  * moments-only subset, ownership (`inlineVideoMomentIds`) → tiers
  * (`assignFeedTiers` floored by `withInlineVideoTiers`) for the map every
  * card kind besides `moment` ignores.
@@ -102,7 +100,11 @@ export function buildEraStreamViewModel<V extends VideoNote>(
 
   const mergedFeed = mergeEraStreamFeed(inputs);
   const feedEntries = visibleFeed(mergedFeed, filters);
-  const entries = clusterSameDayMoments(feedEntries);
+  const clustered = clusterSameDayMoments(feedEntries);
+  const entries =
+    inputs.interleaveNowMs === undefined
+      ? clustered
+      : interleaveRecentVideo(clustered, inputs.interleaveNowMs);
 
   const visible = feedEntries.flatMap((e) => (e.kind === 'moment' ? [e.item] : []));
   const videoOwnerIds = inlineVideoMomentIds(visible);
