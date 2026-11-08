@@ -3,9 +3,12 @@ import type { checkSameEvent } from './dedupe-gate-llm';
 import type { extractWithLLM } from './haiku-client';
 import type { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import type { composeV2Item } from './v2-stage';
+import type { SignificanceVerdict } from './significance-client';
+import type { SignificanceInput } from './significance-prompt';
+import type { SignificanceSummary } from './backfill-significance-report';
 import type { ExtractUsageStore } from './usage-store';
 
-export type BackfillMode = 'floors' | 'force' | 'rewrite';
+export type BackfillMode = 'floors' | 'force' | 'rewrite' | 'significance';
 
 export type ForceOutcome =
   | 'pass'
@@ -13,6 +16,7 @@ export type ForceOutcome =
   | 'retired_below_floor'
   | 'retired_duplicate'
   | 'retired_unwritable'
+  | 'retired_not_notable'
   | 'writing_hold'
   | 'no_facts'
   | 'snapshot_failed'
@@ -61,6 +65,7 @@ export interface BackfillRunResult {
   reports: BackfillItemReport[];
   errors: string[];
   force?: ForceSummary;
+  significance?: SignificanceSummary;
 }
 
 /** Test seams for force mode; production leaves every field unset. */
@@ -75,6 +80,12 @@ export interface ForceDeps {
   dedupeUsage?: ExtractUsageStore;
 }
 
+/** Test seams for significance mode; production leaves every field unset. */
+export interface SignificanceDeps {
+  judge?: (usage: ExtractUsageStore, input: SignificanceInput) => Promise<SignificanceVerdict>;
+  store?: ExtractUsageStore;
+}
+
 export interface RunBackfillOptions {
   dryRun: boolean;
   limit?: number;
@@ -85,13 +96,14 @@ export interface RunBackfillOptions {
   /** Force mode only: hide rows ending no_facts or writing_hold after the one rewrite (quality_hold_reason retired_unwritable). Ignored on a dry run. */
   retireUnwritable?: boolean;
   fetchImpl?: typeof fetch;
-  /** Rewrite mode only: operator-picked current_item ids (UUIDs); unset = every live row that has facts. */
+  /** Rewrite and significance modes: operator-picked current_item ids (UUIDs); unset = every live row that has facts. */
   ids?: string[];
   /** Rewrite mode only: ISO timestamp; only backfill_rewrite snapshots created at or after it mark a row as already rewritten. Unset = REWRITE_SINCE. */
   rewriteSince?: string;
-  /** 'floors' (default) is the original thin-copy backfill; 'force' rewrites every eligible recent row through the v2 writer; 'rewrite' re-runs the writer on live rows that already have facts (never retires). */
+  /** 'floors' (default) is the original thin-copy backfill; 'force' rewrites every eligible recent row through the v2 writer; 'rewrite' re-runs the writer on live rows that already have facts (never retires); 'significance' tiers live rows and retires tier 3 as retired_not_notable. */
   mode?: BackfillMode;
   /** Force mode writes backfill-report.jsonl/.md and writer-eval-kit.jsonl here. */
   reportDir?: string;
   force?: ForceDeps;
+  significance?: SignificanceDeps;
 }
