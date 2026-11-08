@@ -2,6 +2,7 @@ import type { ContentItem, VideoNote } from './types';
 import { ALL_FILTERS, filterMatches, filtersForEntry, type FilterId } from './filters';
 import { resolveAnchor } from './anchor-date';
 import type { EraFeedEntry } from './feed-types';
+import { interleaveRecentVideo } from './media-interleave';
 
 /**
  * `EraFeedEntry` lives in `feed-types.ts` (moved there in OS-021, ahead of
@@ -181,6 +182,12 @@ export function inlineVideoMomentIds(items: ContentItem[]): Set<string> {
  * narrower caller no longer exists — one signature, over the full union.
  * `doorways` stays optional (default `[]`) purely for callers (tests) that
  * don't care about them, not to preserve a second return type.
+ *
+ * `nowMs` (video-first slice 1): when supplied, entries dated inside the
+ * rolling 7 days before it are interleaved so a waiting video surfaces after
+ * at most `MAX_TEXT_RUN` text/image entries (media-interleave.ts). Omitted =
+ * pure recency, so callers without a clock (snapshots, tests) stay
+ * deterministic.
  */
 export function mergeEraFeed<V extends VideoNote>(
   moments: ContentItem[],
@@ -188,6 +195,7 @@ export function mergeEraFeed<V extends VideoNote>(
   eraStart: string,
   eraEnd: string,
   doorways: EraFeedEntry<V>[] = [],
+  nowMs?: number,
 ): EraFeedEntry<V>[] {
   const entries: EraFeedEntry<V>[] = [
     ...moments.map(
@@ -206,7 +214,7 @@ export function mergeEraFeed<V extends VideoNote>(
     ),
     ...doorways,
   ];
-  return entries.sort((a, b) => {
+  entries.sort((a, b) => {
     if (a.anchor.sortDate !== b.anchor.sortDate) {
       return b.anchor.sortDate.localeCompare(a.anchor.sortDate);
     }
@@ -214,6 +222,7 @@ export function mergeEraFeed<V extends VideoNote>(
     if (rankDiff !== 0) return rankDiff;
     return entryTiebreakId(a).localeCompare(entryTiebreakId(b));
   });
+  return nowMs === undefined ? entries : interleaveRecentVideo(entries, nowMs);
 }
 
 /**

@@ -60,6 +60,28 @@ export interface EraStreamViewModel<V extends VideoNote> {
 }
 
 /**
+ * The single merge both renderers run: merge -> media-aware 7-day interleave
+ * -> space doorways, over the unfiltered feed. The interleave only applies
+ * when the caller supplies `nowMs` (the web does; clockless callers such as
+ * the snapshot builder keep pure recency).
+ */
+export function mergeEraStreamFeed<V extends VideoNote>(
+  inputs: Pick<EraStreamInputs<V>, 'era' | 'items' | 'videoFeed' | 'doorwayEntries' | 'liveEntries' | 'nowMs'>,
+): EraFeedEntry<V>[] {
+  const { era, items, videoFeed, doorwayEntries = [], liveEntries = [], nowMs } = inputs;
+  return spaceDoorways(
+    mergeEraFeed(
+      items,
+      videoFeed,
+      era.start,
+      era.end,
+      streamExtraEntries(doorwayEntries, liveEntries, nowMs ?? Date.now()),
+      nowMs,
+    ),
+  );
+}
+
+/**
  * Builds the ordered, tiered render list for one era — the same sequence
  * `EraSection.tsx` runs: merge (`mergeEraFeed`) → space doorways
  * (`spaceDoorways`) → filter (`visibleFeed`) → cluster same-day moments
@@ -76,20 +98,9 @@ export interface EraStreamViewModel<V extends VideoNote> {
 export function buildEraStreamViewModel<V extends VideoNote>(
   inputs: EraStreamInputs<V>,
 ): EraStreamViewModel<V> {
-  const {
-    era,
-    items,
-    videoFeed,
-    doorwayEntries = [],
-    liveEntries = [],
-    filters,
-    imageHiddenIds = new Set<string>(),
-    nowMs = Date.now(),
-  } = inputs;
+  const { era, filters, imageHiddenIds = new Set<string>() } = inputs;
 
-  const mergedFeed = spaceDoorways(
-    mergeEraFeed(items, videoFeed, era.start, era.end, streamExtraEntries(doorwayEntries, liveEntries, nowMs)),
-  );
+  const mergedFeed = mergeEraStreamFeed(inputs);
   const feedEntries = visibleFeed(mergedFeed, filters);
   const entries = clusterSameDayMoments(feedEntries);
 

@@ -16,12 +16,10 @@ import { ThisWeekNews } from './ThisWeekNews';
 import {
   embeddedYoutubeIds,
   eraKnownVideoIds,
-  mergeEraFeed,
+  mergeEraStreamFeed,
   visibleFeed,
   buildEraStreamViewModel,
   type EraFeedEntry,
-  spaceDoorways,
-  streamExtraEntries,
 } from '@swift2/experience';
 import { useEraCurrentFeed } from '../lib/use-era-current-feed';
 import { feedCardImageHidden } from '../lib/video-affordance';
@@ -97,10 +95,10 @@ export function EraSection({
     [q, era.id, era.start, era.end],
   );
   // Merge EVERY moment, video, doorway and live current-item into one
-  // unfiltered, newest-first feed, space the doorways (spaceDoorways —
-  // 'current' entries pass through untouched), then filter in one pass (R2).
-  // Selection itself lives in packages/experience/src/era-feed.ts (pure +
-  // unit-tested). Computed directly here (not via buildEraStreamViewModel
+  // unfiltered feed (newest-first, with the media-aware 7-day interleave), space
+  // the doorways ('current' entries pass through untouched), then filter in one
+  // pass (R2). The shared merge is mergeEraStreamFeed (era-stream.ts); selection
+  // itself lives in packages/experience/src/era-feed.ts (pure + unit-tested). Computed directly here (not via buildEraStreamViewModel
   // below) only to get `visible` — the filtered moment list —  which
   // `imageHiddenIds` needs BEFORE the tier pass; buildEraStreamViewModel
   // then redoes this same, pure, deterministic merge/filter internally to
@@ -108,10 +106,8 @@ export function EraSection({
   // era-stream.ts) — the native renderer calls the same function.
   const mergedFeed = useMemo(
     () =>
-      spaceDoorways(
-        mergeEraFeed(items, videoFeed, era.start, era.end, streamExtraEntries(doorwayEntries, liveEntries, nowMs)),
-      ),
-    [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries, nowMs],
+      mergeEraStreamFeed({ era, items, videoFeed, doorwayEntries, liveEntries, nowMs }),
+    [era, items, videoFeed, doorwayEntries, liveEntries, nowMs],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
   // The filtered feed's moment items — everything downstream that reasons
