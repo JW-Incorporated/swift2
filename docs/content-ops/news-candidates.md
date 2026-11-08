@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 87
 
 ## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
 
@@ -761,11 +761,3 @@ Stories: 88
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317940000.html
   - [established] WWD — Taylor Swift tag — https://wwd.com/fashion-news/fashion-features/travis-kelce-jisoo-josh-hart-tommy-hilfigers-winter-campaign-1239400376/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reveals-why-t-205113069.html
-
-## Exploring the Significance of Track 5 on Taylor Swift's Albums
-
-- first seen: 2026-11-05 02:27 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: This article delves into the importance of track 5 on each of Taylor Swift's albums, highlighting all 12 songs and their meanings. It provides insights into why this particular track holds a special place in her discography.
-- sources:
-  - [unverified] Just Jared — https://www.justjared.com/2026/11/03/why-is-track-5-on-every-taylor-swift-album-so-important-all-12-songs-their-meanings-revealed/
