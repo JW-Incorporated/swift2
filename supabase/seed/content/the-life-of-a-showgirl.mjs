@@ -16264,6 +16264,17 @@ export default {
             notes:
               'Fetched 2026-11-05. Reports the Sept. 30 New Heights reactions: Travis ("Cleveland is rocking right now!", thanks to Taylor) and Jason ("that song is incredible", played often at home with Kylie).',
           },
+          {
+            outlet: 'Reuters (via TimesLIVE)',
+            url: 'https://www.timeslive.co.za/lifestyle/2026-09-25-taylor-swift-releases-encore-to-her-hit-showgirl-album/',
+            source_title: "Taylor Swift releases 'Encore' to her hit 'Showgirl' album",
+            publisher: 'Reuters',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-08',
+            reliability_score: 5,
+            notes:
+              'Fetched 2026-11-08. Wire confirmation that "Cleveland!" is one of the four new songs on The Encore, released Sept. 25, 2026, and a nod to Kelce\'s hometown. Does not cover the lyric video itself; that rests on E! News and Hello!.',
+          },
         ],
       },
     },
