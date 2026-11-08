@@ -2,11 +2,9 @@
 // validation check-drafts runs on `critique.judge` (docs/decisions.md
 // 2026-11-08 "Shared voice system"). Pure and dependency-free so the
 // trusted plain-node check-drafts and the judge CLI share one definition.
-import { createHash } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
 export const JUDGE_MODEL = 'claude-opus-5-5';
-/** Models Tree drafts with (the routine-tree-*.yml `model:` lines); a judge must be a different call on a model not in this list. */
-export const DRAFTER_MODELS = ['claude-opus-4-8', 'claude-opus-5'];
 export const JUDGE_DIMENSIONS = ['onVoice', 'specific', 'formula', 'notEmbarrassed'];
 export const JUDGE_MIN_SCORE = 4;
 
@@ -58,7 +56,22 @@ export function parseJudgeOutput(data) {
   return { scores, reasons };
 }
 
-/** The object written to `critique.judge` (no reasons: they stay in the run log, not the committed queue file). */
+/** Canonical bytes a judge signature covers: fixed key order, scores in rubric order, bound to the queue file name. */
+export function judgeSigPayload(judge, file) {
+  const scores = Object.fromEntries(JUDGE_DIMENSIONS.map((d) => [d, judge?.scores?.[d]]));
+  return `judge-v1:${JSON.stringify({ model: judge?.model, scores, at: judge?.at, bodyHash: judge?.bodyHash, file })}`;
+}
+
+export function signJudge(judge, file, key) {
+  return createHmac('sha256', key).update(judgeSigPayload(judge, file), 'utf8').digest('hex');
+}
+
+export function verifyJudgeSig(judge, file, key) {
+  if (!key || typeof judge?.sig !== 'string' || !/^[0-9a-f]{64}$/.test(judge.sig)) return false;
+  return timingSafeEqual(Buffer.from(judge.sig, 'hex'), Buffer.from(signJudge(judge, file, key), 'hex'));
+}
+
+/** The object written to `critique.judge` (no reasons: they stay in the run log, not the committed queue file). Unsigned; the signing step adds `sig`. */
 export function buildJudgeRecord({ model, scores, body, at }) {
   return { model, scores, at, bodyHash: bodyHash(body) };
 }
@@ -66,9 +79,11 @@ export function buildJudgeRecord({ model, scores, body, at }) {
 /**
  * Findings against `item.critique.judge`. A missing judge is a finding only
  * when `required`; a present one is always validated (shape, model, scores >=
- * JUDGE_MIN_SCORE, bound to the current body so a later edit voids it).
+ * JUDGE_MIN_SCORE, bound to the current body so a later edit voids it). With a
+ * `key` the HMAC signature (bound to `file`) must also verify, so a record the
+ * drafter wrote itself is refused.
  */
-export function checkJudge(item, { required = false } = {}) {
+export function checkJudge(item, { required = false, key = '', file = '' } = {}) {
   const judge = item?.critique?.judge;
   if (judge === undefined || judge === null) {
     return required
@@ -79,8 +94,6 @@ export function checkJudge(item, { required = false } = {}) {
   const findings = [];
   if (typeof judge.model !== 'string' || judge.model.trim() === '') {
     findings.push('judge: critique.judge.model must be a non-empty string.');
-  } else if (DRAFTER_MODELS.includes(judge.model)) {
-    findings.push(`judge: critique.judge.model "${judge.model}" is a drafter model; the judge must be an independent model (${JUDGE_MODEL}).`);
   } else if (judge.model !== JUDGE_MODEL) {
     findings.push(`judge: critique.judge.model "${judge.model}" is not the sanctioned judge model ${JUDGE_MODEL}.`);
   }
@@ -89,6 +102,9 @@ export function checkJudge(item, { required = false } = {}) {
   }
   if (judge.bodyHash !== bodyHash(item.body)) {
     findings.push('judge: critique.judge.bodyHash does not match the current caption — the body changed after it was judged; re-run the judge.');
+  }
+  if (key && !verifyJudgeSig(judge, file, key)) {
+    findings.push('judge: critique.judge.sig is missing or does not verify — only the social-draft-judge workflow can sign a judge record.');
   }
   const scores = judge.scores;
   if (scores === null || typeof scores !== 'object' || Array.isArray(scores)) {
@@ -103,4 +119,23 @@ export function checkJudge(item, { required = false } = {}) {
     }
   }
   return findings;
+}
+
+/**
+ * How check-drafts treats the judge in this invocation. Enforcement applies on
+ * the approval path (`--require-judge`, or inside the social-tree-approve
+ * workflow) and only once SOCIAL_JUDGE_KEY exists (rollout: until then the
+ * judge still runs and records unsigned, and approval warns loudly instead of
+ * stalling). On that path an empty posted history is an error, not a pass: the
+ * history gates would otherwise fail open on an unreadable social/posted.
+ */
+export function judgeEnforcement({ argv = [], env = {}, postedCount = 0 } = {}) {
+  const approvePath = argv.includes('--require-judge') || env.GITHUB_WORKFLOW === 'social-tree-approve';
+  const key = env.SOCIAL_JUDGE_KEY ?? '';
+  return {
+    key,
+    requireJudge: approvePath && key !== '',
+    warning: approvePath && key === '' ? '::warning::judge not enforced: SOCIAL_JUDGE_KEY missing' : null,
+    error: approvePath && postedCount === 0 ? 'check-drafts: social/posted/ is empty or unreadable on the approval path; refusing to run the history gates without history (failing closed).' : null,
+  };
 }

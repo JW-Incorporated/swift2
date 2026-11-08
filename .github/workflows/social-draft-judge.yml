@@ -6,7 +6,8 @@
 # commit author in tree-approve-gate.mjs, and the commit touches only
 # social/queue/*.json), so social-tree-approve.yml stays unchanged and
 # deterministic: its trusted check-drafts run requires every judge score >= 4
-# and reads nothing but the committed files. No LLM ever runs in the approval
+# and an HMAC (SOCIAL_JUDGE_KEY) that only this workflow can produce, and reads
+# nothing but the committed files. The judge scores the caption `body` only. No LLM ever runs in the approval
 # workflow.
 #
 # pull_request_target: this file and every script it runs come from main. The
@@ -37,20 +38,27 @@ on:
         default: ""
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   judge:
+    # PR author list = TREE_PR_AUTHORS in scripts/social/tree-approve-gate.mjs.
     if: >-
       github.event_name == 'pull_request_target' &&
       startsWith(github.head_ref, 'tree/draft/') &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (github.event.pull_request.user.login == 'claude[bot]' || github.event.pull_request.user.login == 'sffan15-sys')
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # main-only environment (pull_request_target runs on the base ref); it holds SOCIAL_JUDGE_KEY.
+    environment: social
+    permissions:
+      contents: write
+      pull-requests: write
+    # Never cancel: a cancel between the push and the dispatch would strand a passing draft.
     concurrency:
       group: social-draft-judge-${{ github.event.pull_request.number }}
-      cancel-in-progress: true
+      cancel-in-progress: false
     env:
       REPO: ${{ github.repository }}
       PR: ${{ github.event.pull_request.number }}
@@ -93,7 +101,16 @@ jobs:
         run: |
           set -euo pipefail
           mapfile -t FILES < "$RUNNER_TEMP/files.txt"
-          node scripts/social/judge-drafts.mjs --summary "$RUNNER_TEMP/judge-summary.md" "${FILES[@]}"
+          node scripts/social/judge-drafts.mjs --summary "$RUNNER_TEMP/judge-summary.md" --judged-out "$RUNNER_TEMP/judged.json" "${FILES[@]}"
+
+      # Separate step: ONLY SOCIAL_JUDGE_KEY is in its env (no Claude token, never SOCIAL_APPROVAL_KEY).
+      # Signs exactly the records the judge step wrote this run. Without the key the records stay
+      # unsigned and approval does not enforce the judge (rollout; it warns loudly).
+      - name: Sign the judge records
+        if: steps.pin.outputs.count != '0'
+        env:
+          SOCIAL_JUDGE_KEY: ${{ secrets.SOCIAL_JUDGE_KEY }}
+        run: node scripts/social/judge-drafts.mjs --sign "$RUNNER_TEMP/judged.json"
 
       - name: Commit the judge records to the PR branch
         id: push

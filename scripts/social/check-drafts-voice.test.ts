@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { checkDraft } from './check-drafts.mjs';
-import { bodyHash } from './lib/judge-rubric.mjs';
+import { POSTED_DIR, checkDraft, readJsonDir } from './check-drafts.mjs';
+import { bodyHash, signJudge } from './lib/judge-rubric.mjs';
 import { scrubbedEnv } from './stamp-tree-auto.mjs';
 import { checkVoiceStyle } from './lib/voice-gates.mjs';
 
@@ -77,6 +77,15 @@ describe('checkDraft independent judge requirement', () => {
     expect((await judged(low)).some((f) => f.includes('formula is 3'))).toBe(true);
     expect((await judged(low, { requireJudge: true })).some((f) => f.includes('formula is 3'))).toBe(true);
   });
+
+  it('with the key, requires the HMAC and refuses a drafter-written record', async () => {
+    const KEY = 'judge-key';
+    const signed = { ...judge, sig: signJudge(judge, 'd.json', KEY) };
+    const opts = { requireJudge: true, judgeKey: KEY };
+    expect((await judged(signed, opts)).some((f) => f.startsWith('judge:'))).toBe(false);
+    expect((await judged(judge, opts)).some((f) => f.includes('judge.sig'))).toBe(true);
+    expect((await judged({ ...signed, scores: { onVoice: 5, specific: 5, formula: 5, notEmbarrassed: 5 } }, opts)).some((f) => f.includes('judge.sig'))).toBe(true);
+  });
 });
 
 describe('approve-workflow signal', () => {
@@ -84,5 +93,29 @@ describe('approve-workflow signal', () => {
     const env = scrubbedEnv({ GITHUB_WORKFLOW: 'social-tree-approve', GH_TOKEN: 'x', SOCIAL_APPROVAL_KEY: 'y', PATH: '/bin' });
     expect(env.GITHUB_WORKFLOW).toBe('social-tree-approve');
     expect(env.GH_TOKEN).toBeUndefined();
+  });
+});
+
+describe('contrast frame false positives', () => {
+  const frames = (body: string) => checkVoiceStyle({ platform: 'x', body }, [], { now: NOW }).some((f) => f.includes('contrast frame'));
+
+  it('does not flag ordinary "but" sentences or a plain "not just"', () => {
+    expect(frames("it wasn't perfect, but she kept going")).toBe(false);
+    expect(frames('she did not play it just once')).toBe(false);
+    expect(frames('not just once, she did it every night')).toBe(false);
+    expect(frames('it was not just once')).toBe(false);
+  });
+
+  it('still flags the real frames', () => {
+    expect(frames("it isn't a sad song, it's the happiest thing on the record")).toBe(true);
+    expect(frames("this is not just a song, it's a map")).toBe(true);
+    expect(frames('this is not just a song, but a map')).toBe(true);
+  });
+});
+
+describe('posted history on the approval path', () => {
+  it('the committed social/posted/ is non-empty, so an empty read there is an error rather than a pass', async () => {
+    expect((await readJsonDir(POSTED_DIR)).length).toBeGreaterThan(0);
+    expect((await readJsonDir('/nonexistent-social-posted-dir')).length).toBe(0);
   });
 });

@@ -11,6 +11,12 @@
 // Usage:
 //   node scripts/social/judge-drafts.mjs --dir <queue-dir> [--summary <out.md>] [--model <id>]
 //   node scripts/social/judge-drafts.mjs <file.json> [file.json …]
+//   node scripts/social/judge-drafts.mjs --sign <judged-files.json>
+// The judge step runs with the Claude token and NO signing key and writes unsigned records
+// (listing them via --judged-out); the sign step runs with ONLY SOCIAL_JUDGE_KEY and adds an
+// HMAC `sig` to exactly those records. A record already in a draft is never trusted without a
+// verifying sig, so a self-written critique.judge is overwritten, not skipped. The judge scores
+// the caption `body` only, not altText, why or media.
 //
 // Exit 0 when every draft ended up with a valid judge record (a low score is
 // recorded, not an error: the approval gate decides). Exit 1 when any call
@@ -31,6 +37,8 @@ import {
   checkJudge,
   buildJudgeUserMessage,
   parseJudgeOutput,
+  signJudge,
+  verifyJudgeSig,
 } from './lib/judge-rubric.mjs';
 
 const MODEL_PATTERN = /^[a-z0-9.-]+$/;
@@ -50,18 +58,24 @@ export async function judgeCaption({ platform, body }, { claude = callClaude, mo
   return parsed ? { status: 'ok', ...parsed } : { status: 'invalid', reason: 'invalid_scores' };
 }
 
-/** True when the draft already carries a judge record for this exact body by this model. */
-export function alreadyJudged(item, model = JUDGE_MODEL) {
+/** True only for a judge record whose signature verifies for this file, body and model; any other record (including one the drafter wrote) is ignored and re-judged. */
+export function alreadyJudged(item, model = JUDGE_MODEL, { key = '', file = '' } = {}) {
   const judge = item?.critique?.judge;
-  return Boolean(judge) && judge.model === model && judge.bodyHash === bodyHash(item.body);
+  return Boolean(judge) && judge.model === model && judge.bodyHash === bodyHash(item.body) && verifyJudgeSig(judge, file, key);
+}
+
+/** Adds `sig` to an existing judge record; null when there is nothing to sign or no key. */
+export function signItem(item, file, key) {
+  if (!key || !item?.critique?.judge) return null;
+  return { ...item, critique: { ...item.critique, judge: { ...item.critique.judge, sig: signJudge(item.critique.judge, file, key) } } };
 }
 
 /** Judges one parsed draft; returns `{ item, outcome }` where item has `critique.judge` set on success. */
-export async function judgeItem(item, { claude, model = JUDGE_MODEL, now = () => new Date() } = {}) {
+export async function judgeItem(item, { claude, model = JUDGE_MODEL, now = () => new Date(), key = '', file = '' } = {}) {
   if (item?.critique === null || typeof item?.critique !== 'object' || typeof item.body !== 'string') {
     return { item, outcome: { status: 'invalid', reason: 'draft has no critique object or body' } };
   }
-  if (alreadyJudged(item, model)) return { item, outcome: { status: 'skipped', reason: 'already judged' } };
+  if (alreadyJudged(item, model, { key, file })) return { item, outcome: { status: 'skipped', reason: 'already judged' } };
   const result = await judgeCaption(item, { claude, model });
   if (result.status !== 'ok') return { item, outcome: result };
   const judge = buildJudgeRecord({ model, scores: result.scores, body: item.body, at: now().toISOString() });
@@ -83,7 +97,7 @@ function targetsFrom(args) {
     if (!dir) throw new Error('--dir requires a path');
     return readdirSync(dir).filter((f) => f.endsWith('.json')).sort().map((f) => path.join(dir, f));
   }
-  const skip = new Set(['--summary', '--model']);
+  const skip = new Set(['--summary', '--model', '--judged-out']);
   return args.filter((a, i) => !a.startsWith('--') && !skip.has(args[i - 1]));
 }
 
@@ -92,8 +106,23 @@ function flag(args, name) {
   return i === -1 ? undefined : args[i + 1];
 }
 
+/** `--sign <list.json>`: signs the judge records of the files the judge step wrote this run. Runs with only SOCIAL_JUDGE_KEY in env; without it the records stay unsigned (rollout). */
+function signMode(args) {
+  const key = process.env.SOCIAL_JUDGE_KEY ?? '';
+  if (!key) {
+    console.warn('::warning::judge records left unsigned: SOCIAL_JUDGE_KEY missing');
+    return 0;
+  }
+  for (const file of JSON.parse(readFileSync(flag(args, '--sign'), 'utf8'))) {
+    const signed = signItem(JSON.parse(readFileSync(file, 'utf8')), path.basename(file), key);
+    if (signed) writeFileSync(file, `${JSON.stringify(signed, null, 2)}\n`);
+  }
+  return 0;
+}
+
 async function main() {
   const args = process.argv.slice(2);
+  if (args.includes('--sign')) return signMode(args);
   const model = flag(args, '--model') ?? JUDGE_MODEL;
   if (!MODEL_PATTERN.test(model)) throw new Error('--model must match ^[a-z0-9.-]+$');
   if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) throw new Error('CLAUDE_CODE_OAUTH_TOKEN is not set');
@@ -103,17 +132,22 @@ async function main() {
     return 0;
   }
   const lines = [];
+  const judgedFiles = [];
   let failed = false;
   let allPass = true;
   for (const file of files) {
     const item = JSON.parse(readFileSync(file, 'utf8'));
     const { item: judged, outcome } = await judgeItem(item, { model });
-    if (outcome.status === 'ok') writeFileSync(file, `${JSON.stringify(judged, null, 2)}\n`);
-    else if (outcome.status !== 'skipped') failed = true;
+    if (outcome.status === 'ok') {
+      writeFileSync(file, `${JSON.stringify(judged, null, 2)}\n`);
+      judgedFiles.push(file);
+    } else if (outcome.status !== 'skipped') failed = true;
     if (checkJudge(judged, { required: true }).length > 0) allPass = false;
     lines.push(summaryLine(path.basename(file), outcome));
   }
   const summary = `## Independent social judge (${model})\n\n${lines.join('\n')}\n`;
+  const judgedOut = flag(args, '--judged-out');
+  if (judgedOut) writeFileSync(judgedOut, JSON.stringify(judgedFiles));
   const out = flag(args, '--summary');
   if (out) writeFileSync(out, summary);
   console.log(summary);

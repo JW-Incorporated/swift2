@@ -75,8 +75,9 @@
 //
 // Voice (2026-11-08 shared voice system): lib/voice-gates.mjs hard-fails em dashes >1,
 // contrast frames, a repeated tag-a-friend CTA, a repeated question lead and 4-gram copying of
-// recent posts; lib/judge-rubric.mjs validates critique.judge, REQUIRED under
-// `--require-judge` or inside social-tree-approve (Tree's draft-time run has no judge yet).
+// recent posts; lib/judge-rubric.mjs validates critique.judge, REQUIRED (HMAC-verified with
+// SOCIAL_JUDGE_KEY) under `--require-judge` or inside social-tree-approve once that key exists
+// (Tree's draft-time run has no judge yet).
 //
 // A requested-but-unresolvable target (doesn't exist under social/queue/) is
 // a HARD failure, not a warning — silently checking nothing and exiting 0
@@ -97,7 +98,7 @@ import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidS
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { checkVoiceStyle } from './lib/voice-gates.mjs';
-import { checkJudge } from './lib/judge-rubric.mjs';
+import { checkJudge, judgeEnforcement } from './lib/judge-rubric.mjs';
 import { checkImageReuse } from './lib/image-reuse.mjs';
 import { buildLedger, fingerprintMedia, readLedger } from './lib/image-ledger.mjs';
 import { fingerprintEngineMissing } from './lib/image-fingerprint.mjs';
@@ -910,7 +911,7 @@ async function resolveTargets(argv) {
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS, imageContext = null, requireJudge = false, now = Date.now() }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS, imageContext = null, requireJudge = false, judgeKey = '', now = Date.now() }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
@@ -955,7 +956,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkExperiment(target.data),
     ...checkCritique(target.data, { activeLessonIds }),
     ...checkVoiceStyle(target.data, allPosted.map((p) => p.data), { now }),
-    ...checkJudge(target.data, { required: requireJudge }),
+    ...checkJudge(target.data, { required: requireJudge, key: judgeKey, file: path.basename(target.file) }),
   ];
 }
 
@@ -1032,12 +1033,17 @@ async function main() {
 
   // The pre-merge approval gate (social-tree-approve.yml) requires the independent judge; Tree's own
   // draft-time run cannot have it yet (the judge runs on the opened PR), so it only validates one if present.
-  const requireJudge = process.argv.includes('--require-judge') || process.env.GITHUB_WORKFLOW === 'social-tree-approve';
+  const enforcement = judgeEnforcement({ argv: process.argv, env: process.env, postedCount: allPosted.length });
+  if (enforcement.error) {
+    console.error(enforcement.error);
+    process.exit(1);
+  }
+  if (enforcement.warning) console.warn(enforcement.warning);
 
   let hadFindings = false;
   let hadWarnings = false;
   for (const target of targets) {
-    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS, imageContext, requireJudge });
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS, imageContext, requireJudge: enforcement.requireJudge, judgeKey: enforcement.key });
     // A warning (currently only checkLength's over-270-but-within-280 case)
     // is advisory: it prints, but never flips the exit code on its own — see
     // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard
