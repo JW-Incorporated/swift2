@@ -179,6 +179,29 @@ describe('clearRetired', () => {
     expect(updates.map((u) => u.guards.id)).toEqual(['a']);
   });
 
+  it('restores a row retired as not notable, with the same guarded update', async () => {
+    const { db, updates } = retiredDb([{ id: 'nn', quality_hold_reason: 'retired_not_notable', retracted_at: null }]);
+    expect(await clearRetired(db, { dryRun: false })).toMatchObject({ found: 1, restored: 1 });
+    expect(updates).toEqual([{
+      values: { redline_ok: true, quality_hold_reason: null },
+      guards: { id: 'nn', quality_hold_reason: 'retired_not_notable', retracted_at: null },
+    }]);
+  });
+
+  it('filters retire_not_notable snapshots by --since', async () => {
+    const two = [
+      { id: 'a', quality_hold_reason: 'retired_not_notable', retracted_at: null },
+      { id: 'd', quality_hold_reason: 'retired_not_notable', retracted_at: null },
+    ];
+    const snaps = [
+      { current_item_id: 'a', reason: 'retire_not_notable', snapshot_at: '2026-11-09T00:00:00Z' },
+      { current_item_id: 'd', reason: 'retire_not_notable', snapshot_at: '2026-10-01T00:00:00Z' },
+    ];
+    const { db, updates } = retiredDb(two, snaps);
+    await clearRetired(db, { since: '2026-11-01T00:00:00Z', dryRun: false });
+    expect(updates.map((u) => u.guards.id)).toEqual(['a']);
+  });
+
   it('writes nothing in a dry run', async () => {
     const { db, updates } = retiredDb(rows);
     expect(await clearRetired(db, {})).toMatchObject({ found: 1, restored: 0 });
@@ -212,6 +235,18 @@ describe('content-backfill workflow inputs', () => {
     expect(validate({ INPUT_RETIRE_BELOW_FLOOR: 'true' }).status).toBe(1);
     expect(validate({ INPUT_RETIRE_UNWRITABLE: 'true' }).status).toBe(1);
     expect(validate({ INPUT_MODE: 'force', INPUT_RETIRE_UNWRITABLE: 'true' }).status).toBe(0);
+  });
+
+  it('offers significance, with a dry-run default, and wires BACKFILL_MODE through', () => {
+    expect(yml).toMatch(/options:\s+- floors\s+- force\s+- rewrite\s+- significance/);
+    expect(yml).toContain('BACKFILL_MODE: ${{ inputs.mode }}');
+  });
+
+  it.skipIf(bash.error !== undefined)('accepts ids in significance mode and refuses both retire flags there', () => {
+    expect(validate({ INPUT_MODE: 'significance' }).status).toBe(0);
+    expect(validate({ INPUT_MODE: 'significance', INPUT_IDS: uuid }).status).toBe(0);
+    expect(validate({ INPUT_MODE: 'significance', INPUT_RETIRE_BELOW_FLOOR: 'true' }).status).toBe(1);
+    expect(validate({ INPUT_MODE: 'significance', INPUT_RETIRE_UNWRITABLE: 'true' }).status).toBe(1);
   });
 });
 
