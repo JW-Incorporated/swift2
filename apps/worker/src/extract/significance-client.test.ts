@@ -35,6 +35,12 @@ describe('judgeSignificance', () => {
     expect(await judgeSignificance(await ExtractUsageStore.create(db), INPUT, claude)).toEqual({ status: 'deferred', reason: 'invalid_tier' });
   });
 
+  it('defers when the shared caller reports a timeout (its 120s hard kill returns unavailable)', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
+    const claude = vi.fn(async () => ({ status: 'unavailable', reason: 'timeout' })) as unknown as WorkerClaudeCaller;
+    expect(await judgeSignificance(await ExtractUsageStore.create(db), INPUT, claude)).toEqual({ status: 'deferred', reason: 'timeout' });
+  });
+
   it('defers without calling when the budget is exhausted', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'x');
     const claude = vi.fn() as unknown as WorkerClaudeCaller;

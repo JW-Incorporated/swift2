@@ -17,7 +17,10 @@ import { resolveImageUrl, youtubeThumbnail } from './image-resolve';
 import { resolveYouTubeEmbed } from './youtube-embed';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { loadEraContext } from './context-loader';
-import { dailyTextCapHold } from './daily-text-cap';
+import { dailyTextCapHold, tierCapHold } from './daily-text-cap';
+import {
+  createSignificanceStore, runSignificanceStep, significanceMode, type SignificanceAssessment, type SignificanceStep,
+} from './significance-stage';
 import {
   composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, rewriteMergedOriginal, tierFloorHold, writerMode,
 } from './v2-stage';
@@ -25,11 +28,11 @@ import { loadPendingStories, recordV2Attempt } from './v2-retry';
 import { runShadow } from './v2-shadow';
 import {
   mergeNewFactsIntoOriginal,
-  projectKnowledgeDoc,
   writeCurrentItem,
   type ClusterSource,
   type WriterV2Write,
 } from './write-knowledge';
+import { projectCurrentItemDoc } from './project-current-item';
 import { writeFanSignalTheories } from './write-fan-signal-theories';
 
 const CURRENT_ERA_ID = 'tloas';
@@ -58,6 +61,16 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
   const v2Stores = mode === 'off'
     ? undefined
     : { writer: await createWriterStore(db), judge: await createJudgeStore(db) };
+  const sigMode = significanceMode();
+  let sigStore: Awaited<ReturnType<typeof createSignificanceStore>> | undefined;
+  if (sigMode !== 'off') {
+    try {
+      sigStore = await createSignificanceStore(db);
+    } catch (error) {
+      console.warn(`news-worker: significance store unavailable (${(error as Error).message}); no judge this run`);
+    }
+  }
+  const sigMemo = new Map<string, SignificanceAssessment>();
 
   const stories = (pending ?? []) as (PendingStory & { v2_attempts?: number })[];
   for (const [index, story] of stories.entries()) {
@@ -204,67 +217,59 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               );
             }
           } else {
-            let toWrite = currentItem;
-            let v2Write: WriterV2Write | undefined;
-            const capHold = writerV2 && v2Stores && hasFacts(currentItem)
-              ? await dailyTextCapHold(db, CURRENT_ERA_ID, currentItem.facts)
-              : undefined;
-            if (capHold) {
-              v2Write = capHold;
-            } else if (writerV2 && v2Stores && hasFacts(currentItem)) {
-              const composed = await composeV2Item(db, v2Stores, currentItem, sources, CURRENT_ERA_ID);
-              if (composed.v2.holdReason && DEFERRED_HOLDS.includes(composed.v2.holdReason)) {
-                result.v2Deferred += 1;
-                await recordV2Attempt(db, result, story.id, story.v2_attempts, 'deferred');
-                continue;
+            const sig: SignificanceStep = sigMode === 'off'
+              ? { action: 'proceed' }
+              : await runSignificanceStep({
+                db, result, mode: sigMode, store: sigStore, memo: sigMemo, story, item: currentItem, sources,
+                eraId: CURRENT_ERA_ID, countdownTargetAt, imageUrl,
+              });
+            if (sig.action === 'retry') continue;
+            if (sig.action !== 'held') {
+              let toWrite = currentItem;
+              let v2Write: WriterV2Write | undefined;
+              const capHold = writerV2 && v2Stores && hasFacts(currentItem)
+                ? sigMode === 'on' && sig.verdict
+                  ? await tierCapHold(db, CURRENT_ERA_ID, currentItem.facts, sig.verdict.tier)
+                  : await dailyTextCapHold(db, CURRENT_ERA_ID, currentItem.facts)
+                : undefined;
+              if (capHold) {
+                v2Write = capHold;
+              } else if (writerV2 && v2Stores && hasFacts(currentItem)) {
+                const composed = await composeV2Item(db, v2Stores, currentItem, sources, CURRENT_ERA_ID);
+                if (composed.v2.holdReason && DEFERRED_HOLDS.includes(composed.v2.holdReason)) {
+                  result.v2Deferred += 1;
+                  await recordV2Attempt(db, result, story.id, story.v2_attempts, 'deferred');
+                  continue;
+                }
+                toWrite = composed.item;
+                v2Write = composed.v2;
+              } else if (mode === 'shadow' && v2Stores && hasFacts(currentItem)) {
+                await runShadow(db, v2Stores, story.id, currentItem, sources, CURRENT_ERA_ID).catch((error: Error) => {
+                  console.warn(`news-worker: v2 shadow failed for story ${story.id}: ${error.message}`);
+                });
               }
-              toWrite = composed.item;
-              v2Write = composed.v2;
-            } else if (mode === 'shadow' && v2Stores && hasFacts(currentItem)) {
-              await runShadow(db, v2Stores, story.id, currentItem, sources, CURRENT_ERA_ID).catch((error: Error) => {
-                console.warn(`news-worker: v2 shadow failed for story ${story.id}: ${error.message}`);
-              });
-            }
-            const embed = await resolveYouTubeEmbed(sources);
-            const written = await writeCurrentItem(
-              db,
-              story.id,
-              CURRENT_ERA_ID,
-              toWrite,
-              sources,
-              countdownTargetAt,
-              imageUrl ?? (embed ? youtubeThumbnail(embed.videoId) : undefined),
-              v2Write,
-              embed,
-            );
-            if (!written.redlineOk) {
-              if (v2Write?.holdReason) recordV2Hold(result, v2Write.holdReason);
-              else result.screenedOut += 1;
-            }
-            else {
-              result.extracted += 1;
-              evidenceDocId = `current:${written.id}`;
-              await projectKnowledgeDoc(db, {
-                id: evidenceDocId,
-                kind: 'current_item',
-                title: toWrite.headline,
-                text: `${toWrite.summary} ${toWrite.detail}`.trim(),
-                date: toWrite.observedOn,
-                recencyDate: toWrite.observedOn,
-                open: ['rumor', 'reported'].includes(toWrite.statusHint),
-                status: toWrite.statusHint,
-                sourceTier: sources[0]?.tier ?? 'unverified',
-                sources: sources.map((source) => ({
-                  name: source.outletName,
-                  url: source.url,
-                  tier: source.tier,
-                })),
-                eraId: CURRENT_ERA_ID,
-                symbols: toWrite.symbols,
-                entities: toWrite.entities,
-                expiresAt: written.expiresAt,
-                redlineOk: written.redlineOk,
-              });
+              const embed = await resolveYouTubeEmbed(sources);
+              const written = await writeCurrentItem(
+                db,
+                story.id,
+                CURRENT_ERA_ID,
+                toWrite,
+                sources,
+                countdownTargetAt,
+                imageUrl ?? (embed ? youtubeThumbnail(embed.videoId) : undefined),
+                v2Write,
+                embed,
+                sig.verdict,
+              );
+              if (!written.redlineOk) {
+                if (v2Write?.holdReason) recordV2Hold(result, v2Write.holdReason);
+                else result.screenedOut += 1;
+              }
+              else {
+                result.extracted += 1;
+                evidenceDocId = `current:${written.id}`;
+                await projectCurrentItemDoc(db, evidenceDocId, toWrite, sources, CURRENT_ERA_ID, written);
+              }
             }
           }
         }
