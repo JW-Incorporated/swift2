@@ -4732,9 +4732,9 @@ export default {
             reportedOn: '2026-04-07',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
-            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location.',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location. Re-checked 2026-11-08: nothing announced; still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           {
             claim:
@@ -4743,9 +4743,9 @@ export default {
             reportedOn: '2026-07-21',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
-            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location.',
+            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location. Re-checked 2026-11-08: no album announced; still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
           // distinct next-project thread from the TS13 tips above — this one
@@ -4763,9 +4763,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Re-verified STILL LIVE 2026-09-02: fresh Icon Sessions easter-egg cluster (PureWow, Yardbarker), nothing announced.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Still live 2026-09-02 (Icon Sessions easter-egg cluster: PureWow, Yardbarker) and 2026-11-08; nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -4789,7 +4789,7 @@ export default {
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
             note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-14',
+            lastCheckedOn: '2026-11-08',
           },
           // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #4893): a distinct
           // thread from the TS13 / debut-TV tips above — the revived "lost
@@ -4806,9 +4806,9 @@ export default {
             reportedOn: '2026-09-30',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/fans-think-taylor-swift-lost-192409707.html',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location. Re-checked 2026-11-08: still quiet.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-10',
+            lastCheckedOn: '2026-11-08',
           },
         ],
       },
