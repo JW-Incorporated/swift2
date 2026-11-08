@@ -89,7 +89,22 @@ export interface KnowledgeDataSource {
 }
 
 const CURRENT_ITEM_COLS =
-  'id,story_id,observed_on,era_id,category,tags,headline,summary,detail,status,confidence,source_tier,sources,location_level,image_url,social_post,symbols,entities,heat,promoted_to,merged_into,last_checked_on,expires_at,redline_ok,updated_at,countdown_target_at,countdown_resolved_at,facts,writing_score';
+  'id,story_id,observed_on,era_id,category,tags,headline,summary,detail,status,confidence,source_tier,sources,location_level,image_url,embed,media_kind,social_post,symbols,entities,heat,promoted_to,merged_into,last_checked_on,expires_at,redline_ok,updated_at,countdown_target_at,countdown_resolved_at,facts,writing_score';
+
+const CURRENT_ITEM_COLS_NO_MEDIA = CURRENT_ITEM_COLS.replace('embed,media_kind,', '');
+
+/** A web build can deploy before db-migrate adds embed/media_kind: retry once
+ * without them and read the rows as plain text items. */
+async function selectCurrentItems(
+  run: (cols: string) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
+): Promise<{ data: unknown; error: { message: string } | null }> {
+  const first = await run(CURRENT_ITEM_COLS);
+  if (!first.error || !/embed|media_kind/.test(first.error.message)) return first;
+  const retry = await run(CURRENT_ITEM_COLS_NO_MEDIA);
+  if (retry.error) return retry;
+  const rows = ((retry.data ?? []) as Record<string, unknown>[]).map((r) => ({ ...r, embed: null, media_kind: 'text' }));
+  return { data: rows, error: null };
+}
 
 // Defensive ceiling, same intent as vault.ts's TIER0_MAX_ROWS: makes the
 // payload boundary loud rather than an implicit PostgREST truncation. A
@@ -97,17 +112,19 @@ const CURRENT_ITEM_COLS =
 const CURRENT_ITEM_MAX_ROWS = 500;
 
 export async function getCurrentItems(db: SupabaseClient, eraId: string): Promise<CurrentItem[]> {
-  const { data, error } = await db
-    .from('current_item')
-    .select(CURRENT_ITEM_COLS)
-    .eq('era_id', eraId)
-    .eq('redline_ok', true)
-    .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
-    .is('promoted_to', null)
-    .is('merged_into', null)
-    .is('retracted_at', null)
-    .order('observed_on', { ascending: false })
-    .limit(CURRENT_ITEM_MAX_ROWS);
+  const { data, error } = await selectCurrentItems((cols) =>
+    db
+      .from('current_item')
+      .select(cols)
+      .eq('era_id', eraId)
+      .eq('redline_ok', true)
+      .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
+      .is('promoted_to', null)
+      .is('merged_into', null)
+      .is('retracted_at', null)
+      .order('observed_on', { ascending: false })
+      .limit(CURRENT_ITEM_MAX_ROWS),
+  );
 
   if (error) throw new Error(`getCurrentItems: ${error.message}`);
   // The redline/expiry filters repeat the RLS policy in SQL so the row cap
@@ -130,18 +147,19 @@ export async function getCurrentItems(db: SupabaseClient, eraId: string): Promis
  * filter out explicitly, so it's stated here rather than only left to policy). */
 export async function getRecentItems(db: SupabaseClient, days: number, signal?: AbortSignal): Promise<CurrentItem[]> {
   const cutoff = dateMath().daysAgo(days);
-  let query_ = db
-    .from('current_item')
-    .select(CURRENT_ITEM_COLS)
-    .gte('observed_on', cutoff)
-    .eq('redline_ok', true)
-    .is('retracted_at', null)
-    .is('promoted_to', null)
-    .is('merged_into', null)
-    .order('observed_on', { ascending: false })
-    .limit(CURRENT_ITEM_MAX_ROWS);
-  if (signal) query_ = query_.abortSignal(signal);
-  const { data, error } = await query_;
+  const { data, error } = await selectCurrentItems((cols) => {
+    const query_ = db
+      .from('current_item')
+      .select(cols)
+      .gte('observed_on', cutoff)
+      .eq('redline_ok', true)
+      .is('retracted_at', null)
+      .is('promoted_to', null)
+      .is('merged_into', null)
+      .order('observed_on', { ascending: false })
+      .limit(CURRENT_ITEM_MAX_ROWS);
+    return signal ? query_.abortSignal(signal) : query_;
+  });
 
   if (error) throw new Error(`recent: ${error.message}`);
   // Content fix 3/6: same defense-in-depth quality-gate filter as getCurrentItems above.

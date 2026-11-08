@@ -23,7 +23,7 @@ Format: date, decision, why, alternatives considered, who approved.
 - A significance stage runs between pass A and the worth gate in `apps/worker/src/extract/run-extract-stage.ts`. It holds, it never skips: `quality_hold_reason` is `not_notable:<rule>` (deterministic layer) or `not_notable:judge` (LLM layer). No skip reason is added to `prompt.ts`.
 - Layer 1 is pure and deterministic (`significance-rules.ts`, no I/O): anonymous-source relationship, wedding and baby stories, sightings and fashion with no tier-1/2 event, other celebrities remarking on her, Travis sports filler, listicles, anniversaries, net worth and jet items, "fans think" speculation.
 - Layer 2 is a structured Opus 5.5 judgment, `{tier, reason}`, through the existing judge client, with the rubric above and `heat` (distinct host count) as an input. A judge error or exhausted budget defers the item for retry (fail closed).
-- The result is stored in `current_item.significance` (`{tier, reason, model, at}`), additive migration.
+- The result is stored in `current_item.significance_verdict` (`{tier, reason, model, at}`), additive migration.
 - The daily text cap becomes tier-aware: tier 1 never capped, tier 2 capped at 4 per day, tier 3 never published. This replaces first-come-first-served for the 6-per-day cap of 2026-11-03 once wired.
 - Rollout: the logic and calibration ship first with no live wiring. Wiring the live path and retiring existing noise are later slices. Acceptance on the labeled fixture set: at least 90% of NOISE held and at least 95% of IMPORTANT kept, across 3 runs.
 

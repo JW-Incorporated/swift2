@@ -10,6 +10,7 @@ export const BACKFILL_PER_RUN_CAP = 150;
 export const BACKFILL_DAILY_CAP = 300;
 export const BACKFILL_WRITER_SCOPE = 'backfill-writer';
 export const BACKFILL_JUDGE_SCOPE = 'backfill-judge';
+export const BACKFILL_SIGNIFICANCE_SCOPE = 'backfill-significance';
 
 function scopedUsageDb(db: SupabaseClient, scope: string): UsageDb {
   return {
@@ -37,4 +38,8 @@ export function createBackfillWriterStore(db: SupabaseClient): Promise<ExtractUs
 
 export function createBackfillJudgeStore(db: SupabaseClient): Promise<ExtractUsageStore> {
   return ExtractUsageStore.create(scopedUsageDb(db, BACKFILL_JUDGE_SCOPE), BACKFILL_PER_RUN_CAP, BACKFILL_DAILY_CAP);
+}
+
+export function createBackfillSignificanceStore(db: SupabaseClient): Promise<ExtractUsageStore> {
+  return ExtractUsageStore.create(scopedUsageDb(db, BACKFILL_SIGNIFICANCE_SCOPE), BACKFILL_PER_RUN_CAP, BACKFILL_DAILY_CAP);
 }

@@ -86,7 +86,7 @@ jobs:
       # routine-tree-event-draft.yml and routine-vault-run.yml.
       priority: content
       prompt_file: docs/agents/runner-prompts/tree-daily-draft.md
-      model: claude-opus-4-8
+      model: claude-opus-5-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
       timeout_minutes: 30
       max_turns: 75 # default 40 was hit by 2 turns (kanban t_68b1a827, 2026-09-07); raised 50 -> 75 on 2026-10-21 — draft days take 50-59 turns (docs/decisions.md 2026-10-21)

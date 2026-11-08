@@ -13,7 +13,8 @@ import {
 import { emptyResult, recordDiscard, recordV2Hold, type ExtractStageResult } from './extract-stage-result';
 import { finishExtractStage } from './extract-stage-finish';
 import { extractWithLLM } from './haiku-client';
-import { resolveImageUrl } from './image-resolve';
+import { resolveImageUrl, youtubeThumbnail } from './image-resolve';
+import { resolveYouTubeEmbed } from './youtube-embed';
 import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
 import { loadEraContext } from './context-loader';
 import { dailyTextCapHold } from './daily-text-cap';
@@ -224,6 +225,7 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
                 console.warn(`news-worker: v2 shadow failed for story ${story.id}: ${error.message}`);
               });
             }
+            const embed = await resolveYouTubeEmbed(sources);
             const written = await writeCurrentItem(
               db,
               story.id,
@@ -231,8 +233,9 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
               toWrite,
               sources,
               countdownTargetAt,
-              imageUrl,
+              imageUrl ?? (embed ? youtubeThumbnail(embed.videoId) : undefined),
               v2Write,
+              embed,
             );
             if (!written.redlineOk) {
               if (v2Write?.holdReason) recordV2Hold(result, v2Write.holdReason);
