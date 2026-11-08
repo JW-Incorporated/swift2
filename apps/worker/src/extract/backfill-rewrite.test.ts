@@ -110,7 +110,7 @@ describe('loadRewriteSelection', () => {
 
   it('honours limit, days and ids, and skips rows already rewritten unless targeted by id', async () => {
     const items = [row('a'), row('b', { observed_on: daysAgo(10) }), row('c'), row('done')];
-    const { db } = fakeDb(items, [{ current_item_id: 'done', reason: 'backfill_rewrite', created_at: '2026-11-09T00:00:00Z' }]);
+    const { db } = fakeDb(items, [{ current_item_id: 'done', reason: 'backfill_rewrite', snapshot_at: '2026-11-09T00:00:00Z' }]);
     expect((await loadRewriteSelection(db)).candidates.map((c) => c.id).sort()).toEqual(['a', 'b', 'c']);
     expect((await loadRewriteSelection(db, 1)).candidates).toHaveLength(1);
     expect((await loadRewriteSelection(db, 0, new Date(), 3)).candidates.map((c) => c.id).sort()).toEqual(['a', 'c']);
@@ -120,8 +120,8 @@ describe('loadRewriteSelection', () => {
   it('counts only snapshots created since the writer-version marker as already rewritten', async () => {
     const items = [row('old'), row('new')];
     const snaps = [
-      { current_item_id: 'old', reason: 'backfill_rewrite', created_at: '2026-11-01T00:00:00Z' },
-      { current_item_id: 'new', reason: 'backfill_rewrite', created_at: '2026-11-09T00:00:00Z' },
+      { current_item_id: 'old', reason: 'backfill_rewrite', snapshot_at: '2026-11-01T00:00:00Z' },
+      { current_item_id: 'new', reason: 'backfill_rewrite', snapshot_at: '2026-11-09T00:00:00Z' },
     ];
     const { db } = fakeDb(items, snaps);
     expect((await loadRewriteSelection(db)).candidates.map((c) => c.id)).toEqual(['old']);
