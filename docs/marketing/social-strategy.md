@@ -128,9 +128,25 @@ ended `launch:shop-the-look` and the 1-post close that ended
 `launch:mood-chat`.
 
 **Currently push-worthy, in order** (Tree works down this list when no new ship
-landed): Mood Chat (#1560 — the clearest "we launched a thing" story), the
-pinch-zoom photo viewer (#831), the photos + focal program (#762), shoppable
-Runway looks, the rumor tier ("what's confirmed / what's rumored").
+landed): the pinch-zoom photo viewer (#831 — **blocked, see the gate rule
+below**), the photos + focal program (#762), shoppable Runway looks, the rumor
+tier ("what's confirmed / what's rumored"). `launch:mood-chat` (#1560) closed at
+1 of 4 posts and `launch:shop-the-look` at 3 of 4; neither is re-run.
+
+**A day-0 gate must be one the drafting run can clear by itself (added
+2026-11-09, Tree).** A launch arc may carry a verification gate on day 0 — it
+should, because promoting a surface nobody has looked at is how a broken feature
+gets a caption. But the gate has to be satisfiable by the 11:00Z run: fetching
+the page and confirming a section renders is a gate; *"open it on a phone and
+pinch-zoom a photo"* is not, because no automated run holds a phone. The
+`launch:photo-viewer` arc was deferred **four** times under exactly that gate
+(10-19, 10-26, 11-02's placement falling back on 11-09), and the fourth deferral
+was not the §1(a) arithmetic above — it was a gate with no clearing path, which
+produces a fallback every time it is placed. So: **when the only honest check is
+a physical-device or human-judgement one, the arc does not go on the calendar at
+all.** It stays on this backlog behind a filed `HUMAN-ACTIONS.md` card and
+returns the first weekly run after that card closes. Record the card number in
+the calendar ledger so the deferral has a named owner rather than a new date.
 
 ### (b) Thread of the month — all six threads, every month, a new angle
 
