@@ -25,15 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
 
-## Taylor Swift Seen With Karlie Kloss At Chiefs Game
+## Taylor Swift and Karlie Kloss spotted together on the road
 
-- first seen: 2026-11-09 01:48 UTC | category: sighting | importance: 5
+- first seen: 2026-11-09 02:47 UTC | category: sighting | importance: 5
 - verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted seated next to former Project Runway host Karlie Kloss at a Chiefs game. Kloss, alongside her husband Joshua Kushner, has recently made headlines for reviving LIFE magazine.
+- summary: Taylor Swift and Karlie Kloss are featured in a Vogue article highlighting their friendship during a recent outing. The piece showcases their bond and some shared moments on the road together.
 - sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/taylor-swift-karlie-kloss-chiefs-game-1237216947/
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-best-friends-march-2015-cover
+
+## Taylor Swift and Travis Kelce Seen Departing Chiefs Game in Vintage Cadillac
+
+- first seen: 2026-11-09 02:47 UTC | category: sighting | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift and Travis Kelce were spotted leaving a Chiefs game together in a vintage Cadillac. The sighting highlights their public presence at sporting events this season.
+- sources:
+  - [established] People — https://people.com/taylor-swift-travis-kelce-smile-leave-game-together-in-vintage-cadillac-12243992
+
+## Taylor Swift and Karlie Kloss Attend Chiefs Game Together
+
+- first seen: 2026-11-09 02:47 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss were spotted together at a recent Chiefs game, prompting widespread attention. Their outing has generated significant media coverage and public interest.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/08/taylor-swift-karlie-kloss-chiefs-game-drama-explained/92683150007/
 
 ## Taylor Swift and Travis Kelce Face 2027 Breakup Speculation Report
 
@@ -42,6 +58,14 @@ Stories: 86
 - summary: A new report discusses potential breakup speculation surrounding Taylor Swift and Travis Kelce, suggesting concerns about their relationship in 2027. This has generated attention among fans and media alike.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-lead-013000760.html
+
+## Taylor Swift Seen With Karlie Kloss At Chiefs Game
+
+- first seen: 2026-11-09 01:48 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted seated next to former Project Runway host Karlie Kloss at a Chiefs game. Kloss, alongside her husband Joshua Kushner, has recently made headlines for reviving LIFE magazine.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/taylor-swift-karlie-kloss-chiefs-game-1237216947/
 
 ## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
 
@@ -721,30 +745,3 @@ Stories: 86
 - summary: A New York Knicks champion publicly referred to Taylor Swift as the 'fakest fan' during a game at Madison Square Garden. The remarks were made from the celebrity row, drawing attention to her presence at the event.
 - sources:
   - [unverified] Fox News — https://www.foxnews.com/outkick-sports/new-york-knicks-champion-calls-out-taylor-swift-fakest-fan-msgs-celebrity-row
-
-## NBA Players Criticize Taylor Swift's Performative Actions
-
-- first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 12
-- summary: NBA players have labeled Taylor Swift as 'very performative', which may not sit well with her fans, known as Swifties. The comments highlight the intersection of music and sports culture.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25529885-taylor-swift-named-fakest-celebrity-knicks-fan-tyler-kolek-deuce-mcbride-trending-video
-  - [unverified] CBS Sports — https://www.cbssports.com/nba/news/knicks-defend-taylor-swift-tyler-kolek-deuce-mcbride/
-  - [unverified] Entertainment Weekly — https://ew.com/knicks-respond-tyler-kolek-claim-taylor-swift-performative-fan-12240663
-  - [unverified] ESPN — https://www.espn.com/nba/story/_/id/50401300/taylor-swift-knicks-fan-tyler-kolek-miles-mcbride
-  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/knicks-defend-taylor-swift-fandom-guard-tyler-kolek-calls-support-very-performative
-  - [unverified] HoopsHype — https://www.hoopshype.com/story/sports/nba/rumors/2026/11/06/knicks-release-statement-defending-taylor-swift-from-tyler-kolek-fake-claims-appreciative-support/92646308007/
-  - [unverified] NBC New York — https://www.nbcnewyork.com/entertainment/entertainment-news/taylor-swift-knicks-fakest-celebrity-fan-tyler-kolek-deuce-mcbride/6568660/
-  - [unverified] Page Six — https://pagesix.com/2026/11/06/entertainment/taylor-swift-slammed-as-fakest-new-york-knicks-fan-by-team-player-tyler-kolek/
-  - [established] People — https://people.com/knicks-tyler-kolek-calls-taylor-swift-courtside-appearance-madison-square-garden-little-performative-12239815
-  - [unverified] Sportsnet.ca — https://www.sportsnet.ca/nba/article/knicks-issue-statement-after-tyler-kolek-calls-taylor-swift-performative/
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/little-performative-taylor-swift-branded-013140380.html
-
-## Documentary on Vienna concert threat to release in fall 2027
-
-- first seen: 2026-11-06 02:27 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A documentary focusing on the terrorist threat during a Taylor Swift concert in Vienna is set to arrive in fall 2027, as reported by Paste Magazine.
-- sources:
-  - [unverified] Paste Magazine — https://www.pastemagazine.com/music/taylor-swift/documentary-about-the-taylor-swift-concert-terrorist-threat-in-vienna-arriving-in-fall-2027
