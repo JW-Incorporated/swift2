@@ -145,6 +145,12 @@ describe('interleaveRecentVideo', () => {
     ]);
   });
 
+  it('leaves entries dated after today alone, even when the clock is behind the content', () => {
+    const future = [moment('f1', '2026-11-20'), moment('f2', '2026-11-19'), moment('f3', '2026-11-18')];
+    const feed = rendered([...future, ...textMoments(3)], [video('fv', '2026-11-17'), video('clip', '2026-11-05')], NOW);
+    expect(feed.map(key)).toEqual(['f1', 'f2', 'f3', 'fv', 't00', 't01', 'clip', 't02']);
+  });
+
   it('is pure recency without a clock', () => {
     const withClock = rendered(textMoments(9), [video('clip', '2026-11-02')], NOW);
     const without = rendered(textMoments(9), [video('clip', '2026-11-02')]);

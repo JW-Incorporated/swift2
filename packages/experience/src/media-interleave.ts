@@ -30,21 +30,28 @@ function isTextEntry<V extends VideoNote>(entry: RenderFeedEntry<V>): boolean {
  *
  * `sorted` is the rendered card list (clusters already folded in, so
  * "in a row" counts cards the reader sees). Entries dated inside the
- * window (the leading run, since the input is date-descending) keep their
+ * window (from today back 7 days) keep their
  * relative order, except that once `MAX_TEXT_RUN` text/image entries have
  * appeared in a row and a video from the window is still waiting, the next
  * video is pulled forward. Videos keep their own relative order, as does
- * everything else. Entries outside the window are untouched. A permutation:
+ * everything else. Entries outside the window,
+ * including anything dated after today, are untouched. A permutation:
  * nothing is dropped or duplicated, and the result depends only on the input.
  */
 export function interleaveRecentVideo<V extends VideoNote>(
   sorted: RenderFeedEntry<V>[],
   nowMs: number,
 ): RenderFeedEntry<V>[] {
+  const today = new Date(nowMs).toISOString().slice(0, 10);
   const cutoff = new Date(nowMs - WEEK_MS).toISOString().slice(0, 10);
-  const windowEnd = sorted.findIndex((e) => e.anchor.sortDate.slice(0, 10) < cutoff);
-  const head = windowEnd === -1 ? sorted : sorted.slice(0, windowEnd);
-  const tail = windowEnd === -1 ? [] : sorted.slice(windowEnd);
+  const dayOf = (e: RenderFeedEntry<V>) => e.anchor.sortDate.slice(0, 10);
+  const startIdx = sorted.findIndex((e) => dayOf(e) <= today);
+  if (startIdx === -1) return sorted;
+  const endFound = sorted.findIndex((e) => dayOf(e) < cutoff);
+  const endIdx = endFound === -1 ? sorted.length : endFound;
+  const lead = sorted.slice(0, startIdx);
+  const head = sorted.slice(startIdx, endIdx);
+  const tail = sorted.slice(endIdx);
 
   const videos: { idx: number; entry: RenderFeedEntry<V> }[] = [];
   const others: { idx: number; entry: RenderFeedEntry<V> }[] = [];
@@ -67,5 +74,5 @@ export function interleaveRecentVideo<V extends VideoNote>(
     run = isTextEntry(entry) ? run + 1 : 0;
     out.push(entry);
   }
-  return [...out, ...tail];
+  return [...lead, ...out, ...tail];
 }
