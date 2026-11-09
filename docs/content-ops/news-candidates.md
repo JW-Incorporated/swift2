@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 84
 
 ## Knicks Player Tyler Kolek Faces Criticism for Comments on Taylor Swift
 
@@ -91,14 +91,6 @@ Stories: 87
 - sources:
   - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/taylor-swift-karlie-kloss-chiefs-game-1237216947/
 
-## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
-
-- first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has shared details about a unique Taylor Swift-inspired colorway for her CC1 sneakers, stating that it is an exclusive design. This release highlights the influence of Taylor Swift on style and sports.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-details-taylor-202804549.html
-
 ## Caitlin Clark Unveils Taylor Swift-Inspired Nike Sneakers
 
 - first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
@@ -106,6 +98,14 @@ Stories: 87
 - summary: Caitlin Clark has shared that her exclusive Nike sneakers, featuring a friendship bracelet design, are inspired by Taylor Swift. This connection highlights the influence of Swift in the world of fashion and sports.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/basketball/wnba/indiana-fever/2026/11/09/caitlin-clark-reveals-the-taylor-swift-inspiration-behind-her-exclusive-nike-friendship-bracelet-sneakers.html
+
+## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
+
+- first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has shared details about a unique Taylor Swift-inspired colorway for her CC1 sneakers, stating that it is an exclusive design. This release highlights the influence of Taylor Swift on style and sports.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-details-taylor-202804549.html
 
 ## Bill Maher Faces Backlash Over Comment on Taylor Swift
 
@@ -720,28 +720,3 @@ Stories: 87
 - summary: In a new interview, Jennifer Beals discusses her career and mentions Taylor Swift while also touching on 'Flashdance' and 'Percy Jackson'.
 - sources:
   - [unverified] BroadwayWorld — https://www.broadwayworld.com/bwwtv/article/Jennifer-Beals-Talks-Flashdance-Taylor-Swift-and-PERCY-JACKSON-20261106
-
-## Tyler Kolek Criticizes Taylor Swift as Knicks' 'Fakest' Fan
-
-- first seen: 2026-11-06 11:22 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Knicks player Tyler Kolek describes Taylor Swift as the team's 'fakest' celebrity fan, labeling her support as 'a little performative.'
-- sources:
-  - [unverified] New York Post — https://nypost.com/2026/11/06/sports/knicks-star-tyler-kolek-calls-out-taylor-swift-as-teams-fakest-celebrity-fan/
-  - [unverified] The Big Lead — https://www.thebiglead.com/taylor-swift-knicks-fandom-questioned-again-tyler-kolek-reveals-fakest-fan-pick/
-
-## Director Calls Taylor Swift's 'Toy Story 5' Song a Perfect Match
-
-- first seen: 2026-11-06 11:22 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The director of 'Toy Story 5' describes Taylor Swift's song for the film as a serendipitous fit, referencing the song's alignment with the movie's themes. This collaboration highlights Swift's continued involvement in prominent film projects.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-toy-story-5-093500842.html
-
-## Taylor Swift's mother-in-law sells Florida home for six-figure profit
-
-- first seen: 2026-11-06 11:22 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that Taylor Swift's mother-in-law has successfully sold her Florida home, achieving a significant profit in the six-figure range.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-mother-law-scores-095439185.html
