@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 86
+
+## Taylor Swift Seen With Karlie Kloss At Chiefs Game
+
+- first seen: 2026-11-09 01:48 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted seated next to former Project Runway host Karlie Kloss at a Chiefs game. Kloss, alongside her husband Joshua Kushner, has recently made headlines for reviving LIFE magazine.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/taylor-swift-karlie-kloss-chiefs-game-1237216947/
+
+## Taylor Swift and Travis Kelce Face 2027 Breakup Speculation Report
+
+- first seen: 2026-11-09 01:48 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new report discusses potential breakup speculation surrounding Taylor Swift and Travis Kelce, suggesting concerns about their relationship in 2027. This has generated attention among fans and media alike.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-lead-013000760.html
 
 ## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
 
