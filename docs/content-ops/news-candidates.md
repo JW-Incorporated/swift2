@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
 
 ## Kelce and Swift Spotted Exiting Arrowhead Stadium After Chiefs Victory
 
@@ -729,11 +729,3 @@ Stories: 86
 - summary: A report indicates that Taylor Swift's mother-in-law has successfully sold her Florida home, achieving a significant profit in the six-figure range.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-mother-law-scores-095439185.html
-
-## Caitlin Clark Acknowledges Donna Kelce with Reference to Taylor Swift
-
-- first seen: 2026-11-06 07:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark expresses admiration for Donna Kelce and subtly references Taylor Swift in her remarks. The connection between Clark and Swift highlights the intersection of sports and pop culture.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/caitlin-clark-praises-donna-kelce-and-gives-subtle-nod-to-taylor-swift
