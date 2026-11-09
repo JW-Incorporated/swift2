@@ -33,6 +33,7 @@ import {
 } from '@swift2/shared';
 import { screenTopic } from '@swift2/shared/redline';
 import type { SourceTier } from '@swift2/shared/news';
+import { RETIRED_REASONS } from './backfill-retire';
 import { resolveImageUrl } from './image-resolve';
 import { fetchTopArticleTexts } from '../sources/fetch-article-text';
 import { extractWithLLM } from './haiku-client';
@@ -71,7 +72,7 @@ export async function loadBackfillCandidates(
     .from('current_item')
     .select(CANDIDATE_COLS)
     .is('promoted_to', null)
-    .or('quality_hold_reason.is.null,quality_hold_reason.not.in.(retired_below_floor,retired_duplicate,retired_unwritable)')
+    .or(`quality_hold_reason.is.null,quality_hold_reason.not.in.(${RETIRED_REASONS.join(',')})`)
     .gt('expires_at', new Date().toISOString())
     .order('observed_on', { ascending: false })
     .limit(limit);

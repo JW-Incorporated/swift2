@@ -781,6 +781,20 @@ constellation.
 
 ## 9. Current state / known gaps
 
+### Media-aware video interleave (video-first slice 1)
+
+- Over the last 7 days, `interleaveRecentVideo` (`media-interleave.ts`) lifts a
+  video above text/image cards once two of them have run in a row, counted in
+  rendered cards (a same-day cluster is one card). Older cards keep pure recency.
+- It runs inside `buildEraStreamViewModel` after clustering and only when
+  `interleaveNowMs` is passed. `EraSection` sets that in a mount effect, so SSR and
+  the first client render are pure recency (no hydration mismatch).
+- Web only for now: the snapshot builder (`reader-snapshot/build.ts`) and the mobile
+  stream pass no clock, so mobile stays on pure recency. Reversible: pass a clock
+  there to turn it on.
+- `TimelineScrubber` drops anchors a lifted card makes non-monotone
+  (`dropDisplacedAnchors`).
+
 ### Reader data flow (One UI WP2.2)
 
 - The web reader reads content only through the `ReaderSnapshot`: the web

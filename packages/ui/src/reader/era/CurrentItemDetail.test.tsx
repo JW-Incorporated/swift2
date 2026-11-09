@@ -3,7 +3,7 @@
 // headline alt) and readable, de-duplicated source links instead of a stack
 // of bare external-link icons.
 import { createElement } from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import type { CurrentItem } from '@swift2/shared';
 import { ERAS } from '@swift2/experience';
@@ -104,6 +104,25 @@ describe('CurrentItemDetail', () => {
     ].map((needle) => html.indexOf(needle));
     expect(order.every((i) => i >= 0)).toBe(true);
     expect([...order].sort((a, b) => a - b)).toEqual(order);
+  });
+
+  it('plays a video embed in place of the image', () => {
+    const video = {
+      ...item,
+      mediaKind: 'video',
+      embed: { provider: 'youtube', videoId: 'dQw4w9WgXcQ', title: 'Official video' },
+    } as unknown as CurrentItem;
+    const { container } = render(
+      createElement(
+        HostProvider,
+        { adapter: adapter() },
+        createElement(CurrentItemDetail, { item: video, era: ERAS[0]!, onClose: () => {} }),
+      ),
+    );
+    expect(container.querySelector('iframe')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Play video: Official video' }));
+    expect(container.querySelector('iframe')!.getAttribute('src')).toContain('/embed/dQw4w9WgXcQ');
+    expect(screen.queryByRole('img')).toBeNull();
   });
 });
 
