@@ -90,11 +90,11 @@ jobs:
           # bar. 'shadow' = legacy rows + v2 drafts reported only (artifact news-v2-shadow).
           # Rollback: set 'shadow' (keep watching drafts) or 'off' (legacy single-pass path only).
           NEWS_WRITER_V2: 'on'
-          # Significance gate (docs/decisions.md 2026-11-08). 'shadow' first rollout: tiers every item,
-          # logs significanceHeld/tierCounts and stores current_item.significance_verdict, but holds and
-          # defers nothing. 'on' = hold tier 3 (not_notable:*), defer on judge failure, tier-aware cap
-          # (tier 1 uncapped, tier 2 four per UTC day). Rollback: 'shadow' or 'off' (no stage at all).
-          NEWS_SIGNIFICANCE: 'shadow'
+          # Significance gate (docs/decisions.md 2026-11-08). 'on' since 2026-11-09 after 27 clean
+          # shadow cycles: hold tier 3 (not_notable:*), defer on judge failure, tier-aware cap
+          # (tier 1 uncapped, tier 2 four per UTC day). 'shadow' = tier and log only, hold nothing.
+          # Rollback: 'shadow' or 'off' (no stage at all).
+          NEWS_SIGNIFICANCE: 'on'
           NEWS_V2_SHADOW_FILE: ${{ runner.temp }}/news-v2-shadow.jsonl
         run: npm run news --workspace @swift2/worker
 
