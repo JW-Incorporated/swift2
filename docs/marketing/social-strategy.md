@@ -219,6 +219,20 @@ is **dropped**, exactly as before. The window still governs normal placement —
 "dropped rather than slid" remains the rule for a hero that lost its window to
 a *planning* choice.
 
+**A hero displaced by a site-fronted moment gets its own make-good, on top of
+that one (added 2026-11-09, Tree, answering ask
+[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)).** §1(e2)'s
+yield order now lets a confirmed site-fronted moment from the last 48h take a
+thread hero's beat (rung 4). A hero that yields that way is re-placed on any
+remaining `heartbeat:` or `mood:` beat in the same calendar month under the same
+bounds as above, and it does **not** spend the one-per-month engine-failure
+allowance — losing a slot to real news is the system working, and charging the
+month's single make-good for it would make the next pipeline failure
+unrecoverable. It is still one make-good per displacement, still same-month,
+still dropped if the month runs out of beats, and it is still written in the
+calendar as an explicit out-of-window make-good naming the window and the moment
+that took it.
+
 **Why.** The drop rule assumed a window closes because the calendar was
 over-subscribed, and in that case dropping is right. Twice now it has closed
 because nothing could ship at all: The Runway got 0 of 2 slots in September and
@@ -471,21 +485,90 @@ for news that does not arrive is just a gap with a reason attached.
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
 
 1. a `heartbeat:` beat — always yields,
-2. a `mood:` beat.
+2. a `mood:` beat,
+3. a launch arc's day 0 / +2 / +4 (§1(a)) — **a site-fronted moment only**; the
+   whole arc re-dates one beat later, and an arc that loses a day this way is a
+   deferral recorded in the calendar ledger, never a closed arc,
+4. a thread window's hero (§1(b)) — **a site-fronted moment only**; the hero
+   takes a same-month make-good that does **not** spend §1(b)'s one-per-month
+   engine-failure allowance.
 
-**That is the whole list as of 2026-10-09.** It used to carry a third rung —
-"the **second** slot of a thread window (never the hero)" — which no longer
-exists: §1(b) now gives each thread window ONE paired beat, and that beat *is*
-the hero. So news never displaces a thread beat, and a thread window's single
-beat is never written as a news reserve's named fallback either; a reserve's
-fallback is a heartbeat (or mood) subject. News never displaces the weekly
-Blank Spaces timeline minimum (§1(c)), a thread window's beat, or a launch
-arc's day 0 / +2 / +4 (§1(a)). The displaced beat
-slides to the next free day where that is possible; a window-bound thread
-slot is dropped rather than slid, same as today. The news item records the
-displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
-the event run may not edit `social/calendar.md`; the next weekly run
-reconciles the calendar to what actually shipped.
+**Rungs 3 and 4 were added 2026-11-09 (Tree, answering Marjorie's ask
+[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)), superseding the
+"that is the whole list as of 2026-10-09" wording this paragraph used to carry**
+— along with its clause that "a thread window's single beat is never written as
+a news reserve's named fallback", which is withdrawn: any beat may now be the
+fallback behind an arriving moment (see *News-capable by default*, below). The
+reason the old list stopped at mood was arithmetic — §1(b) had just collapsed
+each thread window to one paired beat, so displacing a thread beat meant losing
+the whole window. Rung 4 answers that with the make-good rather than by
+protecting the slot, and the trade is one-sided: **a launch arc's eligibility
+never expires** (§1(a) makes exactly this argument when an arc collides with
+news slack — "the arc waits"), a thread hero can be re-placed anywhere in its
+own month, and **a moment missed by 48h is gone for good.**
+
+**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum. It is
+one beat per calendar week, so displacing it does not move a beat, it deletes a
+week of a permanent series; it slides inside its own week instead.
+
+The displaced beat slides to the next free day where that is possible; a
+window-bound thread hero takes its make-good, and is dropped only if no beat is
+left in the month. The news item records the displacement in its `why` ("takes
+10-08 heartbeat; heartbeat → 10-09") because the event run may not edit
+`social/calendar.md`; the next weekly run reconciles the calendar to what
+actually shipped.
+
+**News-capable by default — any day, not a fixed news day (added 2026-11-09,
+Tree, answering ask [#6726](https://github.com/JW-Incorporated/swift2/issues/6726)).**
+Every beat a calendar writes is a landing day: its planned subject is its named
+fallback, exactly as a reserve's is, and the 11:00Z run drafts a confirmed
+site-fronted moment from the last 48h **there, that day**, as `news:<event-slug>`,
+instead of the planned subject. Four rules make it work:
+
+- **Both inputs count, not just the dispatcher's.** On any day, the moment may
+  come from `events.uncovered[]` **or** from that day's own
+  `social/inbox/new-on-site-*.json` sheet — a moment the site fronted inside 48h
+  that no shipped or queued post covers. The sheet is already evidence a moment
+  is live and sourced (see the end of this section), and it is in the daily run's
+  inputs, so a quiet `events.uncovered[]` is no longer the end of the matter.
+  Sourcing is unchanged: the claim is verified against the Vault or the intake
+  record before a word is written (invariant 13), and the #36 blocklist applies.
+- **Same-day, under its own campaign family.** A site-fronted moment drafted on
+  its own day mints `news:<event-slug>` with `utm_campaign=news` — not a
+  `heartbeat:` value two days later. That relabelling is most of the measured
+  gap (evidence below).
+- **A news-capable beat is not drafted a day early** (the reserve rule), so every
+  calendar keeps **≥2 draft-ahead days a week**, marked as such, which are the
+  only beats a previous day's run may fill. That is deliberate cover: the 10-28
+  dark day was two consecutive run failures on a day no earlier run could have
+  drafted ahead.
+- **The ceiling is untouched.** ≤3 news posts per rolling 7 days, ≤2 of them
+  ordinary. More landing days raise the chance of reaching the ≥3 floor; they
+  cannot raise the ceiling, so this is not a route to becoming a news
+  aggregator.
+
+*Evidence (week to 2026-11-08).* The week of 11-02 carried **three** news
+reserves — 11-05, 11-07, 11-08 — and shipped **zero** `news:` pairs against
+**15** site-fronted moments, the fourth such week running. Reserve count was
+never the binding constraint: all three reserves fell to their named
+`heartbeat:` fallbacks. Worse, two of those fallbacks **were** site-fronted
+moments, posted late and mislabelled — the Brad Paisley Songwriters Hall
+induction and the Nelly/Houston reveal both sit on the **11-05**
+`new-on-site` sheet and shipped on 11-07 and 11-08 as
+`heartbeat:era-deep-cut:…`. The 11-05 sheet alone carried five moments,
+including a Hollywood Music in Media nomination, which §1(e2) counts as an
+award and therefore major; 11-05 itself shipped nothing at all. Meanwhile the
+11-02 plan's own sensor reported `considered: 0, uncovered: []`, which is why
+this rule does not depend on it alone.
+
+*Known residual, named rather than papered over.*
+`docs/agents/runner-prompts/tree-event-draft.md` step 5 carries its own copy of
+the yield order ending at `mood:` and says "that is the whole list"; it is a
+runner prompt and not Tree's to edit, so the same-day **event** run still will
+not displace an arc day or a hero. This section reaches the same outcome through
+the run that *is* governed by Tree's own calendar — the 11:00Z daily draft — so
+the change is live without it. Syncing that prompt is asked of Marjorie this
+run, as a `tree-filed` ask parented on #6726.
 
 **Cap — ≤2 ordinary news posts per rolling 7 days** (raised to a ≤3 total
 ceiling for major moments, 2026-10-18 — see the next paragraph). News is the one campaign that can
@@ -731,12 +814,60 @@ day.
 
 **At least one day of every calendar week is a news reserve** (§1(e2), added
 2026-10-01): its beat is written `news:` with a named fallback subject on the
-same line, and it is the only slot the previous day's run leaves alone. A
+same line. **Since 2026-11-09 it is no longer the only slot the previous day's
+run leaves alone** — §1(e2)'s *News-capable by default* makes every beat a
+landing day for a site-fronted moment, so the only beats a previous day's run
+may draft ahead are the **≥2 draft-ahead days a week** the calendar marks as
+such. A reserve is still the one beat written `news:`-first, with the planned
+subject as its fallback rather than the other way round. A
 calendar that assigns all seven days to planned campaigns is now a planning
 bug, not a full plan — it is what made 27 events in two weeks un-postable. One
 reserve is the floor on *slots*, not on posts: §1(e2)'s throughput floor is **≥3
 moments reaching both platforms inside 48h each week**, carried by the reserve
 plus the ≥2 displaceable beats, and a plan is read against that number.
+
+### No dark day — the week's standby subject
+
+**Added 2026-11-09 (Tree), answering Marjorie's ask
+[#6727](https://github.com/JW-Incorporated/swift2/issues/6727).** 2026-11-05
+shipped **nothing on either platform** — no item in `social/posted/`, none in
+`social/failed/`, no queue remnant, so the day is simply absent from the record.
+Its beat was a news reserve whose named fallback carried the era note
+`the-life-of-a-showgirl`, and that era has **2** never-used photos (an
+`eraAvailability` run over `social/photo-library.json` against `social/posted/`
++ `social/queue/` in this checkout) — the thinnest tag in the library alongside
+`tortured-poets`, against ~470 eligible photos overall, and the one bucket the
+week-of-11-02 ledger's "no era exhausted" line never listed when it enumerated
+14. A themed beat whose era has no never-used pick left is **deferred** — L001
+and `tree-daily-draft.md` step 5: never an off-era photo, never a repeat tile —
+so a two-photo era note is a single point of failure for an entire day. The
+exact cause of 11-05's silence is not recorded anywhere in the repo; what is
+verifiable is the exposure, and that is what these two rules close.
+
+- **Every calendar names ONE standby subject for the week**, in the ledger:
+  **era-agnostic** (no `photoEra`, so it draws the general never-used pool
+  rather than a scarce era bucket), given the same way a beat is given — subject
+  direction, deep link, campaign family, hook direction. When the day's subject
+  **and** its named fallback both cannot be drafted, the drafter drafts the
+  standby rather than leaving the day dark. One per week: once it is spent, the
+  next undraftable day is a real gap and is flagged as one.
+- **An era note is only written on a beat whose era has ≥3 never-used photos at
+  plan time** (`photos.eras[<era>].unused`). One or two is not supply — an open
+  draft PR can claim the last pick before the beat's own run reaches it. Below
+  that floor the beat carries no era note and takes the general pool's pick, and
+  the thin era is named in the plan so the library gets fed (the 2026-10-01
+  photo-library amendment).
+
+**What this is not.** It is not the retired heartbeat-pillar fallback and it
+changes no gap rule: a day with **no** calendar entry is still never filled, and
+the drafter still never picks a subject of its own (`docs/agents/tree.md`, Daily
+draft, issue #2031 — "a fan account posting nothing is better than posting
+slop"). A standby is a subject *this plan assigns in advance*, the same device
+§1(e2)'s named fallback already is — "an assigned slot with two possible
+subjects, not a gap" — with one more tier behind it. It also weakens no gate:
+`check-drafts.mjs` and invariant 17's rubric floors apply to the standby exactly
+as to any beat, so a standby that cannot clear them leaves the slot empty and
+loudly flagged in the PR body, as today.
 
 ### Sibling rule + the X length rule
 
