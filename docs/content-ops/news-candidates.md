@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 79
 
 ## Stars Attend Kansas City Chiefs Games with Taylor Swift
 
@@ -685,11 +685,3 @@ Stories: 80
 - summary: A report claims that Taylor Swift is furious due to a perceived betrayal related to her wedding. The news adds to the ongoing negative coverage surrounding her nuptials.
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971568/taylor-swift-wedding-scooter-braun/
-
-## Taylor Swift and Travis Kelce Discuss Holiday Plans as Newlyweds
-
-- first seen: 2026-11-06 21:56 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are engaging in discussions about their Christmas plans during their first holiday season as a married couple. The couple's conversation highlights their shared experiences as they navigate this festive period together.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-debate-204447744.html
