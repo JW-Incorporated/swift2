@@ -2,7 +2,7 @@ import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkFastLaneDisplacement, checkLength, weightedTweetLength, checkMedia, checkCritique, checkDraft } from './check-drafts.mjs';
+import { bodySimilarity, checkSchema, checkVoice, checkOpeners, checkFirstWordDiversity, checkCampaignPair, checkSimultaneousPair, checkCrossPostCopy, checkFastLaneDisplacement, checkLength, weightedTweetLength, checkMedia, checkCritique, checkDraft } from './check-drafts.mjs';
 import { contentHash } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 
@@ -236,6 +236,68 @@ describe('checkOpeners', () => {
     const others = [{ file: 'b.json', body: 'on this day in 2010 something else happened here' }];
     const findings = checkOpeners('a.json', { body: '🎶 on this day in 2010 something totally different' }, others);
     expect(findings.some((f) => f.includes('b.json'))).toBe(true);
+  });
+});
+
+// #6747 — the real 11-02 → 11-08 Instagram history: four of six captions
+// opened on the literal word "i" and every one of them cleared checkOpeners'
+// 6-word reuse rule because words 2-6 differ.
+describe('checkFirstWordDiversity (#6747)', () => {
+  const ig = (body: string) => ({ platform: 'instagram', body });
+  const postedOpeningOn = (words: string[]) => words.map((w) => ({ platform: 'instagram', body: `${w} something different every time here` }));
+
+  it('fails an IG draft whose first word opened 3 of the last 7 posted IG items, naming the word and the count', () => {
+    const recent = postedOpeningOn(['i', "it's", 'this', 'i', 'the', 'reputation', 'i']);
+    const findings = checkFirstWordDiversity('a.json', ig('i cannot stop thinking about this one'), recent);
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('"i"');
+    expect(findings[0]).toContain('3 of the last 7');
+  });
+
+  it('is the gate the 6-word reuse rule misses: the same pair passes checkOpeners', () => {
+    const recent = postedOpeningOn(['i', 'this', 'i', 'the', 'reputation', "it's", 'i']);
+    const draft = ig('i went digging through the decode and found this');
+    expect(checkOpeners('a.json', draft, recent.map((p, n) => ({ file: `p${n}.json`, body: p.body })))).toEqual([]);
+    expect(checkFirstWordDiversity('a.json', draft, recent)).toHaveLength(1);
+  });
+
+  it('passes a first word that opened only 2 of the last 7 — the exactly-at-the-cap boundary', () => {
+    const recent = postedOpeningOn(['i', 'this', 'the', 'i', 'reputation', "it's", 'cardigan']);
+    expect(checkFirstWordDiversity('a.json', ig('i will never be normal about this'), recent)).toEqual([]);
+  });
+
+  it('counts only the last 7 posted items, not older history', () => {
+    const recent = postedOpeningOn(['i', 'i', 'i', 'this', 'the', 'reputation', "it's", 'cardigan', 'folklore']);
+    // The three "i" openers fall outside the 7-item window.
+    expect(checkFirstWordDiversity('a.json', ig('i cannot stop thinking about this'), recent)).toEqual([]);
+  });
+
+  it('leaves non-Instagram drafts alone', () => {
+    const recent = postedOpeningOn(['i', 'i', 'i', 'this', 'the', 'reputation', "it's"]);
+    expect(checkFirstWordDiversity('a.json', { platform: 'x', body: 'i cannot stop thinking about this' }, recent)).toEqual([]);
+  });
+
+  it('matches on the first word only, case- and punctuation-insensitively', () => {
+    const recent = postedOpeningOn(['Okay,', '“okay…', 'OKAY']);
+    expect(checkFirstWordDiversity('a.json', ig('✨ Okay — this one actually undid me'), recent)).toHaveLength(1);
+  });
+
+  it("does not conflate it's with it", () => {
+    const recent = postedOpeningOn(["it's", "it’s", "it's"]);
+    expect(checkFirstWordDiversity('a.json', ig('it is finally cardigan weather'), recent)).toEqual([]);
+    expect(checkFirstWordDiversity('a.json', ig('it’s finally cardigan weather'), recent)).toHaveLength(1);
+  });
+
+  it('is inert with no posted history and on a body with no opening word', () => {
+    expect(checkFirstWordDiversity('a.json', ig('i cannot stop'), [])).toEqual([]);
+    expect(checkFirstWordDiversity('a.json', ig('🫒🫒🫒'), postedOpeningOn(['i', 'i', 'i']))).toEqual([]);
+  });
+
+  it('runs inside checkDraft, so the draft gate itself fails on it', async () => {
+    const recent = postedOpeningOn(['i', 'this', 'i', 'the', 'i', "it's", 'cardigan']);
+    const target = { file: 'a.json', data: { platform: 'instagram', body: 'i cannot stop thinking about this one', scheduledAt: '2026-11-10T23:00:00Z' } };
+    const findings = await checkDraft(target, { allQueue: [target], openerContext: [], recentIg: recent });
+    expect(findings.some((f) => f.includes('first word "i"'))).toBe(true);
   });
 });
 
