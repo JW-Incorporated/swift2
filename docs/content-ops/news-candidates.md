@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 82
 
 ## Taylor Swift and Travis Kelce Donate $26 Million to Charities
 
@@ -706,19 +706,3 @@ Stories: 84
 - summary: In a recent interview, Jennifer Beals mentioned Taylor Swift while reflecting on her career and other projects, including ‘Flashdance' and ‘Percy Jackson'.
 - sources:
   - [unverified] NBC 7 San Diego — https://www.nbcsandiego.com/video/news/national-international/jennifer-beals-talks-flashdance-taylor-swift-and-percy-jackson/4098109/
-
-## Taylor Swift's mother-in-law sells Florida condo for significant profit
-
-- first seen: 2026-11-06 14:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Donna Kelce, Taylor Swift's mother-in-law, has sold her Florida condo for a substantial profit. The transaction highlights her successful real estate endeavor.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/06/donna-kelce-raking-it-in-taylor-swift-s-mother-in-law-sells-her-florida-condo-for-huge-profit.html
-
-## Knicks Player Critiques Taylor Swift's Fandom
-
-- first seen: 2026-11-06 14:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Knicks guard Tyler Kolek has labeled singer Taylor Swift as the 'fakest' celebrity fan of the team. His comments may stir discussions among fans and the media regarding celebrity involvement in sports.
-- sources:
-  - [unverified] TV Insider — https://www.tvinsider.com/1302022/knicks-guard-tyler-kolek-calls-taylor-swift-the-teams-fakest-celebrity-fan/
