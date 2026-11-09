@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Kelce and Swift Spotted Exiting Arrowhead Stadium After Chiefs Victory
+
+- first seen: 2026-11-09 04:43 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce and Taylor Swift were seen leaving Arrowhead Stadium following the Kansas City Chiefs' win. Their public appearance continues to attract attention from fans and media alike.
+- sources:
+  - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/11/08/kansas-city-chiefs-travis-kelce-taylor-swift-epic-exit-arrowhead-stadium-nfl-week-9/92685227007/
 
 ## Taylor Swift and Karlie Kloss spotted together on the road
 
