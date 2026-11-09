@@ -72,6 +72,20 @@ jobs:
           node-version: "24"
       - name: Install dependencies
         run: npm ci --ignore-scripts --silent
+      # Same pinned installer as news-worker.yml; judge-drafts.mjs shells out to `claude`.
+      - name: Install Claude Code
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Fetch the PR head as data and list its changed queue files
         id: pin
@@ -160,6 +174,19 @@ jobs:
         with:
           node-version: "24"
       - run: npm ci --ignore-scripts --silent
+      - name: Install Claude Code
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Deterministic gates over the fixtures
         run: node scripts/social/calibrate-judge.mjs --deterministic
       - name: Run the social judge calibration
