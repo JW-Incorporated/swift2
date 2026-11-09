@@ -43,6 +43,8 @@ describe('the committed social/strategy-params.json', () => {
         'in a world', 'buckle up', 'spoiler', 'psa', 'story time', 'a thread', 'we need to talk about', 'okay', 'ok',
         'i cannot stop', 'i will never', 'i did not expect',
       ],
+      firstWordWindow: 7,
+      firstWordMaxRepeats: 2,
     });
     expect(p.photoReuse.igHistoryWindow).toBe(10);
     expect(p.pairing.simultaneousWindowMinutes).toBe(5);
