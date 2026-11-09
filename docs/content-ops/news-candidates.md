@@ -27,6 +27,46 @@ so far".
 
 Stories: 82
 
+## Tyler Kolek's girlfriend comments on Taylor Swift Knicks fan drama
+
+- first seen: 2026-11-09 16:51 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tyler Kolek's girlfriend engages in a discussion surrounding the ongoing drama involving Taylor Swift and the Knicks fan situation, labeling it as 'fakest'.
+- sources:
+  - [unverified] New York Post — https://nypost.com/2026/11/09/sports/tyler-koleks-girlfriend-jumps-into-taylor-swift-fakest-knicks-fan-drama/
+
+## Taylor Swift and Karlie Kloss Reconnect: A Look at Their Friendship Timeline
+
+- first seen: 2026-11-09 16:51 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss are spending time together once more, prompting a review of their friendship history. The article provides a complete timeline of their relationship.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74376911/taylor-swift-karlie-kloss-timeline/
+
+## 2027 Grammy Nominations Highlight Female Artist Dominance
+
+- first seen: 2026-11-09 16:51 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: The 2027 Grammy nominations are anticipated to showcase a strong presence of female artists in major categories, according to reports. This trend of female representation continues to evolve within the music industry.
+- sources:
+  - [unverified] ABC7 New York — https://abc7ny.com/post/grammy-nominations-2027-female-artists-expected-dominate-major-categories/20026706/
+
+## Taylor Swift Wears Super Bowl Pendant Again
+
+- first seen: 2026-11-09 16:51 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen wearing a sentimental diamond pendant during a recent appearance, which holds significance due to its connection to the Super Bowl.
+- sources:
+  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74375461/taylor-swift-diamond-87-super-bowl-necklace-rewear/
+
+## Taylor Swift Displays Game-Day Fashion Supporting Travis Kelce
+
+- first seen: 2026-11-09 16:51 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was seen in a game-day outfit that featured stylish elements referencing her husband, Travis Kelce, as she showcased her support for the Chiefs. The appearance highlights her connection to both football and fashion.
+- sources:
+  - [established] People — https://people.com/taylor-swift-wears-tommy-hilfiger-support-husband-travis-kelce-arrowhead-stadium-12230387
+
 ## Nike Sneaker Inspired by Taylor Swift's Eras Tour Bracelets
 
 - first seen: 2026-11-09 15:52 UTC | category: fashion | importance: 6
@@ -43,15 +83,6 @@ Stories: 82
 - sources:
   - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-travis-kelce-face-134522000.html
 
-## Taylor Swift and Travis Kelce Donate $26 Million to Charities
-
-- first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 2
-- summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
-- sources:
-  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
-
 ## Knicks PG Covers Taylor Swift's 'Blank Space' After Criticism
 
 - first seen: 2026-11-09 13:52 UTC | category: music | importance: 5
@@ -67,6 +98,16 @@ Stories: 82
 - summary: Taylor Swift and her husband, Travis Kelce, were spotted leaving a Kansas City Chiefs game in a cream-colored vintage Cadillac. The couple's appearance attracted attention as they made their exit after the event.
 - sources:
   - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-travis-kelce-leave-chiefs-game-in-cadillac/
+
+## Taylor Swift and Travis Kelce Donate $26 Million to Charities
+
+- first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 3
+- summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437942/taylor-swift-travis-kelce-leave-chiefs-game-in-vintage-car
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
 
 ## Knicks Player Tyler Kolek Faces Criticism for Comments on Taylor Swift
 
@@ -667,43 +708,3 @@ Stories: 82
 - summary: The publication 'Old Gold & Black' discusses a new song by Taylor Swift, highlighting its significance among her discography. The analysis aims to provide insights into the song's themes and musical style.
 - sources:
   - [unverified] Old Gold & Black — https://wfuogb.com/31097/opinion/not-just-another-taylor-swift-song/
-
-## Taylor Swift Guitar Supports Foster Kids in Mesa
-
-- first seen: 2026-11-06 16:46 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A guitar associated with Taylor Swift is contributing to charitable efforts for foster children in Mesa. The instrument continues to provide benefits to the community.
-- sources:
-  - [unverified] AZ Family — https://www.azfamily.com/2026/11/06/taylor-swift-guitar-that-keeps-giving-back-foster-kids-mesa/
-
-## Taylor Swift Celebrates 20 Years in Music Career
-
-- first seen: 2026-11-06 16:46 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's career milestone of 20 years is highlighted. The State Times discusses her impact and achievements over two decades in the music industry.
-- sources:
-  - [unverified] The State Times — https://thestatetimes.com/2026/11/06/taylor-swifts-career-turns-20/
-
-## Taylor Swift Criticized as Insincere at Knicks Games
-
-- first seen: 2026-11-06 16:46 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report by Kolek and McBride refers to Taylor Swift as the 'fakest celeb' at recent Knicks games, sparking discussion about her presence at sporting events. The article highlights perceptions of celebrity authenticity in public appearances.
-- sources:
-  - [unverified] theScore — https://www.thescore.com/nba/news/3646864/kolek-mc-bride-taylor-swift-fakest-celeb-at-knicks-games
-
-## Taylor Swift Looks to Hire Investigators Over Leaked Wedding Photos
-
-- first seen: 2026-11-06 16:46 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly considering hiring private investigators to uncover the source of the leak related to her wedding photos from Madison Square Garden.
-- sources:
-  - [unverified] starmagazine.com — https://starmagazine.com/taylor-swift-considers-hiring-private-investigators-to-find-out-who-leaked-her-msg-wedding-photos/
-
-## Knicks Players Label Taylor Swift as 'Fakest Celebrity Fan'
-
-- first seen: 2026-11-06 16:46 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: New York Knicks players have humorously dubbed Taylor Swift the 'Fakest Celebrity Fan' during an event. This title has drawn attention to her support for the team amidst her ongoing fame.
-- sources:
-  - [unverified] Consequence of Sound — https://consequence.net/2026/11/taylor-swift-new-york-knicks-fake-fan/
