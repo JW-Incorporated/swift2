@@ -27,6 +27,22 @@ so far".
 
 Stories: 82
 
+## Nike Sneaker Inspired by Taylor Swift's Eras Tour Bracelets
+
+- first seen: 2026-11-09 15:52 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Jimmy Fallon received an exclusive pair of sneakers inspired by the friendship bracelets from Taylor Swift's Eras Tour. The collaboration highlights the influence of Swift's tour on fashion.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/taylor-swifts-eras-tour-friendship-bracelets-inspired-a-nike-sneaker-and-jimmy-fallon-got-a-pair-25497-c1/
+
+## Taylor Swift and Travis Kelce Encounter Family Issue Before Christmas
+
+- first seen: 2026-11-09 15:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A source indicates that Taylor Swift and Travis Kelce are facing a significant family issue as Christmas approaches.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-travis-kelce-face-134522000.html
+
 ## Taylor Swift and Travis Kelce Donate $26 Million to Charities
 
 - first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
@@ -63,10 +79,11 @@ Stories: 82
 ## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
 
 - first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
 
 ## Kelce and Swift Spotted Exiting Arrowhead Stadium After Chiefs Victory
@@ -690,19 +707,3 @@ Stories: 82
 - summary: New York Knicks players have humorously dubbed Taylor Swift the 'Fakest Celebrity Fan' during an event. This title has drawn attention to her support for the team amidst her ongoing fame.
 - sources:
   - [unverified] Consequence of Sound — https://consequence.net/2026/11/taylor-swift-new-york-knicks-fake-fan/
-
-## Documentary to Focus on Taylor Swift's Canceled Vienna Shows
-
-- first seen: 2026-11-06 15:48 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new documentary will explore the circumstances surrounding Taylor Swift's canceled concerts in Vienna. This project is expected to provide insights into the reasons behind the cancellations.
-- sources:
-  - [unverified] CNN — https://www.cnn.com/2026/11/06/entertainment/video/entertainment-showbiz-hollywood-minute-taylor-swift-vienna-concerts-documentary-elon-musk-rocky-50th-anniversary
-
-## Jennifer Beals Discusses Taylor Swift in Recent Interview
-
-- first seen: 2026-11-06 15:48 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview, Jennifer Beals mentioned Taylor Swift while reflecting on her career and other projects, including ‘Flashdance' and ‘Percy Jackson'.
-- sources:
-  - [unverified] NBC 7 San Diego — https://www.nbcsandiego.com/video/news/national-international/jennifer-beals-talks-flashdance-taylor-swift-and-percy-jackson/4098109/
