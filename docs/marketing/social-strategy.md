@@ -561,14 +561,15 @@ award and therefore major; 11-05 itself shipped nothing at all. Meanwhile the
 11-02 plan's own sensor reported `considered: 0, uncovered: []`, which is why
 this rule does not depend on it alone.
 
-*Known residual, named rather than papered over.*
-`docs/agents/runner-prompts/tree-event-draft.md` step 5 carries its own copy of
-the yield order ending at `mood:` and says "that is the whole list"; it is a
-runner prompt and not Tree's to edit, so the same-day **event** run still will
-not displace an arc day or a hero. This section reaches the same outcome through
-the run that *is* governed by Tree's own calendar — the 11:00Z daily draft — so
-the change is live without it. Syncing that prompt is asked of Marjorie this
-run, as a `tree-filed` ask parented on #6726.
+*Residual closed 2026-11-09 (ask [#6730](https://github.com/JW-Incorporated/swift2/issues/6730)
+→ [#6731](https://github.com/JW-Incorporated/swift2/issues/6731)).*
+`docs/agents/runner-prompts/tree-event-draft.md` step 5 carried its own copy of
+the yield order ending at `mood:` and saying "that is the whole list", so the
+same-day **event** run would not displace an arc day or a hero — a runner prompt
+and not Tree's to edit, which is why it was asked of Marjorie. Step 5 now
+carries all four rungs, the site-fronted condition on rungs 3-4, and this
+section's exclusions verbatim, so the event run and the 11:00Z daily draft reach
+the same outcome.
 
 **Cap — ≤2 ordinary news posts per rolling 7 days** (raised to a ≤3 total
 ceiling for major moments, 2026-10-18 — see the next paragraph). News is the one campaign that can
