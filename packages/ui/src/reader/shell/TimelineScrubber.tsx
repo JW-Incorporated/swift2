@@ -24,6 +24,7 @@ import {
   snapNow,
   nearestAnchorExact,
   labelForDate,
+  dropDisplacedAnchors,
   type ScrubberAnchor,
 } from './timelineScrubberLayout';
 
@@ -189,7 +190,7 @@ export function TimelineScrubber() {
     const els = Array.from(
       document.querySelectorAll<HTMLElement>(`[data-ll-item][data-ll-era="${eraId}"]`),
     );
-    anchorsRef.current = els
+    const measured = els
       .map((el) => ({
         date: Number(el.dataset.llDate),
         top: el.getBoundingClientRect().top + window.scrollY,
@@ -205,6 +206,9 @@ export function TimelineScrubber() {
       // rail anchor at all, not just a non-exact one.
       .filter((a) => Number.isFinite(a.date))
       .sort((a, b) => a.top - b.top);
+    // The video interleave can put an older card above newer ones; both lookups
+    // below assume dates descend down the page.
+    anchorsRef.current = dropDisplacedAnchors(measured);
     exactAnchorsRef.current = anchorsRef.current.filter((a) => a.exact);
     setAnchorsVersion((v) => v + 1);
   }, [eraId]);
