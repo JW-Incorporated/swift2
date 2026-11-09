@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 87
+
+## Knicks Player Tyler Kolek Faces Criticism for Comments on Taylor Swift
+
+- first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Tyler Kolek, a player for the Knicks, has come under scrutiny for his remarks regarding Taylor Swift. The comments have sparked a strong reaction, drawing attention to his remarks and their context.
+- sources:
+  - [unverified] South China Morning Post — https://www.scmp.com/magazines/style/people/celebrities/article/3373755/meet-knicks-star-tyler-kolek-who-called-taylor-swift-fakest-celebrity-fan
+
+## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
+
+- first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
+- sources:
+  - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
 
 ## Kelce and Swift Spotted Exiting Arrowhead Stadium After Chiefs Victory
 
