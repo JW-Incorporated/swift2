@@ -94,7 +94,8 @@ in love with Taylor, and *"i went digging through The Decode"* is that voice
 working, with the subject in the first clause. So the params change this week is
 deliberately narrow: the three exact reaction-stems that shipped —
 `i cannot stop`, `i will never`, `i did not expect` — go on the banned list
-(`tree/strategy/2026-W46-1`, reported in this week's plan, no ✅ asked). The real
+([PR #6743](https://github.com/JW-Incorporated/swift2/pull/6743), branch
+`tree/strategy/2026-W46-1`, reported in this week's plan, no ✅ asked). The real
 gate is a **first-word diversity cap** (fail an IG draft whose first word already
 opened 3 of the last 7 posted IG items), which lives in `check-drafts.mjs`,
 outside this desk's mutation rights, and is asked of Marjorie this run.

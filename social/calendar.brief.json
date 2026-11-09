@@ -1,21 +1,63 @@
 {
   "weekOf": "2026-11-09",
-  "whatChangedAndWhy": "A real new ship takes the launch arc: #6562 replaced the egg doorway with a pinned \"This week's news\" section and #6708/#6719 made the videos on live news items actually play, so launch:news-feed goes day 0/+2/+4 on 11-15/11-17/11-19 — and its day-0 gate is one the daily run can clear by itself (fetch the site, confirm the section renders), unlike the phone pinch-zoom gate that made launch:photo-viewer fall back for the fourth time. That phone check is now HUMAN-ACTIONS #150, the only founder-only item in this plan, and the photo-viewer arc returns the first Monday after it closes. Strategy change made and reported, not asked for (tree/strategy/2026-W46-1): last week's okay/ok opener ban worked — zero since 10-31 — but the formula moved one word over, with four of six Instagram captions on 11-02 → 11-08 opening on the literal word \"i\" and all six opening on the writer's reaction before the subject; the three exact shipped reaction-stems (i cannot stop, i will never, i did not expect) go on openers.bannedOpeners, a blanket first-person ban is deliberately NOT written because strategy §2's Voice section wants that voice, and §1(a)'s push-worthy list is reordered behind the news feed. The lessons ledger is unchanged and computed, not eyeballed: zero edit/reject rows exist for this week or last, findCodifiableRules and findRetirableRules both return [].",
+  "whatChangedAndWhy": "A real new ship takes the launch arc: #6562 replaced the egg doorway with a pinned \"This week's news\" section and #6708/#6719 made the videos on live news items actually play, so launch:news-feed goes day 0/+2/+4 on 11-15/11-17/11-19 — and its day-0 gate is one the daily run can clear by itself (fetch the site, confirm the section renders), unlike the phone pinch-zoom gate that made launch:photo-viewer fall back for the fourth time. That phone check is now HUMAN-ACTIONS #150, the only founder-only item in this plan, and the photo-viewer arc returns the first Monday after it closes. Strategy change made and reported, not asked for (PR #6743, branch tree/strategy/2026-W46-1): last week's okay/ok opener ban worked — zero since 10-31 — but the formula moved one word over, with four of six Instagram captions on 11-02 → 11-08 opening on the literal word \"i\" and all six opening on the writer's reaction before the subject; the three exact shipped reaction-stems (i cannot stop, i will never, i did not expect) go on openers.bannedOpeners, a blanket first-person ban is deliberately NOT written because strategy §2's Voice section wants that voice, and §1(a)'s push-worthy list is reordered behind the news feed. The lessons ledger is unchanged and computed, not eyeballed: zero edit/reject rows exist for this week or last, findCodifiableRules and findRetirableRules both return [].",
   "calendar": [
-    { "day": 1, "text": "11-09 — COVERED BY QUEUE: the reputation / Katy Perry olive-branch pair is already merged at 23:00Z. It is the launch:photo-viewer day-0 fallback, taken correctly because no automated run can hold a phone." },
-    { "day": 2, "text": "11-10 — News reserve #1, conditional: if open PR #6714 merged it moves that reputation pair to 11-10 15:00Z and this beat is covered. Otherwise the fallback is the Colin Jost / Michael Che \"Wood\" Millionaire moment, minted event-news (non-themed, so no era-photo requirement) and told to be funny for once." },
-    { "day": 3, "text": "11-11 — News reserve #2, carrying ask #6520's moment that still has not shipped: the \"Patient Zero\" three-weeks-at-No.1 chart run. Placed on 11-11 not 11-10 because 11-10 may be covered, and this is the one subject with an outstanding commitment to Marjorie." },
-    { "day": 4, "text": "11-12 — Runway thread hero, window 11-11→15, angle origin-story: why the Runway thread exists, grounded in one concrete look the thread documents in detail. Pick a different look than 10-30's Oscar de la Renta quiz." },
-    { "day": 5, "text": "11-13 — News reserve #3 (the week is raised to three on completed data: 11-02 → 11-08 shipped zero news pairs against a 6-moment sheet, the fourth such week). Fallback: the cancelled Vienna shows getting their own documentary — the film is the subject, the plot against the shows is not and must not be described." },
-    { "day": 6, "text": "11-14 — Blank Spaces timeline, week-of-11-09 minimum: the next unposted chapter after John Mayer 2009, confirmed-only and verified against the Vault, chapter named in why." },
-    { "day": 7, "text": "11-15 — launch:news-feed DAY 0. Lead with what a fan can now do: open the site and see what happened this week, already there. Gate the daily run can actually clear: confirm the pinned section renders with a real item in it, else fall back to a midnights deep cut." },
-    { "day": 8, "text": "11-16 — Blank Spaces thread hero, window 11-16→20, angle single-best-item: one entry in the thread that would make a stranger open the lens, spent fully — and not a chapter the timeline beats already took." },
-    { "day": 9, "text": "11-17 — launch:news-feed DAY +2, the how-to: literally where to tap, assuming the reader never found the section. The one beat in the arc where a screenshot carousel is the whole point, never on X." },
-    { "day": 10, "text": "11-18 — News reserve #1 of the week of 11-16. Fallback is a red-era deep cut carrying either a sourced quote or a real number: 38 never-used red photos and the era is untouched all fortnight." },
-    { "day": 11, "text": "11-19 — launch:news-feed DAY +4, one real result: one actual story the new section surfaced this week, with the feature mentioned once at the end. Day +8 (11-23) is handed to the 11-16 run, which owes an answer on whether this arc completed." },
-    { "day": 12, "text": "11-20 — News reserve #2 of the week of 11-16. Fallback is a lover-era deep cut (23 never-used, untouched this fortnight), and a different kind of subject from whatever 11-18 took." },
-    { "day": 13, "text": "11-21 — Taylor's Version thread hero, window 11-21→25, angle interactive-challenge: something to do that the lens settles, with the answer confirmed to be in there first. A real X poll is structurally different by construction." },
-    { "day": 14, "text": "11-22 — Blank Spaces timeline, week-of-11-16 minimum: the next chapter after 11-14's, and not the one 11-16's hero spent." }
+    {
+      "day": 1,
+      "text": "11-09 — COVERED BY QUEUE: the reputation / Katy Perry olive-branch pair is already merged at 23:00Z. It is the launch:photo-viewer day-0 fallback, taken correctly because no automated run can hold a phone."
+    },
+    {
+      "day": 2,
+      "text": "11-10 — News reserve #1, conditional: if open PR #6714 merged it moves that reputation pair to 11-10 15:00Z and this beat is covered. Otherwise the fallback is the Colin Jost / Michael Che \"Wood\" Millionaire moment, minted event-news (non-themed, so no era-photo requirement) and told to be funny for once."
+    },
+    {
+      "day": 3,
+      "text": "11-11 — News reserve #2, carrying ask #6520's moment that still has not shipped: the \"Patient Zero\" three-weeks-at-No.1 chart run. Placed on 11-11 not 11-10 because 11-10 may be covered, and this is the one subject with an outstanding commitment to Marjorie."
+    },
+    {
+      "day": 4,
+      "text": "11-12 — Runway thread hero, window 11-11→15, angle origin-story: why the Runway thread exists, grounded in one concrete look the thread documents in detail. Pick a different look than 10-30's Oscar de la Renta quiz."
+    },
+    {
+      "day": 5,
+      "text": "11-13 — News reserve #3 (the week is raised to three on completed data: 11-02 → 11-08 shipped zero news pairs against a 6-moment sheet, the fourth such week). Fallback: the cancelled Vienna shows getting their own documentary — the film is the subject, the plot against the shows is not and must not be described."
+    },
+    {
+      "day": 6,
+      "text": "11-14 — Blank Spaces timeline, week-of-11-09 minimum: the next unposted chapter after John Mayer 2009, confirmed-only and verified against the Vault, chapter named in why."
+    },
+    {
+      "day": 7,
+      "text": "11-15 — launch:news-feed DAY 0. Lead with what a fan can now do: open the site and see what happened this week, already there. Gate the daily run can actually clear: confirm the pinned section renders with a real item in it, else fall back to a midnights deep cut."
+    },
+    {
+      "day": 8,
+      "text": "11-16 — Blank Spaces thread hero, window 11-16→20, angle single-best-item: one entry in the thread that would make a stranger open the lens, spent fully — and not a chapter the timeline beats already took."
+    },
+    {
+      "day": 9,
+      "text": "11-17 — launch:news-feed DAY +2, the how-to: literally where to tap, assuming the reader never found the section. The one beat in the arc where a screenshot carousel is the whole point, never on X."
+    },
+    {
+      "day": 10,
+      "text": "11-18 — News reserve #1 of the week of 11-16. Fallback is a red-era deep cut carrying either a sourced quote or a real number: 38 never-used red photos and the era is untouched all fortnight."
+    },
+    {
+      "day": 11,
+      "text": "11-19 — launch:news-feed DAY +4, one real result: one actual story the new section surfaced this week, with the feature mentioned once at the end. Day +8 (11-23) is handed to the 11-16 run, which owes an answer on whether this arc completed."
+    },
+    {
+      "day": 12,
+      "text": "11-20 — News reserve #2 of the week of 11-16. Fallback is a lover-era deep cut (23 never-used, untouched this fortnight), and a different kind of subject from whatever 11-18 took."
+    },
+    {
+      "day": 13,
+      "text": "11-21 — Taylor's Version thread hero, window 11-21→25, angle interactive-challenge: something to do that the lens settles, with the answer confirmed to be in there first. A real X poll is structurally different by construction."
+    },
+    {
+      "day": 14,
+      "text": "11-22 — Blank Spaces timeline, week-of-11-16 minimum: the next chapter after 11-14's, and not the one 11-16's hero spent."
+    }
   ],
   "proposals": [],
   "questions": [],
