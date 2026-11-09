@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Taylor Swift and Travis Kelce Donate $26 Million to Charities
+
+- first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
+- verification_status: corroborated | source_count: 2
+- summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
+- sources:
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
+
+## Knicks PG Covers Taylor Swift's 'Blank Space' After Criticism
+
+- first seen: 2026-11-09 13:52 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Following a previous comment about Taylor Swift, a Knicks point guard covers her song 'Blank Space' and clarifies his stance, stating he has nothing against her.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/pop/taylor-swift-fakest-fan-diss-knicks-kolek-apology-blank-space-1236377879/
+
+## Taylor Swift and Travis Kelce Depart Chiefs Game in Vintage Cadillac
+
+- first seen: 2026-11-09 13:52 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and her husband, Travis Kelce, were spotted leaving a Kansas City Chiefs game in a cream-colored vintage Cadillac. The couple's appearance attracted attention as they made their exit after the event.
+- sources:
+  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-travis-kelce-leave-chiefs-game-in-cadillac/
 
 ## Knicks Player Tyler Kolek Faces Criticism for Comments on Taylor Swift
 
@@ -38,9 +63,10 @@ Stories: 83
 ## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
 
 - first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
 - sources:
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
 
 ## Kelce and Swift Spotted Exiting Arrowhead Stadium After Chiefs Victory
@@ -696,19 +722,3 @@ Stories: 83
 - summary: Knicks guard Tyler Kolek has labeled singer Taylor Swift as the 'fakest' celebrity fan of the team. His comments may stir discussions among fans and the media regarding celebrity involvement in sports.
 - sources:
   - [unverified] TV Insider — https://www.tvinsider.com/1302022/knicks-guard-tyler-kolek-calls-taylor-swift-the-teams-fakest-celebrity-fan/
-
-## Review of Taylor Swift's 'TLOAS' Sparks Fan Discussion
-
-- first seen: 2026-11-06 13:52 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Abdul El-Sayed has shared his review of Taylor Swift's 'TLOAS', which has generated considerable conversation among fans. The review appears to have resonated within the community, highlighting different perspectives on the album.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/abdul-el-sayed-review-taylor-125019853.html
-
-## Nelly and Ashanti Discuss Their Friendship with Taylor Swift
-
-- first seen: 2026-11-06 13:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Nelly and Ashanti have shared insights into their longstanding friendship with Taylor Swift. The discussion highlights the connections and experiences they've had with the pop star over the years.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-ashanti-open-longtime-relationship-123000599.html
