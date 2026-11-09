@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
+
+## Bill Maher Faces Backlash Over Comment on Taylor Swift
+
+- first seen: 2026-11-09 00:03 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Comedian Bill Maher received criticism following a sarcastic remark he made regarding Taylor Swift. The backlash highlights the strong feelings fans have towards the singer.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/sarcastic-comment-about-taylor-swift-causes-bill-maher-some-trouble.html
 
 ## Taylor Swift reacts to Travis Kelce's touchdown after injury scare
 
@@ -110,9 +118,10 @@ Stories: 83
 ## Taylor Swift Attends Chiefs Game with Karlie Kloss
 
 - first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift was spotted at a Kansas City Chiefs game alongside her friend Karlie Kloss. The appearance marks her continued support for her husband, Travis Kelce, who plays for the team.
 - sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-karlie-kloss-travis-kelce-chiefs-game-1236377058/
   - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-chiefs-game
 
@@ -706,20 +715,3 @@ Stories: 83
 - summary: A documentary focusing on the terrorist threat during a Taylor Swift concert in Vienna is set to arrive in fall 2027, as reported by Paste Magazine.
 - sources:
   - [unverified] Paste Magazine — https://www.pastemagazine.com/music/taylor-swift/documentary-about-the-taylor-swift-concert-terrorist-threat-in-vienna-arriving-in-fall-2027
-
-## Taylor Swift Showcases Antique Gold Christmas Tree Decor
-
-- first seen: 2026-11-05 23:37 UTC | category: fashion | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift features an antique gold Christmas tree, highlighting a decorated style that embodies nostalgia and collected-over-time decor. The tree serves as a showcase for her unique decorating aesthetic.
-- sources:
-  - [unverified] Homes and Gardens — https://www.homesandgardens.com/celebrity-homes/taylor-swift-antique-gold-christmas-tree
-  - [unverified] Yahoo — https://shopping.yahoo.com/home-garden/home-decor/articles/taylor-swift-gold-christmas-tree-190000161.html
-
-## Taylor Swift Shines at Nashville Songwriters Hall of Fame Induction
-
-- first seen: 2026-11-05 23:37 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift, the youngest inductee into the Nashville Songwriters Hall of Fame, enhanced her look with luxurious Jimmy Choo footwear. The event highlighted her outstanding contributions to the music industry.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-jimmy-choo-heels-nashville-songwriters-1239387187/
