@@ -114,6 +114,33 @@ describe('routine-tree-event-draft.yml', () => {
     expect(prompt).toContain('UNTRUSTED DATA');
     expect(prompt).toContain('text-only X is BANNED');
   });
+
+  // #6731: step 5 carried a frozen copy of §1(e2)'s yield order (capped at
+  // `mood:`, "that is the whole list") after the strategy added rungs 3-4 on
+  // 2026-11-09, so the event run declined beats the strategy lets it take.
+  it('step 5 carries all four of social-strategy §1(e2)\'s yield rungs, site-fronted on 3 and 4', () => {
+    const prompt = read('docs/agents/runner-prompts/tree-event-draft.md');
+    const strategy = read('docs/marketing/social-strategy.md');
+    // The strategy still has four rungs and still protects only the timeline minimum.
+    expect(strategy).toContain("3. a launch arc's day 0 / +2 / +4 (§1(a)) — **a site-fronted moment only**");
+    expect(strategy).toContain("4. a thread window's hero (§1(b)) — **a site-fronted moment only**");
+    expect(strategy).toContain("**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum.");
+    // ...and so does the prompt.
+    expect(prompt).toContain("a launch arc's day 0 / +2 / +4 (`campaign` starts `launch:`, §1(a)) — **a site-fronted moment only**");
+    expect(prompt).toContain("a thread window's hero (`campaign` starts `thread:`, §1(b)");
+    expect(prompt).toContain('**a site-fronted moment only**; the hero takes a same-month make-good');
+    expect(prompt).toContain('does **not** spend §1(b)\'s one-per-month engine-failure allowance');
+    expect(prompt).toContain('newOnSite.moments[]');
+    // The withdrawn wording: a closed list at mood, and a blanket ban on thread/launch beats.
+    expect(prompt).not.toContain('**That is the whole list.**');
+    expect(prompt).not.toContain('Never displace a thread beat (`thread:`)');
+    // What the strategy still protects must survive in the prompt's exclusions.
+    expect(prompt).toContain("a `timeline:` beat (§1(c)'s weekly Blank Spaces minimum");
+    expect(prompt).toContain('another `news:`/`heartbeat:event-news:` pair');
+    expect(prompt).toContain('a beat that is already posted');
+    // The strategy's residual note must not still claim the prompt is out of sync.
+    expect(strategy).not.toContain('so the same-day **event** run still will');
+  });
 });
 
 describe('social-event-dispatch.yml and its producer', () => {
