@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 80
+
+## Taylor Swift Celebrates Travis Kelce's Career Milestone at Chiefs Game
+
+- first seen: 2026-11-09 17:52 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen expressing pride in Travis Kelce as he reached a significant career milestone during a Kansas City Chiefs game. Her supportive moment has garnered attention in the media.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-cheers-travis-kelce-touchdown-milestone-chiefs-jets-game-12244548
 
 ## Tyler Kolek's girlfriend comments on Taylor Swift Knicks fan drama
 
@@ -102,10 +110,11 @@ Stories: 82
 ## Taylor Swift and Travis Kelce Donate $26 Million to Charities
 
 - first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437942/taylor-swift-travis-kelce-leave-chiefs-game-in-vintage-car
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317993777.html
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
 
@@ -684,27 +693,3 @@ Stories: 82
 - summary: A Knicks star has expressed dissatisfaction with Taylor Swift's behavior while sitting courtside at a game. The comments highlight a notable moment involving the pop icon during a recent sporting event.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/knicks-star-takes-serious-issue-with-taylor-swifts-courtside-behavior
-
-## Knicks Players Mention Taylor Swift's Presence at Games
-
-- first seen: 2026-11-06 17:46 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: New York Knicks players have noted Taylor Swift's appearance at games, drawing attention from fans and media. Their comments highlight her visibility during recent Knicks events.
-- sources:
-  - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/11/knicks-players-call-out-taylor-swift-over-what-they-noticed-at-games.html
-
-## Knicks star critiques Taylor Swift as a celebrity fan
-
-- first seen: 2026-11-06 17:46 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Knicks player expressed his opinion about Taylor Swift, calling her the 'fakest celebrity' fan and describing her behavior as 'a little performative'.
-- sources:
-  - [unverified] Entertainment Weekly — https://ew.com/knicks-star-says-taylor-swift-is-fakest-celebrity-fan-12240090
-
-## Old Gold & Black Reviews Latest Taylor Swift Song
-
-- first seen: 2026-11-06 17:46 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The publication 'Old Gold & Black' discusses a new song by Taylor Swift, highlighting its significance among her discography. The analysis aims to provide insights into the song's themes and musical style.
-- sources:
-  - [unverified] Old Gold & Black — https://wfuogb.com/31097/opinion/not-just-another-taylor-swift-song/
