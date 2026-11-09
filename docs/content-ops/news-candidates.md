@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
 
 ## Knicks Player Tyler Kolek Faces Criticism for Comments on Taylor Swift
 
@@ -712,11 +712,3 @@ Stories: 84
 - summary: Nelly and Ashanti have shared insights into their longstanding friendship with Taylor Swift. The discussion highlights the connections and experiences they've had with the pop star over the years.
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/nelly-ashanti-open-longtime-relationship-123000599.html
-
-## Jennifer Beals Mentions Taylor Swift in Recent Interview
-
-- first seen: 2026-11-06 12:21 UTC | category: music | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: In a new interview, Jennifer Beals discusses her career and mentions Taylor Swift while also touching on 'Flashdance' and 'Percy Jackson'.
-- sources:
-  - [unverified] BroadwayWorld — https://www.broadwayworld.com/bwwtv/article/Jennifer-Beals-Talks-Flashdance-Taylor-Swift-and-PERCY-JACKSON-20261106
