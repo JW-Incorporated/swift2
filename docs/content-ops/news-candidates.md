@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 81
 
 ## Paul McCartney Joins Forbes List with $1.4 Billion Fortune
 
@@ -701,12 +701,3 @@ Stories: 82
 - summary: The New York Knicks have expressed their appreciation for Taylor Swift following questions from players Kolek and McBride about their fandom. This interaction highlights the crossover between sports and celebrity culture.
 - sources:
   - [unverified] ESPN — https://www.espn.com/nba/story/_/id/50401522/knicks-appreciative-taylor-swift-players-comments
-
-## Travis Kelce Seeks to Calm Taylor Swift Amid Wedding Leak
-
-- first seen: 2026-11-06 19:57 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Travis Kelce is reportedly making efforts to soothe Taylor Swift following a leak about their wedding. Sources indicate that Swift is finding it difficult to ignore the situation.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/donna-kelce-sells-florida-condo-485000-profit-12240418
-  - [unverified] The Comeback — https://thecomeback.com/nfl/hard-for-her-to-shrug-it-off-travis-kelce-reportedly-trying-to-calm-taylor-swift-down-after-wedding-leak.html
