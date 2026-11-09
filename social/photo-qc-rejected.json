@@ -3391,6 +3391,42 @@
       "sha256": "759a5b9993e35541fd9a4a06a43453e276dbca2f82526eeb796b3032d97f9e74",
       "reason": "Wide dark stage panorama; performer small, with dancers and crowd.",
       "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560709",
+      "sha256": "95972cf762f7bb3f7b77ba226c768682ff802908672dc4e2f3ced6c9618f15e9",
+      "reason": "Wide stadium panorama; performer small, screen and crowd dominate, dark.",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560672",
+      "sha256": "bc84f1fde59865705a4da8aadbe68cb1fb6ed9e161cded7f5c929c18eea37c5c",
+      "reason": "Back view of performer; rule rejects back-view shots",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560719",
+      "sha256": "8e82d1c6c39bdfbf99e628cdef5f5c1a664c3b04dc3c65e34db833d1d1859f33",
+      "reason": "Wide stadium panorama; performer is small in frame",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560810",
+      "sha256": "7460db71886c46ae05176d42076881d0ad81eb684b71d0c787adb314d1190c7f",
+      "reason": "Wide stadium panorama; performer small, crowd and audience dominate, soft.",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560996",
+      "sha256": "1a3b8954b36357375f564fcb49cfceaebd16f0546f38791d5bbff88cd314b575",
+      "reason": "Other performers prominent in the frame; stadium crowd dominates background.",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560951",
+      "sha256": "a67654b0928cf8647afa6a9a661ab2276d417b020e395b86ac967c770354a267",
+      "reason": "Stadium stage panorama; several performers, small figures, no clear single subject",
+      "date": "2026-11-09"
     }
   ]
 }
