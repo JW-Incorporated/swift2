@@ -27,7 +27,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 3,
+        "formula": 4,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-09T03:38:36.064Z",
+      "bodyHash": "sha256:cdf9c45ad5ee60180d543293148da0f793c512e8886b076bfc52e0ca6e1c312d"
+    }
   },
   "why": "Same-day news: Taylor brought Karlie Kloss to the Chiefs-Jets game at Arrowhead on Sun 11-08 (intake #6713, confirmed by People via Yahoo and Just Jared). takes 11-09 heartbeat; heartbeat → 11-10. Photo is the reserved eventPhoto (Eras Tour, not the game); copy never claims it is from Arrowhead. X written first; hook = the artifact (karlie in the suite)."
 }

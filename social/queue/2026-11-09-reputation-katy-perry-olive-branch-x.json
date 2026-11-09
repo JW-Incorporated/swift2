@@ -29,7 +29,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 2,
+        "specific": 3,
+        "formula": 3,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-09T03:38:15.413Z",
+      "bodyHash": "sha256:8a45c5f304e5667ac6d975efafbe3b24fb77b86032e2bcde7622c31351a8aa8c"
+    }
   },
   "why": "11-09 23:00Z was launch:photo-viewer DAY 0, which has a HARD phone pinch-zoom gate (invariant 6) an automated run cannot perform. Per the beat's own fallback, drafted a heartbeat:era-deep-cut on reputation (untouched this fortnight) instead; the launch arc waits for a run that can verify the feature on a real phone. X half written first; hook = the artifact (olive branch). Re-dated 11-09 23:00Z → 11-10 15:00Z: displaced by the intake #6713 event pair (Taylor + Karlie Kloss at Arrowhead); old stamp dropped so the re-dated item is re-cleared."
 }

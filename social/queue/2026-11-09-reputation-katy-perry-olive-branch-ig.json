@@ -29,7 +29,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 3,
+        "specific": 5,
+        "formula": 2,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-09T03:38:06.501Z",
+      "bodyHash": "sha256:8da8d4a6d15666ad90691f0e6c4f3ee9217e66b619a5b65f341a0cbff205b391"
+    }
   },
   "why": "IG sibling of the reputation olive-branch pair, the launch:photo-viewer DAY 0 fallback (invariant-6 phone gate couldn't be verified in an automated run). Credited reputation era photo (never used). Re-dated 11-09 23:00Z → 11-10 15:00Z: displaced by the intake #6713 event pair (Taylor + Karlie Kloss at Arrowhead); old stamp dropped so the re-dated item is re-cleared."
 }
