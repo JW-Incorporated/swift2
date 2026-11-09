@@ -738,6 +738,49 @@ reserve is the floor on *slots*, not on posts: §1(e2)'s throughput floor is **�
 moments reaching both platforms inside 48h each week**, carried by the reserve
 plus the ≥2 displaceable beats, and a plan is read against that number.
 
+### No dark day — the week's standby subject
+
+**Added 2026-11-09 (Tree), answering Marjorie's ask
+[#6727](https://github.com/JW-Incorporated/swift2/issues/6727).** 2026-11-05
+shipped **nothing on either platform** — no item in `social/posted/`, none in
+`social/failed/`, no queue remnant, so the day is simply absent from the record.
+Its beat was a news reserve whose named fallback carried the era note
+`the-life-of-a-showgirl`, and that era has **2** never-used photos (an
+`eraAvailability` run over `social/photo-library.json` against `social/posted/`
++ `social/queue/` in this checkout) — the thinnest tag in the library alongside
+`tortured-poets`, against ~470 eligible photos overall, and the one bucket the
+week-of-11-02 ledger's "no era exhausted" line never listed when it enumerated
+14. A themed beat whose era has no never-used pick left is **deferred** — L001
+and `tree-daily-draft.md` step 5: never an off-era photo, never a repeat tile —
+so a two-photo era note is a single point of failure for an entire day. The
+exact cause of 11-05's silence is not recorded anywhere in the repo; what is
+verifiable is the exposure, and that is what these two rules close.
+
+- **Every calendar names ONE standby subject for the week**, in the ledger:
+  **era-agnostic** (no `photoEra`, so it draws the general never-used pool
+  rather than a scarce era bucket), given the same way a beat is given — subject
+  direction, deep link, campaign family, hook direction. When the day's subject
+  **and** its named fallback both cannot be drafted, the drafter drafts the
+  standby rather than leaving the day dark. One per week: once it is spent, the
+  next undraftable day is a real gap and is flagged as one.
+- **An era note is only written on a beat whose era has ≥3 never-used photos at
+  plan time** (`photos.eras[<era>].unused`). One or two is not supply — an open
+  draft PR can claim the last pick before the beat's own run reaches it. Below
+  that floor the beat carries no era note and takes the general pool's pick, and
+  the thin era is named in the plan so the library gets fed (the 2026-10-01
+  photo-library amendment).
+
+**What this is not.** It is not the retired heartbeat-pillar fallback and it
+changes no gap rule: a day with **no** calendar entry is still never filled, and
+the drafter still never picks a subject of its own (`docs/agents/tree.md`, Daily
+draft, issue #2031 — "a fan account posting nothing is better than posting
+slop"). A standby is a subject *this plan assigns in advance*, the same device
+§1(e2)'s named fallback already is — "an assigned slot with two possible
+subjects, not a gap" — with one more tier behind it. It also weakens no gate:
+`check-drafts.mjs` and invariant 17's rubric floors apply to the standby exactly
+as to any beat, so a standby that cannot clear them leaves the slot empty and
+loudly flagged in the PR body, as today.
+
 ### Sibling rule + the X length rule
 
 **Every campaign, including heartbeat, is an IG+X sibling pair authored in the
