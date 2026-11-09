@@ -3259,6 +3259,138 @@
       "sha256": "15c9e359fd5d03c1d40f600f0f574337fb014df893a46eb13276fbad39069678",
       "reason": "Wide dark stadium shot; performer is small in frame and dim.",
       "date": "2026-11-08"
+    },
+    {
+      "id": "official-video-hDU4GB1PTxc-maxres2",
+      "sha256": "4a3ef49af117b9402739645a946fab23a8565d40485c25275237e013ff8b78d0",
+      "reason": "Animated film still of two cartoon characters, not a real photo of a person",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-hDU4GB1PTxc-maxres1",
+      "sha256": "27d536b42cc4f44be94974c860395a2408783d0c19589f4932e173b3fe36b5f4",
+      "reason": "Animated cartoon characters, not a real photo of a person; mismatches caption",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-hDU4GB1PTxc-maxres3",
+      "sha256": "a10689c946c517788fa47d98cae55131ecf39c08d4f3d49b81b47047591bd2bc",
+      "reason": "Animated cartoon characters, not a real person; doesn't match caption",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-fHjxp-rpUGw-maxres1",
+      "sha256": "7a7ce42d7d622ef2696aab1fe744a8aa25dcb4c932508ccb3b156c0e8b64354d",
+      "reason": "Disney+ logo; dancers dominate foreground; subject small in letterboxed frame",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-fHjxp-rpUGw-maxres2",
+      "sha256": "956127ce08e2e9bf2dd73cee4a2644c8091d3f81700eb0adcdcbdaec7ade1e06",
+      "reason": "Disney+ logo overlay at top; also blurred side-bar vertical video frame",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-fHjxp-rpUGw-maxres3",
+      "sha256": "cc33435738108103dce501a3d101b1a2d16b462c9599a91a05f8569d3a40a13a",
+      "reason": "Vertical video frame with blurred side panels and date text; subject small",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-q3zqJs7JUCQ-maxres2",
+      "sha256": "12c6ce7055054bef8f9d68d56a9c52177260705276c68affdfbbcc5d5646e1dc",
+      "reason": "Two people; the bearded man dominates the frame, not a single subject.",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-Sl6en1NPTYM-maxres1",
+      "sha256": "74b6c4a99faa83e0f58b7199daba2b09124332a96f0b00daa6964699bfc6de69",
+      "reason": "Stadium crowd of fans; no single main subject, not matching caption",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "official-video-Sl6en1NPTYM-maxres3",
+      "sha256": "b88f123175c0b95afc9ce640d122574477ba5ec3096e09f390953d0b89963152",
+      "reason": "Audience members in a crowd, other people dominant; not the caption's subject",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "press-5c38afb4f8e6",
+      "sha256": "422e3a495668bcff6ac177c021e740931441ba043434d64b6d571c523751f9a5",
+      "reason": "Collage of multiple people with inset; not a single-subject photo",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "press-0bff7265984d",
+      "sha256": "f94289d2a4fd80c856feb483737708883f964a4ed16749f96e366ae92ebc4861",
+      "reason": "Man in military jacket singing; doesn't plausibly match Taylor Swift caption",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "press-4449f527929d",
+      "sha256": "6034b32501c1b86d760b0b8a2f104b5ca378e290124d5cc9a32757e0f73036f8",
+      "reason": "Guard and car dominate; people in car tiny; composite with inset collage.",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "press-507ca4b56e6a",
+      "sha256": "2717d6d4e38e784b436d22c39c44b8e89b5a4bf8515efd97e4546e97f342cbcb",
+      "reason": "Three-photo collage with multiple people; no single main subject",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "press-a273d88415ae",
+      "sha256": "93a8f955da9a4fa761afb52ebc63ea54816760f84947f48f384bd3733d665f8b",
+      "reason": "Crowd shot; many people dominant, no single prominent subject",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "press-de59be204cce",
+      "sha256": "4567d43f60b8b0688cacd6f08ed41361bcde8ec6058f8a295817551ff4539190",
+      "reason": "Crowd shot; many people dominant, woman in suite is small in frame",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-135976478",
+      "sha256": "24b3b670eb94aad9994db34ecf36f0788247d35c4554e18cd22459c333babbfe",
+      "reason": "Wide stage shot; dancers share frame, subject small, dark, dark foreground",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137559751",
+      "sha256": "17d25b7fad17bac5221022bef6d0b4f3bd073045bc36843b0d7423afe02e5099",
+      "reason": "Wide dark stage panorama; performer small, many dancers and crowd",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137559876",
+      "sha256": "28e7588df7c4b41388a32bef235a93ddfc61e1a0f11a911fcb89e6670b9e04b7",
+      "reason": "Wide stage panorama with several performers; no single prominent subject",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560011",
+      "sha256": "dcab2906ac13d19025436e41195801faeb65c65f4f1ff373d77ce126119b0800",
+      "reason": "Wide stage shot with several dancers; no single dominant, small subjects",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560026",
+      "sha256": "30facd8027260ee4799e769ec7662308995dca42c3e9314b858710825e022b7e",
+      "reason": "Wide stage/stadium shot with many dancers; no single prominent subject",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137560204",
+      "sha256": "71a91f8030ff6587aa0472ae0e7a095cb91f89e707b221ebda4021aa0fcbca26",
+      "reason": "Wide stage panorama of many performers; no single prominent subject",
+      "date": "2026-11-09"
+    },
+    {
+      "id": "wikimedia-137561095",
+      "sha256": "759a5b9993e35541fd9a4a06a43453e276dbca2f82526eeb796b3032d97f9e74",
+      "reason": "Wide dark stage panorama; performer small, with dancers and crowd.",
+      "date": "2026-11-09"
     }
   ]
 }
