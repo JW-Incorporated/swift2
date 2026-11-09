@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 80
+
+## Stars Attend Kansas City Chiefs Games with Taylor Swift
+
+- first seen: 2026-11-09 21:41 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A variety of celebrities have been spotted joining Taylor Swift at recent Kansas City Chiefs games. The gatherings have captured the attention of fans and media alike.
+- sources:
+  - [established] People — https://people.com/taylor-swift-celebrity-friends-at-kansas-city-chiefs-games-12244829
+
+## Fans Discuss 5 Songs That Define Taylor Swift's Legacy Since Her 2006 Debut
+
+- first seen: 2026-11-09 21:41 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Three superfans share their thoughts on five songs from Taylor Swift's debut album that continue to define her legacy 20 years later, highlighting the impact of her early work.
+- sources:
+  - [unverified] Grazia — https://graziamagazine.com/us/articles/in-2006-taylor-swift-released-her-debut-album-at-just-16-3-superfans-reveal-the-5-songs-that-still-define-her-legacy-20-years-later/
 
 ## Paul McCartney Joins Forbes List with $1.4 Billion Fortune
 
@@ -677,27 +693,3 @@ Stories: 81
 - summary: Taylor Swift and Travis Kelce are engaging in discussions about their Christmas plans during their first holiday season as a married couple. The couple's conversation highlights their shared experiences as they navigate this festive period together.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-debate-204447744.html
-
-## Knicks Respond to Criticism of Taylor Swift's Support as a Fan
-
-- first seen: 2026-11-06 20:57 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: The New York Knicks address comments made by two players who referred to Taylor Swift as the 'fakest' celebrity fan, defending her support for the team.
-- sources:
-  - [established] The New York Times — https://www.nytimes.com/athletic/7759966/2026/11/06/taylor-swift-knicks-fan-statement-support/
-
-## Knicks Organization Backs Taylor Swift Amid Criticism from Players
-
-- first seen: 2026-11-06 20:57 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks organization has publicly supported singer Taylor Swift after players described her as the 'fakest celebrity fan.' This endorsement comes in response to recent comments highlighting the interaction between the sports team and the pop star.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/2026/11/06/knicks-support-taylor-swift-after-players-call-her-fakest-fan/
-
-## Knicks Express Appreciation for Taylor Swift Amid Fandom Questions
-
-- first seen: 2026-11-06 20:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks have expressed their appreciation for Taylor Swift following questions from players Kolek and McBride about their fandom. This interaction highlights the crossover between sports and celebrity culture.
-- sources:
-  - [unverified] ESPN — https://www.espn.com/nba/story/_/id/50401522/knicks-appreciative-taylor-swift-players-comments
