@@ -32,6 +32,7 @@ export * from './thread-content-provider';
 export * from './era-feed';
 export * from './era-feed-clusters';
 export * from './era-stream';
+export * from './media-interleave';
 export * from './space-doorways';
 export * from './doorways';
 export * from './doorways-injected';

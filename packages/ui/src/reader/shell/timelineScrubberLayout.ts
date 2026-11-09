@@ -257,3 +257,24 @@ export function nearestAnchorExact(anchors: readonly ScrubberAnchor[], target: n
 export function labelForDate(formatted: string, exact: boolean): string {
   return exact ? formatted : UNKNOWN_DATE_LABEL;
 }
+
+/**
+ * Drops anchors whose date is older than a card rendered BELOW them. The
+ * media-aware interleave lifts a recent video above newer text, so document
+ * order is no longer strictly date-descending, and the interpolation in
+ * TimelineScrubber (topForDate/dateForTop) assumes it is. `sortedByTop` must be
+ * in document order; the result is non-increasing in date. Dropped cards stay
+ * on the page, they just are not rail anchors (same stance as displaced doorways).
+ */
+export function dropDisplacedAnchors<A extends { date: number }>(sortedByTop: readonly A[]): A[] {
+  const kept: A[] = [];
+  let laterMax = -Infinity;
+  for (let i = sortedByTop.length - 1; i >= 0; i--) {
+    const a = sortedByTop[i]!;
+    if (a.date >= laterMax) {
+      kept.push(a);
+      laterMax = a.date;
+    }
+  }
+  return kept.reverse();
+}
