@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 82
+
+## Paul McCartney Joins Forbes List with $1.4 Billion Fortune
+
+- first seen: 2026-11-09 19:46 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Paul McCartney has been listed by Forbes with a fortune of $1.4 billion, placing him behind Jay-Z and Taylor Swift. This acknowledgment highlights the significant financial achievements of prominent music artists.
+- sources:
+  - [unverified] Complex — https://www.complex.com/music/a/jaelaniturnerwilliams/paul-mccartney-net-worth-forbes-billionaire
+
+## Taylor Swift and Karlie Kloss Spotted Together at Chiefs Game
+
+- first seen: 2026-11-09 19:46 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss were seen together at a Kansas City Chiefs game featuring Travis Kelce. Their reunion attracted attention as both are prominent figures in the entertainment industry.
+- sources:
+  - [unverified] Extra — https://extratv.com/2026/11/09/taylor-swift-and-karlie-kloss-reunite-at-travis-kelce-chiefs-game/
 
 ## Tyler Kolek Performs a Taylor Swift Song After Recent Comments
 
@@ -145,10 +161,11 @@ Stories: 80
 ## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
 
 - first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
+  - [unverified] KMTR — https://nbc16.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
 
