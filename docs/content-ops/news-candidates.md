@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 84
+
+## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
+
+- first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has shared details about a unique Taylor Swift-inspired colorway for her CC1 sneakers, stating that it is an exclusive design. This release highlights the influence of Taylor Swift on style and sports.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-details-taylor-202804549.html
+
+## Caitlin Clark Unveils Taylor Swift-Inspired Nike Sneakers
+
+- first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark has shared that her exclusive Nike sneakers, featuring a friendship bracelet design, are inspired by Taylor Swift. This connection highlights the influence of Swift in the world of fashion and sports.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/basketball/wnba/indiana-fever/2026/11/09/caitlin-clark-reveals-the-taylor-swift-inspiration-behind-her-exclusive-nike-friendship-bracelet-sneakers.html
 
 ## Bill Maher Faces Backlash Over Comment on Taylor Swift
 
@@ -118,10 +134,11 @@ Stories: 82
 ## Taylor Swift Attends Chiefs Game with Karlie Kloss
 
 - first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift was spotted at a Kansas City Chiefs game alongside her friend Karlie Kloss. The appearance marks her continued support for her husband, Travis Kelce, who plays for the team.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-karlie-kloss-travis-kelce-chiefs-game-1236377058/
+  - [unverified] E! News — https://www.eonline.com/news/1437935/taylor-swift-karlie-kloss-reunite-at-chiefs-game-after-past-feud-rumors
   - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-chiefs-game
 
