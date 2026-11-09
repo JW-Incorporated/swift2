@@ -41,6 +41,7 @@ describe('the committed social/strategy-params.json', () => {
       bannedOpeners: [
         'did you know', 'fun fact', "here's a fact", 'ever wonder', "let's talk about", 'imagine', 'picture this',
         'in a world', 'buckle up', 'spoiler', 'psa', 'story time', 'a thread', 'we need to talk about', 'okay', 'ok',
+        'i cannot stop', 'i will never', 'i did not expect',
       ],
     });
     expect(p.photoReuse.igHistoryWindow).toBe(10);
