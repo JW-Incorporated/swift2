@@ -27,6 +27,22 @@ so far".
 
 Stories: 80
 
+## Tyler Kolek Performs a Taylor Swift Song After Recent Comments
+
+- first seen: 2026-11-09 18:52 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Knicks player Tyler Kolek clarifies his previous remarks about Taylor Swift by singing one of her songs, showcasing a lighter moment. This event highlights the crossover between sports and pop culture.
+- sources:
+  - [established] People — https://people.com/knicks-tyler-kolek-backtracks-taylor-swift-shade-breaks-into-one-of-her-songs-12244643
+
+## Olivia Rodrigo Defended by Artists Amid Accusations from Taylor Swift Fans
+
+- first seen: 2026-11-09 18:52 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift fans accused Olivia Rodrigo of copying two artists with her new Christmas song, but both artists have come to her defense. This incident highlights the ongoing conversation about originality in music.
+- sources:
+  - [unverified] BuzzFeed — https://www.buzzfeed.com/stephaniesoteriou/robbie-williams-defends-olivia-rodrigo-copying-claims
+
 ## Taylor Swift Celebrates Travis Kelce's Career Milestone at Chiefs Game
 
 - first seen: 2026-11-09 17:52 UTC | category: relationship | importance: 6
@@ -677,19 +693,3 @@ Stories: 80
 - sources:
   - [unverified] InStyle — https://www.instyle.com/donna-kelce-sells-florida-condo-485000-profit-12240418
   - [unverified] The Comeback — https://thecomeback.com/nfl/hard-for-her-to-shrug-it-off-travis-kelce-reportedly-trying-to-calm-taylor-swift-down-after-wedding-leak.html
-
-## Opinion Piece Expresses Dislike for Taylor Swift
-
-- first seen: 2026-11-06 18:47 UTC | category: music | importance: 2
-- verification_status: rumor | source_count: 1
-- summary: An opinion article published by Her Campus voices a negative sentiment towards Taylor Swift, reflecting a personal perspective on her music and public persona.
-- sources:
-  - [unverified] Her Campus — https://www.hercampus.com/school/jmu/hot-take-i-dont-like-taylor-swift/
-
-## Knicks Star Criticizes Taylor Swift's Behavior at Courtside
-
-- first seen: 2026-11-06 18:47 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Knicks star has expressed dissatisfaction with Taylor Swift's behavior while sitting courtside at a game. The comments highlight a notable moment involving the pop icon during a recent sporting event.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/knicks-star-takes-serious-issue-with-taylor-swifts-courtside-behavior
