@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 79
+Stories: 74
 
 ## Stars Attend Kansas City Chiefs Games with Taylor Swift
 
@@ -158,10 +158,11 @@ Stories: 79
 ## Taylor Swift and Travis Kelce Donate $26 Million to Charities
 
 - first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437942/taylor-swift-travis-kelce-leave-chiefs-game-in-vintage-car
+  - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/taylor-swift-and-travis-kelce-find-allies-as-war-over-ohio-mansion-heats-up/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317993777.html
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
@@ -177,11 +178,12 @@ Stories: 79
 ## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
 
 - first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
   - [unverified] KMTR — https://nbc16.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift
+  - [unverified] Rural Radio Network — https://ruralradio.com/kuvr/abc_news/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game-abcid97a8cd67/
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
 
@@ -645,43 +647,3 @@ Stories: 79
 - summary: The New York Knicks have come to Taylor Swift's defense after player Tyler Kolek referred to her as the 'fakest celeb fan'. This public support highlights the ongoing engagement between celebrities and sports teams.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437909/new-york-knicks-defend-taylor-swift-after-tyler-kolek-calls-her-fakest-fan
-
-## Omaha Man Who Founded Taylor Swift Fan Club Passes Away at 95
-
-- first seen: 2026-11-06 22:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A 95-year-old man from Omaha, who was the founder of a Taylor Swift fan club, has passed away. His contributions to the fan community are remembered fondly.
-- sources:
-  - [unverified] KETV — https://www.ketv.com/article/omaha-man-frank-uryasz-taylor-swift-fan-club-dies/74361123
-
-## Knicks Representative Acknowledges Taylor Swift's Support Over the Years
-
-- first seen: 2026-11-06 22:57 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A representative from the New York Knicks has expressed gratitude to Taylor Swift for her longstanding support of the team. This acknowledgment follows comments made by Tyler Kolek.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/knicks-thanks-taylor-swift-many-years-fan-support-1237216026/
-
-## Knicks Support Taylor Swift Amid Tyler Kolek's Comments
-
-- first seen: 2026-11-06 22:57 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The New York Knicks have defended Taylor Swift after player Tyler Kolek referred to her as a 'performative' fan. A spokesperson for the team emphasized her long-standing support for the Knicks, while Kolek's girlfriend also contributed her thoughts on the matter.
-- sources:
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/news/general-news/new-york-knicks-defend-taylor-swift-tyler-kolek-1236749740/
-
-## Taylor Swift discusses business ventures in Time Magazine
-
-- first seen: 2026-11-06 22:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares insights about her business endeavors in a feature by Time Magazine. The interview highlights her approach to the music industry and her entrepreneurial spirit.
-- sources:
-  - [unverified] Time Magazine — https://time.com/3578249/taylor-swift-interview/
-
-## Taylor Swift Reportedly Upset Over Alleged Betrayal on Wedding Day
-
-- first seen: 2026-11-06 22:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report claims that Taylor Swift is furious due to a perceived betrayal related to her wedding. The news adds to the ongoing negative coverage surrounding her nuptials.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971568/taylor-swift-wedding-scooter-braun/
