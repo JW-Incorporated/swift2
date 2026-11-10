@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 72
+
+## World's Third-Richest Musician Behind Jay-Z and Taylor Swift
+
+- first seen: 2026-11-10 16:17 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Facebook post highlights that a musician has become the world's third-richest, following Jay-Z and Taylor Swift in wealth rankings.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/he-is-now-the-worlds-third-richest-musician-behind-jay-z-and-taylor-swift/1631102115718115/
+
+## Taylor Swift and Emma Stone Share Red Carpet Moment
+
+- first seen: 2026-11-10 16:17 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Emma Stone were spotted together at an event, creating an adorable moment on the red carpet. The appearance has caught the interest of fans and media alike.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/lifestyle/videos/emma-stone-taylor-swifts-adorable-160000382.html
 
 ## Robbie Williams Defends Taylor Swift Amid Legal Dispute
 
@@ -35,14 +51,6 @@ Stories: 70
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/ended-taylor-taylor-swift-sued-143016584.html
 
-## Taylor Swift's Handwritten Note Sparks Speculation of New Music Release
-
-- first seen: 2026-11-10 14:22 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A recent handwritten note from Taylor Swift has fans buzzing about the possibility of a Christmas album or a surprise release. The note has generated excitement and speculation among her followers.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74386194/taylor-swift-hand-written-note-christmas-drop/
-
 ## Taylor Swift and Travis Kelce reportedly face Christmas dilemma
 
 - first seen: 2026-11-10 14:22 UTC | category: relationship | importance: 5
@@ -50,6 +58,14 @@ Stories: 70
 - summary: Taylor Swift and Travis Kelce are said to be confronting a dilemma ahead of Christmas, as neither wants to disappoint during the holidays. The situation reflects their current relationship dynamics.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/neither-wants-disappoint-taylor-swift-110012607.html
+
+## Taylor Swift's Handwritten Note Sparks Speculation of New Music Release
+
+- first seen: 2026-11-10 14:22 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A recent handwritten note from Taylor Swift has fans buzzing about the possibility of a Christmas album or a surprise release. The note has generated excitement and speculation among her followers.
+- sources:
+  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/taylor-swift-handwritten-note-fans-141027590.html
 
 ## Taylor Swift's Unbuttoned Polo Styled with $4K Pendant
 
