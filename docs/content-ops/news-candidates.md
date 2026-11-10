@@ -27,6 +27,22 @@ so far".
 
 Stories: 74
 
+## Kelce Family's Journey from NFL to Pop Culture Explored
+
+- first seen: 2026-11-10 18:17 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: USA Today delves into the Kelce family's transition from NFL athletes to prominent figures in pop culture. The article highlights their influence and the significance of their public personas.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/picture-gallery/sports/nfl/2026/11/10/kelce-family-travis-jason-taylor-swift-donna-kylie-photos/92619539007/
+
+## Property near Taylor Swift's home sells for $11.1 million
+
+- first seen: 2026-11-10 18:17 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A property located near Taylor Swift's residence in Watch Hill has been sold for $11.1 million. The sale has garnered attention due to its proximity to the singer's home.
+- sources:
+  - [unverified] Westerly Sun — https://www.thewesterlysun.com/daily-news-alerts/watch-hill-property-near-taylor-swifts-home-sells-for-11-1-million/article_e25fa100-dff2-4ae1-8f80-de6592cf634a.html
+
 ## Paul McCartney Becomes Billionaire, Ranks Third Richest Musician
 
 - first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
@@ -381,9 +397,10 @@ Stories: 74
 ## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
 
 - first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Caitlin Clark has shared details about a unique Taylor Swift-inspired colorway for her CC1 sneakers, stating that it is an exclusive design. This release highlights the influence of Taylor Swift on style and sports.
 - sources:
+  - [unverified] New York Post — https://www.aol.com/articles/tyler-kolek-girlfriend-jumps-taylor-162031000.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-details-taylor-202804549.html
 
 ## Bill Maher Faces Backlash Over Comment on Taylor Swift
@@ -632,19 +649,3 @@ Stories: 74
 - summary: Caitlin Clark presented Jimmy Fallon with a Taylor Swift-inspired Nike Caitlin 1 friendship bracelet. The gesture highlights the influence of Taylor Swift's style and fandom in contemporary culture.
 - sources:
   - [unverified] Sole Retriever — https://www.soleretriever.com/news/articles/caitlin-clark-gifts-jimmy-fallon-nike-caitlin-1-friendship-bracelet
-
-## Taylor Swift and Other Grammy Hopefuls Plan Strategy for Awards
-
-- first seen: 2026-11-07 17:37 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among four Grammy contenders aiming to strategically navigate the competition this season. The article discusses various tactics these artists may employ to enhance their chances of success at the awards.
-- sources:
-  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/grammy-ballots-song-of-the-year-record-strategy-analysis-taylor-swift-bruno-mars/
-
-## Songwriter of 'Christmas Wrapping' Praises Olivia Rodrigo's New Single
-
-- first seen: 2026-11-07 17:37 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The songwriter of 'Christmas Wrapping' expresses admiration for Olivia Rodrigo, stating that her new single is an homage rather than a ripoff. This comment highlights the influence of Rodrigo's work in the music industry.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2516936/christmas-wrapping-songwriter-is-a-huge-olivia-rodrigo-fan-and-says-her-new-single-is-an-homage-not-a-ripoff/news/
