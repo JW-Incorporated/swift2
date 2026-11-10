@@ -31,5 +31,16 @@
     ],
     "revision": 1
   },
-  "why": "11-11 23:00Z was launch:photo-viewer DAY +2, whose own gate says it does not ship if day 0 did not, and day 0 fell back on 11-09. Per that gate, this is heartbeat:era-deep-cut on reputation, a different moment from 11-09's olive branch. X half written first; hook = the artifact (the iPhone clip). No tag-a-friend line: one posted 11-09. Share hook would be forced on X, so none."
+  "why": "11-11 23:00Z was launch:photo-viewer DAY +2, whose own gate says it does not ship if day 0 did not, and day 0 fell back on 11-09. Per that gate, this is heartbeat:era-deep-cut on reputation, a different moment from 11-09's olive branch. X half written first; hook = the artifact (the iPhone clip). No tag-a-friend line: one posted 11-09. Share hook would be forced on X, so none.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-10T18:43:10.089Z",
+    "pr": 6766,
+    "message": "social-tree-approve run 42877756902",
+    "contentHash": "sha256:2a1a712f6505fa37fe33e8e6e0936cd40bbf1534d9033de56a62ac73103bd3cc",
+    "mediaDigest": "sha256:4a5356a59a6856e97fab9148226642b635361698bad36da4374127e216a33478",
+    "sig": "hmac-sha256:3aef7fbe33706a9372e4c7b525d27c825e83b04dabcffaf9f0a273dbe4e132a0"
+  }
 }

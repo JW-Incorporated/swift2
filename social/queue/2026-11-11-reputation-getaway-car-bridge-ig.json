@@ -31,5 +31,16 @@
     ],
     "revision": 1
   },
-  "why": "IG sibling of the 11-11 Getaway Car bridge pair, the calendar's reputation fallback for launch:photo-viewer DAY +2 (day 0 never shipped, so +2's gate sends it here). Share hook: send-to-a-friend tied to the bridge itself, not a tag-a-friend line (one posted 11-09). Photo is the never-used reputation pick, checked against its alt."
+  "why": "IG sibling of the 11-11 Getaway Car bridge pair, the calendar's reputation fallback for launch:photo-viewer DAY +2 (day 0 never shipped, so +2's gate sends it here). Share hook: send-to-a-friend tied to the bridge itself, not a tag-a-friend line (one posted 11-09). Photo is the never-used reputation pick, checked against its alt.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-10T18:43:10.089Z",
+    "pr": 6766,
+    "message": "social-tree-approve run 42877756902",
+    "contentHash": "sha256:22f5bf5c291247d6e8da1b1c57b7955cd75c9d2e913ab10b2c9bfda0842a1d15",
+    "mediaDigest": "sha256:64cb21170958869668a0bc0a99a21bf6fbd471e2550f1cf0d268c0db8daf0806",
+    "sig": "hmac-sha256:9260d932da07dc2592f1f013c7dc1dc5b95933e73410459cc1ebf83c171ef2fa"
+  }
 }
