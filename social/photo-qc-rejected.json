@@ -3427,6 +3427,48 @@
       "sha256": "a67654b0928cf8647afa6a9a661ab2276d417b020e395b86ac967c770354a267",
       "reason": "Stadium stage panorama; several performers, small figures, no clear single subject",
       "date": "2026-11-09"
+    },
+    {
+      "id": "press-86c518622891",
+      "sha256": "6a3df1e20302bf6808248a16a3365d6ab5a4dc735910bc90ff44dd9ac9d89bf0",
+      "reason": "Collage of two couple photos plus aerial house inset; not a single subject.",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "press-bc61a5341e49",
+      "sha256": "83578b3a68cd368086758ba5e49a48261e771cf9bda5cc69119f219205e06e90",
+      "reason": "Collage of three photos with multiple people; no single main subject.",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "press-6ef5b7e4df97",
+      "sha256": "8a31ea27c5dfd1a7c07d971f698b68394a06ce1dd8f06f0f621199081d05b04a",
+      "reason": "Woman in a crowd with other people in the foreground; caption fit unclear",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "openverse-401e197b-89bd-43ce-944d-70f08eca212c",
+      "sha256": "1cf7d518c804a51deb65795e94520a2fad358b2935a0c3c66b10823a575805b0",
+      "reason": "Wide stage panorama with screens; performers small, no single clear subject",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "press-ec775da14147",
+      "sha256": "efa580087fcc9294407ce35569b1d80ca46a8f15e221289ba1982cdd30915faa",
+      "reason": "Crowded stands; several people prominent, no single main subject.",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "openverse-74d07a01-98f2-4bca-ab56-2ed2d6c89bb4",
+      "sha256": "88db7dded0cfd69f9c4380f5781a4dfd616467846ea2d7b301449155a37d0884",
+      "reason": "Wide stage shot; several dancers dominant, singer small, dark foreground clutter.",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "press-764790487f0d",
+      "sha256": "0f1ca073e782d579ac89f1b8b5358a07094cfaf1ba845a2b4498802f7985b748",
+      "reason": "Split-screen collage of two people; not a single prominent subject.",
+      "date": "2026-11-10"
     }
   ]
 }
