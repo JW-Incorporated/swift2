@@ -7,6 +7,29 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-09 — Sub-confirmed stamp is a chip + footer note on every detail (amends 2026-07-19's "unmissable banner")
+
+**Decision (Joey, 2026-11-09, in chat):** a reported/rumored item is stamped the
+same way everywhere — a small dashed `role="note"` chip under the title and a
+one-line explainer in the footer above the sources — on both the live news
+detail (`CurrentItemDetail`, #6748) and the Vault moment detail
+(`MomentDetail`'s `ConfidenceBanner` + new `ConfidenceNote`). The full-width
+dashed box introduced 2026-07-19 ("UNMISSABLE … a rumor can never visually
+pass as fact") is retired on both.
+
+**Why:** Joey, reviewing the app: confirmed posts "looked excellent" and the
+not-confirmed ones "still have the bad format … I want them both to look the
+same." The box sat between the headline and the story and pushed the lead
+below the fold on a phone; the honesty requirement is met by the chip (still
+the accessible name screen readers and the parity harness key on) plus the
+footer line, which together say the same words the box did.
+
+**Alternatives considered:** keep the box on moments only (rejected — the
+inconsistency is the complaint); drop the stamp below the fold entirely
+(rejected — a rumor must still read as a rumor at a glance, so the chip stays
+under the title). The "What's rumored" `RumorSection` and the era-card
+"Unconfirmed" chip are untouched.
+
 ## 2026-11-08 — Video-first slice 3: `current_item.embed` + `media_kind` (architect call)
 
 **Decision.** `current_item` gains a nullable `embed` jsonb (`{provider:'youtube', videoId, title?, channelId?, verifiedAt?}`) and `media_kind` text (`video`|`image`|`text`, check-constrained, default `text`, backfilled to `image` where `image_url` is set). A trigger derives `video` from a non-null embed and `image` from a set `image_url`, so existing writers need no change. No unified feed-item table; no automatic `video_work` rows. Readers expose both fields unchanged (no view exists; the row-level public-read policy covers all columns). `check-media-mix` counts `media_kind='video'` live items as video. Worker fill is slice 4, rendering slice 5. Reverse: drop the trigger, constraints and the two columns.
