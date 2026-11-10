@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 70
 
 ## Taylor Swift's Unbuttoned Polo Styled with $4K Pendant
 
@@ -222,13 +222,14 @@ Stories: 71
 ## Taylor Swift and Travis Kelce Donate $26 Million to Charities
 
 - first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437942/taylor-swift-travis-kelce-leave-chiefs-game-in-vintage-car
   - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/taylor-swift-and-travis-kelce-find-allies-as-war-over-ohio-mansion-heats-up/
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971727/taylor-swift-travis-kelce-christmas-2/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317993777.html
+  - [unverified] The Times — https://www.thetimes.com/uk/technology-uk/article/jensen-huang-alice-chinese-spy-wife-nvidia-tb9f9d2g2
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
 
@@ -612,11 +613,3 @@ Stories: 71
 - summary: Travis Kelce made a rare comment indicating his relationship status while discussing plans for the holidays with Taylor Swift. The remarks were highlighted in a recent interview by Sports Illustrated.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-makes-rare-married-man-comment-when-talking-about-the-holidays-with-taylor-swift-01m6ry9q3x1r
-
-## Knicks defend Taylor Swift amid player comments
-
-- first seen: 2026-11-07 13:02 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: New York Knicks players referred to Taylor Swift as 'a little performative' during NBA games, sparking a defense from the team. The comments highlight the ongoing interaction between Swift and sports culture.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/c6rmyymw1zz1o?at_medium=RSS&at_campaign=rss
