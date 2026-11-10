@@ -2,7 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { getAdapter } from '../sources/registry';
 import { filterRelevantItems } from '../sources/relevance';
 import { resolveGoogleNewsItem } from '../sources/resolve-google-news';
-import { isBlockedError, isUpstreamError } from '../sources/retry';
+import { isBlockedError, isUpstreamError, isYouTubeFeedUrl } from '../sources/retry';
 import type { SourceAdapter } from '../sources/types';
 
 export interface CycleOptions {
@@ -96,7 +96,15 @@ export async function runIngestStage(
       const newFailures = ((source.consecutive_failures as number | undefined) ?? 0) + 1;
       const okAt = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
       const noRecentSuccess = Number.isNaN(okAt) || Date.now() - okAt >= ESCALATION_MIN_MS;
-      const repeated = tracking && newFailures >= ESCALATION_THRESHOLD && noRecentSuccess;
+      // YouTube's feed server answers 404/500 to every feed for hours at a
+      // stretch (recurring since late 2025, no status page; retry.ts already
+      // waits it out within a cycle). 2026-11-10 it outlasted the 3h/3-cycle
+      // escalation and turned every hourly run red with nothing to fix, so a
+      // YouTube feed never escalates on the counter — only the 48h stale rule
+      // above can fail the run for it. A 403 is a block, not the flake, and
+      // still escalates.
+      const knownFlaky = isUpstreamError(fetchError) && isYouTubeFeedUrl(String(source.config?.url ?? ''));
+      const repeated = tracking && !knownFlaky && newFailures >= ESCALATION_THRESHOLD && noRecentSuccess;
       if (!upstream) {
         result.errors.push(message);
       } else if (stale) {
