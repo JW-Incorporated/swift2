@@ -7,6 +7,32 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-10 — A YouTube feed never fails the news cycle on its failure counter (amends the 3-consecutive escalation)
+
+**Decision (Claude, reversible):** in `ingest-stage.ts` the "N consecutive
+failures + no success in 3h" escalation is skipped for a source whose URL is a
+YouTube `/feeds/videos.xml` feed and whose error is upstream (404/5xx/network;
+a 403 is a block and still escalates). The 48h "no success" rule and
+non-upstream errors still fail the run; the
+counter is still written. One flag, one helper (`isYouTubeFeedUrl`, already in
+`retry.ts`), three tests.
+
+**Why.** YouTube's feed server answers 404 (sometimes 500) to every feed for
+hours at a stretch — recurring since late 2025, no status page, and the feeds
+themselves are fine afterwards. `retry.ts` already waits 20s/40s inside a cycle
+for exactly this. On 2026-11-10 the stretch outlasted the 3-cycle escalation:
+runs 02:40Z and 03:28Z exited 1 on `realErrors: 1` with every other stage green
+(30 GNews items resolved), which is enough to file a "failed its last 2 runs"
+alert for a condition nobody can act on. Measured from a home IP at 03:45Z: 7 of
+8 sequential fetches 404/500, header `server: YouTube RSS Feeds server`; other
+RSS sources 200 with the same UA. A red run must mean something to fix.
+
+**Alternatives.** Disable the source row (loses the official channel entirely
+and needs a DB write per flap). Raise the threshold globally (hides a real
+outage on every other source). A `flaky: true` source config flag (needs a
+migration to reach the live row; the URL test needs nothing). Reverse by
+deleting the `knownFlaky` term.
+
 ## 2026-11-09 — Sub-confirmed stamp is a chip + footer note on every detail (amends 2026-07-19's "unmissable banner")
 
 **Decision (Joey, 2026-11-09, in chat):** a reported/rumored item is stamped the
