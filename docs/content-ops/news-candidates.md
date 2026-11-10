@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 68
 
 ## Taylor Swift and Karlie Kloss Reignite Their Friendship
 
@@ -596,11 +596,3 @@ Stories: 69
 - summary: New York Knicks players referred to Taylor Swift as 'a little performative' during NBA games, sparking a defense from the team. The comments highlight the ongoing interaction between Swift and sports culture.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/c6rmyymw1zz1o?at_medium=RSS&at_campaign=rss
-
-## Knicks Support Taylor Swift Amid Criticism from Tyler Kolek
-
-- first seen: 2026-11-07 05:51 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The New York Knicks have shown their support for Taylor Swift following Tyler Kolek's comments describing her as a 'performative' fan. The statement has sparked discussion around celebrity fandom in sports.
-- sources:
-  - [established] People — https://people.com/knicks-respond-after-tyler-kolek-calls-taylor-swift-performative-fan-12241290
