@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 69
 
 ## Taylor Swift and Karlie Kloss Reignite Their Friendship
 
@@ -604,19 +604,3 @@ Stories: 71
 - summary: The New York Knicks have shown their support for Taylor Swift following Tyler Kolek's comments describing her as a 'performative' fan. The statement has sparked discussion around celebrity fandom in sports.
 - sources:
   - [established] People — https://people.com/knicks-respond-after-tyler-kolek-calls-taylor-swift-performative-fan-12241290
-
-## Bill Maher Comments on Taylor Swift While Discussing Politics
-
-- first seen: 2026-11-07 04:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent segment, Bill Maher referenced Taylor Swift while addressing the GOP's midterm losses and former President Trump's actions. His remarks included critiques of both political figures and the impact of celebrity culture.
-- sources:
-  - [unverified] TheWrap — https://www.thewrap.com/creative-content/tv-shows/bill-maher-takes-another-shot-taylor-swift-real-time-monologue/
-
-## Knicks Show Support for Taylor Swift Amid Comments from Players
-
-- first seen: 2026-11-07 04:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks expressed their support for Taylor Swift following remarks made by some players who referred to her as the 'fakest' fan. This development highlights the ongoing relationship between celebrities and sports teams.
-- sources:
-  - [unverified] USA Today — https://www.usatoday.com/story/sports/nba/knicks/2026/11/06/new-york-knicks-support-taylor-swift-fakest-fan/92652797007/
