@@ -75,14 +75,6 @@ Stories: 71
 - sources:
   - [unverified] 930 WFMD Free Talk — https://www.wfmd.com/2026/11/09/knicks-guard-walks-back-comment-about-taylor-swift-being-fake-fan-after-swifties-including-his-wife-attack/
 
-## Taylor Swift's Connection to 'The Hunger Games' Awards History
-
-- first seen: 2026-11-10 00:43 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses the awards history of 'The Hunger Games' ahead of the new release 'Sunrise on the Reaping', mentioning notable winners including Jennifer Lawrence and Taylor Swift.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/hunger-games-awards-history-ahead-003000026.html
-
 ## Taylor Swift Wears Outfit with Subtle Nod to Travis Kelce
 
 - first seen: 2026-11-10 00:43 UTC | category: fashion | importance: 5
@@ -90,6 +82,14 @@ Stories: 71
 - summary: Taylor Swift showcased her latest game day outfit, featuring a subtle reference to her husband, Travis Kelce. Her choice reflects her unique style and connection to her partner during public appearances.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-game-day-outfit-subtle-tribute-travis-kelce-chiefs-12244669
+
+## Taylor Swift's Connection to 'The Hunger Games' Awards History
+
+- first seen: 2026-11-10 00:43 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the awards history of 'The Hunger Games' ahead of the new release 'Sunrise on the Reaping', mentioning notable winners including Jennifer Lawrence and Taylor Swift.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/hunger-games-awards-history-ahead-003000026.html
 
 ## Stars Attend Kansas City Chiefs Games with Taylor Swift
 
