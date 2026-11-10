@@ -25,7 +25,32 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 74
+
+## Paul McCartney Becomes Billionaire, Ranks Third Richest Musician
+
+- first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Paul McCartney has reached billionaire status, making him the third richest musician worldwide, following Jay Z and Taylor Swift. This milestone highlights his successful career in music and business.
+- sources:
+  - [unverified] Business Insider — https://www.businessinsider.com/billionaire-musicians-list-beyonce-paul-mccartney-taylor-swift-2026-11
+  - [unverified] The Indian Express — https://indianexpress.com/article/entertainment/music/paul-mccartney-billionaire-third-richest-musician-after-jay-z-taylor-swift-10957544/
+
+## Paul McCartney Becomes World's 3rd-Richest Musician After Taylor Swift and Jay-Z
+
+- first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Paul McCartney's fortune has reached $1.4 billion, positioning him as the third-richest musician globally, following Taylor Swift and Jay-Z. This financial milestone highlights his significant success in the music industry.
+- sources:
+  - [established] People — https://people.com/paul-mccartney-becomes-billionaire-taylor-swift-jayz-12246717
+
+## Taylor Swift-themed workout class supports Arizona animal charities
+
+- first seen: 2026-11-10 17:17 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A workout class inspired by Taylor Swift is being organized with proceeds going to benefit animals in Arizona. The initiative emphasizes community support and animal welfare.
+- sources:
+  - [unverified] Your Valley — https://www.yourvalley.net/paradise-valley-independent/stories/taylor-swift-themed-workout-class-to-benefit-arizona-animals,739559
 
 ## World's Third-Richest Musician Behind Jay-Z and Taylor Swift
 
@@ -51,14 +76,6 @@ Stories: 72
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/ended-taylor-taylor-swift-sued-143016584.html
 
-## Taylor Swift and Travis Kelce reportedly face Christmas dilemma
-
-- first seen: 2026-11-10 14:22 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are said to be confronting a dilemma ahead of Christmas, as neither wants to disappoint during the holidays. The situation reflects their current relationship dynamics.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/neither-wants-disappoint-taylor-swift-110012607.html
-
 ## Taylor Swift's Handwritten Note Sparks Speculation of New Music Release
 
 - first seen: 2026-11-10 14:22 UTC | category: release | importance: 7
@@ -66,6 +83,16 @@ Stories: 72
 - summary: A recent handwritten note from Taylor Swift has fans buzzing about the possibility of a Christmas album or a surprise release. The note has generated excitement and speculation among her followers.
 - sources:
   - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/taylor-swift-handwritten-note-fans-141027590.html
+
+## Taylor Swift and Travis Kelce reportedly face Christmas dilemma
+
+- first seen: 2026-11-10 14:22 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift and Travis Kelce are said to be confronting a dilemma ahead of Christmas, as neither wants to disappoint during the holidays. The situation reflects their current relationship dynamics.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-travis-kelce-new-ohio-neighbors-speak-out-12246928
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/10/taylor-swift-and-travis-kelce-face-christmas-family-dilemma-as-both-sides-make-holiday-plans.html
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/neither-wants-disappoint-taylor-swift-110012607.html
 
 ## Taylor Swift's Unbuttoned Polo Styled with $4K Pendant
 
@@ -621,11 +648,3 @@ Stories: 72
 - summary: The songwriter of 'Christmas Wrapping' expresses admiration for Olivia Rodrigo, stating that her new single is an homage rather than a ripoff. This comment highlights the influence of Rodrigo's work in the music industry.
 - sources:
   - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2516936/christmas-wrapping-songwriter-is-a-huge-olivia-rodrigo-fan-and-says-her-new-single-is-an-homage-not-a-ripoff/news/
-
-## Knicks Player Comments on Taylor Swift's Engagement with Team
-
-- first seen: 2026-11-07 16:37 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Knicks player referred to Taylor Swift's involvement with the team as 'performative', though the organization supports her. This incident highlights varying perspectives on celebrity involvement in sports.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-branded-performative-knicks-142551515.html
