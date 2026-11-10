@@ -144,6 +144,53 @@ describe('runIngestStage source resilience', () => {
     expect(updateLog).toContainEqual({ id: 'yt', patch: { consecutive_failures: 2 } });
   });
 
+  // YouTube's feed server 404s every feed for hours at a time (2026-11-10 it
+  // outlasted the 3h/3-cycle escalation and reddened every hourly run); the
+  // counter never fails the run for it, only the 48h stale rule does.
+  const ytFeed = (last_polled_at: string | null, failures: number, last_ok_at: string | null) => ({
+    ...src('yt', last_polled_at, failures, last_ok_at),
+    config: { url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g' },
+  });
+
+  it('never escalates a YouTube feed on the counter alone, but still tracks it', async () => {
+    const result = fresh();
+    const updateLog: UpdateEntry[] = [];
+    await runIngestStage(
+      fakeDb([ytFeed(recent, 6, hoursAgo(7)), src('ok')], { updateLog }),
+      { adapterFor: adapterFor(['yt']) },
+      result,
+    );
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toHaveLength(1);
+    expect(updateLog).toContainEqual({ id: 'yt', patch: { consecutive_failures: 7 } });
+  });
+
+  it('still fails the run for a YouTube feed with no success in >48h', async () => {
+    const result = fresh();
+    await runIngestStage(fakeDb([ytFeed(old, 6, old), src('ok')]), { adapterFor: adapterFor(['yt']) }, result);
+    expect(result.errors.join()).toMatch(/no success in >48h/);
+  });
+
+  it('still escalates a YouTube feed on a 403 block', async () => {
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([ytFeed(recent, 2, hoursAgo(5)), src('ok')]),
+      { adapterFor: adapterFor(['yt'], 'Status code 403') },
+      result,
+    );
+    expect(result.errors.join()).toMatch(/3 consecutive failures/);
+  });
+
+  it('still escalates a YouTube feed on a non-upstream error', async () => {
+    const result = fresh();
+    await runIngestStage(
+      fakeDb([ytFeed(recent, 2, hoursAgo(5)), src('ok')]),
+      { adapterFor: adapterFor(['yt'], 'TypeError: boom') },
+      result,
+    );
+    expect(result.errors).toHaveLength(1);
+  });
+
   it('classifies a 403 as a source-level upstream failure (warning, not error)', async () => {
     const result = fresh();
     await runIngestStage(
