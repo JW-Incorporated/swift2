@@ -677,6 +677,14 @@ export default {
             kind: 'primary',
             focalPoint: '55% 32%',
           },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/dakota-johnson-taylor-swift-snl-2026-billboard-1800.jpg?w=1024',
+            focalPoint: '50% 28%',
+            credit: 'NBC, via Billboard',
+            caption:
+              'A wider view of the same Oct. 3 Saturday Night Live moment: Johnson in red latex and Taylor in a plaid off-the-shoulder dress on the Studio 8H stage.',
+            kind: 'primary',
+          },
         ],
         sources: [
           {
