@@ -681,8 +681,11 @@ Two structural tools, both authored on the seed row in
 `scripts/sync-longlive-content.mjs`:
 - **Whole item rests on unconfirmed reporting** → set `confidence` to one of
   the 8 shared levels (below `official`/`confirmed_interview`, the
-  `CONFIRMED_TIER` in `types.ts`). `MomentDetail` renders an UNMISSABLE
-  banner — "Reported — not confirmed" / "Rumor — unconfirmed" / "Debunked" —
+  `CONFIRMED_TIER` in `types.ts`). `MomentDetail` stamps it twice, compactly
+  (owner 2026-11-09, matching the live news detail; the full-width dashed box
+  of 2026-07-19 is gone): a dashed `role="note"` chip under the title
+  (`ConfidenceBanner`) and a footer line above the sources (`ConfidenceNote`)
+  — "Reported — not confirmed" / "Rumor — unconfirmed" / "Debunked" —
   naming the first source's outlet (keep the outlet that reported the claim
   FIRST in `moment.sources` on sub-confirmed items). The qualifier follows
   the item to its other surfaces too: an "Unconfirmed" chip on the era-feed
