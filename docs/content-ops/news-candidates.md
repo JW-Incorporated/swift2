@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 77
+
+## Swift and Kelce Obtain Neighbor Support for Ohio Estate Privacy Wall
+
+- first seen: 2026-11-10 23:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have received the backing of their neighbor for the construction of an 8-foot privacy wall at their $5.35 million estate in Ohio.
+- sources:
+  - [unverified] Realtor.com — https://www.realtor.com/news/celebrity-real-estate/taylor-swift-travis-kelce-neighbor-backs-ohio-mansion-fence/
 
 ## Taylor Swift Tops Musician Billionaire List in 2026
 
@@ -666,19 +674,3 @@ Stories: 78
 - summary: Bill Maher made remarks about Taylor Swift's romantic life during a recent segment, receiving a mixed response from the audience, which included both groans and applause.
 - sources:
   - [unverified] Page Six — https://pagesix.com/2026/11/07/entertainment/bill-maher-takes-new-dig-at-taylor-swifts-love-life/
-
-## Ideas for Fall-Inspired Manicures Inspired by Taylor Swift
-
-- first seen: 2026-11-07 22:47 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Discover manicure ideas inspired by Taylor Swift that are perfect for the fall season. These nail designs can be easily copied for a fashionable look this autumn.
-- sources:
-  - [unverified] Women.com — https://www.women.com/2307081/taylor-swift-manicures-perfect-nail-inspo-fall-2026/
-
-## Jimmy Fallon Acquires Unreleased Taylor Swift-Inspired Sneakers from Caitlin Clark
-
-- first seen: 2026-11-07 22:47 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Jimmy Fallon, known for his sneaker collection, has obtained unreleased sneakers inspired by Taylor Swift, created by Caitlin Clark. This acquisition highlights the blend of celebrity culture and fashion in the sneaker world.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/sneaker-news/jimmy-fallon-caitlin-clark-taylor-swift-nike-sneakers-1239405659/
