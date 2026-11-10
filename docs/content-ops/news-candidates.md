@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 73
+
+## Knicks Guard Apologizes for Comments on Taylor Swift's Fandom
+
+- first seen: 2026-11-10 01:43 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Knicks guard Tyler Kolek has retracted his remarks calling Taylor Swift a 'performative' fan after backlash from Swifties, including his wife. The Knicks organization has also expressed appreciation for Swift's support.
+- sources:
+  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/knicks-guard-walks-back-comment-taylor-swift-fake-fan-swifties-wife-attack
+
+## Knicks Guard Clarifies Remarks on Taylor Swift Fan Status
+
+- first seen: 2026-11-10 01:43 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A Knicks guard has retracted his comments suggesting Taylor Swift is a 'fake fan' following backlash from her supporters, including his wife. The incident highlights the passionate defense of Swift's fanbase.
+- sources:
+  - [unverified] 930 WFMD Free Talk — https://www.wfmd.com/2026/11/09/knicks-guard-walks-back-comment-about-taylor-swift-being-fake-fan-after-swifties-including-his-wife-attack/
 
 ## Taylor Swift's Connection to 'The Hunger Games' Awards History
 
@@ -623,12 +639,3 @@ Stories: 72
   - [unverified] Newsday — https://www.newsday.com/sports/basketball/knicks/taylor-swift-knicks-qnxepdhj
   - [unverified] roundtable.io — https://roundtable.io/sports/wnba/news/caitlin-clark-gives-jimmy-fallon-exclusive-taylor-swift-inspired-nike-shoes
   - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
-
-## Knicks Defend Taylor Swift Amid Player Criticism
-
-- first seen: 2026-11-07 00:53 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: The New York Knicks have issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride questioned her authenticity as a fan. The players labeled her courtside appearances as ‘performative’, but the Knicks affirmed her longstanding support for the team.
-- sources:
-  - [unverified] The Guardian — https://www.aol.com/articles/saved-sunday-sarah-j-maas-210021000.html
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/06/taylor-swift-knicks-tyler-kolek-miles-mcbride-fake-fan
