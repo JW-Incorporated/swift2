@@ -1,0 +1,35 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "under half a minute!! that is how long it took to write getaway car's bridge, and there is footage, filmed by accident on taylor's own phone 😭 antonoff says no other studio session he ever did got caught on tape at the moment it clicked. https://longlivets.com/?item=vault-reputation-the-getaway-car-bridge-written-in-under-30-seconds-on-camera&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-4.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-4",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+  "scheduledAt": "2026-11-11T23:00:00Z",
+  "altText": [
+    "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "photoEra": "reputation",
+  "campaign": "heartbeat:era-deep-cut:reputation-getaway-car-bridge:2026-11-11",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 21,
+    "rationale": "The under-30-seconds Getaway Car bridge, caught on Taylor's own iPhone, is a sourced reputation moment with an exact Jack Antonoff quote (Rolling Stone). It fills the 11-11 slot as the calendar's named reputation fallback because launch:photo-viewer day 0 never shipped.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "11-11 23:00Z was launch:photo-viewer DAY +2, whose own gate says it does not ship if day 0 did not, and day 0 fell back on 11-09. Per that gate, this is heartbeat:era-deep-cut on reputation, a different moment from 11-09's olive branch. X half written first; hook = the artifact (the iPhone clip). No tag-a-friend line: one posted 11-09. Share hook would be forced on X, so none."
+}

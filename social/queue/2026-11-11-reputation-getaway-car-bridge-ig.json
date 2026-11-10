@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "OMG, the getaway car bridge 🚗\n\nthe whole thing came together in under 30 seconds. taylor and jack antonoff in the studio, and the only reason anyone ever got to see it is that her iPhone happened to be on.\n\njack has called that clip one of a kind in his career: \"the only time in my life...that a camera was ever on when magic actually happened.\"\n\nhe thinks that's exactly why the video took off. because it was real. one of reputation's biggest moments, arriving in real time, on a phone propped up in the room.\n\nsend this to the friend who screams the bridge every single time.\n\nthe full story on longlivets.com → https://longlivets.com/?item=vault-reputation-the-getaway-car-bridge-written-in-under-30-seconds-on-camera&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n📷 Paolo Villanueva (CC BY 2.0), via Wikimedia Commons\n\n#TaylorSwift #Reputation #GetawayCar #Swifties #LongLive",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-4-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-4-ig45",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+  "scheduledAt": "2026-11-11T23:00:00Z",
+  "altText": [
+    "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "photoEra": "reputation",
+  "campaign": "heartbeat:era-deep-cut:reputation-getaway-car-bridge:2026-11-11",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 21,
+    "rationale": "The under-30-seconds Getaway Car bridge, caught on Taylor's own iPhone, is a sourced reputation moment with an exact Jack Antonoff quote (Rolling Stone). It fills the 11-11 slot as the calendar's named reputation fallback because launch:photo-viewer day 0 never shipped.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of the 11-11 Getaway Car bridge pair, the calendar's reputation fallback for launch:photo-viewer DAY +2 (day 0 never shipped, so +2's gate sends it here). Share hook: send-to-a-friend tied to the bridge itself, not a tag-a-friend line (one posted 11-09). Photo is the never-used reputation pick, checked against its alt."
+}
