@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 78
+
+## Taylor Swift Tops Musician Billionaire List in 2026
+
+- first seen: 2026-11-10 22:21 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: In November 2026, Taylor Swift has been recognized as the leading billionaire among musicians, highlighting her financial success. The report was featured by Young Hollywood.
+- sources:
+  - [unverified] Young Hollywood — https://younghollywood.com/scene/taylor-swift-billionaire-musician-ranking-paul-mccartney-jay-z.html
 
 ## Man Reflects on One-Sided Dispute with Taylor Swift
 
