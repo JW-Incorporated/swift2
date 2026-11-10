@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 72
+
+## Taylor Swift's Connection to 'The Hunger Games' Awards History
+
+- first seen: 2026-11-10 00:43 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses the awards history of 'The Hunger Games' ahead of the new release 'Sunrise on the Reaping', mentioning notable winners including Jennifer Lawrence and Taylor Swift.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/hunger-games-awards-history-ahead-003000026.html
+
+## Taylor Swift Wears Outfit with Subtle Nod to Travis Kelce
+
+- first seen: 2026-11-10 00:43 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift showcased her latest game day outfit, featuring a subtle reference to her husband, Travis Kelce. Her choice reflects her unique style and connection to her partner during public appearances.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-game-day-outfit-subtle-tribute-travis-kelce-chiefs-12244669
 
 ## Stars Attend Kansas City Chiefs Games with Taylor Swift
 
@@ -178,11 +194,12 @@ Stories: 74
 ## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
 
 - first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
   - [unverified] KMTR — https://nbc16.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift
+  - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/how-taylor-swift-and-karlie-kloss-moved-past-years-of-tension-theyve-gotten-a-lot-closer/
   - [unverified] Rural Radio Network — https://ruralradio.com/kuvr/abc_news/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game-abcid97a8cd67/
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
@@ -615,35 +632,3 @@ Stories: 74
 - sources:
   - [unverified] The Guardian — https://www.aol.com/articles/saved-sunday-sarah-j-maas-210021000.html
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/06/taylor-swift-knicks-tyler-kolek-miles-mcbride-fake-fan
-
-## Knicks players defend Taylor Swift amid 'fakest' fan claims
-
-- first seen: 2026-11-06 23:57 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift faces criticism from some Knicks players who call her the 'fakest' celebrity fan. In response, the team comes to her defense, emphasizing her support for the team.
-- sources:
-  - [unverified] NBC News — https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-fakest-celeb-knicks-fan-players-say-team-rushes-defense-rcna607909
-
-## Knicks Players Show Support for Taylor Swift Amid Controversy
-
-- first seen: 2026-11-06 23:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks expressed their support for Taylor Swift following comments from a player who labeled her the 'fakest celeb fan.' The team's response highlights their backing of the pop star during this discussion.
-- sources:
-  - [unverified] TODAY.com — https://www.today.com/news/sports/knicks-support-taylor-swift-player-calls-fakest-celebrity-fan-rcna607925
-
-## Knicks Show Support for Taylor Swift Following Player's Comments
-
-- first seen: 2026-11-06 23:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A player from the New York Knicks made unexpected comments in support of Taylor Swift, leading to the team's backing of the pop star. This incident highlights the connection between sports and entertainment.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/knicks-defend-taylor-swift-tyler-kolek-fan-comments-12240762
-
-## New York Knicks Support Taylor Swift Amid Criticism from Tyler Kolek
-
-- first seen: 2026-11-06 23:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks have come to Taylor Swift's defense after player Tyler Kolek referred to her as the 'fakest celeb fan'. This public support highlights the ongoing engagement between celebrities and sports teams.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437909/new-york-knicks-defend-taylor-swift-after-tyler-kolek-calls-her-fakest-fan
