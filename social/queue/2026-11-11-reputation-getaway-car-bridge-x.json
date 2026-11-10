@@ -29,7 +29,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 3,
+        "formula": 5,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-10T18:45:30.330Z",
+      "bodyHash": "sha256:112f2d898342680b9f9edba54ab7adbeba9b78309a5abec5be27e4971ec561be"
+    }
   },
   "why": "11-11 23:00Z was launch:photo-viewer DAY +2, whose own gate says it does not ship if day 0 did not, and day 0 fell back on 11-09. Per that gate, this is heartbeat:era-deep-cut on reputation, a different moment from 11-09's olive branch. X half written first; hook = the artifact (the iPhone clip). No tag-a-friend line: one posted 11-09. Share hook would be forced on X, so none.",
   "approval": {

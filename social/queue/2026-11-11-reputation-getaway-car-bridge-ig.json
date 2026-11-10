@@ -29,7 +29,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 3,
+        "specific": 4,
+        "formula": 2,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-10T18:45:20.521Z",
+      "bodyHash": "sha256:da9a1061e8a7a2c554a11212f744cc104bde607564e5b7f270ceb2d7516411c8"
+    }
   },
   "why": "IG sibling of the 11-11 Getaway Car bridge pair, the calendar's reputation fallback for launch:photo-viewer DAY +2 (day 0 never shipped, so +2's gate sends it here). Share hook: send-to-a-friend tied to the bridge itself, not a tag-a-friend line (one posted 11-09). Photo is the never-used reputation pick, checked against its alt.",
   "approval": {
