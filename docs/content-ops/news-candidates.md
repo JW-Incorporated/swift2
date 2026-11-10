@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 75
+Stories: 76
 
-## Taylor Swift and Karlie Kloss Reconcile Sooner Than Fans Expected
+## Taylor Swift Reportedly Frustrated in Marriage with Travis Kelce
 
-- first seen: 2026-11-10 20:17 UTC | category: relationship | importance: 5
+- first seen: 2026-11-10 21:17 UTC | category: relationship | importance: 6
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss have reportedly reconciled their friendship earlier than fans anticipated. The update suggests a positive turnaround in their relationship.
+- summary: A report indicates that Taylor Swift is feeling frustrated in her marriage with Travis Kelce, adding a new development to their relationship. The situation highlights ongoing challenges they may be facing together.
 - sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235092065/when-taylor-swift-karlie-kloss-reconcile/
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971950/taylor-swift-travis-kelce-neighbor-drama/
+
+## A Look at Taylor Swift's Date-Night Outfits with Travis Kelce
+
+- first seen: 2026-11-10 21:17 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article reviews Taylor Swift's best and worst outfits worn during date nights with Travis Kelce. The piece focuses on her fashion choices in public appearances with the NFL star.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swifts-best-worst-date-181500886.html
 
 ## Taylor Swift and Karlie Kloss Resolve Differences at Arrowhead
 
@@ -43,13 +51,21 @@ Stories: 75
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-put-195141964.html
 
+## Taylor Swift and Karlie Kloss Reconcile Sooner Than Fans Expected
+
+- first seen: 2026-11-10 20:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss have reportedly reconciled their friendship earlier than fans anticipated. The update suggests a positive turnaround in their relationship.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235092065/when-taylor-swift-karlie-kloss-reconcile/
+
 ## Neighbors Support Kelce and Swift in Mansion Dispute
 
 - first seen: 2026-11-10 19:16 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
 - summary: Neighbors have come forward to defend Travis Kelce and Taylor Swift amid a dispute related to their $5.35 million mansion in Ohio. The situation has garnered attention from local media and the public.
 - sources:
-  - [unverified] Cincinnati Enquirer — http://www.cincinnati.com/story/news/2026/11/10/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-neighbors-defend/92706391007/
+  - [unverified] Akron Beacon Journal — https://www.beaconjournal.com/story/news/2026/11/10/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-neighbors-defend/92706391007/
 
 ## Kelce Family's Journey from NFL to Pop Culture Explored
 
@@ -67,15 +83,6 @@ Stories: 75
 - sources:
   - [unverified] Westerly Sun — https://www.thewesterlysun.com/daily-news-alerts/watch-hill-property-near-taylor-swifts-home-sells-for-11-1-million/article_e25fa100-dff2-4ae1-8f80-de6592cf634a.html
 
-## Paul McCartney Becomes Billionaire, Ranks Third Richest Musician
-
-- first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Paul McCartney has reached billionaire status, making him the third richest musician worldwide, following Jay Z and Taylor Swift. This milestone highlights his successful career in music and business.
-- sources:
-  - [unverified] Business Insider — https://www.businessinsider.com/billionaire-musicians-list-beyonce-paul-mccartney-taylor-swift-2026-11
-  - [unverified] The Indian Express — https://indianexpress.com/article/entertainment/music/paul-mccartney-billionaire-third-richest-musician-after-jay-z-taylor-swift-10957544/
-
 ## Paul McCartney Becomes World's 3rd-Richest Musician After Taylor Swift and Jay-Z
 
 - first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
@@ -91,6 +98,16 @@ Stories: 75
 - summary: A workout class inspired by Taylor Swift is being organized with proceeds going to benefit animals in Arizona. The initiative emphasizes community support and animal welfare.
 - sources:
   - [unverified] Your Valley — https://www.yourvalley.net/paradise-valley-independent/stories/taylor-swift-themed-workout-class-to-benefit-arizona-animals,739559
+
+## Paul McCartney Becomes Billionaire, Ranks Third Richest Musician
+
+- first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Paul McCartney has reached billionaire status, making him the third richest musician worldwide, following Jay Z and Taylor Swift. This milestone highlights his successful career in music and business.
+- sources:
+  - [unverified] Business Insider — https://www.businessinsider.com/billionaire-musicians-list-beyonce-paul-mccartney-taylor-swift-2026-11
+  - [unverified] Louder — https://www.loudersound.com/news/paul-mccartney-details-ringo-starr-reunion-plans-becomes-third-billionaire-musician-2026
+  - [unverified] The Indian Express — https://indianexpress.com/article/entertainment/music/paul-mccartney-billionaire-third-richest-musician-after-jay-z-taylor-swift-10957544/
 
 ## World's Third-Richest Musician Behind Jay-Z and Taylor Swift
 
@@ -649,12 +666,3 @@ Stories: 75
 - summary: Jimmy Fallon, known for his sneaker collection, has obtained unreleased sneakers inspired by Taylor Swift, created by Caitlin Clark. This acquisition highlights the blend of celebrity culture and fashion in the sneaker world.
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/sneaker-news/jimmy-fallon-caitlin-clark-taylor-swift-nike-sneakers-1239405659/
-
-## New York Knicks Support Taylor Swift Amid Player Comments
-
-- first seen: 2026-11-07 20:37 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The New York Knicks are standing by Taylor Swift after some players referred to her as their 'fakest celebrity fan.' This defense comes amid discussions regarding her involvement with the team.
-- sources:
-  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-knicks-fan-statement-b3081094.html
-  - [unverified] The Telegraph — https://www.telegraph.co.uk/world-news/2026/11/07/new-york-knicks-defend-taylor-swift-players-say-fake-fan/
