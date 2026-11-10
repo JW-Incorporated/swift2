@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 71
+
+## Taylor Swift's Handwritten Note Sparks Speculation of New Music Release
+
+- first seen: 2026-11-10 14:22 UTC | category: release | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A recent handwritten note from Taylor Swift has fans buzzing about the possibility of a Christmas album or a surprise release. The note has generated excitement and speculation among her followers.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74386194/taylor-swift-hand-written-note-christmas-drop/
+
+## Taylor Swift and Travis Kelce reportedly face Christmas dilemma
+
+- first seen: 2026-11-10 14:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are said to be confronting a dilemma ahead of Christmas, as neither wants to disappoint during the holidays. The situation reflects their current relationship dynamics.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/neither-wants-disappoint-taylor-swift-110012607.html
 
 ## Taylor Swift's Unbuttoned Polo Styled with $4K Pendant
 
@@ -605,11 +621,3 @@ Stories: 70
 - summary: A retired professor has transitioned into a role as a scholar focusing on the work and impact of Taylor Swift. This shift demonstrates a unique approach to academic engagement with popular culture.
 - sources:
   - [unverified] MarketWatch — https://www.marketwatch.com/story/this-retired-professor-has-reinvented-himself-as-a-taylor-swift-scholar-88456c8d
-
-## Travis Kelce Discusses Holidays with Taylor Swift
-
-- first seen: 2026-11-07 14:02 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce made a rare comment indicating his relationship status while discussing plans for the holidays with Taylor Swift. The remarks were highlighted in a recent interview by Sports Illustrated.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-makes-rare-married-man-comment-when-talking-about-the-holidays-with-taylor-swift-01m6ry9q3x1r
