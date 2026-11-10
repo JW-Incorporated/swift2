@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 77
+
+## Man Reflects on One-Sided Dispute with Taylor Swift
+
+- first seen: 2026-11-10 22:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A man expresses his regret after initiating a one-sided conflict involving Taylor Swift. The situation has drawn attention but remains primarily personal.
+- sources:
+  - [unverified] The Cut — https://www.thecut.com/article/tyler-kolek-regrets-starting-one-sided-taylor-swift-beef.html
 
 ## Taylor Swift Reportedly Frustrated in Marriage with Travis Kelce
 
