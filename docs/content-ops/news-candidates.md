@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 69
+
+## Taylor Swift Wears Unbuttoned Tommy Hilfiger Sweater Polo at Game Day
+
+- first seen: 2026-11-10 07:28 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted wearing a $79 unbuttoned Tommy Hilfiger sweater polo during a recent game day event. Her choice of outfit has garnered attention among fans and fashion enthusiasts alike.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/taylor-swift-leaves-79-tommy-054458817.html
 
 ## Taylor Swift and Karlie Kloss Reignite Their Friendship
 
