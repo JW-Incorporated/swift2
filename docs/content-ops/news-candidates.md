@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 71
+
+## Taylor Swift and Karlie Kloss Reignite Their Friendship
+
+- first seen: 2026-11-10 02:43 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss restore their friendship, exploring the reasons behind their renewed bond. The details about their reconciliation reflect the importance of their relationship in the public eye.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235091923/reason-taylor-swift-karlie-kloss-friends-again/
 
 ## Knicks Guard Apologizes for Comments on Taylor Swift's Fandom
 
@@ -190,11 +198,12 @@ Stories: 73
 ## Taylor Swift and Travis Kelce Donate $26 Million to Charities
 
 - first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1437942/taylor-swift-travis-kelce-leave-chiefs-game-in-vintage-car
   - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/taylor-swift-and-travis-kelce-find-allies-as-war-over-ohio-mansion-heats-up/
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971727/taylor-swift-travis-kelce-christmas-2/
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317993777.html
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
@@ -210,13 +219,14 @@ Stories: 73
 ## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
 
 - first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
   - [unverified] KMTR — https://nbc16.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift
   - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/how-taylor-swift-and-karlie-kloss-moved-past-years-of-tension-theyve-gotten-a-lot-closer/
   - [unverified] Rural Radio Network — https://ruralradio.com/kuvr/abc_news/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game-abcid97a8cd67/
+  - [unverified] WBAL News Radio — https://www.wbal.com/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
 
@@ -610,32 +620,3 @@ Stories: 73
 - summary: The New York Knicks expressed their support for Taylor Swift following remarks made by some players who referred to her as the 'fakest' fan. This development highlights the ongoing relationship between celebrities and sports teams.
 - sources:
   - [unverified] USA Today — https://www.usatoday.com/story/sports/nba/knicks/2026/11/06/new-york-knicks-support-taylor-swift-fakest-fan/92652797007/
-
-## Documentary to Focus on Canceled Taylor Swift Concerts Due to Terror Plot
-
-- first seen: 2026-11-07 03:52 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new documentary is set to delve into the events surrounding the canceled Taylor Swift concerts in Vienna, exploring the terror plot that led to the decision. The film aims to provide insight into the serious circumstances affecting the concert's safety.
-- sources:
-  - [unverified] kare11.com — https://www.kare11.com/article/news/nation-world/documentary-terror-plot-taylor-swift-concerts-vienna/507-841b272d-ab98-4f6e-9c60-2d82612630a4
-
-## Raffle for Signed Taylor Swift Guitar Announced in Arizona
-
-- first seen: 2026-11-07 01:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A signed guitar by Taylor Swift is set to be raffled off in Arizona, providing fans with a chance to win a unique piece of memorabilia. The event has been reported by FOX 10 Phoenix.
-- sources:
-  - [unverified] FOX 10 Phoenix — https://www.fox10phoenix.com/video/fmc-zq3kfm9ajl4wy5ao
-
-## Knicks Respond to Players' Comments on Taylor Swift
-
-- first seen: 2026-11-07 01:52 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 6
-- summary: The New York Knicks issued a statement defending Taylor Swift after players Tyler Kolek and Miles McBride referred to her as the 'fakest' fan. This response highlights the team's support for the pop star amid controversy.
-- sources:
-  - [unverified] CBS News — https://www.cbsnews.com/newyork/news/knicks-tyler-kolek-taylor-swift/
-  - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50405740/tyler-kolek-questions-taylor-swift-knicks-fandom
-  - [unverified] HITC — https://www.hitc.com/swifties-respond-to-knicks-tyler-kolek-after-fake-taylor-swift-accusations/
-  - [unverified] Newsday — https://www.newsday.com/sports/basketball/knicks/taylor-swift-knicks-qnxepdhj
-  - [unverified] roundtable.io — https://roundtable.io/sports/wnba/news/caitlin-clark-gives-jimmy-fallon-exclusive-taylor-swift-inspired-nike-shoes
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/nba/article/knicks-defend-taylor-swift-in-statement-after-players-tyler-kolek-and-miles-mcbride-call-her-fakest-fan-011158215.html
