@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 75
+
+## Taylor Swift and Karlie Kloss Reconcile Sooner Than Fans Expected
+
+- first seen: 2026-11-10 20:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss have reportedly reconciled their friendship earlier than fans anticipated. The update suggests a positive turnaround in their relationship.
+- sources:
+  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235092065/when-taylor-swift-karlie-kloss-reconcile/
+
+## Taylor Swift and Karlie Kloss Resolve Differences at Arrowhead
+
+- first seen: 2026-11-10 20:17 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss have reportedly mended their past rifts during a recent encounter at Arrowhead. This event marks a significant moment in their relationship history.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-put-195141964.html
 
 ## Neighbors Support Kelce and Swift in Mansion Dispute
 
