@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 70
+
+## Robbie Williams Defends Taylor Swift Amid Legal Dispute
+
+- first seen: 2026-11-10 15:22 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Robbie Williams has publicly defended Taylor Swift following her recent legal action against him. This comes after Swift was said to have been negatively impacted by the situation.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/ended-taylor-taylor-swift-sued-143016584.html
 
 ## Taylor Swift's Handwritten Note Sparks Speculation of New Music Release
 
@@ -605,19 +613,3 @@ Stories: 71
 - summary: A Knicks player referred to Taylor Swift's involvement with the team as 'performative', though the organization supports her. This incident highlights varying perspectives on celebrity involvement in sports.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-branded-performative-knicks-142551515.html
-
-## Taylor Swift Paid Nelly $50k in Unique Manner
-
-- first seen: 2026-11-07 15:02 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In an unusual payment method, Taylor Swift reportedly paid rapper Nelly $50,000 in a McDonald's bag. This incident highlights Swift's unique approach to transactions within the music industry.
-- sources:
-  - [unverified] PureWow — https://www.purewow.com/news/taylor-swift-paid-nelly-50k-in-mcdonalds-bag
-
-## Retired Professor Becomes Scholar of Taylor Swift
-
-- first seen: 2026-11-07 15:02 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A retired professor has transitioned into a role as a scholar focusing on the work and impact of Taylor Swift. This shift demonstrates a unique approach to academic engagement with popular culture.
-- sources:
-  - [unverified] MarketWatch — https://www.marketwatch.com/story/this-retired-professor-has-reinvented-himself-as-a-taylor-swift-scholar-88456c8d
