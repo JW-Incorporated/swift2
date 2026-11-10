@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 73
+
+## Neighbors Support Kelce and Swift in Mansion Dispute
+
+- first seen: 2026-11-10 19:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Neighbors have come forward to defend Travis Kelce and Taylor Swift amid a dispute related to their $5.35 million mansion in Ohio. The situation has garnered attention from local media and the public.
+- sources:
+  - [unverified] Cincinnati Enquirer — http://www.cincinnati.com/story/news/2026/11/10/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-neighbors-defend/92706391007/
 
 ## Kelce Family's Journey from NFL to Pop Culture Explored
 
@@ -502,14 +510,6 @@ Stories: 74
   - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-chiefs-game
 
-## Taylor Swift Defends New York Knicks in 2014
-
-- first seen: 2026-11-08 18:52 UTC | category: business | importance: 4
-- verification_status: rumor | source_count: 1
-- summary: In 2014, Taylor Swift expressed her support for the New York Knicks when faced with negative comments about the team's performance. Her defense highlights her loyalty as a fan despite the team's struggles.
-- sources:
-  - [unverified] HITC — https://www.hitc.com/what-taylor-swift-said-in-2014-to-defend-the-new-york-knicks-after-being-told-theyre-not-very-good/
-
 ## Update on Taylor Swift's Attendance at Chiefs-Jets Game
 
 - first seen: 2026-11-08 18:52 UTC | category: sighting | importance: 5
@@ -517,6 +517,15 @@ Stories: 74
 - summary: Latest news on whether Taylor Swift is attending the Chiefs vs. Jets game today, according to Yahoo. Fans are eager to know about her presence at the event.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-chiefs-jets-game-175626396.html
+
+## Taylor Swift Defends New York Knicks in 2014
+
+- first seen: 2026-11-08 18:52 UTC | category: business | importance: 4
+- verification_status: corroborated | source_count: 2
+- summary: In 2014, Taylor Swift expressed her support for the New York Knicks when faced with negative comments about the team's performance. Her defense highlights her loyalty as a fan despite the team's struggles.
+- sources:
+  - [unverified] HITC — https://www.hitc.com/what-taylor-swift-said-in-2014-to-defend-the-new-york-knicks-after-being-told-theyre-not-very-good/
+  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/knicks-tyler-kolek-sings-taylor-swift-song-after-drama/
 
 ## Taylor Swift and Travis Kelce Discuss First Christmas Plans Together
 
@@ -633,19 +642,3 @@ Stories: 74
 - sources:
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-knicks-fan-statement-b3081094.html
   - [unverified] The Telegraph — https://www.telegraph.co.uk/world-news/2026/11/07/new-york-knicks-defend-taylor-swift-players-say-fake-fan/
-
-## Caitlin Clark Presents Jimmy Fallon with Taylor Swift-Inspired Shoes
-
-- first seen: 2026-11-07 18:37 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has gifted Jimmy Fallon shoes inspired by Taylor Swift, highlighting the crossover between sports and music. The gesture showcases Clark's admiration for Swift's influence in pop culture.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/caitlin-clark-gifts-jimmy-fallon-171141400.html
-
-## Caitlin Clark Gives Jimmy Fallon Taylor Swift-Inspired Bracelet
-
-- first seen: 2026-11-07 18:37 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark presented Jimmy Fallon with a Taylor Swift-inspired Nike Caitlin 1 friendship bracelet. The gesture highlights the influence of Taylor Swift's style and fandom in contemporary culture.
-- sources:
-  - [unverified] Sole Retriever — https://www.soleretriever.com/news/articles/caitlin-clark-gifts-jimmy-fallon-nike-caitlin-1-friendship-bracelet
