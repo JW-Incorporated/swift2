@@ -52,23 +52,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      # Grouped security updates: same split, so Expo / React Native / React never
-      # ride in a routine security PR (they need a store build). Listed first.
-      mobile-native-security:
-        applies-to: security-updates
-        patterns:
-          - "expo"
-          - "expo-*"
-          - "@expo/*"
-          - "react-native"
-          - "react-native-*"
-          - "@react-native/*"
-          - "react"
-          - "react-dom"
-      security-updates:
-        applies-to: security-updates
-        patterns:
-          - "*"
+    # Security updates are NOT batched here — GitHub opens them immediately on their own.
 
   # GitHub Actions — keep CI/security workflows current.
   - package-ecosystem: "github-actions"
