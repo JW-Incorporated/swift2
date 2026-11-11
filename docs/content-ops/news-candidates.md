@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Dark Horse Estate Listed for $19.5 Million, Notable Recording Location
+
+- first seen: 2026-11-11 10:41 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Dark Horse Estate, known for being the recording site for Taylor Swift and Dolly Parton, has been put on the market for $19.5 million. The property highlights its significance in the music industry.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/lifestyle/articles/dark-horse-estate-where-taylor-094700308.html
 
 ## Taylor Swift's Knicks Drama Involves Tyler Kolek’s Girlfriend
 
@@ -51,6 +59,16 @@ Stories: 82
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-reunion-192000728.html
 
+## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
+
+- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
+- sources:
+  - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
+  - [unverified] News24 — https://www.news24.com.au/lifestyle/celebrity-life/taylor-swift-and-travis-kelces-ohio-neighbors-fight-over-sixfoot-black-aluminum-privacy-fence/video/e38030009be36e3eefcac4a31dfc01f7
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-neighbours-081923820.html
+
 ## Taylor Swift Seen at Chiefs Game with Karlie Kloss
 
 - first seen: 2026-11-11 02:17 UTC | category: sighting | importance: 6
@@ -74,15 +92,6 @@ Stories: 82
 - summary: Taylor Swift and Travis Kelce's neighbors in Ohio have unsuccessfully tried to prevent the couple's landscaping plans for their new home. The developments will proceed despite the opposition from nearby residents.
 - sources:
   - [unverified] Page Six — https://pagesix.com/2026/11/10/entertainment/taylor-swift-and-travis-kelces-ohio-neighbors-lose-fight-to-stop-landscape-plans-for-new-home/
-
-## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
-
-- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
-- sources:
-  - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-neighbours-081923820.html
 
 ## Clarifying the Alleged Neighbor Dispute Involving Taylor Swift and Travis Kelce
 
