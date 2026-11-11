@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 81
 
 ## Dark Horse Estate Listed for $19.5 Million, Notable Recording Location
 
@@ -700,11 +700,3 @@ Stories: 82
 - summary: Tim McGraw has addressed and debunked rumors regarding a potential wedding between Taylor Swift and Travis Kelce. The speculation has been a topic of discussion among fans and media.
 - sources:
   - [unverified] PureWow — https://www.purewow.com/news/tim-mcgraw-debunks-taylor-swift-travis-kelce-wedding-rumor
-
-## Taylor Swift and Travis Kelce Celebrate First Christmas Together
-
-- first seen: 2026-11-08 12:21 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have decided to put aside family rivalry as they celebrate their first Christmas together. The couple's holiday plans highlight their commitment to each other amid personal dynamics.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-set-aside-family-rivalry-for-their-first-christmas-together-12298708
