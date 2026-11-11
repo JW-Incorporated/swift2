@@ -23,7 +23,7 @@ vi.mock('./watchdog-store', () => ({
   },
 }));
 
-import { retryDomAttempt, retryRecord } from './recovery-retry';
+import { prepareIdleReload, retryDomAttempt, retryRecord } from './recovery-retry';
 import { currentWatchdogWriter } from './watchdog-writer';
 import { decideMount, freshRecord, recordStrike, readRecord, type WatchdogRecord } from './watchdog';
 
@@ -172,5 +172,31 @@ describe('retryDomAttempt OTA', () => {
     h.reload.mockRejectedValue(new Error('x'));
     expect(await retryDomAttempt()).toBe('reload-failed');
     expect(h.saved.at(-1)).toMatchObject({ state: 'idle' });
+  });
+});
+
+describe('prepareIdleReload', () => {
+  const rec = (state: WatchdogRecord['state']): WatchdogRecord => ({ ...freshRecord('7:u1', 1), state });
+
+  it('persists the record idle from a ready record', async () => {
+    h.rec = rec('ready');
+    expect(await prepareIdleReload(() => 9)).toBe(true);
+    expect((h.saved[0] as WatchdogRecord).state).toBe('idle');
+  });
+
+  it.each(['idle', 'attempting', 'failed', 'fallback', 'quarantined'] as const)('refuses from a %s record and writes nothing', async (state) => {
+    h.rec = rec(state);
+    expect(await prepareIdleReload()).toBe(false);
+    expect(h.saved).toHaveLength(0);
+  });
+
+  it('refuses with no record, a corrupt record, or a failed write', async () => {
+    h.rec = null;
+    expect(await prepareIdleReload()).toBe(false);
+    h.rec = 'corrupt';
+    expect(await prepareIdleReload()).toBe(false);
+    h.rec = rec('ready');
+    h.saveOk = false;
+    expect(await prepareIdleReload()).toBe(false);
   });
 });

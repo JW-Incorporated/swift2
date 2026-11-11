@@ -8,8 +8,10 @@ import {
   dailyEraSecret,
   resolveEraSecretLink,
   ERAS,
+  CURRENT_ERA_ID,
   songTargetOf,
 } from '@swift2/experience';
+import type { EraId } from '@swift2/experience';
 import { getContentItem } from './content';
 import './era-secrets'; // wires the real generated data/tracks/content providers
 
@@ -115,8 +117,21 @@ describe('daily rotation', () => {
   });
 
   it('returns null for an era with no pool', () => {
-    // tloas has no seed file yet (the sourcing residue) — must degrade, not throw.
-    expect(dailyEraSecret('tloas', '2026-08-11')).toBeNull();
+    // Every real era has a pool now (#6442), so an id outside the map stands in
+    // for a pool-less era — must degrade, not throw.
+    expect(dailyEraSecret('no-such-era' as EraId, '2026-08-11')).toBeNull();
+  });
+
+  it('every era has a pool, and the current era resolves a linked daily secret (#6442)', () => {
+    for (const era of ERAS) {
+      expect(eraSecretsForEra(era.id).length, `era ${era.id} has no secrets`).toBeGreaterThan(0);
+    }
+    const pool = eraSecretsForEra(CURRENT_ERA_ID);
+    for (let i = 0; i < pool.length; i += 1) {
+      const pick = dailyEraSecret(CURRENT_ERA_ID, `2026-11-${String(11 + i).padStart(2, '0')}`);
+      expect(pick).not.toBeNull();
+      expect(resolveEraSecretLink(pick!.deeperLink), `dead deeperLink on ${pick!.slug}`).not.toBeNull();
+    }
   });
 });
 

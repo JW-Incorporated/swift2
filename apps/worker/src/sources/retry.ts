@@ -37,6 +37,21 @@ export function isYouTubeFeedUrl(url: string): boolean {
   }
 }
 
+// The uploads-playlist feed (UC… -> UU…) carries the same entries in the same
+// Atom shape as the channel feed, behind a separate backend path.
+export function youtubePlaylistFallbackUrl(url: string): string | null {
+  if (!isYouTubeFeedUrl(url)) return null;
+  const channelId = new URL(url).searchParams.get('channel_id');
+  if (!channelId || !/^UC[\w-]+$/.test(channelId)) return null;
+  return `https://www.youtube.com/feeds/videos.xml?playlist_id=UU${channelId.slice(2)}`;
+}
+
+// Only YouTube-side failures (404/5xx) justify the fallback; a 403 or a parse
+// error would fail the same way on the playlist feed.
+export function isFeedOutageError(err: unknown): boolean {
+  return /Status code (404|5\d\d)|HTTP (404|5\d\d)/i.test(err instanceof Error ? err.message : String(err));
+}
+
 export function retryOptionsFor(url: string): RetryOptions {
   return isYouTubeFeedUrl(url)
     ? { delaysMs: YOUTUBE_FEED_RETRY_DELAYS_MS }

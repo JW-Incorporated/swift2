@@ -197,6 +197,7 @@ export function ClownChat({ lore }: ClownChatProps) {
     // fourth repetition that only pushed the panel down. pt-3 sits the panel
     // close under TopBar — kept in sync with CONTAINER_TOP_PADDING above.
     <div className="mx-auto max-w-4xl px-4 pb-28 pt-3">
+      <h1 className="sr-only">Clownbot</h1>
       <div className={panelClassName} style={panelStyle}>
         {/* titlebar — instant "this is an app" signal */}
         <ClownChatTitlebar
