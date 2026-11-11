@@ -80,6 +80,7 @@ describe('FeedbackButton placement', () => {
   const trigger = () => screen.queryByRole('button', { name: 'Send feedback' });
   const dismiss = () =>
     screen.queryByRole('button', { name: 'Dismiss the feedback button for this session' });
+  const realMatchMedia = window.matchMedia;
   const phone = { matches: true, addEventListener: () => {}, removeEventListener: () => {} };
   const scrollTo = (y: number) =>
     act(() => {
@@ -91,7 +92,7 @@ describe('FeedbackButton placement', () => {
     cleanup();
     appState = baseState;
     document.body.style.overflow = '';
-    Reflect.deleteProperty(window, 'matchMedia');
+    window.matchMedia = realMatchMedia;
     Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 });
   });
 
