@@ -2,7 +2,7 @@
 import type {} from '@testing-library/jest-dom/vitest';
 import { useRef } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
+import { act, render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import { ClownChat } from './ClownChat';
 import { CLOWN_STARTERS } from '@swift2/ui/reader/clown/lib/clown-starters';
 import { LORE } from '@/lib/longlive/clownbot-lore';
@@ -57,6 +57,51 @@ describe('ClownChat empty state', () => {
       expect(body.text).toBe(CLOWN_STARTERS[0].prompt);
       expect(body.chip).toBeUndefined();
       expect((screen.getByLabelText(/ask the clown/i) as HTMLTextAreaElement).value).toBe('');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+});
+
+describe('ClownChat starter chips: drafts and double taps', () => {
+  const starterChip = () =>
+    within(screen.getByRole('group', { name: /clownbot starter questions/i })).getAllByRole('button')[0]!;
+  const clownCalls = (m: ReturnType<typeof vi.fn>) =>
+    (m.mock.calls as unknown as [string, RequestInit][]).filter(([p]) => p === '/api/clown');
+
+  it('does not wipe a typed draft when a chip is tapped and answered', async () => {
+    const fetchMock = vi.fn(async () => new Response('{"kind":"fallback","theoryName":null,"segments":[{"role":"stance","text":"ok"}],"delulu":null,"sources":[],"investigation":[]}\n'));
+    vi.stubGlobal('fetch', fetchMock);
+    try {
+      renderClownChat();
+      const textarea = screen.getByLabelText(/ask the clown/i) as HTMLTextAreaElement;
+      fireEvent.change(textarea, { target: { value: 'my own question' } });
+      fireEvent.click(starterChip());
+      await waitFor(() => expect(clownCalls(fetchMock)).toHaveLength(1));
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 80));
+      });
+      expect(textarea.value).toBe('my own question');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it('two synchronous chip taps issue exactly one request', async () => {
+    const fetchMock = vi.fn(() => new Promise<Response>(() => {}));
+    vi.stubGlobal('fetch', fetchMock);
+    try {
+      renderClownChat();
+      const chip = starterChip();
+      act(() => {
+        chip.click();
+        chip.click();
+      });
+      await waitFor(() => expect(clownCalls(fetchMock)).toHaveLength(1));
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 30));
+      });
+      expect(clownCalls(fetchMock)).toHaveLength(1);
     } finally {
       vi.unstubAllGlobals();
     }

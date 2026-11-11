@@ -39,7 +39,7 @@ export function useClownAsk(setText: (text: string) => void) {
   );
 
   const ask = useCallback(
-    async (question: string, options: { chip?: boolean } = {}) => {
+    async (question: string, options: { chip?: boolean; keepDraft?: boolean } = {}) => {
       inflightRef.current?.abort();
       const controller = new AbortController();
       inflightRef.current = controller;
@@ -54,16 +54,16 @@ export function useClownAsk(setText: (text: string) => void) {
           { role: 'user' as const, text: m.question },
           { role: 'assistant' as const, text: flattenAnswer(m.answer) },
         ]);
-        // `chip` deliberately omitted for every normal ask: that flag routes
-        // to the deterministic zero-model fallback (board taps only prefill
-        // the composer — once the reader hits send, per the founder's brief
-        // it's a normal question and gets the full model treatment). The
-        // ONE exception is the fan-theory chip (Community Engine plan
-        // §Phase 2, card P2-5, `askFanTheoryChip` in ClownChat.tsx) — it sends
-        // immediately with `chip: true`, same as `ClownBoard`'s deterministic
-        // taps, because "what are fans theorising right now?" has a real
-        // zero-model answer (the `live_theory` knowledge_doc projection) and
-        // does not need a model call to be worth answering instantly.
+        // `chip` is omitted for every normal ask, including the starter
+        // questions in the empty state (a tap there sends like a typed
+        // submit): that flag routes to the deterministic zero-model fallback.
+        // Board taps only prefill the composer; once the reader hits send it
+        // is a normal question and gets the full model treatment. The
+        // fan-theory chip (Community Engine plan §Phase 2, card P2-5,
+        // `askFanTheoryChip` in ClownChat.tsx) sends with `chip: true`,
+        // because "what are fans theorising right now?" has a real zero-model
+        // answer (the `live_theory` knowledge_doc projection) and does not
+        // need a model call to be worth answering instantly.
         // Session continuity (architect-directed redesign, HUMAN-ACTIONS.md
         // #15 round 4): the route's server-side identity now round-trips via
         // an `HttpOnly` cookie the browser sends/receives automatically on
@@ -88,7 +88,7 @@ export function useClownAsk(setText: (text: string) => void) {
         });
         if (!answer) throw new Error('no answer event in stream');
         addClownMessage(question, answer);
-        if (inflightRef.current === controller) setText('');
+        if (inflightRef.current === controller && !options.keepDraft) setText('');
       } catch {
         if (inflightRef.current === controller) setError(NETWORK_ERROR);
       } finally {
@@ -102,5 +102,7 @@ export function useClownAsk(setText: (text: string) => void) {
     [addClownMessage, clownMessages, host],
   );
 
-  return { busy, error, investigating, ask };
+  const isInFlight = useCallback(() => inflightRef.current !== null, []);
+
+  return { busy, error, investigating, ask, isInFlight };
 }
