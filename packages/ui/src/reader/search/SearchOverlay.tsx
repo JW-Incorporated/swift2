@@ -220,7 +220,7 @@ export function SearchOverlay() {
             ? ''
             : showNoMatch
               ? `0 results for ${debounced.trim()}`
-              : `${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
+              : `${showAll ? 'Showing all ' : ''}${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
         </div>
         {/* Input row */}
         <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-inset has-[input:focus-visible]:ring-[color:var(--era-accent)]">
