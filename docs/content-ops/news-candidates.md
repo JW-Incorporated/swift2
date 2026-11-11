@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Travis Kelce to Seek Taylor Swift's Advice on New Business Venture
+
+- first seen: 2026-11-11 23:27 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce has announced plans to consult with Taylor Swift regarding an upcoming business project, expressing confidence in her creative skills.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-tailgate-stage-help-1236379701/
 
 ## Knicks Address Taylor Swift Incident Involving Tyler Kolek
 
