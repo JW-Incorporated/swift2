@@ -104,7 +104,17 @@ export function nonMomentMediaErrors(row) {
     : ['record needs renderable media (oEmbed, owned asset, or hotlink)'];
 }
 
+/** An appearance-discovery intent is an RSS-metadata lead, not a post: the
+ * Tree drafter attaches media when it drafts one, and check-drafts.mjs
+ * `checkMedia` (X and Instagram) rejects any draft without it. */
+const isAppearanceLead = (intent) =>
+  intent?.source === 'appearance-discovery' &&
+  intent?.lane === 'appearance' &&
+  Array.isArray(intent.media) &&
+  intent.media.length === 0;
+
 export function socialInboxMediaErrors(intent) {
+  if (isAppearanceLead(intent)) return [];
   return Array.isArray(intent?.media) && intent.media.some(text)
     ? []
     : ['social inbox intent needs at least one media path'];
