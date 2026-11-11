@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 83
+
+## Taylor Swift's Breakup Song Lyrics Linked to NHL Player
+
+- first seen: 2026-11-11 13:41 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's lyrics inspired by breakups have been mentioned in connection with NHL player Connor Hellebuyck amidst ongoing trade discussions. The article explores these parallels in the context of the sports world.
+- sources:
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25531667-taylor-swift-breakup-song-lyrics-connor-hellebuyck-and-ongoing-nhl-trade-dramas
+
+## Quiz Highlights Kind Celebrities for World Kindness Day 2026
+
+- first seen: 2026-11-11 13:41 UTC | category: business | importance: 3
+- verification_status: single_source | source_count: 1
+- summary: A new quiz challenges participants to identify celebrities known for their acts of kindness in celebration of World Kindness Day 2026.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zjw2jfr?at_medium=RSS&at_campaign=rss
 
 ## Dark Horse Estate Listed for $19.5 Million, Notable Recording Location
 
