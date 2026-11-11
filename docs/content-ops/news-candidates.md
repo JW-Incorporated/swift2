@@ -27,6 +27,22 @@ so far".
 
 Stories: 83
 
+## Utah Approves Venue Aiming to Attract Artists Like Taylor Swift
+
+- first seen: 2026-11-11 14:42 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Utah has approved a new outdoor venue designed to attract major artists, including Taylor Swift and Beyoncé. The initiative aims to boost the state's music scene and draw high-profile performances.
+- sources:
+  - [unverified] The Salt Lake Tribune — https://www.sltrib.com/artsliving/2026/11/11/utah-outdoor-music-venue-festival/
+
+## Travis Kelce Invites Taylor Swift to New Heights Podcast Event
+
+- first seen: 2026-11-11 14:42 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce expressed interest in seeing what his wife, Taylor Swift, might contribute to an upcoming New Heights podcast event.
+- sources:
+  - [established] People — https://people.com/travis-kelce-plans-to-enlist-wife-taylor-swift-for-next-new-heights-podcast-event-12248830
+
 ## Taylor Swift's Breakup Song Lyrics Linked to NHL Player
 
 - first seen: 2026-11-11 13:41 UTC | category: music | importance: 5
@@ -700,19 +716,3 @@ Stories: 83
   - [unverified] Athlon Sports — https://athlonsports.com/nfl/kansas-city-chiefs/is-taylor-swift-at-the-chiefs-game-today-latest-update-for-jets-week-9-matchup
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74368440/is-taylor-swift-at-chiefs-game-nov-8/
   - [unverified] IMDb — https://www.imdb.com/news/ni66101293/?ref_=nwc_art_perm
-
-## Where to Watch Jets vs. Chiefs with Taylor Swift Insights
-
-- first seen: 2026-11-08 14:22 UTC | category: music | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: A guide to watching the Jets vs. Chiefs game for free, including information related to Taylor Swift.
-- sources:
-  - [unverified] Page Six — https://pagesix.com/2026/11/08/entertainment/where-to-watch-jets-chiefs-for-free-time-taylor-swift-intel/
-
-## Tim McGraw Debunks Taylor Swift and Travis Kelce Wedding Rumor
-
-- first seen: 2026-11-08 14:22 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Tim McGraw has addressed and debunked rumors regarding a potential wedding between Taylor Swift and Travis Kelce. The speculation has been a topic of discussion among fans and media.
-- sources:
-  - [unverified] PureWow — https://www.purewow.com/news/tim-mcgraw-debunks-taylor-swift-travis-kelce-wedding-rumor
