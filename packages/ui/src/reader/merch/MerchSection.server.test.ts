@@ -41,10 +41,10 @@ describe('MerchSection new drops', () => {
 });
 
 describe('MerchSection first-section spacing', () => {
-  it('does not stack the 74px between-section padding under the rail when there are no drops', () => {
+  it('keeps the Official top padding constant so a late new-drops block never changes it', () => {
     const html = renderToStaticMarkup(createElement(MerchSectionBody));
     const official = /<section id="merch-official" class="([^"]*)"/.exec(html);
     expect(official).not.toBeNull();
-    expect(official![1]).not.toContain('pt-[74px]');
+    expect(official![1]).toContain('pt-8');
   });
 });

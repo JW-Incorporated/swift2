@@ -180,7 +180,7 @@ export function MerchSectionBody() {
 
       <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
         {drops.length > 0 && (
-          <section aria-labelledby="merch-new-drops" className="pt-[50px]">
+          <section aria-labelledby="merch-new-drops" className="pb-[42px] pt-[50px]">
             <MerchSectionHead
               accent="var(--merch-gold)"
               badge="New drops"
@@ -190,10 +190,7 @@ export function MerchSectionBody() {
             <MerchGrid items={drops.slice(0, 6)} emptyMessage="" />
           </section>
         )}
-        <section
-          id={SECTION_OFFICIAL}
-          className={`${drops.length > 0 ? 'pt-[74px]' : 'pt-8'} pb-3`}
-        >
+        <section id={SECTION_OFFICIAL} className="pt-8 pb-3">
           <MerchSectionHead
             accent="var(--merch-gold)"
             badge="Official"
