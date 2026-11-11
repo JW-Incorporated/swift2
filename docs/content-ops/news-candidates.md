@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 82
+
+## Knicks Address Taylor Swift Incident Involving Tyler Kolek
+
+- first seen: 2026-11-11 23:02 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The New York Knicks provided a response regarding an incident involving Taylor Swift and Tyler Kolek. Further details surrounding the defense of Swift by the team remain unclear.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/videos/why-did-knicks-defend-taylor-205515637.html
+
+## Taylor Swift responds to viral wedding photos causing controversy
+
+- first seen: 2026-11-11 23:02 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expressed her anger over wedding photos that have gone viral, sparking considerable debate surrounding a particular choice she made. The situation has drawn significant media attention and public discussion.
+- sources:
+  - [unverified] Heatworld — https://heatworld.com/celebrity/news/taylor-swifts-fury-as-pictures-of-her-wedding-go-viral-this-one-choice-has-caused-huge-controversy/
 
 ## Taylor Swift Featured in Article on Posture-Correcting Bra
 
@@ -201,12 +217,13 @@ Stories: 80
 ## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
 
 - first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 7
 - summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
 - sources:
   - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/11/taylor-swift-travis-kelces-bratenahl-landscaping-plan-approved-despite-neighbors-dissent.html
   - [unverified] Consequence of Sound — https://consequence.net/2026/11/taylor-swift-and-travis-kelces-landscaping-plans-approved-despite-concern-for-animals-sex-lives/
   - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
+  - [unverified] HITC — https://www.hitc.com/taylor-swift-to-help-husband-travis-kelce-and-brother-in-law-jason-kelce-with-the-new-heights-podcast/
   - [unverified] News24 — https://www.news24.com.au/lifestyle/celebrity-life/taylor-swift-and-travis-kelces-ohio-neighbors-fight-over-sixfoot-black-aluminum-privacy-fence/video/e38030009be36e3eefcac4a31dfc01f7
   - [unverified] Page Six — https://pagesix.com/2026/11/11/entertainment/travis-kelce-recruits-taylor-swift-for-next-new-heights-podcast-event/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-neighbours-081923820.html
