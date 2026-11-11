@@ -92,10 +92,26 @@ export default {
       title: 'Napster Live',
       releaseDate: '2006-10-24',
       label: 'Big Machine',
-      trackCount: null,
+      trackCount: 3,
       parentReleaseSlug: null,
-      note: 'A Napster-exclusive live EP from the debut rollout; the corpus tracks it as a real release but leaves the tracklist blank until a stronger listing is verified.',
-      sources: [wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date, label, and Napster-exclusive status')],
+      tracklist: ['Tim McGraw', 'Picture to Burn', 'Baby'],
+      note: "A Napster-exclusive live EP from the debut rollout: two songs from the debut album, then 'Baby', her cover of 'Baby, Don't You Break My Heart Slow'.",
+      sources: [
+        wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date, label, and Napster-exclusive status'),
+        {
+          ...official(
+            'https://web.archive.org/web/20220509223334/https://us.napster.com/artist/taylor-swift/album/napster-live-napster-exclusive',
+            'Napster Live (Napster Exclusive)',
+            'Napster',
+            'archived store listing; anchors the three-track order',
+          ),
+          accessed_at: '2026-11-11',
+        },
+        {
+          ...wiki('List_of_songs_by_Taylor_Swift', 'List of songs by Taylor Swift', "identifies 'Baby' as a live cover of 'Baby, Don't You Break My Heart Slow'"),
+          accessed_at: '2026-11-11',
+        },
+      ],
     },
     {
       slug: 'the-taylor-swift-holiday-collection',
@@ -126,8 +142,29 @@ export default {
       label: 'Big Machine',
       trackCount: 8,
       parentReleaseSlug: null,
-      note: 'An iTunes-exclusive live EP from the debut era; the release is represented here without an ordered tracklist until a stronger listing is verified.',
-      sources: [wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date, label, and iTunes-exclusive status')],
+      tracklist: [
+        'Umbrella',
+        'Our Song',
+        'Teardrops on My Guitar',
+        "Should've Said No",
+        'A Place in This World',
+        "Mary's Song (Oh My My My)",
+        'Tim McGraw',
+        'Picture to Burn',
+      ],
+      note: "An iTunes-exclusive live EP from the debut era: a cover of Rihanna's 'Umbrella' followed by seven songs from the debut album.",
+      sources: [
+        wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date, label, and iTunes-exclusive status'),
+        {
+          ...official(
+            'https://music.apple.com/us/album/itunes-live-from-soho/271249520',
+            'iTunes Live from SoHo',
+            'Apple Music',
+            'store listing; anchors the eight-track order',
+          ),
+          accessed_at: '2026-11-11',
+        },
+      ],
     },
     {
       slug: 'beautiful-eyes',
