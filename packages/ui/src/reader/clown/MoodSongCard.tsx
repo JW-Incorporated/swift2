@@ -24,7 +24,7 @@ export function MoodSongCard({ pick, eraName }: { pick: MoodMatch; eraName: stri
   return (
     <article className="overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-surface)]">
       <div className="p-5">
-        <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-[color:var(--era-accent)]">
+        <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-[color:var(--era-accent-text)]">
           {eraName}
         </div>
         <h3 className="mt-1 font-[family-name:var(--era-font)] text-xl font-semibold text-[color:var(--era-ink)]">
