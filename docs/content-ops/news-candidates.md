@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
 
 ## Dark Horse Estate Listed for $19.5 Million, Notable Recording Location
 
@@ -708,12 +708,3 @@ Stories: 83
 - summary: Taylor Swift and Travis Kelce have decided to put aside family rivalry as they celebrate their first Christmas together. The couple's holiday plans highlight their commitment to each other amid personal dynamics.
 - sources:
   - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-and-travis-kelce-set-aside-family-rivalry-for-their-first-christmas-together-12298708
-
-## Report Suggests Taylor Swift Influenced Travis Kelce's Career Decision
-
-- first seen: 2026-11-08 11:21 UTC | category: relationship | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Yahoo Sports reports that Nick Wright suggests Taylor Swift may have played a significant role in Travis Kelce's decision to continue his football career instead of retiring.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/will-taylor-swift-be-supporting-travis-kelce-at-the-chiefs-vs-jets-game.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/not-taylor-retired-taylor-swift-110021100.html
