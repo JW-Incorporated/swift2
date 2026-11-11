@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, screen } from '@testing-library/react';
 import { GLOSS_SECTIONS } from '@swift2/experience';
 import { LandingMasthead } from '@swift2/ui/reader/era/LandingMasthead';
+import { EraSelector } from '@swift2/ui/reader/shell/EraSelector';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
 import { TestHostProvider } from '@/lib/test-host';
@@ -27,6 +28,7 @@ function mount(onNavigate = vi.fn()) {
       <AppProvider>
         <LandingMasthead onNavigate={onNavigate} />
         <SelectorProbe />
+        <EraSelector />
       </AppProvider>
     </TestHostProvider>,
   );
@@ -43,6 +45,18 @@ describe('LandingMasthead gloss pill', () => {
     fireEvent.click(screen.getByRole('button', { name: new RegExp(GLOSS_SECTIONS[0]!.label) }));
     expect(screen.getByTestId('selector').textContent).toBe('true');
     expect(onNavigate).not.toHaveBeenCalled();
+  });
+
+  it('closing the picker returns focus to the gloss pill that opened it', () => {
+    pick.mode = 'era';
+    mount();
+    const pill = screen.getByRole('button', { name: new RegExp(GLOSS_SECTIONS[0]!.label) });
+    pill.focus();
+    fireEvent.click(pill);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Close era selector' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(document.activeElement).toBe(pill);
   });
 
   it('other glosses still navigate to their section', () => {

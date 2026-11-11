@@ -93,7 +93,10 @@ export function TrackDetail() {
   const [showSwipeHint, setShowSwipeHint] = useState(false);
   useEffect(() => {
     if (!track) return;
-    if (typeof window.matchMedia === 'function' && !window.matchMedia('(pointer: coarse)').matches) return;
+    if (typeof window.matchMedia === 'function') {
+      if (!window.matchMedia('(pointer: coarse)').matches) return;
+      if (window.matchMedia('(min-width: 1024px)').matches) return;
+    }
     if ((prevTrack || nextTrack) && !readSwipeHintSeen(storage)) {
       setShowSwipeHint(true);
       writeSwipeHintSeen(storage);

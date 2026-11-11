@@ -47,7 +47,7 @@ describe('TrackDetail swipe hint — tri-state host storage', () => {
   const realMatchMedia = window.matchMedia;
   beforeEach(() => {
     window.localStorage.clear();
-    window.matchMedia = (() => ({ matches: true })) as unknown as typeof window.matchMedia;
+    window.matchMedia = ((q: string) => ({ matches: q.includes('pointer') })) as unknown as typeof window.matchMedia;
   });
   afterEach(() => {
     window.matchMedia = realMatchMedia;
@@ -83,6 +83,13 @@ describe('TrackDetail swipe hint — tri-state host storage', () => {
 
   it('non-touch (pointer: fine): no hint and the one-time flag is not consumed', () => {
     window.matchMedia = (() => ({ matches: false })) as unknown as typeof window.matchMedia;
+    mount();
+    expect(screen.queryByText(HINT)).toBeNull();
+    expect(window.localStorage.getItem(HINT_KEY)).toBeNull();
+  });
+
+  it('coarse pointer at lg+ widths (hint is CSS-hidden): no hint and the flag is not consumed', () => {
+    window.matchMedia = (() => ({ matches: true })) as unknown as typeof window.matchMedia;
     mount();
     expect(screen.queryByText(HINT)).toBeNull();
     expect(window.localStorage.getItem(HINT_KEY)).toBeNull();
