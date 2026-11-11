@@ -1,8 +1,10 @@
 // @vitest-environment jsdom
 import { act, fireEvent } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { TimelineScrubber } from './TimelineScrubber';
+import { WebReaderSnapshotProvider } from '@/lib/longlive/reader-snapshot-provider';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { scrubberVerticalPillTransform } from './timelineScrubberLayout';
 import { AppProvider } from '@/lib/longlive/store';
@@ -55,6 +57,19 @@ describe('scrubber labels stay off the feed until the rail is in use', () => {
     expect(scrubberVerticalPillTransform(100)).toBe('translateY(-100.0%)');
     const k = (p: number) => parseFloat(scrubberVerticalPillTransform(p).replace(/[^0-9.]/g, ''));
     for (let p = 1; p <= 100; p++) expect(k(p)).toBeGreaterThanOrEqual(k(p - 1));
+  });
+
+  it('stays hidden in the server HTML and shows once measured, so hydration cannot make it jump', () => {
+    const tree = (
+      <TestHostProvider>
+        <AppProvider>
+          <TimelineScrubber />
+        </AppProvider>
+      </TestHostProvider>
+    );
+    expect(renderToString(<WebReaderSnapshotProvider>{tree}</WebReaderSnapshotProvider>)).toContain('visibility:hidden');
+    const { rail } = mount();
+    expect((rail.closest('.fixed') as HTMLElement).style.visibility).toBe('');
   });
 
   it('leaves the slider semantics unchanged', () => {

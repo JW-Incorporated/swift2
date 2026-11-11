@@ -182,6 +182,10 @@ export function TimelineScrubber() {
   // CSS cap's baked-in assumption — see scrubberRailMaxHeight's doc comment
   // (re-review finding #2, 2026-08-14 round 2).
   const [railMaxHeight, setRailMaxHeight] = useState<number | undefined>(undefined);
+  // Server HTML and the first client render lack the measured top offset and
+  // height cap, so painting the rail then would make it jump on hydration (a
+  // layout shift on every era deep link). Stay hidden until the first measure.
+  const [ready, setReady] = useState(false);
 
   // Calendar-linear fallback, used only before the DOM has been measured
   // (first paint) so ticks/milestones have *something* sane to render.
@@ -388,6 +392,7 @@ export function TimelineScrubber() {
       setRailMaxHeight(scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight }));
     };
     recomputeAnchorPadding();
+    setReady(true);
 
     // Before the filter bar sticks, its (and therefore the rail's clamp's)
     // live position changes on every scroll frame — not just on resize/layout
@@ -575,7 +580,7 @@ export function TimelineScrubber() {
   void anchorsVersion;
 
   return (
-    <div className={SCRUBBER_SHELL_CLASS}>
+    <div className={SCRUBBER_SHELL_CLASS} style={ready ? undefined : { visibility: 'hidden' }}>
       {/* Legibility scrim — lives on the dynamic-viewport shell, not the
           svh anchor, so the gradient covers the whole visible height even
           while the mobile URL bar is collapsed. */}
