@@ -9,6 +9,8 @@ vi.mock('expo-updates', () => ({
   fetchUpdateAsync: () => h.fetch(),
   reloadAsync: () => h.reload(),
 }));
+const r = vi.hoisted(() => ({ persist: vi.fn(async () => {}), discard: vi.fn(async () => {}) }));
+vi.mock('./retained-link', () => ({ persistRetainedLink: () => r.persist(), discardRetainedLink: () => r.discard() }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '7:u1',
   loadWatchdogRecord: async () => h.rec,
@@ -23,7 +25,7 @@ vi.mock('./watchdog-store', () => ({
   },
 }));
 
-import { retryDomAttempt, retryRecord } from './recovery-retry';
+import { RETAINED_PERSIST_TIMEOUT_MS, prepareIdleReload, retryDomAttempt, retryRecord } from './recovery-retry';
 import { currentWatchdogWriter } from './watchdog-writer';
 import { decideMount, freshRecord, recordStrike, readRecord, type WatchdogRecord } from './watchdog';
 
@@ -172,5 +174,57 @@ describe('retryDomAttempt OTA', () => {
     h.reload.mockRejectedValue(new Error('x'));
     expect(await retryDomAttempt()).toBe('reload-failed');
     expect(h.saved.at(-1)).toMatchObject({ state: 'idle' });
+  });
+});
+
+describe('prepareIdleReload', () => {
+  const rec = (state: WatchdogRecord['state']): WatchdogRecord => ({ ...freshRecord('7:u1', 1), state });
+
+  it('persists the record idle from a ready record', async () => {
+    h.rec = rec('ready');
+    expect(await prepareIdleReload(() => 9)).toBe(true);
+    expect((h.saved[0] as WatchdogRecord).state).toBe('idle');
+  });
+
+  it.each(['idle', 'attempting', 'failed', 'fallback', 'quarantined'] as const)('refuses from a %s record and writes nothing', async (state) => {
+    h.rec = rec(state);
+    expect(await prepareIdleReload()).toBe(false);
+    expect(h.saved).toHaveLength(0);
+  });
+
+  it('refuses with no record, a corrupt record, or a failed write', async () => {
+    h.rec = null;
+    expect(await prepareIdleReload()).toBe(false);
+    h.rec = 'corrupt';
+    expect(await prepareIdleReload()).toBe(false);
+    h.rec = rec('ready');
+    h.saveOk = false;
+    expect(await prepareIdleReload()).toBe(false);
+  });
+});
+
+describe('retained link around the reload (#5139)', () => {
+  beforeEach(() => {
+    r.persist.mockReset().mockResolvedValue(undefined);
+    r.discard.mockReset().mockResolvedValue(undefined);
+  });
+
+  it('a never-resolving retained write cannot hang Retry: the reload still happens', async () => {
+    vi.useFakeTimers();
+    r.persist.mockImplementation(() => new Promise<void>(() => {}));
+    const done = retryDomAttempt(() => 5);
+    await vi.advanceTimersByTimeAsync(RETAINED_PERSIST_TIMEOUT_MS + 1);
+    expect(await done).toBe('reload-requested');
+    expect(h.reload).toHaveBeenCalledTimes(1);
+    vi.useRealTimers();
+  });
+
+  it('a failed reload discards the persisted link; a requested reload keeps it', async () => {
+    h.reload.mockRejectedValue(new Error('no'));
+    expect(await retryDomAttempt(() => 5)).toBe('reload-failed');
+    expect(r.discard).toHaveBeenCalledTimes(1);
+    h.reload.mockResolvedValue(undefined);
+    expect(await retryDomAttempt(() => 5)).toBe('reload-requested');
+    expect(r.discard).toHaveBeenCalledTimes(1);
   });
 });

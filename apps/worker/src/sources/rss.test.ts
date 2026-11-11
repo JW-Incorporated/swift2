@@ -30,7 +30,7 @@ describe('parseFeed retry policy', () => {
     const sleep = vi.fn(async () => {});
     const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
     await expect(parseFeed(YT_URL, parse, sleep)).rejects.toThrow('Status code 404');
-    expect(parse).toHaveBeenCalledTimes(3);
+    expect(parse).toHaveBeenCalledTimes(4);
   });
 
   it('really waits between YouTube attempts (fake timers)', async () => {
@@ -59,6 +59,47 @@ describe('parseFeed retry policy', () => {
     const sleep = vi.fn(async () => {});
     const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
     await expect(parseFeed('https://example.com/feed.xml', parse, sleep)).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(3);
+  });
+
+  const PLAYLIST_URL = 'https://www.youtube.com/feeds/videos.xml?playlist_id=UUqECaJ8Gagnn7YCbPEzWH6g';
+
+  it.each(['Status code 404', 'Status code 500'])('falls back to the uploads-playlist feed once after %s', async (msg) => {
+    const sleep = vi.fn(async () => {});
+    const parse = vi.fn(async (u: string) => {
+      if (u === YT_URL) throw new Error(msg);
+      return { items: [{ title: 'pl' }] };
+    });
+    await expect(parseFeed(YT_URL, parse as never, sleep)).resolves.toEqual({
+      items: [{ title: 'pl' }],
+      viaFallbackUrl: PLAYLIST_URL,
+    });
+    expect(parse.mock.calls.map((c) => c[0])).toEqual([YT_URL, YT_URL, YT_URL, PLAYLIST_URL]);
+  });
+
+  it('does not fall back on 403', async () => {
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 403'));
+    await expect(parseFeed(YT_URL, parse, vi.fn(async () => {}))).rejects.toThrow('Status code 403');
+    expect(parse).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not fall back on success', async () => {
+    const parse = vi.fn().mockResolvedValue({ items: [] });
+    await expect(parseFeed(YT_URL, parse, vi.fn(async () => {}))).resolves.toEqual({ items: [] });
+    expect(parse).toHaveBeenCalledTimes(1);
+  });
+
+  it('reports the original failure when the fallback also fails', async () => {
+    const parse = vi.fn(async (u: string) => {
+      throw new Error(u === YT_URL ? 'Status code 404' : 'Status code 500');
+    });
+    await expect(parseFeed(YT_URL, parse as never, vi.fn(async () => {}))).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(4);
+  });
+
+  it('never falls back for a non-YouTube feed', async () => {
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
+    await expect(parseFeed('https://example.com/feed.xml', parse, vi.fn(async () => {}))).rejects.toThrow('Status code 404');
     expect(parse).toHaveBeenCalledTimes(3);
   });
 

@@ -7,6 +7,7 @@ import { STRIKES_TO_FALLBACK, freshRecord, type WatchdogRecord } from './watchdo
 import { QUARANTINE_AFTER_FALLBACK_CYCLES } from './watchdog-policy';
 import { currentBuildKey, loadWatchdogRecord } from './watchdog-store';
 import { currentWatchdogWriter } from './watchdog-writer';
+import { discardRetainedLink, persistRetainedLink } from './retained-link';
 
 export type RetryOutcome = 'reload-requested' | 'save-failed' | 'reload-failed';
 
@@ -24,8 +25,24 @@ export function retryRecord(prev: WatchdogRecord | null | 'corrupt', buildKey: s
   };
 }
 
+/** Ahead of a deliberate full reload from a healthy mounted host: persist the record idle, exactly as Retry does. False = do not reload (record not ready, or the write failed). The monitor is never armed. */
+export async function prepareIdleReload(now: () => number = Date.now): Promise<boolean> {
+  try {
+    const writer = currentWatchdogWriter();
+    await writer.settled();
+    const prev = await loadWatchdogRecord();
+    if (!prev || prev === 'corrupt' || prev.state !== 'ready') return false;
+    if (!(await writer.write(retryRecord(prev, currentBuildKey(), now()), 1))) return false;
+    await writer.settled();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export const OTA_CHECK_TIMEOUT_MS = 8000;
 export const OTA_FETCH_TIMEOUT_MS = 30000;
+export const RETAINED_PERSIST_TIMEOUT_MS = 1500;
 
 export type RetryPhase = 'checking' | 'downloading';
 
@@ -63,10 +80,12 @@ export async function retryDomAttempt(now: () => number = Date.now, onPhase?: (p
     return 'save-failed';
   }
   await fetchPendingUpdate(onPhase);
+  await raceTimeout(persistRetainedLink(), RETAINED_PERSIST_TIMEOUT_MS);
   try {
     await Updates.reloadAsync();
     return 'reload-requested';
   } catch {
+    await discardRetainedLink();
     return 'reload-failed';
   }
 }
