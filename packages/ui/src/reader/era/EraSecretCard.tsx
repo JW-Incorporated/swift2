@@ -36,13 +36,11 @@ export function EraSecretCard({ eraId }: { eraId: EraId }) {
   useEffect(() => setDayKey(todayKey()), []);
 
   if (pool.length === 0) return null;
-  const selected = dayKey ? epochDay(dayKey) % pool.length : 0;
-  const secret = pool[selected]!;
+  const secret = dayKey ? pool[epochDay(dayKey) % pool.length]! : pool[0]!;
 
-  const deeperFor = (s: (typeof pool)[number]) => {
-    const link = resolveEraSecretLink(s.deeperLink);
-    if (!link) return null;
-    return link.kind === 'song'
+  const link = resolveEraSecretLink(secret.deeperLink);
+  const deeper = link
+    ? link.kind === 'song'
       ? {
           label: `Hear more: ${link.track.title}`,
           onClick: () => openSong(link.eraId, trackKey(link.eraId, link.track)),
@@ -50,8 +48,8 @@ export function EraSecretCard({ eraId }: { eraId: EraId }) {
       : {
           label: 'See the moment',
           onClick: () => openItem(link.item.id),
-        };
-  };
+        }
+    : null;
 
   return (
     <section
@@ -63,55 +61,41 @@ export function EraSecretCard({ eraId }: { eraId: EraId }) {
           <Sparkles className="h-3.5 w-3.5 text-[color:var(--era-accent)]" aria-hidden />
           Era secret
         </div>
-        <div className="grid">
-          {pool.map((s, i) => {
-            const deeper = deeperFor(s);
-            const active = i === selected;
-            return (
-              <div
-                key={s.title}
-                className={active ? '[grid-area:1/1]' : 'invisible [grid-area:1/1]'}
-                aria-hidden={active ? undefined : true}
-              >
-                <h2 className="mt-2 font-[family-name:var(--era-font)] text-balance text-2xl font-semibold leading-snug sm:text-3xl">
-                  {s.title}
-                </h2>
-                <p className="mt-2.5 text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)]">
-                  {s.secret}
-                </p>
+        <h2 className="mt-2 font-[family-name:var(--era-font)] text-balance text-2xl font-semibold leading-snug sm:text-3xl">
+          {secret.title}
+        </h2>
+        <p className="mt-2.5 text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)]">
+          {secret.secret}
+        </p>
 
-                {deeper && (
-                  <button
-                    onClick={deeper.onClick}
-                    className="era-btn-ghost mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
-                  >
-                    {deeper.label}
-                    <ArrowUpRight className="h-4 w-4 text-[color:var(--era-accent)]" aria-hidden />
-                  </button>
-                )}
+        {deeper && (
+          <button
+            onClick={deeper.onClick}
+            className="era-btn-ghost mt-4 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+          >
+            {deeper.label}
+            <ArrowUpRight className="h-4 w-4 text-[color:var(--era-accent)]" aria-hidden />
+          </button>
+        )}
 
-                {s.sources.length > 0 && (
-                  <p className="mt-4 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
-                    {s.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
-                    {s.sources.map((src, j) => (
-                      <span key={`${src.url}-${j}`}>
-                        {j > 0 && ', '}
-                        <a
-                          href={src.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
-                        >
-                          {src.name}
-                        </a>
-                      </span>
-                    ))}
-                  </p>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        {secret.sources.length > 0 && (
+          <p className="mt-4 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+            {secret.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
+            {secret.sources.map((s, i) => (
+              <span key={`${s.url}-${i}`}>
+                {i > 0 && ', '}
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                >
+                  {s.name}
+                </a>
+              </span>
+            ))}
+          </p>
+        )}
       </div>
     </section>
   );
