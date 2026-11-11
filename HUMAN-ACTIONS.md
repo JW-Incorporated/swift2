@@ -2,9 +2,22 @@
 
 <!-- ha-format: 2 -->
 
-> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #150 🔴 [BLOCKING] Replace the Awin API token so the merch sync runs again (~5 min)
+<!-- ha filed=2026-11-11 -->
+<!-- ha verify: workflow-green merch-awin-sync.yml -->
+
+**Why:** merch-awin-sync has failed every run since early November with `Awin programme request failed (401)`: Awin is rejecting the stored token. Until it is replaced, Awin merch programmes and links stop refreshing (#6660, watchdog #6624).
+**Steps:**
+1. Sign in at https://ui.awin.com, open the account menu (top right) and choose `API Credentials`.
+2. Create a new token (or copy the current one if it is shown as active) and copy it.
+3. Open https://github.com/JW-Incorporated/swift2/settings/secrets/actions and click `AWIN_API_TOKEN`.
+4. Click Update secret, paste the token, click Update secret.
+5. Open https://github.com/JW-Incorporated/swift2/actions/workflows/merch-awin-sync.yml and click Run workflow.
+**Worked if:** The newest merch-awin-sync run on that page is green.
 
 ## #149 🔴 [BLOCKING] Add SOCIAL_JUDGE_KEY to the social environment (~3 min)
 <!-- ha filed=2026-11-08 -->
