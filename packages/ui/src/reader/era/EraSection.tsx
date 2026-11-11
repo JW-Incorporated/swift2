@@ -244,11 +244,11 @@ export function EraSection({
 
           <h2
             id={`ll-era-heading-${era.id}`}
-            className="font-[family-name:var(--era-font)] text-balance font-semibold leading-[1.05] tracking-tight text-[length:min(3rem,calc(100vw/7))] sm:text-7xl">
+            className="font-[family-name:var(--era-font)] text-balance font-semibold leading-[1.05] tracking-tight text-[length:min(3rem,calc(100vw/7))] sm:mx-auto sm:max-w-[calc(100vw-6rem)] sm:text-7xl">
             {era.name}
           </h2>
           {era.lyric ? (
-            <figure className="mx-auto mt-6 max-w-xl">
+            <figure className="mx-auto mt-6 max-w-[min(36rem,calc(100vw-6rem))]">
               <blockquote className="font-[family-name:var(--era-font)] text-pretty text-xl italic leading-snug text-[color:var(--era-ink-soft)] sm:text-2xl">
                 {'“'}
                 {era.lyric.line}
