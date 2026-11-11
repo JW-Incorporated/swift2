@@ -1,13 +1,14 @@
 // OTA on foreground: expo-updates alone checks on cold launch and applies on the NEXT cold start, so a fan could sit on a
 // stale bundle for two restarts. This checks when the app returns to the foreground (throttled), downloads in the
 // background, and applies a fetched update only when the fan comes back after being away, so the reload reads as a
-// normal launch. The reload goes through the watchdog's planned-reload path first (never a strike). Everything is
+// normal launch. Before reloading, the watchdog record is persisted idle (as Recovery Retry does; the monitor is never armed, so a
+// failed reload is never a strike) and only from a healthy mounted DOM host (record ready). Everything is
 // best-effort: no error is surfaced. Loop guard: at most one reload per JS process (in-memory, like selfHealOnce).
 import type { UpdatesLike } from './content-bundle';
 import { OTA_CHECK_TIMEOUT_MS, OTA_FETCH_TIMEOUT_MS } from './recovery-retry';
 
 export const CHECK_INTERVAL_MS = 10 * 60_000;
-export const BACKGROUND_APPLY_MS = 30_000;
+export const BACKGROUND_APPLY_MS = 5 * 60_000;
 export const STARTUP_CHECK_DELAY_MS = 5_000;
 /** Settle time after a foreground before reloading: a deep link or notification tap that woke the app lands inside it. */
 export const LINK_SETTLE_MS = 2_000;
@@ -22,6 +23,8 @@ export interface ForegroundDecisionInput {
   pendingUpdate: boolean;
   lastReloadAt: number | null;
   hasPendingLink: boolean;
+  userEngaged: boolean;
+  launchedFromLink: boolean;
 }
 
 export type ForegroundAction = 'check' | 'reload' | 'none';
@@ -31,7 +34,7 @@ export function decideForegroundAction(i: ForegroundDecisionInput): ForegroundAc
   if (i.pendingUpdate) {
     const away = i.backgroundedAt !== null && i.now - i.backgroundedAt >= BACKGROUND_APPLY_MS;
     // Loop guard: one reload per process. Any earlier reload (so also one inside the last 5 minutes) blocks.
-    return away && i.lastReloadAt === null && !i.hasPendingLink ? 'reload' : 'none';
+    return away && i.lastReloadAt === null && !i.hasPendingLink && !i.userEngaged && !i.launchedFromLink ? 'reload' : 'none';
   }
   return i.lastCheckAt === null || i.now - i.lastCheckAt >= CHECK_INTERVAL_MS ? 'check' : 'none';
 }
@@ -47,8 +50,12 @@ function raceTimeout<T>(work: Promise<T>, ms: number): Promise<T | undefined> {
 export interface ForegroundUpdatePorts {
   updates: UpdatesLike;
   appState: { current: string; subscribe: (cb: (state: string) => void) => () => void };
-  /** Persists the reload with the watchdog; false = do not reload. */
-  planReload: () => Promise<boolean>;
+  /** Persists the watchdog record idle (only from a ready record) ahead of a full reload; false = do not reload. */
+  prepareReload: () => Promise<boolean>;
+  /** The fan is mid-interaction or the reader state is unknown (content adoption's busy/engaged signals). */
+  userEngaged: () => boolean;
+  /** This process was cold-launched by a link (or that is not yet known): never reload, the link would replay. */
+  launchedFromLink: () => boolean;
   /** A tap or deep link is queued or was just delivered. */
   hasPendingLink: () => boolean;
   isDev?: boolean;
@@ -67,6 +74,7 @@ export function startForegroundUpdate(ports: ForegroundUpdatePorts): () => void 
   let pendingUpdate = false;
   let lastReloadAt: number | null = null;
   let busy = false;
+  let deferredAway: number | null = null;
 
   const checkAndFetch = async (): Promise<void> => {
     lastCheckAt = now();
@@ -81,18 +89,25 @@ export function startForegroundUpdate(ports: ForegroundUpdatePorts): () => void 
     }
   };
 
+  const clear = (): boolean => !stopped && ports.appState.current === 'active' && !ports.hasPendingLink() && !ports.userEngaged();
+
   const reload = async (): Promise<void> => {
     try {
-      if (!(await ports.planReload())) return;
+      if (!(await ports.prepareReload())) return;
+      if (!clear()) return;
       lastReloadAt = now();
       await ports.updates.reloadAsync();
     } catch {
-      // A failed reload leaves the fan on the running bundle.
+      // A failed reload leaves the fan on the running bundle: the monitor was never armed, so no strike.
     }
   };
 
   const evaluate = async (awayAt: number | null): Promise<void> => {
-    if (stopped || busy) return;
+    if (stopped) return;
+    if (busy) {
+      if (awayAt !== null) deferredAway = Math.min(awayAt, deferredAway ?? awayAt);
+      return;
+    }
     busy = true;
     try {
       const input = (): ForegroundDecisionInput => ({
@@ -102,6 +117,8 @@ export function startForegroundUpdate(ports: ForegroundUpdatePorts): () => void 
         pendingUpdate,
         lastReloadAt,
         hasPendingLink: ports.hasPendingLink(),
+        userEngaged: ports.userEngaged(),
+        launchedFromLink: ports.launchedFromLink(),
       });
       const first = decideForegroundAction({ ...input(), hasPendingLink: false });
       if (first === 'check') await checkAndFetch();
@@ -112,6 +129,9 @@ export function startForegroundUpdate(ports: ForegroundUpdatePorts): () => void 
       }
     } finally {
       busy = false;
+      const again = deferredAway;
+      deferredAway = null;
+      if (again !== null && !stopped && ports.appState.current === 'active') void evaluate(again);
     }
   };
 

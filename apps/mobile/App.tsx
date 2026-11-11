@@ -11,7 +11,7 @@
 // swallowed taps. `react-native-safe-area-context` reads real window insets
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { AppState, Linking, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -33,6 +33,8 @@ import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { flushPendingOptOut } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
 import { registerNotificationChannelsAtStartup } from './lib/notification-channels';
+import { prepareIdleReload } from './lib/recovery-retry';
+import { isReaderEngaged } from './lib/use-content-adoption';
 import { LINK_RECENT_MS, startForegroundUpdate } from './lib/foreground-update';
 import * as Updates from 'expo-updates';
 import { SITE_URL } from './lib/site-url';
@@ -116,12 +118,16 @@ export default function App() {
     };
   }, []);
 
-  // OTA on foreground (lib/foreground-update.ts). The reload is registered with the watchdog as a planned reload first;
-  // a queued/just-settled tap or a URL event holds it off so a deep link is never dropped.
-  const watchRef = useRef(domMount.watch);
-  watchRef.current = domMount.watch;
+  // OTA on foreground (lib/foreground-update.ts). A full reload persists the watchdog record idle first (prepareIdleReload,
+  // only from a ready record) and never arms the monitor. A queued/just-settled tap, a URL event, an engaged reader or a
+  // link-launched process holds it off so neither a deep link nor the fan's place is lost.
   useEffect(() => {
     let lastLinkAt = -Infinity;
+    let launchedFromLink = true;
+    let live = true;
+    Linking.getInitialURL()
+      .then((u) => void (live && (launchedFromLink = u !== null)))
+      .catch(() => {});
     const stamp = () => void (lastLinkAt = Date.now());
     const offSettled = notificationTapGate.onSettled(stamp);
     const urlSub = Linking.addEventListener('url', stamp);
@@ -136,11 +142,14 @@ export default function App() {
           return () => sub.remove();
         },
       },
-      planReload: async () => (await watchRef.current.plannedReload?.()) ?? false,
+      prepareReload: () => prepareIdleReload(),
+      userEngaged: isReaderEngaged,
+      launchedFromLink: () => launchedFromLink,
       hasPendingLink: () => notificationTapGate.size() > 0 || Date.now() - lastLinkAt < LINK_RECENT_MS,
       isDev: typeof __DEV__ !== 'undefined' && __DEV__,
     });
     return () => {
+      live = false;
       stop();
       offSettled();
       urlSub.remove();

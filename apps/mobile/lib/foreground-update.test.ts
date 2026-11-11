@@ -17,6 +17,8 @@ const base: ForegroundDecisionInput = {
   pendingUpdate: false,
   lastReloadAt: null,
   hasPendingLink: false,
+  userEngaged: false,
+  launchedFromLink: false,
 };
 
 describe('decideForegroundAction', () => {
@@ -30,7 +32,7 @@ describe('decideForegroundAction', () => {
     expect(decideForegroundAction({ ...base, pendingUpdate: true, backgroundedAt: null })).toBe('none');
   });
 
-  it('reloads only after at least 30 seconds in the background', () => {
+  it('reloads only after at least 5 minutes in the background', () => {
     const p = { ...base, pendingUpdate: true };
     expect(decideForegroundAction({ ...p, backgroundedAt: base.now - BACKGROUND_APPLY_MS + 1 })).toBe('none');
     expect(decideForegroundAction({ ...p, backgroundedAt: base.now - BACKGROUND_APPLY_MS })).toBe('reload');
@@ -42,12 +44,12 @@ describe('decideForegroundAction', () => {
     expect(decideForegroundAction({ ...p, lastReloadAt: base.now - 1000 })).toBe('none');
   });
 
-  it('skips the reload when a link is pending', () => {
-    expect(decideForegroundAction({ ...base, pendingUpdate: true, backgroundedAt: 0, hasPendingLink: true })).toBe('none');
+  it.each(['hasPendingLink', 'userEngaged', 'launchedFromLink'] as const)('skips the reload when %s', (flag) => {
+    expect(decideForegroundAction({ ...base, pendingUpdate: true, backgroundedAt: 0, [flag]: true })).toBe('none');
   });
 });
 
-function harness(over: { updates?: Partial<Record<string, unknown>>; planReload?: () => Promise<boolean>; link?: () => boolean; isDev?: boolean } = {}) {
+function harness(over: { updates?: Partial<Record<string, unknown>>; prepareReload?: () => Promise<boolean>; link?: () => boolean; engaged?: () => boolean; fromLink?: () => boolean; isDev?: boolean; wait?: (ms: number) => Promise<void> } = {}) {
   let clock = 1_000_000;
   let cb: (s: string) => void = () => undefined;
   const appState = { current: 'active', subscribe: (fn: (s: string) => void) => ((cb = fn), () => undefined) };
@@ -58,15 +60,17 @@ function harness(over: { updates?: Partial<Record<string, unknown>>; planReload?
     reloadAsync: vi.fn(async () => undefined),
     ...over.updates,
   };
-  const planReload = vi.fn(over.planReload ?? (async () => true));
+  const prepareReload = vi.fn(over.prepareReload ?? (async () => true));
   const stop = startForegroundUpdate({
     updates: updates as never,
     appState,
-    planReload,
+    prepareReload,
     hasPendingLink: over.link ?? (() => false),
+    userEngaged: over.engaged ?? (() => false),
+    launchedFromLink: over.fromLink ?? (() => false),
     isDev: over.isDev,
     now: () => clock,
-    wait: async () => undefined,
+    wait: over.wait ?? (async () => undefined),
   });
   const send = async (s: string) => {
     appState.current = s;
@@ -74,7 +78,7 @@ function harness(over: { updates?: Partial<Record<string, unknown>>; planReload?
     await vi.advanceTimersByTimeAsync(0);
   };
   const advance = (ms: number) => void (clock += ms);
-  return { updates, planReload, stop, send, advance };
+  return { updates, prepareReload, stop, send, advance };
 }
 
 describe('startForegroundUpdate', () => {
@@ -99,7 +103,7 @@ describe('startForegroundUpdate', () => {
     expect(h.updates.checkForUpdateAsync).toHaveBeenCalledTimes(2);
   });
 
-  it('does not reload on a short foreground, reloads once after 30s+ away (planned reload first)', async () => {
+  it('does not reload on a short foreground, reloads once after 5min+ away (idle record persisted first)', async () => {
     const h = harness();
     await vi.advanceTimersByTimeAsync(0);
     await h.send('background');
@@ -109,7 +113,7 @@ describe('startForegroundUpdate', () => {
     await h.send('background');
     h.advance(BACKGROUND_APPLY_MS);
     await h.send('active');
-    expect(h.planReload).toHaveBeenCalledTimes(1);
+    expect(h.prepareReload).toHaveBeenCalledTimes(1);
     expect(h.updates.reloadAsync).toHaveBeenCalledTimes(1);
     await h.send('background');
     h.advance(BACKGROUND_APPLY_MS);
@@ -117,14 +121,14 @@ describe('startForegroundUpdate', () => {
     expect(h.updates.reloadAsync).toHaveBeenCalledTimes(1);
   });
 
-  it('skips the reload when a link is pending, and when the watchdog refuses the planned reload', async () => {
+  it('skips the reload when a link is pending, and when the watchdog refuses to prepare the reload', async () => {
     const linked = harness({ link: () => true });
     await vi.advanceTimersByTimeAsync(0);
     await linked.send('background');
     linked.advance(BACKGROUND_APPLY_MS);
     await linked.send('active');
     expect(linked.updates.reloadAsync).not.toHaveBeenCalled();
-    const refused = harness({ planReload: async () => false });
+    const refused = harness({ prepareReload: async () => false });
     await vi.advanceTimersByTimeAsync(0);
     await refused.send('background');
     refused.advance(BACKGROUND_APPLY_MS);
@@ -163,5 +167,83 @@ describe('startForegroundUpdate', () => {
     await vi.advanceTimersByTimeAsync(0);
     expect(dev.updates.checkForUpdateAsync).not.toHaveBeenCalled();
     expect(off.updates.checkForUpdateAsync).not.toHaveBeenCalled();
+  });
+
+  const away = async (h: ReturnType<typeof harness>) => {
+    await h.send('background');
+    h.advance(BACKGROUND_APPLY_MS);
+    await h.send('active');
+  };
+
+  it('Android sequence: active, background, active with no inactive in between reloads', async () => {
+    const h = harness();
+    await vi.advanceTimersByTimeAsync(0);
+    await away(h);
+    expect(h.updates.reloadAsync).toHaveBeenCalledTimes(1);
+  });
+
+  it('skips the reload while the fan is engaged and when the process was launched from a link', async () => {
+    const engaged = harness({ engaged: () => true });
+    const linked = harness({ fromLink: () => true });
+    await vi.advanceTimersByTimeAsync(0);
+    await away(engaged);
+    await away(linked);
+    expect(engaged.updates.reloadAsync).not.toHaveBeenCalled();
+    expect(linked.updates.reloadAsync).not.toHaveBeenCalled();
+  });
+
+  it('a link arriving during the pre-step skips the reload', async () => {
+    let link = false;
+    const h = harness({ link: () => link, prepareReload: async () => ((link = true), true) });
+    await vi.advanceTimersByTimeAsync(0);
+    await away(h);
+    expect(h.prepareReload).toHaveBeenCalledTimes(1);
+    expect(h.updates.reloadAsync).not.toHaveBeenCalled();
+  });
+
+  it('a rejected reload leaves nothing armed and the app running', async () => {
+    const h = harness({ updates: { reloadAsync: vi.fn(async () => Promise.reject(new Error('boom'))) } });
+    await vi.advanceTimersByTimeAsync(0);
+    await away(h);
+    expect(h.updates.reloadAsync).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('a background arriving during the settle wait cancels the reload', async () => {
+    let release: () => void = () => undefined;
+    const gate = new Promise<void>((r) => (release = r));
+    let first = true;
+    const h = harness({ wait: async () => (first ? void (first = false) : gate) });
+    await vi.advanceTimersByTimeAsync(0);
+    await h.send('background');
+    h.advance(BACKGROUND_APPLY_MS);
+    await h.send('active');
+    await h.send('background');
+    release();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(h.prepareReload).not.toHaveBeenCalled();
+    expect(h.updates.reloadAsync).not.toHaveBeenCalled();
+  });
+
+  it('a fetch returning isNew false leaves nothing pending', async () => {
+    const h = harness({ updates: { fetchUpdateAsync: vi.fn(async () => ({ isNew: false })) } });
+    await vi.advanceTimersByTimeAsync(0);
+    await away(h);
+    expect(h.prepareReload).not.toHaveBeenCalled();
+    expect(h.updates.reloadAsync).not.toHaveBeenCalled();
+  });
+
+  it('keeps the away time of a foreground that arrives during an in-flight check and applies it afterwards', async () => {
+    let finish: (v: { isNew: boolean }) => void = () => undefined;
+    const fetchUpdateAsync = vi.fn(() => new Promise<{ isNew: boolean }>((r) => (finish = r)));
+    const h = harness({ updates: { fetchUpdateAsync } });
+    await vi.advanceTimersByTimeAsync(0);
+    await h.send('background');
+    h.advance(BACKGROUND_APPLY_MS);
+    await h.send('active');
+    expect(h.updates.reloadAsync).not.toHaveBeenCalled();
+    finish({ isNew: true });
+    await vi.advanceTimersByTimeAsync(0);
+    expect(h.updates.reloadAsync).toHaveBeenCalledTimes(1);
   });
 });
