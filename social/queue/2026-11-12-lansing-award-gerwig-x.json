@@ -28,7 +28,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 5,
+        "formula": 4,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-11T22:27:04.884Z",
+      "bodyHash": "sha256:ac8c858db59dbd039c5d19b987c754db2f270a11d703c41c59cbd75627e55879"
+    }
   },
   "why": "Event news, intake #6814: THR announced 2026-11-11 that Taylor will receive its 2026 Sherry Lansing Leadership Award, presented by Greta Gerwig at the Women in Entertainment gala (THR + Billboard). 11-12 had neither platform filled, so no beat displaced. X half written first."
 }
