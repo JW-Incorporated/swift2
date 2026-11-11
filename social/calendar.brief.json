@@ -1,38 +1,76 @@
 {
-  "weekOf": "2026-11-02",
-  "whatChangedAndWhy": "Two of last week's twelve posts were unmeasurable and it was my calendar's fault: I told the 10-27 beat to mint `symbol-thread:the-snake:...` when strategy's own pillar table says the family is `heartbeat:symbol-thread`, so the pair shipped under a family that does not exist and the scorecard filed it as (unrecognized). Fixed structurally — every beat in the new calendar now writes the full campaign value to mint AND the literal utm_campaign value to paste, so the drafter reads a value instead of a rule. I also opened one strategy PR (#6535): strategy Rule 2 has published a 14-opener banned list since 2026-08-11 and called it hard-blocked, but social/strategy-params.json only ever carried `did you know`, so 13 of the 14 blocked nothing — and I added `okay`/`ok`, because 4 of the 22 items posted 10-20 to 11-01 opened on one while all 22 still cleared the 6-word reuse gate, which cannot see a shared first word. The week-of-10-26 calendar put that shape off the menu in prose and it shipped twice anyway. The launch:photo-viewer arc, deferred twice, is placed: day 0 on 11-09, +2 on 11-11, +4 on 11-13, with day +8 handed to the 11-09 run; the slack arithmetic that deferred it clears now that a reserve day counts as landing slack. The lessons ledger is unchanged and I computed that rather than eyeballing it: zero edit/reject rows this week or last, findCodifiableRules returns nothing (autoCodify is false), findRetirableRules returns nothing (L002 is 3 weeks quiet against an 8-week window). One dark day, 10-28, and it was not a planning rule this time: the 10-27 and 10-28 daily-draft runs both failed at `Decide routine outcome`, and a reserve day's beat is never drafted a day early, so its fallback was never written.",
+  "weekOf": "2026-11-09",
+  "whatChangedAndWhy": "A real new ship takes the launch arc: #6562 replaced the egg doorway with a pinned \"This week's news\" section and #6708/#6719 made the videos on live news items actually play, so launch:news-feed goes day 0/+2/+4 on 11-15/11-17/11-19 — and its day-0 gate is one the daily run can clear by itself (fetch the site, confirm the section renders), unlike the phone pinch-zoom gate that made launch:photo-viewer fall back for the fourth time. That phone check is now HUMAN-ACTIONS #150, the only founder-only item in this plan, and the photo-viewer arc returns the first Monday after it closes. Strategy change made and reported, not asked for (PR #6743, branch tree/strategy/2026-W46-1): last week's okay/ok opener ban worked — zero since 10-31 — but the formula moved one word over, with four of six Instagram captions on 11-02 → 11-08 opening on the literal word \"i\" and all six opening on the writer's reaction before the subject; the three exact shipped reaction-stems (i cannot stop, i will never, i did not expect) go on openers.bannedOpeners, a blanket first-person ban is deliberately NOT written because strategy §2's Voice section wants that voice, and §1(a)'s push-worthy list is reordered behind the news feed. The lessons ledger is unchanged and computed, not eyeballed: zero edit/reject rows exist for this week or last, findCodifiableRules and findRetirableRules both return [].",
   "calendar": [
-    { "day": 1, "text": "11-02 Mon — Decode thread hero, thread:hidden-clues:behind-the-data. November's first of six thread windows; the angle is computed, not chosen (ANGLES[(3+0)%5]). The thread as a dataset: count something real off the live lens before writing a word." },
-    { "day": 2, "text": "11-03 Tue — November's Mood beat, mood:era-match, rotating off October's mood:result. It goes early in the month on purpose so a mechanical failure still leaves time to retry — and it is the format whose 10-03 attempt was approved and then killed unposted by the 48h clock, so this is its first real airing." },
-    { "day": 3, "text": "11-04 Wed — Blank Spaces timeline, the week's permanent minimum. Next unposted chapter after Back to December / Lautner (shipped 10-29), confirmed-only and verified against the Vault. Tagged utm_campaign=timeline, not `thread` — four timeline items were mistagged `thread` in the week to 11-01 and vanished into the unattributable bucket." },
-    { "day": 4, "text": "11-05 Thu — news reserve 1 of 3, and the first half of Marjorie's re-draft ask #6520: the Patient Zero chart run (three weeks at No. 1, now No. 5). She asked for it as an extra pair by 11-04; an extra pair is unshippable because the poster ships one item per platform per day, so it takes the nearest reserve instead — one day late, but it actually ships." },
-    { "day": 5, "text": "11-06 Fri — Clue Web thread hero, thread:easter-eggs:quiz-poll. One question whose answer is genuinely inside the lens; check it is in there before writing the question. Not the motif 10-27's snake post already explained." },
-    { "day": 6, "text": "11-07 Sat — news reserve 2 of 3, and the second half of ask #6520: Brad Paisley inducting her into the Nashville Songwriters Hall of Fame. An award, which §1(e2) counts as a major moment, and an elder of the room she started in saying she belongs in it." },
-    { "day": 7, "text": "11-08 Sun — news reserve 3 of 3. Fallback is Nelly surprising Houston for 'Just a Dream' and the detail he revealed fifteen years later: he left with $50,000 in a McDonald's bag. The money is the hook, the surprise is the setup." },
-    { "day": 8, "text": "11-09 Mon — launch:photo-viewer DAY 0. The pinch-zoom viewer has been live since 2026-07-18 and has never been mentioned once; the arc was deferred twice and is placed now. Hard gate first: pinch-zoom a photo on a phone, and if it does not work, do not draft it — we never tease unshipped or broken work." },
-    { "day": 9, "text": "11-10 Tue — news reserve 1 of 2 for the week of 11-09. Fallback is Colin Jost and Michael Che nearly getting stuck on 'Wood' on Millionaire. Every one of the 22 items posted 10-20 to 11-01 was earnest; this one is allowed to be funny." },
-    { "day": 10, "text": "11-11 Wed — launch:photo-viewer DAY +2, the proof. Day 0 says the feature exists; +2 picks one photograph with a detail that genuinely rewards zooming and makes the post about that detail, not about the viewer." },
-    { "day": 11, "text": "11-12 Thu — Runway thread hero, thread:fashion:origin-story (window 11-11 to 11-15). Why the thread exists and what it lets you see that scrolling a tag page does not, grounded in one concrete look — and not the Oscar de la Renta look 10-30 already used." },
-    { "day": 12, "text": "11-13 Fri — launch:photo-viewer DAY +4, the invitation: name a specific photo and ask what people find when they get close. A real question, not engagement bait. Day +8 falls on 11-17 and belongs to the 11-09 run, which owes an answer on whether this arc completed — the last two closed short." },
-    { "day": 13, "text": "11-14 Sat — Blank Spaces timeline, the week of 11-09's minimum. Next unposted chapter after 11-04's, in a different hook shape, and not opening on a quoted song title (both halves of 10-29 did)." },
-    { "day": 14, "text": "11-15 Sun — news reserve 2 of 2 for the week of 11-09. Fallback is Taylor telling a room at a Toy Story 5 screening about Abigail — the friendship 'Fifteen' is about. Note: that moment's own site media is a video and this pipeline cannot post video, so the beat uses its photo pick and links to the item page where the video lives." }
+    {
+      "day": 1,
+      "text": "11-09 — COVERED BY QUEUE: the reputation / Katy Perry olive-branch pair is already merged at 23:00Z. It is the launch:photo-viewer day-0 fallback, taken correctly because no automated run can hold a phone."
+    },
+    {
+      "day": 2,
+      "text": "11-10 — News reserve #1, conditional: if open PR #6714 merged it moves that reputation pair to 11-10 15:00Z and this beat is covered. Otherwise the fallback is the Colin Jost / Michael Che \"Wood\" Millionaire moment, minted event-news (non-themed, so no era-photo requirement) and told to be funny for once."
+    },
+    {
+      "day": 3,
+      "text": "11-11 — News reserve #2, carrying ask #6520's moment that still has not shipped: the \"Patient Zero\" three-weeks-at-No.1 chart run. Placed on 11-11 not 11-10 because 11-10 may be covered, and this is the one subject with an outstanding commitment to Marjorie."
+    },
+    {
+      "day": 4,
+      "text": "11-12 — Runway thread hero, window 11-11→15, angle origin-story: why the Runway thread exists, grounded in one concrete look the thread documents in detail. Pick a different look than 10-30's Oscar de la Renta quiz."
+    },
+    {
+      "day": 5,
+      "text": "11-13 — News reserve #3 (the week is raised to three on completed data: 11-02 → 11-08 shipped zero news pairs against a 6-moment sheet, the fourth such week). Fallback: the cancelled Vienna shows getting their own documentary — the film is the subject, the plot against the shows is not and must not be described."
+    },
+    {
+      "day": 6,
+      "text": "11-14 — Blank Spaces timeline, week-of-11-09 minimum: the next unposted chapter after John Mayer 2009, confirmed-only and verified against the Vault, chapter named in why."
+    },
+    {
+      "day": 7,
+      "text": "11-15 — launch:news-feed DAY 0. Lead with what a fan can now do: open the site and see what happened this week, already there. Gate the daily run can actually clear: confirm the pinned section renders with a real item in it, else fall back to a midnights deep cut."
+    },
+    {
+      "day": 8,
+      "text": "11-16 — Blank Spaces thread hero, window 11-16→20, angle single-best-item: one entry in the thread that would make a stranger open the lens, spent fully — and not a chapter the timeline beats already took."
+    },
+    {
+      "day": 9,
+      "text": "11-17 — launch:news-feed DAY +2, the how-to: literally where to tap, assuming the reader never found the section. The one beat in the arc where a screenshot carousel is the whole point, never on X."
+    },
+    {
+      "day": 10,
+      "text": "11-18 — News reserve #1 of the week of 11-16. Fallback is a red-era deep cut carrying either a sourced quote or a real number: 38 never-used red photos and the era is untouched all fortnight."
+    },
+    {
+      "day": 11,
+      "text": "11-19 — launch:news-feed DAY +4, one real result: one actual story the new section surfaced this week, with the feature mentioned once at the end. Day +8 (11-23) is handed to the 11-16 run, which owes an answer on whether this arc completed."
+    },
+    {
+      "day": 12,
+      "text": "11-20 — News reserve #2 of the week of 11-16. Fallback is a lover-era deep cut (23 never-used, untouched this fortnight), and a different kind of subject from whatever 11-18 took."
+    },
+    {
+      "day": 13,
+      "text": "11-21 — Taylor's Version thread hero, window 11-21→25, angle interactive-challenge: something to do that the lens settles, with the answer confirmed to be in there first. A real X poll is structurally different by construction."
+    },
+    {
+      "day": 14,
+      "text": "11-22 — Blank Spaces timeline, week-of-11-16 minimum: the next chapter after 11-14's, and not the one 11-16's hero spent."
+    }
   ],
   "proposals": [],
   "questions": [],
   "needsFromMarjorie": [
     {
-      "ask": "The Tree daily-draft workflow failed two runs in a row on 10-27 and 10-28 and cost a dark day — find out why and make it alert instead of failing silently",
-      "why": "Both runs failed the `run / run-routine` job at the `Decide routine outcome` step (runs 40540524433 and 40732305282). 10-27's beat shipped anyway because the 10-26 run had drafted it a day ahead, but 10-28's news reserve had no such cover — a reserve day's beat is never drafted a day early — so nothing shipped on either platform that day and its named 1989 fallback was never written. Nothing surfaced this to me until I read the run history in today's weekly plan.",
+      "ask": "Add a first-word diversity cap to check-drafts.mjs: fail an Instagram draft whose first word already opened 3 or more of the last 7 posted Instagram items",
+      "why": "Last week's okay/ok ban worked (zero since 10-31) but the shape moved one word over: the six IG captions posted 11-02 to 11-08 opened i, it's, this, i, i, i — four of six on the literal word \"i\" — and every one cleared the existing 6-word reuse gate because words 2-6 differ. A banned-word list cannot catch a formula; this is the third word the same formula has formed under since 2026-08-11. The check lives in scripts/social/check-drafts.mjs, outside this desk's mutation rights.",
       "kind": "error"
     },
     {
-      "ask": "Eight Tree draft PRs are open past the 48h staleness window and retire-stale-drafts.mjs is not closing them",
-      "why": "#5443, #5495, #5998, #6027, #6057, #6094, #6112 and #6141 — the oldest from 10-09. I reported seven of these in the week-of-10-26 plan and the count has gone up, not down, so the retirement job is not running or not matching these PRs. It is clutter rather than a blocker, but it also means `prepare-draft-inputs.mjs`'s open-PR scan is reading eight dead drafts every morning.",
+      "ask": "Widen ask #5877 to close out all seven stranded tree/draft PRs, not just #5443 and #5495",
+      "why": "Eight tree/draft PRs are open and seven can never ship: #6141, #6112, #6094, #6027, #5998, #5495 and #5443 are all from 10-09 to 10-20, far past the poster's 48h staleness cap, and they are holding 2 photos out of the never-used pool. #5877 already covers two of them and is still open, so this widens it rather than filing a second ask.",
       "kind": "error"
-    },
-    {
-      "ask": "Add a sibling-opener check to check-drafts.mjs: fail an IG/X pair whose two halves open on the same first three or four words",
-      "why": "Second week running that a pair shipped sharing its opening clause — 10-24 both halves on the same date-stamp ('twenty years ago tomorrow'), 10-29 both halves on the same quoted song title ('back to december'). No gate we have can see it: Rule 3's 6-word match passes because words 3-6 differ, and crossPost.similarityThreshold compares whole bodies, where a shared opening clause scores low. I have restated the sibling rule on every beat in the new calendar, but prose direction is exactly what already failed twice, and check-drafts.mjs is outside my mutation rights."
     }
   ]
 }

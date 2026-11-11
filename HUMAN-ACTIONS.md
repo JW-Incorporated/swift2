@@ -2,9 +2,19 @@
 
 <!-- ha-format: 2 -->
 
-> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #150 🔴 [BLOCKING] Pinch-zoom a photo on longlivets.com, on your phone (~1 min)
+<!-- ha filed=2026-11-09 -->
+
+**Why:** The photo viewer has been live since July and has never been posted about. A social arc for it has now been deferred four times, every time because the only check that matters — does the gesture feel right on a real phone — is one no automated run can do.
+**Steps:**
+1. On your phone, open https://www.longlivets.com/ and tap any moment that has a photo.
+2. Tap the photo so it opens full-screen, then pinch with two fingers to zoom in, and drag to move around.
+3. Reply `done` if it zooms and pans smoothly, or `skip <what went wrong>` if it is janky or does nothing.
+**Worked if:** You replied `done` or `skip` to this card.
 
 ## #149 🔴 [BLOCKING] Add SOCIAL_JUDGE_KEY to the social environment (~3 min)
 <!-- ha filed=2026-11-08 -->
