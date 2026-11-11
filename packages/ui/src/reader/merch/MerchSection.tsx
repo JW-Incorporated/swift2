@@ -190,7 +190,10 @@ export function MerchSectionBody() {
             <MerchGrid items={drops.slice(0, 6)} emptyMessage="" />
           </section>
         )}
-        <section id={SECTION_OFFICIAL} className="pt-[74px] pb-3">
+        <section
+          id={SECTION_OFFICIAL}
+          className={`${drops.length > 0 ? 'pt-[74px]' : 'pt-8'} pb-3`}
+        >
           <MerchSectionHead
             accent="var(--merch-gold)"
             badge="Official"
