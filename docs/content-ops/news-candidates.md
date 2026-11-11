@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 82
+
+## Taylor Swift Tribute Band Blank Space Performs in Jacksonville
+
+- first seen: 2026-11-11 20:02 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The tribute band Blank Space is set to perform in Jacksonville, providing fans an inside look at their rendition of Taylor Swift's music. This event highlights the local tribute scene and showcases the popularity of Swift's music.
+- sources:
+  - [unverified] UNF Spinnaker — https://unfspinnaker.com/117197/latest-stories/blank-space-comes-to-jacksonville-an-inside-look-at-the-taylor-swift-tribute-band/
+
+## Taylor Swift to Be Honored at THR's Women In Entertainment Gala
+
+- first seen: 2026-11-11 20:02 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to receive a special honor at The Hollywood Reporter's Women In Entertainment Gala, highlighting her contributions to the industry.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66106618/?ref_=nwc_art_perm
 
 ## Ohio Neighbors of Taylor Swift and Travis Kelce Oppose Landscaping Plans
 
@@ -689,46 +705,3 @@ Stories: 85
 - summary: Taylor Swift and Karlie Kloss were spotted attending a game for the Kansas City Chiefs, amid previous rumors of a feud between the two friends. Their appearance together is drawing attention from fans and media.
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/11/08/taylor-swift-karlie-kloss-attend-travis-kelce-chiefs-game/
-
-## Taylor Swift Spotted at Chiefs-Jets Game with Supermodel
-
-- first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was seen attending the Chiefs-Jets game at Arrowhead Stadium alongside a supermodel. The sighting attracted attention from fans and media alike.
-- sources:
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317976330.html
-
-## Kolek Clarifies Comment on Taylor Swift Fan Status
-
-- first seen: 2026-11-08 19:52 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Knicks player Kolek has clarified that his previous statement calling Taylor Swift a fake fan was a mistake. This comment has attracted attention in the sports and music communities.
-- sources:
-  - [unverified] theScore — https://www.thescore.com/nba/news/3648893/knicks-kolek-misspoke-when-calling-taylor-swift-fake-fan
-
-## Taylor Swift's Frustration Affects Travis Kelce
-
-- first seen: 2026-11-08 19:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The article discusses the challenges Travis Kelce is facing due to Taylor Swift's frustration in their relationship. It highlights the difficulties she is navigating currently.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/it-s-hard-for-her-taylor-swift-s-frustration-leaves-travis-kelce-facing-tough-challenge-12298753
-
-## Taylor Swift Hiring Investigators Over Leaked Wedding Photos
-
-- first seen: 2026-11-08 19:52 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: According to reports, Taylor Swift is feeling uneasy and has engaged private investigators to determine who leaked photos from her wedding to Travis Kelce at Madison Square Garden.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-edge-hiring-080057907.html
-
-## Taylor Swift Attends Chiefs Game with Karlie Kloss
-
-- first seen: 2026-11-08 19:52 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift was spotted at a Kansas City Chiefs game alongside her friend Karlie Kloss. The appearance marks her continued support for her husband, Travis Kelce, who plays for the team.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/taylor-swift-karlie-kloss-travis-kelce-chiefs-game-1236377058/
-  - [unverified] E! News — https://www.eonline.com/news/1437935/taylor-swift-karlie-kloss-reunite-at-chiefs-game-after-past-feud-rumors
-  - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-chiefs-game
