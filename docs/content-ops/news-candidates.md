@@ -27,6 +27,30 @@ so far".
 
 Stories: 82
 
+## Travis Kelce Invites Taylor Swift to Next 'New Heights' Event
+
+- first seen: 2026-11-11 21:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has expressed a desire for Taylor Swift to contribute her influence at the upcoming 'New Heights' event. The collaboration hints at the personal connection between the two.
+- sources:
+  - [unverified] Complex — https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic
+
+## Taylor Swift's Participation in CMA Awards 2026 Tribute Examined
+
+- first seen: 2026-11-11 21:06 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: E! News discusses whether Taylor Swift will take part in the Dolly Parton tribute at the 2026 CMA Awards.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026
+
+## Travis Kelce Partners with Taylor Swift on New Business Venture
+
+- first seen: 2026-11-11 21:06 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce seeks the assistance of his wife, Taylor Swift, for an unexpected business initiative. The new venture's details have not been disclosed in the initial news.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/travis-kelce-enlists-wife-taylor-swift-help-new-heights-event-12249315
+
 ## Taylor Swift Tribute Band Blank Space Performs in Jacksonville
 
 - first seen: 2026-11-11 20:02 UTC | category: tour | importance: 5
@@ -168,9 +192,11 @@ Stories: 82
 ## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
 
 - first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
 - sources:
+  - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/11/taylor-swift-travis-kelces-bratenahl-landscaping-plan-approved-despite-neighbors-dissent.html
+  - [unverified] Consequence of Sound — https://consequence.net/2026/11/taylor-swift-and-travis-kelces-landscaping-plans-approved-despite-concern-for-animals-sex-lives/
   - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
   - [unverified] News24 — https://www.news24.com.au/lifestyle/celebrity-life/taylor-swift-and-travis-kelces-ohio-neighbors-fight-over-sixfoot-black-aluminum-privacy-fence/video/e38030009be36e3eefcac4a31dfc01f7
   - [unverified] Page Six — https://pagesix.com/2026/11/11/entertainment/travis-kelce-recruits-taylor-swift-for-next-new-heights-podcast-event/
@@ -681,27 +707,3 @@ Stories: 82
 - summary: Taylor Swift was spotted standing and cheering after Travis Kelce scored a touchdown during the game against the Jets. This appearance continues to highlight her support for the NFL star.
 - sources:
   - [established] People — https://people.com/taylor-swift-celebrates-travis-kelce-scores-second-touchdown-chiefs-jets-12131173
-
-## Insider Shares Knicks Locker Room Activity Post-Cavs Win Amid Taylor Swift Discussion
-
-- first seen: 2026-11-08 21:06 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Following the Knicks' victory over the Cavaliers, an insider disclosed details about locker room activities, which coincided with discussions about Taylor Swift's fan status. The commentary highlights ongoing conversations surrounding her influence in sports culture.
-- sources:
-  - [unverified] EssentiallySports — https://www.essentiallysports.com/nba-active-basketball-news-insider-reveals-not-so-subtle-knicks-locker-room-activity-after-win-over-cavs-amid-taylor-swift-fake-fan-controversy/
-
-## Tyler Kolek Responds to Taylor Swift Comment with Song Cover
-
-- first seen: 2026-11-08 20:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tyler Kolek reacts to a comment about Taylor Swift being a 'fakest' Knicks fan and showcases his talent by covering one of her songs in a new viral video.
-- sources:
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25530671-tyler-kolek-addresses-taylor-swift-fakest-knicks-fan-comment-covers-song-new-viral-video
-
-## Taylor Swift and Karlie Kloss Attend Chiefs Game Together
-
-- first seen: 2026-11-08 20:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss were spotted attending a game for the Kansas City Chiefs, amid previous rumors of a feud between the two friends. Their appearance together is drawing attention from fans and media.
-- sources:
-  - [unverified] TMZ — https://www.tmz.com/2026/11/08/taylor-swift-karlie-kloss-attend-travis-kelce-chiefs-game/
