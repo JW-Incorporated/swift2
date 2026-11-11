@@ -247,7 +247,7 @@ export function EraSection({
             {era.name}
           </h2>
           {era.lyric ? (
-            <figure className="mx-auto mt-6 max-w-xl">
+            <figure className="mx-auto mt-6 max-w-[min(36rem,calc(100vw-6rem))]">
               <blockquote className="font-[family-name:var(--era-font)] text-pretty text-xl italic leading-snug text-[color:var(--era-ink-soft)] sm:text-2xl">
                 {'“'}
                 {era.lyric.line}
