@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "GRETA GERWIG handing taylor a leadership award!! 🥹 THR just named her this year's Sherry Lansing honoree for its Women in Entertainment gala, and the names before her include Meryl Streep and Oprah. crying at my desk https://longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=news",
+  "media": [
+    "/social/library/photos/wikimedia-15869843.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-15869843",
+  "mediaCredit": "dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_2011.jpg",
+  "scheduledAt": "2026-11-12T15:00:00Z",
+  "altText": [
+    "Taylor Swift performing live \"Love Story\" in the American Leg on July."
+  ],
+  "campaign": "heartbeat:event-news:lansing-award-gerwig-2026-11-12",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "Same-day award news, confirmed by THR (the host) and Billboard: the award, Greta Gerwig presenting, and the namesake plus two past winners carry it. The Love Story balcony photo is a real credited Taylor photo, loosely tied to a leadership award.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "Event news, intake #6814: THR announced 2026-11-11 that Taylor will receive its 2026 Sherry Lansing Leadership Award, presented by Greta Gerwig at the Women in Entertainment gala (THR + Billboard). 11-12 had neither platform filled, so no beat displaced. X half written first."
+}

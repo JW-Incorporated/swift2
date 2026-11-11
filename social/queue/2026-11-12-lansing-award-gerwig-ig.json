@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "SO proud of her right now 🥹\n\ntaylor is getting The Hollywood Reporter's Sherry Lansing Leadership Award at their Women in Entertainment gala in LA, and Greta Gerwig is the one presenting it to her.\n\nthe award is named for Sherry Lansing, the first woman ever to run a Hollywood studio. Meryl Streep, Oprah, Barbra Streisand, Viola Davis and Adele have all received it before her.\n\nthe gala usually lands in early December, so now we wait for the speech.\n\nthis photo is the Speak Now tour in 2011, taylor up on the Love Story balcony. same girl, fifteen years on, being honored as a leader in her industry.\n\n📷 dephisticate (CC BY 2.0), via Wikimedia Commons\n\nevery era in one place: longlivets.com/?utm_source=instagram&utm_medium=social&utm_campaign=news\n\n#TaylorSwift #Swifties #GretaGerwig #WomenInEntertainment",
+  "media": [
+    "/social/library/photos/wikimedia-15869843.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-15869843",
+  "mediaCredit": "dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_2011.jpg",
+  "scheduledAt": "2026-11-12T15:00:00Z",
+  "altText": [
+    "Taylor Swift performing live \"Love Story\" in the American Leg on July."
+  ],
+  "campaign": "heartbeat:event-news:lansing-award-gerwig-2026-11-12",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 23,
+    "rationale": "Gush-first caption on confirmed same-day news: the award, Greta Gerwig presenting, the namesake and five sourced past winners. The 2011 Love Story balcony photo earns its slot as the then-and-now beat the caption names.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "Event news, intake #6814: THR announced 2026-11-11 that Taylor will receive its 2026 Sherry Lansing Leadership Award, presented by Greta Gerwig at the Women in Entertainment gala (THR + Billboard). 11-12 had neither platform filled, so no beat displaced. Same photo as the X half."
+}
