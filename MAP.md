@@ -374,7 +374,8 @@ founder-facing checklist for the Firebase/APNs pieces no agent can do.
 | `apps/web/app/api/devices/register/route.ts` (+ `.test.ts`) | `POST /api/devices/register` — upsert-by-`device_id`, same call for first registration and token refresh |
 | `apps/mobile/lib/api-base.ts` (+ test) | `apiBaseUrl()` / `DEFAULT_API_BASE_URL` — the one place the mobile API host is decided (`EXPO_PUBLIC_API_BASE_URL` override) |
 | `apps/mobile/lib/device-id.ts` | Anonymous `device_id` generation + SecureStore persistence (spec §2) |
-| `apps/mobile/lib/notification-channels.ts` | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS) |
+| `apps/mobile/lib/notification-channels.ts` (+ test) | Android notification channels, 1:1 with spec §4 categories (Android-only, no-ops on iOS); `registerNotificationChannelsAtStartup()` creates them at app start |
+| `apps/mobile/lib/foreground-update.ts` (+ test) | OTA on foreground: throttled check/fetch when the app becomes active, reload only when the fan returns after 5 min+ away from a healthy host (watchdog record persisted idle, once per process, skipped while engaged, link-launched or a link is pending) |
 | `apps/mobile/lib/push-registration.ts` | `registerDevice()` (cold-start safe, no permission prompt) vs `requestPushRegistration()` (asks permission — Phase 2's onboarding screen calls this, not App.tsx) |
 | `scripts/send-test-push.ts` | Manual FCM HTTP v1 send to one device_id. Fails closed with a named-missing-env-var message until Firebase setup lands (`SETUP_NOTIFICATIONS.md`) |
 | `scripts/notifications-kill.mjs` (+ test) | Owner kill switch for freeze-held events at every tier: paginates events and instant deliveries, lists only undelivered/un-killed rows, defaults kills to dry-run, and requires `--apply` to write |
