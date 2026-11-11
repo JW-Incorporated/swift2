@@ -27,6 +27,14 @@ so far".
 
 Stories: 77
 
+## Clarifying the Alleged Neighbor Dispute Involving Taylor Swift and Travis Kelce
+
+- first seen: 2026-11-11 00:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report discusses a supposed feud between Taylor Swift and Travis Kelce's neighbor, suggesting it may not be as it appears. The situation is highlighted in a Yahoo article, clarifying misconceptions.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-alleged-225137523.html
+
 ## Swift and Kelce Obtain Neighbor Support for Ohio Estate Privacy Wall
 
 - first seen: 2026-11-10 23:16 UTC | category: relationship | importance: 5
@@ -126,9 +134,10 @@ Stories: 77
 ## Paul McCartney Becomes Billionaire, Ranks Third Richest Musician
 
 - first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Paul McCartney has reached billionaire status, making him the third richest musician worldwide, following Jay Z and Taylor Swift. This milestone highlights his successful career in music and business.
 - sources:
+  - [unverified] AudioPhix — https://audiophix.com/paul-mccartney-finally-follows-taylor-swift-jay-z-footsteps
   - [unverified] Business Insider — https://www.businessinsider.com/billionaire-musicians-list-beyonce-paul-mccartney-taylor-swift-2026-11
   - [unverified] Louder — https://www.loudersound.com/news/paul-mccartney-details-ringo-starr-reunion-plans-becomes-third-billionaire-musician-2026
   - [unverified] The Indian Express — https://indianexpress.com/article/entertainment/music/paul-mccartney-billionaire-third-richest-musician-after-jay-z-taylor-swift-10957544/
@@ -666,11 +675,3 @@ Stories: 77
   - [unverified] USA Today — https://www.usatoday.com/story/sports/nfl/chiefs/2026/11/08/taylor-swift-karlie-kloss-chiefs-game/92679917007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/digital/news/taylor-swift-karlie-kloss-reunite-travis-kelce-chiefs-game-1236942684/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/why-taylor-swift-fans-mad-154200587.html
-
-## Bill Maher Comments on Taylor Swift's Love Life, Audience Reacts
-
-- first seen: 2026-11-07 23:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bill Maher made remarks about Taylor Swift's romantic life during a recent segment, receiving a mixed response from the audience, which included both groans and applause.
-- sources:
-  - [unverified] Page Six — https://pagesix.com/2026/11/07/entertainment/bill-maher-takes-new-dig-at-taylor-swifts-love-life/
