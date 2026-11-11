@@ -79,7 +79,7 @@ export function ClownChatComposer({ className, text, setText, submit, busy, text
           )}
         </button>
       </form>
-      <p className="mt-2.5 text-center text-[11px] text-[color:var(--clown-ink-soft)] opacity-80">
+      <p className="mt-2.5 text-center text-[11px] text-[color:var(--clown-ink-soft)]">
         clown bot theorises from the vault. It can be wrong &mdash; that&rsquo;s the point.
       </p>
       <button

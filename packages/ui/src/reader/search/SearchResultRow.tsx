@@ -1,3 +1,4 @@
+import { memo, useState } from 'react';
 import {
   Clapperboard,
   Compass,
@@ -11,10 +12,14 @@ import {
 } from 'lucide-react';
 import {
   getEra,
+  hasDisplayablePhoto,
+  primaryImageRef,
   type SearchDocType,
   type SearchResult,
   type SearchTarget,
 } from '@swift2/experience';
+import { useHost } from '../../host/context';
+import { useReader } from '../../snapshot/context';
 import { cn } from '../lib/utils';
 
 const TYPE_ICON: Record<SearchDocType, typeof Search> = {
@@ -32,7 +37,7 @@ export function optionId(key: string): string {
   return `ll-search-opt-${key.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
 }
 
-export function ResultRow({
+export const ResultRow = memo(function ResultRow({
   result,
   isActive,
   index,
@@ -46,7 +51,16 @@ export function ResultRow({
   onSelect: (target: SearchTarget) => void;
 }) {
   const { doc } = result;
+  const { Image } = useHost();
+  const [thumbFailed, setThumbFailed] = useState(false);
+  const q = useReader();
   const Icon = TYPE_ICON[doc.type];
+  const item = doc.target.kind === 'moment' ? q.getContentItem(doc.target.itemId) : undefined;
+  const thumb =
+    item && !thumbFailed && hasDisplayablePhoto(item) ? primaryImageRef(item) : undefined;
+  const meta = [doc.eraId ? getEra(doc.eraId).shortName : null, item?.dateLabel]
+    .filter(Boolean)
+    .join(' · ');
   return (
     <button
       type="button"
@@ -62,14 +76,29 @@ export function ResultRow({
     >
       <Icon className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--era-accent)]" aria-hidden />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-medium">{doc.title}</span>
+        <span className="line-clamp-2 text-sm font-medium">{doc.title}</span>
+        {meta && (
+          <span className="block truncate text-[11px] font-medium uppercase tracking-wider text-[color:var(--era-ink-soft)]">
+            {meta}
+          </span>
+        )}
         <span className="block truncate text-xs text-[color:var(--era-ink-soft)]">
           {doc.snippet}
         </span>
       </span>
-      {doc.eraId && (
-        <span className="mt-0.5 hidden shrink-0 rounded-full border border-[color:var(--era-line)] px-2 py-0.5 text-[10px] text-[color:var(--era-ink-soft)] sm:inline">
-          {getEra(doc.eraId).shortName}
+      {thumb && (
+        <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-[color:var(--era-surface-2)]">
+          <Image
+            src={thumb.url}
+            alt=""
+            fill
+            sizes="48px"
+            unoptimized={/^https?:\/\//.test(thumb.url)}
+            className="object-cover"
+            loading="lazy"
+            decoding="async"
+            onError={() => setThumbFailed(true)}
+          />
         </span>
       )}
       {isActive && (
@@ -80,4 +109,4 @@ export function ResultRow({
       )}
     </button>
   );
-}
+});

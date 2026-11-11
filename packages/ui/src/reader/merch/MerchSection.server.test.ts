@@ -39,3 +39,12 @@ describe('MerchSection new drops', () => {
     expect(renderToStaticMarkup(createElement(MerchSectionBody))).not.toContain('amazon-statement');
   });
 });
+
+describe('MerchSection first-section spacing', () => {
+  it('keeps the Official top padding constant so a late new-drops block never changes it', () => {
+    const html = renderToStaticMarkup(createElement(MerchSectionBody));
+    const official = /<section id="merch-official" class="([^"]*)"/.exec(html);
+    expect(official).not.toBeNull();
+    expect(official![1]).toContain('pt-8');
+  });
+});

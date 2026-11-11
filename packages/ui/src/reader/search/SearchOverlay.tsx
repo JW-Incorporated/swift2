@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { Search, X } from 'lucide-react';
@@ -146,34 +146,37 @@ export function SearchOverlay() {
     document.getElementById(optionId(active.doc.key))?.scrollIntoView({ block: 'nearest' });
   }, [active]);
 
-  if (!searchOpen) return null;
+  const select = useCallback(
+    (target: SearchTarget) => {
+      setSearchOpen(false);
+      switch (target.kind) {
+        case 'moment':
+          actions.openItem(target.itemId);
+          break;
+        case 'era':
+          actions.openEra(target.eraId);
+          break;
+        case 'track':
+          actions.openSong(target.eraId, target.trackKey);
+          break;
+        case 'theory-guide':
+          actions.openTheoryGuide(target.eraId, target.slug);
+          break;
+        case 'trail':
+          actions.openClueWebTrail(target.motifId);
+          break;
+        case 'thread':
+          actions.openThread(target.lensId);
+          break;
+        case 'video':
+          actions.openVideo(target.eraId, target.videoId);
+          break;
+      }
+    },
+    [actions, setSearchOpen],
+  );
 
-  function select(target: SearchTarget) {
-    setSearchOpen(false);
-    switch (target.kind) {
-      case 'moment':
-        actions.openItem(target.itemId);
-        break;
-      case 'era':
-        actions.openEra(target.eraId);
-        break;
-      case 'track':
-        actions.openSong(target.eraId, target.trackKey);
-        break;
-      case 'theory-guide':
-        actions.openTheoryGuide(target.eraId, target.slug);
-        break;
-      case 'trail':
-        actions.openClueWebTrail(target.motifId);
-        break;
-      case 'thread':
-        actions.openThread(target.lensId);
-        break;
-      case 'video':
-        actions.openVideo(target.eraId, target.videoId);
-        break;
-    }
-  }
+  if (!searchOpen) return null;
 
   function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
@@ -220,7 +223,7 @@ export function SearchOverlay() {
             ? ''
             : showNoMatch
               ? `0 results for ${debounced.trim()}`
-              : `${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
+              : `${showAll ? 'Showing all ' : ''}${totalMatches} ${totalMatches === 1 ? 'result' : 'results'} for ${debounced.trim()}`}
         </div>
         {/* Input row */}
         <div className="flex items-center gap-3 border-b border-[color:var(--era-line)] px-4 py-3 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-inset has-[input:focus-visible]:ring-[color:var(--era-accent)]">

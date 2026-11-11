@@ -99,7 +99,7 @@ export function FilterBar() {
       data-ll-filterbar
       role="group"
       aria-label="Filter the timeline"
-      className="sticky z-30 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)]/90 backdrop-blur-xl"
+      className="sticky z-30 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)]"
       style={{ top }}
     >
       {/* Relative wrapper so the edge-fade below can sit over the scrollable
@@ -114,7 +114,7 @@ export function FilterBar() {
             type="button"
             aria-pressed={allActive}
             onClick={clearFilters}
-            className="ll-filter-chip inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
+            className="ll-filter-chip relative inline-flex h-9 min-w-11 shrink-0 items-center justify-center whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition before:absolute before:-inset-y-[5px] before:-inset-x-px before:content-['']"
             style={{
               '--chip-cue': 'var(--era-accent)',
               '--chip-bg': allActive ? 'var(--era-accent)' : 'transparent',
@@ -135,7 +135,7 @@ export function FilterBar() {
                 type="button"
                 aria-pressed={active}
                 onClick={() => toggleFilter(id)}
-                className="ll-filter-chip inline-flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition"
+                className="ll-filter-chip relative inline-flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition before:absolute before:-inset-y-[5px] before:-inset-x-px before:content-['']"
                 style={{
                   '--chip-cue': cue,
                   '--chip-bg': active ? color : 'transparent',

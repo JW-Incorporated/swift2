@@ -119,8 +119,8 @@ export function MerchSectionRail({ sections }: { sections: readonly MerchRailSec
     <div
       ref={railRef}
       data-ll-merchrail
-      className="sticky z-30 overflow-hidden border-y border-[color:var(--merch-line)] backdrop-blur-[14px]"
-      style={{ top: `${railTop}px`, backgroundColor: 'color-mix(in srgb, var(--merch-ink) 86%, transparent)' }}
+      className="sticky z-30 overflow-hidden border-y border-[color:var(--merch-line)]"
+      style={{ top: `${railTop}px`, backgroundColor: 'var(--merch-ink)' }}
     >
       <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
         <div className="grid grid-cols-3">
@@ -145,7 +145,7 @@ export function MerchSectionRail({ sections }: { sections: readonly MerchRailSec
                   style={{ backgroundColor: section.accent }}
                 />
                 <span className="truncate">{section.label}</span>
-                <span className="opacity-50 max-[400px]:hidden">{section.count}</span>
+                <span className="opacity-80 max-[400px]:hidden">{section.count}</span>
               </button>
             );
           })}
