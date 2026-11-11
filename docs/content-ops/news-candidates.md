@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 85
 
 ## Ohio Neighbors of Taylor Swift and Travis Kelce Oppose Landscaping Plans
 
@@ -38,9 +38,10 @@ Stories: 87
 ## Taylor Swift to Receive Hollywood Reporter’s Leadership Award at Gala
 
 - first seen: 2026-11-11 17:04 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award at the Women in Entertainment Gala, presented by Lifetime and Lilly, with Greta Gerwig delivering the award.
 - sources:
+  - [established] Billboard — https://www.billboard.com/culture/events/taylor-swift-2026-sherry-lansing-leadership-award-greta-gerwig-1236379462/
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/news/general-news/taylor-swift-the-hollywood-reporter-women-in-entertainment-1236751852/
 
 ## Neighbors Discuss Kelce-Swift Mansion Dispute at Meeting
@@ -731,20 +732,3 @@ Stories: 87
   - [unverified] E! News — https://www.eonline.com/news/1437935/taylor-swift-karlie-kloss-reunite-at-chiefs-game-after-past-feud-rumors
   - [established] People — https://people.com/taylor-swift-brings-karlie-kloss-travis-kelce-chiefs-game-12232503
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-chiefs-game
-
-## Update on Taylor Swift's Attendance at Chiefs-Jets Game
-
-- first seen: 2026-11-08 18:52 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Latest news on whether Taylor Swift is attending the Chiefs vs. Jets game today, according to Yahoo. Fans are eager to know about her presence at the event.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-chiefs-jets-game-175626396.html
-
-## Taylor Swift Defends New York Knicks in 2014
-
-- first seen: 2026-11-08 18:52 UTC | category: business | importance: 4
-- verification_status: corroborated | source_count: 2
-- summary: In 2014, Taylor Swift expressed her support for the New York Knicks when faced with negative comments about the team's performance. Her defense highlights her loyalty as a fan despite the team's struggles.
-- sources:
-  - [unverified] HITC — https://www.hitc.com/what-taylor-swift-said-in-2014-to-defend-the-new-york-knicks-after-being-told-theyre-not-very-good/
-  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/knicks-tyler-kolek-sings-taylor-swift-song-after-drama/
