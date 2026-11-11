@@ -18,7 +18,13 @@
 export const SCRUBBER_SHELL_CLASS =
   'pointer-events-none fixed inset-y-0 right-0 z-30 w-10 sm:w-12';
 
-export const SCRUBBER_SCRIM_CLASS = 'absolute inset-y-0 right-0 w-full';
+// Right padding that reserves the rail's footprint on the feed so card content
+// ends before the rail's widest point: RAIL_RIGHT (16) + RIDGE_WIDTH (28) in
+// TimelineScrubber = 44px, plus a 4px gap = 3rem. 3.5rem from `md`, where the
+// shell widens to w-12.
+export const SCRUBBER_GUTTER_CLASS = 'pr-12 md:pr-14';
+
+export const SCRUBBER_SCRIM_CLASS ='absolute inset-y-0 right-0 w-full';
 
 // Top-aligns the rail just below the TopBar (Joey, follow-up to #2077):
 // pt-20 = 80px = the real rendered TopBar height (h-10 icon buttons +
