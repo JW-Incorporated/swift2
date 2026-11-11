@@ -199,7 +199,11 @@ export function MerchSectionBody() {
                 From <i style={{ color: 'var(--merch-gold)' }}>Taylor&apos;s</i> shop
               </>
             }
-            subtitle="Pulled straight from the official store — when we have a vetted feed for it. We don't sell anything ourselves; every card here will link straight to taylorswift.com."
+            subtitle={
+              merch.officialStore.length > 0
+                ? "Pulled straight from the official store. We don't sell anything ourselves; every card here links straight to taylorswift.com."
+                : "Pulled straight from the official store — when we have a vetted feed for it. We don't sell anything ourselves; every card here will link straight to taylorswift.com."
+            }
           />
           <MerchGrid
             items={merch.officialStore}
@@ -217,7 +221,11 @@ export function MerchSectionBody() {
                 Made by <i style={{ color: 'var(--merch-rose)' }}>Swifties</i>
               </>
             }
-            subtitle="One maker per listing, hand-checked before it's added. Nothing's been vetted yet — this is where those listings will live."
+            subtitle={
+              merch.fanMade.length > 0
+                ? "One maker per listing, hand-checked before it's added."
+                : "One maker per listing, hand-checked before it's added. Nothing's been vetted yet — this is where those listings will live."
+            }
           />
           <MerchGrid
             items={merch.fanMade}
