@@ -32,6 +32,14 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      # Playwright is pinned to the parity container image and version guard in
+      # .github/workflows/parity.yml (image tag + `npx playwright --version` check,
+      # two jobs). Bump all three together, deliberately, with baselines regenerated.
+      playwright:
+        patterns:
+          - "@playwright/*"
+          - "playwright"
+          - "playwright-core"
       # One PR for all low-risk dev-dependency patch/minor bumps.
       dev-dependencies:
         dependency-type: "development"
@@ -44,7 +52,23 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    # Security updates are NOT batched here — GitHub opens them immediately on their own.
+      # Grouped security updates: same split, so Expo / React Native / React never
+      # ride in a routine security PR (they need a store build). Listed first.
+      mobile-native-security:
+        applies-to: security-updates
+        patterns:
+          - "expo"
+          - "expo-*"
+          - "@expo/*"
+          - "react-native"
+          - "react-native-*"
+          - "@react-native/*"
+          - "react"
+          - "react-dom"
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
 
   # GitHub Actions — keep CI/security workflows current.
   - package-ecosystem: "github-actions"
