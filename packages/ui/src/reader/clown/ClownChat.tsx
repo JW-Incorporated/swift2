@@ -159,10 +159,15 @@ export function ClownChat({ lore }: ClownChatProps) {
     });
   }, []);
 
-  const handleStarterSelect = useCallback((prompt: string) => {
-    setText(prompt);
-    requestAnimationFrame(() => textareaRef.current?.focus({ preventScroll: true }));
-  }, []);
+  /** A starter chip sends its question exactly as if typed and submitted. */
+  const handleStarterSelect = useCallback(
+    (prompt: string) => {
+      const t = prompt.trim();
+      if (!t || busy) return;
+      void ask(t);
+    },
+    [busy, ask],
+  );
 
   const panelClassName = expanded
     ? 'fixed inset-x-0 top-0 bottom-[var(--keyboard-inset,0px)] z-50 flex w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
