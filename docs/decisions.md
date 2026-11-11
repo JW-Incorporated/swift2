@@ -7,6 +7,26 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-11 — YouTube feed fetches fall back to the uploads-playlist feed; appearance-discovery stops failing on a YouTube outage
+
+**Decision (Claude, reversible):** after a YouTube channel feed's retries end in
+a 404/5xx, both pipelines try `videos.xml?playlist_id=UU…` once (same id with
+`UC` -> `UU`; same entries and Atom shape, keyless). The worker does it in
+`rss.ts` `parseFeed`, appearance-discovery in `feed-retry.mjs` `fetchAllFeeds`.
+A failed fallback reports the original error. appearance-discovery no longer
+exits 1 for channels that end in 404/5xx (including all 14): it prints a
+`::warning::` and exits 0; parse errors, DNS/timeouts, 403 and 429 still exit 1.
+
+**Why.** Issue #6773 and run 42939092805 (`0/14 channels ok`, red): YouTube
+rejects runner IPs for hours; a red run nobody can act on is noise. The
+playlist feed is a separate backend path, but it has not been observed during
+an outage, so it may fail the same way; the exit change covers that case.
+
+**Alternatives.** YouTube Data API (needs a key; owner rule is keyless). HTML
+scraping (rejected). A persisted last-ok gate for appearance-discovery (the
+workflow keeps no state between runs). Reverse by removing `fallbackOne` and
+`splitFailures`.
+
 ## 2026-11-10 — A YouTube feed never fails the news cycle on its failure counter (amends the 3-consecutive escalation)
 
 **Decision (Claude, reversible):** in `ingest-stage.ts` the "N consecutive
