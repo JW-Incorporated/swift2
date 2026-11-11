@@ -119,7 +119,7 @@ export function MerchSectionRail({ sections }: { sections: readonly MerchRailSec
     <div
       ref={railRef}
       data-ll-merchrail
-      className="sticky z-30 overflow-hidden border-y border-[color:var(--merch-line)] backdrop-blur-[14px]"
+      className="sticky z-30 overflow-hidden border-y border-[color:var(--merch-line)]"
       style={{ top: `${railTop}px`, backgroundColor: 'var(--merch-ink)' }}
     >
       <div className="mx-auto max-w-[1180px] px-4 sm:px-6">

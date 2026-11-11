@@ -99,7 +99,7 @@ export function FilterBar() {
       data-ll-filterbar
       role="group"
       aria-label="Filter the timeline"
-      className="sticky z-30 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)] backdrop-blur-xl"
+      className="sticky z-30 border-b border-[color:var(--era-line)] bg-[color:var(--era-bg)]"
       style={{ top }}
     >
       {/* Relative wrapper so the edge-fade below can sit over the scrollable
