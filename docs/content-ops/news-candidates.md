@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Jan Ravnik announces Taylor Swift song for 'DWTS' season
+
+- first seen: 2026-11-11 05:13 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Jan Ravnik has revealed that a Taylor Swift anthem will be featured in the upcoming season of 'Dancing With The Stars.' The announcement highlights Swift's continued influence in popular entertainment.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/videos/entertainment/tv/2026/11/10/jan-ravnik-taylor-swift-anthem-song-dwts/92720241007/
 
 ## Taylor Swift and Karlie Kloss Reunite Amidst Differences
 
