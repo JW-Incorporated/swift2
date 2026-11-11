@@ -27,6 +27,22 @@ so far".
 
 Stories: 87
 
+## Taylor Swift to Receive Hollywood Reporter’s Leadership Award at Gala
+
+- first seen: 2026-11-11 17:04 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award at the Women in Entertainment Gala, presented by Lifetime and Lilly, with Greta Gerwig delivering the award.
+- sources:
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/news/general-news/taylor-swift-the-hollywood-reporter-women-in-entertainment-1236751852/
+
+## Neighbors Discuss Kelce-Swift Mansion Dispute at Meeting
+
+- first seen: 2026-11-11 17:04 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Community members gathered to voice concerns regarding the ongoing dispute related to the mansion shared by Taylor Swift and Travis Kelce in Ohio. The meeting addressed various local issues stemming from the situation.
+- sources:
+  - [unverified] Wooster Daily Record — https://www.the-daily-record.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
+
 ## Bill Maher Critiques Taylor Swift's Love Life in Recent Broadcast
 
 - first seen: 2026-11-11 16:42 UTC | category: relationship | importance: 5
@@ -730,21 +746,3 @@ Stories: 87
 - summary: Taylor Swift and Travis Kelce are reportedly facing their first Christmas dilemma as a married couple and are considering making a significant change for the holiday. This marks a new chapter in their relationship as they navigate family traditions.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-christmas-dilemma/
-
-## Knicks Work to Address Comments on Taylor Swift's Fan Status
-
-- first seen: 2026-11-08 16:52 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The Knicks are reportedly taking steps to manage the fallout after Tyler Kolek referred to Taylor Swift as a 'fake fan'. This follows recent discussions surrounding celebrity involvement in sports fandom.
-- sources:
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2516990/the-knicks-attempt-damage-control-after-tyler-kolek-calls-taylor-swift-a-fake-fan/news/
-
-## Taylor Swift's Possible Attendance at Chiefs Game on November 8
-
-- first seen: 2026-11-08 16:52 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: The latest information discusses whether Taylor Swift will attend the Chiefs game on November 8. Fans are eager to know about her potential appearance at the event.
-- sources:
-  - [unverified] Athlon Sports — https://athlonsports.com/nfl/kansas-city-chiefs/is-taylor-swift-at-the-chiefs-game-today-latest-update-for-jets-week-9-matchup
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74368440/is-taylor-swift-at-chiefs-game-nov-8/
-  - [unverified] IMDb — https://www.imdb.com/news/ni66101293/?ref_=nwc_art_perm
