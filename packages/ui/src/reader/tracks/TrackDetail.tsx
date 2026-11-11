@@ -208,6 +208,7 @@ export function TrackDetail() {
             free area so it can never cover the song's text rows. */}
         {showSwipeHint && (
           <div
+            data-swipe-hint
             className="absolute inset-x-0 bottom-12 z-10 flex justify-center px-4 lg:hidden"
             aria-live="polite"
           >
