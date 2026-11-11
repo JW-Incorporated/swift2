@@ -28,7 +28,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 3,
+        "specific": 4,
+        "formula": 3,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-11T18:45:12.050Z",
+      "bodyHash": "sha256:477b9c03b88b57987b1153e934895953c457e1915a0267530b7ac64e166cbd9e"
+    }
   },
   "why": "IG sibling of the Runway origin-story hero. Single photo, no screenshot slide: I could not verify a rich Runway-lens screenshot this run, and a flat one is banned. The caption survives the Facebook cross-post (no swipe line).",
   "approval": {

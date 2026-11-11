@@ -29,7 +29,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 3,
+        "specific": 4,
+        "formula": 2,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-11T18:44:52.105Z",
+      "bodyHash": "sha256:d9157982d2551339a73fb715d858706cd07256ca759705d25a3940a64c2baa4e"
+    }
   },
   "why": "IG sibling of the reputation Getaway Car pair, the launch:photo-viewer DAY +2 gate fallback (day 0 did not ship). Credited never-used reputation photo, IG-sized variant of the X half's image.",
   "approval": {
