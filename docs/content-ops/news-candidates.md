@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 80
+
+## Taylor Swift Featured in Article on Posture-Correcting Bra
+
+- first seen: 2026-11-11 22:02 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses Taylor Swift wearing a posture-correcting bra and the author's experience testing it. The piece highlights Swift's influence on fashion choices.
+- sources:
+  - [unverified] Yahoo — https://shopping.yahoo.com/health/fitness/articles/taylor-swift-newly-fianc-e-141200668.html
 
 ## Travis Kelce Invites Taylor Swift to Next 'New Heights' Event
 
@@ -35,14 +43,6 @@ Stories: 82
 - sources:
   - [unverified] Complex — https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic
 
-## Taylor Swift's Participation in CMA Awards 2026 Tribute Examined
-
-- first seen: 2026-11-11 21:06 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: E! News discusses whether Taylor Swift will take part in the Dolly Parton tribute at the 2026 CMA Awards.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026
-
 ## Travis Kelce Partners with Taylor Swift on New Business Venture
 
 - first seen: 2026-11-11 21:06 UTC | category: business | importance: 5
@@ -50,6 +50,15 @@ Stories: 82
 - summary: Travis Kelce seeks the assistance of his wife, Taylor Swift, for an unexpected business initiative. The new venture's details have not been disclosed in the initial news.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/travis-kelce-enlists-wife-taylor-swift-help-new-heights-event-12249315
+
+## Taylor Swift's Participation in CMA Awards 2026 Tribute Examined
+
+- first seen: 2026-11-11 21:06 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: E! News discusses whether Taylor Swift will take part in the Dolly Parton tribute at the 2026 CMA Awards.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026
+  - [unverified] IMDb — https://www.imdb.com/de/news/ni66106819/?ref_=nwc_art_perm
 
 ## Taylor Swift Tribute Band Blank Space Performs in Jacksonville
 
@@ -683,27 +692,3 @@ Stories: 82
 - summary: Comedian Bill Maher received criticism following a sarcastic remark he made regarding Taylor Swift. The backlash highlights the strong feelings fans have towards the singer.
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/sarcastic-comment-about-taylor-swift-causes-bill-maher-some-trouble.html
-
-## Taylor Swift reacts to Travis Kelce's touchdown after injury scare
-
-- first seen: 2026-11-08 22:02 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift had a memorable reaction to Travis Kelce's touchdown during a game, which followed an injury scare involving Patrick Mahomes. The moment highlighted her support for Kelce amidst ongoing interest in their relationship.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-priceless-reaction-travis-kelce-touchdown/
-
-## Taylor Swift Celebrates Travis Kelce's Touchdown on CBS
-
-- first seen: 2026-11-08 22:02 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was visibly excited during a CBS live broadcast after Travis Kelce scored his first touchdown since Week 3. The moment highlighted her support for the NFL player amid their relationship.
-- sources:
-  - [unverified] ESPN — https://www.espn.com/video/clip/_/id/50423524/taylor-swift-pumped-travis-kelce-first-td-week-3
-
-## Taylor Swift Cheers for Travis Kelce's Touchdown Against Jets
-
-- first seen: 2026-11-08 22:02 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted standing and cheering after Travis Kelce scored a touchdown during the game against the Jets. This appearance continues to highlight her support for the NFL star.
-- sources:
-  - [established] People — https://people.com/taylor-swift-celebrates-travis-kelce-scores-second-touchdown-chiefs-jets-12131173
