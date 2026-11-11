@@ -6,7 +6,7 @@ import type { CurrentItem } from '@swift2/shared';
 import { outletFor, type FilterId } from '@swift2/experience';
 import { useHost } from '../../host/context';
 import { cn } from '../lib/utils';
-import { SCRUBBER_GUTTER_CLASS } from '../shell/timelineScrubberLayout';
+import { SCRUBBER_GUTTER_SYMMETRIC_CLASS } from '../shell/timelineScrubberLayout';
 
 function isRemoteUrl(url: string): boolean {
   return /^https?:\/\//.test(url);
@@ -74,7 +74,7 @@ export function ThisWeekNews({
     'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--era-accent)]';
 
   return (
-    <div className={`mx-auto max-w-4xl pl-4 pt-4 ${SCRUBBER_GUTTER_CLASS}`} data-testid="this-week-news">
+    <div className={`mx-auto max-w-4xl pl-4 pt-4 ${SCRUBBER_GUTTER_SYMMETRIC_CLASS}`} data-testid="this-week-news">
       <div
         className="era-card rounded-2xl border-2 border-dashed"
         style={{ borderColor: 'var(--era-accent)' }}

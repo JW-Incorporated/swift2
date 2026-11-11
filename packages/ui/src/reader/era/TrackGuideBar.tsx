@@ -20,7 +20,7 @@ export function TrackGuideBar({
   onOpen: () => void;
 }) {
   return (
-    <div className="mx-auto mt-7 w-full max-w-md pr-8 sm:pr-0">
+    <div className="mx-auto mt-7 w-full max-w-[min(28rem,calc(100vw-6rem))]">
       <button
         type="button"
         onClick={onOpen}
