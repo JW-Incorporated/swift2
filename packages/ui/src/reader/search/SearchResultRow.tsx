@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import {
   Clapperboard,
   Compass,
@@ -37,7 +37,7 @@ export function optionId(key: string): string {
   return `ll-search-opt-${key.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
 }
 
-export function ResultRow({
+export const ResultRow = memo(function ResultRow({
   result,
   isActive,
   index,
@@ -56,7 +56,8 @@ export function ResultRow({
   const q = useReader();
   const Icon = TYPE_ICON[doc.type];
   const item = doc.target.kind === 'moment' ? q.getContentItem(doc.target.itemId) : undefined;
-  const thumb = item && !thumbFailed && hasDisplayablePhoto(item) ? primaryImageRef(item) : undefined;
+  const thumb =
+    item && !thumbFailed && hasDisplayablePhoto(item) ? primaryImageRef(item) : undefined;
   const meta = [doc.eraId ? getEra(doc.eraId).shortName : null, item?.dateLabel]
     .filter(Boolean)
     .join(' · ');
@@ -108,4 +109,4 @@ export function ResultRow({
       )}
     </button>
   );
-}
+});

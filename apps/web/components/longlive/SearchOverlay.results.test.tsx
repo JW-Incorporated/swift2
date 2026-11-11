@@ -1,7 +1,19 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
 import { act, cleanup, fireEvent, screen } from '@testing-library/react';
-import { afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+
+const getEraCalls = vi.hoisted(() => ({ n: 0 }));
+vi.mock('@swift2/experience', async (orig) => {
+  const real = await orig<typeof import('@swift2/experience')>();
+  return {
+    ...real,
+    getEra: (...a: Parameters<typeof real.getEra>) => {
+      getEraCalls.n += 1;
+      return real.getEra(...a);
+    },
+  };
+});
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider, useAppActions } from '@/lib/longlive/store';
 import { TestHostProvider } from '@/lib/test-host';
@@ -98,5 +110,15 @@ describe('search results rows and show-all', () => {
     });
     expect(screen.queryByRole('button', { name: /^Show all/ })).toBeNull();
     expect(screen.getByText(/No matches for/)).toBeInTheDocument();
+  });
+
+  it('re-renders only the rows whose active state changed on arrow navigation of a 60+ row list', async () => {
+    const input = openSearch();
+    await type(input, 'wedding');
+    fireEvent.click(screen.getByRole('button', { name: /^Show all [0-9]+$/ }));
+    expect(screen.getAllByRole('option').length).toBeGreaterThan(60);
+    getEraCalls.n = 0;
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(getEraCalls.n).toBeLessThanOrEqual(2);
   });
 });
