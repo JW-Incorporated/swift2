@@ -232,7 +232,7 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
 | `packages/ui/src/reader/clown/lib/useClownAsk.ts` | `/api/clown` ask loop hook (busy/error/investigating state, abort, stream reader), split out of `ClownChat.tsx` (300-line cap, pure move) |
-| `packages/ui/src/reader/legal/lib/{useOverlayOpen,useCompactOnScroll}.ts` | FeedbackButton helpers: hide the pill while any reader overlay is open (store state plus the shared body scroll lock); icon-only collapse past one viewport on phone widths |
+| `packages/ui/src/reader/legal/lib/{useOverlayOpen,useCompactOnScroll,feedback-open-event}.ts` | FeedbackButton helpers: hide the pill while any reader overlay is open (store state, the shared body scroll lock, and `useOverlayPresence` from the native-host full-screen slots); icon-only collapse past one viewport on phone widths; `requestOpenFeedback()` lets the Clownbot "Report a problem" control open the panel |
 | `packages/ui/src/reader/legal/lib/feedback-location.ts` | `Location` type + `describeView`/`buildLocation` for the feedback ticket, split out of `FeedbackButton.tsx` (300-line cap, pure move) |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |

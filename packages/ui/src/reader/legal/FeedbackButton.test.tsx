@@ -12,6 +12,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter } from '../../host/types';
 import { FeedbackButton } from './FeedbackButton';
+import { requestOpenFeedback } from './lib/feedback-open-event';
 import { FEEDBACK_DRAFT_KEY, FEEDBACK_QUEUE_KEY } from './lib/feedback-outbox';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 
@@ -145,10 +146,33 @@ describe('FeedbackButton placement', () => {
     expect(trigger()!.querySelector('span')!.className).toContain('opacity-100');
   });
 
-  it('is hidden on phones (not desktop) on the Clownbot tab, which owns the bottom of the screen', () => {
+  it('on phones the Clownbot tab hides the pill and its X; the in-chat report control opens the panel', async () => {
+    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
     appState = { ...baseState, mode: 'clownbot' };
     mount(new Map(), vi.fn());
-    expect(trigger()!.parentElement!.className).toContain('max-md:hidden');
+    expect(trigger()).toBeNull();
+    expect(dismiss()).toBeNull();
+    act(() => requestOpenFeedback());
+    expect(await screen.findByRole('dialog', { name: 'Send feedback' })).toBeTruthy();
+  });
+
+  it('keeps the pill on the Clownbot tab at desktop widths', () => {
+    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+    appState = { ...baseState, mode: 'clownbot' };
+    mount(new Map(), vi.fn());
+    expect(trigger()).not.toBeNull();
+    expect(dismiss()).not.toBeNull();
+  });
+
+  it('drops the dismiss X while compact, and brings it back at the top', () => {
+    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
+    expect(dismiss()).not.toBeNull();
+    scrollTo(window.innerHeight + 200);
+    expect(dismiss()).toBeNull();
+    expect(trigger()).not.toBeNull();
+    scrollTo(0);
+    expect(dismiss()).not.toBeNull();
   });
 });
 

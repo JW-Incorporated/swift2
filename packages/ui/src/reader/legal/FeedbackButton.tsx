@@ -11,6 +11,7 @@ import { describeView } from './lib/feedback-location';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 import { useOverlayOpen } from './lib/useOverlayOpen';
 import { useCompactOnScroll } from './lib/useCompactOnScroll';
+import { OPEN_FEEDBACK_EVENT } from './lib/feedback-open-event';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
@@ -60,7 +61,7 @@ export function FeedbackButton() {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const textareaId = useId();
   const overlayOpen = useOverlayOpen(state);
-  const compact = useCompactOnScroll();
+  const { compact, phone } = useCompactOnScroll();
 
   // Hydrate before paint, never during render — reading sessionStorage
   // during render would break SSR (no `window`), but a plain post-paint
@@ -72,6 +73,12 @@ export function FeedbackButton() {
   // already-dismissed session never actually shows the flash.
   useLayoutEffect(() => {
     if (readDismissed()) setDismissed(true);
+  }, []);
+
+  useEffect(() => {
+    const openPanel = () => setOpen(true);
+    window.addEventListener(OPEN_FEEDBACK_EVENT, openPanel);
+    return () => window.removeEventListener(OPEN_FEEDBACK_EVENT, openPanel);
   }, []);
 
   function dismissForSession() {
@@ -101,8 +108,8 @@ export function FeedbackButton() {
   // outright (not just visually hiding it) also keeps it out of the tab
   // order while it's invisible. Checked after every hook above so hook order
   // stays identical across renders.
-  if (dismissed || state.clownChatExpanded) return null;
-  const hidePill = overlayOpen && !open;
+  if (dismissed && !open) return null;
+  const hidePill = dismissed || (!open && (overlayOpen || (phone && state.mode === 'clownbot')));
 
   return (
     <>
@@ -209,9 +216,7 @@ export function FeedbackButton() {
       <div
         data-social-hide="feedback-button"
         data-ll-safe="feedback-button"
-        className={`fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex max-w-[calc(100vw-2rem)] items-center gap-2 md:bottom-4${
-          state.mode === 'clownbot' && !open ? ' max-md:hidden' : ''
-        }`}
+        className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex max-w-[calc(100vw-2rem)] items-center gap-2 md:bottom-4"
       >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
             shouldn't keep coming back and annoying them"), distinct from just
@@ -230,7 +235,7 @@ export function FeedbackButton() {
             there's an invisible pop up that I need to clear"). The `bg-*`
             utility that used to sit here was inert — globals.css is ordered
             after Tailwind's utilities, so `.era-icon-btn` won regardless. */}
-        {!open && (
+        {!open && !compact && (
           <button
             type="button"
             onClick={dismissForSession}
