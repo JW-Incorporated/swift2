@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
 
 ## Taylor Swift's Knicks Drama Involves Tyler Kolek’s Girlfriend
 
@@ -708,11 +708,3 @@ Stories: 83
 - sources:
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/will-taylor-swift-be-supporting-travis-kelce-at-the-chiefs-vs-jets-game.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/not-taylor-retired-taylor-swift-110021100.html
-
-## Taylor Swift Shares Insightful Quote of the Day
-
-- first seen: 2026-11-08 09:24 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift reflects on a personal thought in her quote for the day, emphasizing daily contemplation. Fans are invited to engage with her words through the link provided.
-- sources:
-  - [unverified] www.grunge.com — https://www.grunge.com/2303721/quote-of-the-day-taylor-swift-think-about-every-day/
