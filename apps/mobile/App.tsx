@@ -11,8 +11,8 @@
 // swallowed taps. `react-native-safe-area-context` reads real window insets
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
-import { useEffect, useState, useSyncExternalStore } from 'react';
-import { AppState, Platform, StyleSheet, View } from 'react-native';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { AppState, Linking, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -32,6 +32,9 @@ import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { flushPendingOptOut } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
+import { registerNotificationChannelsAtStartup } from './lib/notification-channels';
+import { LINK_RECENT_MS, startForegroundUpdate } from './lib/foreground-update';
+import * as Updates from 'expo-updates';
 import { SITE_URL } from './lib/site-url';
 import { RecoveryScreen } from './components/RecoveryScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
@@ -104,11 +107,43 @@ export default function App() {
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
+    registerNotificationChannelsAtStartup();
     // A turn-off whose server write failed offline is finished the next time the app returns to the foreground.
     const sub = AppState.addEventListener('change', (s) => s === 'active' && void flushPendingOptOut());
     return () => {
       cancelRegistration();
       sub.remove();
+    };
+  }, []);
+
+  // OTA on foreground (lib/foreground-update.ts). The reload is registered with the watchdog as a planned reload first;
+  // a queued/just-settled tap or a URL event holds it off so a deep link is never dropped.
+  const watchRef = useRef(domMount.watch);
+  watchRef.current = domMount.watch;
+  useEffect(() => {
+    let lastLinkAt = -Infinity;
+    const stamp = () => void (lastLinkAt = Date.now());
+    const offSettled = notificationTapGate.onSettled(stamp);
+    const urlSub = Linking.addEventListener('url', stamp);
+    const stop = startForegroundUpdate({
+      updates: Updates,
+      appState: {
+        get current() {
+          return AppState.currentState;
+        },
+        subscribe: (cb) => {
+          const sub = AppState.addEventListener('change', cb);
+          return () => sub.remove();
+        },
+      },
+      planReload: async () => (await watchRef.current.plannedReload?.()) ?? false,
+      hasPendingLink: () => notificationTapGate.size() > 0 || Date.now() - lastLinkAt < LINK_RECENT_MS,
+      isDev: typeof __DEV__ !== 'undefined' && __DEV__,
+    });
+    return () => {
+      stop();
+      offSettled();
+      urlSub.remove();
     };
   }, []);
 

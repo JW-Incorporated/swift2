@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 
+const captured = vi.hoisted(() => ({ handler: null as unknown }));
+
 vi.mock('expo-notifications', () => ({
   setNotificationCategoryAsync: vi.fn().mockResolvedValue(undefined),
+  setNotificationHandler: (h: unknown) => void (captured.handler = h),
 }));
 
 const fetchDevicePrefs = vi.fn();
@@ -69,6 +72,14 @@ describe('handleNotificationAction', () => {
   it('returns null for an unrecognized action id (plain tap)', async () => {
     const outcome = await handleNotificationAction('some-other-id', 'tour_news');
     expect(outcome).toBeNull();
+  });
+});
+
+describe('foreground notification handler', () => {
+  it('installs at module load: banner + list, no sound, no badge change', async () => {
+    const handler = captured.handler as { handleNotification: (n: unknown) => Promise<unknown> };
+    const behavior = await handler.handleNotification({});
+    expect(behavior).toEqual({ shouldShowBanner: true, shouldShowList: true, shouldPlaySound: false, shouldSetBadge: false });
   });
 });
 
