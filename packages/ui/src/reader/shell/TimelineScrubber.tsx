@@ -19,6 +19,7 @@ import {
   roundRailPct,
   scrubberAnchorPaddingTop,
   scrubberPillTransform,
+  scrubberVerticalPillTransform,
   scrubberRailMaxHeight,
   scrubberTooltipTransform,
   snapNow,
@@ -37,6 +38,16 @@ const RAIL_RIGHT = 16;
 const RIDGE_WIDTH = 28;
 /** Density curve resolution. */
 const SAMPLES = 72;
+/** How long (ms) the labels and the wide pill stay up after the fan lets go. */
+const LABEL_LINGER_MS = 1200;
+
+function isKeyboardFocus(el: HTMLElement): boolean {
+  try {
+    return el.matches(':focus-visible');
+  } catch {
+    return true;
+  }
+}
 
 type Anchor = ScrubberAnchor;
 
@@ -153,6 +164,8 @@ export function TimelineScrubber() {
   // from hoverDate via pctForDate.
   const [hoverPct, setHoverPct] = useState<number | null>(null);
   const [active, setActive] = useState(false); // hovering or dragging
+  const [focused, setFocused] = useState(false); // keyboard focus on the rail
+  const [linger, setLinger] = useState(false); // shortly after release
   const [nowPct, setNowPct] = useState<number | null>(null);
   // Bumped after every measure() so date->position lookups (ticks, milestones,
   // ridge, ...) — which read the anchors ref directly during render — repaint
@@ -528,6 +541,19 @@ export function TimelineScrubber() {
     [fromPointer, setScrubbing],
   );
 
+  useEffect(() => {
+    if (active || focused) {
+      setLinger(true);
+      return;
+    }
+    const t = window.setTimeout(() => setLinger(false), LABEL_LINGER_MS);
+    return () => window.clearTimeout(t);
+  }, [active, focused]);
+  // The milestone/year labels and the wide pill sit over the feed, so they only
+  // show while the fan is using the rail; idle, the pill is a slim vertical one
+  // inside the reserved gutter.
+  const showLabels = active || focused || linger;
+
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
   const nearestItem = useMemo(() => {
     if (hoverDate == null || !items.length) return null;
@@ -592,6 +618,8 @@ export function TimelineScrubber() {
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onFocus={(e) => setFocused(isKeyboardFocus(e.currentTarget))}
+          onBlur={() => setFocused(false)}
           onPointerEnter={() => setActive(true)}
           onPointerLeave={() => {
             if (!draggingRef.current) setActive(false);
@@ -647,8 +675,8 @@ export function TimelineScrubber() {
           {/* Era start / end year labels */}
           <span
             className={cn(
-              'pointer-events-none absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-              active ? 'opacity-100' : 'opacity-0',
+              'pointer-events-none absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity motion-reduce:transition-none',
+              showLabels ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
           >
@@ -656,8 +684,8 @@ export function TimelineScrubber() {
           </span>
           <span
             className={cn(
-              'pointer-events-none absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-              active ? 'opacity-100' : 'opacity-0',
+              'pointer-events-none absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity motion-reduce:transition-none',
+              showLabels ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
           >
@@ -705,8 +733,8 @@ export function TimelineScrubber() {
                 />
                 <span
                   className={cn(
-                    'pointer-events-none absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
-                    active ? 'opacity-100' : 'opacity-0',
+                    'pointer-events-none absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity motion-reduce:transition-none',
+                    showLabels ? 'opacity-100' : 'opacity-0',
                   )}
                   style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
                 >
@@ -747,13 +775,17 @@ export function TimelineScrubber() {
                 <span
                   ref={pillRef}
                   className={cn(
-                    'pointer-events-none absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity',
-                    active ? 'opacity-100' : 'opacity-90',
+                    'pointer-events-none absolute whitespace-nowrap rounded-full border text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity motion-reduce:transition-none',
+                    showLabels
+                      ? 'px-2.5 py-1 opacity-100'
+                      : 'pb-1.5 pl-[3px] pr-[3px] pt-1.5 opacity-90 [writing-mode:vertical-rl]',
                   )}
                   style={{
-                    right: RAIL_RIGHT + 16,
+                    right: RAIL_RIGHT + (showLabels ? 16 : 12),
                     top: `${currentPct}%`,
-                    transform: scrubberPillTransform(currentPct),
+                    transform: showLabels
+                      ? scrubberPillTransform(currentPct)
+                      : scrubberVerticalPillTransform(currentPct),
                     background: 'var(--era-surface)',
                     borderColor: 'var(--era-line)',
                     color: 'var(--era-ink)',

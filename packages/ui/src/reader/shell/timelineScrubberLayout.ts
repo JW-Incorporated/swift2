@@ -202,6 +202,18 @@ export function scrubberPillTransform(pct: number): string {
   return 'translateY(-50%)';
 }
 
+/**
+ * Same job for the slim vertical idle pill, which is ~15% of the rail tall, so
+ * the 2%/98% snap above would clip it under the sticky chrome. Slides
+ * continuously from top-aligned at 0 to centered on the handle to
+ * bottom-aligned at 100, so it stays inside the rail without a jump.
+ */
+export function scrubberVerticalPillTransform(pct: number): string {
+  const ratio = 15;
+  const k = Math.min(1, Math.max(0, Math.min(Math.max(0.5, 1 - (100 - pct) / ratio), pct / ratio)));
+  return `translateY(-${(k * 100).toFixed(1)}%)`;
+}
+
 /** Place the variable-height preview away from the nearest viewport edge. */
 export function scrubberTooltipTransform(pct: number): string {
   return pct < 50 ? 'translateY(0)' : 'translateY(-100%)';
