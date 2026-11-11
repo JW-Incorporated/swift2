@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 81
+
+## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
+
+- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
+- sources:
+  - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
+
+## Taylor Swift Seen at Chiefs Game with Karlie Kloss
+
+- first seen: 2026-11-11 02:17 UTC | category: sighting | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was spotted attending a Chiefs game alongside model Karlie Kloss, sparking reactions on social media. Fans and onlookers shared their thoughts about the sighting, reigniting discussions around their friendship.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-attending-chiefs-game-045748233.html
+
+## Taylor Swift Responds to Knicks Player's Claim of Being a Fake Fan
+
+- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift addresses comments made by a Knicks player who claimed she is a fake fan. The situation has garnered media attention, showcasing her engagement with sports culture.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-just-got-the-last-laugh-after-knicks-player-claims-fake-fan
+
+## Neighbors Lose Fight Against Swift and Kelce's Home Landscaping Plans
+
+- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's neighbors in Ohio have unsuccessfully tried to prevent the couple's landscaping plans for their new home. The developments will proceed despite the opposition from nearby residents.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/11/10/entertainment/taylor-swift-and-travis-kelces-ohio-neighbors-lose-fight-to-stop-landscape-plans-for-new-home/
 
 ## Clarifying the Alleged Neighbor Dispute Involving Taylor Swift and Travis Kelce
 
