@@ -1,0 +1,35 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "the luckiest accident of the whole reputation era: a phone left recording in the studio, catching the getaway car bridge arrive start to finish in less than half a minute. i rewatch it constantly 🚗 https://longlivets.com/?item=vault-reputation-the-getaway-car-bridge-written-in-under-30-seconds-on-camera&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-4.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-4",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+  "scheduledAt": "2026-11-11T23:00:00Z",
+  "altText": [
+    "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "photoEra": "reputation",
+  "campaign": "heartbeat:era-deep-cut:reputation-getaway-car-bridge:2026-11-11",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 3,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 20,
+    "rationale": "The Getaway Car bridge arriving in under 30 seconds on Taylor's own phone, with Jack Antonoff's sourced Rolling Stone quote, is a real reputation deep cut a fan can check. It fills the day +2 slot via the beat's written fallback because day 0 never shipped.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "11-11 was launch:photo-viewer DAY +2, gated on day 0 shipping. Day 0 (11-09) did not ship (it fell back to the reputation olive-branch post), so per the beat's gate this is heartbeat:era-deep-cut on reputation. Vault: reputation.mjs 'The Getaway Car bridge, written in under 30 seconds on camera' (Rolling Stone). Hook = the artifact (the phone recording); the IG half leads with the number. No share hook fits a studio anecdote honestly; tag-a-friend ran 11-07/08/09, so none."
+}

@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "you, deep in a tag page, trying to remember what she wore and when. same. that's honestly why we built the runway thread 👗\n\nit puts her looks in order, era by era, so you get to watch the closet change instead of piecing it together from a pile of photos.\n\nmy favourite place to start is the speak now world tour, 2011. it went completely theatrical: flowing gowns, castles, and every song with its own staged set piece, right down to the ballroom backdrop for \"enchanted.\"\n\nthis is her on that tour, mid \"love story,\" and i am so in love with this era's whole fairy tale thing.\n\ntap runway on longlivets.com → https://longlivets.com/?lens=fashion&utm_source=instagram&utm_medium=social&utm_campaign=thread\n\n📷 dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons\n\n#TaylorSwift #SpeakNow #SpeakNowTour #Swifties #LongLive",
+  "media": [
+    "/social/library/photos/wikimedia-15869843.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-15869843",
+  "mediaCredit": "dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_2011.jpg",
+  "scheduledAt": "2026-11-12T23:00:00Z",
+  "altText": [
+    "Taylor Swift performing live \"Love Story\" in the American Leg on July."
+  ],
+  "campaign": "thread:fashion:origin-story:2026-11-hero",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Tells the Runway thread's reason for existing in a fan's voice and anchors it in the sourced Speak Now World Tour staging, gowns and the Enchanted ballroom set. The photo shows Taylor on that very tour, mid Love Story.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of the Runway origin-story hero. Single photo, no screenshot slide: I could not verify a rich Runway-lens screenshot this run, and a flat one is banned. The caption survives the Facebook cross-post (no swipe line)."
+}

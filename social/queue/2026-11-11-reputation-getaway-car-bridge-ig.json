@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "under 30 seconds. that's all the getaway car bridge needed 🚗\n\ntaylor and jack antonoff were in the studio, and for whatever reason her iPhone was recording. so the song's big turn didn't just happen, it got caught on camera as it happened.\n\njack has spent, in his words, a \"million hours\" in studios. he still calls this \"the only time in my life...that a camera was ever on when magic actually happened.\"\n\nhis theory on why that clip took off? \"because it was real.\" i think about that so much.\n\nthe whole story is on longlivets.com → https://longlivets.com/?item=vault-reputation-the-getaway-car-bridge-written-in-under-30-seconds-on-camera&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n📷 Paolo Villanueva (CC BY 2.0), via Wikimedia Commons\n\n#TaylorSwift #reputation #GetawayCar #Swifties #LongLive",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-4-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-4-ig45",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+  "scheduledAt": "2026-11-11T23:00:00Z",
+  "altText": [
+    "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "photoEra": "reputation",
+  "campaign": "heartbeat:era-deep-cut:reputation-getaway-car-bridge:2026-11-11",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 3,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 20,
+    "rationale": "The IG telling gives Jack Antonoff's full sourced quotes on the Getaway Car bridge caught on Taylor's phone, a reputation deep cut with real texture. It is the day +2 fallback because the photo-viewer arc's day 0 never shipped.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "IG sibling of the reputation Getaway Car pair, the launch:photo-viewer DAY +2 gate fallback (day 0 did not ship). Credited never-used reputation photo, IG-sized variant of the X half's image."
+}
