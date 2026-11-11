@@ -25,15 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
 
-## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
+## Taylor Swift and Karlie Kloss Reunite Amidst Differences
 
-- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
+- first seen: 2026-11-11 03:18 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
+- summary: Taylor Swift and Karlie Kloss recently reunited, although reports suggest they might not see eye to eye on certain matters. Details on their current dynamic remain unclear.
 - sources:
-  - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-reunion-192000728.html
 
 ## Taylor Swift Seen at Chiefs Game with Karlie Kloss
 
@@ -58,6 +58,14 @@ Stories: 81
 - summary: Taylor Swift and Travis Kelce's neighbors in Ohio have unsuccessfully tried to prevent the couple's landscaping plans for their new home. The developments will proceed despite the opposition from nearby residents.
 - sources:
   - [unverified] Page Six — https://pagesix.com/2026/11/10/entertainment/taylor-swift-and-travis-kelces-ohio-neighbors-lose-fight-to-stop-landscape-plans-for-new-home/
+
+## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
+
+- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
+- sources:
+  - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
 
 ## Clarifying the Alleged Neighbor Dispute Involving Taylor Swift and Travis Kelce
 
