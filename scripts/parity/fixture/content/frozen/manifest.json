@@ -10,13 +10,13 @@
     },
     "content:fearless": {
       "path": "eras/fearless.json",
-      "sha256": "7d4063f7c9ed6efd55f84f36f749dea02976b7f7fd921ddeef60231fb92043e3",
-      "bytes": 92406
+      "sha256": "068783ac766e17522eebc7e50ba883beaeb54801077129619abfdaf4bbc98be7",
+      "bytes": 93303
     },
     "content:tloas": {
       "path": "eras/tloas.json",
-      "sha256": "d194ffa98f40dfc89f56f66dff06428d5e283952581b722aff23c944f75d9fc8",
-      "bytes": 744364
+      "sha256": "78d3bed639db5057a820a641f3f1d891e4b8440e3f219f798d41fba2cedd3a49",
+      "bytes": 747602
     },
     "eraSecrets": {
       "path": "era-secrets.json",

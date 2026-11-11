@@ -5,7 +5,7 @@
 //
 // Shape: `VideoWork` in packages/shared/src/vault-types.ts (audit §4b).
 // Rules:
-//   - kind: one of TEN values, in two families (2026-08-12).
+//   - kind: one of ELEVEN values, in two families (2026-08-12).
 //
 //     WORKS — visual media she made or headlined; the video IS the output:
 //       music_video   the official video for a song
@@ -14,6 +14,9 @@
 //       tour_film     a concert film
 //       documentary   a documentary or studio-sessions film
 //       performance   her performing a song — live TV, awards stage, session
+//       visualizer    an official visualizer: looping lyric/visual accompaniment
+//                     to a track, posted on the official channel (2026-10-15:
+//                     Opalite BUNT. remix, first use of this value)
 //
 //     APPEARANCES — Taylor herself, on screen, inside someone else's
 //     programming; the video is the record of an event, not a work she

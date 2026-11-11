@@ -1,0 +1,49 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "body": "the thing about Lover that still gets overlooked: it was the first record Taylor ever controlled completely — her masters, her call, nobody else's name on it. 2019, and finally all the way hers 🤍\n\nPhoto: ABC News / GMA.\nlonglivets.com/?era=lover&utm_source=x&utm_medium=social&utm_campaign=era-deep-cut",
+  "media": [
+    "/social/library/photos/site-lover-36382d02c5.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "site-lover-36382d02c5",
+  "photoEra": "lover",
+  "mediaCredit": "ABC News / Good Morning America",
+  "mediaSource": "https://s.abcnews.com/images/GMA/taylor-swift6-abc-ml-190822_hpMain.jpg",
+  "altText": [
+    "On GMA's Central Park SummerStage, Aug. 22, 2019 — the day before Lover became the first album she owned."
+  ],
+  "scheduledAt": "2026-10-20T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:lover-first-album-owned:2026-10-18",
+  "why": "ask #6084, item 2: X sibling of the re-drafted Lover era-deep-cut beat (shares campaign + scheduledAt + photo with the IG item, reusing PR #6056's binding for dedupe safety). Leads on the owned-outright fact with near-disjoint vocabulary from the IG caption so it reads as its own post. rulesChecked [L002].",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "X half of the Lover era-deep-cut: the first record Taylor fully controlled — her masters, her call. Short, link-forward, and vocabulary kept distinct from the Instagram caption.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-10-19T08:14:37.880Z",
+    "pr": 6093,
+    "message": "social-tree-approve run 39221284472",
+    "contentHash": "sha256:b0a764a8020b46aae07ebf415ec302d0c60a11d7bd03d239b244daaabd6bca98",
+    "mediaDigest": "sha256:864c6f4d4b135edfd3c48748ecb14bf6c598f38f97353f16c29d0b486b079847",
+    "sig": "hmac-sha256:0d7584fb564dba2a7a2a781836ab771632bfd47ce7def126ed217c4a1bdf833f"
+  },
+  "postedAt": "2026-10-20T23:26:25.504Z",
+  "platformPostId": "2112686963358605692",
+  "url": "https://x.com/longlivetscom/status/2112686963358605692"
+}

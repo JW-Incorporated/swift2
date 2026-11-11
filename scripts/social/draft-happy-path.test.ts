@@ -12,7 +12,8 @@ import { checkDraft, checkMedia, isWarningFinding } from './check-drafts.mjs';
 import { buildDraftInputs } from './lib/draft-inputs.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
 import { readJsonDir } from './lib/social-fs.mjs';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { igUsablePhotos } from './lib/photo-dimensions.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -20,15 +21,19 @@ const library = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library
 const CALENDAR = '## 2026-10-01 (Thu) — a Speak Now beat\n\n- **`23:00Z` · `heartbeat:era-deep-cut:speak-now-record`** — direction only.\n';
 const critique = { v: 1, scores: { onStrategy: 5, onVoice: 4, specific: 5, mediaEarnsItsPlace: 4, notEmbarrassed: 5 }, total: 23, rationale: 'Executes the calendar slot with the record as the hook; the photo is the era it is about. A dated, checkable number carries it.', rulesChecked: ['L001'], revision: 1 };
 
-async function pairFromPrecompute(extraPosted: Array<{ ref: string; data: Record<string, unknown> }> = []) {
-  const posted = [...(await readJsonDir(path.join(ROOT, 'social', 'posted'))), ...extraPosted];
+// Hermetic posted history: the live social/posted ledger changes with every
+// state PR, so tests read this fixture (or a dir they pass) and never it.
+const FIXTURE_POSTED = [{ ref: 'posted/fixture-old.json', data: { platform: 'x', campaign: 'thread:fixture:old', postedAt: '2026-09-01T00:00:00Z', body: 'fixture', photoId: 'fixture-never-in-library' } }];
+
+async function pairFromPrecompute(extraPosted: Array<{ ref: string; data: Record<string, unknown> }> = [], postedDir?: string) {
+  const posted = [...(postedDir ? await readJsonDir(postedDir) : FIXTURE_POSTED), ...extraPosted];
   const { usable: igUsable } = await igUsablePhotos(library, path.join(ROOT, 'apps', 'web', 'public'));
   const inputs = buildDraftInputs({ now: '2026-10-01T11:00:00Z', library, igUsable, calendarMd: CALENDAR, lessonsMd: readFileSync(path.join(ROOT, 'social', 'lessons.md'), 'utf8'), posted, queue: [], openDrafts: [], closedPrs: [], intents: [], intakeIssues: [] });
   const beat = inputs.beats[0];
   const photo = inputs.photos.eras.debut.next;
   expect(beat.needsDraft).toBe(true);
   const base = { lane: 'calendar', campaign: 'heartbeat:era-deep-cut:debut-2007-2026-10-01', scheduledAt: '2026-10-01T23:00:00Z', media: photo.media, mediaKind: 'photo', photoId: photo.photoId, photoEra: 'debut', mediaCredit: photo.mediaCredit, mediaSource: photo.mediaSource, altText: photo.altText, why: 'Calendar 10-01 beat; one never-used debut photo from the pre-compute on both halves of the pair.', critique };
-  const ig = { ...base, platform: 'instagram', body: 'ok but the very first album was written by a sixteen year old in her bedroom and it still holds up. a debut that went platinum on her own songs, one very loud answer to everyone who doubted it. tag the friend who knows every word.\n\nlonglivets.com/?era=debut&utm_source=instagram&utm_medium=social&utm_campaign=debut-2007' };
+  const ig = { ...base, platform: 'instagram', body: 'the very first album was written by a sixteen year old in her bedroom and it still holds up. a debut that went platinum on her own songs, one very loud answer to everyone who doubted it. tag the friend who knows every word.\n\nlonglivets.com/?era=debut&utm_source=instagram&utm_medium=social&utm_campaign=debut-2007' };
   const x = { ...base, platform: 'x', body: 'Sixteen, a guitar, and a self-titled debut that went platinum. Every song still on the record is hers. https://longlivets.com/?era=debut&utm_source=x&utm_medium=social&utm_campaign=debut-2007' };
   return { ig, x, inputs, posted, photo };
 }
@@ -48,6 +53,23 @@ describe('the drafter happy path passes check-drafts', () => {
   it('the pick is genuinely never-used: absent from every posted item', async () => {
     const { photo, posted } = await pairFromPrecompute();
     expect(posted.some((p) => p.data.photoId === photo.photoId)).toBe(false);
+  });
+
+  it('stays green when the posted ledger already holds the Speak Now Inglewood photo (state PRs record it)', async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), 'posted-'));
+    try {
+      writeFileSync(path.join(dir, 'speaknow.json'), JSON.stringify({ platform: 'instagram', campaign: 'thread:speak-now:synthetic', postedAt: '2026-09-02T00:00:00Z', photoId: 'speaknow-inglewood-2023-2', media: ['/photos/speaknow-inglewood-2023-2.jpg'] }));
+      const { ig, x, posted, photo } = await pairFromPrecompute([], dir);
+      expect(posted.some((p) => p.data.photoId === 'speaknow-inglewood-2023-2')).toBe(true);
+      expect(photo.photoId).not.toBe('speaknow-inglewood-2023-2');
+      const allQueue = [{ file: 'a-ig.json', data: ig }, { file: 'a-x.json', data: x }];
+      for (const target of allQueue) {
+        const findings = await checkDraft(target, { allQueue, allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+        expect(hard(findings), target.file).toEqual([]);
+      }
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   it('a sibling already posted under the SAME campaign is not reuse (IG posts first, X follows)', async () => {
@@ -103,15 +125,50 @@ describe('no pre-computed pick can fail the Instagram aspect gate', () => {
   });
 });
 
-describe('text-only X is the single-platform case, not a loophole', () => {
-  it('an X item with no media passes only with its own written singlePlatformReason', async () => {
+// #6058: igUsablePhotos filtered aspect ratio but not file format, so the one
+// .gif in the library was handed to the 2026-10-18 beat as its assigned photo.
+// check-drafts hard-fails that extension, so the beat could never pass the
+// checker the prompt requires before the PR — the run burned 51/50 turns and
+// opened nothing.
+describe('no pre-computed pick can fail the media-extension gate', () => {
+  it('igUsablePhotos excludes a library entry whose format check-drafts refuses', async () => {
+    const gif = { id: 'synthetic-gif', mediaPath: '/social/library/photos/synthetic-gif.gif', width: 400, height: 401, credit: 'c', source: 's', alt: 'a' };
+    const jpg = { id: 'synthetic-jpg', mediaPath: '/social/library/photos/synthetic-jpg.jpg', width: 400, height: 401, credit: 'c', source: 's', alt: 'a' };
+    const { usable } = await igUsablePhotos([gif, jpg], path.join(ROOT, 'apps', 'web', 'public'));
+    expect(usable.has('synthetic-jpg')).toBe(true);
+    expect(usable.has('synthetic-gif')).toBe(false);
+  });
+
+  it('every drawable photo the pre-compute can offer has a supported extension', async () => {
+    const { inputs, ig } = await pairFromPrecompute();
+    type Pick = { media: string[]; photoId: string; mediaCredit: string; mediaSource: string; altText: string[] };
+    const picks = [
+      ...(Object.values(inputs.photos.eras) as Array<{ next: Pick | null }>).map((e) => e.next),
+      ...(inputs.beats as Array<{ photo: Pick | null }>).map((b) => b.photo),
+      inputs.eventPhoto as Pick | null,
+    ].filter((p): p is Pick => p !== null);
+    expect(picks.length).toBeGreaterThan(0);
+    for (const p of picks) {
+      const findings = await checkMedia('a.json', { ...ig, media: p.media, photoId: p.photoId, mediaCredit: p.mediaCredit, mediaSource: p.mediaSource, altText: p.altText, photoEra: undefined, campaign: 'mood:chip-poll:x' }, []);
+      expect(findings.filter((f: string) => f.includes('unsupported extension')), p.photoId).toEqual([]);
+    }
+  });
+});
+
+describe('text-only X is banned (owner 2026-10-30)', () => {
+  it('an X item with no media fails even with its own written singlePlatformReason', async () => {
     const { x, posted } = await pairFromPrecompute();
     const bare = { ...x, media: undefined, mediaKind: undefined, photoId: undefined, photoEra: undefined, mediaCredit: undefined, mediaSource: undefined, altText: undefined };
     const noReason = await checkDraft({ file: 'a-x.json', data: bare }, { allQueue: [], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
     expect(noReason.some((f) => f.includes('require at least one credited image'))).toBe(true);
     const reason = { ...bare, singlePlatformReason: 'No usable credited photo fits this story, so X goes first as text.' };
     const withReason = await checkDraft({ file: 'a-x.json', data: reason }, { allQueue: [], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
-    expect(withReason.some((f) => f.includes('require at least one credited image'))).toBe(false);
+    expect(withReason.some((f) => f.includes('require at least one credited image'))).toBe(true);
+  });
+  it('an X item with an image does not trip the image requirement', async () => {
+    const { x, posted } = await pairFromPrecompute();
+    const findings = await checkDraft({ file: 'a-x.json', data: x }, { allQueue: [], allPosted: posted, openerContext: [], recentIg: [], activeLessonIds: ['L001'] });
+    expect(findings.some((f) => f.includes('require at least one credited image'))).toBe(false);
   });
 });
 

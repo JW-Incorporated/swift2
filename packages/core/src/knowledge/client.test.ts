@@ -8,24 +8,31 @@ import {
   getSymbolActivity,
   getTrack,
   searchKnowledgeDocs,
+  toOrTsQuery,
 } from './client';
 import type { CurrentItemRow, EggLedgerRow, FanSignalRow, KnowledgeDocRow, SymbolActivityRow } from '../current-map';
 
 /**
  * A minimal, REAL in-memory query builder over fixture rows — not a canned
- * result stub. `.eq`/`.is`/`.gte`/`.contains`/`.overlaps`/`.ilike`/
+ * result stub. `.eq`/`.neq`/`.is`/`.gte`/`.contains`/`.overlaps`/`.ilike`/
  * `.textSearch`/`.order`/`.limit` all actually filter/sort the fixture array
  * each test seeds `fakeDb()` with, so a test asserting on the returned rows
  * is asserting on real filtering behavior, the same contract the real
  * PostgREST query would apply. Matches the `db: SupabaseClient` injection
  * convention `apps/worker/src/extract/write-knowledge.test.ts` already uses.
  */
+const textSearchCalls: { query: string; type: string | undefined }[] = [];
+
 function makeQueryBuilder(rows: unknown[]) {
   let result = [...rows] as Record<string, unknown>[];
   const builder = {
     select: () => builder,
     eq: (col: string, val: unknown) => {
       result = result.filter((r) => r[col] === val);
+      return builder;
+    },
+    neq: (col: string, val: unknown) => {
+      result = result.filter((r) => r[col] !== val);
       return builder;
     },
     is: (col: string, val: unknown) => {
@@ -53,11 +60,13 @@ function makeQueryBuilder(rows: unknown[]) {
       result = result.filter((r) => typeof r[col] === 'string' && re.test(r[col] as string));
       return builder;
     },
-    textSearch: (_col: string, query: string) => {
-      const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+    textSearch: (_col: string, query: string, opts?: { type?: string }) => {
+      textSearchCalls.push({ query, type: opts?.type });
+      const raw = opts?.type === undefined; // supabase-js: no `type` = raw to_tsquery
+      const terms = (raw ? query.split('|') : query.split(/\s+/)).map((t) => t.trim().toLowerCase()).filter(Boolean);
       result = result.filter((r) => {
         const hay = `${String(r['title'] ?? '')} ${String(r['text'] ?? '')}`.toLowerCase();
-        return terms.every((t) => hay.includes(t));
+        return raw ? terms.some((t) => hay.includes(t)) : terms.every((t) => hay.includes(t));
       });
       return builder;
     },
@@ -95,7 +104,7 @@ function errorDb(message = 'network unreachable'): SupabaseClient {
     then: (resolve: (r: { data: null; error: { message: string } }) => void) =>
       resolve({ data: null, error: { message } }),
   };
-  for (const method of ['select', 'eq', 'is', 'gte', 'contains', 'overlaps', 'ilike', 'textSearch', 'order', 'limit']) {
+  for (const method of ['select', 'eq', 'neq', 'is', 'gte', 'contains', 'overlaps', 'ilike', 'textSearch', 'order', 'limit']) {
     builder[method] = () => builder;
   }
   return { from: () => builder } as unknown as SupabaseClient;
@@ -181,6 +190,44 @@ describe('searchKnowledgeDocs', () => {
     const result = await searchKnowledgeDocs(db, '', { symbols: ['13'] });
     expect(result.map((d) => d.id)).toEqual(['current:1']);
   });
+
+  it('returns a doc for a long multi-word title where only one word matches', async () => {
+    const db = fakeDb({ knowledge_doc: docs });
+    const result = await searchKnowledgeDocs(db, 'The Long Mysterious Story of the Number Five Jacket Teaser');
+    expect(result.map((d) => d.id).sort()).toEqual(['current:1', 'moment:1', 'moment:2']);
+  });
+
+  it('sanitizes tsquery syntax characters out of the raw query', async () => {
+    textSearchCalls.length = 0;
+    const db = fakeDb({ knowledge_doc: docs });
+    const result = await searchKnowledgeDocs(db, "teaser & !(jacket) 'x' :* a:b");
+    const call = textSearchCalls[0];
+    expect(call?.type).toBeUndefined();
+    expect(call?.query).toBe('teaser | jacket');
+    expect(call?.query).not.toMatch(/[&!()':*]/);
+    expect(result.map((d) => d.id).sort()).toEqual(['current:1', 'moment:2']);
+  });
+
+  it('degrades an all-stopword query to the plain path', async () => {
+    textSearchCalls.length = 0;
+    const db = fakeDb({ knowledge_doc: docs });
+    await searchKnowledgeDocs(db, 'the and of to');
+    expect(textSearchCalls[0]).toEqual({ query: 'the and of to', type: 'plain' });
+    expect(toOrTsQuery('the and of to')).toBeNull();
+  });
+
+  it('re-ranks by term-hit count, ties keep updated_at desc', async () => {
+    const db = fakeDb({ knowledge_doc: docs });
+    // current:1 is newest but hits only "teaser"; moment:1 hits "track" + "pattern".
+    const result = await searchKnowledgeDocs(db, 'teaser track pattern');
+    expect(result.map((d) => d.id)).toEqual(['moment:1', 'current:1']);
+  });
+
+  it('caps and dedupes OR terms', () => {
+    const q = toOrTsQuery('alpha alpha beta gamma delta epsilon zeta eta1 theta iota kappa lambda mu12 nu34 xi56');
+    expect(q?.split(' | ')).toHaveLength(12);
+    expect(q?.split(' | ').filter((t) => t === 'alpha')).toHaveLength(1);
+  });
 });
 
 describe('getPrecedents', () => {
@@ -239,15 +286,17 @@ describe('getRecentItems', () => {
       era_id: 'tloas',
       category: 'sighting',
       tags: [],
-      headline: 'H',
-      summary: 'S',
-      detail: 'D',
+      headline: 'Headline',
+      summary:
+        'A qualifying summary with two full sentences and plenty of characters to clear the publish-gate floor. It easily passes both the sentence-count and char-count checks.',
+      detail:
+        'A qualifying detail paragraph with enough words to clear the sixty-word publish-gate floor for every fixture row in this describe block across every single test case that reuses this exact same helper function without any further changes needed at all today, with some extra words about the context and timing of the event added here solely to push the total word count safely past the sixty-word floor for every single test in this file.',
       status: 'reported',
       confidence: 'reputable_reporting',
       source_tier: 'established',
       sources: [],
       location_level: null,
-      image_url: null,
+      image_url: 'https://www.people.com/photo.jpg',
       social_post: null,
       symbols: [],
       entities: [],
@@ -268,12 +317,53 @@ describe('getRecentItems', () => {
     itemRow({ id: 'ci:3', observed_on: dm.daysAgo(10) }), // outside the 7-day window
     itemRow({ id: 'ci:4', observed_on: dm.daysAgo(2), redline_ok: false }), // screened out
     itemRow({ id: 'ci:5', observed_on: dm.daysAgo(3), promoted_to: 'moment:xyz' }), // already promoted
+    itemRow({ id: 'ci:6', observed_on: dm.daysAgo(1), status: 'debunked' }), // worker status, still visible
+    { ...itemRow({ id: 'ci:7', observed_on: dm.daysAgo(1) }), retracted_at: '2026-10-15T00:00:00Z' },
   ];
 
   it('returns only redline_ok, unpromoted items within the last N days, newest first', async () => {
     const db = fakeDb({ current_item: items });
     const result = await getRecentItems(db, 7);
-    expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:2']);
+    expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:6', 'ci:2']);
+  });
+
+  it('excludes a row that is redline_ok=true in the DB but fails the Content fix 3/6 quality gate (defense in depth)', async () => {
+    const qualityFailingItems = [
+      ...items,
+      itemRow({ id: 'ci:unqualified', observed_on: dm.daysAgo(1), image_url: null }),
+    ];
+    const db = fakeDb({ current_item: qualityFailingItems });
+    const result = await getRecentItems(db, 7);
+    expect(result.map((r) => r.id)).not.toContain('ci:unqualified');
+  });
+
+  it('retries once without embed,media_kind when the columns are not migrated yet, reading rows as text', async () => {
+    const selects: string[] = [];
+    const db = {
+      from: () => ({
+        select: (cols: string) => {
+          selects.push(cols);
+          if (cols.includes('media_kind')) {
+            const failing: Record<string, unknown> = {
+              then: (resolve: (r: { data: null; error: { message: string } }) => void) =>
+                resolve({ data: null, error: { message: 'column current_item.embed does not exist' } }),
+            };
+            for (const m of ['gte', 'eq', 'is', 'order', 'limit']) failing[m] = () => failing;
+            return failing;
+          }
+          return makeQueryBuilder(items);
+        },
+      }),
+    } as unknown as SupabaseClient;
+    const result = await getRecentItems(db, 7);
+    expect(selects).toHaveLength(2);
+    expect(selects[1]).not.toMatch(/embed|media_kind/);
+    expect(result.map((r) => r.id)).toEqual(['ci:1', 'ci:6', 'ci:2']);
+    expect(result.every((r) => r.embed === undefined && r.mediaKind === 'text')).toBe(true);
+  });
+
+  it('does not retry on an unrelated error', async () => {
+    await expect(getRecentItems(errorDb('network unreachable'), 7)).rejects.toThrow('recent: network unreachable');
   });
 });
 

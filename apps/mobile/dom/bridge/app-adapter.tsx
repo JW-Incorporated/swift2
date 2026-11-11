@@ -53,6 +53,7 @@ export function AppImage({
   decoding,
   style,
   onLoad,
+  onError,
 }: HostImageProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const [artFailedSrc, setArtFailedSrc] = useState<string | null>(null);
@@ -86,7 +87,7 @@ export function AppImage({
             }
           : responsive
             ? () => setFailedSrc(src)
-            : undefined
+            : onError
       }
       onLoad={(e) => {
         onLoad?.(e);

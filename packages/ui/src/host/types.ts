@@ -78,6 +78,11 @@ export type HostImageProps = {
   decoding?: 'async' | 'sync' | 'auto';
   style?: CSSProperties;
   onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
+  /** Content fix 4/6: graceful hide-on-failure for a hotlinked, unvalidated
+   * publisher image (`CurrentItemCard.tsx`) — the DOM host wires it straight
+   * through (native `<img onerror>`); the web adapter passes it to
+   * `next/image` 1:1, same convention as `onLoad` above. */
+  onError?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 };
 
 export type Unsubscribe = () => void;

@@ -1,7 +1,16 @@
 const SNOWFLAKE = /^\d{15,21}$/;
 const URL = /^https:\/\/discord\.com\/channels\/(?:\d+|@me)\/\d+\/(\d{15,21})$/;
-const ACTION = /^(assign|defer|close)(?:\s+(HA\s*#\s*\d+|#\s*\d+))?[.!]?$/i;
+const REF = String.raw`(?:HA(?:\s*#\s*|\s+)?\d+|#\s*\d+|\d+)`;
+const SEP = String.raw`[\s:,;\-–—]`;
+const ACTION = new RegExp(String.raw`^(?:(${REF})${SEP}*)?(assign|defer|close)(?:${SEP}+(${REF}))?[\s.!]*$`, 'i');
+const canonRef = (ref) => ref.replace(/^HA(?:\s*#\s*|\s+)?(\d+)$/i, 'HA #$1').replace(/^#\s*(\d+)$/, '#$1');
 const CHASE = /<!-- marjorie-chase: 96h issue=(\d+) -->/;
+const TITLE = /#(\d+)\s+has had no activity/gi;
+
+function titled(text) {
+  const found = [...new Set([...String(text || '').matchAll(TITLE)].map((m) => Number(m[1])))];
+  return found.length === 1 ? found[0] : undefined;
+}
 
 const labels = (issue) => new Set((issue?.labels || []).map((x) => typeof x === 'string' ? x : x?.name));
 const owned = (issue) => labels(issue).has('marjorie-filed');
@@ -9,15 +18,17 @@ const owned = (issue) => labels(issue).has('marjorie-filed');
 function records(markdown, open) {
   if (!open) return String(markdown || '').split(/\r?\n/).flatMap((line) => {
     const ha = /^- #(?<ha>\d+) .*?· (?<outcome>done|skip) ·/.exec(line);
-    const issue = CHASE.exec(line);
-    return ha && issue ? [{ ha: Number(ha.groups.ha), issue: Number(issue[1]), outcome: ha.groups.outcome, open: false }] : [];
+    const marked = CHASE.exec(line);
+    const issue = marked ? Number(marked[1]) : titled(line.slice(ha ? ha[0].length : 0).split(' · ')[0]);
+    return ha && issue ? [{ ha: Number(ha.groups.ha), issue, outcome: ha.groups.outcome, open: false }] : [];
   });
   const found = [];
   const blocks = String(markdown || '').split(/(?=^## #\d+\s)/m);
   for (const block of blocks) {
     const ha = /^## #(\d+)\s/m.exec(block);
-    const issue = CHASE.exec(block);
-    if (ha && issue) found.push({ ha: Number(ha[1]), issue: Number(issue[1]), open: true });
+    const marked = CHASE.exec(block);
+    const issue = marked ? Number(marked[1]) : titled(block.split(/\r?\n/, 1)[0]);
+    if (ha && issue) found.push({ ha: Number(ha[1]), issue, open: true });
   }
   return found;
 }
@@ -67,10 +78,20 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   if (context?.bot !== 'marjorie' || context?.already || !match || !SNOWFLAKE.test(String(context?.message_id || '')) || urlId !== String(context.message_id)) {
     return { ok: false, reason: 'untrusted-or-not-an-action' };
   }
-  const action = match[1].toLowerCase();
+  if (match[1] && match[3]) return { ok: false, reason: 'ambiguous' };
+  const action = match[2].toLowerCase();
+  let ref = match[1] || match[3];
   const open = records(openMd, true);
   const done = records(doneMd, false);
-  const wanted = targetRefs(context);
+  if (ref && /^\d+$/.test(ref)) {
+    const n = Number(ref);
+    const known = [...open, ...done];
+    const asHa = known.some((item) => item.ha === n);
+    const asIssue = known.some((item) => item.issue === n);
+    if (asHa === asIssue) return { ok: false, reason: 'ambiguous' };
+    ref = asHa ? `HA #${n}` : `#${n}`;
+  }
+  const wanted = targetRefs({ ...context, text: ref ? `${action} ${canonRef(ref)}` : action });
   if (wanted.has.length === 1 && wanted.issues.length > 1) {
     return { ok: false, reason: 'target-mismatch' };
   }
@@ -87,7 +108,7 @@ export function resolveChaseAction({ context, issues, openMd, doneMd, comments =
   if (candidates.length !== 1) {
     const past = done.filter((item) => (!wanted.has.length || item.ha === wanted.has[0]) && (!wanted.issues.length || item.issue === wanted.issues[0]));
     if (past.length === 1) return { ok: true, noop: true, final: past[0].outcome === 'skip', ...past[0], action };
-    return { ok: false, reason: 'ambiguous' };
+    return { ok: false, reason: 'ambiguous', detail: candidates.length === 0 && past.length === 0 ? 'no-matching-chase-record' : 'multiple-matching-records' };
   }
   const target = candidates[0];
   if (wanted.has.length && wanted.issues.length && (target.ha !== wanted.has[0] || target.issue !== wanted.issues[0])) return { ok: false, reason: 'target-mismatch' };

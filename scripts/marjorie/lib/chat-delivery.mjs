@@ -62,8 +62,14 @@ function hasLinkLine(content) {
 // founder's thread; nothing else carries a correlation id. A new automation
 // that posts as Marjorie or Tree with `thread_id` would read as a reply here
 // (reviewer note on the M5 routines PR).
+//
+// Tree's replies are now posted with the bot token (scripts/lib/discord-route.mjs), so they
+// carry no webhook_id. Such a post counts only when it is a bot-authored message whose first
+// line is the `↪` link line chat-post always writes — never a [chat failed] notice or one of
+// Tree's other bot posts (cards, tasks), which have no link line.
 export function isBotReply(m, bot) {
-  return Boolean(m?.webhook_id) && m.author?.username === BOTS[bot]?.name;
+  if (m?.webhook_id) return m.author?.username === BOTS[bot]?.name;
+  return bot === 'tree' && Boolean(m?.author?.bot) && hasLinkLine(m.content) && !String(m.content || '').startsWith(FAILURE_PREFIX);
 }
 
 /**

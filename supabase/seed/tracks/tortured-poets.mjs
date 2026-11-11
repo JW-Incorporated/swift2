@@ -194,6 +194,81 @@ const TRACKS = [
           reliability_score: 4,
         },
       ],
+      dossier: {
+        whyItMatters: [
+          "The title track, placed second on the album Swift announced at the 2024 Grammy Awards, where, People reported, she told the audience it was a 'thank you to the fans' with release set for April 19. She said during a Melbourne Eras show, as NME reported, that writing it was 'really a lifeline for me.' Per Wikipedia the song debuted at No. 4 on the Hot 100 in the week she became the first artist to hold the entire top 14, and reached No. 3 in the UK.",
+          "It sets the album's tone: a bright, '80s-flavored synth-pop track that is also a satire of artistic self-seriousness, name-dropping the poets Dylan Thomas and Patti Smith and the pop musician Charlie Puth. Critics were split on that mix of heartbreak and deadpan comedy."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 2 of The Tortured Poets Department (April 19, 2024), written and produced by Swift and Jack Antonoff.",
+            "People reported that Swift announced the album at the 2024 Grammys, then posted its cover on Instagram with the caption 'All's fair in love and poetry... New album THE TORTURED POETS DEPARTMENT. Out April 19.'",
+            "NME reported that Swift told an Eras Tour crowd in Melbourne that writing the album was 'really a lifeline for me,' reminding her how much songwriting gets her through difficult periods, adding 'I never had an album where I needed songwriting more than I needed it on Tortured Poets.'"
+          ],
+          supported: [
+            "Beats Per Minute's John Wohlmacher read the song as satirical: Swift acknowledges that she and her partner fall short of Thomas and Smith, calling them 'modern idiots,' a self-critique that great art comes from honest self-realization, not fame (per Wikipedia).",
+            "Reception was split: Clash's Lauren Webb heard a 1980s power-ballad sensibility, The New York Times's Lindsay Zoladz called it 'chatty, radiant,' while The Irish Times's Finn McRedmond thought it crammed in too many words and Pitchfork's Olivia Horn called it a winking track whose metaphors fall flat (all per Wikipedia)."
+          ],
+          fanTheories: [
+            "Fans have widely attached the song to a specific, publicized 2023 relationship. Swift has not confirmed it, and this guide doesn't name anyone; the song's satire works without that reading.",
+            "A popular fan theory links the title, which famously lacks the apostrophe in 'Poets', to the 1989 film Dead Poets Society, and points to the actors Ethan Hawke and Josh Charles appearing in the 'Fortnight' video. Songfacts reports the theory; it is an interpretation of a pattern, not something Swift has confirmed."
+          ]
+        },
+        live: [
+          {
+            date: "May 25, 2024",
+            event: "The Eras Tour, Lisbon",
+            note: "A mashup with 'Now That We Don't Talk', per Wikipedia."
+          },
+          {
+            date: "December 7, 2024",
+            event: "The Eras Tour, Vancouver",
+            note: "A mashup with 'Maroon', per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:fortnight",
+            label: "Fortnight",
+            why: "The song before it on the album, and the video where fans point to the Dead Poets Society cameos that feed the apostrophe theory."
+          },
+          {
+            relatedId: "song:now-that-we-dont-talk",
+            label: "Now That We Don't Talk",
+            why: "Swift mashed the two together in Lisbon on May 25, 2024, pairing this album track with a vault song from 1989 (Taylor's Version)."
+          },
+          {
+            relatedId: "song:suburban-legends",
+            label: "Suburban Legends",
+            why: "The Tennessean's Bryan West said this track's soft beat recalls that of Swift's 2023 song 'Suburban Legends', from 1989 (Taylor's Version)."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Eras Tour show in Melbourne, February 2024, as reported by NME",
+            note: "She called writing the album 'really a lifeline for me' and said she never needed songwriting more than on this record."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift says writing new album 'The Tortured Poets Department' was a \"lifeline\" - NME",
+            url: "https://www.nme.com/news/music/taylor-swift-says-writing-new-album-the-tortured-poets-department-was-a-lifeline-3589651"
+          },
+          {
+            name: "Taylor Swift Shares the Sexy Cover of New Album 'The Tortured Poets Department': 'All's Fair in Love and Poetry' - PEOPLE",
+            url: "https://people.com/2024-grammys-taylor-swift-new-album-cover-tortured-poets-department-8558634"
+          },
+          {
+            name: "The Tortured Poets Department (song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department_(song)"
+          },
+          {
+            name: "The Tortured Poets Department by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/the-tortured-poets-department"
+          }
+        ]
+      },
     },
     {
       slug: 'my-boy-only-breaks-his-favorite-toys',
@@ -538,12 +613,12 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner', 'Jack Antonoff'],
       note: 'The country-sized rebellion aimed not at a father but at the fandom itself — the judgmental chorus gets called sanctimonious to its face, with one gleeful fake-out pregnancy line.',
       summary:
-        'She dates someone the internet hates and torches the moralizers who staged interventions over it: her life is not a group project. The wild-boy subject is read as the 2023 Healy controversy (unconfirmed); the scolds in the song are documented — they posted.',
+        'She dates someone the internet hates and torches the moralizers who staged interventions over it: her life is not a group project. The scolds in the song are documented — they posted.',
       inspiration:
-        'Widely read against the documented 2023 fan open-letter campaign about a brief relationship; Swift never names him, but the song’s target is clearly the pile-on, not the boy.',
+        'Widely read against the documented 2023 fan open-letter campaign about a brief relationship; Swift has not named the song’s subject, and the song’s target is clearly the pile-on.',
       themes: ['autonomy', 'fandom parasociality', 'choosing your own mistakes'],
       fanLore:
-        'Fan reading (unconfirmed): the Healy chapter; the anti-fan-jury message needed no decoding.',
+        'Fan reading (unconfirmed): the anti-fan-jury message needed no decoding.',
       sourceUrl: 'https://en.wikipedia.org/wiki/But_Daddy_I_Love_Him',
       sources: [
         wiki(
@@ -1196,10 +1271,10 @@ const TRACKS = [
       summary:
         'Someone vanished without explanation and she drafts the charges: coward, operative, hometown embarrassment. The fury is that she still does not know which betrayal it was.',
       inspiration:
-        'Fan attribution splits between the era’s two reported exes (unconfirmed either way) — the ambiguity is itself the fandom’s longest-running TTPD debate.',
+        'Swift has not named the song’s subject; fan attribution is unconfirmed and debated.',
       themes: ['contempt', 'unexplained abandonment', 'demanding an autopsy'],
       fanLore:
-        'Fan reading (contested, unconfirmed): the great Healy-versus-Alwyn attribution war of 2024.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived',
       sources: [
         wiki(
@@ -1283,26 +1358,17 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The one happy chemical reaction on the album — stacked with touchdown and trophy imagery that made the subject reading a national headline.',
       summary:
-        'After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction (unconfirmed in the lyric, extremely confirmed by the tour cameras).',
+        'After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction.',
       inspiration:
-        'The sports-imagery reading toward her documented 2023-onward relationship with Travis Kelce is universal; the relationship itself is public record even if the song’s address is not footnoted.',
+        'Swift has not named the song’s subject; the football and trophy imagery is the lyric’s own framing.',
       themes: ['new love as chemistry', 'winning', 'rare joy on a grief album'],
       easterEggs:
         'An Eras Tour surprise song twice — Paris (May 12, 2024) on guitar with “Treacherous,” and Wembley (Aug. 15, 2024) on piano with “King of My Heart.” It debuted and peaked at No. 13 on the Hot 100.',
-      fanLore: 'Fan reading (near-universal): the Kelce attribution via the end-zone metaphors — never confirmed by Swift in any interview, liner note or dedication.',
+      fanLore: 'Fan reading (unconfirmed): a subject attribution drawn from the end-zone metaphors — never confirmed by Swift in any interview, liner note or dedication.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Alchemy',
       sources: [
         wiki('The Alchemy', 'The_Alchemy', 'song article: composition, chart, live history, reception'),
         ALBUM,
-        {
-          source_url: 'https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/',
-          source_title: "Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References",
-          publisher: 'TIME',
-          source_type: 'reputable_press',
-          accessed_at: '2026-07-24',
-          reliability_score: 4,
-          notes: 'Press football-metaphor reading; labels the subject as fan/press inference, not Swift-confirmed',
-        },
       ],
       dossier: {
         whyItMatters: [
@@ -1320,14 +1386,14 @@ const TRACKS = [
             "It is broadly described as the album's rare uncomplicated-joy song — the chemistry-as-love-that-finally-works counterweight to the surrounding wreckage."
           ],
           fanTheories: [
-            "The football vocabulary is read near-universally by the press (TIME, Today, Slate and others) as pointing to Swift's documented relationship with Travis Kelce, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Swift has never confirmed the Kelce reading of 'The Alchemy' in any interview, liner note or dedication — it remains a fan-and-press reading."
+            "The football vocabulary is read near-universally by the press (Today, Slate and others) as pointing to Taylor's public relationship, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Taylor has not named the subject of 'The Alchemy' in any interview, liner note or dedication, and this guide doesn't name anyone — it remains a fan-and-press reading."
           ]
         },
         connections: [
           {
             relatedId: "song:so-high-school",
             label: "So High School",
-            why: "The album's other track the press reads as Kelce-adjacent; outlets pair the two as TTPD's new-love duo (a fan-and-press reading, not a Swift-stated one)."
+            why: "The album's other track the press reads as tied to her public relationship; outlets pair the two as TTPD's new-love duo (a fan-and-press reading, not a Taylor-stated one)."
           },
           {
             relatedId: "song:treacherous",
@@ -1337,7 +1403,6 @@ const TRACKS = [
         ],
         sources: [
           { name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" },
-          { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
           { name: "Official Charts: Taylor Swift — The Alchemy", url: "https://www.officialcharts.com/songs/taylor-swift-the-alchemy/" }
         ]
       },
@@ -1629,7 +1694,7 @@ const TRACKS = [
           ],
           fanTheories: [
             "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one.",
-            "A widely circulated fan reading maps the song's 'wise men' warnings onto the public warnings Travis Kelce was reported to have gotten about dating her — a public-relationship interpretation, not anything Swift has stated."
+            "A widely circulated fan reading maps the song's 'wise men' warnings onto her own life — an interpretation, not anything Taylor has stated."
           ]
         },
         connections: [
@@ -1648,7 +1713,6 @@ const TRACKS = [
           { name: "The Albatross (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Albatross_(Taylor_Swift_song)" },
           { name: "Billboard: Taylor Swift Announces 'The Albatross' Edition of 'Tortured Poets'", url: "https://www.billboard.com/music/pop/taylor-swift-tortured-poets-the-albatross-edition-eras-tour-announcement-1235613344/" },
           { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" },
-          { name: "In The Know (AOL): 'The Albatross' Lyrics Seemingly Reveal the Warnings Travis Kelce Got About Her", url: "https://www.aol.com/taylor-swift-albatross-lyrics-seemingly-154500643.html" }
         ]
       },
     },
@@ -1767,7 +1831,7 @@ const TRACKS = [
         'Aaron Dessner co-wrote and co-produced it, recording at his Long Pond studio (Hudson Valley), Kitty Committee (Los Angeles) and Thomas Bartlett’s home studio in Paris; the waltz-time arrangement builds from near-whispered verses on insistent piano arpeggios to a surging London Contemporary Orchestra string crescendo (conducted by Robert Ames) that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
       fanLore:
-        'Fan/press reading (near-universal, unconfirmed): the close of the six-year Joe Alwyn relationship — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
+        'Fan reading (contested, unconfirmed): the song’s subject has been debated since release — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
       easterEggs:
         'The lyric sustains a clinical autopsy conceit — a “fatal fever,” a “death rattle,” maladies “we could not cure” — turning the breakup into a coroner’s report.',
       sourceUrl: 'https://en.wikipedia.org/wiki/How_Did_It_End%3F',
@@ -1876,26 +1940,17 @@ const TRACKS = [
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — video games and one very identifiable "marry, kiss, or kill" reference.',
+      note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — video games and a "marry, kiss, or kill" reference.',
       summary:
-        'New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, read universally toward the same tight end as The Alchemy.',
+        'New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, alongside The Alchemy.',
       inspiration:
-        'Fan attribution to the Kelce relationship is near-universal (the relationship is documented; the dedication is not footnoted). He has publicly vibed to it at shows, which fans file as confirmation-adjacent.',
+        'Swift has not named the song’s subject, and no dedication is footnoted.',
       themes: ['regression to giddiness', 'new love', 'being known simply'],
       fanLore:
-        'Fan reading (near-universal): the Kelce song — supported by his documented on-camera reactions at the Eras Tour.',
-      sourceUrl: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
+        'Fan reading (unconfirmed): a subject attribution that Swift has never confirmed.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/So_High_School',
       sources: [
         wiki('So High School', 'So_High_School', 'song article: readings'),
-        {
-          source_url: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
-          source_title: "Taylor Swift's 'So High School' Travis Kelce References Explained",
-          publisher: 'Capital FM',
-          source_type: 'reputable_press',
-          accessed_at: ACCESSED,
-          reliability_score: 3,
-          notes: "'marry, kiss, or kill' lyric and Kelce's 2016 interview clip; bleachers as Eras Tour staging, not a lyric",
-        },
         ALBUM,
       ],
     },
@@ -1984,14 +2039,14 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner', 'Jack Antonoff'],
       note: 'The stylized capitals in the official title spell out a three-letter name — the pettiest typography in the catalog, attached to a song about thanking your bully.',
       summary:
-        'A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The K-I-M capitalization is on the official streaming tracklist (fact); the Kardashian reading it triggers has never been stated aloud and never needed to be. It debuted live as an Eras Tour surprise song — June 22, 2024, Wembley Stadium, London — mashed up with "Mean," and charted at No. 23 on the Hot 100 in the album\'s release week.',
+        'A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The stylized capitalization is on the official streaming tracklist (fact); Taylor has not named a subject, and this guide doesn’t name anyone. It debuted live as an Eras Tour surprise song — June 22, 2024, Wembley Stadium, London — mashed up with "Mean," and charted at No. 23 on the Hot 100 in the album\'s release week.',
       inspiration:
-        'The capitalization is documented in the official track listing; the 2016 feud it evokes is public record. Swift has confirmed only that the name is changed and the bully composite.',
+        'The capitalization is documented in the official track listing; the 2016 feud it evokes is public record. Taylor has confirmed only that the name is changed and the bully composite.',
       themes: ['bullies as accidental architects', 'ironic gratitude', 'outliving a feud', 'triumph over naysayers'],
       fanLore:
-        'Fan/press reading (unconfirmed but typographically assisted): the Kim Kardashian address.',
+        'Fan/press reading (unconfirmed but typographically assisted): a subject attribution that Taylor has never confirmed and this guide doesn’t name.',
       easterEggs:
-        'The official stylization is the Easter egg — the clue embedded in the tracklist itself, its capitals spelling KIM. The Aug. 15, 2024 limited download edition restyled the title "thank You aimEe," whose capitals spell YE — read by press as a glance at Kanye West. Both name-readings are interpretation, not confirmed.',
+        'The official stylization is the Easter egg — the clue embedded in the tracklist itself, its capitals spelling a short name. The Aug. 15, 2024 limited download edition restyled the title "thank You aimEe," with a different capital pattern. Any name-readings are interpretation, not confirmed by Taylor, and this guide doesn’t name anyone.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Thank_You_Aimee',
       sources: [
         wiki('thanK you aIMee', 'Thank_You_Aimee', 'song article: stylization, charts, live history, readings'),
@@ -2050,6 +2105,65 @@ const TRACKS = [
       themes: ['fate and bargaining', 'fear of unlovability', 'petitioning the universe'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A Swift and Aaron Dessner song from the Anthology half of the album. Rolling Stone's Rob Sheffield named it with 'Peter' and 'Cassandra' as 'some of the most powerful songs Swift and Dessner have crafted together' and said it has 'the album's fiercest vocals.'",
+          "Billboard's critics noted that it features some of Dessner's typical indie-folk work and opens up during an instrumental break."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critics read it as a song about the idea that no one can have it all: for Swift, they wrote, sacrificing a relationship's stability for professional enormity, and later understanding that apparent fate to be a raw deal.",
+            "Sheffield described the narrator as a character that recurs across the album, the woman who has been waiting far too long for her dreams to come true until she feels her youth drain away, and said the song leads naturally into 'Cassandra.' Swift has not explained the song in the sources cited here, so these are critics' readings."
+          ]
+        },
+        live: [
+          {
+            date: "June 2, 2024",
+            event: "The Eras Tour, Lyon",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Prophecy' and 'long story short' as a surprise-song slot."
+          },
+          {
+            date: "November 2, 2024",
+            event: "The Eras Tour, Indianapolis",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Prophecy' and 'This Love' as a surprise-song slot."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:cassandra",
+            label: "Cassandra",
+            why: "Rolling Stone's review says the song leads naturally into this track."
+          },
+          {
+            relatedId: "song:peter",
+            label: "Peter",
+            why: "Rolling Stone's review names it alongside 'The Prophecy' and 'Cassandra' among the strongest Swift and Dessner collaborations on the album."
+          },
+          {
+            relatedId: "song:long-story-short",
+            label: "long story short",
+            why: "The two songs were mashed up in Lyon on June 2, 2024, per Deadline's and Variety's lists."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'The Tortured Poets Department': All 31 Tracks Ranked - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/"
+          },
+          {
+            name: "Taylor Swift Busts Out the Quill Pen and Delivers an Epic Double Album with 'TTPD: The Anthology' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
     {
       slug: 'cassandra',
@@ -2108,7 +2222,7 @@ const TRACKS = [
             "It was performed live once — an Eras Tour surprise-song mashup with folklore's 'mad woman' and reputation's 'I Did Something Bad' in Toronto on November 22, 2024.",
           ],
           supported: [
-            "The song adapts the Cassandra myth directly — the seer whose warnings go unheeded until the city falls — and threads it with the imagery of a woman condemned by a mob. Billboard's Jason Lipshutz read the lyric as insight into 'the period in Swift's life that led to her album Reputation,' when the feud with Kanye West and Kim Kardashian 'turned many against her,' pointing to its lines about supposed supporters who did not take her side.",
+            "The song adapts the Cassandra myth directly — the seer whose warnings go unheeded until the city falls — and threads it with the imagery of a woman condemned by a mob. Billboard's Jason Lipshutz read the lyric as insight into 'the period in Swift's life that led to her album Reputation,' the reputation-era feud that 'turned many against her,' pointing to its lines about supposed supporters who did not take her side.",
             "Reception ran mixed-to-strong: Rolling Stone's Rob Sheffield called it one of the most powerful Swift–Dessner songs and Beats Per Minute's John Wohlmacher and USA Today's Melissa Ruggieri praised its 'pretty' piano, while Vulture's Craig Jenkins found the central metaphor 'a stretch,' Slate's Carl Wilson faulted Swift for criticizing readings-into-songs while doing the same, and The Hollywood Reporter ranked it the album's weakest track.",
           ],
           fanTheories: [
@@ -2148,7 +2262,7 @@ const TRACKS = [
           {
             who: "Jason Lipshutz",
             context: "Billboard",
-            note: "Read it as insight into the reputation-era period when the West/Kardashian feud 'turned many against her.'",
+            note: "Read it as insight into the reputation-era feud that 'turned many against her.'",
           },
         ],
         sources: [
@@ -2445,6 +2559,65 @@ const TRACKS = [
         'Fans map its verses onto the All Too Well mythology — the manuscript rereading as the scarf saga’s final form (fan reading, unconfirmed).',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "One of the four bonus tracks from the physical editions of The Tortured Poets Department, with 'The Black Dog', 'The Albatross' and 'The Bolter'. Rolling Stone's Rob Sheffield said they fit together almost as a suite, framing the second half of the Anthology like bookends.",
+          "Billboard's critics wrote that, after the big-picture anger of the album, Swift ends up focusing on the minuscule moments she cannot let go."
+        ],
+        meaning: {
+          supported: [
+            "Billboard's critics heard Swift 'trying and failing to script life's remarkable spontaneity', with stray memories of quiet exchanges that do not lead to a grand future and become more wrenching in their intimacy.",
+            "Sheffield called the four bonus tracks 'stark piano narratives about different kinds of mad women', each looking for a different kind of revenge, whether the world views them as romantic ideals ('The Manuscript') or in some other light. Swift has not explained the song in the sources cited here, so these are critics' readings."
+          ]
+        },
+        live: [
+          {
+            date: "June 15, 2024",
+            event: "The Eras Tour, Liverpool",
+            note: "Deadline's and Variety's lists give a mash-up of 'The Manuscript' and 'Red' as a surprise-song slot."
+          },
+          {
+            date: "December 8, 2024",
+            event: "The Eras Tour, Vancouver",
+            note: "Deadline's and Variety's lists give a mash-up of 'Long Live', 'New Year's Day' and 'The Manuscript'."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:the-black-dog",
+            label: "The Black Dog",
+            why: "Rolling Stone's review groups it with this song among the four bonus tracks."
+          },
+          {
+            relatedId: "song:the-albatross",
+            label: "The Albatross",
+            why: "Rolling Stone's review groups it with this song among the four bonus tracks."
+          },
+          {
+            relatedId: "song:the-bolter",
+            label: "The Bolter",
+            why: "Rolling Stone's review groups it with this song among the four bonus tracks."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'The Tortured Poets Department': All 31 Tracks Ranked - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/"
+          },
+          {
+            name: "Taylor Swift Busts Out the Quill Pen and Delivers an Epic Double Album with 'TTPD: The Anthology' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          },
+          {
+            name: "Taylor Swift's Eras Tour: Every Surprise Song She's Played - Variety",
+            url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/"
+          }
+        ]
+      },
     },
 ];
 

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   createHostShopLinkRenderer,
   createShopLinkBuilder,
+  AMAZON_DISCLOSURE,
   createShopLinkRenderer,
   renderMomentShopLink,
   SHOP_DISCLOSURE,
@@ -174,6 +175,30 @@ describe('render-context adapters', () => {
       expect(link.href).toBe(product().url);
       expect(link.isAffiliate).toBe(false);
     }
+  });
+});
+
+describe('AMAZON_DISCLOSURE', () => {
+  const amazon = product({ retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B0' });
+
+  it('is the exact Amazon Associates Operating Agreement statement', () => {
+    expect(AMAZON_DISCLOSURE).toBe('As an Amazon Associate I earn from qualifying purchases.');
+  });
+
+  it('flags only Amazon affiliate links, never untagged Amazon or other networks', () => {
+    const tagged = createHostShopLinkRenderer({ amazonAssociatesTag: 'tag-20', awinId: 'a' });
+    expect(tagged.isAmazonMoment(amazon, context)).toBe(true);
+    expect(tagged.isAmazonMoment(product(), context)).toBe(false);
+    expect(createHostShopLinkRenderer({}).isAmazonMoment(amazon, context)).toBe(false);
+  });
+
+  it('hasAmazonMerch is true only with a tagged Amazon merch item', () => {
+    const item = { ...product({ retailer: 'amazon.com', url: 'https://www.amazon.com/dp/B0' }), category: 'fan-made' } as MerchItem;
+    const other = { ...product(), category: 'fan-made' } as MerchItem;
+    const tagged = createHostShopLinkRenderer({ amazonAssociatesTag: 'tag-20' });
+    expect(tagged.hasAmazonMerch([other, item])).toBe(true);
+    expect(tagged.hasAmazonMerch([other])).toBe(false);
+    expect(createHostShopLinkRenderer({}).hasAmazonMerch([item])).toBe(false);
   });
 });
 

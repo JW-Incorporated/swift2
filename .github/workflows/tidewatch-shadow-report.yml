@@ -1,0 +1,97 @@
+# Tidewatch shadow-week monitoring (P1-07b). Read-only: scripts/tidewatch/shadow-report.mjs
+# reads watch_decision and tidewatch.yml run history, never writes either.
+# Dispatch-only: GitHub crons for this workflow never fired, so clock-dispatch.mjs
+# (scripts/ops/clock-table.json) dispatches both modes, throttled per run-name.
+#   daily from 15:07 UTC        full report to #longlive-marjorie
+#   hourly                      --alert mode, posts only on an alert, de-duplicated
+#                               6h per alert kind through an actions/cache state file
+# shadow-report-post.mjs delivers the payload (the only step holding the webhook).
+# Silence posting with the repo variable TIDEWATCH_REPORT_POST_ENABLED=false
+# (unset posts). The report is built from headlines and refs only.
+name: tidewatch-shadow-report
+run-name: tidewatch-shadow-report (${{ inputs.alert && 'alert' || 'full' }})
+
+on:
+  workflow_dispatch:
+    inputs:
+      alert:
+        description: Run in --alert mode instead of the full report
+        required: false
+        default: false
+        type: boolean
+
+permissions: {}
+
+jobs:
+  report:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Only to read DISCORD_MARJORIE_WEBHOOK_URL, as marjorie-status.yml's render job does.
+    environment: ops
+    permissions:
+      actions: read
+      contents: read
+    concurrency:
+      group: tidewatch-shadow-report
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --silent
+      - name: Pick the mode
+        id: mode
+        env:
+          ALERT_INPUT: ${{ inputs.alert }}
+        run: |
+          if [ "$ALERT_INPUT" = "true" ]; then
+            echo "alert=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "alert=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Restore alert de-dupe state
+        if: steps.mode.outputs.alert == 'true'
+        uses: actions/cache/restore@v6
+        with:
+          path: tidewatch-alert-state.json
+          key: tidewatch-alert-state-none
+          restore-keys: tidewatch-alert-state-
+      - name: Daily report
+        if: steps.mode.outputs.alert != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/tidewatch/shadow-report.mjs --json-out tidewatch-shadow-report.json
+      - name: Alert check
+        if: steps.mode.outputs.alert == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/tidewatch/shadow-report.mjs --alert --json-out tidewatch-shadow-report.json --state-file tidewatch-alert-state.json
+      - name: Post to #longlive-marjorie
+        id: post
+        env:
+          DISCORD_MARJORIE_WEBHOOK_URL: ${{ secrets.DISCORD_MARJORIE_WEBHOOK_URL }}
+          TIDEWATCH_REPORT_POST_ENABLED: ${{ vars.TIDEWATCH_REPORT_POST_ENABLED }}
+        run: node scripts/tidewatch/shadow-report-post.mjs --state-file tidewatch-alert-state.json
+      - name: Save alert de-dupe state
+        if: steps.post.outputs.state_updated == 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: tidewatch-alert-state.json
+          key: tidewatch-alert-state-${{ github.run_id }}-${{ github.run_attempt }}
+      - uses: actions/upload-artifact@v7
+        if: steps.mode.outputs.alert != 'true'
+        with:
+          name: tidewatch-shadow-report
+          path: tidewatch-shadow-report.json
+          retention-days: 14

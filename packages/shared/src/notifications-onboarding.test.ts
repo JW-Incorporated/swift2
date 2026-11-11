@@ -48,6 +48,7 @@ describe('ONBOARDING_PRESETS (spec §7)', () => {
   it('every preset covers every category (no gaps for the PUT batch write)', () => {
     for (const preset of ONBOARDING_PRESETS) {
       expect(preset.prefs).toHaveLength(14); // 10 steady + 3 fun + 1 event-driven
+      expect(preset.prefs.some((p) => p.category === 'baby_watch')).toBe(false); // opt-in only (D5)
     }
   });
 

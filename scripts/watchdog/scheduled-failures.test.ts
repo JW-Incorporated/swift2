@@ -2,7 +2,7 @@ import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { EXCLUDE, activeFiles, listScheduledWorkflows, verdict } from './scheduled-failures.mjs';
+import { EXCLUDE, activeFiles, failureReason, listScheduledWorkflows, verdict } from './scheduled-failures.mjs';
 
 const SCHEDULED = 'on:\n  schedule:\n    - cron: "0 5 * * *"\n  workflow_dispatch:\n';
 const NOT_SCHEDULED = 'on:\n  push:\n  workflow_dispatch:\n';
@@ -70,6 +70,45 @@ describe('verdict', () => {
   });
 });
 
+// Issue #4475 item D: routine-vault-run.yml went fail 09-14 / success 09-15 /
+// fail 09-16 and the consecutive-only rule never alerted.
+describe('verdict — intermittent failures (every other run)', () => {
+  it('alerts on fail / success / fail, newest red', () => {
+    expect(verdict([run('schedule', 'failure'), run('schedule', 'success'), run('schedule', 'failure')])).toBe('alert');
+  });
+
+  it('names the intermittent rule in the body, not the consecutive one', () => {
+    const reason = failureReason([run('schedule', 'failure'), run('schedule', 'success'), run('schedule', 'failure')]);
+    expect(reason).toContain('2 of its last 3 scheduled runs failed');
+    expect(reason).toContain('not consecutive');
+  });
+
+  it('still names the consecutive rule when that is what fired', () => {
+    expect(failureReason([run('schedule', 'failure'), run('schedule', 'failure')])).toBe('its last 2 scheduled runs both failed');
+  });
+
+  it('stays ok on one isolated red among four greens', () => {
+    const runs = [run('schedule', 'failure'), ...Array.from({ length: 4 }, () => run('schedule', 'success'))];
+    expect(verdict(runs)).toBe('ok');
+  });
+
+  it('self-closes the moment the newest run is green, even mid-flap', () => {
+    const runs = [run('schedule', 'success'), run('schedule', 'failure'), run('schedule', 'success'), run('schedule', 'failure')];
+    expect(verdict(runs)).toBe('ok');
+    expect(failureReason(runs)).toBeNull();
+  });
+
+  it('does not look past the 5-run window', () => {
+    const runs = [run('schedule', 'failure'), ...Array.from({ length: 4 }, () => run('schedule', 'success')), run('schedule', 'failure')];
+    expect(verdict(runs)).toBe('ok');
+  });
+
+  it('is ok with no settled runs at all', () => {
+    expect(verdict([])).toBe('ok');
+    expect(verdict([run('schedule', null)])).toBe('ok');
+  });
+});
+
 describe('verdict with merged per-event lists', () => {
   it('still alerts when 10 pull_request runs sit between older failed schedule runs', () => {
     const prs = Array.from({ length: 10 }, (_, i) => ({ event: 'pull_request', conclusion: 'success', createdAt: `2026-10-06T0${i}:00:00Z` }));
@@ -106,5 +145,19 @@ describe('watchdog.yml wiring', () => {
     const yml = readFileSync('.github/workflows/watchdog.yml', 'utf8');
     expect(yml).toContain('scripts/watchdog/scheduled-failures.mjs list');
     expect(yml).toContain('failed its last 2 scheduled runs');
+  });
+
+  // The alert title is the dedupe identity and a cross-script contract:
+  // alert-router.mjs keys `workflow-failed-last-2-runs` off it verbatim, so the
+  // widened rule must put its reason in the BODY and leave the title alone.
+  it('keeps the title verbatim and sources the body from `reason`', () => {
+    const yml = readFileSync('.github/workflows/watchdog.yml', 'utf8');
+    const router = readFileSync('scripts/marjorie/lib/alert-router.mjs', 'utf8');
+    const title = 'Watchdog: ${WF} failed its last 2 scheduled runs';
+    expect(yml).toContain(`ALERT_TITLE="${title}"`);
+    const re = router.match(/\{ key: 'workflow-failed-last-2-runs', re: (\/.+\/) \}/)?.[1];
+    expect(re).toBeTruthy();
+    expect(title.replace('${WF}', 'link-sweep.yml')).toMatch(new RegExp(re!.slice(1, -1)));
+    expect(yml).toContain('scheduled-failures.mjs reason');
   });
 });

@@ -480,6 +480,9 @@ export const VIDEO_KINDS = [
   'tour_film',
   'documentary',
   'performance',
+  /** Official visualizer: looping lyric/visual accompaniment to a track
+   *  released on the official channel (2026-10-15, Opalite BUNT. remix). */
+  'visualizer',
   // Appearances
   /** Sit-down conversation: talk show, podcast, or radio/streaming interview. */
   'interview',

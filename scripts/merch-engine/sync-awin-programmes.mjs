@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // E0 detector: generates checked-in programme metadata only; it never wraps links.
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runMain } from '../lib/cli.mjs';
@@ -50,6 +50,7 @@ export function buildAdvertiserDirectory({
   directory = [],
   retailerHosts = new Set(),
   generatedAt,
+  previous = null,
 }) {
   const joinedIds = new Set(joined.map(advertiserId).filter(Boolean));
   const retailers = new Set([...retailerHosts].map(hostname).filter(Boolean));
@@ -65,17 +66,37 @@ export function buildAdvertiserDirectory({
         entries.set(retailer, { retailer, awinmid, joined: joinedProgramme });
     }
   }
+  const advertisers = [...entries.values()].sort((left, right) =>
+    left.retailer.localeCompare(right.retailer),
+  );
   return {
     source: 'E0 Awin Publisher API cross-reference',
-    generatedAt,
-    advertisers: [...entries.values()].sort((left, right) =>
-      left.retailer.localeCompare(right.retailer),
-    ),
+    generatedAt:
+      previous?.generatedAt && JSON.stringify(previous.advertisers) === JSON.stringify(advertisers)
+        ? previous.generatedAt
+        : generatedAt,
+    advertisers,
   };
+}
+
+async function previousDirectory(path) {
+  try {
+    return JSON.parse(await readFile(path, 'utf8'));
+  } catch (error) {
+    if (error?.code === 'ENOENT') return null;
+    throw error;
+  }
 }
 
 export function jitterDelay(random = Math.random) {
   return 10_000 + Math.floor(Math.max(0, Math.min(0.999999, random())) * 110_001);
+}
+
+export async function readJoinedAdvertiserIds(path) {
+  const directory = JSON.parse(await readFile(path, 'utf8'));
+  return new Set(
+    (directory.advertisers ?? []).filter((advertiser) => advertiser.joined).map((advertiser) => String(advertiser.awinmid)),
+  );
 }
 
 function nextPageUrl(link) {
@@ -155,13 +176,14 @@ async function main() {
     requestProgrammes({ publisherId, token }),
     retailersFromCatalogue(),
   ]);
+  const target = resolve(ROOT, output);
   const generated = buildAdvertiserDirectory({
     joined,
     directory,
     retailerHosts,
     generatedAt: new Date().toISOString(),
+    previous: await previousDirectory(target),
   });
-  const target = resolve(ROOT, output);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, `${JSON.stringify(generated, null, 2)}\n`, 'utf8');
   console.log(

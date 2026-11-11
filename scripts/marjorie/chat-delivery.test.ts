@@ -259,13 +259,13 @@ describe('finding 3 — never a second failure notice', () => {
   });
 });
 
-/** One real poll over #longlive-marjorie holding one stale claim (an hour old, its run finished). */
+/** One real poll over #marjorie holding one stale claim (an hour old, its run finished). */
 const HOOK = 'https://discord.com/api/webhooks/1/secret-token';
 const stale = founder(MID, mine('👀'));
 async function pollWith(routes: Record<string, unknown>) {
   const d = discord({
     [`GET ${HOOK}`]: res(200, { guild_id: GUILD, channel_id: TREE }),
-    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'longlive-marjorie' }, { id: TREE, name: 'longlive-tree' }]),
+    [`GET ${DISCORD_API}/guilds/${GUILD}/channels`]: res(200, [{ id: MARJ, name: 'marjorie' }, { id: TREE, name: 'longlive-tree' }]),
     [`GET ${DISCORD_API}/guilds/${GUILD}/threads/active`]: res(200, { threads: [] }),
     [`GET ${DISCORD_API}/channels/${MARJ}/messages?limit=100`]: res(200, [stale]),
     [get(MARJ)]: res(200, stale),
@@ -273,7 +273,7 @@ async function pollWith(routes: Record<string, unknown>) {
   });
   const runs = [{ displayTitle: runTitle('marjorie', MID), status: 'completed', conclusion: 'failure', url: RUN }];
   const execImpl = vi.fn((_cmd: string, args: string[]) => (args[0] === 'run' ? JSON.stringify(runs) : ''));
-  const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
+  const env = { DISCORD_BOT_TOKEN: 'bot', DISCORD_MARJORIE_CHANNEL_ID: MARJ, DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: HOOK, REPO: 'o/r' };
   const code = await poll({ env, fetchImpl: d.fetchImpl, sleepImpl, execImpl, now: NOW, workflowExists: (wf: string) => wf === 'routine-marjorie-chat.yml', clockLive: false });
   return { code, writes: d.writes(), dispatched: execImpl.mock.calls.filter((c) => c[1][0] === 'workflow').length };
 }
@@ -333,5 +333,32 @@ describe("context stops a run on a message that is not a founder's (allowed_bots
       expect(await thread({ context: out }, { env: { GITHUB_OUTPUT: ghOut }, fetchImpl, sleepImpl })).toBe(0);
       expect(readFileSync(ghOut, 'utf8')).toContain('skip=true');
     }
+  });
+});
+
+describe('Tree replies posted with the bot token (channel routing)', () => {
+  const botReply = (id: string, content: string) => ({ id, type: 0, author: { id: '55', username: 'longlive-bot', bot: true }, content });
+
+  it('credits a bot-authored reply only when its first line links the ask, and only for Tree', () => {
+    const linked = botReply('1000000000000000011', `↪ ${URL}\nanswer`);
+    const card = botReply('1000000000000000012', 'a community task card');
+    const base = { messageId: MID, message: founder(MID), messageUrl: URL, sourceMessages: [] as unknown[] };
+    expect(classifyDelivery({ ...base, bot: 'tree', sourceMessages: [linked] })).toBe('replied');
+    expect(classifyDelivery({ ...base, bot: 'tree', sourceMessages: [card] })).toBe('open');
+    expect(classifyDelivery({ ...base, bot: 'marjorie', sourceMessages: [linked] })).toBe('open');
+    expect(classifyDelivery({ ...base, bot: 'tree', sourceMessages: [botReply('1000000000000000013', `${FAILURE_PREFIX} x`)] })).toBe('open');
+  });
+
+  it('chat-post posts Tree replies to tree-main (or the thread) by id with the bot token, no webhook needed', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'chat-route-'));
+    const { mkdirSync, writeFileSync } = await import('node:fs');
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'chat-reply.md'), 'hello');
+    const d = discord({ [say('1558093607393562644')]: res(200, { id: '1000000000000000020' }), [say(THREAD)]: res(200, { id: '1000000000000000021' }) });
+    const env = { DISCORD_BOT_TOKEN: 'bot', GITHUB_OUTPUT: join(dir, 'out') };
+    expect(await postCmd({ bot: 'tree', 'reply-dir': dir, 'message-url': URL }, { env, fetchImpl: d.fetchImpl, sleepImpl })).toBe(0);
+    expect(await postCmd({ bot: 'tree', 'reply-dir': dir, 'thread-id': THREAD, 'message-url': URL }, { env, fetchImpl: d.fetchImpl, sleepImpl })).toBe(0);
+    expect(d.writes()).toEqual([say('1558093607393562644'), say(THREAD)]);
+    expect((d.log[0].body as { content: string }).content.startsWith(`↪ ${URL}`)).toBe(true);
   });
 });

@@ -1,4 +1,5 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
@@ -40,14 +41,73 @@ describe('matchAlertTitle', () => {
     ["Watchdog: vault/ hasn't produced a PR in 36h", 'lane-quiet'],
     ['Watchdog: no FB group export closed in 9 days', 'fb-export-due'],
     ['Watchdog: knowledge engine current-tier data is stale', 'knowledge-stale'],
+    ['Watchdog: news pipeline holding every new item', 'news-pipeline-holding'],
   ];
 
   it.each(cases)('matches %s -> %s', (title, key) => {
     expect(matchAlertTitle(title)).toBe(key);
   });
 
-  it('returns null for a title that matches none of the 14 rows', () => {
+  it('returns null for a title that matches no handler row', () => {
     expect(matchAlertTitle('Mobile parity: iOS and Android have diverged')).toBeNull();
+  });
+
+  // #6182: the `hold-rate` feed-quality check has opened
+  // `Watchdog: news pipeline holding every new item` since Content fix 6/6,
+  // but the router had no row for it, so the hourly ops sweep read a real
+  // self-closing watchdog alert as "not mine" and issue #6114 sat 58h with no
+  // diagnosis. Nothing tested the router against watchdog.yml's own title
+  // list, so the drift was silent — this test is that missing check: every
+  // static `Watchdog: ...` title watchdog.yml can open either routes to a
+  // handler key or is named below as a known, tracked gap. A newly added
+  // watchdog condition fails this test instead of quietly going unrouted.
+  describe('coverage of watchdog.yml (drift guard)', () => {
+    // Watchdog conditions the router does not route yet. Each needs an ops
+    // call on what Marjorie may DO about it before it earns a row, so they are
+    // listed rather than silently absent. Tracked as a group in the follow-up
+    // issue linked from #6182; shrink this list, never grow it — a new title
+    // belongs in EXACT_TITLES with a handler row in marjorie-ops.md.
+    const UNROUTED = new Set([
+      'Watchdog: Vercel production deploy failed',
+      'Watchdog: db-migrate failed on main',
+      'Watchdog: news-worker knowledge-extract degraded for 24h',
+      'Watchdog: live feed item fails publish gate',
+      'Watchdog: push dispatch stopped ticking',
+      'Watchdog: push dispatch heartbeat unknown',
+      'Watchdog: nothing posted to social in over 48h',
+      'Watchdog: social posting-gap check could not run',
+    ]);
+
+    // Static titles only: `[^"$]` drops the two interpolated (`${WF}`,
+    // `${LANE}`) titles, which DYNAMIC_PATTERNS covers and whose literal text
+    // cannot be read off the YAML anyway.
+    const watchdogTitles = [
+      ...new Set(
+        [
+          ...readFileSync(
+            fileURLToPath(new URL('../../../.github/workflows/watchdog.yml', import.meta.url)),
+            'utf8',
+          ).matchAll(/"(Watchdog: [^"$]*)"/g),
+        ].map((m) => m[1]),
+      ),
+    ];
+
+    it('finds the static alert titles in watchdog.yml at all (regex still valid)', () => {
+      expect(watchdogTitles.length).toBeGreaterThan(10);
+      expect(watchdogTitles).toContain('Watchdog: news pipeline holding every new item');
+    });
+
+    it.each(watchdogTitles)('%s routes to a handler key or is a listed gap', (title) => {
+      if (UNROUTED.has(title)) {
+        expect(matchAlertTitle(title)).toBeNull();
+        return;
+      }
+      expect(matchAlertTitle(title)).not.toBeNull();
+    });
+
+    it('lists no gap that watchdog.yml can no longer open', () => {
+      expect([...UNROUTED].filter((t) => !watchdogTitles.includes(t))).toEqual([]);
+    });
   });
 });
 
@@ -189,5 +249,169 @@ describe('state CLI', () => {
   it('ignores a marker on a comment the routine did not post', () => {
     const marker = renderHandledMarker({ action: 'escalate', date: '2020-01-01' });
     expect(runStateCli([{ viewerDidAuthor: false, body: marker }])).toBe('unhandled');
+  });
+
+  // #6182: the full round trip for the new row, through the only two commands
+  // the sweep actually runs on it — `match` must hand back a key (exit 0, not
+  // the `unmatched`/exit-1 that stranded #6114), and the comment-only ledger
+  // marker it then writes must read back as same-day handled and expire the
+  // next day, so a still-held feed gets re-diagnosed tomorrow.
+  it('round-trips news-pipeline-holding from match through the ledger marker', () => {
+    const title = 'Watchdog: news pipeline holding every new item';
+    expect(execFileSync('node', [CLI_PATH, 'match', title], { encoding: 'utf8' }).trim()).toBe(
+      'news-pipeline-holding',
+    );
+
+    const marker = renderHandledMarker({ action: 'comment-only', date: '2026-10-22' });
+    const ledger = [{ viewerDidAuthor: true, body: `Holding on \`missing_image\`.\n\n${marker}` }];
+    expect(deriveHandledState(ledger, { today: '2026-10-22' })).toBe('handled-awaiting-watchdog');
+    expect(deriveHandledState(ledger, { today: '2026-10-23' })).toBe('unhandled');
+  });
+
+  // #4226: a failed upstream `gh issue view` pipes nothing; that must not read
+  // as a fresh, ledger-less alert.
+  function runRaw(input: string, args: string[] = []) {
+    return spawnSync('node', [CLI_PATH, 'state', ...args], { input, encoding: 'utf8' });
+  }
+
+  it('treats empty stdin as a failed lookup (exit 3, logged), not unhandled', () => {
+    for (const input of ['', '  \n']) {
+      const r = runRaw(input);
+      expect(r.status).toBe(3);
+      expect(r.stdout.trim()).toBe('');
+      expect(r.stderr).toContain('lookup failed');
+    }
+  });
+
+  it('treats non-JSON or non-array stdin as a failed lookup', () => {
+    for (const input of ['gh: HTTP 502', '{"message":"Not Found"}', 'null']) {
+      expect(runRaw(input).status).toBe(3);
+    }
+  });
+
+  it('still reads a genuine zero-comment issue ([]) as unhandled', () => {
+    const r = runRaw('[]');
+    expect(r.status).toBe(0);
+    expect(r.stdout.trim()).toBe('unhandled');
+  });
+
+  it('exits 2 with usage when --targets has no value or an empty value', () => {
+    for (const args of [['--targets'], ['--targets', ''], ['--targets', ',']]) {
+      const r = runRaw('[]', args);
+      expect(r.status).toBe(2);
+      expect(r.stderr).toContain('--targets');
+      expect(r.stdout.trim()).toBe('');
+    }
+    const m = spawnSync('node', [CLI_PATH, 'marker', 'escalate', '--targets'], {
+      encoding: 'utf8',
+    });
+    expect(m.status).toBe(2);
+  });
+
+  it('passes --targets through to deriveHandledState', () => {
+    const marker = renderHandledMarker({
+      action: 'escalate',
+      date: '2020-01-01',
+      targets: ['a.yml'],
+    });
+    const input = JSON.stringify([{ viewerDidAuthor: true, body: marker }]);
+    expect(runRaw(input, ['--targets', 'a.yml']).stdout.trim()).toBe('escalated');
+    expect(runRaw(input, ['--targets', 'a.yml,b.yml']).stdout.trim()).toBe('unhandled');
+  });
+});
+
+// #4219: a handled marker covers only the aggregate-alert targets it names.
+describe('per-target handled markers', () => {
+  const own = (body: string) => ({ viewerDidAuthor: true, body });
+  const today = '2026-09-12';
+
+  it('renders a sorted, deduped targets suffix and round-trips it', () => {
+    const marker = renderHandledMarker({
+      action: 'escalate',
+      date: today,
+      targets: ['b.yml', 'a.yml', 'a.yml'],
+    });
+    expect(marker).toBe(
+      '<!-- marjorie-ops-handled date=2026-09-12 action=escalate targets=a.yml,b.yml -->',
+    );
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('rejects a target that would break out of the marker', () => {
+    expect(() => renderHandledMarker({ action: 'escalate', targets: ['a b'] })).toThrow();
+    expect(() => renderHandledMarker({ action: 'escalate', targets: ['a-->'] })).toThrow();
+  });
+
+  it('does not let a permanent marker suppress a newly added target', () => {
+    const marker = renderHandledMarker({
+      action: 'escalate',
+      date: '2026-08-01',
+      targets: ['a.yml'],
+    });
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml'] })).toBe('escalated');
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('unions coverage across several markers', () => {
+    const a = renderHandledMarker({
+      action: 'human-action',
+      date: '2026-08-01',
+      targets: ['a.yml'],
+    });
+    const b = renderHandledMarker({ action: 'escalate', date: '2026-09-01', targets: ['b.yml'] });
+    expect(deriveHandledState([own(a), own(b)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('scopes a same-day redispatch marker to its targets too', () => {
+    const marker = renderHandledMarker({ action: 'redispatch', date: today, targets: ['a.yml'] });
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml'] })).toBe(
+      'handled-awaiting-watchdog',
+    );
+    expect(deriveHandledState([own(marker)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('grandfathers a legacy permanent marker: it covers a new target too', () => {
+    const legacy = renderHandledMarker({ action: 'human-action', date: '2026-08-01' });
+    expect(deriveHandledState([own(legacy)], { today })).toBe('escalated');
+    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'escalated',
+    );
+  });
+
+  it('grandfathers a legacy same-day marker, then it expires tomorrow', () => {
+    const legacy = renderHandledMarker({ action: 'comment-only', date: today });
+    expect(deriveHandledState([own(legacy)], { today, targets: ['a.yml', 'b.yml'] })).toBe(
+      'handled-awaiting-watchdog',
+    );
+    expect(deriveHandledState([own(legacy)], { today: '2026-09-13', targets: ['a.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('targeted markers still catch a new target alongside no legacy marker', () => {
+    const t = renderHandledMarker({ action: 'escalate', date: '2026-08-01', targets: ['a.yml'] });
+    const sameDay = renderHandledMarker({
+      action: 'comment-only',
+      date: today,
+      targets: ['b.yml'],
+    });
+    expect(deriveHandledState([own(t), own(sameDay)], { today, targets: ['a.yml', 'c.yml'] })).toBe(
+      'unhandled',
+    );
+  });
+
+  it('ignores a forged targeted marker from a comment the routine did not post', () => {
+    const marker = renderHandledMarker({ action: 'escalate', date: today, targets: ['a.yml'] });
+    expect(
+      deriveHandledState([{ viewerDidAuthor: false, body: marker }], { today, targets: ['a.yml'] }),
+    ).toBe('unhandled');
   });
 });

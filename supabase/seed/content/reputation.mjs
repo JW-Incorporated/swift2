@@ -109,9 +109,11 @@ export default {
             reportedOn: '2025-05-30',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-taylors-version-not-releasing-1235351379/',
-            note: 'Forward-looking, unannounced-music speculation; distinct from the debut "Taylor\'s Version" rumor. Resolves on an official announcement of a reputation re-record or Vault release. Re-checked 2026-08-15: still none announced; kept STILL LIVE rather than faded — the topic was re-fueled as recently as the Dec 2025 Dolby Atmos lyric edits (entry below), so it has not gone quiet.',
+            note: 'Forward-looking, unannounced-music speculation; distinct from the debut "Taylor\'s Version" rumor. Resolves on an official announcement of a reputation re-record or Vault release. Re-checked 2026-10-22: still none announced. Fan easter-egg reading continued through late September, so it has not gone quiet. Still live.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-15',
+            // Lifecycle re-checks: 2026-08-15 kept live (re-fueled by the Dec 2025
+            // Dolby Atmos lyric edits); 2026-10-22 web search, still unannounced.
+            lastCheckedOn: '2026-10-22',
           },
           {
             claim:
@@ -120,9 +122,10 @@ export default {
             reportedOn: '2025-09-30',
             status: 'unconfirmed',
             url: 'https://www.capitalfm.com/artists/taylor-swift/reputation-taylors-version-vault-tracks/',
-            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs. Re-checked 2026-08-15: no such release, so the theory can\'t yet be confirmed or excluded; still-live as part of the active reputation-re-record question, not faded.',
+            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs. Re-checked 2026-10-22: still no such release, so it can be neither confirmed nor excluded. It stays live alongside the parent reputation-re-record question.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-15',
+            // Lifecycle re-checks: 2026-08-15 and 2026-10-22, no Vault release.
+            lastCheckedOn: '2026-10-22',
           },
           {
             // Rumor Desk 2026-07-27: a third, later data point on the same
@@ -134,11 +137,11 @@ export default {
               'When reputation arrived on Apple Music in Dolby Atmos in December 2025, Taylor had quietly altered two lyrics from the 2017 originals — sharpening a line in "I Did Something Bad" and swapping a word in "Delicate" — and fans and music press read the tweaks as an Easter-egg tease that reputation (Taylor\'s Version) or its unreleased Vault tracks were finally near.',
             reportedBy: 'Rolling Stone (Maya Georgi)',
             reportedOn: '2025-12-12',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-lyric-changes-explained-1235483070/',
-            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. Resolves on an announced reputation re-record or Vault release, fades if the window stays empty. Re-checked 2026-08-19: still nothing announced — kept STILL LIVE (not faded), the same active reputation-TV question its two sibling entries were re-checked on 2026-08-15. No location.',
+            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. Re-checked 2026-08-19: still live. Re-checked 2026-11-04: FADED. Eleven months on, no re-record or Vault release announced and nothing followed up on the Atmos tweaks. Reported December 2025, never confirmed or denied. The wider reputation-TV question stays live in the sibling entries. No location.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-19',
+            lastCheckedOn: '2026-11-04',
           },
         ],
       },
@@ -289,6 +292,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg',
+            focalPoint: '36% 33%',
             credit: 'Julio Enriquez / Wikimedia Commons',
           },
         ],
@@ -1441,6 +1445,20 @@ export default {
             kind: 'archival',
             focalPoint: '53% 40%',
           },
+          {
+            url: 'https://i.ytimg.com/vi/dfnCAmr569k/maxres2.jpg',
+            focalPoint: '50% 38%',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Ed Sheeran, grinning in a frame from the "End Game" video.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/dfnCAmr569k/maxres3.jpg',
+            focalPoint: '45% 42%',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The London double-decker stretch of the "End Game" video.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -1564,6 +1582,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.nme.com/wp-content/uploads/2018/05/GettyImages-956319166-1-696x442.jpg',
+            focalPoint: '47% 24%',
             credit: 'Getty Images / NME',
             caption: 'Taylor Swift performing with Charli XCX and Camila Cabello on the Reputation Stadium Tour\'s opening night, Glendale, AZ, May 8, 2018 — the same night the olive branch arrived backstage.',
             kind: 'archival',
@@ -1696,6 +1715,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.rollingstone.com/wp-content/uploads/2018/10/taylorcrop.jpg?w=1600&h=900&crop=1',
+            focalPoint: '45% 22%',
             credit: 'Rolling Stone',
             caption: 'Taylor Swift performing on the Reputation Stadium Tour, October 2018 — the month of the political endorsement post.',
             kind: 'archival',
@@ -1900,6 +1920,7 @@ export default {
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
+            focalPoint: '50% 38%',
             credit: 'Big Machine Records',
           },
         ],
@@ -2518,25 +2539,6 @@ export default {
           {
             url: 'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
             credit: 'Footwear News',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact custom striped romper is
-        // discontinued -- a current black sequin romper, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Julian Chang',
-            item: 'Eres Long-Sleeve V Neck Sequin Romper',
-            retailer: 'julianchang.com',
-            url: 'https://julianchang.com/products/eres-romper',
-            matchTier: 'inspired',
-            matchScore: 25,
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2100/2615/files/3135BlackSequinJulianChang.jpg?v=1758735654',
-            price: '$315.00',
-            isAlternative: true,
-            altNote: 'The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

@@ -71,6 +71,9 @@ export function mediaUrlFor(p, mediaBaseUrl = MEDIA_BASE_URL) {
 export const MAX_POSTS_PER_RUN = 1;
 export const MAX_POSTS_PER_PLATFORM_PER_DAY = 1;
 
+/** P2-06 (D6): extra per-platform daily slots, usable ONLY by items with `breaking: true` (strictly boolean true) AND only when the caller passes `breakingEnabled: true` (default off). */
+export const BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY = 2;
+
 /**
  * True if `item.scheduledAt` parses to an actual point in time. Added
  * 2026-08-11 (Codex review round 1 on PR #1900): `isDue`/`isStaleDue` both
@@ -141,14 +144,15 @@ export function isDue(item, now) {
  * MAX_POSTS_PER_PLATFORM_PER_DAY, it only avoids splitting a pair across
  * two different campaigns' items competing for the same per-platform slot.
  */
-export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PER_RUN) {
+export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PER_RUN, { breakingEnabled = false } = {}) {
   const remaining = new Map(postedToday);
   const due = items.filter((item) => isDue(item, now)).sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
 
   const selected = [];
   const takenIndices = new Set();
 
-  const hasBudget = (platform) => (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY;
+  const hasBudget = (platform, breaking = false) =>
+    (remaining.get(platform) ?? 0) < MAX_POSTS_PER_PLATFORM_PER_DAY + (breakingEnabled === true && breaking === true ? BREAKING_EXTRA_POSTS_PER_PLATFORM_PER_DAY : 0);
   const claim = (platform) => remaining.set(platform, (remaining.get(platform) ?? 0) + 1);
 
   // Pass 1: complete campaign pairs, earliest-sibling-first.
@@ -179,7 +183,7 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
     }
     const reps = [...byPlatform.values()];
     if (reps.length < 2) continue;
-    if (!reps.every((e) => hasBudget(e.item.platform))) continue; // one side's platform is already at its daily cap — skip the pair, not a partial pick
+    if (!reps.every((e) => hasBudget(e.item.platform, e.item.breaking))) continue; // one side's platform is already at its daily cap — skip the pair, not a partial pick
     for (const e of reps) {
       selected.push(e.item);
       takenIndices.add(e.index);
@@ -209,7 +213,7 @@ export function selectDuePosts(items, now, postedToday, maxPerRun = MAX_POSTS_PE
   due.forEach((item, index) => {
     if (selected.length >= maxPerRun) return;
     if (takenIndices.has(index)) return;
-    if (!hasBudget(item.platform)) return;
+    if (!hasBudget(item.platform, item.breaking)) return;
     const campaign = typeof item.campaign === 'string' ? item.campaign.trim() : '';
     if (campaign && (queuedPlatformsByCampaign.get(campaign)?.size ?? 0) >= 2) return;
     selected.push(item);
@@ -437,6 +441,44 @@ export function summarizeQueueStatus(items, now = new Date(), { approvers } = {}
   return { total: items.length, scheduled, due: items.length - scheduled, awaitingApproval };
 }
 
+export const LAST_ERROR_MAX_LENGTH = 200;
+
+/**
+ * Short, credential-free form of an error text for a social/failed/ record:
+ * URLs (query strings can carry tokens), Bearer values and `key=value` /
+ * `"key": "value"` secrets (any `oauth_*` parameter, e.g. the
+ * oauth_consumer_key of an X OAuth header, and any key ending in
+ * token/secret/password/signature/key, e.g. access_token or a bare token=)
+ * are redacted, whitespace collapsed, length capped at `maxLength`.
+ */
+export function sanitizeLastError(error, maxLength = LAST_ERROR_MAX_LENGTH) {
+  const text = String(error?.message ?? error ?? '')
+    .replace(/\bhttps?:\/\/[^\s"'<>]+/gi, '[url]')
+    .replace(/\bBearer\s+\S+/gi, 'Bearer [redacted]')
+    .replace(/\b(oauth_\w+|[\w-]*(?:token|secret|password|signature|key)|sig)(["']?\s*[:=]\s*["']?)[^\s"'&,}]+/gi, '$1$2[redacted]')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
+
+/**
+ * The record post-queue.mjs writes to social/failed/: the item plus
+ * `failedAt` (ISO time of the move), `attempts` (kept from the item, 0 when
+ * it never reached a platform, e.g. stale or invalid scheduledAt) and a
+ * short, redacted `lastError`. `failureReason` keeps its full length but is
+ * redacted the same way, because it can embed the raw error text.
+ */
+export function withFailureMetadata(item, { now = new Date(), error } = {}) {
+  const out = {
+    ...item,
+    failedAt: now.toISOString(),
+    attempts: item.attempts ?? 0,
+    lastError: sanitizeLastError(error ?? item.lastError ?? item.failureReason ?? 'unknown'),
+  };
+  if (typeof item.failureReason === 'string') out.failureReason = sanitizeLastError(item.failureReason, Infinity);
+  return out;
+}
+
 /**
  * The exact content-bound payload an `approval.contentHash` covers
  * (docs/social/RULINGS-SOCIAL.md A2) — every field the AUDIENCE sees or that changes
@@ -478,11 +520,43 @@ export function contentHash(item) {
  * editing an unsigned field. One named function, never inlined.
  */
 export function approvalSigPayload(a) {
+  if (a.v === 4) return `${a.v}|${a.kind}|${a.by}|${a.at}|${a.pr}|${a.contentHash}|${a.mediaDigest}`;
   if (a.v === 3) return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.sha}|${a.contentHash}`;
   return `${a.v}|${a.by}|${a.at}|${a.pr}|${a.contentHash}`;
 }
 
 const HEAD_SHA_RE = /^[0-9a-f]{40}$/;
+
+/** Schema v4 (2026-10): Tree's autonomous approval — the stamp
+ * `social-tree-approve.yml` mints after trusted check-drafts passes, with no
+ * Discord ✅. `kind` sits INSIDE the signed payload so it cannot be edited
+ * after signing; `by` is fixed, never a discord: identity, so it can never
+ * be mistaken for (or counted as) the owner's own approval. */
+export const TREE_AUTO_KIND = 'tree-auto';
+export const TREE_AUTO_BY = 'tree:auto';
+
+/**
+ * `sha256:<hex>` over the BYTES of every media file a draft names, in order
+ * (`path NUL sha256(bytes) LF` per file). A v4 stamp signs this, so swapping an
+ * image after the stamp (the content hash covers only the path string) voids it.
+ * `readMedia(mediaPath)` returns a Buffer, or null when the file is missing — in
+ * which case this returns null (nothing can be vouched for).
+ */
+export function mediaDigest(item, readMedia) {
+  const hash = createHash('sha256');
+  for (const media of Array.isArray(item?.media) ? item.media : []) {
+    const bytes = typeof media === 'string' ? readMedia(media) : null;
+    if (!bytes) return null;
+    hash.update(media + String.fromCharCode(0) + createHash('sha256').update(bytes).digest('hex') + String.fromCharCode(10), 'utf8');
+  }
+  return `sha256:${hash.digest('hex')}`;
+}
+
+/** True iff `item.approval` CLAIMS to be a v4 stamp (valid or not) — for
+ * callers that must stay out of a tree-auto PR's way. */
+export function isV4Stamp(item) {
+  return item?.approval?.v === 4;
+}
 
 /** The head SHA a v3 stamp was minted against, or null for anything else
  * (a v2 stamp has none; a `sha` hand-added to a v2 record is ignored by
@@ -529,7 +603,9 @@ export function verifyApprovalSig(a, key) {
  * traceable to the owner's own Discord ✅ (schema v2, superseding A2's
  * merge-keyed v1 — docs/social/RULINGS-SOCIAL-2.md B1; or v3, which
  * additionally signs the head SHA it was minted on — docs/decisions.md
- * 2026-09-12)? Returns `{ ok: true }` or `{ ok: false, reason }`, checked in
+ * 2026-09-12; or v4 `tree-auto`, Tree's own autonomous approval — signed
+ * `kind`, no discord:/SOCIAL_APPROVERS check, and `{ ok: true, kind:
+ * 'tree-auto' }` so callers can refuse to treat it as the owner's ✅)? Returns `{ ok: true }` or `{ ok: false, reason }`, checked in
  * this fixed order so the first true reason is always what's reported:
  * absent → malformed → not-a-discord-identity → not-in-approvers →
  * content-hash mismatch → bad signature.
@@ -566,7 +642,13 @@ export function approvalStatus(item, options = {}) {
   const shapeOk =
     typeof approval === 'object' &&
     !Array.isArray(approval) &&
-    (approval.v === 2 || (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
+    (approval.v === 2 ||
+      (approval.v === 4 &&
+        approval.kind === TREE_AUTO_KIND &&
+        approval.by === TREE_AUTO_BY &&
+        typeof approval.mediaDigest === 'string' &&
+        approval.mediaDigest.startsWith('sha256:')) ||
+      (approval.v === 3 && typeof approval.sha === 'string' && HEAD_SHA_RE.test(approval.sha))) &&
     typeof approval.by === 'string' &&
     approval.by.trim() !== '' &&
     typeof approval.at === 'string' &&
@@ -579,13 +661,14 @@ export function approvalStatus(item, options = {}) {
   if (!shapeOk) {
     return { ok: false, reason: 'malformed approval record' };
   }
-  if (!/^discord:\d{17,20}$/.test(approval.by)) {
+  const treeAuto = approval.v === 4;
+  if (!treeAuto && !/^discord:\d{17,20}$/.test(approval.by)) {
     return {
       ok: false,
       reason: `approved by "${approval.by}", which is not a discord: identity — GitHub logins can never approve`,
     };
   }
-  if (!Array.isArray(approvers) || !approvers.includes(approval.by)) {
+  if (!treeAuto && (!Array.isArray(approvers) || !approvers.includes(approval.by))) {
     return { ok: false, reason: `approved by "${approval.by}", who is not in SOCIAL_APPROVERS` };
   }
   if (approval.contentHash !== contentHash(item)) {
@@ -594,7 +677,16 @@ export function approvalStatus(item, options = {}) {
       reason: 'edited after approval — body/media/altText/scheduledAt/campaign no longer match what was approved',
     };
   }
+  if (treeAuto && typeof options.readMedia === 'function') {
+    const actual = mediaDigest(item, options.readMedia);
+    if (actual === null || actual !== approval.mediaDigest) {
+      return { ok: false, reason: 'media changed (or is missing) since the tree-auto approval — the signed media digest no longer matches' };
+    }
+  }
   if (hasKey) {
+    if (treeAuto && typeof options.readMedia !== 'function') {
+      return { ok: false, reason: 'tree-auto approval cannot be verified — the caller supplied no way to read the media bytes' };
+    }
     if (!key) {
       return { ok: false, reason: 'approval signature cannot be verified — SOCIAL_APPROVAL_KEY is not configured' };
     }
@@ -602,5 +694,5 @@ export function approvalStatus(item, options = {}) {
       return { ok: false, reason: 'approval signature invalid — this record was not written by the approval workflow' };
     }
   }
-  return { ok: true };
+  return treeAuto ? { ok: true, kind: TREE_AUTO_KIND } : { ok: true };
 }

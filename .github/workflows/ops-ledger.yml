@@ -1,0 +1,62 @@
+name: ops-ledger
+
+on:
+  schedule:
+    - cron: '23 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: ops-ledger
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          fetch-depth: 0
+          npm-ci: 'true'
+          npm-ci-args: '--ignore-scripts'
+
+      - name: Measure weekly routine turns
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/routines/turn-ledger.mjs --days 7 | tee turn-ledger.txt
+
+      - name: Measure clock fire rate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ops/clock-fire-rate.mjs --hours 48 | tee clock-fire-rate.txt
+
+      - name: Collect weekly scorecard
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/ops/weekly-scorecard.mjs | tee weekly-scorecard.txt
+
+      - name: Summarize measurements
+        run: |
+          echo '## Operations ledger' >> "$GITHUB_STEP_SUMMARY"
+          sed -n '1,16p' turn-ledger.txt >> "$GITHUB_STEP_SUMMARY"
+          sed -n '1,16p' clock-fire-rate.txt >> "$GITHUB_STEP_SUMMARY"
+          echo '## Weekly goal scorecard' >> "$GITHUB_STEP_SUMMARY"
+          sed -n '2,16p' weekly-scorecard.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload operations ledger
+        uses: actions/upload-artifact@v7
+        with:
+          name: ops-ledger
+          path: |
+            docs/ops/dashboard/budget.json
+            docs/ops/dashboard/scorecard.json
+            clock-fire-rate.txt
+            weekly-scorecard.txt
+          retention-days: 90

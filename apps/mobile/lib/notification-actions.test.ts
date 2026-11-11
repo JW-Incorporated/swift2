@@ -1,7 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 
+const captured = vi.hoisted(() => ({ handler: null as unknown }));
+
 vi.mock('expo-notifications', () => ({
   setNotificationCategoryAsync: vi.fn().mockResolvedValue(undefined),
+  setNotificationHandler: (h: unknown) => void (captured.handler = h),
 }));
 
 const fetchDevicePrefs = vi.fn();
@@ -72,12 +75,20 @@ describe('handleNotificationAction', () => {
   });
 });
 
+describe('foreground notification handler', () => {
+  it('installs at module load: banner + list, no sound, no badge change', async () => {
+    const handler = captured.handler as { handleNotification: (n: unknown) => Promise<unknown> };
+    const behavior = await handler.handleNotification({});
+    expect(behavior).toEqual({ shouldShowBanner: true, shouldShowList: true, shouldPlaySound: false, shouldSetBadge: false });
+  });
+});
+
 describe('registerNotificationActions', () => {
   it('registers one Expo notification category per app category', async () => {
     const Notifications = await import('expo-notifications');
     await registerNotificationActions();
     expect(Notifications.setNotificationCategoryAsync).toHaveBeenCalled();
-    // 10 steady + 3 fun + 1 event-driven categories = 14 (ALL_NOTIFICATION_CATEGORIES).
-    expect(vi.mocked(Notifications.setNotificationCategoryAsync).mock.calls).toHaveLength(14);
+    // 11 steady (incl. baby_watch) + 3 fun + 1 event-driven categories = 15 (ALL_NOTIFICATION_CATEGORIES).
+    expect(vi.mocked(Notifications.setNotificationCategoryAsync).mock.calls).toHaveLength(15);
   });
 });

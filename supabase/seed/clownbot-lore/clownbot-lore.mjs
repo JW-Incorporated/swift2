@@ -36,13 +36,46 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-09-26',
+  updatedOn: '2026-11-10',
   items: [
+    {
+      // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
+      // (The Ankler, Showbiz411); the nomination is the open question. It
+      // resolves at the Academy shortlist (15 Dec 2026) and nominations
+      // (21 Jan 2027).
+      id: 'iki-oscar-campaign',
+      status: 'reported',
+      date: '2026-11-01',
+      // Rechecked 2026-11-08 (Vault Run): still `reported`, no nomination yet; the Academy's Original Song shortlist is due Dec. 15.
+      // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
+      lastCheckedOn: '2026-11-10',
+      headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
+      detail:
+        'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
+      sources: [
+        {
+          name: 'The Ankler',
+          url: 'https://theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time/',
+        },
+        {
+          name: 'Showbiz411',
+          url: 'https://www.showbiz411.com/2026/11/01/taylor-swift-really-wants-the-oscar-for-her-song-in-toy-story-5-today-she-campaigned-at-an-all-guild-screening-in-nyc-watch-video',
+        },
+        {
+          name: 'TheWrap',
+          url: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+        },
+      ],
+      prompts: [
+        'She met 200 guild voters one selfie at a time. Does that get "I Knew It, I Knew You" onto the Dec. 15 shortlist? Give me odds.',
+      ],
+      tags: ['awards', 'toy-story-5'],
+    },
     {
       id: 'showgirl-encore-patient-zero',
       status: 'confirmed',
       date: '2026-09-25',
-      lastCheckedOn: '2026-09-26',
+      lastCheckedOn: '2026-10-08',
       headline: '"The Life of a Showgirl: The Encore" — four new songs, led by "Patient Zero"',
       detail:
         'On 25 Sept 2026 Taylor released "The Life of a Showgirl: The Encore," an expanded edition of her 2025 album adding four brand-new songs — "Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!" — which she said she wrote afterward in Sweden with Max Martin and Shellback. Spotify said the drop made her the most-streamed female artist in a single day in 2026, and "Patient Zero" the most-streamed song by a female artist in a day this year. An official lyric video is out; the full "Patient Zero" video, directed by Taylor with Colin Farrell and Dakota Johnson, is set to premiere at the VMAs.',
@@ -104,10 +137,27 @@ export default {
       // Encore" (four new songs, out 25 Sept) — new music, but NOT a re-record.
       // The longest-running open question stays open; neither reputation TV nor
       // debut TV has been released or dated.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-20 (Vault Run): Parade (via AOL, 18 Oct) still reports
+      // no announcement ahead of the debut's 20th anniversary on 24 Oct 2026;
+      // the only "out 24 Oct" claims found are on user-edited fan wikis.
+      // Rechecked 2026-10-22 (Vault Run): still no announcement of either;
+      // coverage remains fan speculation and unconfirmed retail listings.
+      // Rechecked 2026-10-24 (Vault Run), the anniversary itself: the website
+      // tribute (Elle, 23 Oct) came with no release; still nothing announced.
+      // Rechecked 2026-10-26 (Vault Run): the anniversary passed with no
+      // release. Variety (24 Oct) says she did not mark it with a deluxe or
+      // anything "so obvious or fan-servicing".
+      // Rechecked 2026-11-02 (Vault Run): still nothing announced. The
+      // Nov 1-2 news cycle was Toy Story 5 awards campaigning, not a re-record.
+      // Rechecked 2026-11-04 (Vault Run): web search finds no announcement of
+      // either; results are speculation pieces only. Cosmopolitan (2 Nov) still
+      // frames fans as "clowning for Debut TV".
+      // Rechecked 2026-11-08 (Vault Run): neither reputation TV nor debut TV has been announced or dated.
+      // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
+      lastCheckedOn: '2026-11-10',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
-        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
+        'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
       sources: [
         {
           name: 'Rolling Stone',
@@ -120,6 +170,14 @@ export default {
         {
           name: 'Associated Press',
           url: 'https://apnews.com/article/672dc24782f5b0f04c864a6fd86665d8',
+        },
+        {
+          name: 'Parade (via AOL)',
+          url: 'https://www.aol.com/articles/taylor-swifts-debut-album-turns-045000000.html',
+        },
+        {
+          name: 'Variety',
+          url: 'https://variety.com/2026/music/news/taylor-swift-interview-debut-album-20th-anniversary-1236930352/',
         },
       ],
       prompts: [
@@ -187,7 +245,9 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. Nothing in the
       // 25 Sept Encore news cycle revisited the promo-video AI question; her
       // team has still neither confirmed nor denied it.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-11-08 (Vault Run): no new coverage found; her team still has not confirmed or denied it.
+      // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
+      lastCheckedOn: '2026-11-10',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -219,7 +279,12 @@ export default {
       // into resolved to a single ("Patient Zero") and the Showgirl Encore —
       // not a debut/Reputation/TS13 release. The green-TS read stays fandom
       // interpretation; nothing official connects the images to a re-record.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-10-26 (Vault Run): the debut's 20th anniversary (24 Oct)
+      // passed with no release (Variety), so the "anniversary drop" reading
+      // didn't happen. Still unconnected to anything official.
+      // Rechecked 2026-11-08 (Vault Run): nothing official connects the green TS images to a release.
+      // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
+      lastCheckedOn: '2026-11-10',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -238,7 +303,7 @@ export default {
         },
       ],
       prompts: [
-        'Green TS logo, green Empire State Building, and a 20th anniversary coming: debut, reputation, TS13, or pure trolling? Pick one.',
+        'Green TS logo, green Empire State Building, and a debut 20th anniversary that came and went with no release: reputation, TS13, or pure trolling? Pick one.',
       ],
       tags: ['re-records', 'ts13', 'easter-eggs'],
     },
@@ -249,7 +314,9 @@ export default {
       // Rechecked 2026-09-26 (Vault Run): still `reported`. The late-Sept
       // activity was the Showgirl Encore, not a TS13 reveal — no album title,
       // color system, or release plan has been confirmed.
-      lastCheckedOn: '2026-09-26',
+      // Rechecked 2026-11-08 (Vault Run): no TS13 title, color system or release plan announced.
+      // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
+      lastCheckedOn: '2026-11-10',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -275,11 +342,25 @@ export default {
       // partly borne out — she released four brand-new songs on 25 Sept — but
       // the TS13/next-era read it feeds is still unconfirmed, so status stays
       // `reported`. Added the Encore as a corroborating source.
+      // Rechecked 2026-10-26 (Vault Run): CORRECTED the "borne out" read. Per
+      // Business Insider (24 Oct), the Encore songs were written in 2025,
+      // shortly after the original album, so they predate the wedding and do
+      // not corroborate post-wedding writing. Still `reported`; no new album
+      // announced.
+      // Rechecked 2026-11-02 (Vault Run): still `reported`. No TS13 album,
+      // title or timeline announced as of the Nov 1-2 news cycle.
+      // Rechecked 2026-11-04 (Vault Run, intake #6587): a second blind tip,
+      // a Daily Mail insider (via Cosmopolitan, 2 Nov) saying she has "enough
+      // material to fill her next two albums". Added as tabloid-tier support
+      // for the same open question. Still `reported`; nothing announced. The
+      // same insider's post-wedding relationship colour is deliberately left out.
       date: '2026-08-27',
-      lastCheckedOn: '2026-09-26',
-      headline: 'Reportedly "writing new music" since the wedding — then the Encore dropped',
+      // Rechecked 2026-11-08 (Vault Run): still no album announced; an early-Nov. Daily Mail insider report (via Yahoo) of two albums of unreleased music keeps it `reported`.
+      // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
+      lastCheckedOn: '2026-11-10',
+      headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
-        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." That report is now partly borne out in the most literal sense: on 25 Sept 2026 she released "The Life of a Showgirl: The Encore," four brand-new songs (led by "Patient Zero") she said she wrote afterward in Sweden with Max Martin and Shellback. But that is a Showgirl expansion, not the new (TS13) era the theory reads into it — no next-era album, title, or timeline has been announced. Status stays `reported`: the "writing new music" claim is corroborated by a real release; the TS13/next-era read is not.',
+        'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. On 2 Nov 2026 a Daily Mail insider (via Cosmopolitan) went further, saying she has "enough material to fill her next two albums". That is another anonymous tip, not an announcement. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',
       sources: [
         {
           name: 'Page Six (via Just Jared)',
@@ -293,9 +374,17 @@ export default {
           name: 'Variety — "The Life of a Showgirl: The Encore"',
           url: 'https://variety.com/2026/music/news/taylor-swift-reveals-life-of-showgirl-encore-new-songs-1236872982/',
         },
+        {
+          name: 'Business Insider',
+          url: 'https://www.businessinsider.com/taylor-swift-debut-album-anniversary-showgirl-deluxe-2026-10',
+        },
+        {
+          name: 'Daily Mail (via Cosmopolitan)',
+          url: 'https://www.cosmopolitan.com/entertainment/celebs/a74310472/taylor-swift-two-new-albums/',
+        },
       ],
       prompts: [
-        'An insider said she was "writing new music" after the wedding — then the Encore dropped four new songs. Vindicated tip, or is the real question still whether TS13 exists? Commit.',
+        'An insider said she was "writing new music" after the wedding. The Encore songs were written before it. So is there a TS13 in the works, or was the tip just noise? Commit.',
       ],
       tags: ['ts13', 'next-era', 'tloas'],
     },
@@ -449,6 +538,61 @@ export default {
         'Three CD editions, 24 hours only. Rank the odds this is a one-off drop versus the front edge of a full TS13 rollout. Commit to a number.',
       ],
       tags: ['tloas', 'release', 'new-music'],
+    },
+    {
+      // Added 2026-10-08 (Vault Run, Rumor Desk lane, Part C): a fresh,
+      // prompt-worthy confirmed current item. Both outlets carry the air date,
+      // the "literal therapist" bit and the birthday-cake beat. NBC News URL is
+      // the one already vetted on the Vault's own SNL moment; Stereogum fetched
+      // live this run.
+      id: 'snl-dakota-johnson-therapist-cameo',
+      status: 'confirmed',
+      date: '2026-10-03',
+      lastCheckedOn: '2026-10-08',
+      headline: 'Taylor crashed Dakota Johnson\'s SNL monologue as her "literal therapist"',
+      detail:
+        'Hosting Saturday Night Live on 3 Oct 2026 (Turnstile the musical guest, their SNL debut), Dakota Johnson — Taylor\'s "Patient Zero" video co-star — worked a bit about dating musicians and introduced "my literal therapist." Out walked Taylor to correct the record: "I\'m not your therapist, actually. You just show up once a week at my house with an empty bottle of wine and ask if I want some." She reappeared at the goodnights carrying a birthday cake for Johnson, who turned 37 the next day. It kept Taylor on screen through the Encore stretch of the Showgirl rollout with no performance or announcement attached.',
+      sources: [
+        {
+          name: 'NBC News',
+          url: 'https://www.nbcnews.com/pop-culture/tv/taylor-swift-snl-host-dakota-johnson-rcna601364',
+        },
+        {
+          name: 'Stereogum',
+          url: 'https://stereogum.com/2513538/turnstile-make-snl-debut-taylor-swift-cameos/news/',
+        },
+      ],
+      prompts: [
+        'Taylor crashed Dakota Johnson\'s SNL monologue as her "literal therapist," then brought out a birthday cake. Rank it against her past SNL cameos and defend the pick.',
+      ],
+      tags: ['snl', 'dakota-johnson', 'tloas'],
+    },
+    {
+      // Added 2026-10-18 (Vault Run, Rumor Desk Part C) from intake #6065 —
+      // the same event the Content Shift lane authored as Vault moment
+      // 'showgirl-fate-of-ophelia-live-debut-academy-museum-gala'. Both pages
+      // fetched live this run; four songs per every readable source.
+      id: 'fate-of-ophelia-live-debut-academy-gala',
+      status: 'confirmed',
+      date: '2026-10-17',
+      lastCheckedOn: '2026-10-18',
+      headline: '"The Fate of Ophelia" finally got its live debut — at the Academy Museum Gala',
+      detail:
+        'Closing the Academy Museum\'s sixth annual gala in Los Angeles on 17 Oct 2026, Taylor played a four-song set with her band — opening with "Blank Space," and including "Love Story," "I Knew It, I Knew You" and the first-ever live "The Fate of Ophelia" ("This song, which we are playing for the very first time to you beautiful people…"). Conan O\'Brien, her "Toy Story 5" castmate, introduced her as "John, Paul, George and Ringo all in one." She arrived in custom Dior.',
+      sources: [
+        {
+          name: 'Stereogum',
+          url: 'https://stereogum.com/2514902/taylor-swift-performs-the-fate-of-ophelia-live-for-the-first-time-at-academy-museum-gala/news/',
+        },
+        {
+          name: 'The Tennessean / USA Today (via Yahoo)',
+          url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-wows-dior-debuts-133454078.html',
+        },
+      ],
+      prompts: [
+        'Taylor waited over a year to play "The Fate of Ophelia" live, and then debuted it at a film-museum gala. Make the case for or against that being the right room.',
+      ],
+      tags: ['fate-of-ophelia', 'live-debut', 'tloas'],
     },
   ],
 };

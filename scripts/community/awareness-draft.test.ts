@@ -51,28 +51,39 @@ describe('draft patch', () => {
     draft: 'folklore, no contest',
     why: 'Era ranking thread, so a card fits',
     imageRef: undefined,
-    current: 'era:folklore',
   };
 
-  it('returns a drafted patch with link_included=false and a validated image ref', () => {
+  it('drafts text-only by default: no image ref given, no card, no catalogue error (#4767)', () => {
     expect(buildDraftPatch(good, catalog)).toEqual({
       patch: {
         draft: 'folklore, no contest',
         why: 'Era ranking thread, so a card fits',
-        image_ref: 'era:folklore',
+        image_ref: null,
         link_included: false,
         status: 'drafted',
       },
     });
+    for (const imageRef of ['', '   ', null])
+      expect(buildDraftPatch({ ...good, imageRef }, catalog).patch?.image_ref).toBeNull();
   });
 
-  it('lets the routine pick another valid card but rejects an id outside the catalogue', () => {
+  it('attaches a card only when the drafting step opts in with a catalogue id', () => {
     expect(
       buildDraftPatch({ ...good, imageRef: 'moment:vault-folklore-x' }, catalog).patch?.image_ref,
     ).toBe('moment:vault-folklore-x');
+    expect(buildDraftPatch({ ...good, imageRef: 'era:folklore' }, catalog).patch?.image_ref).toBe(
+      'era:folklore',
+    );
     const bad = buildDraftPatch({ ...good, imageRef: 'moment:invented' }, catalog);
     expect(bad.patch).toBeUndefined();
     expect(bad.problems.join(' ')).toMatch(/not in the catalogue/);
+  });
+
+  it('never inherits the lead’s scan-time suggestion as the attachment', () => {
+    // A `current` ref used to be the fallback, so every reply shipped a card.
+    expect(
+      buildDraftPatch({ ...good, current: 'era:folklore' } as never, catalog).patch?.image_ref,
+    ).toBeNull();
   });
 
   it('reports every lint problem together', () => {
@@ -207,9 +218,11 @@ describe('applyDrafts', () => {
     );
     expect(result).toMatchObject({ drafted: 1, skipped: 1 });
     expect(result.rejected.map((r: { id: string }) => r.id)).toEqual(['bad', 'ghost']);
+    // The row carried a scan-time image_ref; without an opt-in the draft is still text-only.
     expect(updates.find((u) => u.id === 'ok')?.patch).toMatchObject({
       status: 'drafted',
       link_included: false,
+      image_ref: null,
     });
     expect(updates.find((u) => u.id === 'sk')?.patch).toEqual({ status: 'skipped_low_relevance' });
     expect(updates.some((u) => u.id === 'bad' || u.id === 'ghost')).toBe(false);

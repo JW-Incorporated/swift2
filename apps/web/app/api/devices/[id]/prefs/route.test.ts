@@ -46,6 +46,18 @@ describe('validatePrefsUpdate', () => {
     expect(result.ok).toBe(false);
   });
 
+  it('rejects a baby_watch pref while the Baby Watch flag is off (default)', () => {
+    const result = validatePrefsUpdate({ prefs: [{ category: 'baby_watch', cadence: 'instant' }] });
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.error).toContain('baby_watch');
+  });
+
+  it('accepts a baby_watch pref once the Baby Watch flag is on', () => {
+    vi.stubEnv('NEXT_PUBLIC_BABY_WATCH_ENABLED', 'true');
+    const result = validatePrefsUpdate({ prefs: [{ category: 'baby_watch', cadence: 'instant' }] });
+    expect(result.ok).toBe(true);
+  });
+
   it('rejects a non-numeric dailyCap', () => {
     const result = validatePrefsUpdate({ settings: { dailyCap: 'three' } });
     expect(result.ok).toBe(false);

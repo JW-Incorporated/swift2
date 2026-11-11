@@ -135,6 +135,24 @@ Three rules that cut across every row:
   (alert title, calendar day) via her own prior comment. (The open/clear posts
   come from `upsert-alert.sh`, which posts only on state change per
   `c3-email-retired.md`; this rule governs only her handling lines.)
+- **Amended 2026-10-09 (issue #4804, founder ask in chat): a self-handled alert
+  posts NOTHING to the founders channel when it opens.** The rule above
+  deduped the posts; it still let all 14 conditions announce themselves, which
+  trained the founders to ignore the channel. Now the Discord leg of
+  `upsert-alert.sh` fires on `open` only for a **founder-facing** alert — the
+  four paging conditions from `docs/agents/marjorie.md` → *Paging (T3)*, plus
+  any row whose handler class is `human-action` or `escalate` (the `Human
+  action if` column of the table above, read as a class). That is 4 of the 14;
+  the other 10 open their issue exactly as before and Marjorie handles them.
+  `close` is unchanged — a recovery line still posts.
+  **The honesty valve:** a held line leaves a marker comment on the alert
+  issue, and watchdog's hourly `Held alert still open 24h` step posts one
+  @-mentioned line for any held alert still open a day later, once. A dark
+  Marjorie can delay a real failure by 24h; she cannot hide it. The decision
+  and the marker state machine are pure and tested in
+  `scripts/marjorie/lib/alert-notify.mjs` (unknown title → founder-facing, so a
+  bug there over-notifies rather than going silent); the operating note is
+  `docs/ops/watchdog-notifications.md`.
 - **"I already acted, watchdog has not caught up yet" is a real state and
   must be deterministic.** The cadence check only *closes* on the daily
   14:35 pass (`watchdog.yml:264`), so an alert she fixed at 09:18 stays open

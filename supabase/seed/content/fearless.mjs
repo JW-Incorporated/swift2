@@ -298,6 +298,8 @@ export default {
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-speak-now-innocent-a-song-written-to-kanye-west-not-about-him',
       ],
+      // Merged from the retired thin "fearless-vmas" stub (issue #3756, 2026-10-08).
+      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Taylor; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Taylor back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.\n\nLost in the noise were the trophy and the performance. "You Belong with Me" had won Best Female Video, and earlier that night Taylor had turned in one of the broadcast\'s signature numbers — opening the song in a brown trench coat and black beanie inside a New York subway station, singing on through a moving subway car as she shed the coat to reveal a red cocktail dress, then finishing atop a yellow taxi once the train reached its stop. That neither the win nor a marquee performance is what anyone remembers about the evening is itself the measure of what those seconds at the microphone did.\n\nThe backlash reached all the way to the White House. The very next day, in an off-the-record aside while taping a CNBC interview, President Barack Obama called West\'s stunt the work of a "jackass" — a remark an ABC News reporter posted online before it was meant to be public, prompting the network to apologize for airing an off-record comment. Obama would say much the same on the record years later. That a music-awards interruption drew a sitting president into the conversation is the measure of how far the moment traveled: it stopped being a VMAs story and became a national one, the first time the culture at large treated a Taylor moment as its own event.',
@@ -876,6 +878,7 @@ export default {
       month: 3,
       day: 23,
       category: 'sighting',
+      relatedIds: ['moment:vault-ttpd-a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen', 'moment:vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob'],
       title: 'Bowling with Selena Gomez in Studio City',
       snippet: 'An off-duty afternoon at Pinz Bowling Center with Selena Gomez, early in a friendship that would become one of her most enduring.',
       sourceUrl: 'https://www.taylorpictures.net/displayimage.php?album=874&pid=47589',
@@ -1302,12 +1305,12 @@ export default {
       category: 'music',
       title: 'Hey Stephen, addressed to the opening act',
       snippet:
-        'Written about Stephen Barker Liles of Love and Theft, who\'d opened shows for her — and she spelled out who it was for in the album\'s hidden liner-note code: "LOVE AND THEFT."',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
+        'Fans decoded the album\'s hidden liner-note code for this track as "LOVE AND THEFT" — and Stephen Barker Liles of that band, who\'d opened shows for her, says Taylor told him about the song, and The Boot reports she later revealed him as the inspiration.',
+      sourceUrl: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
       thumbnailUrl: 'https://i.ytimg.com/vi/tMhiHrL7rPE/hqdefault.jpg',
       moment: {
         context:
-          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.\n\nTaylor texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Taylor a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
+          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to "LOVE AND THEFT" — the era\'s Easter-egg culture, already fully operational in 2008.\n\nLiles told The Boot that Taylor told him about the song but not that it was a nice one: "I\'m just thinking, \'What did I do?\' Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He later told Planet Verge he had been writing a song for her too, built on the line "we try to make it anyway," and recorded it in his home studio.\n\nThe Boot reports Taylor later revealed Liles was the song\'s inspiration; Liles\'s own account is that she told him about it.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1579,6 +1582,7 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016926/rs_634x1024-161026143557-634.Taylor-Swift-CMA-2009-Nashville.kg.102616.jpg',
+            focalPoint: '48% 12%',
             credit: 'Donna Svennevik/ABC via Getty Images, via E! Online',
             caption:
               'Arriving at the 43rd CMA Awards in the gold gown she wore to accept Entertainer of the Year, Nov. 11, 2009.',
@@ -1939,43 +1943,6 @@ export default {
       },
     },
     {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "fearless-vmas",
-      year: 2009,
-      month: 9,
-      day: 13,
-      category: "sighting",
-      title: "The interrupted speech",
-      snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
-      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
-      moment: {
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg', credit: 'Philip Nelson, via Wikimedia Commons', caption: 'Taylor Swift at the 2009 MTV Video Music Awards, the night her Best Female Video acceptance speech was interrupted.', kind: 'primary', focalPoint: '40% 28%' }],
-        sources: [
-          {
-            outlet: 'TIME',
-            url: 'https://content.time.com/time/specials/packages/article/0,28804,1922188_1922187_1922190,00.html',
-            source_title: 'Taylor Swift Got Kanyed — Top 10 Outrageous Kanye West Moments',
-            publisher: 'TIME',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'VICE',
-            url: 'https://www.vice.com/en/article/on-this-day-in-2009-kanye-west-grabbed-the-mic-from-taylor-swift-at-the-mtv-vmas/',
-            source_title: 'On This Day in 2009, Kanye West Grabbed the Mic From Taylor Swift at the MTV VMAs',
-            publisher: 'VICE',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 3,
-          },
-        ],
-        context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
-      },
-    },
-
-    {
       // Cross-link (Stage 3, 2026-08-06): the "Back to December" cluster —
       // the song, and its radio-single release.
       // Cross-link (Stage 3, 2026-08-13): + the 2010 AMAs performance.
@@ -2056,6 +2023,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): downloaded and
+            // viewed — a sunlit close-up of her face, centered, eyes high.
+            focalPoint: '48% 38%',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.",
             kind: 'archival',

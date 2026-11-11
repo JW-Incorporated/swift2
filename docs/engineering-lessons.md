@@ -486,3 +486,48 @@ Same family as the 404 lesson above, and it bit twice in one session: **a
 negative result from a tool is evidence about the tool until you have ruled
 the tool out.** Confirm absence with a second, structurally different command
 before acting on it.
+
+### Load-sensitive tests need event-driven clocks
+
+A short real-time watchdog is not a deterministic test of heartbeats: a busy
+worker can delay both sides and let the watchdog win even when the protocol is
+correct. Keep the production threshold intact, but fake the watchdog clock and
+advance it only after observing the heartbeat that resets it. Likewise, jsdom
+history traversal is scheduled work; tests of Back-stack logic should dispatch
+the corresponding `popstate` explicitly and reset module/history state between
+cases instead of waiting on host timing.
+
+### An ISR route caches every fetch inside it
+
+In Next 16, a route handler that exports `revalidate` is rendered as ISR, and
+every `fetch` it makes, including supabase-js's internal one, lands in the
+Data Cache with that revalidate. If a refreshed response is over the Data
+Cache's per-item size limit, it is never re-stored, and the old entry is
+served indefinitely. A new deploy does not clear it. `/vault/live/tloas` served
+a 64-row snapshot from partway through a backfill while the DB had 95
+(2026-11-04, DEBUG ladder through the architect). Live reads pass a
+`cache: 'no-store'` fetch (`apps/web/lib/current.ts` `noStoreFetch`). The
+route's own `revalidate` is the only cache. When a feed count disagrees with
+the DB, compare the anon-role count (`inspect-current-items.yml`
+`policies=true`) before suspecting the gate.
+
+### db-migrate re-runs every file: a data-dependent constraint in an OLD migration can block all new ones
+
+`db-migrate` replays every migration file on each run, not just new ones. Migration
+`20261103000000` re-added a `writing_score` 1-5 check. A later file widened that
+check to 1-20. Once live rows held scores up to 18, the old file's check failed
+against real data, and every `db-migrate` run failed (runs 42507020200,
+42507104696, 42507250993). That blocked #6658, #6657 and #6702 until fix #6705.
+`npm run check:migrations-rerun` runs on an empty PGlite, so it cannot catch a
+failure that depends on existing rows. Rule: when a later migration changes a
+constraint, update the earlier file to the final definition too, and seed
+representative rows in the rerun check where feasible.
+
+### Fake-DB tests accept any column name
+
+The rewrite backfill filtered `current_item_copy_snapshot` on `created_at`. The
+real column is `snapshot_at`. Unit tests passed against the fake DB, which
+accepted any column name, and the first real dry run failed (run 42518528423).
+Fixed in #6717. Rule: any new column filter or select on an existing table must
+be checked against the migration that defines the table (`grep supabase/migrations`),
+and reviewers check it.

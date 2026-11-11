@@ -186,6 +186,10 @@ jobs:
         if: github.run_attempt == '1' && needs.context.result == 'success'
         continue-on-error: true
         env:
+          # Posted by channel id with the bot token (scripts/lib/discord-route.mjs); the webhook is only the fallback.
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TREE_BOT_TOKEN: ${{ secrets.DISCORD_TREE_BOT_TOKEN }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
           DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
           REPLY_THREAD_ID: ${{ needs.context.outputs.reply_thread_id }}
           MESSAGE_URL: ${{ needs.context.outputs.message_url }}

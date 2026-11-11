@@ -256,13 +256,40 @@ describe('feedCardImageHidden over the real vault', () => {
   });
 
   it('still suppresses the #2080 owner frames, unchanged', () => {
-    // 9 moments hold a frame of their own video in the hero slot; 7 of them own
-    // their embed AND hold it as a real `primary` image, which is what this rule
-    // suppresses. The other 2 (the deferring pair) are counted above. The two
-    // that hold their frame as a non-primary stand-in never rendered a photo in
-    // the feed anyway — MomentCardButton gates its image block on
-    // `hasRealPrimaryImage` — so there was nothing there to suppress.
-    expect(suppressed.filter((s) => s.owns)).toHaveLength(7);
+    // Moments that hold a frame of their own video in the hero slot and own the
+    // embed: this rule suppresses the photo on all of them, because the card
+    // would otherwise print the same frame twice — as the photo AND the video
+    // poster it owns. The 2 deferring (non-owning) frames are counted above.
+    //
+    // Deliberately NOT an exact count: every vault run that gives another
+    // moment a frame of its own video legitimately adds an owner (7 → 9 in
+    // #5768, 9 → 10 with the Lavender Haze moment in #6006), so a count only
+    // ever goes red on correct content. Instead: every owner known when this
+    // was written must stay suppressed (a superset check), and every
+    // suppressed owner must genuinely hold a frame of its own video, so a
+    // wrong suppression still fails.
+    const knownOwnerIds = [
+      'vault-debut-our-song-hits-number-one',
+      'vault-debut-tim-mcgraw-arrives',
+      'vault-red-shake-it-off-launches-the-era',
+      'vault-1989-bad-blood-short-film',
+      'vault-evermore-willow-leads-the-era',
+      'vault-tloas-travis-finally-recounts-the-wedding-on-the-new-heights-seaso',
+      'vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar',
+      'vault-tloas-the-elizabeth-taylor-video-a-supercut-of-the-real-liz',
+      'vault-tloas-opalite-arrives-as-the-second-single',
+    ];
+    const owners = suppressed.filter((s) => s.owns).map((s) => s.id);
+    for (const id of knownOwnerIds) expect(owners).toContain(id);
+
+    const items = new Map(ERAS.flatMap((e) => contentForEra(e.id)).map((i) => [i.id, i]));
+    for (const id of owners) {
+      const item = items.get(id)!;
+      expect(item.video).toBeTruthy();
+      expect(youtubeFrameId(primaryImageRef(item)?.url)).toBe(item.video!.youtubeId);
+    }
+    const videoMoments = [...items.values()].filter((i) => i.video).length;
+    expect(owners.length).toBeLessThanOrEqual(videoMoments);
   });
 
   it('leaves every suppressed deferring card with a video it does not own', () => {
@@ -390,7 +417,11 @@ describe('heroVideoFor over the real vault', () => {
   const promoted = withVideo.filter((i) => heroVideoFor(i));
 
   it('promotes the video on exactly the pages whose hero is a still of it', () => {
-    expect(withVideo).toHaveLength(19);
+    // A floor, not an exact count (#4134): content lanes add video-carrying
+    // moments by design. The floor still fails if the vault silently loses
+    // videos (or the filter above stops matching) and the checks below go vacuous.
+    expect(withVideo.length).toBeGreaterThanOrEqual(19);
+    for (const item of withVideo) expect(item.video!.youtubeId).toMatch(/^[\w-]{11}$/);
     // Derived from the vault rather than hardcoded (#5192): a Photo Enrichment
     // pass that gives a video-carrying page its own MV still as the hero GROWS
     // this set by design, and a fixed count turned that into a failure the

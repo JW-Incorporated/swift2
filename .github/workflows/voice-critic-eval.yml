@@ -1,0 +1,33 @@
+# Tidewatch P1-24: voice critic separation eval, run on Actions because the
+# subscription token secret only exists here. Manual dispatch only. Real calls
+# go through scripts/lib/claude-call.mjs (P2, never the backup token), capped
+# at 15 wrapper calls. Logs are public: only aggregate numbers are printed.
+name: voice-critic-eval
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: voice-critic-eval
+  cancel-in-progress: false
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+          npm-ci-args: --ignore-scripts
+      - name: Install the Claude Code CLI the wrapper spawns (version verified in decisions.md)
+        run: npm install -g @anthropic-ai/claude-code@2.1.300 --silent
+      - name: Run the critic separation eval
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: node scripts/voice/eval-critic.mjs

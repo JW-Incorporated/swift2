@@ -9,6 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   DEFAULT_CADENCE,
   SETTINGS_CATEGORY_DEFS,
+  BABY_WATCH_CATEGORY,
   type AnyNotificationCategory,
   type DeviceNotificationSettings,
   type DevicePrefsResponse,
@@ -91,6 +92,10 @@ export async function getDevicePrefs(
     category: def.id,
     cadence: persisted.get(def.id) ?? DEFAULT_CADENCE[def.id],
   }));
+
+  // Baby Watch is opt-in and flag-gated: surface it only once a row exists (absent = opted out).
+  const babyWatch = persisted.get(BABY_WATCH_CATEGORY);
+  if (babyWatch) prefs.push({ category: BABY_WATCH_CATEGORY, cadence: babyWatch });
 
   return {
     settings: toDeviceSettings(deviceRow as DeviceSettingsRow),

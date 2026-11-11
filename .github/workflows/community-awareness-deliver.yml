@@ -1,6 +1,6 @@
 # Awareness image-reply lane, step 3 of 3 — delivery. Runs after each
-# routine-awareness-answerer run that succeeds (every 3 hours; a run the gate
-# skips because nothing is waiting also counts as success), picks a batch of
+# community-draft-replies run that succeeds (every 3 hours; a run with nothing
+# waiting or paused by the limit gate also counts as success), picks a batch of
 # drafted awareness leads under the caps (<=5 a batch, <=3 per sub a day (4 for
 # r/TaylorSwift and r/swifties),
 # <=15 a day), and posts one Discord message per lead to the social channel
@@ -15,7 +15,7 @@ name: community-awareness-deliver
 
 on:
   workflow_run:
-    workflows: ["routine-awareness-answerer"]
+    workflows: ["community-draft-replies"]
     types: [completed]
   workflow_dispatch:
 
@@ -30,6 +30,9 @@ jobs:
   deliver:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    # DISCORD_BOT_TOKEN lives in the main-only `social` environment. This job is plain run: steps
+    # (no agent), and posts each card to its platform channel by id (scripts/lib/discord-route.mjs).
+    environment: social
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
@@ -48,6 +51,12 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           DISCORD_SOCIAL_WEBHOOK: ${{ secrets.DISCORD_SOCIAL_CHANNEL_WEBHOOK_URL }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TREE_BOT_TOKEN: ${{ secrets.DISCORD_TREE_BOT_TOKEN }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
+          DISCORD_TREE_IG_X_CHANNEL_ID: ${{ vars.DISCORD_TREE_IG_X_CHANNEL_ID }}
+          DISCORD_TREE_REDDIT_CHANNEL_ID: ${{ vars.DISCORD_TREE_REDDIT_CHANNEL_ID }}
+          DISCORD_TREE_FACEBOOK_CHANNEL_ID: ${{ vars.DISCORD_TREE_FACEBOOK_CHANNEL_ID }}
           COMMUNITY_ACK_SECRET: ${{ secrets.COMMUNITY_ACK_SECRET }}
           AWARENESS_LANE_ENABLED: ${{ vars.AWARENESS_LANE_ENABLED }}
         run: npx tsx scripts/community/awareness-deliver.mjs

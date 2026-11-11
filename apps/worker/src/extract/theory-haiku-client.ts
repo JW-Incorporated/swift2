@@ -1,8 +1,8 @@
 // One Haiku call per crawled post bundle (Community Engine plan §3.3, Phase
 // 2 card P2-2). Sibling of ./haiku-client.ts — same transport/error-handling
-// contract: raw callAnthropicMessages() (no @anthropic-ai/sdk dependency),
-// returns null (never throws) for the expected "no key" / "cap hit" states,
-// throws on a genuine API failure so the caller defers the bundle to next
+// contract: the shared Claude subscription wrapper (no SDK dependency),
+// returns null (never throws) for expected unavailable / cap-hit states,
+// throws on an invalid model result so the caller defers the bundle to next
 // run rather than silently losing it. Cache the system prompt since it is
 // identical on every call (same as haiku-client.ts / clown-client.ts).
 //
@@ -23,10 +23,14 @@ import type {
   TheoryMinerSkipReason,
 } from './theory-types';
 import type { ExtractUsageStore } from './usage-store';
-import { callAnthropicMessages, extractToolUseInput } from '@swift2/shared/llm/anthropic-messages';
+import {
+  callWorkerClaude,
+  hasClaudeSubscriptionToken,
+  type ClaudePriority,
+  type WorkerClaudeCaller,
+} from '../claude-call';
 
-const MODEL = 'claude-haiku-4-5'; // cost-cheap tier, same choice as haiku-client.ts's live extract; re-check at any real usage review
-const MAX_TOKENS = 1_024;
+const MODEL = 'claude-haiku-5-5';
 /** Post title + comment bodies are capped to this many characters (mirrors haiku-client.ts's MAX_COMMENT_THREAD_CHARS). */
 const MAX_BUNDLE_CHARS = 6_000;
 
@@ -61,10 +65,6 @@ function buildUserMessage(input: TheoryMinerInput): string {
     'POST + COMMENT THREAD (individual fan comments; use only for aggregate discussion signal):',
     bundleText(input),
   ].join('\n');
-}
-
-function extractToolInput(body: unknown): unknown | null {
-  return extractToolUseInput(body, { toolName: RECORD_FAN_THEORIES_TOOL.name, fallback: {} });
 }
 
 function str(value: unknown, max: number): string {
@@ -158,24 +158,25 @@ export function sanitizeTheoryMinerResult(parsed: unknown): RecordFanTheoriesRes
   };
 }
 
-async function attempt(apiKey: string, userMessage: string): Promise<RecordFanTheoriesResult> {
-  const { raw } = await callAnthropicMessages(
-    apiKey,
-    {
-      model: MODEL,
-      max_tokens: MAX_TOKENS,
-      system: [
-        { type: 'text', text: THEORY_MINER_SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
-      ],
-      tools: [RECORD_FAN_THEORIES_TOOL],
-      tool_choice: { type: 'tool', name: RECORD_FAN_THEORIES_TOOL.name },
-      messages: [{ role: 'user', content: userMessage }],
-    },
-    { errorLabel: 'Anthropic theory-miner extract', includeBodyTextInError: true },
-  );
-  const toolInput = extractToolInput(raw);
-  if (toolInput === null) throw new Error('Anthropic theory-miner extract: no tool_use block');
-  return sanitizeTheoryMinerResult(toolInput);
+async function attempt(
+  userMessage: string,
+  priority: ClaudePriority,
+  claude: WorkerClaudeCaller,
+): Promise<RecordFanTheoriesResult | null> {
+  const response = await claude({
+    caller: priority === 'P3' ? 'theory-miner' : 'news-worker-theory',
+    priority,
+    model: MODEL,
+    system: `${THEORY_MINER_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`,
+    user: userMessage,
+    schema: RECORD_FAN_THEORIES_TOOL.input_schema,
+  });
+  if (response.status === 'ok') return sanitizeTheoryMinerResult(response.data);
+  if (response.status === 'unavailable' || response.status === 'capped') {
+    console.warn(`theory extraction deferred: ${response.reason}`);
+    return null;
+  }
+  throw new Error(`Claude theory extract returned invalid output: ${response.reason}`);
 }
 
 /** Comment shape adapter: the crawl artifact's TheoryMinerComment (author
@@ -198,12 +199,16 @@ export function commentsFromCrawlBundle(
 export async function extractFanTheories(
   usage: ExtractUsageStore,
   input: TheoryMinerInput,
+  options: { priority?: ClaudePriority; claude?: WorkerClaudeCaller } = {},
 ): Promise<RecordFanTheoriesResult | null> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return null;
+  if (!hasClaudeSubscriptionToken()) return null;
 
   const reserved = await usage.reserve();
   if (!reserved) return null;
 
-  return attempt(apiKey, buildUserMessage(input));
+  return attempt(
+    buildUserMessage(input),
+    options.priority ?? 'P2',
+    options.claude ?? callWorkerClaude,
+  );
 }

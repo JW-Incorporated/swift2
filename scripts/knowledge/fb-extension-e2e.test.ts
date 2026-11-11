@@ -37,6 +37,54 @@ const TOKEN = 'c0ffee'.repeat(10) + 'abcd';
 const realSetTimeout = setTimeout;
 const tick = (ms = 0) => new Promise((resolve) => realSetTimeout(resolve, ms));
 
+function deterministicWatchdog(stallMs: number, checkpoint: 'POST /heartbeat' | 'POST /result') {
+  const step = stallMs - 100;
+  let now = 0;
+  const timers = new Set<{ at: number; fn: () => void; cleared: boolean }>();
+  const watchdogTimers = {
+    setTimeout: (fn: () => void, ms: number) => {
+      const timer = { at: now + ms, fn, cleared: false };
+      timers.add(timer);
+      return timer;
+    },
+    clearTimeout: (timer: { cleared: boolean } | null) => {
+      if (timer) timer.cleared = true;
+    },
+  };
+  const advance = (ms: number) => {
+    now += ms;
+    for (const timer of timers) {
+      if (!timer.cleared && timer.at <= now) {
+        timer.cleared = true;
+        timer.fn();
+      }
+    }
+  };
+  let checkpointRequestId: number | undefined;
+  let checkpointProved = false;
+  let resolveCheckpointProof!: () => void;
+  const checkpointProof = new Promise<void>((resolve) => {
+    resolveCheckpointProof = resolve;
+  });
+  return {
+    watchdogTimers,
+    onFetch: async (phase: 'before' | 'after', request: string, requestId: number) => {
+      if (checkpoint === 'POST /heartbeat' && request === 'POST /result' && !checkpointProved)
+        await checkpointProof;
+      if (request !== checkpoint) return;
+      if (phase === 'before' && checkpointRequestId === undefined) {
+        checkpointRequestId = requestId;
+        advance(step);
+      }
+      if (phase === 'after' && requestId === checkpointRequestId) {
+        advance(step);
+        checkpointProved = true;
+        resolveCheckpointProof();
+      }
+    },
+  };
+}
+
 // Chrome match pattern → does `url` match? (scheme://host[:port]/path; omitted port = any port)
 export function matchesPattern(pattern: string, url: string) {
   const parts = /^(\*|https?):\/\/([^/]+)(\/.*)$/.exec(pattern);
@@ -76,12 +124,14 @@ function createBrowser({
   killOnTabsUpdate = 0,
   navigateDelayMs = 2,
   staleComplete = false,
+  onFetch,
 }: {
   feed: () => Feed;
   idleKill?: boolean;
   killOnTabsUpdate?: number;
   navigateDelayMs?: number;
   staleComplete?: boolean;
+  onFetch?: (phase: 'before' | 'after', request: string, id: number) => Promise<void> | void;
 }) {
   let tabsUpdateKills = killOnTabsUpdate;
   const session: Record<string, string> = {};
@@ -90,6 +140,7 @@ function createBrowser({
   const fetches: string[] = [];
   const messages: string[] = [];
   const storageErrors: string[] = [];
+  let fetchSeq = 0;
   let worker: Any = null;
   let closed = false;
 
@@ -176,7 +227,10 @@ function createBrowser({
     const extFetch = (url: string, init: Any = {}) =>
       guard(async () => {
         const target = new URL(url);
-        fetches.push(`${init.method ?? 'GET'} ${target.pathname}`);
+        const request = `${init.method ?? 'GET'} ${target.pathname}`;
+        const requestId = ++fetchSeq;
+        fetches.push(request);
+        await onFetch?.('before', request, requestId);
         const exempt = (MANIFEST.host_permissions ?? []).some((p: string) =>
           matchesPattern(p, url),
         );
@@ -193,7 +247,9 @@ function createBrowser({
           if (!preflight.ok || !preflight.headers.get('access-control-allow-origin'))
             throw new TypeError('Failed to fetch (CORS preflight refused)');
         }
-        return fetch(url, init);
+        const response = await fetch(url, init);
+        await onFetch?.('after', request, requestId);
+        return response;
       });
     const context: Any = vm.createContext({
       chrome,
@@ -357,6 +413,8 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     killOnTabsUpdate = 0,
     navigateDelayMs,
     staleComplete,
+    watchdogTimers,
+    onFetch,
   }: {
     feed: () => Feed;
     stallMs: number;
@@ -364,6 +422,11 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
     killOnTabsUpdate?: number;
     navigateDelayMs?: number;
     staleComplete?: boolean;
+    watchdogTimers?: {
+      setTimeout: (fn: () => void, ms: number) => Any;
+      clearTimeout: (timer: Any) => void;
+    };
+    onFetch?: (phase: 'before' | 'after', request: string, id: number) => Promise<void> | void;
   }) {
     const root = mkdtempSync(join(tmpdir(), 'llfb-e2e-'));
     const stored: Any[] = [];
@@ -374,6 +437,7 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       root,
       outputDir: join(root, 'out'),
       stallMs,
+      watchdogTimers,
       storeComments: async (args: Any) => {
         stored.push(args);
         return { posts: args.comments.length, comments: 0, replies: 0 };
@@ -386,6 +450,7 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       killOnTabsUpdate,
       navigateDelayMs,
       staleComplete,
+      onFetch,
     });
     cleanups.push(async () => {
       browser.close();
@@ -409,7 +474,11 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
         post(47, '11 d'),
       ],
     });
-    const { results, browser, log } = await run({ feed, stallMs: 1_000 });
+    const { results, browser, log } = await run({
+      feed,
+      stallMs: 1_000,
+      ...deterministicWatchdog(1_000, 'POST /heartbeat'),
+    });
     expect(log).not.toContain('fb-receiver vault: stalled');
     expect(results, JSON.stringify({ results, log })).toMatchObject([
       { slug: 'vault', status: 'collected', recentCount: 44 },
@@ -434,7 +503,12 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
         post(37, '11 d'),
       ],
     });
-    const { results, log } = await run({ feed, stallMs: 1_000, idleKill: true });
+    const { results, log } = await run({
+      feed,
+      stallMs: 1_000,
+      idleKill: true,
+      ...deterministicWatchdog(1_000, 'POST /heartbeat'),
+    });
     expect(log).not.toContain('fb-receiver vault: stalled');
     expect(results, JSON.stringify({ results, log })).toMatchObject([
       { slug: 'vault', status: 'collected', recentCount: 34 },
@@ -447,7 +521,12 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       more: [],
     });
     // The stall watchdog (3 s) is longer than one wake-alarm period (60 s / SCALE = 600 ms).
-    const { results, browser, log } = await run({ feed, stallMs: 3_000, killOnTabsUpdate: 1 });
+    const { results, browser, log } = await run({
+      feed,
+      stallMs: 3_000,
+      killOnTabsUpdate: 1,
+      ...deterministicWatchdog(3_000, 'POST /result'),
+    });
     expect(log).not.toContain('fb-receiver vault: stalled');
     expect(results, JSON.stringify({ results, log })).toMatchObject([
       { slug: 'vault', status: 'collected', recentCount: 2 },
@@ -470,6 +549,7 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       stallMs: 3_000,
       staleComplete: true,
       navigateDelayMs: 300,
+      ...deterministicWatchdog(3_000, 'POST /result'),
     });
     expect(results, JSON.stringify({ results, log })).toMatchObject([
       { slug: 'vault', status: 'collected', recentCount: 2 },
@@ -490,7 +570,11 @@ describe('extension ↔ receiver end to end (fake Chrome, real HTTP)', () => {
       ],
       more: [],
     });
-    const { results, browser, log } = await run({ feed, stallMs: 3_000 });
+    const { results, browser, log } = await run({
+      feed,
+      stallMs: 3_000,
+      ...deterministicWatchdog(3_000, 'POST /result'),
+    });
     expect(log).not.toContain('fb-receiver vault: stalled');
     expect(results, JSON.stringify({ results, log })).toMatchObject([
       { slug: 'vault', status: 'collected', recentCount: 25 },

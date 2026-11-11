@@ -3,6 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { TREE_DISPATCHERS } from './tree-approve-gate.mjs';
 
 const read = (p: string) => readFileSync(resolve(p), 'utf8').replace(/\r\n/g, '\n');
 const jobBlock = (text: string, job: string) => {
@@ -21,8 +22,14 @@ describe('routine-tree-daily-draft.yml', () => {
     expect(wf).toMatch(/^ {2}receipt:$/m);
   });
 
-  it('keeps max_turns at 50 — the work is bounded, not the cap raised', () => {
-    expect(wf).toMatch(/max_turns: 50\b/);
+  it('caps max_turns at 75 — draft days use 50–59 turns (decisions.md 2026-10-21)', () => {
+    expect(wf).toMatch(/max_turns: 75\b/);
+  });
+
+  it('dispatches approval from a backstop job that survives an agent turn-cap failure but not a cancel', () => {
+    expect(wf).toMatch(/approve-backstop:/);
+    expect(wf).toMatch(/if: \$\{\{ !cancelled\(\) \}\}/);
+    expect(wf).toMatch(/gh workflow run social-tree-approve\.yml/);
   });
 
   it('retires stale drafts with --apply in the prepare job only, on the workflow token (never the PAT)', () => {
@@ -43,6 +50,44 @@ describe('routine-tree-daily-draft.yml', () => {
     expect(receipt).toMatch(/needs\.run\.result == 'failure' \|\| needs\.run\.result == 'cancelled'/);
     expect(receipt).toMatch(/draft-receipt\.mjs --kind daily/);
     expect(receipt).toMatch(/--file-issue/);
+  });
+
+  // #5520: the agent's social-tree-approve dispatch 403'd on claude-code-action's
+  // own installation token. Both halves are load-bearing — the workflow must hand
+  // the PAT over as GH_DISPATCH_TOKEN, and the prompt must actually prefix the one
+  // command with it (routine-template.yml does not change the agent's default gh).
+  it('hands the agent GH_DISPATCH_TOKEN, paired with the PAT it exposes', () => {
+    const run = jobBlock(wf, 'run');
+    expect(run).toMatch(/expose_dispatch_token: true/);
+    expect(run).toMatch(/checkout_token_secret: SOCIAL_POSTER_PAT/);
+    expect(run).toMatch(/SOCIAL_POSTER_PAT: \$\{\{ secrets\.SOCIAL_POSTER_PAT \}\}/);
+  });
+});
+
+describe('Tree clears its own drafts (#5520)', () => {
+  const wf = read('.github/workflows/routine-tree-daily-draft.yml');
+  const prompt = read('docs/agents/runner-prompts/tree-daily-draft.md');
+
+  it('step 7 dispatches social-tree-approve with the GH_DISPATCH_TOKEN prefix the template documents', () => {
+    expect(prompt).toMatch(/GH_TOKEN="\$GH_DISPATCH_TOKEN" gh workflow run social-tree-approve\.yml --ref main -f pr=/);
+  });
+
+  it('keeps the prefix scoped to that one command, so comments stay claude[bot]', () => {
+    // Exactly one prefixed command in the prompt, and it is the approve dispatch.
+    const prefixed = prompt.match(/GH_TOKEN="\$GH_DISPATCH_TOKEN"[^`\n]*/g) ?? [];
+    expect(prefixed).toHaveLength(1);
+    expect(prefixed[0]).toContain('social-tree-approve.yml');
+  });
+
+  it('the exposed PAT resolves to a dispatcher tree-approve-gate.mjs actually accepts', () => {
+    // GH_DISPATCH_TOKEN is the job's SOCIAL_POSTER_PAT, whose login is
+    // `sffan15-sys` (docs/social/RULINGS-SOCIAL-2.md; confirmed live on ops-fix
+    // run 38162236364, triggering_actor=sffan15-sys for a GH_DISPATCH_TOKEN
+    // dispatch). social-tree-approve.yml gates on github.triggering_actor, so
+    // getting past the 403 is only a fix while that login stays a TREE_DISPATCHER.
+    expect(TREE_DISPATCHERS).toContain('sffan15-sys');
+    expect(jobBlock(wf, 'run')).toMatch(/checkout_token_secret: SOCIAL_POSTER_PAT/);
+    expect(read('.github/workflows/social-tree-approve.yml')).toMatch(/ACTOR: \$\{\{ github\.triggering_actor \}\}/);
   });
 });
 
@@ -67,7 +112,34 @@ describe('routine-tree-event-draft.yml', () => {
     const prompt = read('docs/agents/runner-prompts/tree-event-draft.md');
     expect(prompt).toContain('Tier-2: Tree — event draft');
     expect(prompt).toContain('UNTRUSTED DATA');
-    expect(prompt).toContain('`singlePlatformReason`');
+    expect(prompt).toContain('text-only X is BANNED');
+  });
+
+  // #6731: step 5 carried a frozen copy of §1(e2)'s yield order (capped at
+  // `mood:`, "that is the whole list") after the strategy added rungs 3-4 on
+  // 2026-11-09, so the event run declined beats the strategy lets it take.
+  it('step 5 carries all four of social-strategy §1(e2)\'s yield rungs, site-fronted on 3 and 4', () => {
+    const prompt = read('docs/agents/runner-prompts/tree-event-draft.md');
+    const strategy = read('docs/marketing/social-strategy.md');
+    // The strategy still has four rungs and still protects only the timeline minimum.
+    expect(strategy).toContain("3. a launch arc's day 0 / +2 / +4 (§1(a)) — **a site-fronted moment only**");
+    expect(strategy).toContain("4. a thread window's hero (§1(b)) — **a site-fronted moment only**");
+    expect(strategy).toContain("**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum.");
+    // ...and so does the prompt.
+    expect(prompt).toContain("a launch arc's day 0 / +2 / +4 (`campaign` starts `launch:`, §1(a)) — **a site-fronted moment only**");
+    expect(prompt).toContain("a thread window's hero (`campaign` starts `thread:`, §1(b)");
+    expect(prompt).toContain('**a site-fronted moment only**; the hero takes a same-month make-good');
+    expect(prompt).toContain('does **not** spend §1(b)\'s one-per-month engine-failure allowance');
+    expect(prompt).toContain('newOnSite.moments[]');
+    // The withdrawn wording: a closed list at mood, and a blanket ban on thread/launch beats.
+    expect(prompt).not.toContain('**That is the whole list.**');
+    expect(prompt).not.toContain('Never displace a thread beat (`thread:`)');
+    // What the strategy still protects must survive in the prompt's exclusions.
+    expect(prompt).toContain("a `timeline:` beat (§1(c)'s weekly Blank Spaces minimum");
+    expect(prompt).toContain('another `news:`/`heartbeat:event-news:` pair');
+    expect(prompt).toContain('a beat that is already posted');
+    // The strategy's residual note must not still claim the prompt is out of sync.
+    expect(strategy).not.toContain('so the same-day **event** run still will');
   });
 });
 
@@ -109,6 +181,21 @@ describe('the drafter prompts agree with check-drafts', () => {
   it('no longer tells the model to run the event sensor or hunt rejected PRs itself', () => {
     expect(daily).not.toContain('Run `node scripts/social/event-status.mjs`');
     expect(daily).not.toContain('gh pr list --state closed --label social-draft --search');
+  });
+
+  it('step 4.5 never leaves a news reserve empty for the same-day event run (#6327, cost 2026-10-25)', () => {
+    expect(daily).toContain('A news reserve is ALWAYS drafted in this run, and is NEVER left empty for the same-day event run');
+    expect(daily).toContain('a reserve may never be held open in anticipation of a run that may not fire');
+    // The withdrawn hedge: an uncovered event handed wholesale to the event run.
+    expect(daily).not.toContain('a time-sensitive one is drafted by its own same-day run (`routine-tree-event-draft.yml`), so here only note a still-uncovered item in the PR body');
+  });
+
+  it('agrees with social-strategy §1(e2) on the reserve: fallback by default, own day only', () => {
+    const strategy = read('docs/marketing/social-strategy.md');
+    expect(strategy).toContain('a reserve beat always drafts its named fallback');
+    expect(strategy).toContain('A reserve day\'s beat is never drafted a day early');
+    expect(daily).toContain('draft the calendar\'s named fallback exactly as written');
+    expect(daily).toContain('A reserve day\'s beat is never drafted a day early');
   });
 
   it('L001 in the ledger carries the same rule', () => {

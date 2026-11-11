@@ -1,11 +1,14 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter } from '../../host/types';
 import { WebNotificationSettings } from './WebNotificationSettings';
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.unstubAllEnvs();
+});
 
 const webPush = {
   isSupported: () => true,
@@ -46,5 +49,25 @@ describe('WebNotificationSettings accessible names and targets', () => {
     const first = groups[0]!;
     expect(screen.getByRole('radiogroup', { name: document.getElementById(first.getAttribute('aria-labelledby')!)!.textContent! })).toBe(first);
     for (const r of screen.getAllByRole('radio')) expect(r.className).toContain('before:h-11');
+  });
+});
+
+describe('Baby Watch toggle (Tidewatch D5, behind NEXT_PUBLIC_BABY_WATCH_ENABLED)', () => {
+  const NAME = 'Baby Watch: official announcements only';
+
+  it('renders nothing for Baby Watch when the flag is unset (default off)', async () => {
+    Object.defineProperty(window, 'Notification', { configurable: true, value: { permission: 'granted' } });
+    mount();
+    await screen.findByRole('switch', { name: 'Notifications' });
+    expect(screen.queryByText(NAME)).toBeNull();
+    expect(screen.queryByRole('switch', { name: NAME })).toBeNull();
+  });
+
+  it('renders an off switch with the exact copy when the flag is on', async () => {
+    vi.stubEnv('NEXT_PUBLIC_BABY_WATCH_ENABLED', 'true');
+    Object.defineProperty(window, 'Notification', { configurable: true, value: { permission: 'granted' } });
+    mount();
+    const sw = await screen.findByRole('switch', { name: NAME });
+    expect(sw.getAttribute('aria-checked')).toBe('false');
   });
 });

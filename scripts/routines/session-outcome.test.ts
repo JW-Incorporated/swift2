@@ -1,7 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { decideOutcome, failureHint, resultDetail } from './session-outcome.mjs';
+import {
+  decideOutcome,
+  dedupeWeeklyLimitIssues,
+  failureHint,
+  planLimitInfo,
+  resultDetail,
+  weeklyLimitInfo,
+  weeklyLimitIssueBody,
+  weeklyLimitIssueUpdate,
+} from './session-outcome.mjs';
 
 const log = (result: object) => JSON.stringify([{ type: 'system' }, { type: 'result', ...result }]);
 
@@ -153,6 +162,205 @@ describe('failureHint', () => {
   });
 });
 
+describe('weekly limit outcome', () => {
+  const realLimitText = "You've hit your weekly limit · resets 11pm (UTC)";
+
+  it('passes with a warning for the exact production log text and extracts its reset', () => {
+    const r = decideOutcome(
+      log({ subtype: 'success', is_error: true, result: realLimitText }),
+      { stepOutcome: 'failure', now: new Date('2026-10-14T20:10:43.000Z') },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.message).toContain('resets 2026-10-14T23:00:00.000Z');
+    expect(r.weeklyLimit).toEqual({ detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-14T23:00:00.000Z', parsed: true });
+  });
+
+  it('recognises the production wording in failureHint', () => {
+    expect(failureHint({ result: realLimitText }, { now: new Date('2026-10-14T20:10:43.000Z') })).toContain('plan usage for this account is exhausted');
+  });
+
+  it('does not treat a successful result that quotes the text as a limit hit', () => {
+    const r = decideOutcome(
+      log({ subtype: 'success', is_error: false, num_turns: 42, result: realLimitText }),
+      { maxTurns: 40, stepOutcome: 'failure' },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.weeklyLimit).toBeUndefined();
+    expect(r.message).toContain('42 turns');
+  });
+
+  it('bounds an unparseable reset to six hours', () => {
+    expect(
+      weeklyLimitInfo(
+        { result: "You've hit your weekly limit - resets sometime later" },
+        { now: new Date('2026-10-14T20:00:00.000Z') },
+      ),
+    ).toEqual({
+      detectedAt: '2026-10-14T20:00:00.000Z',
+      resetAt: '2026-10-15T02:00:00.000Z',
+      parsed: false,
+    });
+  });
+
+  it('writes the reset in a machine-readable issue line', () => {
+    expect(
+      weeklyLimitIssueBody({
+        detectedAt: '2026-10-14T20:10:43.000Z',
+        resetAt: '2026-10-14T23:00:00.000Z',
+        parsed: true,
+      }),
+    ).toContain('claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z');
+  });
+
+  it('adds a backup reset without changing the primary reset', () => {
+    const body = weeklyLimitIssueBody({
+      detectedAt: '2026-10-14T20:10:43.000Z',
+      resetAt: '2026-10-14T23:00:00.000Z',
+      parsed: true,
+      backupResetAt: '2026-10-15T01:00:00.000Z',
+      existingBody: 'claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z\nclaude-weekly-limit-detected: unchanged',
+    });
+    expect(body).toContain('claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z');
+    expect(body).toContain('claude-weekly-limit-reset-backup: 2026-10-15T01:00:00.000Z');
+  });
+
+  it('preserves a backup reset when the primary rewrites the issue', () => {
+    expect(weeklyLimitIssueBody({
+      detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-14T23:00:00.000Z', parsed: true,
+      existingBody: 'claude-weekly-limit-reset-backup: 2026-10-15T01:00:00.000Z',
+    })).toContain('claude-weekly-limit-reset-backup: 2026-10-15T01:00:00.000Z');
+  });
+
+  it('does not create or rewrite an issue for an unpaired backup limit', () => {
+    const limit = { detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-14T23:00:00.000Z', parsed: true };
+    expect(weeklyLimitIssueUpdate(limit, [], 'backup').warning).toContain('leaving issue state unchanged');
+    expect(weeklyLimitIssueUpdate(limit, [{ number: 1, body: '', title: 'existing' }], 'backup').warning).toContain('leaving issue state unchanged');
+  });
+
+  it('keeps the issue title for a backup limit', () => {
+    const update = weeklyLimitIssueUpdate(
+      { detectedAt: '2026-10-14T20:10:43.000Z', resetAt: '2026-10-15T01:00:00.000Z', parsed: true },
+      [{ number: 1, body: 'claude-weekly-limit-reset: 2026-10-14T23:00:00.000Z', title: 'primary reset' }], 'backup',
+    );
+    expect(update.title).toBe('primary reset');
+  });
+
+  // #5899: routine-awareness-answerer went red on the five-hour session cap
+  // because only the weekly wording was recognised.
+  it('passes the five-hour session cap without pausing the fleet', () => {
+    const r = decideOutcome(
+      log({
+        subtype: 'success',
+        is_error: true,
+        result: "You've hit your session limit · resets 6:30pm (UTC)",
+      }),
+      { stepOutcome: 'failure', now: new Date('2026-10-15T17:23:37.000Z') },
+    );
+    expect(r.pass).toBe(true);
+    expect(r.message).toContain('five-hour session window');
+    expect(r.message).toContain('resets 2026-10-15T18:30:00.000Z');
+    // A session cap must never write the issue that pauses non-content routines.
+    expect(r.weeklyLimit).toBeUndefined();
+  });
+
+  it('reports the cap kind and never mistakes a session cap for a weekly one', () => {
+    const at = { now: new Date('2026-10-15T17:23:37.000Z') };
+    const session = { result: "You've hit your session limit · resets 6:30pm (UTC)" };
+    expect(planLimitInfo(session, at)).toEqual({
+      kind: 'session',
+      detectedAt: '2026-10-15T17:23:37.000Z',
+      resetAt: '2026-10-15T18:30:00.000Z',
+      parsed: true,
+    });
+    expect(weeklyLimitInfo(session, at)).toBeNull();
+    expect(planLimitInfo({ result: realLimitText }, at)?.kind).toBe('weekly');
+    expect(weeklyLimitInfo({ result: realLimitText }, at)).not.toBeNull();
+  });
+
+  it('bounds an unparseable session reset to the five-hour window', () => {
+    expect(
+      planLimitInfo(
+        { result: "You've hit your session limit - resets sometime later" },
+        { now: new Date('2026-10-15T17:00:00.000Z') },
+      ),
+    ).toEqual({
+      kind: 'session',
+      detectedAt: '2026-10-15T17:00:00.000Z',
+      resetAt: '2026-10-15T22:00:00.000Z',
+      parsed: false,
+    });
+  });
+
+  // #6375: four days of Vault Run judgment jobs went red on the org monthly
+  // spend cap because only the weekly and session wordings were recognised.
+  // These two strings are verbatim from runs 40579753712 and 40768024555.
+  describe('org monthly spend cap (#6375)', () => {
+    const spendText =
+      "You've hit your org's monthly spend limit · ask your admin to raise it at https://claude.ai/admin-settings/usage · your weekly limit resets 11pm (UTC)";
+    const spendTextDated =
+      "You've hit your org's monthly spend limit · ask your admin to raise it at https://claude.ai/admin-settings/usage · your weekly limit resets Oct 28, 11pm (UTC)";
+
+    it('passes the spend cap instead of filing it as a routine failure', () => {
+      const r = decideOutcome(log({ subtype: 'success', is_error: true, num_turns: 1, result: spendText }), {
+        stepOutcome: 'failure',
+        now: new Date('2026-10-28T20:59:34.000Z'),
+      });
+      expect(r.pass).toBe(true);
+      expect(r.message).toContain('org monthly spend cap is exhausted');
+      // A spend cap must never write the issue that pauses non-content routines.
+      expect(r.weeklyLimit).toBeUndefined();
+    });
+
+    it('reads the trailing weekly hint as the spend cap reset, not as a weekly cap', () => {
+      const at = { now: new Date('2026-10-28T20:59:34.000Z') };
+      expect(planLimitInfo({ result: spendText }, at)).toEqual({
+        kind: 'spend',
+        detectedAt: '2026-10-28T20:59:34.000Z',
+        resetAt: '2026-10-28T23:00:00.000Z',
+        parsed: true,
+      });
+      expect(weeklyLimitInfo({ result: spendText }, at)).toBeNull();
+    });
+
+    it('bounds an unparseable dated reset hint to the fallback window', () => {
+      const info = planLimitInfo({ result: spendTextDated }, {
+        now: new Date('2026-10-27T20:39:25.000Z'),
+      });
+      expect(info).toEqual({
+        kind: 'spend',
+        detectedAt: '2026-10-27T20:39:25.000Z',
+        resetAt: '2026-10-28T02:39:25.000Z',
+        parsed: false,
+      });
+      expect(weeklyLimitInfo({ result: spendTextDated }, { now: new Date('2026-10-27T20:39:25.000Z') })).toBeNull();
+    });
+
+    it('points at the admin setting rather than at the routine', () => {
+      const hint = failureHint({ result: spendText }, { now: new Date('2026-10-28T20:59:34.000Z') });
+      expect(hint).toContain('https://claude.ai/admin-settings/usage');
+      expect(hint).toContain("not this routine's code");
+    });
+
+    it('still treats the plain weekly and session caps as before', () => {
+      const at = { now: new Date('2026-10-15T17:23:37.000Z') };
+      expect(planLimitInfo({ result: realLimitText }, at)?.kind).toBe('weekly');
+      expect(weeklyLimitInfo({ result: realLimitText }, at)).not.toBeNull();
+      expect(planLimitInfo({ result: "You've hit your session limit · resets 6:30pm (UTC)" }, at)?.kind).toBe('session');
+    });
+  });
+
+  it('keeps the oldest issue and closes later duplicate issue races', () => {
+    const { keeper, duplicates } = dedupeWeeklyLimitIssues([
+      { number: 102 },
+      { number: 101 },
+      { number: 102 },
+      { number: 99, pull_request: {} },
+    ]);
+    expect(keeper.number).toBe(101);
+    expect(duplicates.map((issue) => issue.number)).toEqual([102]);
+  });
+});
+
 describe('routine-template.yml', () => {
   const yml = readFileSync(
     path.resolve(__dirname, '../../.github/workflows/routine-template.yml'),
@@ -164,5 +372,12 @@ describe('routine-template.yml', () => {
     );
     expect(yml).toContain('node scripts/routines/session-outcome.mjs');
     expect(yml).toContain('steps.claude.outcome');
+  });
+
+  it('selects the Claude OAuth token once from the guard output', () => {
+    expect(yml.match(/secrets\.CLAUDE_CODE_OAUTH_TOKEN(?!_)/g)).toHaveLength(1);
+    expect(yml).toContain("claude_code_oauth_token: ${{ steps.guard.outputs.token == 'backup' && secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP || env.ROUTINE_CLAUDE_TOKEN }}");
+    expect(yml).not.toContain('ROUTINE_CLAUDE_BACKUP_TOKEN');
+    expect(yml).toContain("HAS_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP != '' }}");
   });
 });

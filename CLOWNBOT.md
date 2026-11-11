@@ -32,7 +32,7 @@ fan_signal / live_theory → (maybe) promotes into the Vault → egg_ledger
 2. **Extract.** A new cluster gets one Haiku call
    (`apps/worker/src/extract/haiku-client.ts`) that writes structured,
    our-words copy — never a paste-through of the source article — using the
-   forced `record_knowledge` tool shape. No `ANTHROPIC_API_KEY` set → this
+   forced `record_knowledge` tool shape. Subscription wrapper unavailable → this
    stage no-ops, same degraded-but-functional posture as the rest of the
    worker.
 3. **Screen.** Every extracted item is checked against the same redline

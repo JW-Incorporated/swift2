@@ -51,3 +51,36 @@ export function serviceClient(env = process.env) {
   if (!url || !key) return null;
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 }
+
+export const SUPABASE_URL_MESSAGE =
+  'SUPABASE_URL must be the bare project URL like https://<ref>.supabase.co (no path, quotes or spaces)';
+
+const PROJECT_URL = /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/;
+const LOCAL_URL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/?$/;
+
+/**
+ * Strict check for the unattended home tasks. Trims surrounding whitespace and quotes, then
+ * returns `{ ok: true, url }` (one trailing slash stripped) or `{ ok: false, rule }` where
+ * `rule` names the failed rule only, never the value.
+ */
+export function checkBareSupabaseUrl(value) {
+  if (typeof value !== 'string') return { ok: false, rule: 'missing' };
+  const url = value.trim().replace(/^["']+|["']+$/g, '').trim();
+  if (/\s/.test(url)) return { ok: false, rule: 'whitespace' };
+  if (/["']/.test(url)) return { ok: false, rule: 'quoted' };
+  if (PROJECT_URL.test(url) || LOCAL_URL.test(url)) return { ok: true, url: url.replace(/\/$/, '') };
+  if (!/^https:\/\//.test(url) && !LOCAL_URL.test(url)) return { ok: false, rule: 'not https' };
+  if (/^https:\/\/[^/]*\/./.test(url)) return { ok: false, rule: 'has a path' };
+  return { ok: false, rule: 'not a bare <ref>.supabase.co host' };
+}
+
+/**
+ * `serviceClient` that fails loudly on a malformed SUPABASE_URL. Still returns `null` when the
+ * env vars are simply unset.
+ */
+export function strictServiceClient(env = process.env) {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) return null;
+  const result = checkBareSupabaseUrl(env.SUPABASE_URL);
+  if (!result.ok) throw new Error(`${SUPABASE_URL_MESSAGE} [failed rule: ${result.rule}]`);
+  return serviceClient({ ...env, SUPABASE_URL: result.url });
+}

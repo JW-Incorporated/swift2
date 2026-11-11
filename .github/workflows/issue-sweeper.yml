@@ -1,0 +1,64 @@
+# Daily deterministic issue sweeper (backlog cleanup pass 1, founder-approved
+# 2026-10-08). Closes, never deletes, machine-filed issues that rules prove
+# stale: superseded reports, expired news intake, recovered watchdog alerts,
+# duplicate CIE tickets. No model, no secrets beyond GITHUB_TOKEN. Rules and the
+# hard guard: scripts/ops/lib/issue-sweeper-rules.mjs, docs/AUTOMATION.md.
+# Scheduled runs apply; manual runs default to a dry run (dry_run input).
+# Daily cadence is not drift-sensitive, so it stays a plain cron rather than a
+# clock-table.json row. :17 avoids the repository's busy minute clusters.
+name: issue-sweeper
+
+on:
+  schedule:
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Plan only; close nothing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  actions: read
+
+concurrency:
+  group: issue-sweeper
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+      - name: Sweep stale machine-filed issues
+        env:
+          DRY_RUN: ${{ github.ref != 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        shell: bash
+        run: |
+          set -o pipefail
+          if [ "$DRY_RUN" = "true" ]; then
+            node scripts/ops/issue-sweeper.mjs --dry-run | tee sweep.txt
+          else
+            node scripts/ops/issue-sweeper.mjs --apply | tee sweep.txt
+          fi
+          {
+            echo '## Issue sweeper'
+            echo '```'
+            head -c 60000 sweep.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: issue-sweeper-plan
+          path: .scratch/issue-sweeper-plan.json
+          if-no-files-found: ignore
+          retention-days: 14

@@ -3,7 +3,11 @@
 // `node scripts/sync-source-tiers.mjs` (or `npm run sync:content`);
 // `npm run check:generated` fails CI if this drifts.
 
-export const OFFICIAL_DOMAINS = new Set(["taylorswift.com"]);
+export const OFFICIAL_DOMAINS = new Set(["taylorswift.com","republicrecords.com","umusic.com","universalmusic.com"]);
+
+export const OFFICIAL_YOUTUBE_CHANNEL_IDS = new Set(["UCqECaJ8Gagnn7YCbPEzWH6g"]);
+
+export const OFFICIAL_TICKETING_IDS = new Set(["1094215","K8vZ9175dV7"]);
 
 export const ESTABLISHED_DOMAINS = new Set([
   "billboard.com",

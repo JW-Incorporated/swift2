@@ -6,11 +6,26 @@
 //   npm run news --workspace @swift2/worker           (via tsx)
 
 import { createWorkerDbClient } from './db/client';
+import { hasClaudeSubscriptionToken } from './claude-call';
+import { detectExtractDegraded } from './extract/degraded';
 import { runCycle } from './pipeline/run-cycle';
+import { gnewsResolutionWarning, runStats } from './run-stats';
+import { PRIMARY_SOURCES } from './sources/registry';
 
 async function main() {
+  const primary = process.argv.includes('--primary');
+  const dryRun = process.argv.includes('--dry-run');
+  if (dryRun) {
+    if (!primary) throw new Error('--dry-run currently requires --primary');
+    console.log('news-worker: primary dry run (no DB or network reads/writes)');
+    for (const source of PRIMARY_SOURCES) {
+      console.log(`- ${source.name} [${source.sourceType}] ${source.url}`);
+    }
+    return;
+  }
+
   const db = createWorkerDbClient();
-  const result = await runCycle(db);
+  const result = await runCycle(db, { primary });
 
   // A "schema not yet migrated" error is a KNOWN, TRACKED infra-pending state,
   // not a worker fault: the knowledge-engine Stage 1/2 migrations
@@ -41,10 +56,39 @@ async function main() {
     screenedOut: result.extract.screenedOut,
     skipped: result.extract.skipped,
     deferred: result.extract.deferred,
+    dedupeMerged: result.extract.dedupeMerged,
+    dedupeDiscarded: result.extract.dedupeDiscarded,
+    dedupeDiscardReasons: result.extract.dedupeDiscardReasons,
+    dedupeHeld: result.extract.dedupeHeld,
+    attachedToVideo: result.extract.attachedToVideo,
+    v2Held: result.extract.v2Held,
+    dailyTextCapHeld: result.extract.dailyTextCapHeld,
+    v2Deferred: result.extract.v2Deferred,
+    v2MissingFacts: result.extract.v2MissingFacts,
+    v2GaveUp: result.extract.v2GaveUp,
+    v2GaveUpReasons: result.extract.v2GaveUpReasons,
+    writerBudgetExhausted: result.extract.writerBudgetExhausted,
+    heldImagesChecked: result.extract.heldImagesChecked,
+    heldImagesPublished: result.extract.heldImagesPublished,
+    heldPassReasons: result.extract.heldPassReasons,
+    significanceHeld: result.extract.significanceHeld,
+    significanceDeferred: result.extract.significanceDeferred,
+    significanceFallback: result.extract.significanceFallback,
+    significanceBudgetExhausted: result.extract.significanceBudgetExhausted,
+    tier2CapHeld: result.extract.tier2CapHeld,
+    tierCounts: result.extract.tierCounts,
+    theoriesUpserted: result.extract.theoriesUpserted,
+    theoryHoldReasons: result.extract.theoryHoldReasons,
+    ...runStats,
     errorCount: result.errors.length,
     schemaPending: pendingErrors.length,
     realErrors: realErrors.length,
+    sourceWarnings: result.warnings.length,
+    mode: primary ? 'primary' : 'all',
   });
+  const gnewsWarning = gnewsResolutionWarning(runStats);
+  if (gnewsWarning) console.warn(`::warning title=gnews-unresolved::${gnewsWarning}`);
+  for (const warning of result.warnings) console.warn(`::warning title=source-failed::${warning}`);
   for (const err of realErrors) console.error(`news-worker: ${err}`);
   if (pendingErrors.length > 0) {
     console.warn(
@@ -53,6 +97,17 @@ async function main() {
     );
     for (const err of pendingErrors) console.warn(`news-worker:   (schema-pending) ${err}`);
   }
+
+  // A green job that did nothing must not stay invisible (#4647 item 4): emit a
+  // warning annotation; watchdog.yml escalates once it is sustained.
+  const degraded = detectExtractDegraded({
+    clustersConsidered: result.extract.clustersConsidered,
+    extracted: result.extract.extracted,
+    deferred: result.extract.deferred,
+    schemaPending: pendingErrors.length,
+    hasSubscriptionToken: hasClaudeSubscriptionToken(),
+  });
+  if (degraded) console.warn(`::warning title=extract-degraded::${degraded.message}`);
 
   // Stage isolation means individual failures never abort the cycle — but a
   // cycle that logged a GENUINE error should still fail the Action so it's

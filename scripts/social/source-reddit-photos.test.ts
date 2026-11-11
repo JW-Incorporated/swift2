@@ -21,6 +21,19 @@ describe('looksLikeNonConcertContent', () => {
     expect(looksLikeNonConcertContent('Magazine cover shoot')).toBe(true);
   });
 
+  it('flags product/object titles (issue #4707)', () => {
+    for (const title of [
+      'I went to the eras tour when this bracelet made sense',
+      'Taylor’s perfume from episodes 5/6',
+      'Taylor swift perfume in documentary',
+      'Taylor Swift lipstick eras tour',
+      'My new candle and nail polish',
+      'Ticket stub from night 2',
+    ]) {
+      expect(looksLikeNonConcertContent(title)).toBe(true);
+    }
+  });
+
   it('does not flag a plain concert photo title', () => {
     expect(looksLikeNonConcertContent('My photo from night 2 in Inglewood')).toBe(false);
   });

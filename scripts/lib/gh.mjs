@@ -61,9 +61,9 @@
 // no tickets is worse than one that crashes.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import http from 'node:http';
 import https from 'node:https';
 import tls from 'node:tls';
@@ -86,11 +86,11 @@ const PER_PAGE = 100;
 const MAX_PAGES = 3;
 // Absolute ceiling, so a caller passing a huge `--limit` against a filter that
 // matches nothing can never turn into an unbounded crawl of the repo's history.
-const HARD_MAX_PAGES = 10;
+const HARD_MAX_PAGES = 100;
 
 /**
  * Pages a list call may fetch: enough to satisfy the caller's `--limit`
- * (Karen's fingerprint prefetch asks for 1000 — see issues.mjs, which treats a
+ * (Karen's fingerprint prefetch asks for 10000 — see issues.mjs, which treats a
  * sub-limit result as the COMPLETE set and skips the forbidden /search
  * namespace entirely), floored at MAX_PAGES for small limits whose post-filters
  * eat hits, ceilinged so it stays bounded. Exported for tests.
@@ -203,12 +203,36 @@ export function findToken() {
   return null;
 }
 
+/**
+ * Path to the git config for the checkout rooted at `dir`, or null. In a linked
+ * worktree `.git` is a FILE ("gitdir: <repo>/.git/worktrees/<name>"), and the
+ * remote lives in the main repo's config, found via that gitdir's `commondir`.
+ */
+function gitConfigPath(dir) {
+  const dotGit = join(dir, '.git');
+  try {
+    if (statSync(dotGit).isFile()) {
+      const m = readFileSync(dotGit, 'utf8').match(/^gitdir:\s*(.+?)\s*$/m);
+      if (!m) return null;
+      const gitdir = resolve(dir, m[1]);
+      let common = gitdir;
+      try { common = resolve(gitdir, readFileSync(join(gitdir, 'commondir'), 'utf8').trim()); } catch { /* not a worktree gitdir */ }
+      const wt = join(common, 'config');
+      return existsSync(wt) ? wt : null;
+    }
+  } catch {
+    return null; // no .git here
+  }
+  const cfg = join(dotGit, 'config');
+  return existsSync(cfg) ? cfg : null;
+}
+
 /** owner/name for calls that didn't pass --repo. No subprocess: reads .git/config. */
 export function defaultRepo(cwd = process.cwd()) {
   if (process.env.GITHUB_REPOSITORY) return process.env.GITHUB_REPOSITORY;
   for (let dir = cwd, i = 0; i < 8; i++) {
-    const cfg = join(dir, '.git', 'config');
-    if (existsSync(cfg)) {
+    const cfg = gitConfigPath(dir);
+    if (cfg) {
       const m = readFileSync(cfg, 'utf8').match(/github\.com[:/]([^/\s]+\/[^/\s.]+)(\.git)?/);
       if (m) return m[1];
       break;
@@ -757,6 +781,15 @@ function cliListCompleteness(args, stdout) {
   return { complete: rows.length < limit, capExhausted: false, pagesFetched: 1 };
 }
 
+// Flags planRest() actually applies to a list. Any other flag (--author,
+// --head, --base, --search, -R ...) would be silently dropped by the REST plan,
+// returning UNFILTERED rows, so the CLI-error fallback refuses those (#4119).
+const REST_HONOURED_FLAGS = new Set(['--repo', '--limit', '--state', '--label', '--json']);
+
+function onlyModelledFlags(args) {
+  return args.every((t) => !String(t).startsWith('-') || REST_HONOURED_FLAGS.has(String(t).split('=')[0]));
+}
+
 /**
  * Run a gh command. Uses the CLI when present, REST when it isn't.
  * Returns `{ stdout }` so it is a drop-in for the old promisified execFile.
@@ -768,8 +801,27 @@ function cliListCompleteness(args, stdout) {
 export async function gh(args, opts = {}) {
   const bin = await resolveGh();
   if (bin) {
-    const out = await execFileAsync(bin, args, { maxBuffer: 16 * 1024 * 1024, ...opts });
-    return { ...out, ...cliListCompleteness(args, out.stdout) };
+    try {
+      const out = await execFileAsync(bin, args, { maxBuffer: 16 * 1024 * 1024, ...opts });
+      return { ...out, ...cliListCompleteness(args, out.stdout) };
+    } catch (cliErr) {
+      // #4119: a present-but-failing CLI (e.g. a non-JSON search-proxy error) is
+      // treated like a missing one — for READS only. A mutation may have partly
+      // succeeded, so it is never retried; the original error propagates.
+      const plan = planRest(args, defaultRepo());
+      const token = plan && plan.method === 'GET' && onlyModelledFlags(args) ? findToken() : null;
+      if (!plan || !token) throw cliErr;
+      console.error(
+        `⚠ gh.mjs: gh CLI failed for \`gh ${args.join(' ')}\` (${String(cliErr?.message ?? cliErr).split('\n')[0]}); ` +
+        'retrying once via REST (#4119).',
+      );
+      try {
+        return await rest(plan, token);
+      } catch (restErr) {
+        console.error(`⚠ gh.mjs: REST fallback also failed: ${String(restErr?.message ?? restErr).split('\n')[0]}`);
+        throw cliErr;
+      }
+    }
   }
 
   const token = findToken();

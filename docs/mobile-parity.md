@@ -28,6 +28,7 @@ Native status values:
 | `/privacy` | route | web-only | Shown by the DOM host's legal overlay (`apps/mobile/dom/slots/legal.ts`, `legal-links.ts`); the native LegalPageScreen WebView was deleted in One UI PR3. |
 | `/terms` | route | web-only | Same as `/privacy`. |
 | `/support` | route | web-only | Same as `/privacy`. |
+| `/desk` | route | web-only | Meet-the-desk page (persona authors, #462). Static, like `/support`; bylines in the reader link to it. |
 | `/settings/notifications` | route | web-only | Path is not matched by `destinationFor`, so it degrades to the era tab. The native settings screen is reached via `?screen=settings` (see `settings` below), not this path. |
 | `/internal/notifications` | route | N/A | Server-rendered internal metrics dashboard gated by `?secret=`; not linked from the public app. |
 | `?item=<id>` | query | native screen (`apps/mobile/dom/AppReader.tsx`) | `destinationFor` returns kind `moment` for any non-empty id. Web also resolves non-moment ids as video slugs; native handling of a video slug is unverified. |

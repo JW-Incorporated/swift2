@@ -93,6 +93,18 @@ describe('hasOfficialCitation — item-level official-domain check backing RR6',
   it('rejects a look-alike domain, matching RR5\'s fail-closed posture', () => {
     expect(hasOfficialCitation(['https://taylorswift.com.evil.example/fake'])).toBe(false);
   });
+
+  it('requires a Taylor Swift path marker on label and press domains', () => {
+    expect(
+      hasOfficialCitation(['https://www.universalmusic.com/drake-announces-tour']),
+    ).toBe(false);
+    expect(
+      hasOfficialCitation(['https://www.republicrecords.com/collections/ariana-grande']),
+    ).toBe(false);
+    expect(
+      hasOfficialCitation(['https://www.republicrecords.com/artists/TaYlOr-SwIfT']),
+    ).toBe(true);
+  });
 });
 
 // --- PROSE_REDLINE_LEGACY only ever shrinks --------------------------------
@@ -142,5 +154,18 @@ describe('blockingRumorRedlineViolations — RR4 still governs structured rumors
     };
     const violations = blockingRumorRedlineViolations(rumor, { category: 'relationship' });
     expect(violations.some((v) => v.rule === 'RR4')).toBe(false);
+  });
+
+  it('does not trust an unrelated label page that declares itself official', () => {
+    const rumor = {
+      claim: 'A source says she is pregnant with her first child.',
+      status: 'unconfirmed',
+      sourceTier: 'official',
+      reportedBy: 'Universal Music Group',
+      reportedOn: '2026-10-15',
+      url: 'https://www.universalmusic.com/drake-announces-tour',
+    };
+    const violations = blockingRumorRedlineViolations(rumor, { category: 'relationship' });
+    expect(violations.some((v) => v.rule === 'RR4')).toBe(true);
   });
 });

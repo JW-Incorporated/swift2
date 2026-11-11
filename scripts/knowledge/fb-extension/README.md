@@ -2,12 +2,13 @@
 
 Replaces the CDP collector. Facebook stunts group feeds in any CDP-controlled Chrome; a content
 script in plain Chrome (no `--remote-debugging-port`) sees the normal feed. See `PLAN.md`
-(FB-EXTENSION-1) for the receiver protocol (schema v1).
+(FB-EXTENSION-1) for the receiver protocol. New results use schema v2; the receiver still accepts
+stored/retried schema-v1 results.
 
 ## One-time setup (owner)
 
 1. Open Chrome with the dedicated export profile (`%LOCALAPPDATA%/longlive-fb/chrome-profile`) —
-   the same profile the weekly task launches, already signed in to Facebook.
+   the same profile the scheduled tasks launch, already signed in to Facebook.
 2. Go to `chrome://extensions`, switch **Developer mode** on (top right).
 3. Click **Load unpacked** and choose this folder (`scripts/knowledge/fb-extension`).
 4. Leave it enabled. After a `git pull` that changes these files, press the extension's reload
@@ -41,6 +42,13 @@ restarts.
   collector's rules (seven-days, feed-end, scroll cap, wall budget) plus **stunted** (≤ 3 feed
   slots after 20 scrolls). Then `LLFB.collectComments` (from `comments.js`). A small status box
   shows progress.
+- Before capture, every visible timestamp link is focused and hover-triggered so Facebook resolves
+  lazy `href="/"` values. Nested post anchors are the fallback. Every resulting URL is canonical
+  `https://www.facebook.com/groups/<group>/posts/<post>/` with tracking removed; reaction and
+  comment counts ride in schema-v2 units and into `engagement_lead`.
+- The manifest injects only on `/groups/*` for feeds and the redirect-safe `/*/allactivity*` path
+  for the read-only owner-activity job; no other Facebook page receives it. That pass sends only
+  the owner's post/comment URLs, opaque comment ids, timestamps, and counts—never text or identity.
 - **Scroll cap.** The receiver hands each job `maxScrolls`: default **400** (`DEFAULT_MAX_SCROLLS`
   in `fb-export-receiver.mjs`), overridable per group with `maxScrolls: <n>` in
   `fb-groups-checklist.mjs` (clamped to 1–2000). 250 finished the Vault in ~16 min; 2000 froze its
@@ -89,6 +97,13 @@ restarts.
 - `harvest-core.js` holds the pure harvest logic, ported from `fb-export-helpers.mjs` /
   `fb-export-harvest.mjs`; `fb-extension.test.ts` checks it against those originals.
 
+## Cadence (owner installs)
+
+`fb-export-task.ps1` registers two local tasks: daily at 23:00 for exactly three configured slugs,
+and Sunday at 23:30 for every other checklist group. The explicit, configurable
+`-TopGroupSlugs <slug1>,<slug2>,<slug3>` parameter defaults to the Vault, Kulto ni Taylor Swift,
+and Vault 2.0. The script is an installer; repository automation never registers or runs it.
+
 ## Capture mode — reading Facebook's real markup without reading any post
 
 `npm run knowledge:fb-export:capture` runs the same receiver + plain Chrome flow with the job
@@ -119,6 +134,15 @@ the group (`capture-unredacted`) if anything else appears, then writes
 prints counts and that path only. An extension that predates capture mode answers without
 `skeletons` → `capture-unsupported`: reload it on `chrome://extensions`. `skeleton.test.ts`
 proves no synthetic sentence, name, id or link survives a skeleton.
+
+## Checkout guard
+
+The extension is loaded from this checkout, so `npm run knowledge:fb-export` refuses to run
+(summary says why, exit 1) unless the checkout is on `main` and has no uncommitted changes under
+`scripts/knowledge` or `scripts/community`. If a scheduled run reports a refusal, put
+`Projects/Swift2` back on a clean `main` and re-run; other sessions should use their own worktrees. Refusals are posted to the weekly issue (best
+effort) and every scheduled run's output is logged to `%LOCALAPPDATA%longlive-fbb-export.log`.
+Any warning makes the run's `ok` false.
 
 ## Known limits
 

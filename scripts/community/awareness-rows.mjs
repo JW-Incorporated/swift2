@@ -13,15 +13,26 @@ export function contextFor(subreddit, types, ageHours, rank) {
   return `Awareness candidate in r/${subreddit} (${types.join('/')}), about ${Math.round(ageHours)}h old, feed rank ${rank} (title-only scan, no bodies stored).`;
 }
 
-export function buildAwarenessRow({ subreddit, post, types, ageHours, imageRef, imageComments }) {
-  return {
+export function buildAwarenessRow({
+  subreddit,
+  post,
+  types,
+  ageHours,
+  imageRef,
+  imageComments,
+  replyUnverified = false,
+  observedAt = null,
+}) {
+  const row = {
     platform: 'reddit',
     community: subreddit,
     kind: AWARENESS_KIND,
     thread_id: post.id,
     url: post.permalink,
     title: post.title,
-    context: contextFor(subreddit, types, ageHours, post.rank),
+    context:
+      contextFor(subreddit, types, ageHours, post.rank) +
+      (replyUnverified ? ' Reply-ability (locked/archived/restricted) unverified.' : ''),
     matched_doc_ids: [],
     status: 'new',
     redline_ok: true, // screenTopic ran on the title in evaluateThread
@@ -29,6 +40,13 @@ export function buildAwarenessRow({ subreddit, post, types, ageHours, imageRef, 
     image_comments: imageComments,
     thread_type: types[0],
   };
+  if (post.score != null || post.numComments != null || post.createdAt) {
+    row.score = post.score ?? null;
+    row.num_comments = post.numComments ?? null;
+    row.thread_created_at = post.createdAt ?? null;
+    row.last_scored_at = observedAt ?? new Date().toISOString();
+  }
+  return row;
 }
 
 /** Per-sub candidates created so far today (UTC), from existing awareness rows. */

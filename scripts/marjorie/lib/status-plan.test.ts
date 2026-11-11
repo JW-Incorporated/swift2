@@ -77,7 +77,7 @@ describe('strategy summary', () => {
   it('renders the bullets, the last-changed date, the full-strategy link and how to steer it — or nothing', () => {
     const out = renderStrategy({ bullets: ['A', 'B'], changedAt: '2026-09-28' }, { repo: 'o/r' });
     expect(out).toContain('## 🧭 Strategy\n\n- A\n- B\n');
-    expect(out).toContain('Last changed 2026-09-28 — [full strategy](https://github.com/o/r/blob/main/docs/strategy/growth-strategy.md) — challenge or steer it by talking to Marjorie in #longlive-marjorie.');
+    expect(out).toContain('Last changed 2026-09-28 — [full strategy](https://github.com/o/r/blob/main/docs/strategy/growth-strategy.md) — challenge or steer it by talking to Marjorie in #marjorie.');
     expect(renderStrategy({ bullets: ['A'], changedAt: '' }, { repo: 'o/r' })).not.toContain('Last changed');
     expect(renderStrategy({ bullets: [], changedAt: '' }, { repo: 'o/r' })).toBe('');
   });

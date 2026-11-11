@@ -8,8 +8,8 @@
 // this and diffs it against HEAD, so the twin can never silently drift from
 // the hand-authored .ts source.
 //
-// Only the DATA constants are mirrored (OFFICIAL_DOMAINS, ESTABLISHED_
-// DOMAINS, ESTABLISHED_SOURCE_NAMES, VAULT_SOURCE_TIER_BY_TYPE,
+// Only the DATA constants are mirrored (OFFICIAL_DOMAINS, official channel/
+// ticketing ids, ESTABLISHED_DOMAINS, ESTABLISHED_SOURCE_NAMES, VAULT_SOURCE_TIER_BY_TYPE,
 // RUMOR_SOURCE_TIERS, OUTLET_TIER_MAP) — scripts/lib/reputable-sources.mjs
 // keeps its own (unchanged) hostOf/isOfficialDomain/etc. function bodies,
 // since logic duplication isn't the drift risk the domain *lists* were.
@@ -40,6 +40,10 @@ function renderModule(mod) {
     '// `npm run check:generated` fails CI if this drifts.',
     '',
     `export const OFFICIAL_DOMAINS = new Set(${JSON.stringify([...mod.OFFICIAL_DOMAINS])});`,
+    '',
+    `export const OFFICIAL_YOUTUBE_CHANNEL_IDS = new Set(${JSON.stringify([...mod.OFFICIAL_YOUTUBE_CHANNEL_IDS])});`,
+    '',
+    `export const OFFICIAL_TICKETING_IDS = new Set(${JSON.stringify([...mod.OFFICIAL_TICKETING_IDS])});`,
     '',
     `export const ESTABLISHED_DOMAINS = new Set(${JSON.stringify([...mod.ESTABLISHED_DOMAINS], null, 2)});`,
     '',

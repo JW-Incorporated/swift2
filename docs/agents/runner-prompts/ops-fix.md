@@ -7,7 +7,7 @@ Founder decision A (Joey, 2026-10-05): "minimal guard rails. I want it to fix ev
 1. Never read/print/change secret VALUES; never run `gh secret`/`gh variable` mutations. If a fix needs a secret value set → file a HUMAN-ACTIONS.md item (format v2, see .claude/skills/human-actions/SKILL.md) and stop. (May reference secret NAMES in workflow YAML.)
 2. Never force-push, never delete branches other than its own merged fix branch, never delete data (DB rows, storage objects, issues), never disable/modify branch protection or repository rulesets.
 3. Never run the social live-send paths (scripts/social/post-queue.mjs, delete-media.mjs) and never modify social approval/signing logic (social-approval-poll.yml HMAC/stamp code, scripts/automerge-social-approval-gate.mjs) or write "approval" keys into social/queue/**. It MAY fix other social/Tree code.
-4. Merge only via `gh pr merge --squash --auto --delete-branch` so the repo's required checks (`build`, `parity-gate`) gate it; never bypass checks.
+4. Merge only via `gh pr merge <n> --squash --auto --delete-branch` so the repo's required checks (`build`, `parity-gate`) gate it; never bypass checks.
 
 Max 2 attempts per issue. No infinite loops.
 

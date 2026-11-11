@@ -1,6 +1,6 @@
 # Marjorie — chat (Marjorie Overhaul M5, docs/specs/marjorie-overhaul/m5-chat.md).
 # dispatch-only: bot-chat-poll.yml dispatches one run per founder message in
-# #longlive-marjorie after claiming it with 👀. It has no schedule of its own,
+# #marjorie after claiming it with 👀. It has no schedule of its own,
 # which is why check-routine-workflows.mjs needs this header to say so.
 #
 # Five jobs plus typing, secrets split by environment so the agent never holds one:
@@ -52,7 +52,7 @@ on:
         required: true
         type: string
       channel_id:
-        description: "#longlive-marjorie's channel id"
+        description: "#marjorie's channel id"
         required: true
         type: string
       thread_id:

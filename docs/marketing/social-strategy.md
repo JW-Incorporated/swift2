@@ -16,7 +16,7 @@ Who does what, in one line each:
 
 - **Tree** plans (this strategy → `social/calendar.md`, one weekly run) and
   drafts what the calendar says into `social/queue/` (a second, daily run).
-- **`social-poster.yml`** ships it every 30 min, once the owner's ✅ stamp is on it.
+- **`social-poster.yml`** ships it every 30 min, once a signed stamp is on it — since 2026-10-09 (owner decision) Tree mints it for IG/X by dispatching `social-tree-approve.yml`, with no per-post ✅. Reddit and Facebook are owner-posted from Tree's paste-ready cards.
 - **Tree's charter** (`docs/agents/tree.md`) owns listening, metrics,
   and the six hard rails — including the `SOCIAL_FREEZE` crisis stop.
 
@@ -57,7 +57,7 @@ queue item is never the bare family:
 | Campaign | Family | A real `campaign` value | Share of slots |
 |---|---|---|---|
 | Feature launch | `launch:<feature-slug>` | `launch:mood-chat:announce` | 0-6 slots per launch, bursty |
-| Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | 2 slots per thread per month (12/mo) |
+| Thread cycle | `thread:<lensId>:<angle>` | `thread:hidden-clues:origin-story:2026-08` | **1 paired beat per thread per month (6/mo)** |
 | Blank Spaces relationship timeline | `timeline:love-story:<chapter>` | `timeline:love-story:early-solo-years:2026-09-17` | **1 evening campaign beat every calendar week, permanent minimum** |
 | Mood beat | `mood:<format>` | `mood:chip-poll:2026-09` | 2-3 slots per month |
 | **News beat** | `news:<event-slug>` | `news:patient-zero-cover-reveal-2026-10-03` | **≥1 reserved day per calendar week, ≤2 posted per rolling 7 days** |
@@ -93,15 +93,15 @@ A launch arc is the one place where the subject genuinely *is* a product
 surface, so an **Instagram** `site-screen` is legitimate here — but §2's ladder
 still governs: on Instagram the screenshot rides slide 2 of a carousel behind a
 Taylor photo tile, because the grid is what a visiting fan sees. **X
-site-screen posts are permanently prohibited**; use a real credited photo or
-text-only X copy for the X sibling instead.
+site-screen posts are permanently prohibited**; use a real credited photo,
+image or video for the X sibling instead (text-only X is banned).
 
 | Day | Post | Platform | Job | Media |
 |---|---|---|---|---|
 | 0 | **Announce** | IG + X sibling | One line on what it does. Not "we shipped" — "here's the thing you can now do." | IG: photo tile + the feature mid-use as slide 2. X: the SAME photo as its IG sibling |
 | +2 | **How-to** | IG | Literally where to tap. Assume the reader never found it. | Photo tile + the tap-path screens as later slides |
 | +4 | **Example output** | IG + X sibling | One real result the feature produced. The proof it's good. | Photo tile + a screenshot of that actual result |
-| +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A photo, or text-only |
+| +8 | **Callback** | X | Tie it to a fan use-case; invite a reply ("what did yours give you?"). | A real photo (image or video required) |
 | +14 | *(optional)* **What you did with it** | IG | Only if real replies/DMs exist to quote (with permission). Skip silently otherwise. | Photo tile + the quoted reply as a screenshot |
 
 **Timing.** Day 0 is the first evening slot ≥24h after the deploy is live on
@@ -112,10 +112,41 @@ queues behind it (Tree records the backlog in the calendar ledger).
 **Slot cost.** An arc preempts **heartbeat** slots first. It may delay a thread
 window by up to 2 days; it never cancels one.
 
+**An arc is never scheduled into a fortnight where it would break §1(e2)'s
+≥2-displaceable-beats floor (added 2026-10-26, Tree).** The two rules collide
+arithmetically, and the collision is provable rather than a matter of taste: a
+7-day week owes one thread hero, one Blank Spaces timeline chapter (§1(c)) and
+one news reserve (§1(e2)), which leaves four beats; §1(e2) requires **≥2 of
+them to stay displaceable** so a major moment has somewhere to land. An arc
+taking three of those four (day 0, +2, +4) leaves **one**, and the week is a
+planning bug before a single word is drafted. When both cannot fit, **the arc
+waits** — a launch arc's eligibility does not expire (the pinch-zoom photo
+viewer, #831, has been live since 2026-07-18), whereas a major moment missed by
+48h is gone for good. Record the deferral in the calendar ledger with the
+fortnight it moves to, so it is a deferral and not the silent 3-of-4 close that
+ended `launch:shop-the-look` and the 1-post close that ended
+`launch:mood-chat`.
+
 **Currently push-worthy, in order** (Tree works down this list when no new ship
-landed): Mood Chat (#1560 — the clearest "we launched a thing" story), the
-pinch-zoom photo viewer (#831), the photos + focal program (#762), shoppable
-Runway looks, the rumor tier ("what's confirmed / what's rumored").
+landed): the pinch-zoom photo viewer (#831 — **blocked, see the gate rule
+below**), the photos + focal program (#762), shoppable Runway looks, the rumor
+tier ("what's confirmed / what's rumored"). `launch:mood-chat` (#1560) closed at
+1 of 4 posts and `launch:shop-the-look` at 3 of 4; neither is re-run.
+
+**A day-0 gate must be one the drafting run can clear by itself (added
+2026-11-09, Tree).** A launch arc may carry a verification gate on day 0 — it
+should, because promoting a surface nobody has looked at is how a broken feature
+gets a caption. But the gate has to be satisfiable by the 11:00Z run: fetching
+the page and confirming a section renders is a gate; *"open it on a phone and
+pinch-zoom a photo"* is not, because no automated run holds a phone. The
+`launch:photo-viewer` arc was deferred **four** times under exactly that gate
+(10-19, 10-26, 11-02's placement falling back on 11-09), and the fourth deferral
+was not the §1(a) arithmetic above — it was a gate with no clearing path, which
+produces a fallback every time it is placed. So: **when the only honest check is
+a physical-device or human-judgement one, the arc does not go on the calendar at
+all.** It stays on this backlog behind a filed `HUMAN-ACTIONS.md` card and
+returns the first weekly run after that card closes. Record the card number in
+the calendar ledger so the deferral has a named owner rather than a new date.
 
 ### (b) Thread of the month — all six threads, every month, a new angle
 
@@ -135,11 +166,33 @@ rotation order (most visual first, so the strongest opens each cycle):
 | 4 | **Taylor's Version** | `/?lens=taylors-version` |
 | 5 | **End Game** | `/?lens=the-proposal` |
 
-**Each window gets 2 slots:** one IG (the hero) and one X (a structurally
-different post, never the IG caption truncated), placed anywhere in the
-window. The IG hero leads with a Taylor photo from the era the thread's best
-item belongs to; the thread page itself is a product surface, so a
-`/social/library/` screenshot of it earns slide 2.
+**Each window gets ONE paired beat** (changed 2026-10-09, Tree — see the
+capacity note below): the IG hero and a structurally different X post, never
+the IG caption truncated, placed anywhere in the window. The IG hero leads
+with a Taylor photo from the era the thread's best item belongs to; the thread
+page itself is a product surface, so a `/social/library/` screenshot of it
+earns slide 2.
+
+**Why one beat, not two (2026-10-09, Tree).** This rule used to read "2 slots:
+one IG (the hero) and one X (a structurally different post)" — two *slots*,
+because it was written under the two-beat-a-day grammar where an IG item and
+an X item each consumed their own slot. §2's 2026-10-05 correction made one
+beat a day the real grammar and **every beat an IG+X pair authored together**,
+so a single beat now delivers exactly what this rule asked for: an IG hero
+plus a structurally different X sibling. Keeping "2 slots" on top of that
+meant each thread asked for two *pairs* a month — four posts to teach one
+thread — which nobody decided and which the arithmetic cannot pay for:
+
+> 7 beats a week is the whole budget. The standing reservations are 1 news
+> reserve (§1(e2)) + 1 Blank Spaces timeline beat (§1(c)) + 12 thread slots a
+> month (~2.8/week) = ~4.8 of 7, before a single Mood beat, launch-arc day or
+> heartbeat. Planning the fortnight of 2026-10-09 against the old numbers came
+> out at 19 demands for 13 slots. At 6 thread beats a month (~1.4/week) the
+> reservations land at ~3.4 of 7 and the rest of the strategy fits.
+
+The six-threads-every-month promise (Joey's framing above) is unchanged and
+still the point — all six are still taught every month, each on a new angle.
+What changed is that teaching one takes one pair, not two.
 
 **The angle menu** — five angles, so a thread doesn't repeat itself for five
 months:
@@ -169,12 +222,52 @@ windows as fit and drops the rest; the next month starts again at The Decode
 with its own angle index. (August 2026 starts on the 12th, so it runs Decode →
 Clue Web → Runway → Blank Spaces and skips Taylor's Version + End Game.)
 
+**One make-good per month for a hero the engine ate (added 2026-10-19, Tree).**
+A thread hero whose window closes **unshipped because the pipeline failed** may
+be re-placed on any remaining beat in the **same calendar month**, written in
+the calendar as an explicit out-of-window make-good naming the window it
+missed. Bounds, so this stays a make-good and not a licence to slide: **at most
+one per month**; it takes a `heartbeat:` or `mood:` beat only — never another
+thread's hero, never §1(c)'s weekly timeline minimum, never a §1(e2) news
+reserve, and never a beat that would drop a rolling 7 days below §1(e2)'s two
+displaceable beats; and if no such beat is free before the month ends, the hero
+is **dropped**, exactly as before. The window still governs normal placement —
+"dropped rather than slid" remains the rule for a hero that lost its window to
+a *planning* choice.
+
+**A hero displaced by a site-fronted moment gets its own make-good, on top of
+that one (added 2026-11-09, Tree, answering ask
+[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)).** §1(e2)'s
+yield order now lets a confirmed site-fronted moment from the last 48h take a
+thread hero's beat (rung 4). A hero that yields that way is re-placed on any
+remaining `heartbeat:` or `mood:` beat in the same calendar month under the same
+bounds as above, and it does **not** spend the one-per-month engine-failure
+allowance — losing a slot to real news is the system working, and charging the
+month's single make-good for it would make the next pipeline failure
+unrecoverable. It is still one make-good per displacement, still same-month,
+still dropped if the month runs out of beats, and it is still written in the
+calendar as an explicit out-of-window make-good naming the window and the moment
+that took it.
+
+**Why.** The drop rule assumed a window closes because the calendar was
+over-subscribed, and in that case dropping is right. Twice now it has closed
+because nothing could ship at all: The Runway got 0 of 2 slots in September and
+its October hero was drafted on time into PR
+[#5998](https://github.com/JW-Incorporated/swift2/pull/5998), which has sat red
+on an unrelated `build-content` gate ever since; Blank Spaces' October hero was
+drafted, **founder-approved on 2026-10-18** (`social/feedback/2026-W42.jsonl`,
+`thread:love-story:origin-story:2026-10-hero`) and died on PR
+[#6056](https://github.com/JW-Incorporated/swift2/pull/6056) the same way.
+Dropping a hero the desk actually delivered, because CI was red, charges a
+planning penalty for an engineering failure and quietly breaks the
+six-threads-every-month promise this section exists to keep.
+
 ### (c) Blank Spaces relationship timeline — weekly, confirmed-only
 
 **Permanent minimum:** reserve at least **one 23:00Z evening campaign beat in
 every calendar week** for this series. It is additional to, and never replaces,
-the six-thread monthly rotation; Blank Spaces still receives its two thread-cycle
-slots in its normal monthly window. If a launch arc or another campaign already
+the six-thread monthly rotation; Blank Spaces still receives its own
+thread-cycle beat in its normal monthly window. If a launch arc or another campaign already
 occupies the preferred evening beat, use the next available 23:00Z beat that
 week rather than double-booking a slot or adding a separate Facebook item.
 
@@ -198,7 +291,7 @@ It may place a Blank Spaces lens screenshot on slide 2 only when the screenshot
 shows that lens in actual, visually rich use and satisfies §2's “cool feature
 only” rule; never use a generic Long Live card, landing-page image, or plain
 article screenshot. X follows the media ladder: a relevant cleared Taylor photo
-when it fits, otherwise text-only; never a site screenshot.
+required (no fitting photo means the beat is deferred); never a site screenshot.
 
 ### (d) Mood beat — monthly, starter-chip driven
 
@@ -206,8 +299,16 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 
 **Hard constraints:**
 
-- **No deep link exists.** Every Mood post says **"tap Mood on
-  longlivets.com"** — never a fake `/?mood=` URL.
+- **The deep link is `/?mode=mood`** (corrected 2026-10-12, Tree — this bullet
+  used to read "no deep link exists"). It is real and shipped:
+  `packages/experience/src/deepLink.ts`'s `MODE_VALUES` has carried `mood`
+  since #2105, which made each whole mode surface its own shareable target,
+  and a `/?mode=mood` caption was founder-approved on 2026-09-23. What does
+  **not** exist is `/?mood=` — a different, invented parameter, and the thing
+  the old wording was really warning about. So: every Mood post lands on
+  `/?mode=mood` with the standard UTM tags, like every other lane; "tap Mood
+  on longlivets.com" is prose a caption may still use, never a substitute for
+  the link.
 - **Coverage gap:** evermore, Midnights, TTPD and TLOAS songs are not scored
   yet. Never promise "every song" or name those eras as Mood results. Pick
   chips whose real results come from scored eras, and verify against the actual
@@ -223,7 +324,7 @@ Mood is the most distinctive thing on the site and the hardest to link to.
 
 | Format | Family | Shape |
 |---|---|---|
-| Chip poll | `mood:chip-poll` | X: three chips, "which one is you today", answer by tapping Mood. A photo if one fits; text-only is fine here. |
+| Chip poll | `mood:chip-poll` | X: three chips, "which one is you today", answer by tapping Mood. A real photo or video is required (text-only X is banned). |
 | What it gave me | `mood:result` | IG: one chip in the caption, a Taylor photo from the era those songs come from as the tile, the **real** returned songs as slide 2. The strongest format — it proves the thing works. |
 | Chip of the week | `mood:chip-spotlight` | IG: the chip lives in the **caption**, not in the image — a Taylor photo carries the tile (match the era to the chip's mood). Caption is the fan-recognition beat ("feral about a bridge" is the deepest cut in the set and the one that says *we know you*). Rewritten 2026-08-12: this format used to be a designed typography card, and §2 retired cards from the feed. |
 
@@ -247,11 +348,36 @@ The five pillars survive. What changes is how the copy opens.
 cut" are *filenames for us*, never words in a caption. The entire current
 failure is a pillar name that escaped into 12 captions.
 
-**Rule 2 — banned openers** (hard-blocked by `check-drafts.mjs`):
+**Rule 2 — banned openers** (hard-blocked by `check-drafts.mjs`, from the list in
+`social/strategy-params.json` `openers.bannedOpeners`):
 
 > did you know · fun fact · here's a fact · ever wonder · let's talk about ·
 > imagine · picture this · in a world · buckle up · spoiler · PSA · story time ·
-> a thread 🧵 · we need to talk about
+> a thread 🧵 · we need to talk about · **okay** · **ok**
+
+**Two corrections to this rule, 2026-11-02 (Tree, week-of-11-02 plan).**
+
+*The list above was not actually enforced.* It has said "hard-blocked by
+`check-drafts.mjs`" since 2026-08-11, but `social/strategy-params.json` — the
+file the checker reads — carried only `did you know`, so **13 of the 14 openers
+were published as gates and blocked nothing.** The params file now carries the
+whole list. (`a thread 🧵` is stored as `a thread`: the matcher anchors
+`^<phrase>\b` and a `\b` immediately after an emoji never matches, so the
+emoji form could never have fired.)
+
+*`okay` and `ok` are added, and this is a real finding, not tidying.* **4 of the
+22 items posted 2026-10-20 → 2026-11-01 opened on one** — 10-21 IG *"okay i
+tapped…"*, 10-26 IG *"okay END GAME fans…"*, 10-30 X *"ok swifties…"*, 10-31 IG
+*"okay folklore track 3…"* — while all 22 cleared Rule 3's 6-word reuse gate,
+because that gate cannot see a shared *first* word when words 2-6 differ. The
+week-of-10-26 calendar put the shape off the menu in prose and it shipped twice
+anyway. This is the 2026-08-11 "did you know" finding recurring under a new
+word, and prose directions did not hold it: 1 in 5 posts opening on the same
+filler word is a formula, and a formula-opener gate that cannot see the formula
+forming is not a gate. The ban is prefix-anchored, so only a body literally
+opening on `okay`/`ok` fails — `okay` mid-sentence is untouched, and the warm,
+chatty register those captions were reaching for is available in every other
+hook shape on Rule 5's menu.
 
 **Rule 3 — no opener-pattern reuse within 14 days.** The checker normalizes the
 first five words of every draft and compares against the last 14 days of
@@ -276,8 +402,42 @@ days running on the same platform:
 
 **Rule 6 — always land somewhere.** Every post in every lane carries a deep link
 (era / item / lens) with the UTM tags from growth-plan §8 — widened from
-heartbeat-only to all lanes on 2026-10-05, see §2's three criteria.
-"longlivets.com" bare is only for Mood posts, which have no deep link.
+heartbeat-only to all lanes on 2026-10-05, see §2's three criteria. There is no
+bare-domain carve-out: Mood lands on `/?mode=mood` (§1(d), corrected
+2026-10-12), so every lane has a link and a bare "longlivets.com" is never one.
+
+**Rule 6a — `utm_campaign` is the campaign family, copied verbatim: the text
+before the first `:` in the item's own `campaign`, and nothing else** (added
+2026-11-01, answering Marjorie's ask
+[#6521](https://github.com/JW-Incorporated/swift2/issues/6521); evidence below).
+The link is `?utm_source=<platform>&utm_medium=social&utm_campaign=<family>`,
+where `<family>` is the *first* segment of the story-unique campaign value — so
+`heartbeat:era-deep-cut:richard-marx-passed-on-writing:2026-11-01` is tagged
+`heartbeat`, and `timeline:love-story:fearless-solo-2008:2026-10-22` is tagged
+`timeline`. **Never the sub-format** (`era-deep-cut`, `track-fact`,
+`on-this-day`), **never the pillar or subject** (`the-proposal`, `easter-eggs`,
+`mood-chat`), and **never a neighbouring family's name**. There is nothing to
+judge here: take the campaign, cut at the first colon, paste.
+
+*Why:* 13 of 16 social pageviews in the week to 2026-11-01 landed in an
+unattributable bucket, so no format could be told apart from any other —
+measurement that cannot name a winner cannot double down on one. The grouping
+that produces every per-format number this desk reports keys on the family
+(`scripts/social/lib/scorecard-report.mjs` `familyOf`, and
+`scripts/marjorie/lib/growth-data.mjs` `socialSummary`, which buckets site
+visits by the raw `utmCampaign` string off Vercel analytics). Measured across
+the 24 items in `social/posted/` for 10-18 → 11-01, **only 10 carried their own
+family**: 4 tagged the sub-format (`era-deep-cut` ×4), 4 tagged a subject
+(`the-proposal` ×2, `easter-eggs` ×2), and 4 `timeline:` items were tagged
+`thread` — a different family that exists. Those 14 are the "other" bucket.
+
+*Also true, and not this desk's to fix:* `familyOf`'s known-family list is
+`launch · thread · timeline · mood · heartbeat`, so the `news:`,
+`on-this-day:` and `symbol-thread:` campaign values this calendar mints read
+`(unrecognized)` in the scorecard even when tagged correctly under this rule.
+Rule 6a still makes them legible in the traffic grouping (they arrive as named
+rows rather than as "other"); closing the scorecard half is a `scripts/` change,
+noted on #6521 for Marjorie.
 
 **Rule 7 — mind X's real length limit, and it's weighted, not raw characters.**
 X counts any autolinked URL (including a bare domain like
@@ -314,32 +474,255 @@ Tree writes **reserves at least one day per week as a news day**: its beat is
 written as `news:` with a **named fallback subject on the same line**, so a
 quiet week still posts and the "a calendar gap is never filled" rule
 (§0/invariant) is never in play — a reserve is an assigned slot with two
-possible subjects, not a gap. On a reserve day the 11:00Z daily run checks
-`events.uncovered[]` first: an uncovered event → leave the beat for the event
-run and draft nothing there; nothing uncovered → draft the named fallback as
-written. A reserve day's beat is never drafted a day early by the previous
-run.
+possible subjects, not a gap. A reserve day's beat is never drafted a day early
+by the previous run.
+
+**The reserve day's drafter always drafts the fallback (changed 2026-10-26,
+Tree).** This paragraph used to say that on a reserve day the 11:00Z run checks
+`events.uncovered[]` first and, if something was uncovered, **left the beat for
+the event run and drafted nothing there**. That clause cost a dark day on
+2026-10-25: the drafter found two uncovered events (intake
+[#6290](https://github.com/JW-Incorporated/swift2/issues/6290),
+[#6273](https://github.com/JW-Incorporated/swift2/issues/6273)), correctly left
+the reserve empty per this rule, and `routine-tree-event-draft.yml` never fired
+for either — its last run of the week was 10-23, for intake #6258 — so **10-25
+shipped nothing on either platform** and the two events it was holding the slot
+for were never covered. The hedge was written when the event run could only
+schedule onto a day where neither platform was taken, so an empty beat was the
+only way it could land at all. Step 5 of `tree-event-draft.md` now **displaces**
+a `heartbeat:` or `mood:` beat on the yield order below, so the event run no
+longer needs a vacancy — and the ≥2-displaceable-beats guarantee exists to give
+it one. Therefore: **a reserve beat always drafts its named fallback**, and an
+event that arrives takes it or displaces a beat like any other. A reserve may
+never be left empty in anticipation of a run that may not fire; a slot held open
+for news that does not arrive is just a gap with a reason attached.
 
 **Yield order, when news lands off-reserve.** News may take the next
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
 
 1. a `heartbeat:` beat — always yields,
 2. a `mood:` beat,
-3. the **second** slot of a thread window (never the hero).
+3. a launch arc's day 0 / +2 / +4 (§1(a)) — **a site-fronted moment only**; the
+   whole arc re-dates one beat later, and an arc that loses a day this way is a
+   deferral recorded in the calendar ledger, never a closed arc,
+4. a thread window's hero (§1(b)) — **a site-fronted moment only**; the hero
+   takes a same-month make-good that does **not** spend §1(b)'s one-per-month
+   engine-failure allowance.
 
-It never displaces the weekly Blank Spaces timeline minimum (§1(c)), a thread
-window's hero, or a launch arc's day 0 / +2 / +4 (§1(a)). The displaced beat
-slides to the next free day where that is possible; a window-bound thread
-slot is dropped rather than slid, same as today. The news item records the
-displacement in its `why` ("takes 10-08 heartbeat; heartbeat → 10-09") because
-the event run may not edit `social/calendar.md`; the next weekly run
-reconciles the calendar to what actually shipped.
+**Rungs 3 and 4 were added 2026-11-09 (Tree, answering Marjorie's ask
+[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)), superseding the
+"that is the whole list as of 2026-10-09" wording this paragraph used to carry**
+— along with its clause that "a thread window's single beat is never written as
+a news reserve's named fallback", which is withdrawn: any beat may now be the
+fallback behind an arriving moment (see *News-capable by default*, below). The
+reason the old list stopped at mood was arithmetic — §1(b) had just collapsed
+each thread window to one paired beat, so displacing a thread beat meant losing
+the whole window. Rung 4 answers that with the make-good rather than by
+protecting the slot, and the trade is one-sided: **a launch arc's eligibility
+never expires** (§1(a) makes exactly this argument when an arc collides with
+news slack — "the arc waits"), a thread hero can be re-placed anywhere in its
+own month, and **a moment missed by 48h is gone for good.**
 
-**Cap — ≤2 news posts per rolling 7 days.** News is the one campaign that can
+**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum. It is
+one beat per calendar week, so displacing it does not move a beat, it deletes a
+week of a permanent series; it slides inside its own week instead.
+
+The displaced beat slides to the next free day where that is possible; a
+window-bound thread hero takes its make-good, and is dropped only if no beat is
+left in the month. The news item records the displacement in its `why` ("takes
+10-08 heartbeat; heartbeat → 10-09") because the event run may not edit
+`social/calendar.md`; the next weekly run reconciles the calendar to what
+actually shipped.
+
+**News-capable by default — any day, not a fixed news day (added 2026-11-09,
+Tree, answering ask [#6726](https://github.com/JW-Incorporated/swift2/issues/6726)).**
+Every beat a calendar writes is a landing day: its planned subject is its named
+fallback, exactly as a reserve's is, and the 11:00Z run drafts a confirmed
+site-fronted moment from the last 48h **there, that day**, as `news:<event-slug>`,
+instead of the planned subject. Four rules make it work:
+
+- **Both inputs count, not just the dispatcher's.** On any day, the moment may
+  come from `events.uncovered[]` **or** from that day's own
+  `social/inbox/new-on-site-*.json` sheet — a moment the site fronted inside 48h
+  that no shipped or queued post covers. The sheet is already evidence a moment
+  is live and sourced (see the end of this section), and it is in the daily run's
+  inputs, so a quiet `events.uncovered[]` is no longer the end of the matter.
+  Sourcing is unchanged: the claim is verified against the Vault or the intake
+  record before a word is written (invariant 13), and the #36 blocklist applies.
+- **Same-day, under its own campaign family.** A site-fronted moment drafted on
+  its own day mints `news:<event-slug>` with `utm_campaign=news` — not a
+  `heartbeat:` value two days later. That relabelling is most of the measured
+  gap (evidence below).
+- **A news-capable beat is not drafted a day early** (the reserve rule), so every
+  calendar keeps **≥2 draft-ahead days a week**, marked as such, which are the
+  only beats a previous day's run may fill. That is deliberate cover: the 10-28
+  dark day was two consecutive run failures on a day no earlier run could have
+  drafted ahead.
+- **The ceiling is untouched.** ≤3 news posts per rolling 7 days, ≤2 of them
+  ordinary. More landing days raise the chance of reaching the ≥3 floor; they
+  cannot raise the ceiling, so this is not a route to becoming a news
+  aggregator.
+
+*Evidence (week to 2026-11-08).* The week of 11-02 carried **three** news
+reserves — 11-05, 11-07, 11-08 — and shipped **zero** `news:` pairs against
+**15** site-fronted moments, the fourth such week running. Reserve count was
+never the binding constraint: all three reserves fell to their named
+`heartbeat:` fallbacks. Worse, two of those fallbacks **were** site-fronted
+moments, posted late and mislabelled — the Brad Paisley Songwriters Hall
+induction and the Nelly/Houston reveal both sit on the **11-05**
+`new-on-site` sheet and shipped on 11-07 and 11-08 as
+`heartbeat:era-deep-cut:…`. The 11-05 sheet alone carried five moments,
+including a Hollywood Music in Media nomination, which §1(e2) counts as an
+award and therefore major; 11-05 itself shipped nothing at all. Meanwhile the
+11-02 plan's own sensor reported `considered: 0, uncovered: []`, which is why
+this rule does not depend on it alone.
+
+*Residual closed 2026-11-09 (ask [#6730](https://github.com/JW-Incorporated/swift2/issues/6730)
+→ [#6731](https://github.com/JW-Incorporated/swift2/issues/6731)).*
+`docs/agents/runner-prompts/tree-event-draft.md` step 5 carried its own copy of
+the yield order ending at `mood:` and saying "that is the whole list", so the
+same-day **event** run would not displace an arc day or a hero — a runner prompt
+and not Tree's to edit, which is why it was asked of Marjorie. Step 5 now
+carries all four rungs, the site-fronted condition on rungs 3-4, and this
+section's exclusions verbatim, so the event run and the 11:00Z daily draft reach
+the same outcome.
+
+**Cap — ≤2 ordinary news posts per rolling 7 days** (raised to a ≤3 total
+ceiling for major moments, 2026-10-18 — see the next paragraph). News is the one campaign that can
 arrive unplanned, so it gets the same bounded shape as the T6 fast lane: the
 rotation it preempts is what teaches new followers the product, and a week of
 pure reaction posting is how a fan account becomes a news aggregator nobody
 needs.
+
+**Major moments — the site's front page is the trigger (added 2026-10-18,
+answering Marjorie's ask [#6084](https://github.com/JW-Incorporated/swift2/issues/6084)).**
+In the week to 2026-10-18 the site covered **12 of 13** real-world events and
+social covered **1** (the week-of-10-19 plan, [#6083](https://github.com/JW-Incorporated/swift2/issues/6083)).
+Two mechanical failures took most of it — the engine was dark 10-12→10-14 on a
+weekly usage limit, then a broken photo check refused every draft through 10-18
+([#6056](https://github.com/JW-Incorporated/swift2/pull/6056), fixed by
+[#6077](https://github.com/JW-Incorporated/swift2/pull/6077)) — but the
+arithmetic above is the other half: a ≤2 cap on a 13-beat fortnight could not
+have carried 12 events even on a perfect week. So, from this plan on:
+
+- **A major moment gets a same-day pair and does not spend the ordinary cap.**
+  *Major* is a property of the event, not of a metadata field: a confirmed
+  event the site itself fronts whose shape is a live debut, a release, an
+  official video, a chart No. 1 or a chart milestone, an award, or a tour or
+  appearance announcement. `significance: "defining"` or `"notable"` on the
+  moment makes it major outright; **`routine` is not evidence of anything and
+  never disqualifies a moment** (corrected 2026-10-25 — see "Why 1 of 15"
+  below). The ceiling stays **≤3 news posts per rolling 7 days, of which ≤2 may
+  be ordinary**; a third in one week must be major. The anti-aggregator reason
+  the ≤2 was written still holds for everything that is not major.
+- **Every calendar leaves somewhere for one to land.** Each rolling 7 days
+  carries **≥2 displaceable beats** — a `heartbeat:` or `mood:` beat — on top
+  of its news reserve. A plan with zero slack is how a full calendar silently
+  turned 12 covered events into one post; one reserve cannot absorb two majors
+  in the same week. October's minimums (≈2 thread heroes + 1 timeline + 1
+  reserve per week) leave three, so this costs no minimum.
+- **Same-day means same day.** The yield order above is unchanged (heartbeat,
+  then mood). If no heartbeat or mood beat is free inside 48h, a major moment
+  takes the nearest one and that beat is **dropped rather than slid**, recorded
+  in the item's `why`. A major moment posted two days late is not news.
+- **A floor, not just a ceiling — ≥3 moments a week reach both platforms inside
+  48h** (added 2026-10-25, answering Marjorie's ask
+  [#6310](https://github.com/JW-Incorporated/swift2/issues/6310); evidence: the
+  week to 2026-10-25 shipped **1** news pair while the site carried 15 moments,
+  the second such week running). The ≤3 ceiling was written as a guard against
+  over-posting; the measured failure is the opposite, so the news allowance is
+  now meant to be **spent**, not held. Three moments needs three landing days
+  and the calendar already carries them — one news reserve plus the ≥2
+  displaceable beats above. A week that lands fewer than three names each
+  moment it missed and the reason, in the plan.
+- **It is measured.** Each weekly plan reports news pairs shipped against major
+  site-covered moments and against the floor of three, so a 1-of-15 gap shows
+  up as a number rather than as a good intention.
+
+**Three reserves, not one, after a week that missed the floor (added 2026-11-01,
+answering Marjorie's ask [#6520](https://github.com/JW-Incorporated/swift2/issues/6520);
+evidence: the week to 2026-11-01 shipped **0 news pairs against 27 site-covered
+moments**, the third such week running).** The week-of-10-26 calendar asserted
+*four* news landing days and delivered none, so landing days were never the
+binding constraint — **what counts is who can draft into them.** Three of those
+four were displaceable `heartbeat:`/`mood:` beats, and a displaceable beat only
+yields if some other run fires to displace it: the daily 11:00Z run is instructed
+not to draft off-reserve news at all (`tree-daily-draft.md` step 4.5 — "only note
+a still-uncovered item in the PR body"), and the run that does draft it,
+`routine-tree-event-draft.yml`, was never dispatched because
+`event-dispatch.mjs`'s "already covered" test was a recall-tuned matcher
+(`growth-coverage.mjs` `keywordsOf`/`textMatches`: two substring hits on
+capitalised title words, against the entire posted + queued + drafted corpus)
+being used as an *exclusion* gate — so three moments were skipped as covered by
+unrelated posts. (Fixed 2026-11-02, [#6526](https://github.com/JW-Incorporated/swift2/issues/6526):
+that gate is now `event-dispatch.mjs`'s own `coveredBy` — a recent item, inside
+the scan's own 48h window, that either names the intake issue or carries most of
+the headline's distinctive words as *whole* words. `growth-coverage` keeps the
+recall-tuned matcher for the weekly review, where a reviewer re-checks it.)
+Therefore:
+
+- **A calendar week whose site-fronted moments went uncovered reserves THREE
+  news days in the following week**, not the standing ≥1. A reserve is a day the
+  11:00Z run drafts news into on its own, with no second workflow in the path,
+  and its named fallback means it is never a gap (the rule above).
+- **A reserve day counts toward the ≥2 landing-slack requirement**, and counts
+  ahead of a displaceable beat: swapping a reserve's named subject for an
+  arriving major moment costs nothing and needs no displacement bookkeeping.
+  The ≥2 floor itself is unchanged, and the ≤3-per-rolling-7-days ceiling
+  (≤2 ordinary) still bounds what actually posts — three reserves raise the
+  chances of landing the floor, never the ceiling.
+- **The coverage matcher is not this desk's to fix.** It is filed to Marjorie;
+  the three-reserve rule is what makes the floor reachable without it.
+
+**Why 1 of 15, and the two halves of the fix (2026-10-25).** The `routine` veto
+this section used to carry was one half of it: `scripts/social/new-on-site.mjs`
+writes `significance: item.significance ?? 'routine'` and the vault corpus
+leaves the field unset, so **all 64 moment rows** across the 10-17 → 10-25
+`social/inbox/new-on-site-*.json` sheets read `routine` — including "The Fate of
+Ophelia" going live for the first time and "Showgirl" reaching 15 weeks at
+No. 1, both of which are squarely on the major list above. `routine` is not even
+a value the content type defines (`packages/experience/src/types.ts`:
+`'defining' | 'notable'`). The major lane could therefore never open on its own,
+and the one pair that did ship got there through the calendar, planned by hand.
+
+The other half was **not this desk's to fix** and was filed to Marjorie; it
+landed on 2026-10-26 ([#6313](https://github.com/JW-Incorporated/swift2/issues/6313),
+ops-fixer), so the same-day path is now reachable:
+
+- `scripts/social/lib/event-dispatch.mjs` bounded its scan at
+  `EVENT_WINDOW_HOURS = 24` against this section's 48h — **now 48**.
+- Its title keyword list (`TIMELY_RE`) was matching wire headlines only
+  incidentally, on a stray `album`/`single`/`video` noun, and missing the event
+  families the news desk actually files. It now also reads a live debut, an
+  appearance, a chart week and an anniversary, and — the first-class part — **a
+  moment this site already fronts is promoted past the keyword test entirely and
+  picked ahead of ordinary news**, which is what "the site's front page is the
+  trigger" above asks for. The link is lexical (three distinctive shared words
+  between the intake headline and a `social/inbox/new-on-site-*.json` moment),
+  because nothing records provenance from a vault moment back to its intake
+  issue. The #36 blocklist still applies to a site-fronted moment: being on the
+  site is editorial reach, not a blocklist waiver.
+- `docs/agents/runner-prompts/tree-event-draft.md` step 5 scheduled only onto a
+  UTC day where neither platform was already taken, never displacing a
+  `heartbeat:` or `mood:` beat — so the yield order and the
+  ≥2-displaceable-beats guarantee above were unreachable from inside the only run
+  that drafts off-reserve news. **Step 5 now displaces** on that yield order,
+  re-dates the beat it took (both halves) and records it in `why`.
+
+**The 10-of-10 claim above was measured against the wrong corpus** and is
+withdrawn: `judgeTitle` only ever sees `intake:` *issue* titles, never the vault
+moment headlines it was run against, and against the real intake corpus the old
+list passed 16 of the newest 40 — including the Fate of Ophelia live debut and
+the 15-weeks-at-No. 1 chart week. The keyword gate was therefore never the whole
+reason those two missed 48h; the 24h window and the missing displacement were the
+binding constraints. Five of the ten moments share almost no vocabulary with the
+intake issue that sourced them ("Confetti on the debut page" for a *"20 years of
+Taylor Swift" website tribute*), so no title rule links them and the site-fronted
+promotion reaches the other five.
+
+The site's own `social/inbox/new-on-site-*.json` sheet is evidence a moment is
+live and already sourced on the site; it is not a substitute for sourcing the
+claim against the Vault or the intake record (invariant 13).
 
 **Bar.** A news beat is scored on the six-dimension rubric the fast lane
 already uses — T2's five plus **`timely`, which must clear 4 on its own** — and
@@ -406,11 +789,11 @@ of the other four scores.
    rewrite, not a ship.)*
 2. **Text specific enough that it could not sit above another post.** Rule 4's
    specificity test, applied to every lane and not just heartbeat.
-3. **A deep link into actual site content.** Rule 6 now covers **every** lane —
+3. **A deep link into actual site content.** Rule 6 covers **every** lane —
    timeline, thread, launch, mood, merch, appearance, news — not heartbeat
-   alone. Mood is the single named exception, because no Mood deep link exists
-   yet; it says "tap Mood on longlivets.com". The bare homepage is never a
-   landing place.
+   alone, and as of 2026-10-12 it has **no exceptions**: Mood lands on
+   `/?mode=mood`, which §1(d) now records as a real shipped deep link. The
+   bare homepage is never a landing place.
 
 ### Slots — ONE paired campaign beat per day, at `23:00Z`
 
@@ -448,9 +831,60 @@ day.
 
 **At least one day of every calendar week is a news reserve** (§1(e2), added
 2026-10-01): its beat is written `news:` with a named fallback subject on the
-same line, and it is the only slot the previous day's run leaves alone. A
+same line. **Since 2026-11-09 it is no longer the only slot the previous day's
+run leaves alone** — §1(e2)'s *News-capable by default* makes every beat a
+landing day for a site-fronted moment, so the only beats a previous day's run
+may draft ahead are the **≥2 draft-ahead days a week** the calendar marks as
+such. A reserve is still the one beat written `news:`-first, with the planned
+subject as its fallback rather than the other way round. A
 calendar that assigns all seven days to planned campaigns is now a planning
-bug, not a full plan — it is what made 27 events in two weeks un-postable.
+bug, not a full plan — it is what made 27 events in two weeks un-postable. One
+reserve is the floor on *slots*, not on posts: §1(e2)'s throughput floor is **≥3
+moments reaching both platforms inside 48h each week**, carried by the reserve
+plus the ≥2 displaceable beats, and a plan is read against that number.
+
+### No dark day — the week's standby subject
+
+**Added 2026-11-09 (Tree), answering Marjorie's ask
+[#6727](https://github.com/JW-Incorporated/swift2/issues/6727).** 2026-11-05
+shipped **nothing on either platform** — no item in `social/posted/`, none in
+`social/failed/`, no queue remnant, so the day is simply absent from the record.
+Its beat was a news reserve whose named fallback carried the era note
+`the-life-of-a-showgirl`, and that era has **2** never-used photos (an
+`eraAvailability` run over `social/photo-library.json` against `social/posted/`
++ `social/queue/` in this checkout) — the thinnest tag in the library alongside
+`tortured-poets`, against ~470 eligible photos overall, and the one bucket the
+week-of-11-02 ledger's "no era exhausted" line never listed when it enumerated
+14. A themed beat whose era has no never-used pick left is **deferred** — L001
+and `tree-daily-draft.md` step 5: never an off-era photo, never a repeat tile —
+so a two-photo era note is a single point of failure for an entire day. The
+exact cause of 11-05's silence is not recorded anywhere in the repo; what is
+verifiable is the exposure, and that is what these two rules close.
+
+- **Every calendar names ONE standby subject for the week**, in the ledger:
+  **era-agnostic** (no `photoEra`, so it draws the general never-used pool
+  rather than a scarce era bucket), given the same way a beat is given — subject
+  direction, deep link, campaign family, hook direction. When the day's subject
+  **and** its named fallback both cannot be drafted, the drafter drafts the
+  standby rather than leaving the day dark. One per week: once it is spent, the
+  next undraftable day is a real gap and is flagged as one.
+- **An era note is only written on a beat whose era has ≥3 never-used photos at
+  plan time** (`photos.eras[<era>].unused`). One or two is not supply — an open
+  draft PR can claim the last pick before the beat's own run reaches it. Below
+  that floor the beat carries no era note and takes the general pool's pick, and
+  the thin era is named in the plan so the library gets fed (the 2026-10-01
+  photo-library amendment).
+
+**What this is not.** It is not the retired heartbeat-pillar fallback and it
+changes no gap rule: a day with **no** calendar entry is still never filled, and
+the drafter still never picks a subject of its own (`docs/agents/tree.md`, Daily
+draft, issue #2031 — "a fan account posting nothing is better than posting
+slop"). A standby is a subject *this plan assigns in advance*, the same device
+§1(e2)'s named fallback already is — "an assigned slot with two possible
+subjects, not a gap" — with one more tier behind it. It also weakens no gate:
+`check-drafts.mjs` and invariant 17's rubric floors apply to the standby exactly
+as to any beat, so a standby that cannot clear them leaves the slot empty and
+loudly flagged in the PR body, as today.
 
 ### Sibling rule + the X length rule
 
@@ -509,6 +943,32 @@ Swift fan site whose social media has no pictures of Taylor Swift."* That ends
 the screenshot-first ladder. The grid's job is to show Taylor; the product is
 the byline.
 
+**Library scale is a standing target, and the engine behind it is reported
+weekly (added 2026-10-15, Tree).** Joey asked in `#longlive-tree` on 2026-10-05
+for photo-library scale to be an explicit target of the right order — tens of
+thousands, not dozens — and for the sourcing pipeline being green to be a
+reported gate rather than background plumbing. Both are now written down:
+
+- **Intake floor: ≥50 new never-used entries per calendar week**, while the
+  library is under 3,000 (the figure `concert-photo-sourcing.yml`'s own cron
+  comment already names). It is a floor on the *engine*, not on Tree: a week
+  below it is a reported blocker with a named cause, not a style note.
+- **An era or beat with no never-used photo left is a planning blocker** — the
+  2026-10-01 amendment's standing priority, now a number rather than a
+  sentiment. Name it in the weekly plan so the library gets fed.
+- **Three lines in every weekly plan**, as-is: library total, never-used count,
+  and the conclusion of the last `concert-photo-sourcing` run. See §3.
+
+**Evidence for the floor.** The engine failed its 10-01 and 10-05 scheduled
+runs (`HOME_RELAY_URL` empty → `source-reddit-photos.mjs` falls back to a
+direct fetch → Reddit 403s r/erastour → the first sourcing step exits 1, so
+Wikimedia, dedupe, import and coverage never run at all) and **zero photos
+landed on either**. Since those runs started passing again it has gone green
+five times in a row (10-12 ×2, 10-13, 10-14, 10-15) and the library went
+**88 → 201 entries, 186 of them never used**, inside ten days. The throughput
+is real when the engine runs and exactly zero when it does not, which is why
+its conclusion is a reported line and not a footnote.
+
 **Enforced in code since #2043** (2026-08-12):
 `scripts/social/lib/queue-schema.mjs` knows the `photo` / `site-screen`
 values, and `scripts/social/check-drafts.mjs` rejects undeclared media and era
@@ -550,7 +1010,7 @@ the code is what actually ships and this file is the bug.
    staging failure. This stays inside the fast lane's existing auto-posting
    flow: the lane still ships with **no human review step of its own** (Joey's
    ruling, same task — the lane does not become review-first/draft-only; the
-   owner's ✅ on the approval post gates it like every post), the gate
+   draft is cleared by `social-tree-approve.yml` like every post), the gate
    is just now a real content check instead of a shape check. Every other
    sourcing path (Content Shift, Growth, Tree — the slower, already-judged
    lanes) is unaffected; a human already looks at those before they land.
@@ -580,22 +1040,23 @@ the code is what actually ships and this file is the bug.
    view). It may never be: a bare landing page, a plain article/moment page,
    a letterboxed video-padding frame, or any screenshot whose only content is
    "the site exists" rather than "look what the site does." If a launch or
-   how-to post has no genuinely cool visual to show, it drops to rung 3
-   (text-only on X) or is skipped rather than shipping a flat screenshot —
+   how-to post has no genuinely cool visual to show, it is
+   skipped (or carries a real photo) rather than shipping a flat screenshot —
    same "an empty slot beats a failed one" principle as the photo ladder.
    This is a caption/media judgment call for the drafter, and `check-drafts.mjs`
    cannot verify "cool" automatically — flag any borderline call in the
    item's `why` field so it's auditable in the weekly review.
-3. **No image at all** (X only — Instagram always requires media). A sharp
-   text-only tweet beats a decorative tile every time.
+3. **No image at all — CLOSED.** Text-only X posts are banned (owner,
+   2026-10-30); Instagram always required media. An item with no image or video
+   is not drafted.
 
-   **Amended 2026-09-30 (Bots v2 W8, `docs/decisions.md`): rung 3 is closed
-   for pair posts.** `check-drafts.mjs` has failed an X item without media
+   **Amended 2026-09-30 (Bots v2 W8, `docs/decisions.md`) and 2026-10-30:
+   rung 3 is closed.** `check-drafts.mjs` has failed an X item without media
    since 2026-09-10, and a post is one IG+X pair on ONE image (the owner
-   approves the pair as one Discord message). A text-only X item now needs a
-   written `singlePlatformReason`, like any other single-platform post. When no
-   never-used photo fits the beat, the beat is deferred — never repeated, never
-   dropped to text-only to dodge L001.
+   approves the pair as one Discord message). Since 2026-10-30 not even a
+   `singlePlatformReason` exempts a text-only X item. When no never-used photo
+   fits the beat, the beat is deferred — never repeated, never dropped to
+   text-only to dodge L001.
 
 **Retired rungs:** the **era tile** (`/eras/<id>.png`) is banned from the feed
 and the checker rejects it outright, declared or not — on 2026-08-06 all 17
@@ -671,8 +1132,10 @@ against that old curve is fiction. Reset below.
 | Posts shipped vs planned | `social/posted/` vs last week's calendar | Calendar adherence; <80% means the calendar is unrealistic, not that the drafter is lazy |
 | Failed posts | `social/failed/` new files | Should be **0**. Any X failure means the sibling rule leaked |
 | Distinct opener patterns | last 14 days of posted bodies | Target ≥ 12 distinct in 14 days. This is the metric that would have caught the current failure on day 3 |
-| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are excluded — they are a legitimate rung of the ladder, not a miss): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
-| Campaign mix | `campaign` prefixes | Roughly 1 launch arc, 12 thread slots, 2-3 mood, rest heartbeat, per month |
+| Media mix | queue items' `media` + `mediaKind` | Target (2026-08-12), **computed over media-carrying posts only** (text-only X posts are banned since 2026-10-30; any one found is a gate failure, not a ladder rung): **≥70% `photo`** (a real photograph of Taylor), the rest `site-screen` on launch/thread posts. Separately: **every Instagram post carries media by definition, so the IG grid alone should read ≥70% photo tiles.** Era-art is 0% by construction (checker-banned); ANY era-art or undeclared media shipping is a broken gate, not a style miss |
+| Campaign mix | `campaign` prefixes | Roughly 1 launch arc, **6 thread beats** (one per thread, §1(b) as of 2026-10-09), 4-5 news reserves, 4-5 timeline beats, 2-3 mood, rest heartbeat, per month |
+| **News throughput** (added 2026-10-25, Tree, answering ask [#6310](https://github.com/JW-Incorporated/swift2/issues/6310)) | `social/posted/` `news:`/`heartbeat:event-news:` pairs vs the week's `social/inbox/new-on-site-*.json` moments | **Floor ≥3 moments reaching both platforms inside 48h** per week (§1(e2)), against the ≤3-pair ceiling. Report it as `<shipped> of <site-fronted moments>, <n> inside 48h` and name every miss with its reason. The week to 2026-10-25 was **1 of 15** |
+| **Photo supply** (added 2026-10-15, Tree) | `social/photo-library.json` vs `social/posted/` + `gh run list --workflow=concert-photo-sourcing.yml` | Three lines, reported as-is: **library total**, **never-used count**, and **the last `concert-photo-sourcing` run's conclusion**. A red engine is a headline, not a footnote — it lands zero photos, and the §2 intake floor (≥50 never-used entries/week under 3,000) is unreachable while one subreddit 403 is a total stop |
 
 **Engagement proxy** (since no reach data exists): **followers gained per post
 published**, weekly. Crude, but it moves when something lands and it needs no
@@ -706,6 +1169,56 @@ links plus a genuine outward-reach engine, not viral projections. One hit change
 schedule one — what a plan can do is buy a ticket every day.
 
 **Standing blocker, not a new ask:** monthly IG Insights (top 3 posts by reach/saves) has been requested every month since 2026-08 and has never arrived. Without it, Tree cannot tell which content/format actually earns shares — the single most important number for tuning this plan — and every "double down / drop" call in the monthly review is a guess instead of a measurement.
+
+### Experiments — the live one and how its arms are assigned
+
+**Experiment 01 — hashtags on Instagram — read out on 2026-10-19 as UNREADABLE,
+and is now closed as an experiment** (origin ask
+[#4722](https://github.com/JW-Incorporated/swift2/issues/4722), extended once by
+[#5542](https://github.com/JW-Incorporated/swift2/issues/5542)).
+
+**The readout, as it actually came in.** The protocol asked for five pairs by
+2026-10-18 and got **two**: one tagged (2026-10-09,
+`thread:easter-eggs:behind-the-data:2026-10-second`) and one control
+(2026-10-02). Both landed at **IG reach 1**. Every one of the five October
+Instagram posts with insights on file is at reach **0 or 1**
+(`social/metrics/posts/2026-10/`). That is the finding, and it is not about
+hashtags: **reach ≤1 has no resolution to measure a caption lever with.** A
+tagged-versus-control mean separated by less than one impression is a coin flip
+with a label on it, and running the comparison for another fortnight would buy
+two more coin flips — the supply shortfall (the engine drafted 2 of 7 days in
+the readout window) only makes the same arithmetic worse.
+
+**What replaces it, from 2026-10-19:**
+
+- **The tag block is the default, not an arm.** Every Instagram beat carries
+  8-12 **mid-tail** tags as the caption's last line — the era or album, the
+  post's actual subject, the fan-practice tag a Swiftie would really search.
+  Never mega-tags (`#taylorswift`, `#swifties`, a bare `#erastour`), never a
+  tag implying official status, never one naming a real person or touching the
+  #36 blocklist. The X half stays untagged. It is cheap, conventional on the
+  platform, and the one plausible discovery lever an account with no audience
+  has; defaulting it on costs nothing and withholding it from half the beats
+  cost us half our tagged supply.
+- **No arms, no `experiment` object, and no per-beat TAGGED/CONTROL
+  bookkeeping.** Calendars stop assigning arms; the line in each beat goes
+  away.
+- **The measurement comes back when it can be read.** Re-run it as a clean
+  3-tagged-vs-3-control block the first weekly plan where **trailing-7-day
+  median Instagram reach is ≥10** — the floor at which a difference can
+  survive its own noise. Until then the weekly scorecard's reach line is the
+  thing to watch, and this section states the trigger rather than scheduling a
+  date it cannot keep.
+
+**No new calendar experiment this fortnight, deliberately.** S2 allows ~1 in 4
+slots on a labelled experiment, and the honest reading of the paragraph above is
+that **no on-platform format experiment is measurable at reach ≤1** — format,
+hook shape and post time all read identically through a one-impression
+instrument. Inventing one would manufacture a result, which is worse than an
+unused allowance. The lever that moves the only number gating every other
+measurement is distribution — growth-plan §6's outward-reach engine, which has
+never run — and that is a growth goal (Marjorie's) and a human-lane job (§1(f)),
+not a caption variant. The slot allowance resumes with the reach trigger above.
 
 ### The monthly self-review
 

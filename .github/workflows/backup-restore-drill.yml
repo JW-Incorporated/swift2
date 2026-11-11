@@ -33,6 +33,8 @@ on:
     paths:
       - 'supabase/migrations/**'
       - 'scripts/backup-restore-test.mjs'
+      - 'scripts/check-migrations-rerun.mjs'
+      - 'scripts/check-migrations-rerun.test.ts'
       - 'scripts/lib/pg.mjs'
       - '.github/workflows/backup-restore-drill.yml'
 
@@ -80,6 +82,9 @@ jobs:
         with:
           npm-ci: 'true'
           cache: npm
+
+      - name: Check every migration can be re-applied
+        run: npm run check:migrations-rerun
 
       - name: Run the drill
         id: drill

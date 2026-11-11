@@ -1,4 +1,5 @@
 import { runMain } from '../lib/cli.mjs';
+import { discordBotToken, routedPost } from '../lib/discord-route.mjs';
 
 export const DISCORD_MESSAGE_LIMIT = 2_000;
 
@@ -108,6 +109,27 @@ function balanceFences(chunks) {
   return result;
 }
 
+const graphemes = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+
+/**
+ * Largest cut index `<= max` (UTF-16 units, so the budget stays conservative
+ * for however Discord counts) that does not split a grapheme cluster. A plain
+ * `slice(0, max)` can cut an emoji's surrogate pair or a ZWJ sequence in half;
+ * `JSON.stringify` then emits a lone `\uXXXX` escape, which RFC 8259 forbids.
+ * If the first cluster alone exceeds `max`, falls back to a code-point-safe cut.
+ */
+function graphemeSafeCut(str, max) {
+  let cut = 0;
+  for (const { index, segment } of graphemes.segment(str)) {
+    const end = index + segment.length;
+    if (end > max) break;
+    cut = end;
+  }
+  if (cut > 0) return cut;
+  const code = str.charCodeAt(max - 1);
+  return code >= 0xd800 && code <= 0xdbff ? max - 1 : max;
+}
+
 /**
  * Splits `content` into Discord-postable chunks, each `<= limit` chars even
  * after fence-balancing. Prefers paragraph (`\n\n`) boundaries; a single
@@ -153,7 +175,7 @@ export function chunkForDiscord(content, limit = DISCORD_MESSAGE_LIMIT) {
     let remaining = para;
     while (remaining.length > packLimit) {
       let cut = remaining.lastIndexOf(' ', packLimit);
-      if (cut <= 0) cut = packLimit;
+      if (cut <= 0) cut = graphemeSafeCut(remaining, packLimit);
       rawChunks.push(remaining.slice(0, cut));
       remaining = remaining.slice(cut).replace(/^ /, '');
     }
@@ -180,9 +202,12 @@ export async function postCommunityPrompts(
     fetchImpl = fetch,
     onDelivered = null,
     username = TREE_WEBHOOK_USERNAME,
+    route = null,
+    env = process.env,
   } = {},
 ) {
-  if (!webhook) return { status: 'unconfigured', delivered: [], failed: [] };
+  if (!webhook && !(route && discordBotToken(env)))
+    return { status: 'unconfigured', delivered: [], failed: [] };
   const delivered = [];
   const failed = [];
   for (const prompt of prompts) {
@@ -192,7 +217,7 @@ export async function postCommunityPrompts(
           `Community prompt ${prompt.id} exceeds Discord's ${DISCORD_MESSAGE_LIMIT}-character limit`,
         );
       }
-      const response = await fetchImpl(`${webhook}?wait=true`, {
+      const init = {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(
@@ -203,7 +228,10 @@ export async function postCommunityPrompts(
             allowed_mentions: { parse: [] },
           }),
         ),
-      });
+      };
+      const response = route
+        ? await routedPost(route, init, { env, webhook, fetchImpl })
+        : await fetchImpl(`${webhook}?wait=true`, init);
       if (!response.ok)
         throw new Error(`Discord social-channel delivery failed with HTTP ${response.status}`);
       const payload = await response.json();
@@ -211,6 +239,30 @@ export async function postCommunityPrompts(
       const record = { leadId: prompt.id, messageId: payload.id };
       delivered.push(record);
       if (onDelivered) await onDelivered(record);
+      // Message 2 (#5987): the card is the record, so a card that posted stays
+      // delivered even if its follow-up (the reply code box) then fails.
+      if (prompt.followUp) {
+        const followInit = {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(
+            suppressPreviews({
+              content: prompt.followUp,
+              username,
+              avatar_url: TREE_AVATAR_URL,
+              allowed_mentions: { parse: [] },
+            }),
+          ),
+        };
+        const followResponse = route
+          ? await routedPost(route, followInit, { env, webhook, fetchImpl })
+          : await fetchImpl(`${webhook}?wait=true`, followInit);
+        if (!followResponse.ok)
+          failed.push({
+            leadId: prompt.id,
+            message: `Discord reply-box delivery failed with HTTP ${followResponse.status}`,
+          });
+      }
     } catch (err) {
       failed.push({ leadId: prompt.id, message: String(err?.message ?? err) });
     }
@@ -221,17 +273,26 @@ export async function postCommunityPrompts(
 /** Best-effort one-line lead-in before a batch; never throws, never blocks the batch. */
 export async function postBatchHeader(
   content,
-  { webhook = process.env.DISCORD_SOCIAL_WEBHOOK, fetchImpl = fetch, username = TREE_WEBHOOK_USERNAME } = {},
+  {
+    webhook = process.env.DISCORD_SOCIAL_WEBHOOK,
+    fetchImpl = fetch,
+    username = TREE_WEBHOOK_USERNAME,
+    route = null,
+    env = process.env,
+  } = {},
 ) {
-  if (!webhook) return false;
+  if (!webhook && !(route && discordBotToken(env))) return false;
   try {
-    const response = await fetchImpl(webhook, {
+    const init = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(
         suppressPreviews({ content, username, avatar_url: TREE_AVATAR_URL, allowed_mentions: { parse: [] } }),
       ),
-    });
+    };
+    const response = route
+      ? await routedPost(route, init, { env, webhook, fetchImpl })
+      : await fetchImpl(webhook, init);
     return response.ok;
   } catch {
     return false;

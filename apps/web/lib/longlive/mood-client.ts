@@ -29,6 +29,7 @@ import { MOOD_AXES, type MoodAxis, type MoodQuery } from '@swift2/experience';
 import { MOOD_DAILY_CAP, MOOD_GLOBAL_SCOPE, type MoodUsage } from './mood-usage';
 import { MOOD_SYSTEM_PROMPT } from './mood-prompt';
 import { reserveGlobalUsage } from './usage-db-gate';
+import { logWebLlmUsage, resolveWebDailyCap } from './web-llm-cap';
 import {
   callAnthropicMessages,
   extractToolUseInput,
@@ -132,7 +133,7 @@ function extractToolInput(body: unknown): unknown | null {
 
 /** One network attempt. Throws on any non-2xx / malformed / missing-tool result. */
 async function attempt(apiKey: string, text: string): Promise<Classification> {
-  const { raw } = await callAnthropicMessages(
+  const { raw, usage } = await callAnthropicMessages(
     apiKey,
     {
       model: MODEL,
@@ -153,6 +154,7 @@ async function attempt(apiKey: string, text: string): Promise<Classification> {
     },
     { timeoutMs: REQUEST_TIMEOUT_MS, errorLabel: 'anthropic classify' },
   );
+  await logWebLlmUsage({ caller: 'web-mood-chat', model: MODEL, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens });
   const toolInput = extractToolInput(raw);
   if (toolInput === null) throw new Error('anthropic classify: no tool_use block');
   return sanitizeClassification(toolInput);
@@ -171,7 +173,7 @@ export async function classifyMood(usage: MoodUsage, text: string): Promise<Clas
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
   if (process.env[MOOD_MODEL_DISABLED_ENV] === '1') return null;
-  if (!(await reserveGlobalUsage(usage, MOOD_GLOBAL_SCOPE, MOOD_DAILY_CAP))) return null;
+  if (!(await reserveGlobalUsage(usage, MOOD_GLOBAL_SCOPE, resolveWebDailyCap(MOOD_DAILY_CAP)))) return null;
 
   try {
     return await attempt(apiKey, text);

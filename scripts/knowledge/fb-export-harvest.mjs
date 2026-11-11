@@ -57,7 +57,19 @@ export function mergeHarvest(state, snapshot) {
 export function buildHarvestedHtml(title, units) {
   const articles = [...units]
     .sort((a, b) => a.position - b.position)
-    .map((unit) => `<div role="article" data-posinset="${unit.position}">${unit.html}</div>`)
+    .map((unit) => {
+      const permalink =
+        typeof unit.permalink === 'string'
+          ? `<a data-llfb-permalink href="${escapeHtml(unit.permalink)}"></a>`
+          : '';
+      const reactionCount = Number.isInteger(unit.reactionCount)
+        ? `<span data-llfb-reactions>${unit.reactionCount} reactions</span>`
+        : '';
+      const commentCount = Number.isInteger(unit.commentCount)
+        ? `<span data-llfb-comments>${unit.commentCount} comments</span>`
+        : '';
+      return `<div role="article" data-posinset="${unit.position}">${permalink}${reactionCount}${commentCount}${unit.html}</div>`;
+    })
     .join('\n');
   return `<!doctype html>\n<html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title></head><body>\n${articles}\n</body></html>\n`;
 }

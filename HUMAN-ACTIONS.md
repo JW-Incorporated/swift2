@@ -2,75 +2,137 @@
 
 <!-- ha-format: 2 -->
 
-> **7 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **13 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
 
-## #115 🟡 [DECIDE] #4673 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-07 -->
-<!-- marjorie-chase: 96h issue=4673 -->
+## #149 🔴 [BLOCKING] Add SOCIAL_JUDGE_KEY to the social environment (~3 min)
+<!-- ha filed=2026-11-08 -->
 
-**Why:** Marjorie dispatched it on 2026-10-01 (content: three fan moments aged out of intake uncovered — cover or decline with a reason …). Nothing has moved since 2026-10-03. Holder: unclaimed.
+**Why:** Until this secret exists, Tree's independent social judge writes unsigned scores and the approval gate does not enforce it (it prints `judge not enforced`), so a self-scored caption can still ship.
+**Steps:**
+1. In PowerShell run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))` and copy the output.
+2. Open https://github.com/JW-Incorporated/swift2/settings/environments and click `social`.
+3. Under Environment secrets click Add environment secret, Name `SOCIAL_JUDGE_KEY`, paste the value, click Add secret.
+**Worked if:** Settings > Environments > social lists SOCIAL_JUDGE_KEY under Environment secrets.
+
+## #148 🟢 [UPGRADE] Swap the site's Supabase key from secret to publishable (~10 min)
+<!-- ha filed=2026-11-04 -->
+
+**Why:** Production `NEXT_PUBLIC_SUPABASE_ANON_KEY` holds an `sb_secret_` key, so the site's reads skip the database's visibility rules. That hid 31 posts (fixed in code by #6617). The key isn't in public JS today, but any future client import of that variable would publish full DB access.
+**Steps:**
+1. In Claude Code (Swift2), say: "HA #148: check nothing on the web relies on the public key bypassing RLS". Wait for its OK.
+2. Supabase → Swift2 → Settings → API Keys: copy the Publishable key.
+3. Vercel → swift2-web → Settings → Environment Variables → NEXT_PUBLIC_SUPABASE_ANON_KEY (Production) → Edit → paste it → Save.
+4. Vercel → Deployments → latest Production → Redeploy.
+**Worked if:** https://www.longlivets.com/vault/live/tloas still returns 95+ items after the redeploy.
+
+## #146 🟡 [DECIDE] PR #5662 (expo bump) stuck red 10 days (~5 min)
+<!-- ha filed=2026-10-23 -->
+
+**Why:** Watchdog alert #6210 flags `dependabot/npm_and_yarn/expo-58.0.7` (PR #5662) blocked on failing checks (`Build (b) DOM entry,build,build-full,parity-gate`) for 10 days, past the 7-day threshold with no agent returning to fix it; auto-merge correctly refuses to land it red.
+**Steps:**
+1. Open https://github.com/JW-Incorporated/swift2/pull/5662 and review the failing checks.
+2. Decide: `fix` — assign a session to repair the expo 58 upgrade; `close` — abandon this bump for now; `wait` — leave it, Dependabot may supersede it.
+**Worked if:** PR #5662 is closed, merged, or superseded by a newer Dependabot PR.
+
+## #144 🔴 [BLOCKING] Run or repair this week's automated Facebook export (~10 min)
+<!-- ha filed=2026-10-22 -->
+
+**Why:** The deterministic local Facebook collector did not close this week's
+reminder issue within nine days. It runs from Joey's personal account under the
+2026-09-30 owner decision, so only Joey's logged-in Windows session can inspect
+a stopped task, checkpoint, 2FA prompt, CAPTCHA, or expired DPAPI credential.
+**Steps:**
+1. In the project folder, run `npm run knowledge:fb-export`.
+2. If the visible browser stops at a checkpoint, 2FA prompt, or CAPTCHA,
+   complete it yourself and rerun the command. If the credential is missing or
+   expired, recreate it with HUMAN-ACTIONS #88's exact DPAPI commands.
+3. If it prints a selector-repair prompt or another failure, paste that status
+   into the project chat; never attach or paste the credential file.
+**Worked if:** the current `FB group export due — week of ...` issue closes
+with uploaded/not-member counts and no group says `failed`.
+
+## #140 🟡 [DECIDE] #5900 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-20 -->
+<!-- marjorie-chase: 96h issue=5900 -->
+
+**Why:** Marjorie dispatched it on 2026-10-15 (routine failure: routine-marjorie-ask-response 2026-10-15). Nothing has moved since 2026-10-16. Holder: PR #5995 awaiting review.
 
 **Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-**Worked if:** the next brief no longer lists #4673 under stalled.
+**Worked if:** the next brief no longer lists #5900 under stalled.
 
-## #114 🟡 [DECIDE] #4804 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4804 -->
+## #139 🟡 [DECIDE] #5980 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-20 -->
+<!-- marjorie-chase: 96h issue=5980 -->
 
-**Why:** Marjorie dispatched it on 2026-10-02 (Watchdog alerts Marjorie can handle should not reach the founders channel). Nothing has moved since 2026-10-02. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4804 under stalled.
-
-## #113 🟡 [DECIDE] #4778 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4778 -->
-
-**Why:** Marjorie dispatched it on 2026-10-02 (Enforce the owner's three post criteria in code: a mediaEarnsItsPlace floor, tunable rubr…). Nothing has moved since 2026-10-02. Holder: unclaimed.
+**Why:** Marjorie dispatched it on 2026-10-16 (link-sweep: dead citation URL in tortured-poets.mjs (The Bolter)). Nothing has moved since 2026-10-16. Holder: unclaimed.
 
 **Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-**Worked if:** the next brief no longer lists #4778 under stalled.
+**Worked if:** the next brief no longer lists #5980 under stalled.
 
-## #111 🟡 [DECIDE] #4767 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4767 -->
+## #138 🟢 [UPGRADE] Let Instagram posts also post to the Facebook Page (~10 min)
+<!-- ha filed=2026-10-19 -->
 
-**Why:** Marjorie dispatched it on 2026-10-01 (Awareness replies: make the share card optional so a reply can ship as plain text). Nothing has moved since 2026-10-01. Holder: unclaimed.
-
-**Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
-
-**Worked if:** the next brief no longer lists #4767 under stalled.
-
-## #110 🟡 [DECIDE] #4720 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4720 -->
-
-**Why:** Marjorie dispatched it on 2026-10-01 (build-ticket helper rejects the weekly review's truthful sourceContext (prompt and code d…). Nothing has moved since 2026-10-01. Holder: unclaimed.
+**Why:** IG and X posts work again (10-19 posted 23:52Z), but every Facebook Page cross-post fails: `(#200) The permission(s)…`. The Instagram token lacks `pages_manage_posts`, so the Page gets nothing.
 
 **Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+1. Open https://developers.facebook.com/tools/explorer and pick the Long Live app.
+2. Under Permissions keep every permission already listed, add `pages_manage_posts` and `instagram_manage_messages`, then click Generate Access Token and approve.
+3. Make it long-lived the same way you did for the original token (docs/social/pipeline.md, Facebook Page cross-posting).
+4. In PowerShell in the swift2 folder run `gh secret set IG_ACCESS_TOKEN --repo JW-Incorporated/swift2` and paste the token when asked.
+5. Reply `done` here.
 
-**Worked if:** the next brief no longer lists #4720 under stalled.
+**Worked if:** the next Instagram post's poster run logs no "Facebook Page cross-post failed" warning.
 
-## #109 🟡 [DECIDE] #4324 has had no activity for 4 days (~2 min)
-<!-- ha filed=2026-10-06 -->
-<!-- marjorie-chase: 96h issue=4324 -->
+## #134 🟡 [DECIDE] #5538 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5538 -->
 
-**Why:** Marjorie dispatched it on 2026-09-14 (Definition of Done #5 — one full-site link sweep, then widen the nightly to shop/product …). Nothing has moved since 2026-09-30. Holder: unclaimed.
+**Why:** Marjorie dispatched it on 2026-10-11 (weekly scorecard: map legacy campaign prefixes to pillars — 9 of 13 measured posts read a…). Nothing has moved since 2026-10-11. Holder: unclaimed.
 
 **Steps:**
-1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
 
-**Worked if:** the next brief no longer lists #4324 under stalled.
+**Worked if:** the next brief no longer lists #5538 under stalled.
+
+## #133 🟡 [DECIDE] #5537 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-16 -->
+<!-- marjorie-chase: 96h issue=5537 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (social gate: enforce the mediaEarnsItsPlace ≥4 floor in queue-schema (Tree's #5168 criter…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5537 under stalled.
+
+## #126 🔴 [BLOCKING] Affiliate accounts: Awin joins and the Amazon store ID (~20 min)
+<!-- ha filed=2026-10-14 -->
+
+**Why:** Merch cards can't carry affiliate links until the Awin and Amazon IDs are set in Vercel. Also, with 0 joined Awin advertisers no product index is built, so merch-matcher-authoring fails every run (watchdog #6214) until at least one join below is approved.
+**Steps:**
+1. Go to https://ui.awin.com and note your Publisher ID.
+2. Join these advertisers: agolde.com, alamourthelabel.com, clubllondon.us, jenniferbehr.com, meshki.us.
+3. Also join: patmcgrath.com, popflexactive.com, unique-vintage.com, Etsy (6220).
+4. Go to https://affiliate-program.amazon.com and note your Store ID (ends in -20) and its approval status.
+5. Paste both IDs in the Swift2 pipeline PM chat.
+**Worked if:** The PM confirms NEXT_PUBLIC_AWIN_ID and NEXT_PUBLIC_AMAZON_ASSOCIATES_TAG are set in Vercel.
+
+## #123 🟡 [DECIDE] #5508 has had no activity for 4 days (~2 min)
+<!-- ha filed=2026-10-15 -->
+<!-- marjorie-chase: 96h issue=5508 -->
+
+**Why:** Marjorie dispatched it on 2026-10-11 (Official "Patient Zero" video is missing from the Showgirl videos rail — intake closed as…). Nothing has moved since 2026-10-11. Holder: unclaimed.
+
+**Steps:**
+1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.
+
+**Worked if:** the next brief no longer lists #5508 under stalled.
 
 ## #100 🔴 [BLOCKING] iOS-1: test the new app on iPhone + iPad (~40 min)
 <!-- ha filed=2026-10-04 -->

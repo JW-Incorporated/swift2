@@ -32,11 +32,13 @@ export * from './thread-content-provider';
 export * from './era-feed';
 export * from './era-feed-clusters';
 export * from './era-stream';
+export * from './media-interleave';
 export * from './space-doorways';
 export * from './doorways';
 export * from './doorways-injected';
 export * from './communities';
 export * from './current-feed';
+export * from './this-week-news';
 export * from './feed-tiers';
 export * from './substance';
 export * from './format';
@@ -71,3 +73,5 @@ export {
   CLOWN_CSS_VAR_NAMES,
 } from './tokens';
 export type { Tokens, EraTokens, ClownTokens, StatusTokens } from './tokens';
+export * from './copy-desk/routing';
+export * from './copy-desk/personas';

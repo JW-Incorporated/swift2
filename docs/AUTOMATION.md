@@ -19,7 +19,7 @@ picking a winner.
   schedules. The old Claude desk-routine fleet has **0 enabled triggers** as
   of 2026-09-06; its work is retired or superseded by Actions callers such as
   the four quality-and-integrity workflows listed below.
-- **Manual-only: 10 workflows**, `workflow_dispatch` and nothing else, badged
+- **Manual-only: 11 workflows**, `workflow_dispatch` and nothing else, badged
   **MANUAL** below. They never fire by themselves and are **not** counted as
   scheduled routines; most sit behind a typed confirmation because they spend
   money, call a vision model, or delete something live. Indexed anyway,
@@ -71,7 +71,7 @@ Instant per-tier stops: repo variable `SOCIAL_FREEZE` halts all posting;
 
 ---
 
-## Tier 1 — GitHub Actions (30 automatic + 10 manual)
+## Tier 1 — GitHub Actions (30 automatic + 11 manual)
 
 Cadences are UTC. "LLM" = does this workflow itself call a model. Minute
 offsets are deliberately non-`:00`/`:30` — see `watchdog.yml`'s header on this
@@ -96,7 +96,7 @@ why desk routines can open a PR and exit instead of babysitting it (which was
 |---|---|---|---|---|
 | [`bot-failure-triage.yml`](../.github/workflows/bot-failure-triage.yml) | `workflow_run` completed, every `routine-*` (listed explicitly; failure / timed_out, or cancelled on a turn cap) | no | one deduped `routine-failure` + `desk:ops` + `marjorie-filed` issue per workflow per UTC day (or a comment on it), adopts Tree's `desk:tree` receipts, starts `routine-marjorie-ask-response.yml` | [`agents/marjorie.md`](agents/marjorie.md) § Amendment 2026-10-05 |
 
-Logic in `scripts/marjorie/routine-failure-triage.mjs`; the escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
+Logic in `scripts/marjorie/routine-failure-triage.mjs`. Skipped, no issue: a cancelled run that is not a timeout, and a failed run in which EVERY failed job's annotation says the Claude plan usage limit is exhausted, and only while the parsed reset time is still ahead or within 15 minutes behind (a passed reset, no parseable reset, an unreadable annotation or any other failed job files as normal) (transient; the next scheduled run recovers; `reason: 'usage-limit'`, a `::warning::` names the run URL and reset time). The escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
 
 ### Watchdogs and freshness (5)
 
@@ -108,11 +108,12 @@ Logic in `scripts/marjorie/routine-failure-triage.mjs`; the escalation prompt fo
 | [`unowned-sweep.yml`](../.github/workflows/unowned-sweep.yml) | issue events + daily 15:20 | no | applies `needs-triage`, refreshes one ledger issue | [`ops/unowned-queues.md`](ops/unowned-queues.md) |
 | [`backup-restore-drill.yml`](../.github/workflows/backup-restore-drill.yml) | monthly 1st 06:20 + PR touching `supabase/migrations/**` | no | nothing (scratch DBs only, no prod access) | [`backup-restore.md`](backup-restore.md) |
 
-`watchdog.yml` is not one check but **fifteen steps**, and it is the only
+`watchdog.yml` is a set of independent checks, and it is the only
 thing watching Tier 2. In file order: brief exists → brief was mailed → alert
 founders → brief recovered → degraded answer propagation → **hourly prod smoke
-check** → scheduled-workflow cadence view → PRs stuck on failing/missing
-checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) → work-ownership →
+check** → Vercel production deploy → latest `db-migrate.yml` run on `main`
+(self-closing failure alert) → scheduled-workflow cadence view → PRs stuck on failing/missing
+checks → Karen CIE ticket-filing freshness (`STALE_DAYS=9`) → `scripts/ops/normalize-desk-labels.mjs --apply` (keeps only the newest `desk:*` label on any open issue carrying 2+, so re-routes never read as `ambiguous`) → work-ownership →
 Karen post-repair confirmation → news-worker rotation confirmation →
 content-lane liveness (`vault/`, 36h) → Facebook export freshness →
 knowledge-engine freshness. Those two confirmations are expired scaffolding
@@ -158,8 +159,9 @@ correctness does not depend on any PR merging) plus `SOCIAL_FREEZE`.
 Spec: [`SPEC.merch-autonomy.md`](SPEC.merch-autonomy.md) · plan:
 [`PLAN.merch-autonomy.md`](PLAN.merch-autonomy.md) · receipt:
 [`ops/MERCH-PHASE-4-ACCEPTANCE.md`](ops/MERCH-PHASE-4-ACCEPTANCE.md). Every
-scheduled merch lane is zero-LLM by design (R1); lanes that spend money or
-call a model are separate **manually confirmed** workflows.
+scheduled merch lanes are zero-LLM except E6's bounded Tue/Fri matcher; other
+lanes that spend money or call a model remain separate **manually confirmed**
+workflows.
 
 | Workflow | Engine | Trigger | LLM / spend | Mutates |
 |---|---|---|---|---|
@@ -170,7 +172,13 @@ call a model are separate **manually confirmed** workflows.
 | [`merch-audit-detect.yml`](../.github/workflows/merch-audit-detect.yml) | E3 detect | Mon 15:24 + push to content paths | no | scoring-queue artifact |
 | [`merch-audit-authoring.yml`](../.github/workflows/merch-audit-authoring.yml) | E3 author | **MANUAL** + typed `RUN_AUTHORED_VISION_AUDIT` | **vision model, $5/run cap** | artifacts + issues |
 | [`merch-matcher.yml`](../.github/workflows/merch-matcher.yml) | E6 detect | **MANUAL** | no | deterministic handoff plan |
-| [`merch-matcher-authoring.yml`](../.github/workflows/merch-matcher-authoring.yml) | E6 author | **MANUAL** + typed `RUN_MATCHER_AUTHORING` | **vision + paid search, per-run cap** | artifacts only |
+| [`merch-matcher-authoring.yml`](../.github/workflows/merch-matcher-authoring.yml) | E6 author | Tue + Fri; manual overage or non-`main` dispatch needs typed `RUN_MATCHER_AUTHORING` | **vision + paid search, 2 runs/ISO week on `main`, 3 looks + 5 searches/run** | seed-only diff artifact -> isolated PAT author job |
+
+The E6 two-run weekly cap is enforced only for runs dispatched on `main`:
+GitHub Actions cache scope prevents a run on another ref from seeing main's
+matcher-state cache. A non-main manual dispatch therefore fails unless the
+operator supplies the same typed `RUN_MATCHER_AUTHORING` override used for an
+intentional cap overage.
 | [`merch-revenue.yml`](../.github/workflows/merch-revenue.yml) | reporting | Mon 15:23 | no | gated PR (`docs/ops/MERCH-REVENUE.json`) |
 | [`merch-terms-recheck.yml`](../.github/workflows/merch-terms-recheck.yml) | compliance | quarterly, 1st of Jan/Apr/Jul/Oct 15:17 | no | one review ticket per quarter |
 | [`merch-e5-evidence.yml`](../.github/workflows/merch-e5-evidence.yml) | E5 evidence | **MANUAL** + typed `COLLECT_E5_EVIDENCE` | no (Etsy API) | artifacts only |
@@ -184,6 +192,12 @@ call a model are separate **manually confirmed** workflows.
 | [`db-migrate.yml`](../.github/workflows/db-migrate.yml) | dispatch + push to `main` touching `supabase/migrations/**` | **yes** — applies migrations, then re-runs to prove idempotency |
 | [`db-seed.yml`](../.github/workflows/db-seed.yml) | **MANUAL** — `target` from a fixed allowlist | **yes** — operator-triggered seeds |
 | [`db-connectivity-check.yml`](../.github/workflows/db-connectivity-check.yml) | dispatch + PR touching itself | no — `SELECT 1` |
+
+### Retraction operations (1 manual)
+
+| Workflow | Trigger | Mutates production | Safety |
+|---|---|---|---|
+| [`tidewatch-retract.yml`](../.github/workflows/tidewatch-retract.yml) | **MANUAL** — story id, plan by default | apply hides the story card, kills its pending events, and records the decision | apply requires `RETRACT-<story_id>`; correction targets come only from instant deliveries and enqueue is separately default-off behind owner-only `TIDEWATCH_CORRECTIONS_LIVE` |
 
 ### Security and standing reminders (3)
 
@@ -211,12 +225,12 @@ workflow — see its row in the Tier 2 table below.
 
 | Workflow | Trigger | LLM | Mutates | Card that creates it |
 |---|---|---|---|---|
-| [`community-scan.yml`](../.github/workflows/community-scan.yml) | daily 08:17 UTC (off-peak minute, see the repo's cron-contention rule) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by repo variable `COMMUNITY_SCAN_ENABLED` (shipped off; **flipped to `true` 2026-09-07 by P1-7** after its fixture end-to-end dry run — see `docs/community/p1-7-dry-run.md`) | P1-2 (landed) |
+| [`community-scan.yml`](../.github/workflows/community-scan.yml) | **retired 2026-10-18** (schedule removed, manual dispatch only; was daily 08:17 UTC) | no | RSS hot-thread scan per `community_watchlist` → `engagement_lead`, deduped vs `community_post_ledger`; gated by repo variable `COMMUNITY_SCAN_ENABLED` (shipped off; **flipped to `true` 2026-09-07 by P1-7** after its fixture end-to-end dry run — see `docs/community/p1-7-dry-run.md`) | P1-2 (landed) |
 | [`community-crawl.yml`](../.github/workflows/community-crawl.yml) | daily 07:13 UTC, bounded | no | year-deep Reddit top-post walker (RSS `t=year` feed, real ceiling ~100 posts/sub) + bounded home-relay full-tree fetch; writes to a transient 24h Actions artifact only, never the repo/DB; gated by repo variables `COMMUNITY_CRAWL_ENABLED` (default `false`, **ships OFF**) and `COMMUNITY_CRAWL_BUDGET` (threads/run cap) | P2-1 (landed) |
 | [`community-inbox.yml`](../.github/workflows/community-inbox.yml) | every 30 min | no | reads Marjorie's Gmail (Reddit alert/reply mail, DKIM-verified) → `engagement_lead`; also parses founder `posted <id>`/`skip <id>` replies | P1-1 (landed) |
 | [`community-mailer.yml`](../.github/workflows/community-mailer.yml) | daily 15:36 UTC (after the Community Answerer desk) + a bounded 21:12 UTC replies-waiting second send (`reply_to_us` leads only) | no | reads `engagement_lead` rows the Answerer desk drafted (`status='drafted'`) → sends the daily "Community Tasks" HTML email (paste-ready drafts, one-click ack/skip links via `/api/community/ack`, P1-5) → marks each lead `status='emailed'`; degrades to a clean no-op when `SUPABASE_*`/`COMMUNITY_ACK_SECRET`/`MARJORIE_EMAIL`+`GMAIL_APP_PASSWORD` are unset | P1-6 (landed) |
 | [`community-awareness-scan.yml`](../.github/workflows/community-awareness-scan.yml) | every 20 minutes (minutes 7, 27, 47; jittered) | no | awareness image-reply lane discovery: many tiny anonymous runs, 2 RSS requests each, rotating through per-sub hot+new and search feeds from `scripts/community/awareness-subs.json` (cursor + 429 cooldowns in `awareness_source_state`; never a Reddit API key) → filters → `engagement_lead(kind='awareness_reply', status='new')` with a validated share-card `image_ref`; kill switch repo variable `AWARENESS_LANE_ENABLED=false` | owner direction 2026-10-01 |
-| [`community-awareness-deliver.yml`](../.github/workflows/community-awareness-deliver.yml) | after each `routine-awareness-answerer` success (every 3 hours) | no | picks ≤5 drafted awareness leads (≤3 per sub/day, 4 for r/TaylorSwift and r/swifties, ≤15/day), posts two Discord messages each (the bare thread link with the share-card PNG attached + Posted/Skip, then the reply text alone; no batch header), marks them `delivered`; the owner posts every reply | owner direction 2026-10-01 |
+| [`community-awareness-deliver.yml`](../.github/workflows/community-awareness-deliver.yml) | after each `community-draft-replies` success (every 3 hours) | no | picks ≤5 drafted awareness leads (≤3 per sub/day, 4 for r/TaylorSwift and r/swifties, ≤15/day), posts two Discord messages each (the bare thread link + ✅/❌ reaction footer, then the reply alone in a code box; no batch header), marks them `delivered`; the owner posts every reply. Replies are **text-only by default** — the share-card PNG is attached to the first message only when the drafting step set an `image_ref` for that lead AND the sub allows image comments (#4767) | owner direction 2026-10-01; text-only default #4767 |
 | [`theory-miner.yml`](../.github/workflows/theory-miner.yml) | daily 08:20 UTC (after `community-crawl.yml`) | yes (Haiku 4.5 extract, `apps/worker/src/extract/theory-haiku-client.ts`'s forced `record_fan_theories` tool) | downloads the latest successful `community-crawl.yml` run's transient artifact (`gh run download`, since this is a separately scheduled workflow, not a `workflow_run` trigger); one Haiku call per post+comment bundle; every theory screened (`screenTopic()`) before `fan_theory_candidate` upsert, deduped by `theory_key`; a redline hit is never stored at all (no "written but unservable" state, unlike `current_item`/`fan_signal`); has nothing to mine while `COMMUNITY_CRAWL_ENABLED` stays off, which is a clean no-op, not a failure | P2-2 (landed) |
 | [`theory-promote.yml`](../.github/workflows/theory-promote.yml) | weekly, Sunday 09:45 UTC | no (deterministic merge — see `apps/worker/src/extract/theory-promote.ts`'s header for why this is not the Opus call the plan's §4 table originally described) | reads `fan_theory_candidate` rows `status='candidate'`, merges near-duplicates via the existing name-similarity + symbol-overlap rule (`theory-match.ts`), promotes clusters with `mention_count >= 3` (and stance not `debunked_by_fans`) into `live_theory` (origin='fan', persistent=true, carries `track_slug` — added by P2-6, see below); merged rows marked `status='merged'`, rejected/held clusters marked accordingly; degrades to a clean no-op when `SUPABASE_*` are unset | P2-3 (landed) |
 | [`theory-weaving-intake.yml`](../.github/workflows/theory-weaving-intake.yml) | weekly, Sunday 09:52 UTC (after `theory-promote.yml`) | no (deterministic — reads `live_theory`, no model call) | reads `live_theory` rows `origin='fan'`, `persistent=true`, `track_slug is not null`, not `debunked`, `mention_count >= 8` (a higher bar than P2-3's own `mention_count >= 3` promotion floor — see the script's header for why); files one `intake`-labeled GitHub issue per not-already-filed theory (fingerprint-deduped the same fail-closed way as `appearance-discovery`) pointing Content Shift at `docs/content-ops/theory-weaving.md`'s mainstream-coverage sourcing bar — a LEAD, never a song-page edit; degrades to a clean no-op when `SUPABASE_*` are unset | P2-6 (landed) |
@@ -237,6 +251,20 @@ Windows task is installed with `knowledge:fb-schedule`, and
 `knowledge:fb-export:dry` never uploads or changes GitHub. Raw files, the
 run ledgers, private comment files, and the persistent Chrome profile
 all live under `%LOCALAPPDATA%\longlive-fb`, outside the repo.
+
+Run guards (#4870, #4879): before collecting, the export runs `git rev-parse
+--abbrev-ref HEAD` and `git status --porcelain -- scripts/knowledge
+scripts/community` in the checkout it was launched from, and refuses (printing
+the reason as its summary, exit 1) unless that checkout is on `main` and clean
+there, because the unattended run must execute reviewed `main` code. The upload
+is retried once; a group whose upload still fails stays ledgered `ingested`
+with its kept file so the next run uploads it without re-ingesting. A GitHub
+lookup or comment failure is a warning appended to the summary, which always
+prints; `ok` is false whenever any warning occurs. A refusal is also posted as a
+best-effort comment on the weekly issue, and `fb-export-task.ps1` appends every
+scheduled run's output with a timestamp to `%LOCALAPPDATA%longlive-fbb-export.log`.
+The week ledger is read strictly: only a missing file is an empty ledger; any
+other read error or corrupt JSON aborts the run (exit 1) before any write.
 
 Facebook export runbook (extension collector, 2026-09-30). The run starts a
 local receiver on `127.0.0.1:<random port>` and opens plain Chrome (no
@@ -351,7 +379,7 @@ runs in CI as `npm run check:routines` to enforce their routine invariants.
 | News Triage | daily 15:40 | Opus 4.8 (T-3 trial: Sonnet 5, pending account access — `docs/agents/runners.md` § News Triage) | *none* | [`news-triage.md`](agents/runner-prompts/news-triage.md) |
 | Lex depth | **disabled** (warm spare) | Opus 4.8 | *none* | [`lex-depth.md`](agents/runner-prompts/lex-depth.md) |
 | Community Answerer — engagement drafts (P1-4, `routine-community-answerer.yml`) | daily 14:46 (after `community-scan.yml`, P1-2) | Sonnet 5 (§8-Q4) | [`community-answerer.md`](agents/community-answerer.md) | [`community-answerer.md`](agents/runner-prompts/community-answerer.md) |
-| Awareness Answerer — image replies (`routine-awareness-answerer.yml`) | every 3 hours, 22 min after each awareness scan (minute 41); a plain export job (the only one with the DB secret; the Claude job has none, no shell) skips the Claude run when no lead is waiting; one run per batch, 30 turns, $1 guard | Sonnet 5 | [`community-answerer.md`](agents/community-answerer.md) (hard rails) | [`awareness-answerer.md`](agents/runner-prompts/awareness-answerer.md) |
+| Awareness reply drafter — image replies (`community-draft-replies.yml`, P1-10; no longer an agentic routine) | every 3 hours, 22 min after each awareness scan (minute 41); `scripts/community/draft-replies.mjs` makes one single-shot call per lead (<=6 a run) through the subscription wrapper at P3 (limit-gate pause), thread text transient and never stored | Sonnet 5.5 | [`community-answerer.md`](agents/community-answerer.md) (hard rails) | [`awareness-answerer.md`](agents/runner-prompts/awareness-answerer.md) |
 
 ⚠️ **The six standalone lanes above run *in addition to* the Vault Run built
 to replace them** — Phase 4 never landed, so Rumor Desk content lands daily
@@ -421,6 +449,39 @@ It has **no watchdog** — top recommendation of the 2026-08-31 review
 ([REC-1](automation/review-2026-08-31.md#rec-1)).
 
 ---
+
+## Issue sweeper (backlog cleanup, Tier 1)
+
+[`issue-sweeper.yml`](../.github/workflows/issue-sweeper.yml) runs daily 09:17
+UTC (plus manual dispatch, `dry_run` defaults true) and runs
+`scripts/ops/issue-sweeper.mjs --apply`. It **closes, never deletes**,
+machine-filed issues that rules prove stale; no LLM. Founder-approved
+2026-10-08. Rules live in `scripts/ops/lib/issue-sweeper-rules.mjs`:
+
+1. **supersede-report**: genuine recurring reports only (label AND title
+   pattern): Kevin Review Radar, Kevin Daily Review, Kevin Eng Triage,
+   news-triage recall checks, Paul Blart security patrols. Keep the newest per
+   kind. Real findings labelled `routine-audit`/`automation-review` are never touched.
+2. **intake-ttl**: `intake` issues titled `intake:` with no activity for 14+
+   days; skipped if also `bug`, `desk:*` or `marjorie-filed`.
+3. **watchdog-recovered**: `watchdog-alert` whose workflow's latest completed
+   run is green and newer than the alert.
+4. **cie-duplicate**: `cie` + `cie:P1`/`cie:P2` duplicates by quoted page name;
+   newest kept.
+
+**Hard guard (before every rule):** author must be a bot (`app/*`, `[bot]`) or
+`sffan15-sys`; not assigned; none of `founder-task`, `hold`, `founder-decision`,
+`founder-assigned`, `needs-human-review`, `claimed`, `in-progress`,
+`status-page`, `weekly-plan`; no open PR title/body mentions it as `#n` (any mention protects it).
+Newest-of-kind is chosen across ALL open issues before the guard; `--apply`
+only runs from `main`, and the sweeper aborts if a list hits its 1000 limit. Max 150
+closes per run (`--max`). Dry run: `node scripts/ops/issue-sweeper.mjs`
+writes `.scratch/issue-sweeper-plan.json`.
+
+**To reopen:** every close comment names its rule; reopen the issue
+(`gh issue reopen <n>`). The sweeper only looks at open issues, so a reopened
+issue is evaluated again by the rules on the next run; add a guard label such as
+`hold` if it should stay open.
 
 ## Adding a new routine — the checklist
 

@@ -1,0 +1,167 @@
+# Content fix 5/6 (content-fix-cards.md Card 5): one-off backfill that
+# re-enriches every existing, live `current_item` — resolves a missing
+# image (Card 1/#5628), rewrites thin copy from the full article
+# (Card 2/#5627), re-runs the shared publish gate (Card 3/#5629) — by
+# calling scripts/news/backfill-current-items.mjs, which reuses the SAME
+# pipeline code (resolveImageUrl, fetch-article-text + extractWithLLM,
+# evaluateCurrentItemQuality) the ordinary news-worker.yml cycle calls, via
+# apps/worker/src/extract/backfill.ts. Gated by Cards 1-3, all merged to
+# main before this workflow exists.
+#
+# workflow_dispatch only — this is a one-off, not a recurring cadence (no
+# `schedule:` trigger, unlike news-worker.yml/theory-promote.yml). dry_run
+# defaults true: a dry run resolves/rewrites/re-screens every row for real
+# (so the printed per-item report reflects the actual would-be outcome,
+# not a guess) but never writes `current_item` — see backfill.ts's
+# `RunBackfillOptions.dryRun` doc comment. A human flips dry_run to false
+# only after reviewing a dry-run's report.
+#
+# Scope note: no DUPLICATE-story merging happens here — that is
+# content-fix/7-llm-dedupe's separate concern. This workflow only ever
+# touches one row's own image/copy/quality fields and never deletes a row;
+# an item still failing after rewriting stays held (`redline_ok=false`,
+# `quality_hold_reason` set), never removed. Retracted rows may receive factual
+# enrichment, but visibility writes require `retracted_at` to remain null.
+name: content-backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Resolve/rewrite/re-screen every eligible item but do not write current_item or snapshot rows (LLM budget counters still increment)'
+        type: boolean
+        default: true
+      mode:
+        description: 'floors = thin-copy backfill; force = v2 rewrite of every row the live feed shows that has no facts yet (snapshots old copy first); rewrite = re-run the current writer on live rows that already have facts (snapshots copy, facts and score; never retires); significance = tier live rows (rules, then the Opus judge), write significance_verdict and retire tier 3 as retired_not_notable (undo with restore-copy-snapshot.mjs --clear-retired). A live significance run needs ids or a limit of 1-100. A restored row keeps its tier-3 verdict, so re-judging it needs ids'
+        type: choice
+        options:
+          - floors
+          - force
+          - rewrite
+          - significance
+        default: floors
+      limit:
+        description: 'Max rows to process (0 = all)'
+        type: string
+        default: '0'
+      days:
+        description: 'Force mode only: optional observed_on window in days. Empty = the live feed''s own window (every unexpired visible row)'
+        type: string
+        default: ''
+      ids:
+        description: 'Rewrite and significance modes: optional comma-separated current_item UUIDs to process (max 200). Empty = every live row with facts not yet rewritten (rewrite) or without a significance verdict (significance)'
+        type: string
+        default: ''
+      rewrite_since:
+        description: 'Rewrite mode only: ISO date/time. A row counts as already rewritten only if its backfill_rewrite snapshot was created at or after this. Empty = the writer-version default (REWRITE_SINCE in backfill-rewrite-load.ts, 2026-11-08); set a later date after a writer change to re-run every row without listing ids'
+        type: string
+        default: ''
+      retire_below_floor:
+        description: 'Force mode only, ignored on a dry run: hide rows that fail the worth-a-post floor (quality_hold_reason retired_below_floor; undo with restore-copy-snapshot.mjs --clear-retired)'
+        type: boolean
+        default: false
+      retire_unwritable:
+        description: 'Force mode only, ignored on a dry run: hide rows that end no_facts or writing_hold after the one rewrite (quality_hold_reason retired_unwritable; undo with restore-copy-snapshot.mjs --clear-retired)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: content-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    # 150 wrapper calls/run at 120s each, plus setup and reporting headroom.
+    timeout-minutes: 360
+    steps:
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Validate inputs
+        env:
+          INPUT_LIMIT: ${{ inputs.limit }}
+          INPUT_DAYS: ${{ inputs.days }}
+          INPUT_IDS: ${{ inputs.ids }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+          INPUT_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
+          INPUT_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
+        run: |
+          if ! [[ "$INPUT_LIMIT" =~ ^[0-9]+$ ]]; then
+            echo "::error::limit must be a non-negative integer (0 = all), got '$INPUT_LIMIT'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_DAYS" =~ ^[0-9]*$ ]]; then
+            echo "::error::days must be empty or a non-negative integer, got '$INPUT_DAYS'"
+            exit 1
+          fi
+          UUID_RE='[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+          if ! [[ "$INPUT_IDS" =~ ^(${UUID_RE}(,${UUID_RE}){0,199})?$ ]]; then
+            echo "::error::ids must be empty or comma-separated UUIDs without spaces (max 200)"
+            exit 1
+          fi
+          if [ -n "$INPUT_IDS" ] && [ "$INPUT_MODE" != "rewrite" ] && [ "$INPUT_MODE" != "significance" ]; then
+            echo "::error::ids is only valid with mode=rewrite or mode=significance"
+            exit 1
+          fi
+          if [ "$INPUT_MODE" = "rewrite" ] && { [ "$INPUT_RETIRE_BELOW_FLOOR" = "true" ] || [ "$INPUT_RETIRE_UNWRITABLE" = "true" ]; }; then
+            echo "::error::rewrite mode never retires: leave retire_below_floor and retire_unwritable off"
+            exit 1
+          fi
+          if [ "$INPUT_MODE" = "significance" ] && { [ "$INPUT_RETIRE_BELOW_FLOOR" = "true" ] || [ "$INPUT_RETIRE_UNWRITABLE" = "true" ]; }; then
+            echo "::error::significance mode retires only not_notable: leave retire_below_floor and retire_unwritable off"
+            exit 1
+          fi
+          if [ "$INPUT_MODE" = "significance" ] && [ "$INPUT_DRY_RUN" = "false" ] && [ -z "$INPUT_IDS" ] && { [ "$INPUT_LIMIT" -lt 1 ] || [ "$INPUT_LIMIT" -gt 100 ]; }; then
+            echo "::error::a live significance run (dry_run=false) needs ids or a limit between 1 and 100"
+            exit 1
+          fi
+
+      - name: Run the current_item backfill
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          BACKFILL_DRY_RUN: ${{ inputs.dry_run }}
+          BACKFILL_MODE: ${{ inputs.mode }}
+          BACKFILL_LIMIT: ${{ inputs.limit }}
+          BACKFILL_DAYS: ${{ inputs.days }}
+          BACKFILL_IDS: ${{ inputs.ids }}
+          BACKFILL_REWRITE_SINCE: ${{ inputs.rewrite_since }}
+          BACKFILL_RETIRE_BELOW_FLOOR: ${{ inputs.retire_below_floor }}
+          BACKFILL_RETIRE_UNWRITABLE: ${{ inputs.retire_unwritable }}
+          BACKFILL_REPORT_DIR: ${{ runner.temp }}/backfill-report
+        run: npx --no-install tsx scripts/news/backfill-current-items.mjs
+
+      # The repo is PUBLIC: the report holds only public news text and model output, no secrets.
+      - name: Upload backfill report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: backfill-report
+          path: ${{ runner.temp }}/backfill-report
+          retention-days: 14
+          if-no-files-found: ignore

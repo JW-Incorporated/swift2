@@ -43,7 +43,8 @@
     openComments: [
       /^\d[\d.,]*\s*[km]?\s+comments?$/i, // "12 comments", "1.2K comments"
       /^(?:view|see)\s+(?:more|all|previous)\s+comments?\b/i,
-      /^(?:view|see)\s+\d[\d.,]*\s*[km]?\s+more\s+comments?\b/i,
+      /^(?:view|see)\s+\d[\d.,]*\s*[km]?\s+(?:more\s+|previous\s+)?comments?\b/i,
+      /^(?:view|see)\s+(?:more\s+)?comments?$/i,
     ],
     // Expands replies. "View more replies"/"View previous replies" continue a
     // first-level thread; "View N replies"/"N replies" open one.
@@ -66,6 +67,9 @@
     maxMs: 15 * 60_000,
     maxClicksPerPost: 30,
     settleMs: 1200,
+    maxRepeatClicks: 3, // re-clicks of one expander node that made progress (lazy-load pages)
+    emptyPolls: 3, // settle-and-recheck rounds before giving up on a post with no comments/expander
+    retryOnce: true,
   };
   const FB_ORIGIN = 'https://www.facebook.com';
   const NBSP = String.fromCharCode(0xa0);
@@ -418,13 +422,21 @@
 
   async function collectForPost(unit, ctx) {
     const { doc, opts, sleep, random, now, deadline } = ctx;
-    const post = findPostElement(doc, unit);
-    if (!post) return null;
+    let post = findPostElement(doc, unit);
+    if (!post) {
+      // Virtualised feeds re-mount posts a beat late: one settle-and-look-again.
+      await sleep(opts.settleMs ?? DEFAULTS.settleMs);
+      post = findPostElement(doc, unit);
+    }
+    if (!post) return { data: null, reason: 'not-found' };
     const dialogsBefore = new Set(doc.querySelectorAll(SEL.dialog));
     let root = post;
     let openedDialog = null;
-    const clicked = new WeakSet();
+    const clicked = new Map(); // element -> {n, seen}: re-click only while it still makes progress
     let clicks = 0;
+    let emptyPolls = 0;
+    const maxRepeat = Math.max(1, Number(opts.maxRepeatClicks ?? DEFAULTS.maxRepeatClicks));
+    const maxEmptyPolls = Math.max(0, Number(opts.emptyPolls ?? DEFAULTS.emptyPolls));
     const click = async (el) => {
       await sleep(pacing(opts, random));
       if (now() >= deadline) return false;
@@ -433,15 +445,19 @@
       } catch {
         /* ignore */
       }
+      const seenBefore = extractCommentsFromContainer(root, opts).length;
       el.click();
-      clicked.add(el);
+      clicked.set(el, { n: (clicked.get(el)?.n ?? 0) + 1, seen: seenBefore });
       clicks += 1;
       await sleep(opts.settleMs ?? DEFAULTS.settleMs);
       if (!openedDialog) {
-        const fresh = [...doc.querySelectorAll(SEL.dialog)].find((d) => !dialogsBefore.has(d));
-        if (fresh) {
-          openedDialog = fresh;
-          root = fresh;
+        // A dialog can mount a beat after the click: poll once more before giving up.
+        for (let attempt = 0; attempt < 2 && !openedDialog; attempt += 1) {
+          const fresh = [...doc.querySelectorAll(SEL.dialog)].find((d) => !dialogsBefore.has(d));
+          if (fresh) {
+            openedDialog = fresh;
+            root = fresh;
+          } else if (attempt === 0) await sleep(opts.settleMs ?? DEFAULTS.settleMs);
         }
       }
       return true;
@@ -451,20 +467,36 @@
       while (clicks < maxClicks && now() < deadline) {
         const current = extractCommentsFromContainer(root, opts);
         const { comments, replies } = findExpandButtons(root);
-        const nextComments = comments.find((b) => !clicked.has(b));
-        const nextReply = replies.find((b) => !clicked.has(b));
+        const fresh = (b) => {
+          const seen = clicked.get(b);
+          return !seen || (seen.n < maxRepeat && current.length > seen.seen);
+        };
+        const nextComments = comments.find(fresh);
+        const nextReply = replies.find(fresh);
         let next = null;
         if (nextComments && current.length < opts.maxPerPost) next = nextComments;
         else if (nextReply) next = nextReply;
-        if (!next) break;
+        if (!next) {
+          // Lazy-loaded comments / a late expander: settle and look again, bounded.
+          if (!current.length && emptyPolls < maxEmptyPolls && now() < deadline) {
+            emptyPolls += 1;
+            await sleep(opts.settleMs ?? DEFAULTS.settleMs);
+            continue;
+          }
+          break;
+        }
         if (!(await click(next))) break;
       }
+      const extracted = extractCommentsFromContainer(root, opts);
       return {
-        postKey: unit.key,
-        postUrl:
-          postUrlFromUnit(unit) ||
-          cleanPostUrl(post.querySelector(SEL.postPermalink)?.getAttribute('href')),
-        comments: extractCommentsFromContainer(root, opts),
+        data: {
+          postKey: unit.key,
+          postUrl:
+            postUrlFromUnit(unit) ||
+            cleanPostUrl(post.querySelector(SEL.postPermalink)?.getAttribute('href')),
+          comments: extracted,
+        },
+        reason: extracted.length ? null : clicks ? 'empty-after-expand' : 'no-expander',
       };
     } finally {
       if (openedDialog) {
@@ -502,6 +534,12 @@
       unknownEmpty: 0,
       countUnknown: 0,
       unitsSent: 0,
+      failNotFound: 0,
+      failNoExpander: 0,
+      failEmptyAfterExpand: 0,
+      failThrew: 0,
+      retried: 0,
+      recovered: 0,
     };
     let unaccounted = 'failed'; // how posts never attempted are counted
     try {
@@ -528,22 +566,37 @@
           unaccounted = 'timedOut';
           break;
         }
-        try {
-          const result = await collectForPost(unit, ctx);
-          if (!result) coverage.failed += 1;
-          else if (now() >= ctx.deadline) coverage.timedOut += 1;
-          // Codex round 4 #1: a post with a KNOWN commentCount > 0 that yields zero extracted
-          // comments is selector drift, not "no comments", so it counts as failed. PM decision
-          // (round 5): an unknown-count post that yields zero is unknownEmpty, not failed — count
-          // drift is caught instead by countUnknown === unitsSent on a busy feed (receiver).
-          else if (!result.comments.length) {
-            if (knownCommentCount(unit) === null) coverage.unknownEmpty += 1;
-            else coverage.failed += 1;
-          } else coverage.processed += 1;
-          if (result && result.comments.length) results.push(result);
-        } catch {
-          coverage.failed += 1; // per-post failure: counted, keep going
+        const attempt = async () => {
+          try {
+            return await collectForPost(unit, ctx);
+          } catch {
+            return { data: null, reason: 'threw' };
+          }
+        };
+        let out = await attempt();
+        const known = knownCommentCount(unit) !== null;
+        // One retry on a transient failure (late mount, slow lazy-load, a throw).
+        if (opts.retryOnce && !out.data?.comments.length && known && now() < ctx.deadline) {
+          coverage.retried += 1;
+          await ctx.sleep(pacing(opts, ctx.random));
+          out = await attempt();
+          if (out.data?.comments.length) coverage.recovered += 1;
         }
+        const result = out.data;
+        if (!result) {
+          coverage.failed += 1;
+          if (out.reason === 'threw') coverage.failThrew += 1;
+          else coverage.failNotFound += 1;
+        } else if (now() >= ctx.deadline && !result.comments.length) coverage.timedOut += 1;
+        else if (!result.comments.length) {
+          if (!known) coverage.unknownEmpty += 1;
+          else {
+            coverage.failed += 1;
+            if (out.reason === 'empty-after-expand') coverage.failEmptyAfterExpand += 1;
+            else coverage.failNoExpander += 1;
+          }
+        } else coverage.processed += 1;
+        if (result?.comments.length) results.push(result);
       }
     } catch {
       // never throw to the harvester; posts never attempted are counted as failed below

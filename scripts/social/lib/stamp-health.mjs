@@ -14,7 +14,14 @@
 // Plumbing only (`git show`, `git diff`): never checks anything out, never
 // disturbs whatever branch the caller has or hasn't checked out.
 import { pollOwnFieldChange } from './feedback.mjs';
-import { approvalStatus, stampedSha } from './queue.mjs';
+import { approvalStatus, isV4Stamp, stampedSha } from './queue.mjs';
+import { isTreeDraftRef } from './tree-draft-ref.mjs';
+
+/** approvalStatus, except a v4 (tree-auto) stamp is judged keyless: its signature and media digest are the
+ * POSTER's check (it holds the key and the bytes); here only shape, identity and content hash matter. */
+function statusOf(item, statusOptions) {
+  return isV4Stamp(item) ? approvalStatus(item, { approvers: statusOptions?.approvers }) : approvalStatus(item, statusOptions);
+}
 
 export function isQueueJson(p) {
   return p.startsWith('social/queue/') && p.endsWith('.json');
@@ -119,7 +126,7 @@ export function makeGitState(execGit, pr) {
       const content = show(to, p);
       if (content === null) continue; // deleted — safe by construction
       const item = parseJson(content);
-      const status = item ? approvalStatus(item, statusOptions) : { ok: false, reason: 'unparseable' };
+      const status = item ? statusOf(item, statusOptions) : { ok: false, reason: 'unparseable' };
       if (!status.ok) offending.push({ path: p, why: `changed on the branch and is not validly stamped there (${status.reason})` });
     }
     return { ok: offending.length === 0, changed, offending };
@@ -143,6 +150,18 @@ export function makeGitState(execGit, pr) {
  * merge" (worth a notice / a fresh brief). */
 export function stampHealth(gitState, relPath, item, head, statusOptions) {
   if (!item?.approval) return { ok: false, stamped: false, problems: [] };
+  // v4 (tree-auto) is never this poll's to mint, merge or complain about:
+  // social-tree-approve.yml owns that path end to end. Reported unstamped with
+  // no problems, so the poll raises no drift notice and — since `ok` is false —
+  // never merges it. (A genuine owner ✅ may still mint a v3 over it.)
+  if (isV4Stamp(item)) {
+    const v4 = statusOf(item, statusOptions);
+    if (!v4.ok) return { ok: false, stamped: true, problems: [{ path: relPath, why: `its tree-auto approval is invalid (${v4.reason})` }] };
+    if (!isTreeDraftRef(statusOptions?.headRef)) {
+      return { ok: false, stamped: true, problems: [{ path: relPath, why: 'it carries a tree-auto approval, which is only honoured on tree/draft/* branches' }] };
+    }
+    return { ok: false, stamped: false, problems: [], treeAuto: true };
+  }
   const status = approvalStatus(item, statusOptions);
   if (!status.ok) return { ok: false, stamped: true, problems: [{ path: relPath, why: `its approval is invalid (${status.reason})` }] };
   const sha = stampedSha(item);
@@ -164,8 +183,11 @@ export function stampHealth(gitState, relPath, item, head, statusOptions) {
  * cannot reach git) it degrades to the content-only check, which is the
  * pre-2026-09-12 behaviour and cannot see drift.
  */
-export function filterAlreadyStamped(drafts, { head, gitState, approvers }) {
-  const statusOptions = { approvers };
-  if (!head || !gitState) return drafts.filter((d) => !approvalStatus(d, statusOptions).ok);
-  return drafts.filter((d) => !stampHealth(gitState, d.file, d, head, statusOptions).ok);
+export function filterAlreadyStamped(drafts, { head, gitState, approvers, headRef }) {
+  const statusOptions = { approvers, headRef };
+  // A valid tree-auto (v4) stamp on a tree/draft/* branch needs no second brief; an invalid one, or one on any
+  // other branch, is KEPT (briefed) so a human sees it.
+  const honoured = (d) => isV4Stamp(d) && isTreeDraftRef(headRef) && statusOf(d, statusOptions).ok;
+  if (!head || !gitState) return drafts.filter((d) => (isV4Stamp(d) ? !honoured(d) : !statusOf(d, statusOptions).ok));
+  return drafts.filter((d) => (isV4Stamp(d) ? !honoured(d) : !stampHealth(gitState, d.file, d, head, statusOptions).ok));
 }

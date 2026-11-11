@@ -40,6 +40,53 @@ const ERA = {
         wiki('I Forgot That You Existed', 'I_Forgot_That_You_Existed', 'song article: composition'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Lover's opening track, and Swift's stated way of closing out the reputation era. At a Lover Secret Session in August 2019 she said reputation was a coping mechanism, like going through the stages of grief and throwing a funeral for her reputation, and that she wanted the first song on the new album to complete the cycle of grieving. The end of that cycle, she said, is indifference: 'The actual definition of getting over something is a shrug.'",
+          "She wrote it with the production duo Louis Bell and Frank Dukes, and said she wanted the song to be as simple as the emotion of indifference."
+        ],
+        meaning: {
+          confirmed: [
+            "At the Lover Secret Sessions, Swift said that after the reputation album, which she called a response to a lot of things that happened in her life, in picking and writing the first song on Lover she wanted to complete the grieving cycle and arrive at indifference (iHeartRadio, August 2019).",
+            "In her Rolling Stone interview, asked when she reached the place the song describes, Swift said it was sometime on the Reputation tour, which she called the most transformative emotional experience of her career and the healthiest, most balanced place she had been (September 2019)."
+          ]
+        },
+        live: [
+          {
+            date: "August 24, 2023",
+            event: "The Eras Tour, Mexico City",
+            note: "NME reported that Swift gave the song its live debut in the surprise-song segment of the first international Eras show, on acoustic guitar."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:sweet-nothing",
+            label: "Sweet Nothing",
+            why: "NME reported that Swift gave this Midnights song its live debut on the same night as 'I Forgot That You Existed'."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "At a Lover Secret Session, as published by iHeartRadio in August 2019",
+            note: "She said that when you are really done with a frustrating chapter you hit indifference, and she wanted the song to be as simple as that feeling."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Shares Intimate Details of 'Lover' Songs During Secret Session - iHeartRadio",
+            url: "https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/"
+          },
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Watch Taylor Swift debut 'I Forgot That You Existed' and 'Sweet Nothing' live - NME",
+            url: "https://www.nme.com/news/music/watch-taylor-swift-debut-i-forgot-that-you-existed-and-sweet-nothing-live-3488753"
+          }
+        ]
+      },
     },
     {
       slug: 'cruel-summer',
@@ -55,7 +102,7 @@ const ERA = {
       summary:
         'A secret summer romance conducted through garden gates and bad decisions, with the catalog’s most famous bridge-yell about blurting out love. Its 2023 chart-topping resurrection is the great fan-willed correction.',
       inspiration:
-        'Widely tied by fans to the guarded start of her late-2016 relationship (unconfirmed); the documented story is the fan campaign that forced its single release in 2023.',
+        'Taylor has not named a subject; the documented story is the fan campaign that forced its single release in 2023.',
       themes: ['secret love', 'desperation under cool', 'delayed victory'],
       easterEggs:
         'The bridge became the Eras Tour’s loudest nightly scream-along — a documented live phenomenon of the 2023 shows.',
@@ -138,6 +185,98 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The title track of the seventh album, and the first song Swift wrote without a co-writer to earn a Song of the Year nomination at the Grammys (2020; it lost to 'Bad Guy'). The New York Times described it as her fourth track nominated for the songwriting award at the Grammys and her first without a co-writer. Per its Wikipedia entry it debuted at No. 19 on the Hot 100 after its August 16, 2019 release and climbed to No. 10 once the video arrived.",
+          "It matters because it is Swift's own account of how a love song gets built: she wrote it late one night at the piano at home in Nashville, played it for Jack Antonoff the next day, and they recorded it at Electric Lady Studios in New York with only engineer Laura Sisk in the room. The target sound was a wedding-reception song that could have been played in 1970, 1980 or now."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 3 of Lover (August 23, 2019), written by Swift alone and produced by Swift and Antonoff. Released for download and streaming on August 16, 2019, a week before the album.",
+            "In The New York Times' 'Diary of a Song,' Swift said inspiration struck late at night in bed in Nashville, when she stumbled over to the piano, and the video includes her voice memo with 'a pretty cool, really simple, beautiful chorus idea called Lover.'",
+            "In the same piece she explained a lyric change: she had toyed with leaving the Christmas lights up 'till April' but settled on January, because 'it's not about that being a crazy thing. It's about how mundane it is.'",
+            "Antonoff tweeted that they did it 'entirely at electric lady in NYC. only laura sisk and taylor in the room,' that 'taylor wrote every stitch of this song and came in and played it for me,' that they worked about 6 hours that night, and that the tracks were live drum, bass, acoustic, 12 string, upright piano and mellotron."
+          ],
+          supported: [
+            "Swift has described the bridge as personal and drawn from how newlyweds personalize their vows. Press have noted it also echoes the bridal rhyme 'something old, something new, something borrowed, something blue' (Wikipedia).",
+            "Critics have read it as a sequel: Paste's Jane Song heard it as a continuation of 'New Year's Day' from Reputation, and Rolling Stone's Rob Sheffield heard a sequel to 'Last Kiss' (Wikipedia). The Telegraph's Alice Vincent thought the 'guitar string scars' phrase alludes to her move from country to pop on Red and 1989."
+          ]
+        },
+        live: [
+          {
+            date: "August 26, 2019",
+            event: "MTV Video Music Awards",
+            note: "A medley with 'You Need to Calm Down', an early performance of the song during album promotion, per Wikipedia."
+          },
+          {
+            date: "September 9, 2019",
+            event: "City of Lover, Paris",
+            note: "A one-off concert whose live recording became an official alternate version."
+          },
+          {
+            date: "October 5, 2019",
+            event: "Saturday Night Live",
+            note: "A stripped-down version, performed the same night as 'False God'."
+          },
+          {
+            date: "November 24, 2019",
+            event: "American Music Awards",
+            note: "As Artist of the Decade she sang an orchestral version at piano while Misty Copeland and Craig Hall danced; the arrangement became the 'First Dance Remix'."
+          },
+          {
+            date: "2023-2024",
+            event: "The Eras Tour",
+            note: "The song is part of the tour's set list."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:new-years-day",
+            label: "New Year's Day",
+            why: "Critics, including Paste's Jane Song, pair the two as sequel and prequel: the morning-after cleanup of Reputation's closer grows into the domestic life of 'Lover'."
+          },
+          {
+            relatedId: "song:cornelia-street",
+            label: "Cornelia Street",
+            why: "One of the other two songs on Lover that Swift wrote entirely alone."
+          },
+          {
+            relatedId: "song:you-are-in-love",
+            label: "You Are in Love",
+            why: "Songfacts traces the video's snow-globe idea to a lyric in this 1989 bonus track, linking the two songs across five years."
+          }
+        ],
+        voices: [
+          {
+            who: "Jack Antonoff",
+            context: "On Twitter, as reported by Billboard",
+            note: "He wrote that Swift 'wrote every stitch of this song' and came in and played it for him, 'just a perfect moment to hear what she had done alone the night before.'"
+          },
+          {
+            who: "Taylor Swift",
+            context: "New York Times, Diary of a Song",
+            note: "On the Christmas-lights line: 'It's not about that being a crazy thing. It's about how mundane it is.'"
+          }
+        ],
+        sources: [
+          {
+            name: "How Taylor Swift Writes a Love Song - The New York Times (Diary of a Song, archived)",
+            url: "https://web.archive.org/web/20201214070550/https://www.nytimes.com/2019/12/24/arts/music/taylor-swift-lover.html"
+          },
+          {
+            name: "Jack Antonoff Says Taylor Swift 'Wrote Every Stitch' of New Song 'Lover' Before He Joined Her in the Studio - Billboard",
+            url: "https://www.billboard.com/music/pop/jack-antonoff-taylor-swift-lover-tweets-8527674/"
+          },
+          {
+            name: "Lover (Taylor Swift song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)"
+          },
+          {
+            name: "Lover by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/lover"
+          }
+        ]
+      },
     },
     {
       slug: 'the-man',
@@ -153,10 +292,19 @@ const ERA = {
       summary:
         'If she partied, dated, and hustled identically as a man, the same behavior would read as legend, not liability. The self-directed video (with a Dwayne Johnson voice cameo) made the argument literal.',
       inspiration:
-        'Swift confirmed the premise directly in interviews: an inventory of the gendered coverage she had absorbed for a decade, itemized.',
+        'Taylor told Vogue she had long wondered how she would be written about if she were a man, and wrote the song as a thought experiment: the same choices, mistakes and accomplishments, read differently.',
       themes: ['sexist double standards', 'ambition', 'perception'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)',
       sources: [
+        {
+          source_url: 'https://www.vogue.com/article/taylor-swift-cover-september-2019',
+          source_title: 'Taylor Swift on Sexism, Scrutiny, and Standing Up for Herself',
+          publisher: 'Vogue',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor Swift\'s September 2019 cover story: describes writing "The Man" as a thought experiment, and the Equality Act petition and "You Need to Calm Down" video',
+        },
         wiki(
           'The Man (Taylor Swift song)',
           'The_Man_(Taylor_Swift_song)',
@@ -176,7 +324,7 @@ const ERA = {
             "The 'Tyler' transformation was led by Oscar-winning makeup artist Bill Corso and took roughly four to six hours to apply (about ten prosthetic pieces plus a muscle suit). Dwayne Johnson voices 'the man'; Swift's father, Scott Swift, cameos as the tennis umpire whose bad call triggers Tyler's on-court meltdown, alongside TikTok stars Loren Gray and Dominic Toliver and actress Jayden Bartels.",
           ],
           fanTheories: [
-            "A red 'No Scooters' traffic sign at the video's (13th Street) subway set is widely read as a jab at Scooter Braun, who then controlled her masters. Swift has never confirmed the reference, so it stays fan reading rather than documented fact.",
+            "A red 'No Scooters' traffic sign at the video's (13th Street) subway set is widely read as a jab related to her masters dispute. Taylor has never confirmed the reference, so it stays fan reading rather than documented fact.",
           ],
         },
         live: [
@@ -296,7 +444,18 @@ const ERA = {
       inspiration: null,
       themes: ['mutual attraction', 'confidence', 'flirtation'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
-      sources: [ALBUM],
+      sources: [
+    {
+      source_url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
+      source_title: 'Taylor Swift Calls Rom-Com Inspiration Behind ‘Lover’ Song the ‘Most Meta Thing That’s Ever Happened to Me’',
+      publisher: 'Billboard',
+      source_type: 'reputable_press',
+      accessed_at: '2026-10-09',
+      reliability_score: 4,
+      notes: 'Taylor revealed the Netflix film Someone Great inspired the song; the film\'s writer-director said it drew on 1989',
+    },
+        ALBUM,
+      ],
       dossier: {
         whyItMatters: [
           "A Jack Antonoff-produced funk-pop strut and fan-favorite Lover deep cut, built on what Swift called 'quiet confidence' — a partner sure of himself without arrogance. Its 'Sixteenth Avenue' line is a confirmed nod to Nashville, giving a flirty groove a hometown-songwriting anchor.",
@@ -370,14 +529,23 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Joel Little'],
       producers: ['Taylor Swift', 'Joel Little'],
-      note: 'High-school Americana as national allegory — the homecoming-queen imagery is confirmed political disillusionment in a letterman jacket.',
+      note: 'High-school Americana as national allegory — the homecoming-queen imagery reads as political disillusionment in a letterman jacket.',
       summary:
-        'A dance at a school where the scoreboard is rigged: Swift confirmed the marching-band metaphor is about watching American politics curdle post-2016 and deciding to speak anyway.',
+        'A dance at a school where the scoreboard is rigged: Taylor told Rolling Stone she wrote it a couple of months after the midterm elections, using a traditional American high school as the metaphorical place for politics.',
       inspiration:
-        'Confirmed: Swift said it channels her disillusionment with U.S. politics through a high-school lens — written around the period covered by the Miss Americana documentary.',
+        'Taylor told Rolling Stone she picked a high school, full of social events that can leave someone feeling alienated, as the stand-in for politics — written around the period covered by the Miss Americana documentary.',
       themes: ['political awakening', 'disillusionment', 'american pageantry'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Miss_Americana_%26_the_Heartbreak_Prince',
       sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          source_title: 'Taylor Swift: The Rolling Stone Interview',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor on writing "Miss Americana & the Heartbreak Prince" after the midterm elections, and on "Daylight" nearly being the title track',
+        },
         wiki(
           'Miss Americana & the Heartbreak Prince',
           'Miss_Americana_%26_the_Heartbreak_Prince',
@@ -385,6 +553,45 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Lover's high-school protest song. Swift told Rolling Stone in September 2019 that she wrote it a couple of months after the midterm elections and wanted to pick a metaphorical place for politics to exist: a traditional American high school, full of social events that could leave someone feeling alienated, where people in the political landscape feel they need to 'huddle up under the bleachers and figure out a plan to make things better.'",
+          "Variety's Chris Willman wrote in August 2019 that the song 'feels like the great protest song this generation has needed', and that it works partly because it is cloaked in metaphor, which is unusual for Swift's more literal songwriting."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said she used a high school as the metaphor for politics, and that it was written a couple of months after the midterm elections (Rolling Stone, September 2019).",
+            "When the interviewer suggested her Fall Out Boy fandom had slipped into the title, she said she loves the band, that their songwriting influenced her lyrically maybe more than anyone else, and that they take a phrase and twist it. She did not spell out the title's source in that exchange."
+          ],
+          supported: [
+            "Willman heard echoes of 'You Belong With Me' in the cheerleader sound and the anti-fight-song chorus, and described the song as deeply sad beneath its shiny, tense surface. That is a critic's reading, not Swift's account."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:you-belong-with-me",
+            label: "You Belong With Me",
+            why: "Variety's Chris Willman heard unmistakable, probably intentional echoes of that earlier high-school song."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In The Rolling Stone Interview, September 2019",
+            note: "She said she picked a traditional American high school as the place to put politics, because it is full of events that can leave someone feeling completely alienated."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Taylor Swift's 'Miss Americana' May Be the Great Protest Song of Our Time (Column) - Variety",
+            url: "https://variety.com/2019/music/opinion/taylor-swift-miss-americana-heartbreak-prince-opinion-1203317552/"
+          }
+        ]
+      },
     },
     {
       slug: 'paper-rings',
@@ -402,6 +609,54 @@ const ERA = {
       themes: ['joyful commitment', 'substance over ceremony', 'giddiness'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Paper_Rings',
       sources: [wiki('Paper Rings', 'Paper_Rings', 'song article: composition'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "The clearest case of the template Swift set for part of Lover: imagining she was a wedding band at a reception, playing the love songs the couple wanted to hear in 1978 or so. At a Lover Secret Session in August 2019 she said she and Jack Antonoff basically wrote it together, and that Antonoff can be heard counting in the chorus because they wanted so much to sound like a wedding band.",
+          "She told Rolling Stone in September 2019 that for songs like 'Paper Rings' and 'Lover' she imagined a wedding-reception band in the Seventies, which could not play instruments that had not been invented yet."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift described the whole song at the Secret Session as reminiscing on fun memories, with a chorus built on the idea that if you really love someone you do not care what the ring looks like (iHeartRadio, August 2019).",
+            "She said the bridge was inspired by punk girl groups and the way they used to shout their singing in an unapologetic way (same session).",
+            "In her Rolling Stone interview, she said she sometimes imagines where songs would be played, and for this one she pictured a wedding-reception band (September 2019)."
+          ]
+        },
+        live: [
+          {
+            date: "June 23, 2023",
+            event: "The Eras Tour, Minneapolis",
+            note: "Deadline's list of Eras Tour surprise songs gives 'Paper Rings' and 'If This Was a Movie' as the pair for this night."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:lover",
+            label: "Lover",
+            why: "Swift told Rolling Stone she imagined the same wedding-reception band for both songs."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "At a Lover Secret Session, as published by iHeartRadio in August 2019",
+            note: "She said that part of her template for the album was imagining herself as a wedding band playing the love songs the bride and groom wanted to hear."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Shares Intimate Details of 'Lover' Songs During Secret Session - iHeartRadio",
+            url: "https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/"
+          },
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "All The Surprise Songs Taylor Swift Played On Her Eras Tour - Deadline",
+            url: "https://deadline.com/feature/taylor-swift-surprise-songs-eras-tour-1235928594/"
+          }
+        ]
+      },
     },
     {
       slug: 'cornelia-street',
@@ -412,11 +667,11 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'Solo-written and named for the real West Village street where she rented a townhouse — the address that would become unlivable if this love ever died.',
+      note: 'Solo-written and named for a real West Village street — a place that would become unlivable if this love ever died.',
       summary:
-        'Memory pinned to geography: if it ends, the whole street gets amputated from her map. Fans treat the actual Cornelia Street as a pilgrimage site because of it.',
+        'Memory pinned to geography: if it ends, the whole street gets amputated from her map.',
       inspiration:
-        'Literal, not metaphorical: Swift rented a townhouse on the real Cornelia Street in the West Village in 2016 (while her own TriBeCa home was renovated), documented by NYC property reporting. The romantic subject is read as her relationship’s early days but is not tied to a named person on the record.',
+        'Literal, not metaphorical: the title names a real street in New York’s West Village, where Taylor spent time in 2016. Taylor has not tied the romantic subject to a named person on the record.',
       themes: ['memory and place', 'fear of loss', 'superstition'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Cornelia_Street',
       sources: [
@@ -481,14 +736,51 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'A breakup song written inside a happy relationship — confirmed to be inspired by the Netflix rom-com Someone Great, closing a strange creative loop.',
+      note: 'Taylor said the song was inspired by the Netflix romantic comedy Someone Great, whose director says the film was itself shaped by Swift’s 1989 — a loop Taylor called "the most meta thing that’s ever happened to me."',
       summary:
-        'An imagined heartbreak felt in a hundred small places at once. Swift confirmed the film Someone Great sparked it — whose writer-director had partly drawn on Swift’s own catalog, making it a documented inspiration boomerang.',
+        'A breakup song written from the dynamics of fictional characters. Taylor said the film Someone Great sparked it, and the film’s writer-director has said she drew on Taylor’s own catalog, making it a documented inspiration boomerang.',
       inspiration:
-        'Confirmed: Swift cited the film Someone Great; director Jennifer Kaytin Robinson has discussed the mutual-influence loop publicly.',
+        'Swift cited the film Someone Great; director Jennifer Kaytin Robinson has discussed the mutual-influence loop publicly.',
       themes: ['imagined grief', 'art feeding art', 'a city full of reminders'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Billboard reported that 'Death by a Thousand Cuts' was inspired not by one of Swift's own public breakups but by a film. E! News reported that Swift described crying at Someone Great, then waking up from dreams for about a week in which she was living out its scenario, with lyrics in her head 'based on the dynamics of these characters.'",
+          "The song closes a loop between two artists. Billboard reported that the film's writer-director, Jennifer Kaytin Robinson, said on Instagram that Someone Great would not have existed without 1989, and Swift told radio host Elvis Duran: 'I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that's ever happened to me.'",
+        ],
+        meaning: {
+          confirmed: [
+            "Speaking to Elvis Duran's iHeartRadio morning show on August 23, 2019, Swift said: 'I watched this movie on Netflix called Someone Great.' She added that she cried watching it, and that she 'went in the studio with Jack Antonoff' with lyrics 'based on the dynamics of these characters.'",
+            "She described the film as one about a woman who must end a relationship she did not want to end because the couple 'just grew apart and he's not a jerk', adding: 'time passed and now we're different people and that is the most devastating thing.'",
+          ],
+          supported: [
+            "Robinson posted on Instagram (as quoted by Billboard) that she had been 'listening to Taylor's music since her very first album', and that in 2014 the album 1989 'was there like a best friend with a bottle of tequila and a bear hug' while she was heartbroken, naming 'Clean' as the song that comforted her and inspired Someone Great.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: "Interview with Elvis Duran, iHeartRadio, August 23, 2019",
+            note: "Said she finds it 'highly inspiring' when people, especially women, make art that inspires other art, and that Someone Great made her cry.",
+          },
+          {
+            who: 'Jennifer Kaytin Robinson',
+            context: 'Writer-director of Someone Great, Instagram post, August 2019',
+            note: "Said she had heard rumors the song was inspired by her film and confirmed it was true, calling it a 'full circle situation.'",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Calls Rom-Com Inspiration Behind 'Lover' Song the 'Most Meta Thing That's Ever Happened to Me' - Billboard",
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-death-by-a-thousand-cuts-netflix-movie-someone-great-8528260/',
+          },
+          {
+            name: "Taylor Swift Explains How Netflix's Someone Great Inspired \"Death By a Thousand Cuts\" - E! News",
+            url: 'https://www.eonline.com/news/1067502/taylor-swift-explains-how-netflix-s-someone-great-inspired-death-by-a-thousand-cuts',
+          },
+        ],
+      },
     },
     {
       slug: 'london-boy',
@@ -499,17 +791,49 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Cautious Clay', 'Sounwave'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Sounwave'],
-      note: 'The tourist-map valentine to a British partner’s city — opening with an Idris Elba clip from the James Corden show, and cheerfully mispricing London geography per every British fan ever.',
+      note: 'Lover’s England-themed song, which opens with a clip of Idris Elba from a 2017 appearance on The Late Late Show with James Corden.',
       summary:
-        'An American falls for the whole kit: pubs, rugby screenings, high tea with the lads. The affectionate geographic chaos (Camden to Brixton like it is one stroll) became its own beloved joke.',
-      inspiration:
-        'The Elba voice clip and the Cautious Clay interpolation are both in the official credits; the subject’s nationality made the reading self-evident and fans ran the borough-hopping audit for sport.',
+        'An American narrator falls for the whole kit: pubs, rugby screenings, high tea. Critics split on the joke — Billboard heard cheeky joy, Pitchfork a parade of clichés.',
+      inspiration: null,
       themes: ['loving someone’s world', 'anglophilia', 'playful devotion'],
       sourceUrl: 'https://en.wikipedia.org/wiki/London_Boy_(song)',
       sources: [
         wiki('London Boy (song)', 'London_Boy_(song)', 'song article: samples and reception'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "'London Boy' is Lover's England-themed song (Pitchfork's phrase). Billboard's Jason Lipshutz described it as 'an homage to a transatlantic romance' that 'bursts with cheeky joy', and ranked it last of the album's 18 tracks in his critic's picks, calling it 'knowingly silly'.",
+          "Its cold open is a sample of actor Idris Elba speaking on The Late Late Show with James Corden in 2017.",
+        ],
+        meaning: {
+          supported: [
+            "Mashable's Rachel Thompson reported that the song's opening is a snippet of Elba, Swift's co-star in the film Cats, from his 2017 Late Late Show appearance. In it he describes how he auctioned a Valentine's Day date with himself on the site Omaze, raising $750,000, and says of the winner: 'We can go driving on my scooter.'",
+            "Pitchfork's Anna Gaca called the song 'perky' and 'England-themed' and wrote that it 'devolves into a parade of rugby and high tea', while noting that she could 'only imagine what it sounds like to a Brit'. Lipshutz wrote that it 'never quite pulls off its premise' but is 'entertaining enough as an indulgence'. These are critics' opinions of the song, not Swift's account of it.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Idris Elba',
+            context: 'The Late Late Show with James Corden, 2017 (the clip Swift sampled)',
+            note: "Talked about the Valentine's Day date with himself that he auctioned on Omaze, saying that he and the winner could go 'driving on my scooter'.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'London Boy' features Idris Elba talking to James Corden - Mashable",
+            url: 'https://mashable.com/video/taylor-swift-london-boy-idris-elba',
+          },
+          {
+            name: "Every Song Ranked on Taylor Swift's 'Lover': Critic's Picks - Billboard",
+            url: 'https://www.billboard.com/music/pop/taylor-swift-lover-tracks-ranked-8528254/',
+          },
+          {
+            name: 'Taylor Swift: Lover - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-lover/',
+          },
+        ],
+      },
     },
     {
       slug: 'soon-youll-get-better',
@@ -520,17 +844,76 @@ const ERA = {
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The Dixie Chicks collaboration about her mother’s cancer — a song Taylor said the family debated even releasing, and one she almost never performs.',
+      note: 'The Dixie Chicks collaboration about a loved one’s illness — a song Taylor performs only rarely.',
       summary:
-        'Written amid Andrea Swift’s cancer treatment: hospital waiting rooms, bargaining with God, and the childlike refrain that has to be true because the alternative is unthinkable.',
+        'A song about a loved one’s illness: hospital waiting rooms, bargaining with God, and the childlike refrain that has to be true because the alternative is unthinkable.',
       inspiration:
-        'Confirmed: about her mother’s illness; Swift said the decision to include it was a family conversation, and its rare performances are documented as exceptional events.',
-      themes: ['a parent’s illness', 'bargaining', 'helpless love'],
+        'Taylor has framed it as a song about a loved one’s illness; its rare live performances are documented as exceptional events.',
+      themes: ['a loved one’s illness', 'bargaining', 'helpless love'],
       sourceUrl: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better",
       sources: [
         wiki("Soon You'll Get Better", "Soon_You'll_Get_Better", 'song article: family background'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The most personal song on Lover, and one Swift said was a family decision to include. In a YouTube Live with fans the night before the album came out (as Elle reported), she said it was really, really hard to write, that songs like that may be hard to write and sing because they are really true, and that she cannot sing it and finds it hard to deal with emotionally.",
+          "Rolling Stone described it as a stripped-down track that Swift wrote about her mother and her continued battle with cancer, co-written and co-produced with Jack Antonoff, with the Dixie Chicks, now the Chicks, adding harmonies."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift said in the YouTube Live that it was 'really, really hard to write', that putting it on the album was a family decision, and that she is proud of it.",
+            "Rolling Stone quoted Swift's earlier writing in Elle that she has had to learn how to handle serious illness in her family. In her own Elle essay, '30 Things I Learned Before Turning 30' (March 2019), Swift wrote that both of her parents have had cancer and that her mother was fighting it again. That is her own disclosure, and the song's subject is as she has described it."
+          ],
+          supported: [
+            "Rolling Stone reported that the instrumentation is two guitars and Martie Maguire's fiddle, that the Chicks' parts are harmonies on the chorus, and that Natalie Maines' voice echoes Swift's in the bridge.",
+            "Vulture heard it as a return to the intimate disclosure of Swift's early records, and noted that as a preteen she shopped a demo on Music Row that included a Chicks cover. That is the outlet's framing, not Swift's."
+          ]
+        },
+        live: [
+          {
+            date: "April 18, 2020",
+            event: "One World: Together at Home",
+            note: "Billboard reported Swift performed the song live for the first time on the televised benefit, seated at a piano."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:the-best-day",
+            label: "The Best Day",
+            why: "Elle noted that Swift first released a song about her mother on Fearless with this one, and framed 'Soon You'll Get Better' as the later song on the same relationship."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "In a YouTube Live with fans the night before Lover's release, as quoted by Elle",
+            note: "She said songs this hard to write may be hard to sing precisely because they are true, and that the family decided together to put it on the album."
+          }
+        ],
+        sources: [
+          {
+            name: "30 Things I Learned Before Turning 30 - Elle",
+            url: "https://www.elle.com/culture/celebrities/a26628467/taylor-swift-30th-birthday-lessons/"
+          },
+          {
+            name: "Taylor Swift's 'Soon You'll Get Better' Lyrics Reveal the Struggle of Watching Her Parents Battle Cancer - Elle",
+            url: "https://www.elle.com/culture/music/a28787408/taylor-swift-soon-you-get-better-lyrics-meaning-mom/"
+          },
+          {
+            name: "Hear Taylor Swift, Dixie Chicks Team for Heartfelt Song 'Soon You'll Get Better' - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/taylor-swift-dixie-chicks-soon-youll-get-better-song-listen-875304/"
+          },
+          {
+            name: "Taylor Swift Sings Heart-Rending 'Soon You'll Get Better' During 'One World' Concert: Watch - Billboard",
+            url: "https://www.billboard.com/music/music-news/one-taylor-swift-soon-youll-get-better-world-togher-at-home-concert-9361327/"
+          },
+          {
+            name: "Taylor Swift and the Dixie Chicks Come Full Circle on the Devastating 'Soon You'll Get Better' - Vulture",
+            url: "https://www.vulture.com/2019/08/taylor-swift-dixie-chicks-soon-youll-get-better-review.html"
+          }
+        ]
+      },
     },
     {
       slug: 'false-god',
@@ -563,12 +946,21 @@ const ERA = {
       summary:
         'Three verses of de-escalation: internet haters, anti-LGBTQ protesters, and women pitted against each other all get the same advice. The celebrity-packed video closed with a documented policy ask.',
       inspiration:
-        'Confirmed advocacy: released during Pride 2019 with an Equality Act petition; the video’s Katy Perry reconciliation cameo formally buried the Bad Blood-era feud.',
+        'Advocacy tie-in: released during Pride 2019, after she introduced an Equality Act petition on June 1, alongside a celebrity-packed video.',
       themes: ['allyship', 'anti-harassment', 'solidarity'],
       easterEggs:
-        'The burger-and-fries hug is the official end of the Bad Blood storyline — feud opened and closed inside two videos.',
+        'The video is packed with celebrity cameos that fans itemized frame by frame.',
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down',
       sources: [
+        {
+          source_url: 'https://www.vogue.com/article/taylor-swift-cover-september-2019',
+          source_title: 'Taylor Swift on Sexism, Scrutiny, and Standing Up for Herself',
+          publisher: 'Vogue',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor Swift\'s September 2019 cover story: the June 1 Equality Act petition and the "You Need to Calm Down" video',
+        },
         wiki('You Need to Calm Down', 'You_Need_to_Calm_Down', 'song article: advocacy and video'),
         ALBUM,
       ],
@@ -665,7 +1057,7 @@ const ERA = {
       summary:
         'Anxiety torched something good and she claims the arson: an accountability ballad asking the other person to stay inside the glow while she fixes what she broke.',
       inspiration:
-        'Subject unconfirmed — popularly read as an apology to her partner at the time, but Swift has never named it on the record. The song’s documented distinction is its production: the only Lover track built by the Louis Bell / Frank Dukes team rather than the album’s Antonoff / Joel Little core.',
+        'Taylor has never named a subject on the record. The song’s documented distinction is its production: the only Lover track built by the Louis Bell / Frank Dukes team rather than the album’s Antonoff / Joel Little core.',
       themes: ['accountability', 'anxiety in love', 'repair'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
       sources: [ALBUM],
@@ -764,12 +1156,30 @@ const ERA = {
       summary:
         'The era-closing thesis: real love is not golden drama or red intensity but ordinary daylight. Ends with a spoken vow to be defined by what she loves, not what she hates — the line the whole album walks toward.',
       inspiration:
-        'Confirmed: Swift said Daylight was a candidate album title before Lover won; the closing monologue was written as the record’s mission statement.',
+        'Taylor told Rolling Stone that Daylight almost became the title track and that she had referred to the album as Daylight for a while before choosing Lover; she has described the song as a response to the reputation era, which she likened to a very long night of storms.',
       themes: ['revised definitions of love', 'peace', 'self-definition'],
       easterEggs:
         'The burning-red correction is a direct, deliberate callback to the Red title track — her catalog editing itself in real time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Daylight_(Taylor_Swift_song)',
       sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          source_title: 'Taylor Swift: The Rolling Stone Interview',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 5,
+          notes: 'Taylor on "Daylight" nearly being the title track and having referred to the album as Daylight for a while',
+        },
+        {
+          source_url: 'https://www.iheart.com/content/2019-08-23-taylor-swift-shares-intimate-details-of-lover-songs-during-secret-session/',
+          source_title: 'Taylor Swift Shares Intimate Details of \'Lover\' Songs During Secret Session',
+          publisher: 'iHeart',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          notes: 'Taylor\'s Lover Secret Session remarks, including that she wrote "Daylight" after the long night of the reputation era',
+        },
         wiki(
           'Daylight (Taylor Swift song)',
           'Daylight_(Taylor_Swift_song)',
@@ -777,6 +1187,51 @@ const ERA = {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The closer that nearly gave Lover its name. Swift told Rolling Stone in 2019 that the song 'almost' became the title track: she had been referring to the album as Daylight in her head for a while, and decided it might be too sentimental and too on-the-nose.",
+          "Vulture, in its Lover review, heard the album as daybreak after reputation's dark night, and noted that Swift told fans in a chat the night before release that the record was nearly named after its closer."
+        ],
+        meaning: {
+          confirmed: [
+            "Asked by Rolling Stone why the song was not the title track, Swift agreed it 'almost was', and said she thought the name was a little too sentimental and 'way too on-the-nose.'",
+            "She said she chose Lover because it was a more interesting title, 'a more accurate theme' in her head, and 'more elastic as a concept.'",
+            "Asked about the lyric on crossing lines unforgiven, she told Rolling Stone it is something that bothers her, looking back: that no matter what you screw things up, and that some people who were in your life are not anymore, with nothing you can do to fix it."
+          ],
+          supported: [
+            "Vulture's contrast between the dark mood of reputation and the daybreak of Lover is a critic's framing of where the album sits in her catalog."
+          ]
+        },
+        connections: [
+          {
+            relatedId: "song:lover",
+            label: "Lover",
+            why: "Swift told Rolling Stone she chose this song's title over 'Daylight' for the album because it was more elastic as a concept."
+          },
+          {
+            relatedId: "song:you-need-to-calm-down",
+            label: "You Need to Calm Down",
+            why: "In the same Rolling Stone answer, Swift said the Lover title works as a theme broad enough to hold songs like this one, which addresses people not being allowed to live without discrimination for who they love."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "The Rolling Stone interview, September 2019",
+            note: "She said she had thought of the album as 'Daylight' for a while, then found 'Lover' a more interesting and more elastic title."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "The Old Taylor Is Back on Lover and the Best She's Been in Years - Vulture",
+            url: "https://www.vulture.com/2019/08/taylor-swift-lover-album-review.html"
+          }
+        ]
+      },
     },
   ],
 };

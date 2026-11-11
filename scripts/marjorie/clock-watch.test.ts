@@ -38,7 +38,16 @@ describe('shared clock gap verdict', () => {
     const belowThreshold = gapVerdict({ runs: runs.slice(1), now: NOW, since: SINCE });
     expect(belowThreshold.alert).toBe(false);
     expect(clockRecoveryBody(belowThreshold, NOW)).toContain('2026-09-14T14:00:00.000Z');
-    expect(gapVerdict({ runs: runs.slice(2), now: NOW, since: SINCE })).toMatchObject({ alert: true, missed: ['2026-09-14T14:00:00.000Z', '2026-09-14T14:05:00.000Z'] });
+    expect(gapVerdict({ runs: runs.slice(0, 9), now: NOW, since: SINCE })).toMatchObject({ alert: true, missed: ['2026-09-14T14:45:00.000Z', '2026-09-14T14:50:00.000Z'] });
+  });
+  it('a recovered two-slot gap does not alert; a still-open gap and a sustained outage do', () => {
+    const recovered = gapVerdict({ runs: runs.slice(2), now: NOW, since: SINCE });
+    expect(recovered).toMatchObject({ alert: false, missed: ['2026-09-14T14:00:00.000Z', '2026-09-14T14:05:00.000Z'] });
+    expect(clockRecoveryBody(recovered, NOW)).toContain('2026-09-14T14:05:00.000Z');
+    const stillBroken = runs.filter((_, i) => i < 4 || i > 8);
+    expect(gapVerdict({ runs: stillBroken, now: NOW, since: SINCE })).toMatchObject({ alert: false });
+    expect(gapVerdict({ runs: runs.filter((_, i) => i < 8), now: NOW, since: SINCE })).toMatchObject({ alert: true });
+    expect(gapVerdict({ runs: [], now: NOW, since: SINCE })).toMatchObject({ alert: true, checked: 11 });
   });
   it('waits through activation grace and slot settling, and rejects invalid/future since', () => {
     expect(gapVerdict({ runs: [], now: NOW, since: '2026-09-14T14:40:00Z' })).toMatchObject({ checked: 0, alert: false });

@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { isExpoPushToken, sendPushBatch, type PushSendInput } from './notification-sender';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import {
+  isExpoPushToken,
+  sendPushBatch,
+  writeDispatchHeartbeat,
+  type PushSendInput,
+} from './notification-sender';
 
 function input(overrides: Partial<PushSendInput> = {}): PushSendInput {
   return {
@@ -35,7 +41,61 @@ describe('isExpoPushToken', () => {
   });
 });
 
+describe('writeDispatchHeartbeat', () => {
+  it('upserts the watchdog key with the run timestamp', async () => {
+    const upsert = vi.fn().mockResolvedValue({ error: null });
+    const db = { from: vi.fn(() => ({ upsert })) } as unknown as SupabaseClient;
+    const now = new Date('2026-10-15T18:00:00.000Z');
+
+    await expect(writeDispatchHeartbeat(db, now)).resolves.toEqual({ written: true });
+    expect(upsert).toHaveBeenCalledWith(
+      { name: 'dispatch_heartbeat', enabled: true, updated_at: now.toISOString() },
+      { onConflict: 'name' },
+    );
+  });
+
+  it('reports a failed heartbeat write without throwing', async () => {
+    const db = {
+      from: vi.fn(() => ({
+        upsert: vi.fn().mockResolvedValue({ error: { message: 'read only' } }),
+      })),
+    } as unknown as SupabaseClient;
+
+    await expect(writeDispatchHeartbeat(db)).resolves.toEqual({
+      written: false,
+      reason: 'read only',
+    });
+  });
+});
+
 describe('sendPushBatch (native via Expo)', () => {
+  it('stops the second batch when PUSH_FREEZE turns on between batches', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(200, { data: [{ status: 'ok' }] }));
+    vi.stubGlobal('fetch', fetchMock);
+    const switchValues = [false, true];
+    let reads = 0;
+    const db = {
+      from: vi.fn(() => ({
+        select: () => ({
+          eq: () => ({
+            maybeSingle: async () => ({
+              data: { enabled: switchValues[reads++] },
+              error: null,
+            }),
+          }),
+        }),
+      })),
+    } as unknown as SupabaseClient;
+    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+    const first = await sendPushBatch([input()], db);
+    const second = await sendPushBatch([input()], db);
+
+    expect(first[0]).toMatchObject({ ok: true });
+    expect(second[0]).toMatchObject({ ok: false, error: 'PUSH_FREEZE is on' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('sends ios + android in one Expo request and maps tickets back in order', async () => {
     const fetchMock = vi.fn().mockResolvedValue(
       jsonResponse(200, {

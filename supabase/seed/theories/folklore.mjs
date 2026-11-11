@@ -34,7 +34,19 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'debunked',
       relatedSlugs: ['evermore:thirteen-backwards'],
-      sources: [wiki('Evermore_(Taylor_Swift_album)', 'Evermore (Taylor Swift album)', 'the Woodvale codename accident and her explanation are documented in the album article')],
+      sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-jimmy-kimmel-live-folklore-evermore-1104051/',
+          source_title: "Taylor Swift Debunks 'Woodvale' Third Album Theory on 'Kimmel'",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            'Taylor explains on Kimmel that Woodvale was the working title for folklore, left on an album-art mockup by mistake. Replaces the Evermore Wikipedia article, which only lists this piece in its references (re-checked 2026-10-09; debunk stands).',
+        },
+      ],
     },
     {
       slug: 'teenage-love-triangle',

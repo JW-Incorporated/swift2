@@ -17,11 +17,12 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { useAppState, useAppActions } from '../store';
-import { getEra } from '@swift2/experience';
+import { getEra, routeAuthor, type PersonaSlug } from '@swift2/experience';
 import { releasedFactValue, trackKey } from '@swift2/experience';
 import { resolvedTrackVideo } from '../lib/track-video';
 import { MomentVideo } from '../era/MomentVideo';
 import { OverlayNav } from '../era/OverlayNav';
+import { Byline } from '../legal/Byline';
 import { TrackFiveCallout } from '../era/TrackFivePill';
 import { eraStyle } from '../lib/theme';
 import { formatFullDate } from '@swift2/experience';
@@ -236,6 +237,7 @@ export function TrackDetail() {
         <h1 className="mt-2 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight sm:text-5xl">
           {track.title}
         </h1>
+        <Byline author={routeAuthor({ surface: 'track_note' }) as PersonaSlug} className="mt-3" />
         <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
           {track.note}
         </p>

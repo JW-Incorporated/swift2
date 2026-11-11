@@ -296,6 +296,23 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     expect(dead.lastError).toContain('403');
   });
 
+  it('stamps failedAt, attempts and a redacted lastError on the failed record, and leaves posted/ untouched', async () => {
+    stubFetch({ ok: false, status: 403, body: { detail: 'Forbidden', type: 'https://api.x.com/2/problems?access_token=abc123', oauth_token: 'tok-999' } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 2 }));
+
+    await runPoster();
+
+    const dead = JSON.parse(await readFile(path.join(root, 'social', 'failed', 'a-x.json'), 'utf-8'));
+    expect(Number.isNaN(Date.parse(dead.failedAt))).toBe(false);
+    expect(dead.attempts).toBe(3);
+    expect(dead.lastError).toContain('403');
+    expect(dead.lastError.length).toBeLessThanOrEqual(200);
+    for (const field of [dead.lastError, dead.failureReason]) {
+      expect(field).not.toMatch(/https?:|abc123|tok-999/);
+    }
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
   it('stays green while an X post still has retries left, but reports the attempt', async () => {
     stubFetch({ ok: false, status: 429, body: { detail: 'Too Many Requests' } });
     await seedQueueItem('a-x.json', xItem({ attempts: 0 }));
@@ -309,6 +326,19 @@ describe('post-queue: a failed X post is reported, never swallowed', () => {
     expect(report).toContain('a-x.json');
     // Still queued for the next run.
     expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('writes a redacted, capped lastError back into the queue file on a retry (queue files reach the public main)', async () => {
+    stubFetch({ ok: false, status: 429, body: { detail: 'Too Many Requests', type: 'https://api.x.com/2/problems?access_token=abc123', oauth_consumer_key: 'ck-999', pad: 'p'.repeat(400) } });
+    await seedQueueItem('a-x.json', xItem({ attempts: 0 }));
+
+    await runPoster();
+
+    const queued = JSON.parse(await readFile(path.join(root, 'social', 'queue', 'a-x.json'), 'utf-8'));
+    expect(queued.attempts).toBe(1);
+    expect(queued.lastError).toContain('429');
+    expect(queued.lastError.length).toBeLessThanOrEqual(200);
+    expect(queued.lastError).not.toMatch(/https?:|abc123|ck-999/);
   });
 
   it('reports an X item with too many images as failed rather than posting a subset', async () => {
@@ -414,6 +444,82 @@ describe('post-queue: every other route into social/failed/ also reddens the run
     expect(spy).not.toHaveBeenCalled(); // never attempted — straight to failed/
     expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
     expect(await readFile(reportPath, 'utf-8')).toContain('PERMANENTLY FAILED');
+  });
+
+  it('a stale item that already has a posted record is left in the queue, never moved to failed/ (stuck fold-back, not a failed post)', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'a-x.json'),
+      JSON.stringify({ platform: 'x', body: item.body, campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://x.com/i/status/1' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0].kind).toBe('skipped');
+    expect(outcomes[0].error).toContain('already posted');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual([]);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('a stale item whose same-named posted record is NOT a duplicate (edited and re-approved since) goes to failed/, never posts', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'x-1' } } });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z', campaign: 'edited', body: 'a rewritten caption, re-approved after the first one posted' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'a-x.json'),
+      JSON.stringify({ platform: 'x', body: 'the original caption', campaign: 'original', postedAt: '2026-08-10T19:00:00Z', url: 'https://x.com/i/status/1' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(outcomes[0].error).toContain('48h');
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual([]);
+  });
+
+  it('a stale IG already posted stays a skipped duplicate while its never-posted stale X sibling still goes to failed/', async () => {
+    stubFetch({ ok: true, status: 200, body: {} });
+    const ig = igItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    ig.approval = validApproval(ig, staleApprovedAt());
+    const x = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    x.approval = validApproval(x, staleApprovedAt());
+    await seedQueueItem('a-ig.json', ig);
+    await seedQueueItem('a-x.json', x);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'a-ig.json'),
+      JSON.stringify({ platform: 'instagram', body: ig.body, campaign: 'test', postedAt: '2026-08-10T19:00:00Z', url: 'https://www.instagram.com/p/x' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes.find((o: { file: string }) => o.file === 'a-ig.json')).toMatchObject({ kind: 'skipped' });
+    expect(outcomes.find((o: { file: string }) => o.file === 'a-x.json')).toMatchObject({ kind: 'failed' });
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-ig.json']);
+  });
+
+  it('a stale never-posted item sharing a campaign with a DIFFERENT posted file still goes to failed/', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    const item = xItem({ scheduledAt: '2020-01-01T00:00:00Z' });
+    item.approval = validApproval(item, staleApprovedAt());
+    await seedQueueItem('a-x.json', item);
+    await writeFile(
+      path.join(root, 'social', 'posted', 'other-file.json'),
+      JSON.stringify({ platform: 'x', body: 'something else entirely', campaign: 'test', postedAt: '2026-08-10T19:00:00Z' }, null, 2),
+    );
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'failed', platform: 'x' });
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'failed'))).toEqual(['a-x.json']);
   });
 
   it('a due-but-recently-approved item does NOT retire even though scheduledAt is long past (staleness is measured from approval.at, not scheduledAt)', async () => {
@@ -1222,5 +1328,68 @@ describe('post-queue: refuses to post on a ledger it cannot trust (issue #2031)'
     expect(spy).toHaveBeenCalled();
     expect(JSON.stringify(outcomes)).toMatch(/posted/);
     expect(await readdir(path.join(root, 'social', 'posted'))).toEqual(['a-x.json']);
+  });
+});
+
+// ── P3: the v4 tree-auto stamp is accepted by the poster ONLY with a valid
+// signature, and every other poster guard (SOCIAL_FREEZE, the 48h staleness
+// rule) applies to it exactly as to an owner-approved item. ──────────────────
+describe('post-queue: v4 tree-auto stamps', () => {
+  function treeAuto(item: Record<string, unknown>, at: string = new Date().toISOString(), key: string = TEST_SIGNING_KEY) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at, pr: 1, message: 'run 1', contentHash: contentHash(item), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('posts a due item carrying a correctly signed tree-auto stamp', async () => {
+    stubFetch({ ok: true, status: 200, body: { data: { id: '2086959658460230140' } } });
+    const item = xItem();
+    item.approval = treeAuto(item);
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes[0]).toMatchObject({ kind: 'posted', platform: 'x' });
+  });
+
+  it('refuses a tree-auto stamp signed with a different key, and one whose kind was edited after signing', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const forged = xItem();
+    forged.approval = treeAuto(forged, new Date().toISOString(), 'not-the-real-key');
+    await seedQueueItem('a-x.json', forged);
+    const edited = xItem({ body: 'second post body' });
+    edited.approval = { ...treeAuto(edited), kind: 'tree-auto-2' };
+    await seedQueueItem('b-x.json', edited);
+
+    const outcomes = await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(outcomes.every((o: { kind: string }) => o.kind === 'unapproved')).toBe(true);
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
+  });
+
+  it('SOCIAL_FREEZE still halts a tree-auto-stamped item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: {} });
+    process.env.SOCIAL_FREEZE = 'true';
+    const item = xItem();
+    item.approval = treeAuto(item);
+    await seedQueueItem('a-x.json', item);
+
+    const outcomes = await runPoster();
+
+    expect(outcomes).toEqual([]);
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'queue'))).toEqual(['a-x.json']);
+  });
+
+  it('the 48h staleness rule runs from the stamp time, same as any approved item', async () => {
+    const spy = stubFetch({ ok: true, status: 200, body: { data: { id: 'should-never-post' } } });
+    const item = xItem();
+    item.approval = treeAuto(item, new Date(Date.now() - 49 * 3600 * 1000).toISOString());
+    await seedQueueItem('a-x.json', item);
+
+    await runPoster();
+
+    expect(spy).not.toHaveBeenCalled();
+    expect(await readdir(path.join(root, 'social', 'posted'))).toEqual([]);
   });
 });

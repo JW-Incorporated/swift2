@@ -55,7 +55,9 @@ jobs:
       pull-requests: read
     concurrency:
       group: marjorie-status-render
-      cancel-in-progress: false
+      # A render waiting on the ops environment must not hold this lane forever.
+      # The newest render is authoritative because every run rebuilds from main.
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v7
         with:
@@ -140,8 +142,8 @@ jobs:
         run: node scripts/human-actions/check.mjs
       # Closes entries whose `<!-- ha verify: ... -->` check passes, via the rolling
       # close PR. OPS_FIXER_PAT is used only for the read-only secret-exists and
-      # variable-equals calls; without it they are skipped (the workflow token
-      # cannot read them).
+      # variable-equals calls; without it, or if the gh call fails, they are
+      # skipped with a warning (the workflow token cannot read them).
       - name: Close human actions whose check passes
         env:
           GH_TOKEN: ${{ github.token }}

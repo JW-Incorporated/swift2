@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getDevicePrefs, updateDevicePrefs } from '@swift2/core';
 import {
+  BABY_WATCH_CATEGORY,
   isAnyNotificationCategory,
   isValidCadenceForCategory,
   type DeviceNotificationSettings,
@@ -98,6 +99,9 @@ export function validatePrefsUpdate(
       const { category, cadence } = entry as Record<string, unknown>;
       if (typeof category !== 'string' || !isAnyNotificationCategory(category)) {
         return { ok: false, error: `Unknown category: ${String(category)}.` };
+      }
+      if (category === BABY_WATCH_CATEGORY && process.env.NEXT_PUBLIC_BABY_WATCH_ENABLED !== 'true') {
+        return { ok: false, error: `Unknown category: ${category}.` };
       }
       if (typeof cadence !== 'string' || !isValidCadenceForCategory(category, cadence)) {
         return {

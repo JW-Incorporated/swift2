@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHost, useResolveUrl } from '../../host/context';
 import { useAppActions, useAppState } from '../store';
 import { eraStyle } from '../lib/theme';
@@ -12,14 +12,14 @@ import { TrackGuideBar } from './TrackGuideBar';
 import { EraFeedList } from './EraFeedList';
 import { EraThreadsPivot } from './EraThreadsPivot';
 import { CurrentItemDetail } from './CurrentItemDetail';
+import { ThisWeekNews } from './ThisWeekNews';
 import {
   embeddedYoutubeIds,
   eraKnownVideoIds,
-  mergeEraFeed,
+  mergeEraStreamFeed,
   visibleFeed,
   buildEraStreamViewModel,
   type EraFeedEntry,
-  spaceDoorways,
 } from '@swift2/experience';
 import { useEraCurrentFeed } from '../lib/use-era-current-feed';
 import { feedCardImageHidden } from '../lib/video-affordance';
@@ -62,12 +62,18 @@ export function EraSection({
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide, pushReturnPoint } =
     useAppActions();
   // Stage 5 — live entries + overlay state (use-era-current-feed.ts).
-  const { liveEntries, openCurrentItem, setOpenCurrentItem } = useEraCurrentFeed(
+  const { liveEntries, openCurrentItem, setOpenCurrentItem, nowMs, weekItems } = useEraCurrentFeed(
     era.id,
     era.start,
     era.end,
     currentItems,
   );
+  // Two clocks, on purpose: `nowMs` (use-era-current-feed.ts) sizes the pinned
+  // week-news window; `interleaveNowMs` gates the media-aware video interleave and
+  // stays undefined (pure recency) through SSR and the first client render, so
+  // hydration matches, then is set once on mount.
+  const [interleaveNowMs, setInterleaveNowMs] = useState<number | undefined>(undefined);
+  useEffect(() => setInterleaveNowMs(Date.now()), []);
   // The filter is now global (R2) — one set of six FilterIds, OR-matched,
   // owned by the store and rendered once by FilterBar in EraStream. This
   // section only reads the active set; it no longer owns filter state.
@@ -86,30 +92,28 @@ export function EraSection({
     [q, era.id, embeddedVideoIds],
   );
   // Timeline doorways (PLAN.md P3 steps 13-15): one card per thread present in
-  // this era, one per theory/egg the guide has for it. Built here (not once,
-  // era-wide, elsewhere) because both builders need this era's own
-  // start/end — see doorways.ts for the anchoring rules (including the P3
+  // this era. Egg doorways no longer join the stream (2026-11-03: "Theories &
+  // eggs" lives in Threads). Built here because the builder needs this era's
+  // own start/end — see doorways.ts for the anchoring rules (including the P3
   // step 14a clamp for a thread point that falls outside the era's window).
   const doorwayEntries = useMemo(
-    () => [
-      ...q.threadDoorwaysForEra(era.id, era.start, era.end),
-      ...q.eggDoorwaysForEra(era.id, era.start, era.end),
-    ],
+    () => q.threadDoorwaysForEra(era.id, era.start, era.end),
     [q, era.id, era.start, era.end],
   );
   // Merge EVERY moment, video, doorway and live current-item into one
-  // unfiltered, newest-first feed, space the doorways (spaceDoorways —
-  // 'current' entries pass through untouched), then filter in one pass (R2).
-  // Selection itself lives in packages/experience/src/era-feed.ts (pure +
-  // unit-tested). Computed directly here (not via buildEraStreamViewModel
-  // below) only to get `visible` — the filtered moment list —  which
+  // unfiltered feed (newest-first), space the doorways ('current' entries pass
+  // through untouched), then filter in one pass (R2). The shared merge is
+  // mergeEraStreamFeed (era-stream.ts); selection itself lives in
+  // packages/experience/src/era-feed.ts (pure + unit-tested). Computed directly
+  // here (not via buildEraStreamViewModel below) only to get `visible` — the filtered moment list —  which
   // `imageHiddenIds` needs BEFORE the tier pass; buildEraStreamViewModel
   // then redoes this same, pure, deterministic merge/filter internally to
   // assemble the final render list. This is the OS-032 shared core (see
   // era-stream.ts) — the native renderer calls the same function.
   const mergedFeed = useMemo(
-    () => spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, [...doorwayEntries, ...liveEntries])),
-    [items, videoFeed, era.start, era.end, doorwayEntries, liveEntries],
+    () =>
+      mergeEraStreamFeed({ era: { start: era.start, end: era.end }, items, videoFeed, doorwayEntries, liveEntries, nowMs }),
+    [era.start, era.end, items, videoFeed, doorwayEntries, liveEntries, nowMs],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
   // The filtered feed's moment items — everything downstream that reasons
@@ -162,8 +166,10 @@ export function EraSection({
         liveEntries,
         filters,
         imageHiddenIds,
+        nowMs,
+        interleaveNowMs,
       }),
-    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds],
+    [era, items, videoFeed, doorwayEntries, liveEntries, filters, imageHiddenIds, nowMs, interleaveNowMs],
   );
 
   // A doorway tap (PLAN.md P3 step 16 — Joey: "back should take them right
@@ -237,7 +243,7 @@ export function EraSection({
 
           <h2
             id={`ll-era-heading-${era.id}`}
-            className="font-[family-name:var(--era-font)] text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
+            className="font-[family-name:var(--era-font)] text-balance font-semibold leading-[1.05] tracking-tight text-[length:min(3rem,calc(100vw/7))] sm:text-7xl">
             {era.name}
           </h2>
           {era.lyric ? (
@@ -268,6 +274,8 @@ export function EraSection({
           </div>
         </div>
       </div>
+
+      <ThisWeekNews items={weekItems} filters={filters} onOpen={setOpenCurrentItem} />
 
       {/* Era Secret (#688): the first thing inside every era — one sourced,
           genuinely-obscure fact, so a fan learns something the moment they

@@ -69,6 +69,19 @@ describe('normalizeVideo — appearance kinds', () => {
     expect(normalizeVideo({ ...base, kind: 'talk_show' })?.kind).toBeNull();
   });
 
+  it('accepts a visualizer kind and resolves its embed', () => {
+    const v = normalizeVideo({
+      ...base,
+      kind: 'visualizer',
+      slug: 'opalite-bunt-remix-visualizer',
+      title: 'Opalite (BUNT. Remix) (Visualizer)',
+      releasedOn: '2026-10-15',
+      officialUrl: 'https://www.youtube.com/watch?v=vZJXqv48lIc',
+    });
+    expect(v?.kind).toBe('visualizer');
+    expect(v?.youtubeId).toBe('vZJXqv48lIc');
+  });
+
   it('resolves the embed id for an appearance the same way as for a work', () => {
     const v = normalizeVideo({
       ...base,

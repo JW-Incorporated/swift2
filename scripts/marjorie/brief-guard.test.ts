@@ -9,11 +9,11 @@ const ENV = { GITHUB_REF: BASIC.ref, GITHUB_EVENT_NAME: BASIC.event, GITHUB_REPO
 const run = (over: Record<string, unknown> = {}) => ({ ...CURRENT, id: 10, created_at: '2026-09-14T12:00:00Z', ...over });
 
 describe('brief first-job guard', () => {
-  it('ends a second ordinary run that UTC day, including after a failed/cancelled first run', () => {
-    for (const conclusion of ['success', 'failure', 'cancelled']) expect(briefDecision({ ...BASIC, runs: [run({ conclusion })] })).toEqual({ proceed: false, reason: 'earlier-run' });
-    expect(briefDecision({ ...BASIC, runs: [run({ created_at: '2026-09-13T23:59:59Z' })] }).proceed).toBe(true);
-    expect(briefDecision({ ...BASIC, runs: [run({ id: 21, created_at: CURRENT.created_at })] }).proceed).toBe(true);
-    expect(briefDecision({ ...BASIC, runs: [run({ created_at: CURRENT.created_at })] }).proceed).toBe(false);
+  it('reports an earlier run that UTC day without blocking on it — only delivery blocks (#6020)', () => {
+    for (const conclusion of ['success', 'failure', 'cancelled']) expect(briefDecision({ ...BASIC, runs: [run({ conclusion })] })).toEqual({ proceed: true, reason: 'earlier-run-undelivered' });
+    expect(briefDecision({ ...BASIC, runs: [run({ created_at: '2026-09-13T23:59:59Z' })] })).toEqual({ proceed: true, reason: 'first-run' });
+    expect(briefDecision({ ...BASIC, runs: [run({ id: 21, created_at: CURRENT.created_at })] })).toEqual({ proceed: true, reason: 'first-run' });
+    expect(briefDecision({ ...BASIC, runs: [run({ created_at: CURRENT.created_at })] }).reason).toBe('earlier-run-undelivered');
   });
   it('rejects every rerun before allowing a new boolean main manual force', () => {
     expect(briefDecision({ ...BASIC, delivered: true }).proceed).toBe(false);
@@ -76,6 +76,25 @@ describe('brief first-job guard', () => {
     expect(runGuard('<!-- marjorie-ping date=2026-09-14 msg=1 -->')).toHaveBeenCalledWith('brief guard: already-delivered');
     expect(runGuard('<!-- marjorie-ping date=2026-09-13 msg=1 -->')).toHaveBeenCalledWith('brief guard: first-run');
     expect(runGuard('no stamp')).toHaveBeenCalledWith('brief guard: first-run');
+  });
+  it('recovers the day after an earlier run failed without delivering, and still refuses once it has (#6020)', () => {
+    // 2026-10-16: the 12:00 UTC run died at the turn cap before `deliver`, then
+    // both later runs logged `earlier-run` and the day lost its brief entirely.
+    const earlier = run({ conclusion: 'failure' });
+    const runGuard = (statusBody: string) => {
+      const execImpl = vi.fn((_cmd: string, args: string[]) => {
+        const endpoint = args.at(-1)!;
+        if (endpoint.endsWith('/runs/20')) return JSON.stringify(CURRENT);
+        if (endpoint.includes('/runs?')) return JSON.stringify({ total_count: 2, workflow_runs: [CURRENT, earlier] });
+        if (endpoint.includes('labels=status-page')) return JSON.stringify([{ number: 7, body: statusBody }]);
+        return JSON.stringify([]);
+      });
+      const log = vi.fn();
+      expect(guard({ env: ENV, execImpl, log })).toBe(0);
+      return log;
+    };
+    expect(runGuard('no stamp')).toHaveBeenCalledWith('brief guard: earlier-run-undelivered');
+    expect(runGuard('<!-- marjorie-ping date=2026-09-14 msg=1 -->')).toHaveBeenCalledWith('brief guard: already-delivered');
   });
   it('fails closed on an API error, incomplete run list, or pagination cap; force bypass is read-free', () => {
     for (const execImpl of [() => { throw new Error('private error'); }, (_cmd: string, args: string[]) => JSON.stringify(args.at(-1)?.endsWith('/runs/20') ? CURRENT : { total_count: 101, workflow_runs: [CURRENT] })]) {

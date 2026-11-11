@@ -916,6 +916,7 @@ export default {
       year: 2023,
       month: 5,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st', 'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance'],
       title: 'A brief, rumored month with Matty Healy',
       snippet: 'Reconnecting through mutual friend Jack Antonoff weeks after the Alwyn breakup — studio nights, a Nashville Eras Tour stop, then over by early June.',
       sourceUrl: 'https://www.etonline.com/taylor-swift-and-matty-healys-relationship-timeline-a-look-back-at-their-short-lived-romance-223746',
@@ -1444,7 +1445,10 @@ export default {
       category: 'relationship',
       // Cross-link (Stage 3, 2026-08-10): the celebration kiss after the
       // following season's AFC Championship, a year later.
-      relatedIds: ['moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick'],
+      relatedIds: [
+        'moment:vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick',
+        'moment:vault-ttpd-a-field-kiss-after-the-afc-championship-win',
+      ],
       title: 'A kiss to celebrate the AFC Championship',
       snippet: 'She kissed Travis on the field as Kansas City beat Baltimore to reach a second straight Super Bowl.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-curls-chiefs-ravens-afc-championship-game-1235591057/',
@@ -2239,6 +2243,7 @@ export default {
       month: 1,
       day: 7,
       category: 'fashion',
+      relatedIds: ['moment:vault-ttpd-a-sequined-gucci-set-for-a-masters-buyback-dinner-with-selen'],
       title: 'A sparkling green Gucci gown at the Golden Globes',
       snippet:
         'A custom sparkling green Gucci gown by Sabato de Sarno, paired with green Christian Louboutin pumps and De Beers diamonds — plus a snake-like ring stack fans read as a reputation nod.',
@@ -2541,7 +2546,7 @@ export default {
       day: 27,
       category: 'fashion',
       // Cross-link (Stage 3, 2026-08-10): the "Free People" designer cluster.
-      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se'],
+      relatedIds: ['moment:vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se', 'moment:vault-midnights-a-zodiac-easter-egg-for-joe-alwyn-in-the-lavender-haze-video'],
       title: 'A 70s lace slip dress and Free People fur coat for "Lavender Haze"',
       snippet:
         'A white lace-trimmed slip mini dress under a light-violet Free People "Renata" faux fur coat, styled with shag-inspired bangs, glittery eyeshadow, and glossy pink lips for the self-directed 70s-themed video.',
@@ -2638,6 +2643,9 @@ export default {
       month: 10,
       day: 12,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-midnights-sitting-with-donna-kelce-as-the-relationship-goes-public',
+      ],
       title: 'A Thursday-night Broncos game, one day after the Eras film premiere',
       snippet:
         "Straight off the Eras Tour film's LA premiere, she landed in Kansas City, arrived in a Chiefs zip-up about 45 minutes before kickoff, and was driven by golf cart to a private box to watch with Donna Kelce again.",
@@ -4065,6 +4073,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25).
             url: 'https://www.inquirer.com/resizer/v2/Y5IH6SQ6VVD7JACZSYPDMZ5GW4.jpg?auth=0edda7cec059e02fce2e4d6ff7d1a5d1003350113244e27ee4c8ffe0fc7e28f6&width=760&height=507&smart=true',
+            focalPoint: '62% 36%',
             credit: 'The Philadelphia Inquirer',
             caption: 'Taylor Swift performing at the Eras Tour\'s Lincoln Financial Field opening night, Philadelphia, May 12, 2023 — the same three-show run credited in the Beige Book.',
             kind: 'reference',
@@ -4540,6 +4549,18 @@ export default {
             caption: 'Opening night at the TCL Chinese Theatre in Hollywood — the costumed, dancing audiences that drove the box office.',
             kind: 'archival',
           },
+          // Photo pass 2026-10-23: CC0 Commons photo (14GTR), curl-verified
+          // HTTP 200 image/jpeg (3190x4606), downloaded and vision-confirmed:
+          // a pale-blue appliqué floral gown on a mannequin in a museum case.
+          // The Commons description names it as the gown Swift wore to the film
+          // premiere, on show at the V&A Songbook Trail.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_Songbook_Trail_Eras_Tour_film_premiere_01.jpg',
+            focalPoint: '50% 45%',
+            credit: '14GTR, CC0, via Wikimedia Commons',
+            caption: 'For reference: the Oscar de la Renta gown Taylor wore to the film\'s premiere, displayed in the Taylor Swift Songbook Trail at London\'s V&A.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -4769,6 +4790,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_-_You%27re_Losing_Me.png',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the single artwork
+            // sits in the right half of the frame; her bowed head is upper-right.
+            focalPoint: '72% 45%',
             credit: 'Republic Records',
             caption: 'Artwork for "You\'re Losing Me (From the Vault)," the Midnights bonus track that finally went wide in November 2023.',
             kind: 'primary',
@@ -5045,6 +5069,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the lighter-flame
+            // cover; her face sits upper-right of center. Value matched to the
+            // same image's other seed occurrence so sync dedupe is stable.
+            focalPoint: '54% 45%',
             credit: 'Republic Records',
             caption: 'The lighter-flame cover, shot on film by Beth Garrabrant — the album released Oct. 21, 2022.',
             kind: 'archival',
@@ -5637,6 +5665,7 @@ export default {
       month: 1,
       day: 27,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-70s-lace-slip-dress-and-free-people-fur-coat-for-lavender-'],
       title: 'A zodiac Easter egg for Joe Alwyn in the \'Lavender Haze\' video',
       snippet:
         'When Taylor released the self-directed "Lavender Haze" music video on Jan. 27, 2023, fans spotted a vinyl record cover featuring the Sagittarius and Pisces constellations — her and Alwyn\'s zodiac signs — read as a coded nod to their relationship.',
@@ -5644,6 +5673,15 @@ export default {
       thumbnailUrl: null,
       moment: {
         video: { youtubeId: 'h8DLofLM7No', title: 'Taylor Swift - Lavender Haze (Official Music Video)' },
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/h8DLofLM7No/maxresdefault.jpg',
+            focalPoint: '25% 40%',
+            credit: 'Taylor Swift (official "Lavender Haze" video, YouTube)',
+            caption: 'A frame from the self-directed "Lavender Haze" video on Taylor\'s YouTube, released Jan. 27, 2023.',
+            kind: 'primary',
+          },
+        ],
         context:
           'Part of Taylor\'s pattern of subtle, coded references to Alwyn throughout the Midnights era rather than direct public confirmation.',
         sources: [
@@ -5697,6 +5735,7 @@ export default {
       month: 5,
       day: 16,
       category: 'sighting',
+      relatedIds: ['moment:vault-midnights-a-brief-rumored-month-with-matty-healy', 'moment:vault-midnights-a-quiet-split-from-matty-healy-after-a-brief-romance'],
       title: 'Leaving Electric Lady Studios with Matty Healy and a star-studded crew',
       snippet:
         'Taylor and Matty Healy were seen leaving Electric Lady Studios in New York with a group including Kendrick Lamar, Jack Antonoff, Margaret Qualley, Jerrod Carmichael and Florence Welch, Taylor in an NYU sweatshirt and black skirt.',
@@ -5716,6 +5755,7 @@ export default {
       month: 6,
       day: 5,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-brief-rumored-month-with-matty-healy', 'moment:vault-midnights-leaving-electric-lady-studios-with-matty-healy-and-a-star-st'],
       title: 'A quiet split from Matty Healy after a brief romance',
       snippet:
         'People confirmed Taylor and Matty Healy had broken up in early June 2023, ending weeks of dating speculation that began in May — a source said "she had fun with him" but the relationship was short-lived.',
@@ -5756,6 +5796,9 @@ export default {
       month: 9,
       day: 24,
       category: 'sighting',
+      relatedIds: [
+        'moment:vault-midnights-a-thursday-night-broncos-game-one-day-after-the-eras-film-pr',
+      ],
       title: 'Sitting with Donna Kelce as the relationship goes public',
       snippet:
         'Taylor was seen at Arrowhead Stadium on Sept. 24, 2023, sitting with Donna Kelce as the Chiefs beat the Bears 41-10; after the game she left with Travis Kelce, riding off together — the sighting that made the relationship public.',

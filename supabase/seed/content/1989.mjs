@@ -56,6 +56,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
         'moment:vault-1989-blank-space-flips-the-narrative',
+        // Cross-link (2026-10-08, Vault Run): the Oheka Castle auction — the
+        // château where this song's video was filmed.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       year: 2014,
       month: 11,
@@ -1550,6 +1553,76 @@ export default {
       },
     },
     {
+      // Authored 2026-10-19 (Vault Run, Content Shift lane) from intake #6129.
+      // Placed by event date (announced Dec. 3, 2015 → the 1989 era), not in
+      // the-life-of-a-showgirl as the intake suggested — the date rule wins.
+      // Her letter to Morlot was never published verbatim, so it is paraphrased
+      // here exactly as the orchestra described it; no "hometown orchestra"
+      // is named. The Pulitzer/Grammy history of "Become Ocean" is left out —
+      // not re-verified in this run.
+      slug: '1989-seattle-symphony-become-ocean-donation',
+      year: 2015,
+      month: 12,
+      day: 3,
+      category: 'business',
+      title: 'Moved by "Become Ocean," she sends the Seattle Symphony $50,000',
+      snippet:
+        'After hearing the Seattle Symphony\'s recording of John Luther Adams\'s "Become Ocean," Taylor wrote to its music director and gave $50,000 toward its musicians and its school program.',
+      sourceUrl:
+        'https://www.upi.com/Entertainment_News/2015/12/04/Taylor-Swift-donates-50K-to-Seattle-Symphony-Orchestra/6111449251785/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In the same month the 1989 World Tour wrapped, a donation went somewhere few would have guessed. On Dec. 3, 2015, the Seattle Symphony announced that Taylor had given it $50,000 after listening to its recording of "Become Ocean," the sweeping orchestral piece by composer John Luther Adams. She had written to music director Ludovic Morlot about it, and — as the orchestra told it — reminisced about going to orchestral concerts with her grandmother.\n\nThe gift was earmarked for Link Up, the symphony\'s music-education program for elementary-school students, and for the musicians\' pension fund. Morlot said he was thrilled that the piece had moved her.',
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Seattle_Symphony_Orchestra_on_stage_in_Benaroya_Hall.jpg/1280px-Seattle_Symphony_Orchestra_on_stage_in_Benaroya_Hall.jpg',
+            // 1280x1707 thumb; curl-verified 2026-10-19 HTTP 200 image/jpeg
+            // (510KB) and visually confirmed: the Seattle Symphony seated on
+            // stage at Benaroya Hall (photographed May 2009). Public domain
+            // (PD-self). No photo of Taylor connected to the gift exists.
+            focalPoint: '50% 70%',
+            credit: 'Dcoetzee, public domain, via Wikimedia Commons',
+            caption:
+              'The Seattle Symphony on stage at Benaroya Hall, its home — the orchestra whose "Become Ocean" recording prompted Taylor\'s gift.',
+            kind: 'archival',
+          },
+        ],
+        sources: [
+          {
+            outlet: 'UPI',
+            url: 'https://www.upi.com/Entertainment_News/2015/12/04/Taylor-Swift-donates-50K-to-Seattle-Symphony-Orchestra/6111449251785/',
+            publisher: 'United Press International',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 4,
+            notes:
+              'Dec. 4, 2015. The $50,000 gift after hearing "Become Ocean," earmarked for Link Up and the musicians\' pension fund; Morlot "thrilled."',
+          },
+          {
+            outlet: 'KIRO 7',
+            url: 'https://www.kiro7.com/news/seattle-symphony-receives-large-donation-pop-star-/19109562/',
+            publisher: 'KIRO 7 (Seattle)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 3,
+            notes:
+              'Dec. 3, 2015. Quotes the symphony\'s own announcement posts ("Inspired by our recording of John Luther Adams\' \'Become Ocean\'") and reports her letter to Morlot recalling concerts with her grandmother.',
+          },
+          {
+            outlet: 'New Music USA',
+            url: 'https://newmusicusa.org/nmbx/adamss-become-ocean-inspires-taylor-swift-to-make-50k-gift/',
+            publisher: 'New Music USA',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-19',
+            reliability_score: 3,
+            notes:
+              'Dec. 3, 2015. Corroborates the gift and Morlot\'s reaction (quoting the New York Times).',
+          },
+        ],
+      },
+    },
+    {
       slug: '1989-secret-sessions',
       // Cross-link (vault-run 2026-08-06): the reputation Secret Sessions — the
       // same fan-hosting tradition carried into the next era.
@@ -1646,6 +1719,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
         'moment:vault-1989-blank-space-flips-the-narrative',
+        // Cross-link (2026-10-08, Vault Run): Oheka Castle — the château this
+        // very video was shot at — heads to auction.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       year: 2014,
       month: 11,
@@ -2037,6 +2113,7 @@ export default {
       relatedIds: [
         'moment:vault-red-out-of-the-woods-a-voice-memo-written-to-jack-antonoffs-trac',
         'moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square',
+        'moment:vault-ttpd-a-new-years-eve-kiss-in-kansas-city',
       ],
       year: 2015,
       month: 12,
@@ -2480,6 +2557,9 @@ export default {
         'moment:vault-midnights-slut-turns-out-to-be-a-love-song',
         'moment:vault-1989-blank-space-and-the-joke-half-the-audience-missed',
         'moment:vault-1989-the-blank-space-video-arrives-with-its-own-interactive-app',
+        // Cross-link (2026-10-08, Vault Run): the Oheka Castle auction — the
+        // château that staged this song's video.
+        'moment:vault-tloas-the-blank-space-castle-heads-to-auction-oheka-castle-goes-up',
       ],
       title: "“Blank Space” flips the narrative",
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
@@ -3043,24 +3123,6 @@ export default {
             kind: 'archival',
           },
         ],
-        // Shop pass (2026-07-22): a makeup/SFX look, not a garment --
-        // offering a real zombie SFX kit rather than forcing a clothing
-        // link onto a beauty item.
-        products: [
-          {
-            brand: 'Mehron',
-            item: 'Zombie Professional Makeup Kit',
-            retailer: 'jestpaint.com',
-            url: 'https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez',
-            matchTier: 'unscored',
-            kind: 'beauty',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0030/9316/8186/products/KMP-Z-2__82482.1644251720-NewProfessioalZombiemakeupkit.jpg?v=1654884380',
-            price: '$20.19',
-            isAlternative: true,
-            altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
-            verifiedAt: '2026-09-13T19:02:13.189Z'
-          },
-        ],
       },
     },
     {
@@ -3357,6 +3419,9 @@ export default {
         photos: [
           {
             url: 'https://s.abcnews.com/images/Entertainment/taylor-swift-2-ht-mem-171107_16x9_992.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): downloaded and
+            // viewed — Taylor dancing table-side mid-frame, face center-right.
+            focalPoint: '52% 30%',
             credit: 'ABC News',
             caption: "Inside a reputation Secret Session, from the behind-the-scenes footage ABC aired on November 7, 2017.",
             kind: 'archival',

@@ -1,0 +1,33 @@
+name: news-recall
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: news-recall
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+      - name: Generate inert recall report
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: node scripts/tidewatch/recall.mjs --out .scratch/news-recall.json
+      - name: Upload report
+        uses: actions/upload-artifact@v7
+        with:
+          name: news-recall
+          path: .scratch/news-recall.json
+          if-no-files-found: error

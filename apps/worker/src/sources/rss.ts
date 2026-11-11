@@ -8,6 +8,7 @@
 
 import Parser from 'rss-parser';
 import type { NormalizedNewsItem } from '@swift2/shared/news';
+import { retryOptionsFor, withRetry, type RetryOptions } from './retry';
 import type { NewsSourceRow, SourceAdapter } from './types';
 
 /**
@@ -19,9 +20,13 @@ import type { NewsSourceRow, SourceAdapter } from './types';
 // `author` is declared alongside `source` because naming the Item generic
 // replaces rss-parser's permissive index signature — without it, fields the
 // library does not declare (author among them) stop type-checking.
+export const USER_AGENT =
+  'Swift2KnowledgeEngine/1.0 (+https://longlivets.com; contact via github.com/JW-Incorporated/swift2/issues)';
+
 const parser = new Parser<unknown, { source?: unknown; author?: string }>({
   timeout: 10_000,
   customFields: { item: ['source'] },
+  headers: { 'User-Agent': USER_AGENT },
 });
 
 /**
@@ -50,13 +55,21 @@ export function readPublisher(raw: unknown): { publisher?: string; publisherUrl?
 /** Per-source item cap — config, not a deploy (proposal §6). */
 const MAX_ITEMS_PER_SOURCE = 30;
 
+export function parseFeed(
+  url: string,
+  parse: (url: string) => ReturnType<typeof parser.parseURL> = (u) => parser.parseURL(u),
+  sleep?: RetryOptions['sleep'],
+) {
+  return withRetry(() => parse(url), { ...retryOptionsFor(url), sleep });
+}
+
 export const rssAdapter: SourceAdapter = {
   async fetch(source: NewsSourceRow): Promise<NormalizedNewsItem[]> {
     const url = source.config.url;
     if (typeof url !== 'string' || !url) {
       throw new Error(`rss source "${source.name}" has no config.url`);
     }
-    const feed = await parser.parseURL(url);
+    const feed = await parseFeed(url);
     return (feed.items ?? [])
       .slice(0, MAX_ITEMS_PER_SOURCE)
       .map((item): NormalizedNewsItem => ({

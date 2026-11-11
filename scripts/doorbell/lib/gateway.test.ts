@@ -144,7 +144,7 @@ describe('connectGateway', () => {
     vi.advanceTimersByTime(1);
     expect(quick.sent[1]).toEqual({ op: 1, d: null });
     fast.gw.stop();
-    start();
+    start({ connectTimeoutMs: 1e9 });
     const slow = latest();
     slow.frame({ op: 10, d: { heartbeat_interval: 1e12 } });
     vi.advanceTimersByTime(149_999);

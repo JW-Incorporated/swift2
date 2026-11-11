@@ -51,3 +51,19 @@ export function isBlockedSub(name, config) {
   ];
   return blocked.some((b) => b.toLowerCase() === lower);
 }
+
+/** Groups fetched posts by the community they belong to, dropping blocked/NSFW subs; best feed rank wins per id. */
+export function groupByCommunity(fetched, config) {
+  const groups = new Map();
+  for (const { source, posts } of fetched) {
+    for (const post of posts) {
+      const name = source.kind === 'sub' ? source.sub.name : communityFromPermalink(post.permalink);
+      if (!name || isBlockedSub(name, config)) continue;
+      const group = groups.get(name) ?? new Map();
+      const prior = group.get(post.id);
+      if (!prior || post.rank < prior.rank) group.set(post.id, post);
+      groups.set(name, group);
+    }
+  }
+  return groups;
+}

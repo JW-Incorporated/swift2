@@ -49,6 +49,56 @@ describe('Current-tier row mappers', () => {
     expect(item.redlineOk).toBe(true);
   });
 
+  it('round-trips embed and media_kind on a current_item row', () => {
+    const base = {
+      id: 'ci2',
+      story_id: null,
+      observed_on: '2026-11-08',
+      era_id: 'life-of-a-showgirl',
+      category: 'sighting',
+      tags: [],
+      headline: 'h',
+      summary: 's',
+      detail: 'd',
+      status: 'reported',
+      confidence: 'reputable_reporting',
+      source_tier: 'official',
+      sources: [],
+      location_level: null,
+      image_url: 'https://i.ytimg.com/vi/abc/hqdefault.jpg',
+      social_post: null,
+      symbols: [],
+      entities: [],
+      heat: 1,
+      promoted_to: null,
+      last_checked_on: '2026-11-08',
+      expires_at: '2026-12-08T00:00:00.000Z',
+      updated_at: '2026-11-08T12:00:00.000Z',
+      redline_ok: true,
+      countdown_target_at: null,
+      countdown_resolved_at: null,
+    };
+    const video = mapCurrentItem({
+      ...base,
+      media_kind: 'video',
+      embed: { provider: 'youtube', videoId: 'abc', title: 'T', channelId: 'UC1', verifiedAt: '2026-11-08T12:00:00.000Z', junk: 1 },
+    });
+    expect(video.mediaKind).toBe('video');
+    expect(video.embed).toEqual({
+      provider: 'youtube',
+      videoId: 'abc',
+      title: 'T',
+      channelId: 'UC1',
+      verifiedAt: '2026-11-08T12:00:00.000Z',
+    });
+    const legacy = mapCurrentItem(base);
+    expect(legacy.embed).toBeUndefined();
+    expect(legacy.mediaKind).toBeUndefined();
+    const bad = mapCurrentItem({ ...base, media_kind: 'gif', embed: { provider: 'vimeo', videoId: 'x' } });
+    expect(bad.embed).toBeUndefined();
+    expect(bad.mediaKind).toBeUndefined();
+  });
+
   it('maps a fan_signal row', () => {
     const signal = mapFanSignal({
       id: 'fs1',
@@ -71,6 +121,29 @@ describe('Current-tier row mappers', () => {
     expect(signal.platform).toBe('bluesky');
     expect(signal.currentItemIds).toEqual(['ci1']);
     expect(signal.stanceMix).toEqual({ excited: 30, skeptical: 12 });
+  });
+
+  it('maps live_theory.image_url to imageUrl and omits it when null', () => {
+    const base = {
+      id: 'lt-img',
+      name: 'n',
+      claim: 'c',
+      first_seen_on: '2026-10-20',
+      last_seen_on: '2026-10-20',
+      origin: 'fan',
+      status: 'rumor',
+      outcome: 'pending',
+      evidence_ids: [],
+      symbols: [],
+      heat: 1,
+      resolution: null,
+      promoted_to: null,
+      expires_at: '2026-12-20T00:00:00.000Z',
+    };
+    expect(mapLiveTheory({ ...base, image_url: 'https://www.people.com/p.jpg' }).imageUrl).toBe(
+      'https://www.people.com/p.jpg',
+    );
+    expect(mapLiveTheory({ ...base, image_url: null })).not.toHaveProperty('imageUrl');
   });
 
   it('maps a live_theory row, including resolution when complete', () => {

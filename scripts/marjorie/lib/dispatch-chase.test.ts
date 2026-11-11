@@ -218,6 +218,12 @@ describe('evaluateDispatchChase', () => {
     expect(why).toContain('x'.repeat(89));
   });
 
+  it('includes an ha verify issue-closed line so the chase HA self-closes when its issue closes', () => {
+    const result = plan({ issues: [issue(50, 100)] });
+    const body = renderHumanAction({ number: 1, now: NOW, ...result.humanActions[0] }).body;
+    expect(body).toContain('<!-- ha verify: issue-closed 50 -->');
+  });
+
   it('takes the oldest work first and enforces the 5/2 sweep budget', () => {
     const issues = [
       ...Array.from({ length: 7 }, (_, i) => issue(i + 20, 49 + i)),

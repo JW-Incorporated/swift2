@@ -12,7 +12,7 @@ import { TAG_COLORS } from '../lib/tagBadges';
 import {
   autoFocalPoint,
   focalPointOf,
-  hasRealPrimaryImage,
+  hasDisplayablePhoto,
   isSubConfirmed,
   primaryImageRef,
 } from '@swift2/experience';
@@ -159,7 +159,7 @@ export function MomentCardButton({
     : ({ loading: 'lazy', decoding: 'async' } as const);
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
-  const hero = !hideImage && hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
+  const hero = !hideImage && hasDisplayablePhoto(item) ? primaryImageRef(item) : undefined;
 
   // CHAPTER BREAK — rare (paced out in feed-tiers.ts), full-bleed image,
   // big serif title. Registers as an event specifically because it's rare.

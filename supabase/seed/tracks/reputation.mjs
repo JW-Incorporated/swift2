@@ -57,7 +57,7 @@ const TRACKS = [
           ],
           supported: [
             "Wikipedia's sourced composition summary and multiple outlets describe the lyrics as using criminal and heist imagery — including a bank robbery, holding someone 'for ransom,' and going into hiding together — as metaphors for intense new romantic attraction and desire to escape public scrutiny.",
-            "Several publications, including Songfacts, note the lyric describing her love interest as 'younger than my exes' who nonetheless 'acts like such a man' aligns with Joe Alwyn, who was younger than Swift when they began dating and when the song was released; additional numeric and visual cues in the music video (including birth-year references) are widely cited by press as reinforcing this reading.",
+            "Several publications, including Songfacts, note the lyric describing her love interest as 'younger than my exes' who nonetheless 'acts like such a man' aligns with her new relationship at the time, though Taylor has not named the subject and this guide doesn't name anyone; additional numeric and visual cues in the music video (including birth-year references) are widely cited by press as reinforcing this reading.",
             "Music critics, as summarized on Wikipedia, generally praised the track's anthemic production and considered it a stronger single than 'Look What You Made Me Do,' while some reviews found its sound generic or too aligned with contemporary trap-pop trends of the period.",
             "The Joseph Kahn-directed music video, which depicts a cloaked human Swift battling a robotic double, has been widely interpreted by critics and fans as a visual metaphor for the tension between Swift's authentic self and her public, media-constructed persona during the reputation era."
           ]
@@ -66,7 +66,7 @@ const TRACKS = [
           {
             relatedId: "song:gorgeous",
             label: "Gorgeous",
-            why: "Both songs document the same early-relationship infatuation (read by press as being about Joe Alwyn) — one through crime-thriller intensity, the other through flirtatious comedy."
+            why: "Both songs document the same early-relationship infatuation (read by press as being about her new relationship at the time) — one through crime-thriller intensity, the other through flirtatious comedy."
           },
           {
             relatedId: "song:look-what-you-made-me-do",
@@ -195,6 +195,78 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Swift talked about this song in her 2019 Rolling Stone interview, after the interviewer raised the idea that no one gets through life unscathed. She said it was about doing something so against what she would usually do, after a lifetime of trying to be kind and learning that you can get walked all over.",
+          "It opened the 2018 American Music Awards: Billboard reported it was her first awards-show performance in nearly three years, with Swift atop a stack of dancers in a U-shaped structure, a stage on fire and a giant cobra head rising behind her."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Rolling Stone she has had to reconcile that 'good' complex in the last couple of years: from a kid she tried to be kind and to do the right thing, but sometimes you get walked all over, and you cannot just sit there and let it happen.",
+            "She said 'I Did Something Bad' was about doing something so against what she would usually do."
+          ],
+          supported: [
+            "The New Yorker, reviewing the album in November 2017, described this song as part of a turn in which Swift, once focused on the failures of those around her, now looks inward and revels in a state of sin.",
+            "Vulture's review heard the song as going full 'Maneater', part of Swift's long-awaited heel turn. Billboard's review called the song's dubstep breakdown one of the album's blemishes. Both are critics' judgments rather than statements of intent."
+          ],
+          fanTheories: [
+            "Some fans read the song's 'narcissist' verses as aimed at particular people from the 2016 feuds. None of the sources cited here has Swift confirming a target, and this guide names no one."
+          ]
+        },
+        live: [
+          {
+            date: "October 9, 2018",
+            event: "American Music Awards, Microsoft Theater, Los Angeles",
+            note: "Billboard reported she opened the show with the song, her first awards-show performance in nearly three years."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "The New Yorker contrasted the album's inward turn with the cartoonish revenge drama of its lead single."
+          },
+          {
+            relatedId: "song:dress",
+            label: "Dress",
+            why: "The New Yorker discussed the two in the same passage, describing Swift on the record as a 'baby hedonist' who buys a dress so her lover can take it off."
+          },
+          {
+            relatedId: "song:getaway-car",
+            label: "Getaway Car",
+            why: "The New Yorker cited it in the same passage as a place where Swift is eager to implicate herself rather than point at others."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "The Rolling Stone interview, September 2019",
+            note: "She said she had spent her life trying to be a good person, and that responding to being walked all over is something she has had to work out."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift: The Rolling Stone Interview - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/"
+          },
+          {
+            name: "Taylor Swift Opens 2018 AMAs With Fiery 'I Did Something Bad': Watch - Billboard",
+            url: "https://www.billboard.com/music/awards/2018-amas-taylor-swift-i-did-something-bad-watch-8479115/"
+          },
+          {
+            name: "Taylor Swift's Confessions on \"Reputation\" - The New Yorker",
+            url: "https://www.newyorker.com/magazine/2017/11/27/taylor-swifts-confessions-on-reputation"
+          },
+          {
+            name: "Taylor Swift's Reputation Fixates on Big Enemies and Budding Romance - Vulture",
+            url: "https://www.vulture.com/2017/11/review-taylor-swifts-album-reputation.html"
+          },
+          {
+            name: "Taylor Swift's 'Reputation': The Pop Star Embraces Her Flaws on Her Riskiest Album Yet - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-reputation-album-review-8031184/"
+          }
+        ]
+      },
     },
     {
       slug: 'dont-blame-me',
@@ -316,7 +388,7 @@ const TRACKS = [
       summary:
         'A revenge overture aimed at everyone who wrote her 2016 obituary: the tilted stage, the list of names, the declaration that the old versions of her cannot come to the phone. The Right Said Fred interpolation is why their names sit in the credits.',
       inspiration:
-        'Universally read against the 2016 Kimye phone-call fallout (Swift let the imagery speak rather than confirming specifics); the snake motif reclaimed the emoji flood documented that summer.',
+        'Taylor let the imagery speak rather than naming a target; the snake motif reclaimed the emoji flood documented that summer.',
       themes: ['revenge', 'death of the old self', 'narrative reclamation'],
       easterEggs:
         'The video buries the entire discography: dresses, headlines, and a tombstone-adjacent bathtub of jewels fans have itemized line-by-line since 2017.',
@@ -345,7 +417,7 @@ const TRACKS = [
             "Produced by Swift and Jack Antonoff, the track breaks deliberately from its sing-song verses into a chanted title-hook chorus — the team stripped the vocal down to the repeated title, echoing the 'I'm Too Sexy' cadence — before the spoken 'the old Taylor can't come to the phone right now... she's dead' bridge.",
           ],
           fanTheories: [
-            "Swift never named a target on record — the reputation prologue promised 'no further explanation,' and Antonoff deflected the question to her — so the near-universal read of the song as the 2016 Kanye West / Kim Kardashian / Katy Perry fallout is fan interpretation, not confirmed fact.",
+            "Swift never named a target on record — the reputation prologue promised 'no further explanation,' and Antonoff deflected the question to her — so the near-universal read of the song as being about the 2016 public fallout is fan interpretation, not confirmed fact.",
             "The video is a museum of self-reference: press-confirmed intentional Easter eggs include the 'Nils Sjöberg' tombstone (Swift's real songwriting pseudonym on Calvin Harris's 'This Is What You Came For'), the 'I ❤ TS' crop-tops, and the tower of past-era Taylors reciting old quotes; finer 'receipts' readings are more fan-itemized than documented.",
           ],
         },
@@ -415,14 +487,14 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
       producers: ['Max Martin', 'Shellback'],
       isSingle: true,
-      note: 'The tipsy crush song that opens with a baby saying the title — credited to James, Blake Lively and Ryan Reynolds’ daughter.',
+      note: 'The tipsy crush song that opens with a small child’s voice saying the title.',
       summary:
         'Being furious at someone for being that attractive while she is spoken for: petty, funny, self-incriminating — the album’s lightest confession.',
       inspiration:
-        'The intro voice is confirmed in the credits as one-year-old James Reynolds — the friendship Easter egg that later paid off again in Betty’s character names.',
+        'The intro is a spoken-word child cameo, a friends-and-family touch in the album’s credits.',
       themes: ['inconvenient attraction', 'humor', 'self-sabotage'],
       easterEggs:
-        'The baby-voice credit connects forward to folklore, where James and Inez name the love-triangle characters.',
+        'The child-voice cameo is a small personal touch fans point to as a recurring friends-and-family thread in the catalog.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
       sources: [
         wiki(
@@ -439,12 +511,12 @@ const TRACKS = [
         ],
         meaning: {
           confirmed: [
-            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a sample of James Reynolds, daughter of Blake Lively and Ryan Reynolds, which Swift decided to use after playing them an acoustic demo and the toddler kept repeating the word.",
+            "Swift wrote 'Gorgeous' with producers Max Martin and Shellback for reputation, and the track opens with a recording of a baby saying the word 'gorgeous' — a toddler's voice sample, which Taylor decided to use after playing an acoustic demo and the toddler kept repeating the word.",
             "Big Machine Records released 'Gorgeous' as a promotional single on October 20, 2017, ahead of reputation's release, following 'Look What You Made Me Do' and '...Ready for It?' as the third song issued before the album."
           ],
           supported: [
             "Critics and Wikipedia's composition summary describe the lyrics as a flirtatious, self-deprecating confession to a new love interest — the narrator jokes that his good looks make her miserable and torn, including a self-aware nod to being tempted to stray from a current boyfriend, played for comic exaggeration rather than literal confession.",
-            "Multiple outlets, including Wikipedia's sourced composition notes, connect the song's romantic subject to Swift's real-life relationship with actor Joe Alwyn, framing 'Gorgeous' as an early, tongue-in-cheek document of new infatuation within the reputation era's broader love story.",
+            "Multiple outlets, including Wikipedia's sourced composition notes, connect the song's romantic subject to Taylor's new relationship at the time (Taylor has not named the subject, and this guide doesn't name anyone), framing 'Gorgeous' as an early, tongue-in-cheek document of new infatuation within the reputation era's broader love story.",
             "Critical reception was split: some reviewers praised its bright, 'radio-friendly' production as a welcome contrast to the album's darker early singles, while others, per Billboard and Wikipedia's aggregated critical summary, felt the songwriting was simplistic compared to Swift's usual standard."
           ]
         },
@@ -452,7 +524,7 @@ const TRACKS = [
           {
             relatedId: "song:ready-for-it",
             label: "...Ready for It?",
-            why: "Both songs chart the same new relationship (widely read as with Joe Alwyn) at different emotional temperatures — one breathless and cinematic, the other giddy and self-mocking."
+            why: "Both songs chart the same new relationship (widely read as her new relationship at the time) at different emotional temperatures — one breathless and cinematic, the other giddy and self-mocking."
           },
           {
             relatedId: "song:call-it-what-you-want",
@@ -581,13 +653,58 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
       producers: ['Max Martin', 'Shellback'],
-      note: 'A relationship built in three acts of drum programming — each section written as a later stage of falling.',
+      note: 'A song structured so each section sounds like a later stage of a relationship deepening — a design Taylor described herself at the reputation release party.',
       summary:
         'From liking her own company, to a new person breaking the cynicism, to full fanfare: the structure itself dramatizes commitment deepening. Luxury-brand boys lose to the one with the American smile.',
       inspiration: null,
       themes: ['stages of falling in love', 'substance over flash', 'contentment'],
       sourceUrl: 'https://en.wikipedia.org/wiki/King_of_My_Heart',
       sources: [wiki('King of My Heart', 'King_of_My_Heart', 'song article: structure'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Swift described King of My Heart as a song built around an idea about structure: she said she had long wanted one in which each section (verse, pre-chorus, chorus) sounded like its own phase of a relationship, moving forward as the song went on.",
+          "The Guardian's Alexis Petridis grouped it with 'Gorgeous' and 'Getaway Car' as songs 'filled with fantastic melodies', and Pitchfork's Jamieson Cox cited the 'infatuated android' of this track as one side of the range on the album.",
+        ],
+        meaning: {
+          confirmed: [
+            "At the iHeartRadio reputation release party, played alongside audio from her Secret Sessions, Swift said she finds the 'moments where it switches' in people's love stories interesting, because 'you always hope that that switch is going to move you forward and not backward.'",
+            "She said she had 'always wanted to structure a song where each individual section of the song sounded like a move forward in the relationship, but still be listenable', with the verse, pre-chorus and chorus each sounding like 'its own phase of a relationship', getting 'deeper and more fast-paced as the song went on.' Of the result she said: 'finally, I was able to achieve that in a song.'",
+          ],
+          supported: [
+            "Cox of Pitchfork described the track's narrator as 'infatuated', contrasting her with the 'tough-talking schemer' of 'I Did Something Bad' to argue the tracklist shows several sides of Swift. That is the critic's characterization, not Swift's.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'iHeartRadio reputation release party, November 10, 2017 (Secret Sessions audio)',
+            note: "Said people tend to describe falling in love as a series of definitive phases, and that the 'switch' between phases is what she finds interesting.",
+          },
+          {
+            who: 'Joseph Kahn',
+            context: 'Director, speaking on the Ourselves podcast (as reported by Cosmopolitan, August 2025)',
+            note: "Said he and Swift 'started shooting' a video for the song that was never finished because she 'switched gears in the middle of it' to make a video for '...Ready for It?'. It has not been released.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS (iHeartRadio)",
+            url: 'https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            name: 'Taylor Swift: Reputation review – superb songcraft meets extreme drama - The Guardian',
+            url: 'https://www.theguardian.com/music/2017/nov/10/taylor-swift-reputation-review-superb-songcraft-meets-extreme-drama',
+          },
+          {
+            name: 'Taylor Swift: Reputation - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-reputation/',
+          },
+          {
+            name: 'Taylor Swift Filmed a Music Video for "King of My Heart" That Was Never Released - Cosmopolitan',
+            url: 'https://www.cosmopolitan.com/entertainment/celebs/a65602374/taylor-swift-king-of-my-heart-music-video/',
+          },
+        ],
+      },
     },
     {
       slug: 'dancing-with-our-hands-tied',
@@ -622,18 +739,62 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The most adult song in the catalog to that point — desire stated plainly enough that fans watched her parents’ reactions at the listening parties.',
+      note: 'A slow, hushed love song about desire that Taylor named as one of the "true story" moments of reputation — and called a love song about deep and tender feelings despite its pickup-line hook.',
       summary:
         'Friendship burning past its container: the golden-tattoo imagery and the bought-it-so-you-could-take-it-off thesis said what the earlier albums only implied.',
-      inspiration:
-        'Fans connect the buzzed-hair and flower details in the bridge to documented 2016 events (unconfirmed by Swift).',
+      inspiration: null,
       themes: ['desire', 'friends to lovers', 'grown-up candor'],
-      fanLore: 'Fan reading (unconfirmed): the bridge details fans use to identify the subject.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Dress_(Taylor_Swift_song)',
       sources: [
         wiki('Dress (Taylor Swift song)', 'Dress_(Taylor_Swift_song)', 'song article: reception'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "Dress is one of the slow, intimate songs on reputation. Swift later named it as one of the album's 'moments of my true story', describing reputation as 'a love story in amongst chaos'.",
+          "Billboard's Andrew Unterberger called it a 'blood-rushing slow jam' that 'easily marks her sexiest song to date' on its release, and argued in his headline that it is the best song on the album. That is his critical verdict, not a consensus.",
+        ],
+        meaning: {
+          confirmed: [
+            "At the iHeartRadio reputation release party, Swift said 'almost every line' of 'Dress' was 'something that I came up with like a year before', and that when writing it she 'cherry picked' from those lines. She said she was 'really proud of the hook of this because it sounds like a pickup line, and yet it is a love song about deep and tender feelings.'",
+            "In her September 2019 Rolling Stone interview, Swift listed 'Delicate,' 'New Year's Day,' 'Call It What You Want' and 'Dress' as 'the moments of my true story on that album', saying the 'bait-and-switch of Reputation is that it was actually a love story' while 'all the weaponized sort of metallic battle anthems were what was going on outside.'",
+          ],
+          supported: [
+            "Unterberger wrote that Rihanna is 'probably the most obvious point of reference' for the beat and phrasing, and named Prince and D'Angelo as other reference points. Those are the critic's comparisons.",
+            "Pitchfork's Jamieson Cox called it 'a panting, shuddering highlight' of the album.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'iHeartRadio reputation release party, November 10, 2017',
+            note: "Said the hook sounds like a pickup line but the song is about deep and tender feelings.",
+          },
+          {
+            who: 'Taylor Swift',
+            context: 'Rolling Stone cover interview with Brian Hiatt, September 2019',
+            note: "Named 'Dress' among the songs that tell the true story of reputation: a love story inside the chaos.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS (iHeartRadio)",
+            url: 'https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            name: 'Taylor Swift: The Rolling Stone Interview - Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          },
+          {
+            name: "Yes, the Best Song on Taylor Swift's 'Reputation' Is the Slow Jam: Critic's Take - Billboard",
+            url: 'https://www.billboard.com/music/pop/taylor-swift-dress-reputation-best-song-8031203/',
+          },
+          {
+            name: 'Taylor Swift: Reputation - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-reputation/',
+          },
+        ],
+      },
     },
     {
       slug: 'this-is-why-we-cant-have-nice-things',
@@ -644,16 +805,48 @@ const TRACKS = [
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The party-crash diss track about a friendship that came with a knife in it — forgiveness gets offered mid-song and then gleefully retracted.',
+      note: 'Taylor introduced it as a song about people taking nice things for granted — friendship, trust, openness — with a spoken-word gag where a toast to forgiveness collapses into laughter.',
       summary:
-        'She throws a housewarming for her own success, names the betrayal that wrecked it, fake-raises a toast to forgiveness, and bursts out laughing instead. The album’s id, unsupervised.',
-      inspiration:
-        'Universally read as the Kanye West friendship post-2016 (unconfirmed in so many words); the golden-things-broken framing matches the era’s documented events beat for beat.',
+        'A party song about trust abused: a toast to forgiveness is offered and then abandoned mid-line in laughter.',
+      inspiration: null,
       themes: ['betrayed trust', 'mock forgiveness', 'gleeful pettiness'],
-      fanLore:
-        'Fan/press reading: the West fallout as subject — treated as obvious, never officially footnoted.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "Swift introduced the song at the reputation release party as being about trust and friendship taken for granted. On release, The Guardian's Alexis Petridis wrote that it and 'Look What You Made Me Do' 'feel like the end of the line' for the kind of songs that provoke fans to start throwing hashtags around, while Pitchfork's Jamieson Cox wrote that its over-the-top villainy 'scans as stubborn petulance'. Both are critical opinions.",
+        ],
+        meaning: {
+          confirmed: [
+            "Introducing the song at the iHeartRadio reputation release party, Swift said: 'It's about when people take nice things for granted. Like friendship, or trusting people, or being open or whatever. Letting people in on your life, trusting people, respect -- those are all really nice things.'",
+          ],
+          supported: [
+            "Petridis described the song as 'dressing down a former friend'. He wrote 'whoever the subject' and did not identify one himself.",
+            "Cox described the spoken-word moment, in which she 'sneers' a toast to her 'reeeeeal friends' before 'faking a weepy apology and breaking into cackling laughter', as an attempt at 'over-the-top, campy villainy'. That is the critic's description of the track, not Swift's.",
+          ],
+        },
+        voices: [
+          {
+            who: 'Taylor Swift',
+            context: 'iHeartRadio reputation release party, November 10, 2017 (Secret Sessions audio)',
+            note: "Said the song is about people taking nice things for granted: friendship, trust, openness and respect.",
+          },
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS (iHeartRadio)",
+            url: 'https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+          {
+            name: 'Taylor Swift: Reputation review – superb songcraft meets extreme drama - The Guardian',
+            url: 'https://www.theguardian.com/music/2017/nov/10/taylor-swift-reputation-review-superb-songcraft-meets-extreme-drama',
+          },
+          {
+            name: 'Taylor Swift: Reputation - Pitchfork',
+            url: 'https://pitchfork.com/reviews/albums/taylor-swift-reputation/',
+          },
+        ],
+      },
     },
     {
       slug: 'call-it-what-you-want',
@@ -679,6 +872,92 @@ const TRACKS = [
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The calm landing of Reputation. It sits at track 14, the penultimate slot, and Swift said at the album's iHeartRadio release party that the album's storyline runs from rebellion and angst, through falling in love, to 'settling into where I am now,' adding that this song 'really reflects that probably the best on the album.' Released as a promotional single on November 3, 2017, it debuted at No. 27 on the Hot 100 and topped Billboard's Digital Song Sales chart (per its Wikipedia entry), and Rolling Stone ranked it No. 20 on its 50 best songs of 2017.",
+          "It's also one of the album's most sonically spare songs: Jack Antonoff built it with an Akai MPC drum machine, DX7 strings, a live kick and samples of Swift's own voice used as an instrument, which gives it the hushed sound he recommends for headphones at night."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 14 of Reputation (album released November 10, 2017), written and produced by Swift and Jack Antonoff. Released November 3, 2017 as the fourth track available ahead of the album.",
+            "Antonoff wrote on Twitter, as reported by Billboard, that the song was 'made with an MPC, live kick, dx7 strings and samples of taylor's voice as the intro and throughout,' that he loved 'making her voice into an instrument,' and that it is best heard 'on headphones at night on a walk.'",
+            "At the album's iHeartRadio release party Swift described the closing stretch of the album: it begins with rebellion, anger and angst, then 'falling in love, and realizing that you kind of settle into what your priorities are,' and 'this last part of the album feels like settling into where I am now.'"
+          ],
+          supported: [
+            "Critics read the song as the resolution to the album's story. Its opening verse uses royalty and battle imagery for the damage to her reputation, and then turns to the person who steadies her; the New Statesman's Anna Leskiewicz observed (per Wikipedia) that its kingdoms, fairy tales, fire and flowers are recurring Swift motifs used here in a more self-aware way.",
+            "Critics have read the lover in the song as the person she was seeing during the Reputation era. In the interview quotes cited here, though, Swift speaks about the feeling and the album's arc rather than naming anyone."
+          ]
+        },
+        live: [
+          {
+            date: "November 10, 2017",
+            event: "SiriusXM Fishbowl session, New York",
+            note: "An acoustic version for a small group of fans, per its Wikipedia entry."
+          },
+          {
+            date: "November 11, 2017",
+            event: "Saturday Night Live",
+            note: "She performed an acoustic version with four backing vocalists on the show's 43rd season, per Wikipedia."
+          },
+          {
+            date: "2018",
+            event: "Reputation Stadium Tour",
+            note: "Penultimate number of the final act, with a working fountain on stage, per Wikipedia."
+          },
+          {
+            date: "July 1, 2023",
+            event: "The Eras Tour, Cincinnati",
+            note: "A surprise song on upright piano. Three more surprise outings in 2024 paired it with 'This Love' (Singapore, March 4), 'Ivy' (Munich, July 27) and 'Our Song' (New Orleans, October 25), per Wikipedia."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:gorgeous",
+            label: "Gorgeous",
+            why: "The third track released ahead of the album, right before this one in the rollout."
+          },
+          {
+            relatedId: "song:look-what-you-made-me-do",
+            label: "Look What You Made Me Do",
+            why: "The album's first single, from the rebellion end of the arc Swift described; both songs were written with Antonoff."
+          },
+          {
+            relatedId: "song:our-song",
+            label: "Our Song",
+            why: "Swift paired the two, on guitar, at the New Orleans Eras Tour stop on October 25, 2024."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "iHeartRadio album release party, November 2017",
+            note: "On the album's arc: it starts with rebellion, anger and angst, then falling in love, and 'this last part of the album feels like settling into where I am now.'"
+          },
+          {
+            who: "Jack Antonoff",
+            context: "On Twitter, as reported by Billboard",
+            note: "He said he loved 'making her voice into an instrument' on the track."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift's 'Call It What You Want': Jack Antonoff Talks Making the Song - Billboard (archived)",
+            url: "https://web.archive.org/web/20171109101826/http://www.billboard.com/articles/columns/pop/8023178/-taylor-swift-call-it-what-you-want-jack-antonoff-making-of-song-twitter"
+          },
+          {
+            name: "Taylor Swift's iHeartRadio reputation Release Party: Everything We Learned - 96.1 KISS",
+            url: "https://961kiss.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/"
+          },
+          {
+            name: "Call It What You Want (Taylor Swift song) - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Call_It_What_You_Want_(Taylor_Swift_song)"
+          },
+          {
+            name: "Call It What You Want by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/call-it-what-you-want"
+          }
+        ]
+      },
     },
     {
       slug: 'new-years-day',

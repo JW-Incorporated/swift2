@@ -6,7 +6,9 @@
 // utmSource/utmMedium/utmCampaign/utmContent) — used for per-campaign visits
 // from Tree's utm-tagged links. UTM dimensions need Web Analytics Plus or
 // Enterprise; on a plan without them that one call fails and only the
-// campaign section degrades (`topCampaigns: null` + `campaignNote`).
+// campaign section degrades (`topCampaigns: null` + `campaignNote`). On this
+// account that call is always HTTP 402; the weekly collector reads per-campaign
+// visits from the first-party counter instead (lib/growth-campaign-visits.mjs, #4719).
 // Read-only; production data only (the count endpoint's own scope). The token
 // comes from the environment (VERCEL_TOKEN) and is never logged, echoed in an
 // error, or written into the output. Any failure — no token, no project, HTTP

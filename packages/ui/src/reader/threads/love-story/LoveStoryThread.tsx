@@ -210,11 +210,11 @@ export function LoveStoryThread() {
           { label: 'Months solo', value: String(totalSoloMonths) },
           { label: 'Years tracked', value: '20' },
         ].map((stat) => (
-          <div key={stat.label} className="era-card rounded-2xl border p-4 text-center">
+          <div key={stat.label} className="era-card min-w-0 rounded-2xl border p-4 text-center">
             <div className="font-[family-name:var(--era-font)] text-2xl font-semibold" style={{ color: 'var(--era-accent)' }}>
               {stat.value}
             </div>
-            <div className="mt-1 text-xs uppercase tracking-wider" style={{ color: 'var(--era-ink-soft)' }}>
+            <div className="mt-1 break-words text-xs uppercase tracking-wider" style={{ color: 'var(--era-ink-soft)' }}>
               {stat.label}
             </div>
           </div>

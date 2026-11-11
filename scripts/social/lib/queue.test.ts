@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   isDue,
+  sanitizeLastError,
+  withFailureMetadata,
   isValidScheduledAt,
   selectDuePosts,
   summarizeQueueStatus,
@@ -23,6 +25,7 @@ import {
   contentHashPayload,
   approvalSigPayload,
   approvalStatus,
+  mediaDigest,
   signApproval,
   verifyApprovalSig,
 } from './queue.mjs';
@@ -549,6 +552,103 @@ describe('approvalStatus (v3 — the head SHA is signed, docs/decisions.md 2026-
   });
 });
 
+describe('approvalStatus (v4 tree-auto — Tree approves autonomously, kind is signed)', () => {
+  const key = 'test-key';
+  const item = { platform: 'x', body: 'hello', scheduledAt: '2026-09-20T00:00:00Z' };
+  const readMedia = () => null; // an item with no media never reads a file
+  const noMediaDigest = mediaDigest(item, readMedia) as string;
+
+  function v4Stamp(overrides: Record<string, unknown> = {}) {
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-20T00:00:00Z', pr: 7, message: 'run 1', contentHash: contentHash(item), mediaDigest: noMediaDigest, ...overrides };
+    return { ...unsigned, sig: signApproval(unsigned, key) };
+  }
+
+  it('accepts a correctly signed v4 tree-auto stamp with no approvers list, and reports its kind', () => {
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key, readMedia })).toEqual({ ok: true, kind: 'tree-auto' });
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { approvers: [], key, readMedia })).toEqual({ ok: true, kind: 'tree-auto' });
+  });
+
+  it('a v3 stamp still validates and carries no kind', () => {
+    const approver = 'discord:100000000000000001';
+    const unsigned = { v: 3, by: approver, at: '2026-09-20T00:00:00Z', pr: 1, sha: 'a'.repeat(40), message: '1', contentHash: contentHash(item) };
+    const stamped = { ...item, approval: { ...unsigned, sig: signApproval(unsigned, key) } };
+    expect(approvalStatus(stamped, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+
+  it('NEGATIVE: a stamp whose kind was edited after signing fails the signature', () => {
+    const tampered = { ...v4Stamp(), kind: 'tree-auto ' };
+    expect(approvalStatus({ ...item, approval: tampered }, { key, readMedia }).ok).toBe(false);
+    const v3Kind = { ...v4Stamp(), kind: 'discord' };
+    expect(approvalStatus({ ...item, approval: v3Kind }, { key, readMedia }).ok).toBe(false);
+  });
+
+  it('NEGATIVE: a v4 stamp signed over a different kind is not accepted, even re-signed correctly', () => {
+    const resigned = v4Stamp({ kind: 'other' });
+    expect(approvalStatus({ ...item, approval: resigned }, { key, readMedia })).toEqual({ ok: false, reason: 'malformed approval record' });
+  });
+
+  it('NEGATIVE: a v4 stamp with a wrong content hash fails (edited after approval)', () => {
+    const stamped = { ...item, approval: v4Stamp({ contentHash: contentHash({ ...item, body: 'other' }) }) };
+    const status = approvalStatus(stamped, { key, readMedia });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toMatch(/edited after approval/);
+    const edited = { ...item, body: 'edited later', approval: v4Stamp() };
+    expect(approvalStatus(edited, { key, readMedia }).ok).toBe(false);
+  });
+
+  it('NEGATIVE: a v4 stamp signed with the wrong key, or verified with no key configured, fails', () => {
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: 'wrong', readMedia }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp() }, { key: '', readMedia }).ok).toBe(false);
+  });
+
+  it('NEGATIVE: by must be exactly tree:auto — a discord id or GitHub login on a v4 stamp is malformed', () => {
+    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'discord:100000000000000001' }) }, { key, readMedia }).ok).toBe(false);
+    expect(approvalStatus({ ...item, approval: v4Stamp({ by: 'sffan15-sys' }) }, { key, readMedia }).ok).toBe(false);
+  });
+
+  it('M5: the signed media digest binds the image BYTES — swapping the file after the stamp voids it', () => {
+    const withMedia = { ...item, media: ['/social/library/a.png'] };
+    const bytes = { current: Buffer.from('original-image') };
+    const read = () => bytes.current;
+    const unsigned = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-09-20T00:00:00Z', pr: 7, message: 'run 1', contentHash: contentHash(withMedia), mediaDigest: mediaDigest(withMedia, read) };
+    const stamped = { ...withMedia, approval: { ...unsigned, sig: signApproval(unsigned, key) } };
+    expect(approvalStatus(stamped, { key, readMedia: read })).toEqual({ ok: true, kind: 'tree-auto' });
+    bytes.current = Buffer.from('<svg onload=alert(1)>');
+    const swapped = approvalStatus(stamped, { key, readMedia: read });
+    expect(swapped.ok).toBe(false);
+    expect(swapped.reason).toMatch(/media changed/);
+    expect(approvalStatus(stamped, { key, readMedia: () => null }).ok).toBe(false); // missing file
+  });
+
+  it('M5: a stamp whose mediaDigest was edited after signing fails the signature', () => {
+    const tampered = { ...v4Stamp(), mediaDigest: 'sha256:' + '0'.repeat(64) };
+    expect(approvalStatus({ ...item, approval: tampered }, { key, readMedia }).ok).toBe(false);
+  });
+
+  it('M5: the verifying boundary (a key was passed) refuses a v4 stamp when the caller cannot read the media', () => {
+    const status = approvalStatus({ ...item, approval: v4Stamp() }, { key });
+    expect(status.ok).toBe(false);
+    expect(status.reason).toMatch(/cannot be verified/);
+  });
+
+  it('a v4 stamp with no mediaDigest at all is malformed', () => {
+    const rest = { ...v4Stamp() } as Record<string, unknown>;
+    delete rest.mediaDigest;
+    expect(approvalStatus({ ...item, approval: rest }, { key, readMedia })).toEqual({ ok: false, reason: 'malformed approval record' });
+  });
+
+  it('mediaDigest: stable for an empty media list, order- and path-sensitive, null when a file is missing', () => {
+    expect(mediaDigest({}, () => null)).toBe(mediaDigest({ media: [] }, () => null));
+    const a = mediaDigest({ media: ['/a.png', '/b.png'] }, (m) => Buffer.from(m));
+    expect(a).not.toBe(mediaDigest({ media: ['/b.png', '/a.png'] }, (m) => Buffer.from(m)));
+    expect(mediaDigest({ media: ['/a.png'] }, () => null)).toBeNull();
+  });
+
+  it('the signed payload binds kind', () => {
+    expect(approvalSigPayload({ v: 4, kind: 'tree-auto', by: 'tree:auto', at: 'a', pr: 1, contentHash: 'sha256:x', mediaDigest: 'sha256:m' })).toBe('4|tree-auto|tree:auto|a|1|sha256:x|sha256:m');
+  });
+});
+
 describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec AC#7)', () => {
   const base = { platform: 'x', body: 'hello', media: [], altText: [], scheduledAt: '2026-09-20T00:00:00Z', campaign: 'launch:x:y' };
   const critiqueA = { v: 1, scores: { onStrategy: 5, onVoice: 5, specific: 5, mediaEarnsItsPlace: 5, notEmbarrassed: 5 }, total: 25, rationale: 'a', rulesChecked: [], revision: 1 };
@@ -575,5 +675,42 @@ describe('contentHash — critique is not in the payload (Tree Overhaul T2, spec
     // indifferent to it either way, the strongest form of "not hashed."
     const drifted = { ...stamped, critique: critiqueB };
     expect(approvalStatus(drifted, { approvers: [approver], key })).toEqual({ ok: true });
+  });
+});
+
+describe('failure metadata for social/failed/ records', () => {
+  const now = new Date('2026-10-15T12:00:00Z');
+
+  it('adds failedAt, attempts and a short lastError', () => {
+    const out = withFailureMetadata({ platform: 'x', attempts: 2 }, { now, error: new Error('HTTP 403 forbidden') });
+    expect(out).toMatchObject({ failedAt: '2026-10-15T12:00:00.000Z', attempts: 2, lastError: 'HTTP 403 forbidden' });
+  });
+
+  it('defaults attempts to 0 and falls back to the item lastError, then failureReason', () => {
+    expect(withFailureMetadata({ platform: 'x', lastError: 'earlier' }, { now })).toMatchObject({ attempts: 0, lastError: 'earlier' });
+    expect(withFailureMetadata({ platform: 'x', failureReason: 'stale 48h' }, { now }).lastError).toBe('stale 48h');
+  });
+
+  it('redacts URLs, Bearer values and key=value / JSON secrets, keeps the rest, and caps the length', () => {
+    const msg = 'POST https://api.x.com/2/tweets?access_token=abc123 failed; Bearer sk-live-999 token=zzz {"oauth_token":"tok-1","detail":"Forbidden"}';
+    const clean = sanitizeLastError(msg);
+    expect(clean).not.toMatch(/https?:|abc123|sk-live-999|zzz|tok-1/);
+    expect(clean).toContain('"detail":"Forbidden"');
+    expect(sanitizeLastError('x'.repeat(500)).length).toBeLessThanOrEqual(200);
+  });
+
+  it('redacts every oauth_* parameter (oauth_consumer_key included), access_token, a bare token= and Bearer values', () => {
+    const msg = 'Authorization: OAuth oauth_consumer_key="ck-1", oauth_nonce="n-2", oauth_signature="s-3", oauth_token="t-4"; access_token=at-5 token=t-6 Authorization: Bearer b-7';
+    const clean = sanitizeLastError(msg, Infinity);
+    expect(clean).not.toMatch(/ck-1|n-2|s-3|t-4|at-5|t-6|b-7/);
+    expect(clean).toContain('oauth_consumer_key="[redacted]"');
+    expect(clean).toContain('Bearer [redacted]');
+  });
+
+  it('redacts failureReason too, without the length cap', () => {
+    const reason = `Transport failure https://graph.facebook.com/v21.0/me?access_token=abc123 ${'y'.repeat(400)}`;
+    const out = withFailureMetadata({ attempts: 1, failureReason: reason }, { now });
+    expect(out.failureReason).not.toMatch(/https?:|abc123/);
+    expect(out.failureReason.length).toBeGreaterThan(300);
   });
 });

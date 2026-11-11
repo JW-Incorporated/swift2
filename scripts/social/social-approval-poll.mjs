@@ -39,7 +39,8 @@
 //
 // Binding property this whole mechanism rests on (verify, don't assume):
 // the `ref: PR #<n> · <40-hex headSha> · <file|*>` line on every brief
-// message is written by approval-prompt.mjs and posted by Discord's webhook
+// message (last content line, or the first embed url / footer on the minimal
+// IG/X approval posts, #5989) is written by approval-prompt.mjs and posted by Discord's webhook
 // API — the webhook is the only identity that can author a message with
 // `webhook_id` set to our own webhook's id. An agent cannot forge that
 // binding without the webhook URL AND getting Discord to attribute the
@@ -72,14 +73,16 @@
 // whose file is gone from head is a reject row — and deduped, so a lost
 // push is recovered on the next run instead of being gone for good.
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { neutralizeMentions } from '../community/discord-delivery.mjs';
+import { routeChannelId } from '../lib/discord-route.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { appendRows, capReason, classifyTarget, groupTargets, isoWeek, pillarOf } from './lib/feedback.mjs';
-import { approvalStatus } from './lib/queue.mjs';
+import { approvalStatus, isV4Stamp } from './lib/queue.mjs';
 import { isQueueJson, makeGitState, parseJson, short, stampHealth } from './lib/stamp-health.mjs';
 import { confirmRejection } from './lib/reject-confirm.mjs';
+import { parseRefUrl } from './lib/approval-text.mjs';
 import { stampFiles } from './stamp-approval.mjs';
 import { checkDraft, isWarningFinding, POSTED_DIR, QUEUE_DIR, readJsonDir, recentInstagramPosted, recentPostedOpeners } from './check-drafts.mjs';
 
@@ -123,6 +126,36 @@ function extractRefLine(content) {
   while (i >= 0 && lines[i].trim() === '') i -= 1;
   if (i < 0) return null;
   return lines[i].match(REF_LINE_RE);
+}
+
+/**
+ * Minimal approval posts (#5989) carry the ref line in the webhook message's
+ * embed footer instead of visible text. Same trust as the content line: only
+ * messages whose webhook_id is ours reach here, and only a footer that is
+ * EXACTLY a ref line (REF_LINE_RE, anchored) is read. A message with no such
+ * footer falls back to the true-last-line content parse above.
+ */
+function extractMessageRef(message) {
+  const embeds = Array.isArray(message?.embeds) ? message.embeds : [];
+  // Current format: the ref is the first embed's url (anchored, strict parse).
+  const fromUrl = parseRefUrl(embeds[0]?.url);
+  if (fromUrl) return fromUrl;
+  for (const embed of embeds) {
+    const text = embed?.footer?.text;
+    const match = typeof text === 'string' ? text.match(REF_LINE_RE) : null;
+    if (match) return match;
+  }
+  return extractRefLine(message?.content);
+}
+
+/** True for a message that has the SHAPE of a draft approval prompt (a
+ * github pull url carrying `ref=` on an embed, or a `ref:` footer) but whose
+ * ref did not parse — only ever asked of messages with our webhook_id, and
+ * after every real ref grammar has already been tried. */
+function looksLikeUnparseablePrompt(message) {
+  if (extractRedditRefLine(message?.content)) return false;
+  return (Array.isArray(message?.embeds) ? message.embeds : []).some((e) =>
+    (typeof e?.url === 'string' && /\/pull\/\d+\?.*\bref=/.test(e.url)) || (typeof e?.footer?.text === 'string' && /^ref:/.test(e.footer.text)));
 }
 
 /** S6's own last-line-only parse for the `ref: reddit · <postId>` grammar —
@@ -964,8 +997,24 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   // LISTENS to is never a function of how old they are.
   const byPr = new Map();
   for (const m of candidates) {
-    const match = extractRefLine(m.content);
-    if (!match) continue;
+    const match = extractMessageRef(m);
+    if (!match) {
+      if (!looksLikeUnparseablePrompt(m)) continue;
+      // A prompt of ours whose ref cannot be read must never swallow a founder's
+      // reaction silently: warn loudly, and fail the job if an owner reacted.
+      let reacted = true;
+      try {
+        const r = await getMessageApprovals(m, channelId, botToken, discordOpts, reactionCache);
+        reacted = r.approvedBy.length + r.rejectedBy.length + r.editedBy.length > 0;
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not read reactions on unparseable prompt ${m.id}: ${err.message}`);
+      }
+      const note = `approval prompt ${m.id} from our webhook has no parseable ref${reacted ? ' AND an owner reaction (or reactions unreadable) -- it cannot be bound to a draft' : ''}`;
+      console.error(`::${reacted ? 'error' : 'warning'}::social-approval-poll: ${note}`);
+      if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Unparseable approval prompt\n\n${note}\n`);
+      if (reacted) process.exitCode = 1;
+      continue;
+    }
     const [, prStr, sha, file] = match;
     const pr = Number(prStr);
     if (!byPr.has(pr)) byPr.set(pr, []);
@@ -1091,8 +1140,11 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of prQueueFiles) {
             const item = parseJson(gitState.show(prView.headRefOid, relPath));
             if (!item) continue;
-            const ok = Boolean(item.approval) && approvalStatus(item, statusOptions).ok;
-            if (ok) {
+            // A v4 (tree-auto) stamp is Tree's own, never the owner's: no ledger "approve" row (it would inflate
+            // autonomy eligibility) and never a "merged before approval" notice — social-tree-approve.yml owns it.
+            if (isV4Stamp(item)) continue;
+            const stampStatus = item.approval ? approvalStatus(item, statusOptions) : { ok: false };
+            if (stampStatus.ok) {
               prLedgerRows.push(stampRow(relPath, item));
               continue;
             }
@@ -1306,7 +1358,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
         if (unresolved.has(relPath)) continue;
         const item = parseJson(readFileSync(path.join(process.cwd(), relPath), 'utf8'));
         if (!item) continue;
-        const health = stampHealth(gitState, relPath, item, headSha, statusOptions);
+        const health = stampHealth(gitState, relPath, item, headSha, { ...statusOptions, headRef: prView.headRefName });
         if (health.ok) continue;
         // The file's own ✅ first, then the header's — and the header is
         // tried whenever the file's own ✅ exists but can't mint (a brief
@@ -1393,7 +1445,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
       let allClean = present.length > 0;
       for (const relPath of present) {
         const item = parseJson(readFileSync(path.join(process.cwd(), relPath), 'utf8'));
-        const health = item ? stampHealth(gitState, relPath, item, headSha, statusOptions) : { ok: false, stamped: false, problems: [] };
+        const health = item ? stampHealth(gitState, relPath, item, headSha, { ...statusOptions, headRef: prView.headRefName }) : { ok: false, stamped: false, problems: [] };
         if (health.ok) continue;
         allClean = false;
         if (health.stamped) problems.push(...health.problems);
@@ -1426,7 +1478,7 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
           for (const relPath of files) {
             const absPath = path.join(process.cwd(), relPath);
             const item = rejectedThisRun.has(relPath) || !existsSync(absPath) ? null : parseJson(readFileSync(absPath, 'utf8'));
-            if (item?.approval && approvalStatus(item, statusOptions).ok) prLedgerRows.push(stampRow(relPath, item));
+            if (item?.approval && !isV4Stamp(item) && approvalStatus(item, statusOptions).ok) prLedgerRows.push(stampRow(relPath, item));
           }
           for (const [key, c] of classified) {
             if (key === '*' || c.action !== 'reject') continue;
@@ -1454,44 +1506,79 @@ export async function run({ execGh = gh, execGit = git, fetchImpl = fetch, sleep
   // reaction resolution (classifyTarget, reused unchanged), its own
   // ledger-row push. No file operations, no stamping, no merging, ever —
   // every reddit action is a ledger row and a scorecard count only.
-  const redditGroups = new Map(); // postId -> Discord message[]
-  for (const m of candidates) {
-    const match = extractRedditRefLine(m.content);
-    if (!match) continue;
-    const postId = match[1];
-    if (!redditGroups.has(postId)) redditGroups.set(postId, []);
-    redditGroups.get(postId).push(m);
+  // Reddit cards now live in tree-reddit / tree-facebook / tree-main and are posted by a BOT (no
+  // webhook_id; scripts/lib/discord-route.mjs). The anchor for those is the author id of the sending
+  // bot itself, resolved with GET /users/@me on the same token(s) — an agent cannot author a message
+  // as that bot. Cards still in the webhook channel keep the webhook_id anchor.
+  const redditSources = [{ channelId, candidates, repliesByParent, failedThreadMessageIds }];
+  const botIds = new Set();
+  for (const token of new Set([botToken, process.env.DISCORD_TREE_BOT_TOKEN].filter(Boolean))) {
+    try {
+      const me = await discordGet(`${DISCORD_API}/users/@me`, token, discordOpts);
+      if (me?.id) botIds.add(String(me.id));
+    } catch (err) {
+      console.error(`::warning::social-approval-poll: could not resolve the bot user id (${err.message}) — bot-posted reddit cards are skipped this run`);
+    }
+  }
+  if (botIds.size) {
+    for (const route of ['tree-reddit', 'tree-facebook', 'tree-main']) {
+      const extraId = routeChannelId(route, process.env);
+      if (!extraId || extraId === String(channelId)) continue;
+      let extraMessages;
+      try {
+        extraMessages = await discordGet(`${DISCORD_API}/channels/${extraId}/messages?limit=100`, botToken, discordOpts);
+      } catch (err) {
+        console.error(`::warning::social-approval-poll: could not read ${route} (${err.message}) — its reddit cards are unresolved this run`);
+        continue;
+      }
+      const extraCandidates = extraMessages.filter((m) => !m.webhook_id && botIds.has(String(m.author?.id)));
+      const extraThreads = await fetchThreadReplies(extraCandidates, botToken, discordOpts);
+      redditSources.push({
+        channelId: extraId,
+        candidates: extraCandidates,
+        repliesByParent: mergeReplyMaps(buildRepliesByParent(extraMessages), extraThreads.repliesByParent),
+        failedThreadMessageIds: extraThreads.failedThreadMessageIds,
+      });
+    }
   }
 
   const redditReactionCache = new Map();
   const redditLedgerRows = [];
-  for (const [postId, msgs] of redditGroups) {
-    const entries = [];
-    let failed = false;
-    for (const message of msgs) {
-      let reactions;
-      try {
-        reactions = await getRedditMessageApprovals(message, channelId, botToken, discordOpts, redditReactionCache);
-      } catch (err) {
-        console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (reddit:${postId}) — treating the target as unresolved this run (retries next run): ${err.message}`);
-        failed = true;
-        break;
-      }
-      if (failedThreadMessageIds.has(message.id)) {
-        console.error(`::warning::social-approval-poll: message ${message.id} (reddit:${postId}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
-        failed = true;
-        break;
-      }
-      entries.push({ message, sha: null, reactions, replies: repliesByParent.get(message.id) ?? [] });
+  for (const source of redditSources) {
+    const redditGroups = new Map(); // postId -> Discord message[]
+    for (const m of source.candidates) {
+      const match = extractRedditRefLine(m.content);
+      if (!match) continue;
+      const postId = match[1];
+      if (!redditGroups.has(postId)) redditGroups.set(postId, []);
+      redditGroups.get(postId).push(m);
     }
-    if (failed) continue;
-    const result = classifyTarget(entries, { kind: 'reddit' });
-    // 'none': nothing happened yet. 'pending' (✏️/❌ with no reply): spec
-    // §3's generic rule for every kind — "the poll acts on nothing, logs
-    // nothing, re-evaluates next run." A reddit-specific nudge is not
-    // built here — out of this task's declared scope; see the PR body.
-    if (result.action === 'none' || result.action === 'pending') continue;
-    redditLedgerRows.push(redditRow(postId, result, runResolvedAt));
+    for (const [postId, msgs] of redditGroups) {
+      const entries = [];
+      let failed = false;
+      for (const message of msgs) {
+        let reactions;
+        try {
+          reactions = await getRedditMessageApprovals(message, source.channelId, botToken, discordOpts, redditReactionCache);
+        } catch (err) {
+          console.error(`::warning::social-approval-poll: could not fetch reactions for message ${message.id} (reddit:${postId}) — treating the target as unresolved this run (retries next run): ${err.message}`);
+          failed = true;
+          break;
+        }
+        if (source.failedThreadMessageIds.has(message.id)) {
+          console.error(`::warning::social-approval-poll: message ${message.id} (reddit:${postId}) has a thread that failed to fetch this run — treating the target as unresolved (retries next run).`);
+          failed = true;
+          break;
+        }
+        entries.push({ message, sha: null, reactions, replies: source.repliesByParent.get(message.id) ?? [] });
+      }
+      if (failed) continue;
+      const result = classifyTarget(entries, { kind: 'reddit' });
+      // 'none': nothing happened yet. 'pending' (✏️/❌ with no reply): the poll acts on nothing and
+      // re-evaluates next run (spec §3). Every reddit action is a ledger row and a scorecard count only.
+      if (result.action === 'none' || result.action === 'pending') continue;
+      redditLedgerRows.push(redditRow(postId, result, runResolvedAt));
+    }
   }
 
   try {

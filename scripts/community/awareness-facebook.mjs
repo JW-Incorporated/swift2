@@ -18,7 +18,7 @@ export async function adoptFacebookLeads(
   const [leads, existing] = await Promise.all([
     supabase
       .from('engagement_lead')
-      .select('community, locator, title')
+      .select('community, locator, title, url')
       .eq('platform', 'facebook')
       .eq('kind', 'hot_thread')
       .eq('redline_ok', true)
@@ -48,6 +48,7 @@ export async function adoptFacebookLeads(
       community: lead.community,
       kind: AWARENESS_KIND,
       locator: lead.locator,
+      url: lead.url ?? null,
       title: lead.title ?? null,
       context:
         'Awareness candidate adopted from the Facebook export lead (our-words excerpt only).',

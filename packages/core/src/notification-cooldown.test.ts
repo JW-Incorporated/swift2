@@ -67,9 +67,11 @@ function makeFakeDb(fixture: {
   prefs: Array<{ device_id: string; category: string; cadence: string }>;
   devices: Array<{ id: string; push_token: string | null; master_enabled: boolean }>;
   deliveries: Array<{ device_id: string; sent_at: string; opened_at: string | null }>;
+  deliveryInsertError?: { message: string };
 }) {
   const prefUpdates: Array<{ device_id: string }> = [];
   const insertedDeliveries: Array<Record<string, unknown>> = [];
+  const opsSwitchWrites: Array<Record<string, unknown>> = [];
 
   function queryBuilder(table: string) {
     const state: { filters: Array<(row: Record<string, unknown>) => boolean> } = { filters: [] };
@@ -102,7 +104,16 @@ function makeFakeDb(fixture: {
     }
 
     api.insert = ((row: Record<string, unknown>) => {
-      if (table === 'deliveries') insertedDeliveries.push(row);
+      if (table === 'deliveries') {
+        if (fixture.deliveryInsertError) {
+          return Promise.resolve({ data: null, error: fixture.deliveryInsertError });
+        }
+        insertedDeliveries.push(row);
+      }
+      return Promise.resolve({ data: null, error: null });
+    }) as (...args: unknown[]) => unknown;
+    api.upsert = ((row: Record<string, unknown>) => {
+      if (table === 'ops_switches') opsSwitchWrites.push(row);
       return Promise.resolve({ data: null, error: null });
     }) as (...args: unknown[]) => unknown;
 
@@ -129,9 +140,11 @@ function makeFakeDb(fixture: {
     from: vi.fn((table: string) => queryBuilder(table)),
     _prefUpdates: prefUpdates,
     _insertedDeliveries: insertedDeliveries,
+    _opsSwitchWrites: opsSwitchWrites,
   } as unknown as SupabaseClient & {
     _prefUpdates: Array<{ device_id: string }>;
     _insertedDeliveries: Array<Record<string, unknown>>;
+    _opsSwitchWrites: Array<Record<string, unknown>>;
   };
 }
 
@@ -194,5 +207,28 @@ describe('runCooldownPass', () => {
 
     expect(result.devicesDowngraded).toBe(0);
     expect(db._prefUpdates).toEqual([]);
+  });
+
+  it('freezes and halts when an accepted cooldown notice cannot be logged', async () => {
+    const now = new Date('2026-09-30T00:00:00Z');
+    const db = makeFakeDb({
+      prefs: [{ device_id: 'stale-device', category: 'song_drop', cadence: 'instant' }],
+      devices: [{ id: 'stale-device', push_token: 'token-1', master_enabled: true }],
+      deliveries: [
+        { device_id: 'stale-device', sent_at: '2026-08-01T00:00:00Z', opened_at: null },
+      ],
+      deliveryInsertError: { message: 'ledger unavailable' },
+    });
+    vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([
+      { ok: true, deviceId: 'stale-device', deliveryToken: 'accepted-token' },
+    ]);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    const result = await runCooldownPass(db, now);
+
+    expect(result).toMatchObject({ noticesSent: 1, freezeEngaged: true, halted: true });
+    expect(db._opsSwitchWrites).toEqual([
+      expect.objectContaining({ name: 'PUSH_FREEZE', enabled: true }),
+    ]);
   });
 });

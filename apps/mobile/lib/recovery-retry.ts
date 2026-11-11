@@ -25,6 +25,21 @@ export function retryRecord(prev: WatchdogRecord | null | 'corrupt', buildKey: s
   };
 }
 
+/** Ahead of a deliberate full reload from a healthy mounted host: persist the record idle, exactly as Retry does. False = do not reload (record not ready, or the write failed). The monitor is never armed. */
+export async function prepareIdleReload(now: () => number = Date.now): Promise<boolean> {
+  try {
+    const writer = currentWatchdogWriter();
+    await writer.settled();
+    const prev = await loadWatchdogRecord();
+    if (!prev || prev === 'corrupt' || prev.state !== 'ready') return false;
+    if (!(await writer.write(retryRecord(prev, currentBuildKey(), now()), 1))) return false;
+    await writer.settled();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export const OTA_CHECK_TIMEOUT_MS = 8000;
 export const OTA_FETCH_TIMEOUT_MS = 30000;
 

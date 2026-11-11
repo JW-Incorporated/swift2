@@ -18,7 +18,10 @@ describe('E3 manually confirmed authoring workflow', () => {
     expect(workflow).toContain('required: true');
     expect(workflow).toContain('RUN_AUTHORED_VISION_AUDIT');
     expect(workflow).toContain("inputs.confirmation == 'RUN_AUTHORED_VISION_AUDIT'");
-    expect(workflow).toContain('ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}');
+    expect(workflow).toContain('CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}');
+    expect(workflow).not.toContain('ANTHROPIC_API_KEY');
+    expect(workflow).toContain('continue-on-error: true');
+    expect(workflow).toContain('CLAUDE_CODE_VERSION="2.1.300"');
     expect(workflow).toContain('issues: write');
     expect(workflow).toContain('GH_TOKEN: ${{ github.token }}');
     expect(workflow).toContain('id: author');

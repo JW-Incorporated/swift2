@@ -6,7 +6,7 @@ import { expect, type Page } from '@playwright/test';
 // `prepare` runs on BOTH sides, so every expect() below is a behavioural a-and-b assertion on top of the pixel compare.
 const CLIP = '[data-parity-clip]';
 const FILTERBAR = '[data-ll-filterbar]';
-const GUIDE_BUTTON = 'button[aria-label^="Track guide:"]';
+const GUIDE_BUTTON = 'button.era-card:has-text("Track guide")';
 const GUIDE_DIALOG = '[role="dialog"][aria-label$="track guide"]';
 const TRACK_FIVE_PILL = '[role="dialog"] span[title^="Track five is traditionally"]';
 
@@ -121,13 +121,5 @@ export const ERA_CONTROL_ROUTES: readonly AOnlyRoute[] = [
     sides: 'both',
     clip: CLIP,
     prepare: (page) => show(page, '[data-ll-item^="era-thread-"]'),
-  },
-  {
-    name: 'era-doorway-egg',
-    path: '/',
-    root: 'main',
-    sides: 'both',
-    clip: CLIP,
-    prepare: (page) => show(page, '[data-ll-item^="era-egg-"]'),
   },
 ];

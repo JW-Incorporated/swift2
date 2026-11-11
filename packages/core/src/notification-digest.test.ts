@@ -18,7 +18,7 @@ function makeFakeDb(fixture: {
     scheduled_for: string;
   }>;
   devices: Array<Record<string, unknown>>;
-  events: Array<{ id: string; title: string }>;
+  events: Array<{ id: string; title: string; expires_at?: string | null }>;
   deliveries?: Array<Record<string, unknown>>;
 }) {
   const insertedDeliveries: Array<Record<string, unknown>> = [];
@@ -85,8 +85,24 @@ function makeFakeDb(fixture: {
       return Promise.resolve({ data: null, error: null });
     }) as (...args: unknown[]) => unknown;
 
-    api.upsert = ((row: Record<string, unknown>) => {
-      if (table === 'digest_queue') upsertedDigestQueue.push(row);
+    api.upsert = ((
+      rows: Array<Record<string, unknown>> | Record<string, unknown>,
+      opts?: { ignoreDuplicates?: boolean },
+    ) => {
+      const arr = Array.isArray(rows) ? rows : [rows];
+      if (table === 'digest_queue') {
+        upsertedDigestQueue.push(...arr);
+        for (const row of arr) {
+          const existing = fixture.digestQueue.find(
+            (queued) => queued.device_id === row.device_id && queued.event_id === row.event_id,
+          );
+          if (!existing) {
+            fixture.digestQueue.push(row as (typeof fixture.digestQueue)[number]);
+          } else if (!opts?.ignoreDuplicates) {
+            Object.assign(existing, row);
+          }
+        }
+      }
       return Promise.resolve({ data: null, error: null });
     }) as (...args: unknown[]) => unknown;
 
@@ -98,8 +114,13 @@ function makeFakeDb(fixture: {
       };
       delApi.in = (col: string, vals: unknown[]) => {
         if (table === 'digest_queue' && col === 'event_id' && state.deleteDeviceId) {
-          for (const eventId of vals)
+          for (const eventId of vals) {
             deletedDigestQueueKeys.push(`${state.deleteDeviceId}:${eventId}`);
+            const index = fixture.digestQueue.findIndex(
+              (row) => row.device_id === state.deleteDeviceId && row.event_id === eventId,
+            );
+            if (index >= 0) fixture.digestQueue.splice(index, 1);
+          }
         }
         return Promise.resolve({ data: null, error: null });
       };
@@ -186,8 +207,10 @@ describe('dispatchDueDigests', () => {
     expect(sendSpy.mock.calls[0]?.[0]).toHaveLength(1); // exactly one push in that batch
     expect(db._insertedDeliveries).toHaveLength(1); // exactly one delivery logged
     expect(db._insertedDeliveries[0]).toMatchObject({ device_id: 'device-1', kind: 'digest' });
-    // All 4 queued rows are cleared by the one merged send.
-    expect(db._deletedDigestQueueKeys).toHaveLength(4);
+    // All 4 queued rows remain as durable sent markers, so routing the
+    // still-live events again cannot recreate due work.
+    expect(db._deletedDigestQueueKeys).toHaveLength(0);
+    expect(db._upsertedDigestQueue).toHaveLength(4);
 
     // The merged body actually mentions every category, not just one.
     const body = (sendSpy.mock.calls[0]?.[0] as unknown as Array<{ body: string }>)[0]?.body ?? '';
@@ -310,6 +333,131 @@ describe('dispatchDueDigests', () => {
     expect(sendSpy).not.toHaveBeenCalled();
     // Rows are NOT cleared — they stay queued for the next day's tick.
     expect(db._deletedDigestQueueKeys).toHaveLength(0);
+  });
+
+  it('includes each event in exactly one daily digest across consecutive runs while new events still send', async () => {
+    const digestQueue = [
+      {
+        device_id: 'device-1',
+        event_id: 'evt-1',
+        cadence: 'daily',
+        category: 'song_drop',
+        scheduled_for: '2026-01-15T17:00:00.000Z',
+      },
+    ];
+    const events = [{ id: 'evt-1', title: 'First event', expires_at: '2026-02-14T17:00:00.000Z' }];
+    const db = makeFakeDb({ digestQueue, devices: [device()], events });
+    const sendSpy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' }]);
+
+    await dispatchDueDigests(db, new Date('2026-01-15T20:00:00Z'));
+
+    events.push({ id: 'evt-2', title: 'Next-day event', expires_at: '2026-02-15T17:00:00.000Z' });
+    await enqueueForDigest(db, {
+      deviceId: 'device-1',
+      eventId: 'evt-1',
+      category: 'song_drop',
+      cadence: 'daily',
+      tz: 'America/Los_Angeles',
+      digestHour: 9,
+      now: new Date('2026-01-16T16:00:00Z'),
+    });
+    await enqueueForDigest(db, {
+      deviceId: 'device-1',
+      eventId: 'evt-2',
+      category: 'album_news',
+      cadence: 'daily',
+      tz: 'America/Los_Angeles',
+      digestHour: 9,
+      now: new Date('2026-01-16T16:00:00Z'),
+    });
+    await dispatchDueDigests(db, new Date('2026-01-16T20:00:00Z'));
+
+    await enqueueForDigest(db, {
+      deviceId: 'device-1',
+      eventId: 'evt-1',
+      category: 'song_drop',
+      cadence: 'daily',
+      tz: 'America/Los_Angeles',
+      digestHour: 9,
+      now: new Date('2026-01-17T16:00:00Z'),
+    });
+    await enqueueForDigest(db, {
+      deviceId: 'device-1',
+      eventId: 'evt-2',
+      category: 'album_news',
+      cadence: 'daily',
+      tz: 'America/Los_Angeles',
+      digestHour: 9,
+      now: new Date('2026-01-17T16:00:00Z'),
+    });
+    await dispatchDueDigests(db, new Date('2026-01-17T20:00:00Z'));
+
+    expect(sendSpy).toHaveBeenCalledTimes(2);
+    const sentBodies = sendSpy.mock.calls.map((call) => call[0][0]?.body ?? '');
+    expect(sentBodies[0]).toContain('new song');
+    expect(sentBodies[1]).toContain('album update');
+    expect(sentBodies[1]).not.toContain('new song');
+  });
+
+  it('includes an event in only one weekly digest across later weekly runs', async () => {
+    const digestQueue = [
+      {
+        device_id: 'device-1',
+        event_id: 'evt-1',
+        cadence: 'weekly',
+        category: 'fan_merch',
+        scheduled_for: '2026-01-16T17:00:00.000Z',
+      },
+    ];
+    const db = makeFakeDb({
+      digestQueue,
+      devices: [device()],
+      events: [{ id: 'evt-1', title: 'Weekly event', expires_at: '2026-02-20T17:00:00.000Z' }],
+    });
+    const sendSpy = vi
+      .spyOn(sender, 'sendPushBatch')
+      .mockResolvedValue([{ ok: true, deviceId: 'device-1', deliveryToken: 'test-token-1' }]);
+
+    await dispatchDueDigests(db, new Date('2026-01-16T20:00:00Z'));
+    for (const now of [new Date('2026-01-23T16:00:00Z'), new Date('2026-01-30T16:00:00Z')]) {
+      await enqueueForDigest(db, {
+        deviceId: 'device-1',
+        eventId: 'evt-1',
+        category: 'fan_merch',
+        cadence: 'weekly',
+        tz: 'America/Los_Angeles',
+        digestHour: 9,
+        now,
+      });
+      await dispatchDueDigests(db, new Date(now.getTime() + 4 * 60 * 60 * 1000));
+    }
+
+    expect(sendSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('drops an expired unsent event instead of including it in a digest', async () => {
+    const db = makeFakeDb({
+      digestQueue: [
+        {
+          device_id: 'device-1',
+          event_id: 'evt-expired',
+          cadence: 'daily',
+          category: 'song_drop',
+          scheduled_for: '2026-01-15T17:00:00.000Z',
+        },
+      ],
+      devices: [device()],
+      events: [{ id: 'evt-expired', title: 'Stale event', expires_at: '2026-01-15T19:59:59.000Z' }],
+    });
+    const sendSpy = vi.spyOn(sender, 'sendPushBatch').mockResolvedValue([]);
+
+    const result = await dispatchDueDigests(db, new Date('2026-01-15T20:00:00Z'));
+
+    expect(result.digestsSent).toBe(0);
+    expect(sendSpy).not.toHaveBeenCalled();
+    expect(db._deletedDigestQueueKeys).toEqual(['device-1:evt-expired']);
   });
 });
 

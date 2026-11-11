@@ -31,7 +31,7 @@ warning line on the page instead of being shown as empty.
 
 ### The change ping
 
-One short Discord line in `#longlive-marjorie` whenever the page materially changed,
+One short Discord line in `#marjorie` whenever the page materially changed,
 and nothing when it did not: `📋 Status updated — +1 needs you · 2 closed · 3 shipped · 1 post live · strategy updated — <link>`
 (no link previews, no mentions). `render --notify` (`lib/status-ping.mjs`) hashes the meaningful parts
 (waiting and closing items, shipped PRs, live posts, feedback, the plan, the strategy summary, the
@@ -101,7 +101,7 @@ L1 behavior), and renders once more with `--notify`, which posts the shared chan
 above if the page changed (the brief's new note counts). It no longer posts its own daily
 line. `<!-- marjorie-ping date=… -->` is still stamped (date only, no Discord message id):
 `brief-guard.mjs` reads it to keep a day from delivering twice, and the watchdog's
-"brief exists" check reads the note's date (`status-note.mjs today`). Replies in `#longlive-marjorie` — including replies to the change ping — are handled by Marjorie's chat routine
+"brief exists" check reads the note's date (`status-note.mjs today`). Replies in `#marjorie` — including replies to the change ping — are handled by Marjorie's chat routine
 (`bot-chat-poll` → `routine-marjorie-chat`), the owner's steering channel. The old `reply-poll.mjs` relay of
 ping-thread replies onto this issue is retired (docs/decisions.md, 2026-10-01); `chat-inbox` skips only
 approval/community `ref:` posts, so a reply to the ping is picked up as chat.

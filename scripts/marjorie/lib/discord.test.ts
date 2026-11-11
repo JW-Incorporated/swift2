@@ -64,6 +64,18 @@ describe('post()', () => {
     expect(waitImpl).toHaveBeenCalledTimes(1);
   });
 
+  it('does not resend when the first attempt throws (accepted POST, lost response)', async () => {
+    const fetchImpl = vi.fn().mockRejectedValue(new Error('socket hang up'));
+    const waitImpl = fakeWait();
+
+    const result = await post('short message', { webhook: FAKE_WEBHOOK, fetchImpl, waitImpl });
+
+    expect(result.ok).toBe(false);
+    expect(result.status).toBeNull();
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(waitImpl).not.toHaveBeenCalled();
+  });
+
   it('stops at the first chunk that fails both attempts and reports its index', async () => {
     const message = 'A'.repeat(4100); // chunks into 3 (see chunking test above)
     const fetchImpl = vi.fn()

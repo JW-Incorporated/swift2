@@ -15,6 +15,7 @@
 // describes as the eventual shape.
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { CurrentItem, EggLedgerEntry, FanSignal, KnowledgeDoc, KnowledgeDocTier, SymbolActivity } from '@swift2/shared';
+import { passesCurrentItemQualityGate } from '@swift2/shared';
 import {
   mapCurrentItem,
   mapEggLedgerEntry,
@@ -32,9 +33,14 @@ import { dateMath } from './date-math';
 export interface KnowledgeClientConfig {
   supabaseUrl: string;
   /** The public (anon / publishable) key — Current-tier reads are RLS
-   * public, scoped to `redline_ok = true and not expired` at the policy
+   * public, scoped to `redline_ok = true`, not expired, and not retracted at the policy
    * level (supabase/migrations/20260901000000_knowledge_engine.sql). */
   supabaseKey: string;
+  /** Optional fetch for every Supabase request. The web passes a `no-store`
+   * fetch: inside an ISR route Next caches each inner fetch in its Data Cache,
+   * and a response over that cache's size limit is never re-stored, so the
+   * route served a frozen snapshot (DEBUG 2026-11-04). */
+  fetch?: typeof fetch;
 }
 
 /** Filters accepted by `search()` — at minimum tier/era/symbol overlap per PLAN.md Stage 9.
@@ -83,7 +89,22 @@ export interface KnowledgeDataSource {
 }
 
 const CURRENT_ITEM_COLS =
-  'id,story_id,observed_on,era_id,category,tags,headline,summary,detail,status,confidence,source_tier,sources,location_level,image_url,social_post,symbols,entities,heat,promoted_to,last_checked_on,expires_at,redline_ok,updated_at,countdown_target_at,countdown_resolved_at';
+  'id,story_id,observed_on,era_id,category,tags,headline,summary,detail,status,confidence,source_tier,sources,location_level,image_url,embed,media_kind,social_post,symbols,entities,heat,promoted_to,merged_into,last_checked_on,expires_at,redline_ok,updated_at,countdown_target_at,countdown_resolved_at,facts,writing_score';
+
+const CURRENT_ITEM_COLS_NO_MEDIA = CURRENT_ITEM_COLS.replace('embed,media_kind,', '');
+
+/** A web build can deploy before db-migrate adds embed/media_kind: retry once
+ * without them and read the rows as plain text items. */
+async function selectCurrentItems(
+  run: (cols: string) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
+): Promise<{ data: unknown; error: { message: string } | null }> {
+  const first = await run(CURRENT_ITEM_COLS);
+  if (!first.error || !/embed|media_kind/.test(first.error.message)) return first;
+  const retry = await run(CURRENT_ITEM_COLS_NO_MEDIA);
+  if (retry.error) return retry;
+  const rows = ((retry.data ?? []) as Record<string, unknown>[]).map((r) => ({ ...r, embed: null, media_kind: 'text' }));
+  return { data: rows, error: null };
+}
 
 // Defensive ceiling, same intent as vault.ts's TIER0_MAX_ROWS: makes the
 // payload boundary loud rather than an implicit PostgREST truncation. A
@@ -91,45 +112,92 @@ const CURRENT_ITEM_COLS =
 const CURRENT_ITEM_MAX_ROWS = 500;
 
 export async function getCurrentItems(db: SupabaseClient, eraId: string): Promise<CurrentItem[]> {
-  const { data, error } = await db
-    .from('current_item')
-    .select(CURRENT_ITEM_COLS)
-    .eq('era_id', eraId)
-    .is('promoted_to', null)
-    .order('observed_on', { ascending: false })
-    .limit(CURRENT_ITEM_MAX_ROWS);
+  const { data, error } = await selectCurrentItems((cols) =>
+    db
+      .from('current_item')
+      .select(cols)
+      .eq('era_id', eraId)
+      .eq('redline_ok', true)
+      .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
+      .is('promoted_to', null)
+      .is('merged_into', null)
+      .is('retracted_at', null)
+      .order('observed_on', { ascending: false })
+      .limit(CURRENT_ITEM_MAX_ROWS),
+  );
 
   if (error) throw new Error(`getCurrentItems: ${error.message}`);
-  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem);
+  // The redline/expiry filters repeat the RLS policy in SQL so the row cap
+  // counts only servable rows whatever key the caller holds: a key that
+  // bypasses RLS let ~240 retired rows fill the 500-row window and push older
+  // passing rows off the feed (2026-11-04).
+  // Content fix 3/6 hard publish gate: RLS already scopes anon reads to
+  // `redline_ok = true` (which `writeCurrentItem` now only ever sets once a
+  // row has cleared the SAME shared validator — see current-item-quality.ts),
+  // but this filter is a second, defense-in-depth check at the read path
+  // itself, so a failing item is never visible through any caller even if a
+  // future write path (or a service-role query that bypasses RLS) ever
+  // forgets the write-time gate.
+  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem).filter((item) => passesCurrentItemQualityGate(item));
 }
 
-/** `recent(days)` — same `promoted_to` exclusion as `getCurrentItems`, plus an
- * explicit `redline_ok = true` (RLS already scopes anon reads this way, same
+/** `recent(days)` — same `promoted_to` exclusion as `getCurrentItems`, plus
+ * explicit `redline_ok = true` and non-retracted filters (RLS already scopes anon reads this way, same
  * as `getCurrentItems` relies on implicitly, but PLAN.md Stage 9 calls this
  * filter out explicitly, so it's stated here rather than only left to policy). */
 export async function getRecentItems(db: SupabaseClient, days: number, signal?: AbortSignal): Promise<CurrentItem[]> {
   const cutoff = dateMath().daysAgo(days);
-  let query_ = db
-    .from('current_item')
-    .select(CURRENT_ITEM_COLS)
-    .gte('observed_on', cutoff)
-    .eq('redline_ok', true)
-    .is('promoted_to', null)
-    .order('observed_on', { ascending: false })
-    .limit(CURRENT_ITEM_MAX_ROWS);
-  if (signal) query_ = query_.abortSignal(signal);
-  const { data, error } = await query_;
+  const { data, error } = await selectCurrentItems((cols) => {
+    const query_ = db
+      .from('current_item')
+      .select(cols)
+      .gte('observed_on', cutoff)
+      .eq('redline_ok', true)
+      .is('retracted_at', null)
+      .is('promoted_to', null)
+      .is('merged_into', null)
+      .order('observed_on', { ascending: false })
+      .limit(CURRENT_ITEM_MAX_ROWS);
+    return signal ? query_.abortSignal(signal) : query_;
+  });
 
   if (error) throw new Error(`recent: ${error.message}`);
-  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem);
+  // Content fix 3/6: same defense-in-depth quality-gate filter as getCurrentItems above.
+  return ((data ?? []) as CurrentItemRow[]).map(mapCurrentItem).filter((item) => passesCurrentItemQualityGate(item));
 }
 
 const KNOWLEDGE_DOC_COLS =
   'id,kind,tier,title,text,date,recency_date,open,status,source_tier,sources,era_id,symbols,entities,expires_at,redline_ok';
 const KNOWLEDGE_DOC_MAX_ROWS = 50;
 
-/** FTS-only over `knowledge_doc.tsv` (Postgres `plainto_tsquery`/`@@` via
- * Supabase's `.textSearch()`) — hybrid cosine+FTS per the proposal once an
+const STOPWORDS = new Set(
+  'the and for are but not you all any can had her was one our out has his how its may new now see two who did get him she too use way from with that this have they what when your will been were them then than into only over such some very about which their there these those would could should after before while where being other'.split(
+    ' ',
+  ),
+);
+const OR_QUERY_MAX_TERMS = 12;
+
+/** Builds a raw tsquery that ORs the distinctive terms of `q` (`a | b | c`).
+ * Terms are reduced to `[a-z0-9]` so tsquery syntax can never reach the
+ * query. Returns null when no term survives (caller falls back to plain). */
+export function toOrTsQuery(q: string): string | null {
+  const terms: string[] = [];
+  for (const t of q.toLowerCase().split(/[^a-z0-9]+/)) {
+    if (t.length < 3 || STOPWORDS.has(t) || terms.includes(t)) continue;
+    terms.push(t);
+    if (terms.length >= OR_QUERY_MAX_TERMS) break;
+  }
+  return terms.length > 0 ? terms.join(' | ') : null;
+}
+
+function termHits(row: KnowledgeDocRow, terms: string[]): number {
+  const hay = `${row.title ?? ''} ${row.text ?? ''}`.toLowerCase();
+  return terms.reduce((n, t) => (hay.includes(t) ? n + 1 : n), 0);
+}
+
+/** FTS over `knowledge_doc.tsv` (Postgres `to_tsquery` OR of distinctive
+ * terms, falling back to `plainto_tsquery` when none survive; re-ranked
+ * client-side by term hits, ties keep `updated_at desc`) — hybrid cosine+FTS per the proposal once an
  * embedding vendor is chosen (`HUMAN-ACTIONS.md` #12 item 2); until then, a
  * blank `query` degrades to filters-only (no `.textSearch()` call at all —
  * `plainto_tsquery('')` matches nothing, which would silently empty every
@@ -142,7 +210,9 @@ export async function searchKnowledgeDocs(
 ): Promise<KnowledgeDoc[]> {
   let builder = db.from('knowledge_doc').select(KNOWLEDGE_DOC_COLS);
   const trimmed = query.trim();
-  if (trimmed) builder = builder.textSearch('tsv', trimmed, { type: 'plain', config: 'english' });
+  const orQuery = trimmed ? toOrTsQuery(trimmed) : null;
+  if (orQuery) builder = builder.textSearch('tsv', orQuery, { config: 'english' }); // no `type` = raw to_tsquery
+  else if (trimmed) builder = builder.textSearch('tsv', trimmed, { type: 'plain', config: 'english' });
   if (filters.tier) builder = builder.eq('tier', filters.tier);
   if (filters.eraId) builder = builder.eq('era_id', filters.eraId);
   if (filters.symbols && filters.symbols.length > 0) builder = builder.overlaps('symbols', filters.symbols);
@@ -152,7 +222,15 @@ export async function searchKnowledgeDocs(
   if (signal) query_ = query_.abortSignal(signal);
   const { data, error } = await query_;
   if (error) throw new Error(`search: ${error.message}`);
-  return ((data ?? []) as KnowledgeDocRow[]).map(mapKnowledgeDoc);
+  let rows = (data ?? []) as KnowledgeDocRow[];
+  if (orQuery) {
+    const terms = orQuery.split(' | ');
+    rows = rows
+      .map((row, i) => ({ row, i, hits: termHits(row, terms) }))
+      .sort((a, b) => b.hits - a.hits || a.i - b.i)
+      .map((x) => x.row);
+  }
+  return rows.map(mapKnowledgeDoc);
 }
 
 const EGG_LEDGER_COLS =
@@ -259,6 +337,7 @@ export async function getTrack(db: SupabaseClient, title: string, signal?: Abort
 export function createKnowledgeClient(config: KnowledgeClientConfig): KnowledgeDataSource {
   const supabase = createClient(config.supabaseUrl, config.supabaseKey, {
     auth: { persistSession: false, autoRefreshToken: false },
+    ...(config.fetch ? { global: { fetch: config.fetch } } : {}),
   });
 
   return {

@@ -49,7 +49,13 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
-          if [ "${DRY_RUN:-true}" = "true" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            DRY_RUN=false
+          else
+            DRY_RUN="${DRY_RUN:-true}"
+          fi
+          echo "dryRun=${DRY_RUN}"
+          if [ "${DRY_RUN}" = "true" ]; then
             node scripts/merch-engine/fanmade-discovery.mjs
           else
             node scripts/merch-engine/fanmade-discovery.mjs --file

@@ -7,6 +7,10 @@ import { createHash } from 'node:crypto';
 import { readdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { slugify } from './longlive-sync-shared.mjs';
+import { CONFIG } from '../content-engine/config.mjs';
+import { SURFACE_MEDIA_LEGACY } from './surface-media-legacy.mjs';
+
+export { SURFACE_MEDIA_LEGACY };
 
 export const MEDIA_LEGACY = new Map([
 ]);
@@ -23,6 +27,170 @@ const placeholderImage = (value) => {
   }
 };
 
+const IMAGE_EXT = /\.(?:jpe?g|png|webp|gif|avif|svg)$/i;
+
+// Hosts whose every URL is an image, so an extensionless path is still a
+// photo. Every other trusted host (publishers, buckets) hosts article pages
+// too, and an extensionless URL there is not evidence of an image.
+const IMAGE_ONLY_HOSTS = new Set([
+  'upload.wikimedia.org',
+  'i.ytimg.com',
+  'img.youtube.com',
+  'media.gettyimages.com',
+  'dims.apnews.com',
+  'imageio.forbes.com',
+  'media-cldnry.s-nbcnews.com',
+  'media.zenfs.com',
+  'images.complex.com',
+]);
+
+// Image-only path prefixes on hosts that are not image-only as a whole.
+const IMAGE_PATH_PREFIXES = [
+  { host: 'media.vanityfair.com', pathPrefix: '/photos/' },
+  // Yahoo image CDN: two resize-proxy endpoints, both exclusively image.
+  { host: 's.yimg.com', pathPrefix: '/ny/api/res/1.2/' },
+  { host: 's.yimg.com', pathPrefix: '/lo/mysterio/api/' },
+  // iHeart's asset CDN: every known URL is a new_assets image.
+  { host: 'i.iheart.com', pathPrefix: '/v3/re/new_assets/' },
+  // Her Campus CDN: every known URL is under the /SH6M70M3/as/ image path.
+  { host: 'cdn.hercampus.com', pathPrefix: '/SH6M70M3/as/' },
+];
+
+/** An https URL that points at an image: a known image file extension, or an
+ * extensionless path on an image-only host / a scoped image-bucket path
+ * (CONFIG.scopedHostAllowlist). A random https page on a trusted publisher or
+ * bucket host is not an image. */
+const imageLikeUrl = (value) => {
+  if (!https(value) || placeholderImage(value)) return false;
+  try {
+    const { hostname, pathname } = new URL(value);
+    if (IMAGE_EXT.test(pathname)) return true;
+    const host = hostname.toLowerCase();
+    return (
+      IMAGE_ONLY_HOSTS.has(host) ||
+      [...CONFIG.scopedHostAllowlist, ...IMAGE_PATH_PREFIXES].some(
+        (s) => s.host === host && pathname.startsWith(s.pathPrefix),
+      )
+    );
+  } catch {
+    return false;
+  }
+};
+
+const OEMBED_HOSTS = new Set(['youtube.com', 'youtu.be', 'instagram.com']);
+const oembedPostUrl = (value) => {
+  if (!https(value)) return false;
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^(?:www|m)\./, '');
+    return OEMBED_HOSTS.has(host);
+  } catch {
+    return false;
+  }
+};
+
+const renderableMediaEntry = (media) => {
+  if (!media || typeof media !== 'object') return false;
+  if (media.kind === 'oembed') return oembedPostUrl(media.post_url);
+  if (media.kind === 'owned') return text(media.asset_path) && text(media.license_ref);
+  if (media.kind === 'hotlink_legacy') return imageLikeUrl(media.url);
+  return false;
+};
+
+/** Missing-media predicates for the non-moment surfaces P1-23 can gate
+ * without changing their data models. */
+export function nonMomentMediaErrors(row) {
+  return Array.isArray(row?.media) && row.media.some(renderableMediaEntry)
+    ? []
+    : ['record needs renderable media (oEmbed, owned asset, or hotlink)'];
+}
+
+/** An appearance-discovery intent is an RSS-metadata lead, not a post: the
+ * Tree drafter attaches media when it drafts one, and check-drafts.mjs
+ * `checkMedia` (X and Instagram) rejects any draft without it. */
+const isAppearanceLead = (intent) =>
+  intent?.source === 'appearance-discovery' &&
+  intent?.lane === 'appearance' &&
+  Array.isArray(intent.media) &&
+  intent.media.length === 0;
+
+export function socialInboxMediaErrors(intent) {
+  if (isAppearanceLead(intent)) return [];
+  return Array.isArray(intent?.media) && intent.media.some(text)
+    ? []
+    : ['social inbox intent needs at least one media path'];
+}
+
+export function merchMediaErrors(row) {
+  return imageLikeUrl(row?.imageUrl)
+    ? []
+    : ['merch row needs a non-placeholder https image imageUrl'];
+}
+
+const SURFACE_HASH_LENGTH = 16;
+
+/** Fields a scheduled sync bot rewrites on every run (merch-official-sync
+ * bumps verifiedAt each run and flips inStock / price as the store changes).
+ * They are excluded from the legacy fingerprint so a bot refresh cannot void
+ * an exemption; every content field (item, url, imageUrl, ...) stays hashed,
+ * so a real edit still has to add media. */
+export const SYNC_OWNED_FIELDS = Object.freeze(['verifiedAt', 'inStock', 'price']);
+
+export function surfaceFingerprint(item) {
+  const stable = {};
+  for (const [field, value] of Object.entries(item ?? {})) {
+    if (!SYNC_OWNED_FIELDS.includes(field)) stable[field] = value;
+  }
+  return momentFingerprint(stable);
+}
+
+/** A legacy exemption is exact: the key AND the row's content hash must both
+ * match, so an edited text-only row must gain media. */
+export function surfaceMediaPublicationVerdict(
+  key,
+  item,
+  itemErrors,
+  legacy = SURFACE_MEDIA_LEGACY,
+) {
+  const grandfathered =
+    legacy.get(key) === surfaceFingerprint(item).slice(0, SURFACE_HASH_LENGTH);
+  return { errors: grandfathered ? [] : itemErrors, legacyGap: grandfathered };
+}
+
+/** Audits the exemption list itself: an entry that gates nothing is dead
+ * weight and an entry whose row gained media is a stale exemption. A social
+ * inbox entry is keyed to the intent's live `social/inbox/<file>.json` path,
+ * but closing one moves the file to `social/inbox/closed/` — a retired intent
+ * is no longer a publication candidate, so its entry warns for cleanup rather
+ * than failing the build on every PR that performs the normal lifecycle move
+ * (issue #6109). */
+export function surfaceMediaLegacyFindings(
+  legacy,
+  { seen, exactGaps, retired = new Set() },
+) {
+  const findings = [];
+  for (const key of legacy.keys()) {
+    if (!seen.has(key)) {
+      findings.push(
+        retired.has(key)
+          ? { key, level: 'warn', message: `SURFACE_MEDIA_LEGACY lists "${key}", whose intent is now closed — delete the entry` }
+          : { key, level: 'error', message: `SURFACE_MEDIA_LEGACY lists "${key}", which matches no gated row — delete the entry` },
+      );
+    } else if (!exactGaps.has(key)) {
+      findings.push({
+        key,
+        level: 'error',
+        message: `SURFACE_MEDIA_LEGACY lists "${key}", but it no longer matches the exact text-only snapshot — add media and delete the entry`,
+      });
+    }
+  }
+  return findings;
+}
+
+/** The live-inbox keys that a closed intent under `social/inbox/closed/`
+ * used to occupy. */
+export const retiredSurfaceMediaKeys = (closedFiles) =>
+  new Set(closedFiles.map((file) => `social/inbox/${file}`));
+
 /** Returns errors for authored media that cannot render as a useful visual. */
 export function momentMediaErrors(item) {
   const errors = [];
@@ -31,9 +199,9 @@ export function momentMediaErrors(item) {
   const video = item?.video ?? item?.moment?.video;
   const social = item?.socialPost ?? item?.moment?.socialPost;
 
-  const validThumbnail = https(thumbnail) && !placeholderImage(thumbnail);
+  const validThumbnail = imageLikeUrl(thumbnail);
   const validPhotos = Array.isArray(photos)
-    ? photos.filter((photo) => photo && https(photo.url) && !placeholderImage(photo.url))
+    ? photos.filter((photo) => photo && imageLikeUrl(photo.url))
     : [];
   const validVideo =
     video &&

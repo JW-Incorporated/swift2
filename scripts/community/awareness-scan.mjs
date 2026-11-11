@@ -10,7 +10,7 @@
 // each sub's image-comment support comes from a cached about.json reading
 // (awareness-eligibility.mjs), a site card is picked (awareness-image.mjs),
 // and `engagement_lead(kind='awareness_reply', status='new')` rows are
-// inserted. The awareness answerer routine then writes the reply text;
+// inserted. The awareness drafter (draft-replies.mjs) then writes the reply text;
 // awareness-deliver.mjs sends it to Discord. The OWNER posts — nothing here
 // (or anywhere in this lane) calls a Reddit/Facebook write API.
 //
@@ -26,17 +26,16 @@
 // (workflow checks it first; re-checked here). Unset means ON.
 //
 //   npx tsx scripts/community/awareness-scan.mjs [--dry-run]   # dry-run: no DB writes
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { serviceClient } from '../lib/supabase.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { fetchKnownThreadIds, insertLeads } from './scan.mjs';
-import { applyCandidateCaps, evaluateThread, scoreCandidate } from './awareness-filters.mjs';
+import { formatDropped, keepReplyable } from './awareness-reply-check.mjs';
+import { evaluateThread, scoreCandidate } from './awareness-filters.mjs';
 import {
   aboutBlockedRecently,
   cachedAbout,
   fetchSubAbout,
+  fetchThreadReplyState,
   loadAboutCache,
   resolveImageComments,
   saveAbout,
@@ -45,7 +44,7 @@ import { buildAwarenessRow, fetchTodaysCandidateCounts } from './awareness-rows.
 import { adoptFacebookLeads } from './awareness-facebook.mjs';
 import { createFeedFetcher } from './awareness-fetch.mjs';
 import { loadCatalog, pickImageRef } from './awareness-image.mjs';
-import { buildFeeds, communityFromPermalink, isBlockedSub } from './awareness-sources.mjs';
+import { buildFeeds, groupByCommunity } from './awareness-sources.mjs';
 import {
   GLOBAL_KEY,
   coolingDown,
@@ -55,8 +54,12 @@ import {
   recordRun,
   saveSourceState,
 } from './awareness-rotation.mjs';
+import { shouldSkipForHomeReader } from './awareness-heartbeat.mjs';
+import { dailyCapFor, loadConfig } from './awareness-config.mjs';
 
-const CONFIG_PATH = path.join(path.dirname(fileURLToPath(import.meta.url)), 'awareness-subs.json');
+export { groupByCommunity } from './awareness-sources.mjs';
+export { shouldSkipForHomeReader } from './awareness-heartbeat.mjs';
+export { dailyCapFor, DEFAULT_DAILY_CAP, loadConfig } from './awareness-config.mjs';
 export {
   buildAwarenessRow,
   contextFor,
@@ -65,41 +68,9 @@ export {
 } from './awareness-rows.mjs';
 export const RUN_CAP = 6;
 export const START_JITTER_MS = 90_000;
-export const DEFAULT_DAILY_CAP = 3;
 
 export function awarenessEnabled(env = process.env) {
   return env.AWARENESS_LANE_ENABLED !== 'false' && env.AWARENESS_LANE_ENABLED !== '0';
-}
-
-export function loadConfig(file = CONFIG_PATH) {
-  const config = JSON.parse(readFileSync(file, 'utf8'));
-  return {
-    defaults: config.defaults ?? {},
-    subs: config.subs ?? [],
-    excluded: config.excluded ?? [],
-    search: config.search ?? {},
-  };
-}
-
-/** A sub's own daily delivery cap (4 for the two big fan subs), else the default. */
-export function dailyCapFor(sub, defaults) {
-  return sub?.dailyCap ?? defaults?.perSubDailyDeliveryCap ?? DEFAULT_DAILY_CAP;
-}
-
-/** Groups fetched posts by the community they belong to, dropping blocked/NSFW subs; best feed rank wins per id. */
-export function groupByCommunity(fetched, config) {
-  const groups = new Map();
-  for (const { source, posts } of fetched) {
-    for (const post of posts) {
-      const name = source.kind === 'sub' ? source.sub.name : communityFromPermalink(post.permalink);
-      if (!name || isBlockedSub(name, config)) continue;
-      const group = groups.get(name) ?? new Map();
-      const prior = group.get(post.id);
-      if (!prior || post.rank < prior.rank) group.set(post.id, post);
-      groups.set(name, group);
-    }
-  }
-  return groups;
 }
 
 /**
@@ -125,6 +96,7 @@ export async function runAwarenessScan({
   catalog,
   fetchImpl,
   fetchAbout = fetchSubAbout,
+  fetchThread = fetchThreadReplyState,
   now = new Date(),
   sleep = (ms) =>
     new Promise((resolve) => {
@@ -184,6 +156,8 @@ export async function runAwarenessScan({
     supabase,
     dryRun,
     aboutSpent: requests.length === 0 || requestStats.rateLimited + requestStats.blocked > 0,
+    threadChecksBlocked:
+      requests.length === 0 || requestStats.rateLimited + requestStats.blocked > 0,
   };
   const byName = new Map(config.subs.map((sub) => [sub.name, sub]));
   const all = [];
@@ -225,10 +199,17 @@ export async function runAwarenessScan({
     perSub.push({ subreddit: name, imageComments, fetched: group.size, passed, rejected });
   }
 
-  const kept = applyCandidateCaps(all, {
+  const capOptions = {
     perSubScanCap: defaults.perSubScanCapPerRun ?? 2,
     remainingToday,
     runCap: RUN_CAP,
+  };
+  const { kept, replyStates, dropped } = await keepReplyable(all, capOptions, {
+    fetchThread,
+    fetchImpl,
+    sleep,
+    pacingMs,
+    blocked: ctx.threadChecksBlocked,
   });
   const rows = kept.map((c) =>
     buildAwarenessRow({
@@ -238,6 +219,7 @@ export async function runAwarenessScan({
       ageHours: c.ageHours,
       imageRef: c.imageRef,
       imageComments: c.imageComments,
+      replyUnverified: replyStates.get(c.post.id) === 'unknown',
     }),
   );
   const facebookRows = supabase ? await adoptFacebookLeads(supabase, { catalog, now }) : [];
@@ -254,6 +236,7 @@ export async function runAwarenessScan({
     requests: requestStats,
     candidates: all.length,
     kept: rows.length,
+    dropped,
     facebook: facebookRows.length,
     inserted,
     rows,
@@ -275,6 +258,10 @@ async function main() {
     );
     return 0;
   }
+  if (!dryRun && (await shouldSkipForHomeReader(supabase))) {
+    console.log('awareness-scan: home reader healthy, skipping GitHub RSS fallback.');
+    return 0;
+  }
   const result = await runAwarenessScan({
     supabase,
     catalog: await loadCatalog(),
@@ -289,6 +276,7 @@ async function main() {
   console.log(
     `awareness-scan: ${result.candidates} candidate(s) passed filters, ${result.kept} kept under caps, ${result.facebook} Facebook adopted, ${result.inserted} inserted${dryRun ? ' (dry-run: nothing written)' : ''}. Requests: ${JSON.stringify(result.requests)}`,
   );
+  console.log(`awareness-scan: dropped as unreplyable: ${formatDropped(result.dropped)}`);
   for (const s of result.perSource) console.log(`  source ${JSON.stringify(s)}`);
   for (const s of result.perSub) console.log(`  r/${s.subreddit}: ${JSON.stringify(s)}`);
   return 0;

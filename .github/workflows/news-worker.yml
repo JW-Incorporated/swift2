@@ -8,6 +8,9 @@
 # Secrets needed (repo Settings -> Secrets, all founder TX items):
 #   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — see apps/worker/.env.example
 #     for exactly where in the Supabase dashboard each comes from.
+#   CLAUDE_CODE_OAUTH_TOKEN — Claude subscription auth for the P1 extract
+#     and dedupe calls. They may use CLAUDE_CODE_OAUTH_TOKEN_BACKUP after a
+#     detected primary limit.
 #   OPENAI_API_KEY — optional; unset means the worker runs entirely on the
 #     deterministic rule-based classifier (the designed degraded-but-
 #     functional path, not a broken state).
@@ -46,6 +49,9 @@ permissions:
 jobs:
   cycle:
     runs-on: ubuntu-latest
+    # The subscription wrapper allows 120s/call. The shared extract ledger
+    # permits 150 calls/run, so 300m plus setup/publish headroom fits here.
+    timeout-minutes: 360
     steps:
       - name: Checkout (resolve local composite actions)
         uses: actions/checkout@v7
@@ -53,14 +59,55 @@ jobs:
         with:
           npm-ci: 'true'
 
+      # Same native installer/retry pattern used by claude-code-action in
+      # routine-template; version pinned to the wrapper's verified 2.1.300.
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
       - name: Run one pipeline cycle
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
           TUMBLR_CONSUMER_API_KEY: ${{ secrets.TUMBLR_CONSUMER_API_KEY }}
+          # Two-pass news writer (docs/decisions.md 2026-11-03). 'on' since 2026-11-03: new items are
+          # written by the v2 pipeline (Opus writer + calibrated Opus judge) and held when they miss the
+          # bar. 'shadow' = legacy rows + v2 drafts reported only (artifact news-v2-shadow).
+          # Rollback: set 'shadow' (keep watching drafts) or 'off' (legacy single-pass path only).
+          NEWS_WRITER_V2: 'on'
+          # Significance gate (docs/decisions.md 2026-11-08). 'on' since 2026-11-09 after 27 clean
+          # shadow cycles: hold tier 3 (not_notable:*), defer on judge failure, tier-aware cap
+          # (tier 1 uncapped, tier 2 four per UTC day). 'shadow' = tier and log only, hold nothing.
+          # Rollback: 'shadow' or 'off' (no stage at all).
+          NEWS_SIGNIFICANCE: 'on'
+          NEWS_V2_SHADOW_FILE: ${{ runner.temp }}/news-v2-shadow.jsonl
         run: npm run news --workspace @swift2/worker
+
+      # Shadow drafts: public news text and model output only (no secrets, no PII). The repo is
+      # public, so this artifact is world-readable.
+      - name: Upload v2 shadow drafts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: news-v2-shadow
+          path: ${{ runner.temp }}/news-v2-shadow.jsonl
+          retention-days: 14
+          if-no-files-found: ignore
 
       # Publish a credential-free digest of what was ingested, for the News
       # Triage routine. `news_story` needs SUPABASE_SERVICE_ROLE_KEY, which

@@ -243,7 +243,7 @@ Each carries the script output. By code:
 | `STRANDED_OTA` | the latest update's runtimeVersion ≠ that platform's latest build | run the train with `force_store_build=true` so both platforms get a build matching current `main`; the next OTA then lands on both |
 | `SPLIT_UPDATE` | the last update group covers one platform | re-run the train (`gh workflow run mobile-release.yml`) from `main`; it publishes one group to both |
 | `VERSION_SKEW` | store builds disagree on `version` | a build ran outside the train; run the train with `force_store_build=true` |
-| `BUILD_LAG` | one platform's latest build is >48h older and from a different commit | check the train run for a failed build/submit step (the Mobile release train run), fix, re-run |
+| `BUILD_LAG` | one platform's latest build is >48h older and from a different commit, AND that older platform's latest OTA cohort runtime differs from its build's runtime (or it has no cohort) — an unchanged-fingerprint platform kept current by OTA is not lag | check the train run for a failed build/submit step (the Mobile release train run), fix, re-run |
 | `MAIN_AHEAD` (exit 3) | production carries neither a publish nor a store build containing the newest mobile-relevant `main` commit, older than 6h | check the Mobile release train run for that commit; re-run the train from `main` |
 | exit 2 | check could not run | usually `EXPO_TOKEN` missing or expired → HUMAN-ACTIONS #48 |
 

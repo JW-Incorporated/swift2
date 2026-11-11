@@ -75,6 +75,7 @@
 //                             instead of the real 90 seconds.
 
 import { readdir, readFile, writeFile, appendFile, rm } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -93,6 +94,8 @@ import {
   mediaUrlsFor,
   approvalStatus,
   MEDIA_BASE_URL,
+  sanitizeLastError,
+  withFailureMetadata,
 } from './lib/queue.mjs';
 import { SOCIAL_APPROVERS } from './lib/approvers.mjs';
 import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
@@ -157,7 +160,7 @@ async function readJsonDir(dir, { required = false } = {}) {
 }
 
 async function moveToFailed(failedDir, entry, failed) {
-  await writeFile(path.join(failedDir, entry.file), JSON.stringify(failed, null, 2) + '\n');
+  await writeFile(path.join(failedDir, entry.file), JSON.stringify(withFailureMetadata(failed), null, 2) + '\n');
   await rm(entry.full);
 }
 
@@ -319,7 +322,15 @@ export async function main() {
     // so grandfathering is impossible by construction: every item that
     // reaches this branch without a CURRENTLY-VALID stamp is unapproved,
     // full stop, whether it never had a key or its content changed since.
-    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS, key: process.env.SOCIAL_APPROVAL_KEY ?? '' });
+    // readMedia: a v4 tree-auto stamp signs a digest of the media BYTES, re-computed here.
+    const readMedia = (media) => {
+      try {
+        return readFileSync(path.join(root, 'apps', 'web', 'public', media));
+      } catch {
+        return null;
+      }
+    };
+    const approval = approvalStatus(entry.data, { approvers: SOCIAL_APPROVERS, key: process.env.SOCIAL_APPROVAL_KEY ?? '', readMedia });
     if (!approval.ok) {
       if (isStaleDue(entry.data, now)) {
         const failureReason = `Unapproved for >48h past scheduledAt — ${approval.reason}`;
@@ -455,15 +466,23 @@ export async function main() {
       continue;
     }
 
-    // 1. Stale check FIRST — unconditional, regardless of what else is true
-    // about this item. A 3-day-stale item must not quietly post just
+    // 1. Stale check FIRST — regardless of what else is true about this
+    // item, with ONE exception: a posted record with this exact file name
+    // that is ALSO a duplicate of it means it already went live and only its
+    // queue fold-back is stuck, so it is never stale and falls through to the
+    // duplicate skip below. An unposted item that merely shares a
+    // campaign/body with some other posted record is still stale, and so is
+    // a same-named file edited and re-approved since it posted (no longer a
+    // duplicate, so it would otherwise post). A 3-day-stale item must not quietly post just
     // because it happens to be unblocked on the run that finally checks it.
     // `due` only ever contains items that already passed the approval gate
     // above (validQueued), so every item reaching this point has a valid
     // stamp — staleness is measured from the founder's own approval
     // (`approval.at`), not `scheduledAt`/queue time (lib/queue.mjs's
     // isStaleApproved).
-    if (isStaleApproved(item, now)) {
+    const dup = findPostedDuplicate(item, allPostedData);
+    const alreadyPostedHere = allPosted.some((p) => p.file === entry.file);
+    if (!(alreadyPostedHere && dup) && isStaleApproved(item, now)) {
       const failureReason = 'Still unposted more than 48h after founder approval — moved to social/failed/ regardless of current guard/preflight state (see social/README.md\'s 48h rule).';
       await moveToFailed(failedDir, entry, {
         ...item,
@@ -477,7 +496,6 @@ export async function main() {
     }
 
     // 2. Idempotency: does social/posted/ already have this exact post?
-    const dup = findPostedDuplicate(item, allPostedData);
     let blockReason = dup
       ? `already posted: a social/posted/ record with the same platform and ${item.campaign && dup.campaign === item.campaign ? `campaign "${item.campaign}"` : 'an identical body'} already exists (${dup.url ?? 'no url recorded'}) — this looks like a duplicate, not a new post.`
       : null;
@@ -625,7 +643,7 @@ export async function main() {
       }
 
       const attempts = (item.attempts ?? 0) + 1;
-      const failed = { ...item, attempts, lastError, lastAttemptAt: now.toISOString() };
+      const failed = { ...item, attempts, lastError: sanitizeLastError(lastError), lastAttemptAt: now.toISOString() };
       if (attempts >= MAX_ATTEMPTS) {
         failed.failureReason = `Failed ${attempts} time(s): ${lastError}`;
         await moveToFailed(failedDir, entry, failed);

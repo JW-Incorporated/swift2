@@ -13,6 +13,18 @@ export type RecordKnowledgeKind = (typeof RECORD_KNOWLEDGE_KINDS)[number];
 export const SKIP_REASONS = ['not_taylor', 'no_truth_value', 'redline', 'duplicate', 'stale'] as const;
 export type SkipReason = (typeof SKIP_REASONS)[number];
 
+export const FACT_CONFIDENCES = ['confirmed', 'reported', 'rumor'] as const;
+export type FactConfidence = (typeof FACT_CONFIDENCES)[number];
+
+/** Pass A output: one plain-sentence claim with who said it. The writer
+ * (pass B) cites facts by `id`. */
+export interface ExtractedFact {
+  id: string;
+  claim: string;
+  attribution: string;
+  confidence: FactConfidence;
+}
+
 /** The model's report of one observable event. Not yet a DB row — no id,
  * no real `sources` citations (those come from the cluster's own raw items,
  * never the model, per the "never invent a source" rule). */
@@ -27,6 +39,8 @@ export interface ExtractedCurrentItem {
   entities: string[];
   locationLevel?: LocationLevel;
   statusHint: CurrentItemStatus;
+  /** Present only when the model returned a `facts` array (possibly empty). */
+  facts?: ExtractedFact[];
 }
 
 export interface ExtractedTheory {
@@ -48,6 +62,15 @@ export interface ExtractedFanSignal {
 export interface ExtractCommentThread {
   postTitle: string;
   comments: readonly string[];
+}
+
+/** Card 2: one fetched article's readable body text, as handed to the
+ * extraction model (sources/fetch-article-text.ts does the fetching; this is
+ * just the input shape haiku-client.ts's prompt builder consumes). */
+export interface FetchedArticleTextInput {
+  url: string;
+  outletName?: string;
+  text: string;
 }
 
 /** The exact `record_knowledge` tool output shape (proposal §4.5). */

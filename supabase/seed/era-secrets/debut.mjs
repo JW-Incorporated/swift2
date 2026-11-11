@@ -137,6 +137,37 @@ export default {
       ],
     },
     {
+      // Vault Run 2026-10-25, intake #6290 (GMA's YouTube re-post of the clip).
+      // GMA's own write-up dates the interview 2005 in its text and 2004 in a
+      // photo caption, so no year is stated here, only her age as GMA gives it.
+      slug: 'debut-gma-at-14-backup-plan',
+      title: 'At 14, she told Good Morning America her backup plan',
+      secret:
+        'Before any label would put out her records, a 14-year-old Taylor turned up in a Good Morning America piece on young musicians trying to make it in Nashville. Asked what happens if it doesn\'t work out, she already had an answer: "If I\'m not a star, then I guess I\'m going to be a writer." She told them "this is what I feel I was meant to do," and that failure was the scariest thing, "because it\'s so common." Then the kicker: "But I\'m really, really, really, really, really, really trying."',
+      deeperLink: 'moment:vault-debut-the-bluebird-cafe-night-a-14-year-old-and-a-label-that-didnt',
+      provenance: 'sourced',
+      sources: [
+        {
+          source_url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-age-14-becoming-star-124653926',
+          source_title: 'What Taylor Swift said at age 14 about becoming a star',
+          publisher: 'Good Morning America',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-25',
+          reliability_score: 4,
+          notes: 'GMA Team, Aug. 14, 2025; loaded directly. Primary text for all four quotes and the "up-and-coming Nashville musicians" framing. Its interview year is self-contradictory (2005 in text, 2004 in caption), so none is used.',
+        },
+        {
+          source_url: 'https://www.youtube.com/watch?v=48bpl61jZYw',
+          source_title: '14-year-old Taylor Swift on stardom',
+          publisher: 'Good Morning America (official YouTube channel)',
+          source_type: 'official',
+          accessed_at: '2026-10-25',
+          reliability_score: 4,
+          notes: 'GMA\'s own clip, posted Oct. 24, 2026; oEmbed-verified (HTTP 200, author Good Morning America). Not watched from this run, so the quotes stay attributed to the GMA article.',
+        },
+      ],
+    },
+    {
       slug: 'debut-christmas-tree-farm',
       title: 'She actually grew up on a Christmas tree farm',
       secret:

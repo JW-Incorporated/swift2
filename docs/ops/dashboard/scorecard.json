@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "generatedAt": null,
+  "window": {
+    "start": null,
+    "end": null
+  },
+  "operations": {
+    "routineTurns": null,
+    "llmCalls": null,
+    "estimatedCostUsd": null
+  },
+  "entries": [
+    { "goal": 1, "metric": "Critical story delivery within 60 minutes and per-stage latency", "value": "not measurable yet", "unit": "share and minutes", "window": "first Monday run", "source": "story_timeline + watch_decision", "reason": "Awaiting the first automated Monday scorecard run." },
+    { "goal": 2, "metric": "Recall at 48 hours and critical recall at 1 hour", "value": "not measurable yet", "unit": "share", "window": "first Monday run", "source": "docs/ops/dashboard/news.json", "reason": "No weekly recall audit row exists yet." },
+    { "goal": 3, "metric": "New theory candidates, live theories and seed records", "value": "not measurable yet", "unit": "count", "window": "first Monday run", "source": "fan_theory_candidate + live_theory + watch_decision", "reason": "Awaiting the first automated Monday scorecard run." },
+    { "goal": 4, "metric": "Media coverage of new live-feed items and missing-image holds", "value": "not measurable yet", "unit": "share and count", "window": "first Monday run", "source": "current_item + seed diffs", "reason": "Awaiting the first automated Monday scorecard run." },
+    { "goal": 5, "metric": "Critical stories posted to social", "value": "not measurable yet", "unit": "share", "window": "first Monday run", "source": "story_timeline + watch_decision", "reason": "Awaiting the first automated Monday scorecard run." },
+    { "goal": 6, "metric": "Weekly voice critic mean and p10", "value": "not measurable yet", "unit": "1-5 score", "window": "first Monday run", "source": "docs/ops/dashboard/voice.json + llm_usage + turn ledger", "reason": "No weekly voice sample exists yet." },
+    { "goal": 7, "metric": "Cards with direct links and comments posted, by platform", "value": "not measurable yet", "unit": "share and count", "window": "first Monday run", "source": "engagement_lead + community_post_ledger", "reason": "Awaiting the first automated Monday scorecard run." },
+    { "goal": 8, "metric": "Median 24-hour score of posted Reddit comments", "value": "not measurable yet", "unit": "score", "window": "first Monday run", "source": "community_outcome", "reason": "No eligible 24-hour Reddit outcomes exist yet." },
+    { "goal": 9, "metric": "Posted comments with at least one reply at 7 days, by platform", "value": "not measurable yet", "unit": "share", "window": "first Monday run", "source": "community_outcome", "reason": "No eligible 7-day outcomes exist yet." },
+    { "goal": 10, "metric": "New fan-made items merged into the app", "value": "not measurable yet", "unit": "items", "window": "first Monday run", "source": "git diff: supabase/seed/merch/fanmade.mjs", "reason": "Awaiting the first automated Monday scorecard run." },
+    { "goal": 11, "metric": "New photo-matched products and live affiliate links", "value": "not measurable yet", "unit": "products", "window": "first Monday run", "source": "git diff: supabase/seed/content + docs/ops/AFFILIATE-COVERAGE.md", "reason": "Awaiting the first automated Monday scorecard run." }
+  ]
+}

@@ -54,7 +54,10 @@ concurrency:
 jobs:
   sample:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # 20, not 10: routine-output-sample.mjs now PACES its ~30 Search API calls
+    # (~90s) and waits out the shared 30/min window on a 403 rather than dying
+    # on it (#5845), so the step is deliberately minutes long, not seconds.
+    timeout-minutes: 20
     outputs:
       branch: ${{ steps.meta.outputs.branch }}
       date: ${{ steps.meta.outputs.date }}
@@ -135,10 +138,25 @@ jobs:
           name: routine-output-raw
           path: ${{ github.workspace }}/raw
 
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
       - name: Sample <=2 merged PRs per routine and score against each charter's rubric
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           REPORT_DATE: ${{ needs.sample.outputs.date }}
           RAW_DATA_FILE: ${{ github.workspace }}/raw/routine-output-raw.json
         run: node scripts/routine-quality-sample.mjs

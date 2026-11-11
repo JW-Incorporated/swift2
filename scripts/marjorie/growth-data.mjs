@@ -19,6 +19,7 @@ import { timeSensitiveCoverage, treeAsksSummary } from './lib/growth-coverage.mj
 import { apiFor, listIssuesByLabels } from './lib/issues-rest.mjs';
 import { fetchTraffic } from './lib/growth-traffic.mjs';
 import { fetchAwarenessCounts } from './lib/growth-awareness.mjs';
+import { fetchCampaignVisits } from './lib/growth-campaign-visits.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -83,6 +84,7 @@ export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), rep
   let content = { mergedContentPRs: null, items: [] };
   let mergedPRs = null;
   let awareness = null;
+  let campaignVisits = null;
   let trafficResult = { traffic: null, trafficNote: 'Traffic skipped (--no-gh, offline run).' };
   if (noGh) {
     warnings.push('--no-gh: GitHub sections (content, time-sensitive, tree asks) skipped');
@@ -96,6 +98,7 @@ export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), rep
     if (shipped) content = contentSummary(shipped, erasTouched);
     mergedPRs = await soft('merged PRs', warnings, async () => JSON.parse((await gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '200', '--json', 'number,title,body,mergedAt,closingIssuesReferences'])).stdout || '[]'), null);
     const db = supabase === undefined ? serviceClient(env) : supabase;
+    campaignVisits = await fetchCampaignVisits(db, win);
     if (db) awareness = await soft('awareness lane', warnings, () => fetchAwareness(db, win), null);
     const cfg = readJson(path.join(root, 'scripts', 'marjorie', 'marjorie-config.json'))?.traffic ?? {};
     trafficResult = await fetchTraffic({ token: env.VERCEL_TOKEN, projectId: env.VERCEL_PROJECT_ID || cfg.projectId, teamId: env.VERCEL_TEAM_ID || cfg.teamId, win, fetchImpl });
@@ -103,7 +106,7 @@ export async function collect({ root = ROOT, weekEnding, nowMs = Date.now(), rep
 
   return buildGrowthData({
     win, series, posted, postMetrics, content, eventStatus, warnings,
-    trafficResult, awareness,
+    trafficResult, awareness, campaignVisits,
     coverage: timeSensitiveCoverage(intake, posted, win, mergedPRs),
     treeAsks: treeAsksSummary({ treeFiled, marjorieFiledForTree }, win),
   });

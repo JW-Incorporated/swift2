@@ -48,7 +48,7 @@ IF A SOURCE WILL NOT FETCH, retry with a browser User-Agent before calling it un
 
 BEFORE OPENING THE PR: run npm run sync:content, then CONFIRM your sourceTier / lastCheckedOn / resolution values actually appear in apps/web/lib/longlive/content-vault.generated.ts. A serializer bug dropped exactly those fields for a full day (fixed in #948) -- if they are missing, say so loudly rather than shipping invisible data. Then npm run validate:content, npm run check:generated, npm run typecheck, npx vitest run -- all green.
 
-Open ONE PR (branch content/rumor-desk-<date>) listing every claim added with its outlet and tier, every lifecycle change with its citation, and everything you dropped and why. NEVER merge.
+Open ONE PR (branch content/rumor-desk-<date>) listing every claim added with its outlet and tier, every lifecycle change with its citation, and everything you dropped and why. Do not merge or self-arm it: `auto-merge-content.yml` is this lane's landing mechanism (its path, ownership-lock and branch/author gates apply only to its own arming; docs/decisions.md 2026-07-25, 2026-10-09) and lands it once `build` is green.
 
 NEVER EXIT SILENTLY: if you end without a PR for any reason -- empty queue, rate limits, a tool failure -- say so in a comment on the Nils walk log #502 before exiting.
 

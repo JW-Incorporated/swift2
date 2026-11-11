@@ -25,7 +25,7 @@
 //     — every number from scripts/lib/content-caps.mjs (DB_CAPS/POLICY_CAPS)
 //   - >= 1 source on EVERY record (hard rule for the new types) ....... ERROR
 //   - theories: confidence + outcome REQUIRED so nothing renders as fact
-import { readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import {
@@ -55,14 +55,27 @@ import {
   hasOfficialCitation,
   PROSE_REDLINE_LEGACY,
 } from './lib/rumor-redlines.mjs';
+import { trackConfirmTierFields } from './lib/track-confirm-tier.mjs';
 import { PHOTO_HOST_LEGACY, hostOf as photoHostOf } from './lib/photo-host-gate.mjs';
 import {
   VIDEO_PRESENTATION_EXCEPTIONS,
   videoPresentationErrors,
 } from './lib/video-presentation-gate.mjs';
-import { mediaCorpusErrors } from './lib/moment-media-gate.mjs';
+import {
+  SURFACE_MEDIA_LEGACY,
+  mediaCorpusErrors,
+  merchMediaErrors,
+  nonMomentMediaErrors,
+  retiredSurfaceMediaKeys,
+  socialInboxMediaErrors,
+  surfaceMediaLegacyFindings,
+  surfaceMediaPublicationVerdict,
+} from './lib/moment-media-gate.mjs';
+import { textOnlyRatchetFindings } from './lib/text-only-ratchet.mjs';
 import { CONFIG } from './content-engine/config.mjs';
 import { runMain } from './lib/cli.mjs';
+import { runwaySourceErrors } from './lib/runway-sources-gate.mjs';
+import { routeAuthor } from './copy-desk/routing.mjs';
 
 async function main() {
 const here = dirname(fileURLToPath(import.meta.url));
@@ -100,6 +113,7 @@ const VIDEO_KINDS = new Set([
   'tour_film',
   'documentary',
   'performance',
+  'visualizer',
   // Appearances — her, as herself, in someone else's programming (2026-08-12).
   'interview',
   'award_speech',
@@ -178,6 +192,8 @@ const contentDir = join(seed, 'content');
 let errors = 0;
 let warnings = 0;
 let checked = 0;
+const seenSurfaceMediaKeys = new Set();
+const exactSurfaceMediaGaps = new Set();
 
 const contentFiles = readdirSync(contentDir)
   .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))
@@ -488,11 +504,18 @@ for (const { file, data } of loaded) {
       );
     }
 
-    // photosReviewed (OPTIONAL, 2026-09-05, #762 top-of-feed checker): a
-    // deliberate editorial no-photo decision (privacy redline, no verifiable
-    // image, etc.), recorded on the item so content.top-of-feed-photo (the
-    // deterministic checker) and any human reader both recognize it as
-    // reviewed instead of re-flagging it as an oversight every run.
+    // Persona byline (copy-desk spec §3): the category must be routable and an
+    // optional explicit `author` override must be a real persona slug.
+    try {
+      routeAuthor({ surface: 'month_item', category: it.category, override: it.author });
+    } catch (e) {
+      err(`${e.message} — extend packages/experience/src/copy-desk/routing.ts in the same PR`);
+    }
+
+    // photosReviewed (OPTIONAL, 2026-09-05, #762): a note only. Since
+    // 2026-09-06 it waives nothing — neither this gate (momentMediaErrors
+    // ignores it) nor content.top-of-feed-photo. A published moment always
+    // needs authored media; no verifiable image means the item is not emitted.
     if (it.photosReviewed != null && !(typeof it.photosReviewed === 'string' && it.photosReviewed.trim()))
       err('photosReviewed must be a non-empty string reason when present');
 
@@ -713,6 +736,13 @@ function makeReporters(at) {
   };
 }
 
+function checkSurfaceMedia(key, item, itemErrors, err) {
+  seenSurfaceMediaKeys.add(key);
+  const verdict = surfaceMediaPublicationVerdict(key, item, itemErrors);
+  if (verdict.legacyGap) exactSurfaceMediaGaps.add(key);
+  for (const message of verdict.errors) err(message);
+}
+
 // Shared checks for slug/era/sources/media on a new-type record.
 function checkCommon({ row, fileEra, file, err }, slugSeen) {
   checked += 1;
@@ -760,6 +790,7 @@ function checkCommon({ row, fileEra, file, err }, slugSeen) {
       err('owned media entry missing asset_path/license_ref');
     if (m.kind === 'hotlink_legacy' && !m.url) err('hotlink_legacy media entry missing url');
   }
+  checkSurfaceMedia(`${file}#${row.slug}`, row, nonMomentMediaErrors(row), err);
 }
 
 const capped = (err, label, text, cap) => {
@@ -872,9 +903,15 @@ for (const entry of await loadTypeDir('videos', 'videos')) {
 const ERA_SECRET_DEEPER_LINK_RE = /^(song|moment|egg):.+/;
 const ERA_SECRET_PROVENANCE = new Set(['sourced', 'fan_consensus']);
 const eraSecretSlugs = new Map();
+const textOnlyCounts = {};
+const countTextOnly = (name, row) => {
+  textOnlyCounts[name] ??= 0;
+  if (nonMomentMediaErrors(row).length > 0) textOnlyCounts[name] += 1;
+};
 for (const entry of await loadTypeDir('era-secrets', 'secrets')) {
   const { row, fileEra, file } = entry;
   checked += 1;
+  countTextOnly('Era Secrets', row);
   const { err } = makeReporters(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 42)}"`);
   const eraSlug = row.eraSlug ?? fileEra;
   if (!row.slug) err('missing slug (stable identity is required)');
@@ -915,6 +952,8 @@ for (const entry of await loadTypeDir('era-secrets', 'secrets')) {
 // same strict shape the tracks generator accepts. The audio-curator flow does
 // the oEmbed author-channel verification that a static file check can't.
 const YOUTUBE_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+const CONFIRM_TIER_PRINT_PER_FILE = 3;
+const confirmTierHits = new Map();
 let trackFiles;
 try {
   trackFiles = readdirSync(join(seed, 'tracks'))
@@ -938,12 +977,49 @@ for (const file of trackFiles) {
     );
     if (row.youtubeId != null && !YOUTUBE_ID_RE.test(String(row.youtubeId)))
       err(`youtubeId "${row.youtubeId}" is not a bare 11-char YouTube id`);
+    countTextOnly('track guides (no youtubeId or media)', {
+      media: [
+        ...(row.media ?? []),
+        ...(YOUTUBE_ID_RE.test(String(row.youtubeId ?? ''))
+          ? [{ kind: 'oembed', post_url: `https://www.youtube.com/watch?v=${row.youtubeId}` }]
+          : []),
+      ],
+    });
     // track_note.note has a DB CHECK (<= 400, 20260704120000_track_note.sql)
     // that nothing here mirrored — found while consolidating the caps on
     // 2026-08-11. Longest note in the corpus today is 212, so this closes a
     // gap rather than changing behavior: without it an over-long note passes
     // every local gate and then fails at insert against the live project.
     capped(err, 'note', row.note, DB_CAPS['track_note.note']);
+    // #5429 step 3: warn-only. The baseline is large, so print the first few
+    // per file and summarize the rest; every hit still counts as a warning.
+    for (const field of trackConfirmTierFields(row)) {
+      const msg = `tracks/${file} "${row.trackTitle ?? row.slug}" field ${field}: confirm-language with only wiki/fan sources (content-audit §5); add a press/primary source with Taylor's words or reword (#5429)`;
+      warnings += 1;
+      confirmTierHits.set(file, (confirmTierHits.get(file) ?? 0) + 1);
+      if (confirmTierHits.get(file) <= CONFIRM_TIER_PRINT_PER_FILE) console.warn(`WARN  ${msg}`);
+    }
+  }
+}
+for (const [file, n] of confirmTierHits) {
+  if (n > CONFIRM_TIER_PRINT_PER_FILE)
+    console.warn(
+      `WARN  tracks/${file}: ${n - CONFIRM_TIER_PRINT_PER_FILE} more wiki/fan-only confirm-language warning(s) not shown (${n} total, #5429)`,
+    );
+}
+
+// -- text-only count ratchet (On This Day pool) --
+// This and the loops above publish text with no media field yet; their
+// text-only row counts are frozen (scripts/lib/text-only-ratchet.mjs).
+for (const row of (await import(pathToFileURL(join(seed, 'on-this-day', 'starter-pool.mjs')).href)).default)
+  countTextOnly('On This Day pool', row);
+for (const finding of textOnlyRatchetFindings(textOnlyCounts)) {
+  if (finding.level === 'error') {
+    console.error(`ERROR scripts/lib/text-only-ratchet.mjs: ${finding.message}`);
+    errors += 1;
+  } else {
+    console.warn(`WARN  scripts/lib/text-only-ratchet.mjs: ${finding.message}`);
+    warnings += 1;
   }
 }
 
@@ -1103,6 +1179,7 @@ for (const file of trackFiles) {
       if (!img.url) err('image missing url');
       if (!img.credit) err('image missing credit');
     }
+    for (const m of runwaySourceErrors(l.sources)) err(m);
   }
 
   // -- RERECORDS: id uniqueness, originalYear/reclaimedYear shape.
@@ -1185,6 +1262,57 @@ for (const file of trackFiles) {
     if (c.payoff?.eraId && !ERA_IDS.has(c.payoff.eraId))
       err(`payoff.eraId "${c.payoff.eraId}" is not a known EraId`);
     if (!Array.isArray(c.sources) || c.sources.length === 0) err('needs at least one source');
+  }
+}
+
+// Social side-door intents are publication candidates too. Keep the one
+// pre-P1-23 text-only appearance intent pinned by exact hash; every new or
+// edited intent must bring its media with it.
+const socialInboxDir = join(here, '..', 'social', 'inbox');
+for (const file of readdirSync(socialInboxDir).filter((name) => name.endsWith('.json')).sort()) {
+  const key = `social/inbox/${file}`;
+  const { err } = makeReporters(key);
+  let intent;
+  try {
+    intent = JSON.parse(readFileSync(join(socialInboxDir, file), 'utf8'));
+  } catch (cause) {
+    err(`invalid JSON: ${cause.message}`);
+    continue;
+  }
+  checked += 1;
+  checkSurfaceMedia(key, intent, socialInboxMediaErrors(intent), err);
+}
+
+// Product rows render independently of their source moments. imageUrl is
+// required for every new/changed row; two old official listings remain exact
+// hash legacy gaps until their source supplies a usable image.
+const merchDir = join(seed, 'merch');
+for (const file of readdirSync(merchDir).filter((name) => name.endsWith('.mjs')).sort()) {
+  const rows = (await import(pathToFileURL(join(merchDir, file)).href)).default;
+  if (!Array.isArray(rows)) continue;
+  for (const row of rows) {
+    const key = `merch/${file}#${row.sourceId ?? row.url}`;
+    const { err } = makeReporters(key);
+    checked += 1;
+    checkSurfaceMedia(key, row, merchMediaErrors(row), err);
+  }
+}
+
+const closedInboxDir = join(socialInboxDir, 'closed');
+const closedInboxFiles = existsSync(closedInboxDir)
+  ? readdirSync(closedInboxDir).filter((name) => name.endsWith('.json'))
+  : [];
+for (const finding of surfaceMediaLegacyFindings(SURFACE_MEDIA_LEGACY, {
+  seen: seenSurfaceMediaKeys,
+  exactGaps: exactSurfaceMediaGaps,
+  retired: retiredSurfaceMediaKeys(closedInboxFiles),
+})) {
+  if (finding.level === 'error') {
+    console.error(`ERROR scripts/lib/moment-media-gate.mjs: ${finding.message}`);
+    errors += 1;
+  } else {
+    console.warn(`WARN  scripts/lib/moment-media-gate.mjs: ${finding.message}`);
+    warnings += 1;
   }
 }
 

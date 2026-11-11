@@ -13,6 +13,7 @@ import { useBackDismiss } from '../lib/useBackDismiss';
 import { useLiveTheories } from '../lib/use-live-theories';
 import { fansAreSayingLine, matchFanSignal, sortByHeatDesc } from './lib/live-theories';
 import { TheoryCard, countLine } from './TheoryCard';
+import { Byline } from '../legal/Byline';
 import { LiveTheoryCard } from './LiveTheoryCard';
 import { shareTarget as shareTargetNow } from '../lib/share-payload';
 
@@ -156,6 +157,7 @@ export function TheoryGuide() {
         <h1 className="mt-2 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight sm:text-5xl">
           {era.shortName} decoded
         </h1>
+        <Byline author="loren" className="mt-3" />
         <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
           {countLine(eggCount, theoryCount)} — every one sourced and graded, so you always know
           what&apos;s confirmed and what&apos;s still clowning.

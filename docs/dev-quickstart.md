@@ -80,6 +80,14 @@ npm run db:migrate         # apply all supabase/migrations in order
 npm run db:seed:lyrics     # notification lyric pool (supabase/seed/lyrics/*.mjs)
 npm run db:seed:on-this-day # notification on-this-day pool (supabase/seed/on-this-day/*.mjs)
 ```
+`db:migrate` has no applied-migration ledger: every file is re-applied in
+filename order on every run. A migration that re-creates a constraint must
+always use the widest value list admitted by any later migration; write other
+DDL with `create ... if not exists`, or `drop ... if exists` followed by a
+re-create that preserves the full superset. Run `npm run check:migrations-rerun`
+before shipping a migration; it applies the complete corpus twice in PGlite
+with representative rows inserted between passes.
+
 After any schema change: add a migration file, apply it, and update
 `packages/shared` types + `packages/core/src/map.ts` to match.
 

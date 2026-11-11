@@ -8,17 +8,20 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
-import type { CurrentItemCategory, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
-import { frontDoorLink, theoriesBoardLink } from '@swift2/shared';
+import type { CurrentItemCategory, CurrentItemEmbed, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, outletLabel, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
-import type { ExtractedCurrentItem, ExtractedFanSignal, ExtractedTheory } from './types';
+import type { ExtractedCurrentItem, ExtractedFact, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
   expiresAt,
   CURRENT_ITEM_EXPIRY_DAYS,
   FAN_SIGNAL_EXPIRY_DAYS,
   LIVE_THEORY_EXPIRY_DAYS,
 } from './expiry';
+import { isMissingSignificanceColumn } from './daily-text-cap';
+import type { SignificanceVerdictRecord } from './significance-prompt';
 import { findTheoryMatch } from './theory-match';
+import { mergeEvidenceIds, theoryImageFields, type TheoryEvidence } from './live-theory-image';
 
 // Notifications Phase 2 producer seam (NOTIFICATIONS_PLAN.md, this task's
 // instruction to "map where each existing pipeline currently emits its
@@ -120,6 +123,24 @@ export interface ClusterSource {
   tier: SourceTier;
 }
 
+/** Content fix 7: unions two source lists, deduped by URL — the original's
+ * sources win on a collision (kept as-is) with the duplicate's novel sources
+ * appended, same "union the sources" instruction the spec gives for both the
+ * merge and the discard-only (no new info) paths. */
+export function unionSources(
+  original: readonly ClusterSource[],
+  duplicate: readonly ClusterSource[],
+): ClusterSource[] {
+  const seen = new Set(original.map((s) => s.url));
+  const merged = [...original];
+  for (const s of duplicate) {
+    if (seen.has(s.url)) continue;
+    seen.add(s.url);
+    merged.push(s);
+  }
+  return merged;
+}
+
 function bestSourceTier(tiers: readonly SourceTier[]): SourceTier {
   for (const tier of SOURCE_TIERS) if (tiers.includes(tier)) return tier;
   return 'unverified';
@@ -152,6 +173,27 @@ export interface WriteCurrentItemResult {
   id: string;
   redlineOk: boolean;
   expiresAt: string;
+  /** Content fix 3/6: the publish-gate's held reason, undefined when the
+   * row passed and is servable. Distinct from `redlineOk`, which here
+   * reflects the COMBINED verdict (topic screen AND the quality gate) —
+   * see `evaluateCurrentItemQuality`'s header for why the two are folded
+   * into one `redline_ok` column rather than a second gating column. */
+  holdReason?: QualityHoldReason | string;
+}
+
+/** Two-pass engine extras for a row: its facts, the judge score, and a hold the engine decided before the write. */
+export interface WriterV2Write {
+  facts: readonly ExtractedFact[];
+  writingScore?: number;
+  holdReason?: string;
+}
+
+/** The embed column predates its migration on some databases; the row is then written without it. */
+function isMissingEmbedColumn(error: { message: string; code?: string }): boolean {
+  return (
+    /embed/.test(error.message) &&
+    (error.code === '42703' || error.code === 'PGRST204' || /does not exist|schema cache/i.test(error.message))
+  );
 }
 
 export async function writeCurrentItem(
@@ -161,6 +203,10 @@ export async function writeCurrentItem(
   item: ExtractedCurrentItem,
   sources: readonly ClusterSource[],
   countdownTargetAt?: string,
+  imageUrl?: string,
+  v2?: WriterV2Write,
+  embed?: CurrentItemEmbed,
+  significance?: SignificanceVerdictRecord,
 ): Promise<WriteCurrentItemResult> {
   const screen = screenAll([
     item.headline,
@@ -169,6 +215,23 @@ export async function writeCurrentItem(
     ...item.tags,
     ...item.entities,
   ]);
+  // Content fix 3/6 hard publish gate (packages/shared/src/current-item-
+  // quality.ts): a row is only ever servable once it clears the SAME shared
+  // validator the read-time paths (getCurrentItems/getRecentItems/
+  // currentFeedEntries) check — image present + allowlisted, summary/detail
+  // length floors, AND the existing redline screen above. The image is the
+  // resolved `imageUrl` PARAMETER (Card 1 / #5628 threads it positionally,
+  // and it is exactly what lands in the `image_url` column below) — never
+  // read off `item`, or every row would be held as `missing_image`.
+  const quality = evaluateCurrentItemQuality({
+    headline: item.headline,
+    summary: item.summary,
+    detail: item.detail,
+    imageUrl,
+    redlineOk: screen.ok,
+    ...(v2 ? { facts: v2.facts, sources: sources.map((s) => ({ name: s.outletName, url: s.url })) } : {}),
+  });
+  const held = v2?.holdReason ?? (quality.ok ? undefined : quality.reason);
   const itemExpiresAt = expiresAt(CURRENT_ITEM_EXPIRY_DAYS);
   const row = {
     story_id: storyId,
@@ -182,21 +245,171 @@ export async function writeCurrentItem(
     status: item.statusHint,
     confidence: CONFIDENCE_BY_STATUS[item.statusHint],
     source_tier: bestSourceTier(sources.map((s) => s.tier)),
-    sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+    sources: sources.map((s) => ({
+      name: s.outletName?.trim() ? s.outletName : outletLabel({ name: s.outletName, url: s.url }),
+      url: s.url,
+      tier: s.tier,
+    })),
     location_level: item.locationLevel ?? null,
+    // Content fix 1/6: carries news_story.top_image_url (or the og:image/
+    // twitter:image fallback resolved in image-resolve.ts) through to the
+    // row the feed actually renders from — this is the exact write that was
+    // previously missing, leaving every current_item imageless.
+    image_url: imageUrl ?? null,
     symbols: item.symbols,
     entities: item.entities,
     heat: sources.length,
     last_checked_on: item.observedOn,
     expires_at: itemExpiresAt,
-    redline_ok: screen.ok,
+    redline_ok: held === undefined,
+    quality_hold_reason: held ?? null,
     countdown_target_at: countdownTargetAt ?? null,
+    ...(v2 ? { facts: v2.facts, writing_score: v2.writingScore ?? null } : {}),
   };
-  const { data, error } = await db.from('current_item').insert(row).select('id').single();
-  if (error) throw new Error(`current_item insert failed: ${error.message}`);
+  const optional: Record<string, unknown> = {
+    ...(embed ? { embed } : {}),
+    ...(significance ? { significance_verdict: significance } : {}),
+  };
+  let { data, error } = await db.from('current_item').insert({ ...row, ...optional }).select('id').single();
+  for (let attempt = 0; error && attempt < 2; attempt++) {
+    if ('embed' in optional && isMissingEmbedColumn(error)) delete optional.embed;
+    else if ('significance_verdict' in optional && isMissingSignificanceColumn(error)) {
+      console.warn(`news-worker: significance_verdict column unavailable (${error.message}); inserting without it`);
+      delete optional.significance_verdict;
+    } else break;
+    ({ data, error } = await db.from('current_item').insert({ ...row, ...optional }).select('id').single());
+  }
+  if (error || !data) throw new Error(`current_item insert failed: ${error?.message ?? 'no row returned'}`);
   const id = data.id as string;
-  await emitLaunchCategoryEvent(db, id, item);
-  return { id, redlineOk: screen.ok, expiresAt: itemExpiresAt };
+  if (row.redline_ok) {
+    await emitLaunchCategoryEvent(db, id, item);
+  }
+  return { id, redlineOk: row.redline_ok, expiresAt: itemExpiresAt, ...(held === undefined ? {} : { holdReason: held }) };
+}
+
+export interface MergeIntoOriginalInput {
+  /** New facts already folded into a rewritten summary/detail by the dedupe
+   * gate's merge call, or undefined when there's nothing new to fold in
+   * (discard-only path — spec §A "same_event + nothing new"). */
+  mergedSummary?: string;
+  mergedDetail?: string;
+  /** v2 merge: the merged fact list and judge score, written in the same update as the rewritten prose (only when the rewrite is accepted). */
+  mergedFacts?: readonly ExtractedFact[];
+  writingScore?: number;
+  /** The duplicate news_story's sources, unioned into the original's. */
+  duplicateSources: readonly ClusterSource[];
+  /** The duplicate's resolved image_url, used to fill the original's image
+   * only when the original had none (spec: "fill image_url if the original
+   * had none"). */
+  duplicateImageUrl?: string | null;
+}
+
+/** Content fix 7 (§A): the ORIGINAL current_item absorbs a confirmed
+ * same-event duplicate. Rewrites summary/detail when the gate found new
+ * facts (still re-screened and re-gated through evaluateCurrentItemQuality
+ * exactly like a fresh write — a merge must never let a redline/quality
+ * violation slip through a side door), unions sources (deduped by URL),
+ * bumps heat by the duplicate's own source count, and refreshes
+ * last_checked_on/updatedAt. Never touches `merged_into` on the ORIGINAL —
+ * that column exists on the duplicate's row, pointing back at this one (see
+ * `markDuplicateMerged` below). Factual enrichment is allowed after a
+ * retraction, but visibility fields are guarded so no later merge can
+ * re-show the row. */
+export async function mergeNewFactsIntoOriginal(
+  db: SupabaseClient,
+  originalId: string,
+  original: { summary: string; detail: string; headline: string; sources: readonly ClusterSource[]; imageUrl?: string | null },
+  input: MergeIntoOriginalInput,
+): Promise<{ redlineOk: boolean; holdReason?: QualityHoldReason }> {
+  const sources = unionSources(original.sources, input.duplicateSources);
+  const imageUrl = original.imageUrl ?? (input.duplicateImageUrl || null);
+
+  const hasRewrite = input.mergedSummary !== undefined || input.mergedDetail !== undefined;
+  const rewriteSummary = input.mergedSummary ?? original.summary;
+  const rewriteDetail = input.mergedDetail ?? original.detail;
+
+  // Content fix 7 must-fix: a merge rewrite goes through the SAME publish
+  // gate a fresh write does (evaluateCurrentItemQuality) — never let a
+  // rewrite that would have failed writeCurrentItem's own gate slip
+  // through this side door. headline/summary/detail here are the rewrite's
+  // own text (or, on the discard-only path with no rewrite at all, the
+  // original's own text, which this still re-checks because the image may
+  // have just changed). imageUrl is whatever this update is about to set
+  // on the row — the original's existing image, or the duplicate's when
+  // the original had none.
+  const rewriteScreen = screenAll([original.headline, rewriteSummary, rewriteDetail]);
+  const rewriteQuality = evaluateCurrentItemQuality({
+    headline: original.headline,
+    summary: rewriteSummary,
+    detail: rewriteDetail,
+    imageUrl: imageUrl ?? undefined,
+    redlineOk: rewriteScreen.ok,
+    ...(hasRewrite && input.mergedFacts
+      ? { facts: input.mergedFacts, sources: sources.map((s) => ({ name: s.outletName, url: s.url })) }
+      : {}),
+  });
+
+  // A failing rewrite must never overwrite the original's good copy: fall
+  // back to the original's own summary/detail, but the sources union and
+  // the duplicate's discard (markDuplicateMerged, called by the caller)
+  // still happen regardless — only the TEXT is protected.
+  const useRewrite = !hasRewrite || rewriteQuality.ok;
+  const summary = useRewrite ? rewriteSummary : original.summary;
+  const detail = useRewrite ? rewriteDetail : original.detail;
+
+  // When falling back to the original's text, it still needs its own
+  // fresh verdict (the image/sources just changed even though the text
+  // didn't) rather than reusing the rewrite's failing one.
+  const screen = useRewrite ? rewriteScreen : screenAll([original.headline, summary, detail]);
+  const quality = useRewrite
+    ? rewriteQuality
+    : evaluateCurrentItemQuality({
+        headline: original.headline,
+        summary,
+        detail,
+        imageUrl: imageUrl ?? undefined,
+        redlineOk: screen.ok,
+      });
+
+  const facts: Record<string, unknown> = {
+    summary,
+    detail,
+    sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+    source_tier: bestSourceTier(sources.map((s) => s.tier)),
+    heat: sources.length,
+    image_url: imageUrl,
+    last_checked_on: new Date().toISOString().slice(0, 10),
+    updated_at: new Date().toISOString(),
+    ...(hasRewrite && useRewrite && input.mergedFacts
+      ? { facts: input.mergedFacts, writing_score: input.writingScore ?? null }
+      : {}),
+  };
+  const visibility: Record<string, unknown> = {
+    redline_ok: quality.ok,
+    quality_hold_reason: quality.ok ? null : quality.reason,
+  };
+  const { error: factsError } = await db.from('current_item').update(facts)
+    .eq('id', originalId);
+  if (factsError) throw new Error(`mergeNewFactsIntoOriginal facts update failed: ${factsError.message}`);
+  const { error: visibilityError } = await db.from('current_item').update(visibility)
+    .eq('id', originalId)
+    .is('retracted_at', null);
+  if (visibilityError) throw new Error(`mergeNewFactsIntoOriginal visibility update failed: ${visibilityError.message}`);
+  return { redlineOk: quality.ok, ...(quality.ok ? {} : { holdReason: quality.reason }) };
+}
+
+/** Content fix 7 (§A/§C): hides a duplicate current_item behind the
+ * `merged_into` pointer instead of writing it as a new row (or, for the
+ * live-cleanup script, instead of ever un-hiding an existing one) — never a
+ * hard delete (spec §C: "HIDES the duplicates... never hard-delete"). The
+ * read-time collapse (packages/experience/src/current-feed.ts) also filters
+ * on this column as a second line of defense. */
+export async function markDuplicateMerged(db: SupabaseClient, duplicateId: string, originalId: string): Promise<void> {
+  const { error } = await db
+    .from('current_item')
+    .update({ merged_into: originalId, expires_at: new Date().toISOString() })
+    .eq('id', duplicateId);
+  if (error) throw new Error(`markDuplicateMerged failed: ${error.message}`);
 }
 
 export interface WriteFanSignalResult {
@@ -242,11 +455,19 @@ interface ExistingLiveTheory {
   name: string;
   symbols: string[];
   heat: number;
+  image_url?: string | null;
+  evidence_ids?: unknown;
 }
 
 export interface UpsertLiveTheoryResult {
   id: string;
   expiresAt: string;
+  /** False when the theory is held for lack of a valid evidence image. */
+  published: boolean;
+  /** The `quality_hold_reason` stored on the row when `published` is false,
+   * null when published, `undefined` on a re-observation of an already-held
+   * row that keeps its prior hold reason. */
+  holdReason?: string | null;
 }
 
 /** Upserts one theory: bumps last_seen_on/heat on a matching existing row
@@ -270,10 +491,11 @@ export async function upsertLiveTheory(
   theory: ExtractedTheory,
   symbols: readonly string[],
   today: string,
+  evidence: TheoryEvidence = {},
 ): Promise<UpsertLiveTheoryResult> {
   const { data: existingRows, error: selectError } = await db
     .from('live_theory')
-    .select('id, name, symbols, heat')
+    .select('id, name, symbols, heat, image_url, evidence_ids')
     .neq('status', 'abandoned');
   if (selectError) throw new Error(`live_theory select failed: ${selectError.message}`);
 
@@ -282,18 +504,30 @@ export async function upsertLiveTheory(
     (existingRows ?? []) as ExistingLiveTheory[],
   );
   const theoryExpiresAt = expiresAt(LIVE_THEORY_EXPIRY_DAYS);
+  // Media gate: a theory is only published with a valid evidence image
+  // (live-theory-image.ts); otherwise it is written held, fail closed.
+  const image = theoryImageFields(evidence.imageUrl);
+  const evidenceIds = [...(evidence.evidenceIds ?? [])];
 
   if (match) {
+    const hadImage = Boolean(match.image_url);
+    const gainsImage = !hadImage && image.published;
     const { error: updateError } = await db
       .from('live_theory')
       .update({
         last_seen_on: today,
         heat: match.heat + 1,
         expires_at: theoryExpiresAt,
+        ...(evidenceIds.length > 0 ? { evidence_ids: mergeEvidenceIds(match.evidence_ids, evidenceIds) } : {}),
+        ...(gainsImage ? image.fields : {}),
       })
       .eq('id', match.id);
     if (updateError) throw new Error(`live_theory update failed: ${updateError.message}`);
-    return { id: match.id, expiresAt: theoryExpiresAt };
+    // First publication of a previously held theory: fire the one-per-theory
+    // easter_egg event (dedupe_key keeps it to once per theory id).
+    if (gainsImage) await emitEasterEggEvent(db, match.id, theory);
+    const published = hadImage || image.published;
+    return { id: match.id, expiresAt: theoryExpiresAt, published, holdReason: published ? null : image.fields.quality_hold_reason };
   }
 
   const { data, error } = await db
@@ -310,19 +544,21 @@ export async function upsertLiveTheory(
       heat: 1,
       expires_at: theoryExpiresAt,
       redline_ok: true,
+      evidence_ids: evidenceIds,
+      ...image.fields,
     })
     .select('id')
     .single();
   if (error) throw new Error(`live_theory insert failed: ${error.message}`);
   const id = data.id as string;
-  await emitEasterEggEvent(db, id, theory);
-  return { id, expiresAt: theoryExpiresAt };
+  if (image.published) await emitEasterEggEvent(db, id, theory);
+  return { id, expiresAt: theoryExpiresAt, published: image.published, holdReason: image.published ? null : image.fields.quality_hold_reason };
 }
 
-async function emitEasterEggEvent(
+export async function emitEasterEggEvent(
   db: SupabaseClient,
   theoryId: string,
-  theory: ExtractedTheory,
+  theory: Pick<ExtractedTheory, 'name' | 'claim'>,
 ): Promise<void> {
   try {
     await insertEvent(db, {

@@ -1,0 +1,62 @@
+<!-- PLAN -->
+<section class="pane" id="p-plan" role="tabpanel" hidden>
+  <div class="card">
+    <h2 id="planTitle">Plan</h2>
+    <p class="hint" id="planSummary"></p>
+    <ul id="planPrinciples" style="margin:0;padding-left:18px;color:var(--ink2);display:grid;gap:4px"></ul>
+  </div>
+  <div class="card">
+    <h2>Phases</h2>
+    <div class="grid two" id="planPhases" style="gap:10px"></div>
+  </div>
+  <div class="card">
+    <h2>Work items</h2>
+    <p class="hint">Every item an executor can pick up. Filter by phase, who does it, or the goal it moves. Select an item to see files, acceptance test and risks. Progress is on the Tracking tab.</p>
+    <div class="filters" id="planFilters"></div>
+    <div id="planList" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+  <div class="card">
+    <h2>How items are classified</h2>
+    <p class="hint">The hourly watcher sorts everything new into these classes. Jev answers typed questions. Above the act-now threshold the branch runs; between the thresholds Haiku decides; below the review line a human sees it. Everything starts in shadow mode, logging only.</p>
+    <div class="scroll"><table id="taxTable"></table></div>
+  </div>
+  <div class="grid two">
+    <div class="card"><h2>How we avoid re-processing</h2><p class="hint" id="seenDesign"></p><div class="scroll"><table id="seenTable"></table></div></div>
+    <div class="card"><h2>Claude and Codex balance</h2><p class="hint">Where each kind of work runs, so the larger Codex budget carries the building and Claude keeps judgment and voice.</p><div class="scroll"><table id="balTable"></table></div></div>
+  </div>
+  <div class="card">
+    <h2>Token savings</h2>
+    <p class="hint">Estimates until the usage ledger reports real turns. Each row is a routine and its new home.</p>
+    <div class="scroll"><table id="tokTable"></table></div>
+  </div>
+  <div class="card">
+    <h2>Decisions for Joey</h2>
+    <p class="hint">Each has a recommended answer. Reply in chat with the numbers you agree to.</p>
+    <ol id="decisions" style="margin:0;padding-left:20px;display:grid;gap:10px"></ol>
+  </div>
+  <div class="card">
+    <h2>Things only you can do</h2>
+    <div id="ownerActions" style="display:grid;gap:8px"></div>
+  </div>
+  <div class="card">
+    <h2>What not to do</h2>
+    <ul id="avoid" style="margin:0;padding-left:18px;color:var(--ink2);display:grid;gap:4px"></ul>
+  </div>
+</section>
+
+<!-- TRACKING -->
+<section class="pane" id="p-track" role="tabpanel" hidden>
+  <div class="grid kpis" id="trackKpis"></div>
+  <div class="card">
+    <h2>Progress by phase</h2>
+    <div class="bars" id="trackPhases"></div>
+  </div>
+  <div class="card">
+    <h2>Every item</h2>
+    <p class="hint">Status, PR and date come from the shared store. The project-manager session updates them as work lands, so this page changes without a republish.</p>
+    <div class="filters" id="trackFilters"></div>
+    <div class="scroll"><table id="trackTable"></table></div>
+    <div class="dbstate" id="trackState"></div>
+  </div>
+</section>
+

@@ -14,12 +14,30 @@ const item = (n: number, extra = '', worked = 'it works') =>
 const OPEN = ['# Human actions — Swift2', '', '> **5 open.** Closed items', '', item(5, '<!-- ha verify: secret-exists FOO_KEY -->'), item(4), item(3, '<!-- ha verify: issue-closed 12 -->'), item(2, '<!-- ha verify: rm -rf / -->')].join('\n');
 const DONE = ['# Done', '', '- #6 · 2026-10-01 · skip · Old — "no" · by owner'].join('\n');
 
+const HA_120 = item(120, '<!-- ha verify: issue-closed 4475 -->', 'issue #4475 is closed by a merged PR');
+const ISSUE_4475_CLOSED = '{"state":"CLOSED","stateReason":"NOT_PLANNED"}';
+
 const fakeGh = (answers: Record<string, string | Error>) => (args: string[]) => {
   const key = args.slice(0, 2).join(' ');
   const a = answers[key];
   if (a === undefined || a instanceof Error) throw a ?? new Error('no answer');
   return a;
 };
+
+describe('secret-exists gh call', () => {
+  it('uses only supported gh flags', () => {
+    const calls: string[][] = [];
+    const gh = (args: string[]) => { calls.push(args); return '[]'; };
+    evaluate(parseVerify('secret-exists FOO_KEY')!, { repo: 'o/r', gh });
+    expect(calls).toEqual([['secret', 'list', '--repo', 'o/r', '--json', 'name']]);
+  });
+  it('logs sanitized stderr and skips when gh fails', () => {
+    const warns: string[] = [];
+    const gh = () => { throw Object.assign(new Error('Command failed'), { stderr: 'unknown flag: --limit ghp_abc123XYZ\n' }); };
+    expect(evaluate(parseVerify('secret-exists FOO_KEY')!, { repo: 'o/r', gh, warn: (m: string) => warns.push(m) })).toBe('skip');
+    expect(warns).toEqual(['auto-close: secret-exists FOO_KEY failed: unknown flag: --limit [redacted]']);
+  });
+});
 
 describe('parseVerify', () => {
   it('accepts each safe kind and rejects anything else', () => {
@@ -58,9 +76,12 @@ describe('evaluate', () => {
     expect(evaluate(v, { repo, gh: fakeGh({ 'issue view': '{"state":"CLOSED","stateReason":"COMPLETED"}' }) })).toBe('pass');
     expect(evaluate(v, { repo, gh: fakeGh({ 'issue view': '{"state":"OPEN"}' }) })).toBe('fail');
   });
-  it('issue-closed requires COMPLETED, not not-planned', () => {
-    const v = parseVerify('issue-closed 7');
-    expect(evaluate(v, { repo, gh: fakeGh({ 'issue view': '{"state":"CLOSED","stateReason":"NOT_PLANNED"}' }) })).toBe('fail');
+  it('passes HA #120 when issue #4475 is closed as not planned', () => {
+    const result = evaluateAll(HA_120, DONE, {
+      repo,
+      gh: fakeGh({ 'issue view': ISSUE_4475_CLOSED }),
+    });
+    expect(result.passed).toEqual([{ number: 120, label: 'issue-closed 4475' }]);
   });
   it('workflow-green reads main only and ignores pull_request runs', () => {
     const v = parseVerify('workflow-green db-seed.yml');

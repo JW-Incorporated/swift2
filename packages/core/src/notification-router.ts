@@ -13,9 +13,15 @@ import {
   evaluateGovernor,
   startOfLocalDay,
   totalDeliveriesToday,
+  tzOffsetMinutes,
   type GovernorDeviceSettings,
 } from './notification-governor';
-import { sendPushBatch, type PushSendResult } from './notification-sender';
+import {
+  engagePushFreeze,
+  readPushFreeze,
+  sendPushBatch,
+  type PushSendResult,
+} from './notification-sender';
 import { enqueueForDigest } from './notification-digest';
 
 export interface RouterEventRow {
@@ -25,9 +31,13 @@ export interface RouterEventRow {
   title: string;
   body: string;
   deep_link: string;
+  created_at?: string;
   available_at: string;
   expires_at: string | null;
   killed_at: string | null;
+  /** Corrections bypass category preferences and may only target devices
+   * copied from the original event's instant-delivery log. */
+  target_device_ids?: string[] | null;
 }
 
 export interface RouterDispatchResult {
@@ -42,6 +52,8 @@ export interface RouterDispatchResult {
   skippedSnoozed: number;
   skippedCoalesced: number;
   skippedDailyCap: number;
+  skippedAlreadyDelivered: number;
+  skippedStale: number;
   /** spec §6.4 hard ceiling (Phase 5): combined instant+scheduled sends
    * blocked outright once the device's device-wide 6/day floor is hit —
    * unlike daily_cap overflow, never rolled into a digest (see gate 6's
@@ -52,6 +64,8 @@ export interface RouterDispatchResult {
    * of sent, PLUS any instant-tier cap-overflow rollovers (spec §6 gate 4:
    * "overflow rolls into the next digest"). */
   enqueuedToDigest: number;
+  freezeEngaged: boolean;
+  halted: boolean;
   errors: string[];
 }
 
@@ -72,11 +86,53 @@ interface DeviceRow {
 }
 
 const PENDING_EVENT_LIMIT = 200;
+export const INSTANT_MAX_AGE_MS = 6 * 60 * 60 * 1000;
+const EVENT_QUERY_LOOKBACK_MS = 30 * 60 * 60 * 1000;
+const DISPATCH_INTERVAL_MS = 15 * 60 * 1000;
+const EVENT_COLUMNS =
+  'id,category,tier,title,body,deep_link,created_at,available_at,expires_at,killed_at,target_device_ids';
+
+async function pendingEvents(db: SupabaseClient, now: Date): Promise<RouterEventRow[]> {
+  const pending: RouterEventRow[] = [];
+  const seen = new Set<string>();
+  let lastEvent: RouterEventRow | null = null;
+  const nowIso = now.toISOString();
+
+  while (pending.length < PENDING_EVENT_LIMIT) {
+    let query = db
+      .from('events')
+      .select(EVENT_COLUMNS)
+      .lte('available_at', nowIso)
+      .gte('created_at', new Date(now.getTime() - EVENT_QUERY_LOOKBACK_MS).toISOString())
+      .is('killed_at', null)
+      .or(`expires_at.is.null,expires_at.gt.${nowIso}`)
+      .order('available_at', { ascending: false })
+      .order('id')
+      .limit(PENDING_EVENT_LIMIT);
+    if (lastEvent) {
+      query = query.or(
+        `available_at.lt.${lastEvent.available_at},and(available_at.eq.${lastEvent.available_at},id.gt.${lastEvent.id})`,
+      );
+    }
+
+    const { data, error } = await query;
+    if (error) throw new Error(`could not load pending events: ${error.message}`);
+    const rows = (data ?? []) as RouterEventRow[];
+    if (rows.length === 0) return pending;
+    lastEvent = rows[rows.length - 1] ?? null;
+    const candidates = rows.filter((event) => !seen.has(event.id));
+    for (const event of candidates) seen.add(event.id);
+    const remaining = PENDING_EVENT_LIMIT - pending.length;
+    pending.push(...candidates.slice(0, remaining));
+    if (rows.length < PENDING_EVENT_LIMIT) return pending;
+  }
+  return pending;
+}
 
 /**
- * One dispatch pass: loads events whose `available_at` has arrived (T1's
- * 5-min delay applies here — an event isn't even a candidate until its
- * delay elapses, which is what makes the kill hook effective) and haven't
+ * One dispatch pass: loads events whose `available_at` has arrived (every
+ * tier's 5-minute kill window applies here, so an event isn't a candidate
+ * until the delay elapses) and haven't
  * been killed or expired, fans each out to opted-in instant devices, runs
  * the governor, sends via FCM, and logs `deliveries`.
  */
@@ -96,33 +152,46 @@ export async function dispatchPendingEvents(
     skippedSnoozed: 0,
     skippedCoalesced: 0,
     skippedDailyCap: 0,
+    skippedAlreadyDelivered: 0,
+    skippedStale: 0,
     skippedHardCeiling: 0,
     sendFailures: 0,
     enqueuedToDigest: 0,
+    freezeEngaged: false,
+    halted: false,
     errors: [],
   };
 
-  const { data: events, error: eventsError } = await db
-    .from('events')
-    .select('id,category,tier,title,body,deep_link,available_at,expires_at,killed_at')
-    .lte('available_at', now.toISOString())
-    .is('killed_at', null)
-    .not('id', 'in', `(select event_id from deliveries where event_id is not null)`)
-    .limit(PENDING_EVENT_LIMIT);
-
-  if (eventsError) {
-    result.errors.push(`could not load pending events: ${eventsError.message}`);
+  const pushFreeze = await readPushFreeze(db);
+  if (pushFreeze.state === 'unreadable') {
+    const reason = pushFreeze.reason ?? 'switch row is missing';
+    const message = `PUSH_FREEZE could not be read; dispatch skipped: ${reason}`;
+    console.warn(`notification-router: ${message}`);
+    result.errors.push(message);
+    return result;
+  }
+  if (pushFreeze.state === 'frozen') {
+    console.warn('notification-router: PUSH_FREEZE is on; dispatch skipped');
     return result;
   }
 
-  for (const event of (events ?? []) as RouterEventRow[]) {
+  let events: RouterEventRow[];
+  try {
+    events = await pendingEvents(db, now);
+  } catch (err) {
+    result.errors.push((err as Error).message);
+    return result;
+  }
+
+  for (const event of events) {
     result.eventsConsidered++;
     if (event.expires_at && new Date(event.expires_at).getTime() < now.getTime()) {
       result.eventsSkippedExpired++;
       continue;
     }
     try {
-      await dispatchOneEvent(db, event, now, result);
+      const safeToContinue = await dispatchOneEvent(db, event, now, result);
+      if (!safeToContinue) break;
     } catch (err) {
       result.errors.push(`dispatch failed for event ${event.id}: ${(err as Error).message}`);
     }
@@ -136,27 +205,32 @@ async function dispatchOneEvent(
   event: RouterEventRow,
   now: Date,
   result: RouterDispatchResult,
-): Promise<void> {
+): Promise<boolean> {
   // Phase 3: fan out to BOTH instant-tier devices (governed, sent below)
   // AND daily/weekly devices (enqueued into digest_queue — NOTIFICATIONS_
   // PLAN.md Phase 3: "router update so daily/weekly prefs enqueue instead
   // of send"). One prefs query covers all three cadences so a device that
   // changes cadence between dispatch passes is picked up correctly either
   // way, without a second round-trip.
-  const { data: prefRows, error: prefsError } = await db
-    .from('notification_prefs')
-    .select('device_id,cadence')
-    .eq('category', event.category)
-    .in('cadence', ['instant', 'daily', 'weekly']);
-  if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
-
-  const prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
+  let prefRowsArr: { device_id: string; cadence: string }[];
+  if (event.category === 'correction') {
+    prefRowsArr = [...new Set(event.target_device_ids ?? [])]
+      .map((device_id) => ({ device_id, cadence: 'instant' }));
+  } else {
+    const { data: prefRows, error: prefsError } = await db
+      .from('notification_prefs')
+      .select('device_id,cadence')
+      .eq('category', event.category)
+      .in('cadence', ['instant', 'daily', 'weekly']);
+    if (prefsError) throw new Error(`prefs lookup: ${prefsError.message}`);
+    prefRowsArr = (prefRows ?? []) as { device_id: string; cadence: string }[];
+  }
   const instantDeviceIds = prefRowsArr
     .filter((r) => r.cadence === 'instant')
     .map((r) => r.device_id);
   const digestDeviceIds = prefRowsArr.filter((r) => r.cadence !== 'instant');
   const allDeviceIds = [...new Set(prefRowsArr.map((r) => r.device_id))];
-  if (allDeviceIds.length === 0) return;
+  if (allDeviceIds.length === 0) return true;
 
   const { data: devices, error: devicesError } = await db
     .from('devices')
@@ -168,6 +242,16 @@ async function dispatchOneEvent(
 
   const devicesById = new Map(
     ((devices ?? []) as (DeviceRow & { digest_hour: number })[]).map((d) => [d.id, d]),
+  );
+
+  const { data: deliveredRows, error: deliveredError } = await db
+    .from('deliveries')
+    .select('device_id')
+    .eq('event_id', event.id)
+    .eq('kind', 'instant');
+  if (deliveredError) throw new Error(`delivered-device lookup: ${deliveredError.message}`);
+  const deliveredDeviceIds = new Set(
+    ((deliveredRows ?? []) as { device_id: string }[]).map((row) => row.device_id),
   );
 
   // --- Daily/weekly devices: enqueue, never send from this path. ---
@@ -201,6 +285,14 @@ async function dispatchOneEvent(
     if (!device) continue;
     result.candidateDevices++;
     if (!device.push_token) continue; // never granted permission / no token yet
+    if (deliveredDeviceIds.has(device.id)) {
+      result.skippedAlreadyDelivered++;
+      continue;
+    }
+    if (isInstantStale(event, now) && !quietHoursHoldIsFresh(event, device, now)) {
+      result.skippedStale++;
+      continue;
+    }
 
     const settings: GovernorDeviceSettings = {
       masterEnabled: device.master_enabled,
@@ -268,7 +360,7 @@ async function dispatchOneEvent(
     }
   }
 
-  if (toSend.length === 0) return;
+  if (toSend.length === 0) return true;
 
   const sendResults = await sendPushBatch(
     toSend.map(({ device }) => ({
@@ -279,9 +371,85 @@ async function dispatchOneEvent(
       deepLink: event.deep_link,
       platform: device.platform as 'ios' | 'android' | 'web' | undefined,
     })),
+    db,
   );
 
-  await logDeliveriesAndPrune(db, event, sendResults, result);
+  return logDeliveriesAndPrune(db, event, sendResults, result, now);
+}
+
+function isInstantStale(event: RouterEventRow, now: Date): boolean {
+  const createdAt = new Date(event.created_at ?? event.available_at).getTime();
+  return Number.isFinite(createdAt) && now.getTime() - createdAt > INSTANT_MAX_AGE_MS;
+}
+
+function localDateHour(
+  tz: string,
+  at: Date,
+): { year: number; month: number; day: number; hour: number } {
+  try {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: tz,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      hour12: false,
+    }).formatToParts(at);
+    const get = (type: string) => parts.find((part) => part.type === type)?.value ?? '';
+    return {
+      year: Number(get('year')),
+      month: Number(get('month')),
+      day: Number(get('day')),
+      hour: Number(get('hour')) % 24,
+    };
+  } catch {
+    return {
+      year: at.getUTCFullYear(),
+      month: at.getUTCMonth() + 1,
+      day: at.getUTCDate(),
+      hour: at.getUTCHours(),
+    };
+  }
+}
+
+function localDateHourToUtc(
+  tz: string,
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+): Date {
+  const naiveUtc = new Date(Date.UTC(year, month - 1, day, hour));
+  try {
+    const first = new Date(naiveUtc.getTime() - tzOffsetMinutes(tz, naiveUtc) * 60_000);
+    return new Date(naiveUtc.getTime() - tzOffsetMinutes(tz, first) * 60_000);
+  } catch {
+    return naiveUtc;
+  }
+}
+
+function quietHoursHoldIsFresh(event: RouterEventRow, device: DeviceRow, now: Date): boolean {
+  const { quiet_start: start, quiet_end: end } = device;
+  if (start === end) return false;
+  const firstDispatch = new Date(new Date(event.available_at).getTime() + DISPATCH_INTERVAL_MS);
+  const due = localDateHour(device.tz, firstDispatch);
+  const wrapsMidnight = start > end;
+  const dueDuringQuiet = wrapsMidnight
+    ? due.hour >= start || due.hour < end
+    : due.hour >= start && due.hour < end;
+  if (!dueDuringQuiet) return false;
+
+  const releaseDayOffset = wrapsMidnight && due.hour >= start ? 1 : 0;
+  const releaseDate = new Date(Date.UTC(due.year, due.month - 1, due.day + releaseDayOffset));
+  const releasedAt = localDateHourToUtc(
+    device.tz,
+    releaseDate.getUTCFullYear(),
+    releaseDate.getUTCMonth() + 1,
+    releaseDate.getUTCDate(),
+    end,
+  );
+  const sinceRelease = now.getTime() - releasedAt.getTime();
+  return sinceRelease >= 0 && sinceRelease <= INSTANT_MAX_AGE_MS;
 }
 
 async function recentSameCategoryDeliveries(
@@ -336,7 +504,8 @@ async function logDeliveriesAndPrune(
   event: RouterEventRow,
   sendResults: readonly PushSendResult[],
   result: RouterDispatchResult,
-): Promise<void> {
+  now: Date,
+): Promise<boolean> {
   const deliveryRows: {
     device_id: string;
     event_id: string;
@@ -364,11 +533,24 @@ async function logDeliveriesAndPrune(
 
   if (deliveryRows.length > 0) {
     const { error } = await db.from('deliveries').insert(deliveryRows);
-    if (error) result.errors.push(`delivery log insert failed: ${error.message}`);
+    if (error) {
+      result.errors.push(`delivery log insert failed: ${error.message}`);
+      result.halted = true;
+      const freeze = await engagePushFreeze(db, now);
+      result.freezeEngaged = freeze.engaged;
+      if (!freeze.engaged) {
+        result.errors.push(`PUSH_FREEZE engage failed: ${freeze.reason ?? 'unknown error'}`);
+      }
+      console.error(
+        `notification-router: delivery log insert failed after provider acceptance; PUSH_FREEZE ${freeze.engaged ? 'engaged' : 'engage failed'}; run stopped`,
+      );
+      return false;
+    }
   }
 
   if (tokensToClear.length > 0) {
     const { error } = await db.from('devices').update({ push_token: null }).in('id', tokensToClear);
     if (error) result.errors.push(`invalid-token prune failed: ${error.message}`);
   }
+  return true;
 }

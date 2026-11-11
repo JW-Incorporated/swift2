@@ -15,6 +15,23 @@ updates:
     labels:
       - "dependencies"
     groups:
+      # Expo / React Native / React move together and usually need a store
+      # build (Joey's call), so they get their own PR. Listed first: Dependabot
+      # assigns each dependency to the first matching group, which keeps these
+      # out of production-dependencies so routine bumps aren't blocked (#5315, #5425).
+      mobile-native:
+        patterns:
+          - "expo"
+          - "expo-*"
+          - "@expo/*"
+          - "react-native"
+          - "react-native-*"
+          - "@react-native/*"
+          - "react"
+          - "react-dom"
+        update-types:
+          - "minor"
+          - "patch"
       # One PR for all low-risk dev-dependency patch/minor bumps.
       dev-dependencies:
         dependency-type: "development"

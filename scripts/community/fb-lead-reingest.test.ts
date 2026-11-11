@@ -85,12 +85,13 @@ describe('leadsFromExportHtml', () => {
       expect(lead.locator).not.toMatch(/Jane Fan|Another Fan/i);
       expect(lead.context).not.toMatch(/Jane Fan|Another Fan/i);
       expect(lead.context).not.toMatch(/role=|data-posinset|[<>]/);
+      expect(JSON.stringify(lead)).not.toMatch(/vault door|color palette/i);
     }
   });
 
-  it('uses the checklist group label in the locator prefix', () => {
+  it('uses a text-free stable hash for a no-permalink locator', () => {
     const { leads } = leadsFromExportHtml(SYNTHETIC_EXPORT_HTML, { slug: 'taylor-swifts-vault' });
-    expect(leads[0]!.locator.startsWith("Taylor Swift's Vault — ")).toBe(true);
+    expect(leads[0]!.locator).toMatch(/^Facebook post h-[a-f0-9]{20}$/);
   });
 
   it('ranks by reactions+comments*2 and honors a lead cap', () => {
@@ -99,7 +100,7 @@ describe('leadsFromExportHtml', () => {
       maxLeadsPerGroup: 1,
     });
     expect(leads).toHaveLength(1);
-    expect(leads[0]!.context).toContain('vault door theory');
+    expect(leads[0]).toMatchObject({ reactions: 42, num_comments: 7 });
   });
 
   it('drops a redline-flagged post from the leads entirely', () => {

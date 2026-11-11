@@ -9,6 +9,7 @@
 import { createHash } from 'node:crypto';
 import { gh as ghRun } from '../../lib/gh.mjs';
 import { apiFor, listIssuesByLabels } from './issues-rest.mjs';
+import { acquireClaim, createFiling, sweepClaims, withTimeout } from './ask-claim.mjs';
 
 export const REPO = 'JW-Incorporated/swift2';
 const DAY_MS = 86_400_000;
@@ -78,19 +79,6 @@ function stripCr(line) {
  * could pick up instead of the real one. */
 export function neutralizeMarker(text) {
   return String(text ?? '').replace(/<!--/g, '&lt;!--');
-}
-
-/** Bounds a `gh` call so a hang can never eat a whole delivery's timeout
- * budget — `gh()` in scripts/lib/gh.mjs has no timeout on its REST fallback
- * path, so this races the call itself rather than passing one through. */
-function withTimeout(promise, ms, label) {
-  let timer;
-  const timeout = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
-  });
-  // Cleared on settle: a pending 30 s timer would otherwise hold the process
-  // open long after a fast filing finished (Codex round 2).
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
 function clean(text) {
@@ -206,12 +194,16 @@ export function renderIssue(sideName, ask, { key, sourceUrl }) {
   return { title: `${side.from} → ${side.to}: ${truncate(text, 90)}`, body, labels: [side.filedLabel, side.deskLabel] };
 }
 
-/** Files one ask, or returns the existing filing for the same key. */
-export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun, timeoutMs = 30_000 }) {
+/** Files one ask, or returns the existing filing for the same key.
+ * Claim-before-create (lib/ask-claim.mjs): only the caller that wins the atomic
+ * claim creates; a loser returns the winner's filing or throws (callers warn
+ * and carry on) - it never creates. A create that throws releases the claim. */
+export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = REPO, gh = ghRun, timeoutMs = 30_000, claimWaitMs = 20_000, sleep, now = Date.now, staleClaimMs, settleMs }) {
   const side = SIDES[sideName];
   const key = askKey(sideName, sourceNumber, ask.ask);
+  const deps = { find: (rows) => findFiled(rows, key), verify: (i) => isLoopFiling(i) && parseMarker(i.body).key === key };
   // Both labels, 200-issue window, and the REST issues list rather than
-  // `gh issue list` — that reads the search index, which missed a 1 s-old
+  // `gh issue list` - that reads the search index, which missed a 1 s-old
   // filing live and let a duplicate through (#4253).
   const rows = await withTimeout(
     listIssuesByLabels(apiFor(gh), { repo, labels: [side.filedLabel, side.deskLabel], state: 'all' }),
@@ -220,13 +212,14 @@ export async function fileAsk(sideName, ask, { sourceNumber, sourceUrl, repo = R
   const existing = findFiled(rows, key);
   if (existing) return { number: existing.number, url: existing.url, created: false, ask };
 
+  await sweepClaims(gh, repo, { nowMs: now(), timeoutMs });
+  const claim = await acquireClaim(gh, repo, key, side, deps, { timeoutMs, claimWaitMs, sleep, now, staleClaimMs, settleMs });
+  if (claim.existing) return { number: claim.existing.number, url: claim.existing.url, created: false, ask };
+
   const { title, body, labels } = renderIssue(sideName, ask, { key, sourceUrl });
   const args = ['issue', 'create', '--repo', repo, '--title', title, '--body', body];
   for (const label of labels) args.push('--label', label);
-  const created = await withTimeout(gh(args), timeoutMs, 'gh issue create');
-  const url = String(created.stdout ?? '').trim().split(/\s+/).pop() ?? '';
-  const number = Number(url.match(/\/issues\/(\d+)$/)?.[1]);
-  if (!number) throw new Error(`gh issue create printed no issue URL: ${created.stdout}`);
+  const { number, url } = await createFiling(gh, repo, key, args, { nowMs: now(), timeoutMs });
   return { number, url, created: true, ask };
 }
 

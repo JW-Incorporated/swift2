@@ -107,6 +107,24 @@ string) are now matched by `content.voice.ai-tell` in the same checker.
 > a room jammin'.' Taylor's own pitch: 'a desperate summer love that might
 > be doomed from the start.'"
 
+### Voice critic and exemplar corpus (P1-24)
+
+`scripts/voice/critic.mjs` scores a draft 1 to 5 on five dimensions: love,
+insight, opinion, clowning fit and AI tells (5 = no tells). Haiku scores,
+about ten items per call; if any dimension is below 3, Sonnet rewrites the
+draft once and the rewrite is re-scored once. The rewrite is kept only if its
+lowest score is strictly higher; otherwise the original stands. It never
+loops. When the Claude wrapper is unavailable or at a limit the critic returns
+"not scored" and the caller keeps the original draft (fail-open, logged).
+
+The reference set lives in `docs/content-ops/voice-exemplars/` (selection rule
+in its README). The critic is a module only for now; wiring it into
+draft-replies, breaking drafts and Vault lane prompts is P1-24b. It sits on
+top of, not in place of, the deterministic `check:voice` gate. Check
+separation with `node scripts/voice/eval-critic.mjs` (real wrapper calls,
+capped at 15; passes when the exemplar mean beats the counter-example mean by
+1.0 or more).
+
 ## Sourcing bar
 
 **Both rules below are enforced by `npm run validate:content` as of
@@ -207,6 +225,12 @@ Enforced by DB CHECK constraints and restated as an authoring rule:
   space — the no-fabrication rule doesn't loosen for either one.
 - Photos are always hotlinked with credit (credit = attribution, not legal
   clearance).
+
+## News worker: two-pass writer (live, `NEWS_WRITER_V2`)
+
+The News/Current worker no longer writes its own prose. Pass A (Haiku) extracts a headline, category, status and a `facts` list. A deterministic floor (`worth-gate.ts`) and the same-event dedupe gate run next. Pass B (`claude-opus-5-5`) then writes the lead (`summary`) and body (`detail`) from the facts plus a vault context pack, citing a fact or context id per body sentence. The shared writing checks (`current-item-writing.ts`) and a `claude-opus-5-5` rubric judge (voice, context, grounding, non-repetition, 4+ on each) gate it, with one rewrite across all steps; any failure, deferral or budget stop holds the row (`quality_hold_reason`) and never ships pass-A text. `NEWS_WRITER_V2` in `.github/workflows/news-worker.yml` is `off` (legacy single pass), `shadow` (legacy writes; v2 drafts go to the `news-v2-shadow` artifact for review) or `on`; a writer or judge deferral leaves the story to retry next cycle, and a below-floor item writes no row. Before pass B, a daily cap (`daily-text-cap.ts`) allows at most 6 published items per era per UTC day, counted from `current_item`; the next one is written held as `daily_text_cap` without spending a writer call (first come, first served, counted as `dailyTextCapHeld` in the cycle log). Legacy rows (no `facts`) keep the old read-time rules.
+
+**Fan-voice sentences** (decisions 2026-11-03 amendment 3, owner 2026-11-04): every fact needs a source, but not every sentence needs a fact. A body sentence with empty `refs` is an opinion or reaction line ("Honestly, this is the most Taylor thing she's done all year."). At most `MAX_VOICE_SENTENCES` (2) per post, every paragraph keeps at least one cited sentence, and a voice line must be warm and assert nothing checkable (the gate fails `too_many_voice_sentences` and `voice_sentence_has_fact`; the judge scores grounding on factual sentences only and fails voice for opinion that mocks a real person).
 
 ## Pipeline: Claude drafts → Codex reviews → human spot-checks
 

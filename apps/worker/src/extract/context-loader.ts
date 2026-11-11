@@ -1,0 +1,132 @@
+// Loads the inputs context-pack.ts needs for pass B. The news-worker job
+// checks out the repo, so the era's Vault moments are read straight from the
+// same seed files the site is built from (supabase/seed/content/<slug>.mjs,
+// supabase/seed/eras-data.mjs); prior related current items come from the DB.
+// Every loader is best-effort: missing context only means a thinner pack.
+
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { VaultMomentRef, VideoRef } from './dedupe-crosslane';
+import { MAX_PRIOR_ITEMS, type ContextMoment, type PriorItemContext } from './context-pack';
+
+const SEED_DIR = new URL('../../../../supabase/seed/', import.meta.url);
+const PRIOR_WINDOW_DAYS = 30;
+
+/** News-pipeline era id -> Vault era slug (the pipeline's `tloas` is the seed's showgirl era). */
+const ERA_SLUG_BY_ID: Record<string, string> = { tloas: 'the-life-of-a-showgirl' };
+
+export interface EraContext {
+  eraName: string;
+  eraSummary: string;
+  moments: ContextMoment[];
+  /** The same seed moments and videos, shaped for the same-event gate's read-only cross-lane match. */
+  crossLane: { moments: VaultMomentRef[]; videos: VideoRef[] };
+}
+
+const cache = new Map<string, Promise<EraContext>>();
+
+async function importSeed(relative: string): Promise<Record<string, unknown>> {
+  return (await import(new URL(relative, SEED_DIR).href)) as Record<string, unknown>;
+}
+
+async function readEraContext(eraId: string): Promise<EraContext> {
+  const slug = ERA_SLUG_BY_ID[eraId];
+  if (!slug) return { eraName: '', eraSummary: '', moments: [], crossLane: { moments: [], videos: [] } };
+  let eraName = '';
+  let eraSummary = '';
+  try {
+    const { eras } = (await importSeed('eras-data.mjs')) as {
+      eras: { slug: string; title: string; album?: string; start_date?: string }[];
+    };
+    const era = eras.find((e) => e.slug === slug);
+    if (era) {
+      eraName = era.title;
+      eraSummary = era.album && era.start_date
+        ? `Her current era, built around the album ${era.album}, running since ${era.start_date}.`
+        : '';
+    }
+  } catch {
+    // thinner pack
+  }
+  const moments: ContextMoment[] = [];
+  const crossMoments: VaultMomentRef[] = [];
+  const videos: VideoRef[] = [];
+  try {
+    const seed = (await importSeed(`content/${slug}.mjs`)) as {
+      default: { items: { slug?: string; year?: number; month?: number; day?: number; title?: string; snippet?: string; category?: string }[] };
+    };
+    for (const item of seed.default.items ?? []) {
+      if (!item.title || !item.snippet) continue;
+      const momentDate = item.year
+        ? [String(item.year), item.month && String(item.month).padStart(2, '0'), item.month && item.day && String(item.day).padStart(2, '0')].filter(Boolean).join('-')
+        : '';
+      moments.push({
+        title: item.title,
+        summary: item.snippet,
+        ...(item.category ? { tags: [item.category] } : {}),
+        ...(momentDate ? { date: momentDate } : {}),
+      });
+      if (item.slug && item.year && item.month && item.day) {
+        const date = `${item.year}-${String(item.month).padStart(2, '0')}-${String(item.day).padStart(2, '0')}`;
+        crossMoments.push({ id: item.slug, eraId, date, title: item.title, summary: item.snippet });
+      }
+    }
+  } catch {
+    // thinner pack
+  }
+  try {
+    const seed = (await importSeed(`videos/${slug}.mjs`)) as { default: { videos: { slug?: string; title?: string }[] } };
+    for (const video of seed.default.videos ?? []) {
+      if (video.slug && video.title) videos.push({ videoId: video.slug, eraId, title: video.title });
+    }
+  } catch {
+    // thinner pack
+  }
+  return { eraName, eraSummary, moments, crossLane: { moments: crossMoments, videos } };
+}
+
+/** Era name/summary plus every seed moment of the era; cached per process. */
+export function loadEraContext(eraId: string): Promise<EraContext> {
+  let pending = cache.get(eraId);
+  if (!pending) {
+    pending = readEraContext(eraId);
+    cache.set(eraId, pending);
+  }
+  return pending;
+}
+
+/** Last 30 days of servable same-era items sharing at least one entity, newest first, at most 3; with `observedOn`, none dated after it. */
+export async function loadPriorItems(
+  db: SupabaseClient,
+  eraId: string,
+  entities: readonly string[],
+  observedOn?: string,
+): Promise<PriorItemContext[]> {
+  if (entities.length === 0) return [];
+  const since = new Date(Date.now() - PRIOR_WINDOW_DAYS * 86_400_000).toISOString().slice(0, 10);
+  try {
+    let query = db
+      .from('current_item')
+      .select('id, headline, summary, observed_on, merged_into, sources')
+      .eq('era_id', eraId)
+      .eq('redline_ok', true)
+      .is('merged_into', null)
+      .gte('observed_on', since)
+      .overlaps('entities', [...entities]);
+    if (observedOn) query = query.lte('observed_on', observedOn);
+    const { data, error } = await query.order('observed_on', { ascending: false }).limit(MAX_PRIOR_ITEMS);
+    if (error) return [];
+    return (data ?? []).map((row) => {
+      const sources = row.sources as { url?: string }[] | null;
+      return {
+        id: row.id as string,
+        headline: row.headline as string,
+        lead: row.summary as string,
+        observedOn: row.observed_on as string,
+        mergedInto: (row.merged_into as string | null) ?? null,
+        url: sources?.[0]?.url ?? null,
+      };
+    });
+  } catch {
+    return [];
+  }
+}

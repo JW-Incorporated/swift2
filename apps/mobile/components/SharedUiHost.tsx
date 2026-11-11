@@ -32,6 +32,7 @@ import { noteImageLoaded } from '../lib/image-marks';
 import { createExpoNotificationDeps } from '../lib/notification-host-ports';
 import { createHostTapTarget } from '../lib/host-tap-target';
 import { useSpeedOn } from '../lib/use-speed-on';
+import { useFontScale } from '../lib/use-font-scale';
 import { createTapBinder, disposeEpoch, releaseBeforeStrike, type TapBinder } from '../lib/tap-bind-epoch';
 import { createHostUiDeps } from '../lib/host-ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
@@ -91,6 +92,7 @@ export function SharedUiHost({
   const insets = useSafeAreaInsets();
   const keyboard = useKeyboardInset();
   const speedOn = useSpeedOn();
+  const fontScale = useFontScale();
 
   useEffect(() => {
     launchedAt.current = Date.now();
@@ -244,6 +246,7 @@ export function SharedUiHost({
           reportError={handlers.reportError}
           reportProbe={handlers.reportProbe}
           speedTestOn={speedOn}
+          fontScale={fontScale}
           reportImageLoad={handlers.reportImageLoad}
         />
       ) : null}

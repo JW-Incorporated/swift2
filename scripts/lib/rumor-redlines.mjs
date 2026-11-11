@@ -438,6 +438,8 @@ export function rumorRedlineViolations(rumor, ctx = {}) {
   // disable this entire rule for a redline claim. It now also requires the
   // cited url to resolve to a verified official domain — an unverifiable
   // `official` tier fails closed and RR4 still runs.
+  // Label and press hosts additionally require a Taylor Swift marker in the
+  // URL path; an unrelated artist page on the same host is not official.
   const officialVerified = tier === EXEMPT_TIER && domainSupportsOfficial(rumor);
   if (!resolved && !officialVerified && claim) {
     for (const [category, terms] of Object.entries(COMPILED)) {
@@ -498,6 +500,7 @@ export function blockingRumorRedlineViolations(rumor, ctx) {
  * verified domain (scripts/lib/reputable-sources.mjs OFFICIAL_DOMAINS). This
  * is the item-level analog of RR4/RR5's per-claim `domainSupportsOfficial`,
  * used by the prose scan below, which has no per-claim tier field to test.
+ * Label and press hosts qualify only when their path identifies Taylor Swift.
  *
  * @param {(string|null|undefined)[]} urls
  */

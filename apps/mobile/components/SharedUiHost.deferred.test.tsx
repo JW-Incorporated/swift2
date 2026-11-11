@@ -22,6 +22,8 @@ vi.mock('react-native', async () => {
   return {
     View: (p: { children?: unknown }) => React.createElement('div', null, p.children as never),
     Platform: { OS: 'ios' },
+    PixelRatio: { getFontScale: () => 1 },
+    Dimensions: { addEventListener: () => ({ remove: () => undefined }) },
     StyleSheet: { create: (s: unknown) => s },
     AppState: { currentState: 'active', addEventListener: () => ({ remove: () => undefined }) },
     BackHandler: { addEventListener: () => ({ remove: () => undefined }), exitApp: () => undefined },

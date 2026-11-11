@@ -1,6 +1,7 @@
 import type { ContentItem } from '@swift2/experience';
 import { TAG_META } from '../lib/tags';
 import { SignificanceBadge } from '../era/SignificanceBadge';
+import { Byline } from '../legal/Byline';
 
 export function MomentHeader({
   item,
@@ -27,6 +28,7 @@ export function MomentHeader({
       >
         {item.title}
       </h1>
+      <Byline author={item.author} className="mt-3" />
 
       <div className="mt-4 flex flex-wrap gap-1.5">
         {item.tags.map((t) => (

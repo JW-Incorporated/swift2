@@ -1,6 +1,7 @@
 import { createKnowledgeClient, mapFanSignal, mapLiveTheory } from '@swift2/core';
 import type { FanSignalRow, LiveTheoryRow } from '@swift2/core';
 import type { CurrentItem, FanSignal, LiveTheory } from '@swift2/shared';
+import { liveTheoryHasValidImage } from '@swift2/shared';
 import { supabasePublicEnv } from './supabase-server';
 
 // Current-tier data access (server-side) — mirrors lib/vault.ts's env
@@ -16,8 +17,13 @@ import { supabasePublicEnv } from './supabase-server';
 export async function loadCurrentItems(eraId: string): Promise<CurrentItem[]> {
   const env = supabasePublicEnv();
   if (!env) return [];
-  return createKnowledgeClient(env).getCurrentItems(eraId);
+  return createKnowledgeClient({ ...env, fetch: noStoreFetch }).getCurrentItems(eraId);
 }
+
+/** Live reads bypass Next's Data Cache; the route's own `revalidate` is the
+ * only cache. A raw Supabase body over the Data Cache item limit is never
+ * re-stored, which froze `/vault/live` on a stale snapshot (2026-11-04). */
+export const noStoreFetch: typeof fetch = (input, init) => fetch(input, { ...init, cache: 'no-store' });
 
 // Server-side reads for `live_theory` / `fan_signal` (PLAN.md Stage 7) —
 // deliberately NOT routed through `packages/core/src/knowledge/` (a sibling
@@ -39,9 +45,15 @@ export async function loadCurrentItems(eraId: string): Promise<CurrentItem[]> {
 const MAX_ROWS = 200;
 
 const LIVE_THEORY_COLS =
-  'id,name,claim,first_seen_on,last_seen_on,origin,status,outcome,evidence_ids,symbols,heat,resolution,promoted_to,expires_at,mention_count,communities,stance,persistent';
+  'id,name,claim,first_seen_on,last_seen_on,origin,status,outcome,evidence_ids,symbols,heat,resolution,promoted_to,expires_at,mention_count,communities,stance,persistent,image_url';
 const FAN_SIGNAL_COLS =
   'id,window_start,window_end,platform,community,topic,summary,volume,heat,stance_mix,symbols,theory_ids,current_item_ids,sample_urls,expires_at,redline_ok';
+
+/** The RLS read policy of fan_signal and live_theory, repeated in the query so a
+ * key that bypasses RLS still gets only servable rows (2026-11-04). */
+export function servableFilter(now: Date = new Date()): string {
+  return `redline_ok=eq.true&or=(expires_at.is.null,expires_at.gt.${now.toISOString()})`;
+}
 
 async function restSelect<T>(
   env: { supabaseUrl: string; supabaseKey: string },
@@ -49,8 +61,8 @@ async function restSelect<T>(
   cols: string,
   order: string,
 ): Promise<T[]> {
-  const url = `${env.supabaseUrl}/rest/v1/${table}?select=${cols}&order=${order}&limit=${MAX_ROWS}`;
-  const res = await fetch(url, {
+  const url = `${env.supabaseUrl}/rest/v1/${table}?select=${cols}&${servableFilter()}&order=${order}&limit=${MAX_ROWS}`;
+  const res = await noStoreFetch(url, {
     headers: { apikey: env.supabaseKey, Authorization: `Bearer ${env.supabaseKey}` },
   });
   if (!res.ok) throw new Error(`${table}: HTTP ${res.status}`);
@@ -67,7 +79,8 @@ export async function loadLiveTheories(): Promise<LiveTheory[]> {
   const env = supabasePublicEnv();
   if (!env) return [];
   const rows = await restSelect<LiveTheoryRow>(env, 'live_theory', LIVE_THEORY_COLS, 'heat.desc');
-  return rows.map(mapLiveTheory);
+  // Defense in depth behind the RLS image_url gate: no valid image, no card.
+  return rows.map(mapLiveTheory).filter(liveTheoryHasValidImage);
 }
 
 /** Fan-signal rows, hottest first — matched against live theories client-side

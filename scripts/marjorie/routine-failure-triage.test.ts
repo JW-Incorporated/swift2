@@ -17,8 +17,8 @@ const LOG = ['run / Run Claude\tRun Claude\t2026-10-05T11:00:00.1Z error_max_tur
 
 const CANCELLED = { jobs: [{ id: 77, databaseId: 77, name: 'run', conclusion: 'cancelled', steps: [{ name: 'Run Claude', conclusion: 'cancelled' }] }] };
 const JOBS = { jobs: [{ name: 'run / Run Claude', conclusion: 'failure', steps: [{ name: 'Set up job', conclusion: 'success' }, { name: 'Run Claude', conclusion: 'failure' }] }] };
-type Fake = { open?: unknown[]; tree?: unknown[]; comments?: unknown[]; log?: string; jobs?: unknown; annotations?: unknown; annotationsError?: boolean; runsToday?: number };
-function fakeGh({ open = [], tree = [], comments = [], log = LOG, jobs = JOBS, annotations = [], annotationsError = false, runsToday = 0 }: Fake = {}) {
+type Fake = { open?: unknown[]; tree?: unknown[]; comments?: unknown[]; log?: string; jobs?: unknown; annotations?: unknown; annotationsById?: Record<string, unknown>; annotationsError?: boolean; runsToday?: number };
+function fakeGh({ open = [], tree = [], comments = [], log = LOG, jobs = JOBS, annotations = [], annotationsById = {}, annotationsError = false, runsToday = 0 }: Fake = {}) {
   const calls: string[][] = [];
   const gh = vi.fn(async (args: string[]) => {
     calls.push(args);
@@ -26,7 +26,8 @@ function fakeGh({ open = [], tree = [], comments = [], log = LOG, jobs = JOBS, a
       const p = args[1];
       if (p.includes('/check-runs/')) {
         if (annotationsError) throw new Error('404');
-        return { stdout: JSON.stringify(annotations) };
+        const id = p.match(/check-runs\/([^/]+)\//)?.[1] ?? '';
+        return { stdout: JSON.stringify(id in annotationsById ? annotationsById[id] : annotations) };
       }
       if (p.includes('/actions/workflows/')) return { stdout: JSON.stringify({ total_count: runsToday }) };
       if (/issues\/\d+\/comments/.test(p)) return { stdout: JSON.stringify(comments) };
@@ -152,6 +153,62 @@ describe('triage', () => {
       q.mockRestore();
       expect(warned).toBe(true);
     }
+  });
+  it('a failed run whose annotation says the plan usage limit is exhausted files nothing and dispatches nothing', async () => {
+    const { gh, calls } = fakeGh({ annotations: [{ message: 'plan usage for this account is exhausted, resets 2026-10-05T17:00:00.000Z — transient, not a code defect' }] });
+    const q = quiet();
+    const res = await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+    const warned = q.mock.calls.some((c) => String(c[0]).startsWith('::warning::') && RUN_RE.test(String(c[0])) && String(c[0]).includes('2026-10-05T17:00:00.000Z'));
+    q.mockRestore();
+    expect(res).toEqual({ action: 'skipped', reason: 'usage-limit' });
+    expect(warned).toBe(true);
+    expect(verbs(calls)).not.toContain('issue create');
+    expect(calls.find((c) => c[0] === 'workflow')).toBeUndefined();
+  });
+  it('a failed run with another annotation, none, or an unreadable one still files an issue', async () => {
+    for (const fake of [{ annotations: [{ message: 'Process completed with exit code 1.' }] }, { annotations: [] }, { annotationsError: true }]) {
+      const { gh, calls } = fakeGh(fake);
+      const q = quiet();
+      expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW })).action).toBe('filed');
+      q.mockRestore();
+      expect(verbs(calls)).toContain('issue create');
+      expect(calls.find((c) => c[0] === 'workflow')).toBeDefined();
+    }
+  });
+  describe('usage-limit skip across jobs and reset time', () => {
+    const limitMsg = (reset: string) => `plan usage for this account is exhausted${reset ? `, resets ${reset}` : ''} — transient, not a code defect`;
+    const FUTURE = '2026-10-05T17:00:00.000Z';
+    const TWO_JOBS = { jobs: [{ id: 1, databaseId: 1, name: 'a', conclusion: 'failure', steps: [] }, { id: 2, databaseId: 2, name: 'b', conclusion: 'failure', steps: [] }] };
+    const run = async (fake: Fake) => {
+      const { gh, calls } = fakeGh(fake);
+      const q = quiet();
+      const res = await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW });
+      q.mockRestore();
+      return { res, calls };
+    };
+    it('files when only some failed jobs are usage-limited (a genuine failure must not be hidden)', async () => {
+      const { res, calls } = await run({ jobs: TWO_JOBS, annotationsById: { 1: [{ message: limitMsg(FUTURE) }], 2: [{ message: 'Process completed with exit code 1.' }] } });
+      expect(res.action).toBe('filed');
+      expect(verbs(calls)).toContain('issue create');
+    });
+    it('skips when every failed job is usage-limited', async () => {
+      const { res, calls } = await run({ jobs: TWO_JOBS, annotationsById: { 1: [{ message: limitMsg(FUTURE) }], 2: [{ message: limitMsg(FUTURE) }] } });
+      expect(res).toEqual({ action: 'skipped', reason: 'usage-limit' });
+      expect(verbs(calls)).not.toContain('issue create');
+    });
+    it('files when one job’s annotations cannot be read', async () => {
+      const { gh } = fakeGh({ jobs: TWO_JOBS, annotationsById: { 1: [{ message: limitMsg(FUTURE) }] } });
+      const inner = gh.getMockImplementation() as (a: string[]) => Promise<{ stdout: string }>;
+      gh.mockImplementation(async (a: string[]) => { if (a[1]?.includes('check-runs/2/')) throw new Error('404'); return inner(a); });
+      const q = quiet();
+      expect((await triage({ workflow: WF, runId: '1', runUrl: URL1, conclusion: 'failure' }, { gh, now: NOW })).action).toBe('filed');
+      q.mockRestore();
+    });
+    it('skips within the 15 minute grace after the reset, files after it, and files with no parseable reset', async () => {
+      expect((await run({ annotations: [{ message: limitMsg('2026-10-05T11:50:00.000Z') }] })).res.reason).toBe('usage-limit');
+      expect((await run({ annotations: [{ message: limitMsg('2026-10-05T11:30:00.000Z') }] })).res.action).toBe('filed');
+      expect((await run({ annotations: [{ message: limitMsg('') }] })).res.action).toBe('filed');
+    });
   });
   it('comments on today’s CLOSED issue instead of filing a new one, and never reopens it', async () => {
     const closed = { ...issueRow(5100, `${failureMarker(WF, '2026-10-05')} earlier run`), state: 'closed' };

@@ -46,6 +46,7 @@ describe('buildUsageRecord', () => {
       model: 'claude-sonnet-5',
       maxTurns: 40,
       result: { num_turns: 12, duration_ms: 45000, total_cost_usd: 0.31, usage: { input_tokens: 100 } },
+      tokenPool: 'backup',
     });
     expect(record).toMatchObject({
       routineName: 'News Triage',
@@ -55,6 +56,7 @@ describe('buildUsageRecord', () => {
       durationMs: 45000,
       totalCostUsd: 0.31,
       usage: { input_tokens: 100 },
+      tokenPool: 'backup',
     });
     expect(typeof record.generatedAt).toBe('string');
   });
@@ -65,6 +67,13 @@ describe('buildUsageRecord', () => {
     expect(record.durationMs).toBeNull();
     expect(record.totalCostUsd).toBeNull();
     expect(record.usage).toBeNull();
+  });
+
+  it('records only the fixed token-pool labels', () => {
+    expect(buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: {}, tokenPool: 'primary' }))
+      .toHaveProperty('tokenPool', 'primary');
+    expect(buildUsageRecord({ routineName: 'x', model: 'y', maxTurns: 10, result: {}, tokenPool: 'secret-token' }))
+      .not.toHaveProperty('tokenPool');
   });
 
   it('adds only fixed diagnostic metadata for an errored result', () => {
@@ -213,6 +222,7 @@ describe('CLI entry point — must never fail the job', () => {
         ROUTINE_NAME: 'test-routine',
         ROUTINE_MODEL: 'claude-sonnet-5',
         MAX_TURNS: '40',
+        ROUTINE_TOKEN_POOL: 'backup',
         GITHUB_STEP_SUMMARY: summaryFile,
         ROUTINE_USAGE_OUT: outFile,
       },
@@ -223,6 +233,7 @@ describe('CLI entry point — must never fail the job', () => {
     const written = JSON.parse(await readFile(outFile, 'utf8'));
     expect(written.numTurns).toBe(5);
     expect(written.totalCostUsd).toBe(0.12);
+    expect(written.tokenPool).toBe('backup');
   });
 
   it('emits a warning when turns are at or above 90% of max-turns', async () => {

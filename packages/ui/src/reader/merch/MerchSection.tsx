@@ -36,7 +36,7 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { ReaderExtensionsProvider, useHost, useMerch } from '@swift2/ui';
 import type { ReaderSnapshotExtensions } from '@swift2/experience/reader-snapshot';
-import { createHostShopLinkRenderer, SHOP_DISCLOSURE } from '../moment/lib/shop';
+import { AMAZON_DISCLOSURE, createHostShopLinkRenderer, SHOP_DISCLOSURE } from '../moment/lib/shop';
 import { newDrops, type MerchItem } from '@swift2/content-enrichment';
 import { suggestLinkSectionId } from './lib/section-jump';
 import { SubmitLinkForm } from './SubmitLinkForm';
@@ -147,11 +147,10 @@ export function MerchSectionBody() {
   useEffect(() => {
     setDrops(newDrops([...merch.officialStore, ...merch.fanMade]));
   }, [merch]);
-  const anyAffiliate = createHostShopLinkRenderer(affiliate ?? {}).hasAffiliateMerch([
-    ...merch.officialStore,
-    ...merch.fanMade,
-    ...merch.shopTheLook,
-  ]);
+  const shopLinkRenderer = createHostShopLinkRenderer(affiliate ?? {});
+  const allMerch = [...merch.officialStore, ...merch.fanMade, ...merch.shopTheLook];
+  const anyAffiliate = shopLinkRenderer.hasAffiliateMerch(allMerch);
+  const anyAmazon = shopLinkRenderer.hasAmazonMerch(allMerch);
 
   return (
     <div className="merch-shell">
@@ -168,6 +167,12 @@ export function MerchSectionBody() {
           lede="Three lists: official drops from Taylor's store, fan-made pieces we've vetted, and the things she's actually been seen wearing."
         />
       </div>
+
+      {anyAmazon && (
+        <p className="mx-auto mt-6 max-w-[1180px] px-4 text-[11px] leading-relaxed text-[color:var(--merch-muted)] opacity-80 sm:px-6">
+          {AMAZON_DISCLOSURE}
+        </p>
+      )}
 
       <div className="mt-14">
         <MerchSectionRail sections={railSections} />

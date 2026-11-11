@@ -391,7 +391,11 @@ export function isPlausibleCritiqueTotal(value) {
  * afterward — a permanent per-target deadlock, not a security hole.
  */
 export function findCritiqueIssues(item, { activeLessonIds = [] } = {}) {
-  if (approvalStatus(item, { approvers: SOCIAL_APPROVERS }).ok) {
+  // A v4 tree-auto stamp is Tree approving its own draft — no human has
+  // looked, so it must NEVER buy the "already approved" exemption: a tree-auto
+  // draft still has to clear the full critique rubric like any unstamped one.
+  const status = approvalStatus(item, { approvers: SOCIAL_APPROVERS });
+  if (status.ok && status.kind !== 'tree-auto') {
     return [];
   }
   // T6: a fast-lane item (`lane: "merch"|"appearance"`) clears the six-
@@ -581,7 +585,7 @@ export function validateQueueItem(item, { activeLessonIds = [] } = {}) {
     );
   }
   if (item.platform === 'x' && item.mediaKind === 'site-screen') {
-    findings.push('mediaKind: X site-screen posts are permanently prohibited. Use text-only or a real credited photo instead.');
+    findings.push('mediaKind: X site-screen posts are permanently prohibited. Use a real credited photo, image or video instead (text-only X posts are banned).');
   }
   for (const field of ['mediaCredit', 'mediaSource']) {
     if (item[field] !== undefined && (typeof item[field] !== 'string' || item[field].trim() === '')) {

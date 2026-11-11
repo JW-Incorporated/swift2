@@ -14,11 +14,25 @@ export const STATUS_TITLE = '📋 Long Live — Status';
 const NOTE_BLOCK = /(<!-- marjorie-note:start date=)\S+( --!?>\n)[\s\S]*?(\n<!-- marjorie-note:end --!?>)/;
 const PING_LINE = /\n*<!-- marjorie-ping date=\S+(?: msg=\d+)? --!?>\s*$/;
 
-/** The canonical (oldest) open status issue, or null. */
-export async function findStatusIssue(api, repo) {
-  const rows = await listIssuesByLabels(api, { repo, labels: [STATUS_LABEL], state: 'open', limit: 20 });
-  if (!rows.length) return null;
-  return rows.sort((a, b) => a.number - b.number)[0];
+const EMPTY_LOOKUP_BACKOFF_MS = 200;
+
+/**
+ * The canonical (oldest) open status issue, or null. Empty results are
+ * retried (default 3 attempts, short backoff) so a transient lookup miss —
+ * e.g. search-index lag right after a create — is not mistaken for "no
+ * status issue exists". `sleep` is injectable so tests can skip the backoff.
+ */
+export async function findStatusIssue(api, repo, {
+  attempts = 3,
+  backoffMs = EMPTY_LOOKUP_BACKOFF_MS,
+  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+} = {}) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const rows = await listIssuesByLabels(api, { repo, labels: [STATUS_LABEL], state: 'open', limit: 20 });
+    if (rows.length) return rows.sort((a, b) => a.number - b.number)[0];
+    if (attempt < attempts) await sleep(backoffMs);
+  }
+  return null;
 }
 
 async function withBodyFile(body, fn) {
@@ -42,10 +56,19 @@ export async function pinIssue(gh, nodeId) {
   }
 }
 
-/** Finds the status issue or creates it (and tries to pin it). */
-export async function ensureStatusIssue({ api, gh, repo, log = () => {} }) {
-  const found = await findStatusIssue(api, repo);
+/**
+ * Finds the status issue. Only creates (and tries to pin) a new one when
+ * `bootstrap` is true; with the empty-after-retry result and no bootstrap flag
+ * it throws so a run fails loudly instead of silently duplicating the issue
+ * (the 2026-10-22 dup: a transient empty label lookup raced a create that
+ * already happened).
+ */
+export async function ensureStatusIssue({ api, gh, repo, log = () => {}, bootstrap = false, sleep, attempts, backoffMs }) {
+  const found = await findStatusIssue(api, repo, { sleep, attempts, backoffMs });
   if (found) return { issue: found, created: false, pinned: null };
+  if (!bootstrap) {
+    throw new Error('status issue lookup came back empty after retries; pass bootstrap: true to create a new one');
+  }
   const initial = `${PAGE_MARKER}\n\n_First render pending._\n`;
   const created = await withBodyFile(initial, (file) => gh([
     'api', '-X', 'POST', `repos/${repo}/issues`, '-F', `title=${STATUS_TITLE}`, '-F', `body=@${file}`, '-f', `labels[]=${STATUS_LABEL}`,

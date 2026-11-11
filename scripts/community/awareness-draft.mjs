@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Awareness image-reply lane — the answerer routine's deterministic hands
+// Awareness image-reply lane — the drafter's deterministic hands (eligibility, validator, storage; draft-replies.mjs calls them)
 // (docs/agents/runner-prompts/awareness-answerer.md). The routine LLM holds NO
 // database secret and has no shell: it only reads an export file and writes a
 // drafts file. This script does every read and write around it, in plain
@@ -9,7 +9,8 @@
 //           here and never exported), capped per sub, each with the sub's
 //           self-promo note and the image candidates, to a JSON file
 //   apply   reads the LLM's drafts file as UNTRUSTED input: for each entry it
-//           validates the image ref against the real catalogue, lints the reply
+//           validates an image ref IF one was given (none = a text-only reply,
+//           the default since #4767), lints the reply
 //           (no link, no site name, no pitch, short), checks the lead really is
 //           a status=new awareness lead, then saves draft/why/image_ref and
 //           flips it to `drafted` (or skipped_low_relevance for a skip)
@@ -36,7 +37,10 @@ const MAX_LEAD_AGE_HOURS = 48;
 /** Words that turn "a fan sharing a picture" into an ad. The picture does the talking. */
 const PITCH_RE =
   /(https?:\/\/|www\.|\b\w+\.(com|net|org|io|app|co)\b|longlive|\bcheck (it|this|that|us|out)\b|\bvisit\b|\b(my|our|this|the) (site|website|app|page|project)\b|\blink\b|\bdm me\b|\bfollow (me|us)\b|\bhashtag|#\w)/i;
-const AI_TELL_RE = /\b(great question|as an ai|delve|tapestry)\b|—/i;
+const [communityTell] = JSON.parse(
+  readFileSync(new URL('../../packages/shared/src/voice/rules.json', import.meta.url), 'utf8'),
+).aiTells.communityExtra;
+const AI_TELL_RE = new RegExp(communityTell.pattern, communityTell.flags);
 
 /** Returns a list of problems with a drafted reply; empty means it passes. */
 export function lintReply(text) {
@@ -62,18 +66,28 @@ export function lintWhy(text) {
     : [`why must be 8-${MAX_WHY_CHARS} chars, one line`];
 }
 
-/** Validates + lints, then returns the row patch or `{ problems }`. Pure given the catalogue. */
-export function buildDraftPatch({ draft, why, imageRef, current }, catalog) {
+/**
+ * Validates + lints, then returns the row patch or `{ problems }`. Pure given
+ * the catalogue.
+ *
+ * The picture is OPT-IN (owner rejected a card reply 2026-10-01, #4767): an
+ * omitted or empty `imageRef` drafts a text-only reply (`image_ref: null`) —
+ * it is NOT filled in from the lead's scan-time suggestion, or every reply
+ * would ship a card again. A ref that IS given still has to be in the real
+ * catalogue.
+ */
+export function buildDraftPatch({ draft, why, imageRef }, catalog) {
   const problems = [...lintReply(draft), ...lintWhy(why)];
-  const ref = imageRef || current;
-  const check = validateImageRef(ref, catalog);
-  if (!check.ok) problems.push(`image ref "${ref}" is not in the catalogue (${check.reason})`);
+  const ref = typeof imageRef === 'string' ? imageRef.trim() : '';
+  const check = ref ? validateImageRef(ref, catalog) : null;
+  if (check && !check.ok)
+    problems.push(`image ref "${ref}" is not in the catalogue (${check.reason})`);
   if (problems.length > 0) return { problems };
   return {
     patch: {
       draft: String(draft).trim(),
       why: String(why).trim(),
-      image_ref: check.ref,
+      image_ref: check ? check.ref : null,
       link_included: false,
       status: 'drafted',
     },
@@ -182,7 +196,7 @@ export async function applyDrafts(supabase, entries, catalog) {
   if (entries.length === 0) return result;
   const { data, error } = await supabase
     .from('engagement_lead')
-    .select('id, image_ref')
+    .select('id')
     .in(
       'id',
       entries.map((e) => e.id),
@@ -208,7 +222,7 @@ export async function applyDrafts(supabase, entries, catalog) {
       continue;
     }
     const built = buildDraftPatch(
-      { draft: entry.draft, why: entry.why, imageRef: entry.image_ref, current: lead.image_ref },
+      { draft: entry.draft, why: entry.why, imageRef: entry.image_ref },
       catalog,
     );
     if (built.problems) {

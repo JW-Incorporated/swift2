@@ -1,8 +1,23 @@
 import type { CurrentItem, CurrentItemStatus, LiveTheory } from '@swift2/shared';
+import { outletLabel, passesCurrentItemQualityGate } from '@swift2/shared';
 import { resolveAnchor } from './anchor-date';
 import { formatRelativeTime } from './format';
 import type { EraFeedEntry } from './era-feed';
 import type { VideoNote } from './types';
+
+const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
+
+/** A live item that carries a playable video embed: the one predicate the
+ * card, detail, Videos chip and this-week pinning all agree on. */
+export function isPlayableVideoItem(item: CurrentItem): boolean {
+  const embed = item.embed;
+  return (
+    item.mediaKind === 'video' &&
+    embed != null &&
+    embed.provider === 'youtube' &&
+    YOUTUBE_ID.test(embed.videoId)
+  );
+}
 
 /**
  * Builds the fifth `EraFeedEntry` kind ('current') from the current era's
@@ -12,23 +27,62 @@ import type { VideoNote } from './types';
  * observed_on"). Rows with `promoted_to` set never reach here — the
  * knowledge client's query already excludes them (packages/core/src/
  * knowledge/client.ts).
+ *
+ * Content fix 7 read-time safety net: `items` is passed through
+ * `collapseMergedDuplicates` first so a row that somehow still carries
+ * `mergedInto` (the write-time gate's own normal path never inserts one, but
+ * this is defense in depth — a pre-gate row backfilled by the live-cleanup
+ * script, a future writer that forgets the filter, a stale cache) can never
+ * render twice, or at all, in the feed even if it slipped past every read
+ * query's own `.is('merged_into', null)` filter.
  */
 export function currentFeedEntries<V extends VideoNote>(
   items: readonly CurrentItem[],
   eraStart: string,
   eraEnd: string,
 ): EraFeedEntry<V>[] {
-  return items.map((item) => ({
-    kind: 'current' as const,
-    item,
-    anchor: resolveAnchor({ exactDate: item.observedOn, eraStart, eraEnd, id: item.id }),
-  }));
+  // Content fix 7 read-time collapse (dedupe) + content fix 3/6 hard
+  // publish gate (defense-in-depth filter: the write path and packages/
+  // core's getCurrentItems/getRecentItems already hold/exclude a failing
+  // row — see current-item-quality.ts's header) so this feed-building step
+  // can never surface a merged duplicate or a gate-failing row, even if a
+  // caller ever passes in unfiltered rows directly.
+  return collapseMergedDuplicates(items)
+    .filter((item) => passesCurrentItemQualityGate(item))
+    .map((item) => ({
+      kind: 'current' as const,
+      item,
+      anchor: resolveAnchor({ exactDate: item.observedOn, eraStart, eraEnd, id: item.id }),
+    }));
+}
+
+/**
+ * Content fix 7 read-time collapse: drops any item whose `mergedInto` is
+ * set (it was folded into another item — never shown on its own), and, as a
+ * second belt-and-braces check, dedupes by `mergedInto` TARGET too — if two
+ * rows somehow both point at the same original (or an original and a stale
+ * un-collapsed duplicate both ended up in the same `items` array), only the
+ * first (by array order, which callers feed in `observed_on desc`) survives.
+ * A duplicate can never render twice even if the write-time gate's own
+ * dedupe step was bypassed or ran against stale data.
+ */
+export function collapseMergedDuplicates(items: readonly CurrentItem[]): CurrentItem[] {
+  const seenOriginals = new Set<string>();
+  const result: CurrentItem[] = [];
+  for (const item of items) {
+    if (item.mergedInto) continue; // hidden — folded into another item
+    if (seenOriginals.has(item.id)) continue;
+    seenOriginals.add(item.id);
+    result.push(item);
+  }
+  return result;
 }
 
 /** First reported source's outlet name, for the "Live · reported by X" chip
  * (PLAN.md Stage 5 — outlet from `sources` jsonb, first entry's `name`). */
 export function outletFor(item: CurrentItem): string | undefined {
-  return item.sources[0]?.name || undefined;
+  const first = item.sources[0];
+  return first ? outletLabel(first) : undefined;
 }
 
 /**
@@ -76,14 +130,9 @@ export function pickCountdownBannerItem(
   });
 }
 
-/** Mirrors `HEAT_PROMOTION_THRESHOLD` in `apps/worker/src/extract/
- * theory-promote.ts` (currently `PROMOTION_MENTION_THRESHOLD === 3`) — the
- * same bar a merged fan-theory cluster must clear to be promoted into
- * `live_theory` at all. Duplicated here (not imported) because `apps/worker`
- * is a server-side extraction app, never a dependency of the client-bundled
- * `@swift2/experience` package; if the worker's threshold ever changes,
- * update this constant to match (both are small, reviewed numbers, not a
- * runtime-shared config). */
+/** The established weaving floor remains 3 even though worker promotion now
+ * separately requires two distinct source threads. Duplicated here because
+ * `apps/worker` is never a dependency of the client-bundled experience. */
 const BIG_THEORY_HEAT_THRESHOLD = 3;
 
 /** A `live_theory.status` this component must never treat as "big" — the
@@ -95,11 +144,9 @@ const THEORY_BANNER_DISQUALIFIED_STATUSES = new Set(['debunked', 'faded']);
 
 /**
  * Whether `theory` is a "big" fan theory that qualifies for the pin-banner
- * slot: `heat` over the promotion threshold (Community Engine P2-3/P2-4 —
- * `theory-promote.ts` already gates `live_theory` promotion at this same
- * bar, so a promoted row already crossed it once; heat keeps moving after
- * promotion as more mentions/signals land, so this re-checks live, not just
- * "was ever promoted") and a status that isn't `debunked`/`faded`.
+ * slot: `heat` over the unchanged weaving floor (Community Engine P2-3/P2-4)
+ * and a status that isn't `debunked`/`faded`. Promotion separately requires
+ * two distinct source threads; heat keeps ranking eligible theories.
  */
 export function isBigTheory(theory: LiveTheory, heatThreshold: number = BIG_THEORY_HEAT_THRESHOLD): boolean {
   return theory.heat >= heatThreshold && !THEORY_BANNER_DISQUALIFIED_STATUSES.has(theory.status);

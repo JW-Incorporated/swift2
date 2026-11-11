@@ -74,6 +74,11 @@ jobs:
       model: claude-opus-4-8
       allowed_tools: "Bash,Read,Grep,Glob,Write,Edit"
       timeout_minutes: 40
+      # Was the template default 40: run 38897526230 (2026-10-16) reached turn 41
+      # and ended error_max_turns after 16 min, losing the status note and the
+      # deliver job. A ceiling, not a spend — 41 turns took 16 min, so 80 still
+      # fits timeout_minutes: 40. Same remedy as the other heavy routines (#5982).
+      max_turns: 80
       max_budget_usd: ${{ fromJSON(format('{0}', github.event_name == 'workflow_dispatch' && inputs.max_budget_usd || 0)) }}
       checkout_token_secret: SOCIAL_POSTER_PAT
     secrets:

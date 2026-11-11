@@ -22,6 +22,7 @@
 import { readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { routeAuthor } from './copy-desk/routing.mjs';
 import { createClient } from '@supabase/supabase-js';
 import {
   ROOT,
@@ -36,6 +37,7 @@ import {
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
 import { runMain } from './lib/cli.mjs';
+import { baseMomentId, claimMomentId } from './lib/moment-ids.mjs';
 
 // slugify now lives in the dependency-free shared module (so the content-engine
 // can import it without @supabase/supabase-js); re-exported here because
@@ -144,6 +146,20 @@ const VALID_SIGNIFICANCE = new Set(['defining', 'notable']);
  * "routine") for anything else rather than guessing, same convention as
  * threadIdsFrom/relatedIdsFrom.
  */
+/**
+ * Persona byline slug (copy-desk spec §3-4): an explicit seed `author` wins,
+ * else the category routing default. Derived here, never stored in the DB.
+ * An unroutable category yields undefined (no byline) rather than failing the
+ * build; validate-content.mjs is where it fails loudly.
+ */
+export function authorFrom(category, override) {
+  try {
+    return routeAuthor({ surface: 'month_item', category, override });
+  } catch {
+    return undefined;
+  }
+}
+
 export function significanceFrom(significance) {
   return VALID_SIGNIFICANCE.has(significance) ? significance : undefined;
 }
@@ -395,6 +411,7 @@ export function addItem(
     socialPost,
     relatedIds,
     significance,
+    author,
     products,
     confidence,
     rumors,
@@ -407,13 +424,7 @@ export function addItem(
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
 
-  const baseId = `vault-${eraId}-${slugify(title)}`;
-  let id = baseId;
-  let n = 2;
-  while (seenIds.has(id)) {
-    id = `${baseId}-${n++}`;
-  }
-  seenIds.add(id);
+  const id = claimMomentId(baseMomentId(eraId, title), seenIds);
 
   // `day` is optional — most items are still only known to month precision.
   // When present (1-31, validated), the item gets a real calendar date and
@@ -486,6 +497,7 @@ export function addItem(
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
     significance: significanceFrom(significance),
+    author: authorFrom(category, author),
     products: productsFrom(products),
     confidence: confidenceFrom(confidence),
     rumors: rumorsFrom(rumors),
@@ -648,6 +660,7 @@ export function seedItemToInput(item) {
     // accept either so the content lane can pick the natural home.
     relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
     significance: item.significance ?? null,
+    author: item.author ?? null,
     // Tier-1 detail like photos/sources — products live on the moment.
     products: item.moment?.products ?? null,
     // Like relatedIds, confidence/rumors are accepted at EITHER level —
@@ -737,6 +750,7 @@ export function buildOutputSource(byEra) {
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
+  lines.push("  author?: 'theo' | 'loren' | 'vera' | 'deb';");
   lines.push('  products?: Product[];');
   lines.push('  confidence?: Confidence;');
   lines.push('  rumors?: RumorNote[];');
@@ -814,6 +828,9 @@ export function buildOutputSource(byEra) {
       // there is no generic fallthrough serialization in this file.
       if (it.significance) {
         lines.push(`      significance: ${esc(it.significance)},`);
+      }
+      if (it.author) {
+        lines.push(`      author: ${esc(it.author)},`);
       }
       if (it.products && it.products.length) {
         const prods = it.products

@@ -1,10 +1,68 @@
 import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
-import { dedupeCandidates, looksAiGenerated, mergeCandidates, normalizeSourceUrl } from './photo-source-common.mjs';
+import {
+  dedupeCandidates,
+  assessSources,
+  formatSourceCounts,
+  looksAiGenerated,
+  mergeCandidates,
+  normalizeSourceUrl,
+  readCandidateFile,
+} from './photo-source-common.mjs';
 import { dHash, findNearDuplicate, hammingDistance } from './perceptual-hash.mjs';
 import { fetchCandidates } from '../import-photo-library.mjs';
 
 const c = (id: string, sourceUrl = `https://x.example/${id}.jpg`, source = `https://p.example/${id}`) => ({ id, sourceUrl, source });
+
+describe('readCandidateFile / formatSourceCounts', () => {
+  const files: Record<string, string> = { '/ok.json': '[{"id":"a"},{"id":"b"}]', '/bad.json': '[{"id":' , '/obj.json': '{}' };
+  const fakeFs = {
+    existsSync: (p: string) => p in files,
+    readFileSync: (p: string) => files[p],
+  };
+
+  it('reads ok, missing and invalid files without throwing', () => {
+    expect(readCandidateFile('/ok.json', fakeFs).status).toBe('ok');
+    expect(readCandidateFile('/nope.json', fakeFs)).toEqual({ candidates: [], status: 'missing' });
+    const bad = readCandidateFile('/bad.json', fakeFs);
+    expect(bad.status).toBe('invalid');
+    expect(bad.detail).toMatch(/JSON/i);
+    expect(readCandidateFile('/obj.json', fakeFs)).toMatchObject({ candidates: [], status: 'invalid', detail: 'not a JSON array' });
+  });
+
+  it('formats one line per source with a status suffix when not ok', () => {
+    const results = [
+      { name: 'wikimedia', ...readCandidateFile('/ok.json', fakeFs) },
+      { name: 'press', ...readCandidateFile('/nope.json', fakeFs) },
+      { name: 'reddit', ...readCandidateFile('/bad.json', fakeFs) },
+    ];
+    expect(formatSourceCounts(results)).toEqual([
+      'source=wikimedia candidates=2',
+      'source=press candidates=0 (missing)',
+      expect.stringMatching(/^source=reddit candidates=0 \(invalid: .+\)$/),
+    ]);
+  });
+
+  it('assessSources errors when all sources failed, warns when all ok but empty', () => {
+    const ok = (name: string, n: number) => ({ name, status: 'ok', candidates: Array(n).fill({}) });
+    const bad = (name: string, status: string) => ({ name, status, candidates: [] });
+    const allBad = assessSources([bad('a', 'missing'), bad('b', 'invalid')]);
+    expect(allBad.fail).toBe(true);
+    expect(allBad.annotations.filter((a: string) => a.startsWith('::warning::'))).toHaveLength(2);
+    expect(allBad.annotations.some((a: string) => a.startsWith('::error::'))).toBe(true);
+    const empty = assessSources([ok('a', 0), ok('b', 0)]);
+    expect(empty.fail).toBe(false);
+    expect(empty.annotations).toEqual([expect.stringMatching(/^::warning::/)]);
+    const quiet = assessSources([ok('a', 0), bad('b', 'missing')]);
+    expect(quiet.fail).toBe(false);
+    expect(quiet.annotations.some((a: string) => a.startsWith('::error::'))).toBe(false);
+    const multi = assessSources([{ name: 'x', status: 'invalid', detail: 'bad\n  json', candidates: [] }, ok('y', 1)]);
+    expect(multi.annotations[0]).toBe('::warning::Photo source x is invalid (bad json)');
+    const partial = assessSources([ok('a', 3), bad('b', 'missing')]);
+    expect(partial.fail).toBe(false);
+    expect(partial.annotations).toHaveLength(1);
+  });
+});
 
 describe('normalizeSourceUrl', () => {
   it('ignores scheme, www, query, hash, trailing slash and percent-encoding', () => {

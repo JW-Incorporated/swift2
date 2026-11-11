@@ -9,7 +9,8 @@ import { describe, expect, it } from 'vitest';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { readActiveLessonIds, validateDir, validatePhotoLibrary } from './validate-queue.mjs';
+import { contentHash } from './lib/queue.mjs';
+import { readActiveLessonIds, validateDir, validateLedgersDisjoint, validatePhotoLibrary } from './validate-queue.mjs';
 
 const validCritique = {
   v: 1,
@@ -111,5 +112,52 @@ describe('validatePhotoLibrary', () => {
     const bad = validatePhotoLibrary([{ ...photos[0], source: 'not-a-url' }]);
     expect(bad).toEqual([`${photos[0].id}: source must be an http(s) URL`]);
     expect(validatePhotoLibrary({} as never)).not.toEqual([]);
+  });
+});
+
+// Issue #6110 — a posted item that was ALSO retired into social/failed/ (the
+// stale sweeper measuring a stuck fold-back as a stuck post) made the weekly
+// scorecard count a shipped post as a delivery failure. The three records that
+// bug produced are deleted in this change; this is the invariant that keeps a
+// fourth from going unnoticed.
+describe('validateLedgersDisjoint', () => {
+  it('names an item sitting in two of queue/posted/failed at once, and passes when each name has one home', () => {
+    expect(
+      validateLedgersDisjoint({
+        queue: ['c.json'],
+        posted: ['a.json', 'b.json'],
+        failed: ['a.json'],
+      }),
+    ).toEqual([expect.stringContaining('a.json is in both social/posted/ and social/failed/')]);
+
+    expect(validateLedgersDisjoint({ queue: ['c.json'], posted: ['a.json'], failed: ['b.json'] })).toEqual([]);
+    expect(validateLedgersDisjoint({ queue: ['a.json'], posted: ['a.json'], failed: [] })).toHaveLength(1);
+  });
+
+  it('holds for the committed social/ ledgers — no shipped post is also recorded as failed', async () => {
+    const { readdirSync } = await import('node:fs');
+    const names = (dir: string) => readdirSync(join('social', dir)).filter((f) => f.endsWith('.json'));
+    expect(validateLedgersDisjoint({ queue: names('queue'), posted: names('posted'), failed: names('failed') })).toEqual([]);
+  });
+});
+
+describe('validateDir — v4 tree-auto stamps', () => {
+  it('a well-formed v4 stamp on a critiqued draft validates with no failure and no unstamped warning; a v4 stamp with a different kind fails', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'validate-queue-test-'));
+    try {
+      const base = validItem();
+      const approval = { v: 4, kind: 'tree-auto', by: 'tree:auto', at: '2026-10-09T00:00:00.000Z', pr: 1, message: 'run 1', contentHash: contentHash(base), mediaDigest: 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', sig: 'hmac-sha256:' + '0'.repeat(64) };
+      await writeFile(join(dir, 'a.json'), JSON.stringify({ ...base, approval }));
+      const ok = await validateDir(dir, []);
+      expect(ok.failures).toEqual([]);
+      expect(ok.warnings).toEqual([]);
+
+      await writeFile(join(dir, 'a.json'), JSON.stringify({ ...base, approval: { ...approval, kind: 'other' } }));
+      const bad = await validateDir(dir, []);
+      expect(bad.failures).toHaveLength(1);
+      expect(bad.failures[0].findings.join(' ')).toContain('malformed approval record');
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

@@ -8,6 +8,8 @@
 import type {
   CurrentItem,
   CurrentItemCategory,
+  CurrentItemEmbed,
+  CurrentItemFact,
   CurrentItemStatus,
   EggLedgerEntry,
   FanSignal,
@@ -39,6 +41,19 @@ function asKnowledgeSources(value: unknown): KnowledgeSource[] {
     .filter((s) => s.url !== '');
 }
 
+function asCurrentEmbed(value: unknown): CurrentItemEmbed | undefined {
+  if (!value || typeof value !== 'object') return undefined;
+  const e = value as Record<string, unknown>;
+  if (e['provider'] !== 'youtube' || typeof e['videoId'] !== 'string' || e['videoId'] === '') return undefined;
+  return {
+    provider: 'youtube',
+    videoId: e['videoId'],
+    ...(typeof e['title'] === 'string' ? { title: e['title'] } : {}),
+    ...(typeof e['channelId'] === 'string' ? { channelId: e['channelId'] } : {}),
+    ...(typeof e['verifiedAt'] === 'string' ? { verifiedAt: e['verifiedAt'] } : {}),
+  };
+}
+
 export interface CurrentItemRow {
   id: string;
   story_id: string | null;
@@ -55,15 +70,20 @@ export interface CurrentItemRow {
   sources: unknown;
   location_level: string | null;
   image_url: string | null;
+  embed?: unknown;
+  media_kind?: string | null;
   social_post: unknown;
   symbols: unknown;
   entities: unknown;
   heat: number;
   promoted_to: string | null;
+  merged_into?: string | null;
   last_checked_on: string;
   expires_at: string;
   updated_at: string;
   redline_ok: boolean;
+  facts?: unknown;
+  writing_score?: number | null;
   countdown_target_at: string | null;
   countdown_resolved_at: string | null;
 }
@@ -87,6 +107,10 @@ export function mapCurrentItem(row: CurrentItemRow): CurrentItem {
     sources: asKnowledgeSources(row.sources),
     ...(row.location_level ? { locationLevel: row.location_level as LocationLevel } : {}),
     ...(row.image_url ? { imageUrl: row.image_url } : {}),
+    ...(asCurrentEmbed(row.embed) ? { embed: asCurrentEmbed(row.embed) } : {}),
+    ...(row.media_kind === 'video' || row.media_kind === 'image' || row.media_kind === 'text'
+      ? { mediaKind: row.media_kind }
+      : {}),
     ...(socialPost && typeof socialPost['shortcode'] === 'string'
       ? {
           socialPost: {
@@ -100,10 +124,13 @@ export function mapCurrentItem(row: CurrentItemRow): CurrentItem {
     entities: asStringArray(row.entities),
     heat: row.heat,
     ...(row.promoted_to ? { promotedTo: row.promoted_to } : {}),
+    ...(row.merged_into ? { mergedInto: row.merged_into } : {}),
     lastCheckedOn: row.last_checked_on,
     expiresAt: row.expires_at,
     updatedAt: row.updated_at,
     redlineOk: row.redline_ok,
+    ...(Array.isArray(row.facts) ? { facts: row.facts as CurrentItemFact[] } : {}),
+    ...(typeof row.writing_score === 'number' ? { writingScore: row.writing_score } : {}),
     ...(row.countdown_target_at ? { countdownTargetAt: row.countdown_target_at } : {}),
     ...(row.countdown_resolved_at ? { countdownResolvedAt: row.countdown_resolved_at } : {}),
   };
@@ -171,6 +198,7 @@ export interface LiveTheoryRow {
   communities?: unknown;
   stance?: string | null;
   persistent?: boolean | null;
+  image_url?: string | null;
 }
 
 export function mapLiveTheory(row: LiveTheoryRow): LiveTheory {
@@ -211,6 +239,7 @@ export function mapLiveTheory(row: LiveTheoryRow): LiveTheory {
       ? { stance: row.stance }
       : {}),
     ...(row.persistent ? { persistent: true } : {}),
+    ...(row.image_url ? { imageUrl: row.image_url } : {}),
   };
 }
 

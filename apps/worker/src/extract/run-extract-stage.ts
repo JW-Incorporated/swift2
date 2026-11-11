@@ -1,212 +1,55 @@
-// Orchestrates the extract stage (proposal §4.5/§4.6, PLAN.md Stage 3):
-// pulls new clusters -> one Haiku call each -> screen/write/project -> abandon
-// sweep -> refresh symbol_activity. Wired into pipeline/run-cycle.ts after
-// classify, same stage-isolation discipline as the rest of run-cycle.ts — a
-// single cluster's failure logs and continues, never aborts the whole stage.
-
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { fetchPostComments, type RedditComment } from '../sources/reddit-rss';
-import { resolveVanishedCountdowns } from '../sources/site-diff';
-import { extractWithLLM } from './haiku-client';
-import type { ExtractCommentThread } from './types';
-import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
+import { hasClaudeSubscriptionToken } from '../claude-call';
+import { fetchTopArticleTexts } from '../sources/fetch-article-text';
+import { evaluateSameEventGate, loadDedupeCandidates } from './dedupe-gate';
 import {
+  createCommentFetchState,
+  loadClusterSources,
+  loadCommentThreads,
+  loadRawItems,
+  resolveClusterSources,
+  type PendingStory,
+} from './extract-stage-data';
+import { emptyResult, recordDiscard, recordV2Hold, type ExtractStageResult } from './extract-stage-result';
+import { finishExtractStage } from './extract-stage-finish';
+import { extractWithLLM } from './haiku-client';
+import { resolveImageUrl, youtubeThumbnail } from './image-resolve';
+import { resolveYouTubeEmbed } from './youtube-embed';
+import { ExtractUsageStore, supabaseExtractUsageDb } from './usage-store';
+import { loadEraContext } from './context-loader';
+import { dailyTextCapHold, tierCapHold } from './daily-text-cap';
+import {
+  createSignificanceStore, runSignificanceStep, significanceMode, type SignificanceAssessment, type SignificanceStep,
+} from './significance-stage';
+import {
+  composeV2Item, createJudgeStore, createWriterStore, DEFERRED_HOLDS, hasFacts, rewriteMergedOriginal, tierFloorHold, writerMode,
+} from './v2-stage';
+import { loadPendingStories, recordV2Attempt } from './v2-retry';
+import { runShadow } from './v2-shadow';
+import {
+  mergeNewFactsIntoOriginal,
   writeCurrentItem,
-  writeFanSignal,
-  upsertLiveTheory,
-  theoryPassesScreen,
-  projectKnowledgeDoc,
-  refreshSymbolActivity,
-  abandonQuietTheories,
   type ClusterSource,
+  type WriterV2Write,
 } from './write-knowledge';
+import { projectCurrentItemDoc } from './project-current-item';
+import { writeFanSignalTheories } from './write-fan-signal-theories';
 
-// Same era-id convention as apps/web/lib/longlive/eras.ts's CURRENT_ERA_ID
-// ('tloas'). MIRROR, NOT IMPORT (redline.ts's precedent, see its header):
-// apps/worker cannot import from apps/web, and this value changes only when
-// a new era begins — update both by hand together.
 const CURRENT_ERA_ID = 'tloas';
-
 const MAX_CLUSTERS_PER_CYCLE = 50;
-// R16 (Fable 5.1 architecture review): bounds how many *distinct* Reddit
-// posts this stage will call fetchPostComments for in one run. Comment
-// fetching already backs off on 429 (reddit-rss.ts), but nothing previously
-// stopped a run with many reddit-sourced clusters from issuing dozens of
-// comment-thread requests back to back — this caps the blast radius per
-// cycle regardless of how many stories/items qualify.
-const MAX_COMMENT_FETCHES_PER_RUN = 40;
 
-export interface ExtractStageResult {
-  clustersConsidered: number;
-  extracted: number;
-  screenedOut: number;
-  skipped: number;
-  deferred: number;
-  theoriesUpserted: number;
-  abandonedTheories: number;
-  countdownsResolved: number;
-  errors: string[];
-}
-
-interface PendingStory {
-  id: string;
-  canonical_title: string;
-  summary: string | null;
-}
-
-interface RawItem {
-  id: string;
-  title: string;
-  snippet: string;
-  url: string;
-  sourceType?: string;
-  fetchedCommentsAt: string | null;
-  countdownTargetAt: string | null;
-}
-
-async function loadRawItems(db: SupabaseClient, storyId: string): Promise<RawItem[]> {
-  const { data, error } = await db
-    .from('news_raw_item')
-    .select('id, title, snippet, url, fetched_comments_at, countdown_target_at, news_source(source_type)')
-    .eq('story_id', storyId)
-    .limit(20);
-  if (error) throw new Error(`raw item load failed for story ${storyId}: ${error.message}`);
-  return (data ?? []).map((r) => {
-    const relation = r.news_source as { source_type?: string } | { source_type?: string }[] | null;
-    const source = Array.isArray(relation) ? relation[0] : relation;
-    return {
-      id: r.id as string,
-      title: r.title as string,
-      snippet: (r.snippet as string) ?? '',
-      url: r.url as string,
-      sourceType: source?.source_type,
-      fetchedCommentsAt: (r.fetched_comments_at as string | null) ?? null,
-      countdownTargetAt: (r.countdown_target_at as string | null) ?? null,
-    };
-  });
-}
-
-/** Run-scoped state threaded through every cluster's `loadCommentThreads`
- * call so redundant Reddit comment fetches are eliminated two ways (R16):
- *   - within a run: `urlCache` memoises `fetchPostComments` per post URL, so
- *     two raw items (in the same or different clusters) that share a URL
- *     only ever hit the network once per run.
- *   - across runs: a post whose `news_raw_item.fetched_comments_at` is
- *     already set was fetched in a *previous* cycle and is never re-fetched
- *     — the DB stamp is the cross-run memo, since the comment bodies
- *     themselves are transient (never persisted) enrichment context.
- * `fetchesRemaining` additionally caps total distinct-URL fetches for the
- * whole run regardless of how many reddit-sourced clusters qualify. */
-interface CommentFetchState {
-  // Caches the IN-FLIGHT PROMISE, not just the resolved value. Two raw items
-  // sharing the same URL are processed concurrently via Promise.all below,
-  // so caching only the resolved value would leave a window where both
-  // items observe a cache miss (the first hasn't resolved yet) and both
-  // call fetchPostComments — caching the promise itself closes that race,
-  // since the second item's synchronous cache lookup (before its own first
-  // `await`) already sees the first item's in-flight promise.
-  urlCache: Map<string, Promise<RedditComment[]>>;
-  fetchesRemaining: number;
-}
-
-async function loadCommentThreads(
-  db: SupabaseClient,
-  items: readonly RawItem[],
-  storyId: string,
-  state: CommentFetchState,
-): Promise<ExtractCommentThread[]> {
-  const threads = await Promise.all(
-    items
-      .filter((item) => item.sourceType === 'reddit_rss')
-      .map(async (item): Promise<ExtractCommentThread | null> => {
-        // Already fetched in a prior extract cycle for this exact post —
-        // never refetched, even if the story is still pending.
-        if (item.fetchedCommentsAt) return null;
-
-        let pending = state.urlCache.get(item.url);
-        if (!pending) {
-          if (state.fetchesRemaining <= 0) {
-            // Per-run cap reached — leave fetched_comments_at unset so this
-            // post is eligible again next cycle rather than skipped forever.
-            return null;
-          }
-          state.fetchesRemaining--;
-          pending = fetchPostComments(item.url);
-          // Set the promise synchronously (before awaiting it) so any other
-          // item for the same URL in this same Promise.all batch reuses it
-          // instead of racing a second fetch.
-          state.urlCache.set(item.url, pending);
-        }
-
-        try {
-          const comments = await pending;
-          // Stamp as attempted regardless of result (empty/backed-off still
-          // counts as "tried this cycle") so a quiet or 429'd post doesn't
-          // get hammered again on the next cycle it's still pending in.
-          const { error: stampError } = await db
-            .from('news_raw_item')
-            .update({ fetched_comments_at: new Date().toISOString() })
-            .eq('id', item.id);
-          if (stampError) {
-            console.error(
-              `could not stamp fetched_comments_at for raw item ${item.id}: ${stampError.message}`,
-            );
-          }
-          if (comments.length === 0) return null;
-          return { postTitle: item.title, comments: comments.map((comment) => comment.body) };
-        } catch (err) {
-          // Comment context is best-effort enrichment. A network/parser error
-          // must not defer an otherwise extractable clustered story, and must
-          // not stamp fetched_comments_at — leave it unset so a genuine
-          // failure (not a 429, which fetchPostComments already swallows) is
-          // retried next cycle rather than permanently skipped.
-          console.error(
-            `reddit comment context unavailable for story ${storyId}: ${(err as Error).message}`,
-          );
-          return null;
-        }
-      }),
-  );
-  return threads.filter((thread): thread is ExtractCommentThread => thread !== null);
-}
-
-async function loadClusterSources(db: SupabaseClient, storyId: string): Promise<ClusterSource[]> {
-  const { data, error } = await db
-    .from('news_story_source')
-    .select('outlet_name, url, tier')
-    .eq('story_id', storyId);
-  if (error) throw new Error(`story source load failed for story ${storyId}: ${error.message}`);
-  return (data ?? []).map((r) => ({
-    outletName: r.outlet_name as string,
-    url: r.url as string,
-    tier: r.tier as ClusterSource['tier'],
-  }));
-}
+export type { ExtractStageResult } from './extract-stage-result';
 
 export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageResult> {
-  const errors: string[] = [];
-  const result: ExtractStageResult = {
-    clustersConsidered: 0,
-    extracted: 0,
-    screenedOut: 0,
-    skipped: 0,
-    deferred: 0,
-    theoriesUpserted: 0,
-    abandonedTheories: 0,
-    countdownsResolved: 0,
-    errors,
-  };
-
+  const result = emptyResult();
+  const { errors } = result;
   const { data: symbolRows, error: symbolError } = await db.from('symbol_lexicon').select('key');
   if (symbolError) errors.push(`symbol_lexicon load failed: ${symbolError.message}`);
-  const symbolLexiconKeys = (symbolRows ?? []).map((r) => r.key as string);
+  const symbolLexiconKeys = (symbolRows ?? []).map((row) => row.key as string);
 
-  const { data: pending, error: pendingError } = await db
-    .from('news_story')
-    .select('id, canonical_title, summary')
-    .not('classified_at', 'is', null)
-    .is('extracted_at', null)
-    .limit(MAX_CLUSTERS_PER_CYCLE);
+  const mode = writerMode();
+  const writerV2 = mode === 'on';
+  const { data: pending, error: pendingError } = await loadPendingStories(db, MAX_CLUSTERS_PER_CYCLE, writerV2);
   if (pendingError) {
     errors.push(`could not load pending clusters: ${pendingError.message}`);
     return result;
@@ -214,163 +57,245 @@ export async function runExtractStage(db: SupabaseClient): Promise<ExtractStageR
 
   const today = new Date().toISOString().slice(0, 10);
   const usage = await ExtractUsageStore.create(supabaseExtractUsageDb(db));
-  const commentFetchState: CommentFetchState = {
-    urlCache: new Map(),
-    fetchesRemaining: MAX_COMMENT_FETCHES_PER_RUN,
-  };
+  const commentFetchState = createCommentFetchState();
+  const v2Stores = mode === 'off'
+    ? undefined
+    : { writer: await createWriterStore(db), judge: await createJudgeStore(db) };
+  const sigMode = significanceMode();
+  let sigStore: Awaited<ReturnType<typeof createSignificanceStore>> | undefined;
+  if (sigMode !== 'off') {
+    try {
+      sigStore = await createSignificanceStore(db);
+    } catch (error) {
+      console.warn(`news-worker: significance store unavailable (${(error as Error).message}); no judge this run`);
+    }
+  }
+  const sigMemo = new Map<string, SignificanceAssessment>();
 
-  for (const story of (pending ?? []) as PendingStory[]) {
-    result.clustersConsidered++;
+  const stories = (pending ?? []) as (PendingStory & { v2_attempts?: number })[];
+  for (const [index, story] of stories.entries()) {
+    // Gates on the WRITER budget before the story is even read: once it is spent, every remaining story
+    // defers this cycle, including ones that would have been discarded. Intended: no extract call is spent.
+    if (writerV2 && v2Stores && !v2Stores.writer.hasCapacity()) {
+      result.writerBudgetExhausted = true;
+      result.deferred += stories.length - index;
+      console.warn('news-worker: writerBudgetExhausted; leaving the remaining stories for the next cycle');
+      break;
+    }
+    result.clustersConsidered += 1;
     try {
       const [items, sources] = await Promise.all([
         loadRawItems(db, story.id),
-        loadClusterSources(db, story.id),
+        loadClusterSources(db, story.id).then((loaded) => resolveClusterSources(db, story.id, loaded)),
       ]);
-      const clusterItems =
-        items.length > 0
-          ? items.map(({ title, snippet }) => ({ title, snippet }))
-          : [{ title: story.canonical_title, snippet: story.summary ?? '' }];
-      // A countdown target is parsed deterministically at ingest by the
-      // site-diff adapter, never re-derived by the LLM — carry the first
-      // one found on this cluster's raw items straight through to the
-      // current_item row (t_09dc269f's approved design §1).
-      const countdownTargetAt = items.find((item) => item.countdownTargetAt)?.countdownTargetAt ?? undefined;
-      // Without a configured model call there is nowhere for transient
-      // comment bodies to go, so do not spend Reddit requests enriching a
-      // cluster that extractWithLLM will immediately defer.
-      const commentThreads = process.env.ANTHROPIC_API_KEY
+      const clusterItems = items.length > 0
+        ? items.map(({ title, snippet }) => ({ title, snippet }))
+        : [{ title: story.canonical_title, snippet: story.summary ?? '' }];
+      const countdownTargetAt = items
+        .find((item) => item.countdownTargetAt)?.countdownTargetAt ?? undefined;
+      const modelAvailable = hasClaudeSubscriptionToken();
+      const commentThreads = modelAvailable
         ? await loadCommentThreads(db, items, story.id, commentFetchState)
         : [];
-
+      const articleTexts = modelAvailable
+        ? await fetchTopArticleTexts(sources.map((source) => ({
+          url: source.url,
+          tier: source.tier,
+          outletName: source.outletName,
+        })))
+        : [];
       const extracted = await extractWithLLM(usage, {
         items: clusterItems,
         ...(commentThreads.length > 0 ? { commentThreads } : {}),
+        ...(articleTexts.length > 0 ? { articleTexts } : {}),
         symbolLexiconKeys,
         eraId: CURRENT_ERA_ID,
         today,
       });
 
       if (extracted === null) {
-        // No key, or the per-run/daily cap is reserved out — leave
-        // extracted_at unset so this cluster is retried next cycle
-        // (proposal §4.5: deferred, not dropped).
-        result.deferred++;
+        result.deferred += 1;
         continue;
       }
-
       if (extracted.kind === 'skip') {
-        result.skipped++;
+        result.skipped += 1;
       } else {
-        if (extracted.currentItem) {
-          const written = await writeCurrentItem(
-            db,
-            story.id,
-            CURRENT_ERA_ID,
-            extracted.currentItem,
-            sources,
-            countdownTargetAt,
-          );
-          if (!written.redlineOk) result.screenedOut++;
-          else {
-            result.extracted++;
-            await projectKnowledgeDoc(db, {
-              id: `current:${written.id}`,
-              kind: 'current_item',
-              title: extracted.currentItem.headline,
-              text: `${extracted.currentItem.summary} ${extracted.currentItem.detail}`.trim(),
-              date: extracted.currentItem.observedOn,
-              recencyDate: extracted.currentItem.observedOn,
-              open: extracted.currentItem.statusHint === 'rumor' || extracted.currentItem.statusHint === 'reported',
-              status: extracted.currentItem.statusHint,
-              sourceTier: sources[0]?.tier ?? 'unverified',
-              sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
-              eraId: CURRENT_ERA_ID,
-              symbols: extracted.currentItem.symbols,
-              entities: extracted.currentItem.entities,
-              expiresAt: written.expiresAt,
-              redlineOk: written.redlineOk,
-            });
+        const currentItem = extracted.currentItem;
+        if (writerV2 && currentItem && !hasFacts(currentItem)) {
+          result.v2MissingFacts += 1;
+          console.warn(`news-worker: story ${story.id} returned a current_item without facts; retrying next cycle`);
+          await recordV2Attempt(db, result, story.id, story.v2_attempts, 'missing_facts');
+          continue;
+        }
+        const imageUrl = currentItem
+          ? await resolveImageUrl(story.top_image_url, sources)
+          : undefined;
+        let evidenceDocId: string | undefined;
+        let theoryImageUrl: string | null | undefined = imageUrl;
+        if (currentItem) {
+          let decision: Awaited<ReturnType<typeof evaluateSameEventGate>>;
+          const floorHold = writerV2 && hasFacts(currentItem) ? tierFloorHold(currentItem, sources) : undefined;
+          if (floorHold) decision = { action: 'hold', reason: 'below_tier_floor' };
+          else try {
+            const candidates = await loadDedupeCandidates(db, CURRENT_ERA_ID);
+            decision = writerV2
+              ? await evaluateSameEventGate(usage, candidates, currentItem, undefined, {
+                eraId: CURRENT_ERA_ID,
+                crossLane: (await loadEraContext(CURRENT_ERA_ID)).crossLane,
+                newItemSources: sources,
+              })
+              : await evaluateSameEventGate(usage, candidates, currentItem);
+          } catch (error) {
+            decision = { action: 'hold', reason: (error as Error).message };
+          }
+          if (floorHold) {
+            recordV2Hold(result, 'below_tier_floor');
+          } else if (decision.action === 'hold') {
+            result.dedupeHeld += 1;
+            errors.push(`dedupe gate held story ${story.id}: ${decision.reason}`);
+            continue;
+          } else if (decision.action === 'attach_video') {
+            result.attachedToVideo += 1;
+          } else if (decision.action === 'discard' && decision.momentId) {
+            result.dedupeDiscarded += 1;
+            recordDiscard(result, decision);
+          } else if (decision.action === 'discard' || decision.action === 'merge') {
+            result.dedupeDiscarded += decision.action === 'discard' ? 1 : 0;
+            if (decision.action === 'discard') recordDiscard(result, decision);
+            result.dedupeMerged += decision.action === 'merge' ? 1 : 0;
+            let dedupeOriginalImage: string | null;
+            try {
+              const { data: original, error } = await db
+                .from('current_item')
+                .select('headline, summary, detail, sources, image_url')
+                .eq('id', decision.candidateId)
+                .single();
+              if (error) throw new Error(error.message);
+              dedupeOriginalImage = original.image_url as string | null;
+              if (dedupeOriginalImage) {
+                theoryImageUrl = dedupeOriginalImage;
+              }
+              const rewritten = decision.action === 'merge' && decision.needsRewrite && decision.mergedFacts
+                && writerV2 && v2Stores && hasFacts(currentItem)
+                ? await rewriteMergedOriginal(
+                  db,
+                  v2Stores,
+                  { ...currentItem, headline: original.headline as string, facts: decision.mergedFacts },
+                  decision.mergedSources ?? sources,
+                  CURRENT_ERA_ID,
+                )
+                : undefined;
+              if (rewritten?.deferred) {
+                result.dedupeMerged -= 1;
+                result.v2Deferred += 1;
+                await recordV2Attempt(db, result, story.id, story.v2_attempts, 'deferred');
+                continue;
+              }
+              await mergeNewFactsIntoOriginal(
+                db,
+                decision.candidateId,
+                {
+                  headline: original.headline as string,
+                  summary: original.summary as string,
+                  detail: original.detail as string,
+                  sources: ((original.sources as unknown[]) ?? []) as ClusterSource[],
+                  imageUrl: (original.image_url as string | null) ?? null,
+                },
+                {
+                  ...(rewritten ? rewritten : decision.action === 'merge' ? {
+                    mergedSummary: decision.mergedSummary,
+                    mergedDetail: decision.mergedDetail,
+                  } : {}),
+                  duplicateSources: sources,
+                  duplicateImageUrl: imageUrl ?? null,
+                },
+              );
+              evidenceDocId = `current:${decision.candidateId}`;
+            } catch (error) {
+              errors.push(
+                `dedupe merge/discard failed for story ${story.id}: ${(error as Error).message}`,
+              );
+            }
+          } else {
+            const sig: SignificanceStep = sigMode === 'off'
+              ? { action: 'proceed' }
+              : await runSignificanceStep({
+                db, result, mode: sigMode, store: sigStore, memo: sigMemo, story, item: currentItem, sources,
+                eraId: CURRENT_ERA_ID, countdownTargetAt, imageUrl,
+              });
+            if (sig.action === 'retry') continue;
+            if (sig.action !== 'held') {
+              let toWrite = currentItem;
+              let v2Write: WriterV2Write | undefined;
+              const capHold = writerV2 && v2Stores && hasFacts(currentItem)
+                ? sigMode === 'on' && sig.verdict
+                  ? await tierCapHold(db, CURRENT_ERA_ID, currentItem.facts, sig.verdict.tier)
+                  : await dailyTextCapHold(db, CURRENT_ERA_ID, currentItem.facts)
+                : undefined;
+              if (capHold) {
+                v2Write = capHold;
+              } else if (writerV2 && v2Stores && hasFacts(currentItem)) {
+                const composed = await composeV2Item(db, v2Stores, currentItem, sources, CURRENT_ERA_ID);
+                if (composed.v2.holdReason && DEFERRED_HOLDS.includes(composed.v2.holdReason)) {
+                  result.v2Deferred += 1;
+                  await recordV2Attempt(db, result, story.id, story.v2_attempts, 'deferred');
+                  continue;
+                }
+                toWrite = composed.item;
+                v2Write = composed.v2;
+              } else if (mode === 'shadow' && v2Stores && hasFacts(currentItem)) {
+                await runShadow(db, v2Stores, story.id, currentItem, sources, CURRENT_ERA_ID).catch((error: Error) => {
+                  console.warn(`news-worker: v2 shadow failed for story ${story.id}: ${error.message}`);
+                });
+              }
+              const embed = await resolveYouTubeEmbed(sources);
+              const written = await writeCurrentItem(
+                db,
+                story.id,
+                CURRENT_ERA_ID,
+                toWrite,
+                sources,
+                countdownTargetAt,
+                imageUrl ?? (embed ? youtubeThumbnail(embed.videoId) : undefined),
+                v2Write,
+                embed,
+                sig.verdict,
+              );
+              if (!written.redlineOk) {
+                if (v2Write?.holdReason) recordV2Hold(result, v2Write.holdReason);
+                else result.screenedOut += 1;
+              }
+              else {
+                result.extracted += 1;
+                evidenceDocId = `current:${written.id}`;
+                await projectCurrentItemDoc(db, evidenceDocId, toWrite, sources, CURRENT_ERA_ID, written);
+              }
+            }
           }
         }
         if (extracted.fanSignal) {
-          const theoryIds: string[] = [];
-          for (const theory of extracted.fanSignal.theories) {
-            // live_theory has no redline_ok column (write-knowledge.ts's
-            // theoryPassesScreen doc comment) — screen BEFORE upserting,
-            // never after; a failing theory is simply never stored.
-            if (!theoryPassesScreen(theory)) {
-              result.screenedOut++;
-              continue;
-            }
-            const upserted = await upsertLiveTheory(db, theory, extracted.fanSignal.symbols, today);
-            theoryIds.push(upserted.id);
-            result.theoriesUpserted++;
-            await projectKnowledgeDoc(db, {
-              id: `ltheory:${upserted.id}`,
-              kind: 'live_theory',
-              title: theory.name,
-              text: theory.claim,
-              open: true,
-              status: 'rumor',
-              sourceTier: 'fan',
-              sources: [],
-              eraId: CURRENT_ERA_ID,
-              symbols: extracted.fanSignal.symbols,
-              entities: [],
-              expiresAt: upserted.expiresAt,
-              redlineOk: true,
-            });
-          }
-          const written = await writeFanSignal(db, extracted.fanSignal, theoryIds, clusterItems.length);
-          if (!written.redlineOk) result.screenedOut++;
-          else {
-            result.extracted++;
-            await projectKnowledgeDoc(db, {
-              id: `signal:${written.id}`,
-              kind: 'fan_signal',
-              title: extracted.fanSignal.topic,
-              text: extracted.fanSignal.summary,
-              open: true,
-              status: 'reported',
-              sourceTier: 'fan',
-              sources: [],
-              eraId: CURRENT_ERA_ID,
-              symbols: extracted.fanSignal.symbols,
-              entities: [],
-              expiresAt: written.expiresAt,
-              redlineOk: written.redlineOk,
-            });
-          }
+          await writeFanSignalTheories(
+            db,
+            result,
+            extracted.fanSignal,
+            evidenceDocId,
+            theoryImageUrl,
+            today,
+            CURRENT_ERA_ID,
+            clusterItems.length,
+          );
         }
       }
-
-      const { error: markError } = await db
+      const { error } = await db
         .from('news_story')
         .update({ extracted_at: new Date().toISOString() })
         .eq('id', story.id);
-      if (markError) errors.push(`could not mark story ${story.id} extracted: ${markError.message}`);
-    } catch (err) {
-      errors.push(`extract failed for story ${story.id}: ${(err as Error).message}`);
+      if (error) errors.push(`could not mark story ${story.id} extracted: ${error.message}`);
+    } catch (error) {
+      errors.push(`extract failed for story ${story.id}: ${(error as Error).message}`);
     }
   }
 
-  try {
-    result.abandonedTheories = await abandonQuietTheories(db, today);
-  } catch (err) {
-    errors.push((err as Error).message);
-  }
-
-  try {
-    result.countdownsResolved = await resolveVanishedCountdowns(db, CURRENT_ERA_ID);
-  } catch (err) {
-    errors.push((err as Error).message);
-  }
-
-  try {
-    await refreshSymbolActivity(db);
-  } catch (err) {
-    errors.push((err as Error).message);
-  }
-
+  await finishExtractStage(db, result, today, CURRENT_ERA_ID);
   return result;
 }

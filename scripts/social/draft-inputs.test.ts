@@ -177,6 +177,20 @@ describe('buildDraftInputs', () => {
     expect(inputs.redrafts).toEqual([{ ask: 4675, by: '2026-10-03', items: 'the 09-23 Mood pair and the 09-24 timeline', alreadyDrafted: false }]);
     expect(summarizeInputs(inputs)).toContain('re-draft ask #4675 by 2026-10-03');
   });
+
+  it('hands over the LATEST new-on-site feed (by file date) and keeps it out of the open-intent list', () => {
+    const feed = (date: string, ids: string[]) => ({
+      file: `new-on-site-${date}.json`,
+      data: { kind: 'new-on-site', moments: ids.map((id) => ({ id, title: id, significance: 'notable', deepLink: `https://longlivets.com/?item=${id}`, mediaKind: 'photo', media: 'https://x.test/a.jpg' })) },
+    });
+    const intents = [feed('2026-10-14', ['old-a']), feed('2026-10-15', ['new-a', 'new-b']), { file: 'new-on-site-notes.json', data: { moments: [{ id: 'bogus' }] } }];
+    const inputs = buildDraftInputs({ ...base, intents });
+    expect(inputs.newOnSite).toMatchObject({ file: 'new-on-site-2026-10-15.json', date: '2026-10-15', count: 2 });
+    expect(inputs.newOnSite.moments.map((m: { id: string }) => m.id)).toEqual(['new-a', 'new-b']);
+    expect(inputs.inbox).toEqual([]);
+    expect(summarizeInputs(inputs)).toContain('new on site (2026-10-15): 2 moment(s)');
+    expect(buildDraftInputs(base).newOnSite).toBeNull();
+  });
 });
 
 describe('re-draft notes', () => {

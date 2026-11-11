@@ -283,6 +283,13 @@ body {
 .era-icon-btn:hover {
   background: color-mix(in srgb, var(--era-ink) 82%, var(--era-bg));
 }
+/* WCAG 2.4.7/1.4.11: ink ring, with an era-bg halo filling the offset gap so
+   the ring clears 3:1 whether the button sits on a flat surface or a photo. */
+.era-icon-btn:focus-visible {
+  outline: 2px solid var(--era-ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--era-bg);
+}
 
 /* Quiet variant, for icon buttons that borrow the 44px floor above but are
    NOT the primary affordance on their surface. The solid inversion is right

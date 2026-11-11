@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import type { CurrentItem, LiveTheory } from '@swift2/shared';
+import { passesCurrentItemQualityGate } from '@swift2/shared';
 import {
   currentFeedEntries,
+  collapseMergedDuplicates,
   isBigTheory,
   isLiveCountdown,
   outletFor,
@@ -18,8 +20,10 @@ const currentItem = (overrides: Partial<CurrentItem> & { id: string; observedOn:
   category: 'sighting',
   tags: ['Lore'],
   headline: 'Something happened',
-  summary: 'A short summary.',
-  detail: 'A little more detail.',
+  summary: 'A notable thing happened today in the fandom, according to multiple reports. Fans reacted quickly across social media and began sharing their reactions widely online.',
+  detail:
+    'This is a longer, our-words paragraph describing the event in enough detail to clear the current-item-quality detail floor for test fixtures across this whole file every single time word count matters here today in testing, with extra context about the era, the timing, and why fans would care, written out at length so the word count comfortably clears the sixty-word floor every single run without being anywhere near borderline.',
+  imageUrl: 'https://www.people.com/photo.jpg',
   status: 'reported',
   confidence: 'reputable_reporting',
   sourceTier: 'established',
@@ -42,6 +46,47 @@ describe('currentFeedEntries', () => {
     expect(entry!.anchor).toEqual({ sortDate: '2026-08-20', displayDate: '2026-08-20', via: 'exact' });
   });
 
+  it('excludes an item that fails the Content fix 3/6 publish gate (no image)', () => {
+    const items = [currentItem({ id: 'ci1', observedOn: '2026-08-20', imageUrl: undefined })];
+    expect(currentFeedEntries(items, ERA_START, ERA_END)).toEqual([]);
+  });
+
+  describe('the permanent guarantee: a mixed fixture feed never surfaces a violating item', () => {
+    // Content fix 3/6's CI requirement: "a test that builds the feed from
+    // fixtures and fails if any visible item violates the rule." One
+    // qualifying item alongside one fixture per QUALITY_HOLD_REASONS value
+    // (missing image, non-allowlisted host, thin summary, thin detail,
+    // failed redline) — every visible EraFeedEntry's `item` must pass the
+    // SAME shared gate `writeCurrentItem` enforces at write time.
+    const fixtures: CurrentItem[] = [
+      currentItem({ id: 'ok-1', observedOn: '2026-08-20' }),
+      currentItem({ id: 'bad-no-image', observedOn: '2026-08-19', imageUrl: undefined }),
+      currentItem({
+        id: 'bad-unallowlisted-host',
+        observedOn: '2026-08-18',
+        imageUrl: 'https://random-blog.example.com/photo.jpg',
+      }),
+      currentItem({ id: 'bad-thin-summary', observedOn: '2026-08-17', summary: 'Taylor was seen.' }),
+      currentItem({ id: 'bad-thin-detail', observedOn: '2026-08-16', detail: 'Short.' }),
+      currentItem({ id: 'bad-redline', observedOn: '2026-08-15', redlineOk: false }),
+      currentItem({ id: 'ok-2', observedOn: '2026-08-14' }),
+    ];
+
+    it('visible entries are exactly the two qualifying fixtures, never any violator', () => {
+      const entries = currentFeedEntries(fixtures, ERA_START, ERA_END);
+      const visibleIds = entries.map((e) => (e.kind === 'current' ? e.item.id : null));
+      expect(visibleIds.sort()).toEqual(['ok-1', 'ok-2']);
+    });
+
+    it('every visible item independently re-passes the shared quality gate', () => {
+      const entries = currentFeedEntries(fixtures, ERA_START, ERA_END);
+      for (const entry of entries) {
+        if (entry.kind !== 'current') continue;
+        expect(passesCurrentItemQualityGate(entry.item)).toBe(true);
+      }
+    });
+  });
+
   it('carries the item through unmodified', () => {
     const items = [currentItem({ id: 'ci1', observedOn: '2026-08-20', headline: 'Seen at rehearsal' })];
     const [entry] = currentFeedEntries(items, ERA_START, ERA_END);
@@ -50,6 +95,42 @@ describe('currentFeedEntries', () => {
 
   it('is empty for an empty input', () => {
     expect(currentFeedEntries([], ERA_START, ERA_END)).toEqual([]);
+  });
+
+  it('Content fix 7: never renders a merged-away duplicate', () => {
+    const items = [
+      currentItem({ id: 'ci-original', observedOn: '2026-10-12' }),
+      currentItem({ id: 'ci-duplicate', observedOn: '2026-10-12', mergedInto: 'ci-original' }),
+    ];
+    const entries = currentFeedEntries(items, ERA_START, ERA_END);
+    expect(entries).toHaveLength(1);
+    expect(entries[0]!.kind === 'current' ? entries[0]!.item.id : null).toBe('ci-original');
+  });
+});
+
+describe('collapseMergedDuplicates', () => {
+  it('drops any item with mergedInto set', () => {
+    const items = [
+      currentItem({ id: 'ci-original', observedOn: '2026-10-12' }),
+      currentItem({ id: 'ci-dup1', observedOn: '2026-10-12', mergedInto: 'ci-original' }),
+      currentItem({ id: 'ci-dup2', observedOn: '2026-10-12', mergedInto: 'ci-original' }),
+    ];
+    const result = collapseMergedDuplicates(items);
+    expect(result.map((i) => i.id)).toEqual(['ci-original']);
+  });
+
+  it('is a no-op when nothing is merged', () => {
+    const items = [
+      currentItem({ id: 'ci1', observedOn: '2026-10-12' }),
+      currentItem({ id: 'ci2', observedOn: '2026-10-11' }),
+    ];
+    expect(collapseMergedDuplicates(items)).toEqual(items);
+  });
+
+  it('never renders the SAME original twice even if it appears twice in the input (belt-and-braces)', () => {
+    const original = currentItem({ id: 'ci-original', observedOn: '2026-10-12' });
+    const result = collapseMergedDuplicates([original, original]);
+    expect(result).toHaveLength(1);
   });
 });
 
@@ -64,6 +145,15 @@ describe('outletFor', () => {
       ],
     });
     expect(outletFor(item)).toBe('People');
+  });
+
+  it('derives a label from the URL when the first source has no name', () => {
+    const item = currentItem({
+      id: 'ci1',
+      observedOn: '2026-08-20',
+      sources: [{ name: '', url: 'https://www.theankler.com/x', tier: 'unverified' }],
+    });
+    expect(outletFor(item)).toBe('The Ankler');
   });
 
   it('is undefined with no sources', () => {

@@ -21,12 +21,37 @@ permissions:
   id-token: write  # claude-code-action@v1 OIDC bootstrap fix, kanban t_81bec452
 
 jobs:
+  deterministic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      handled: ${{ steps.radar.outputs.handled }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci --silent
+      - name: Check comments deterministically and classify findings with Jev
+        id: radar
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: node scripts/kevin/radar.mjs
+
   run:
+    needs: deterministic
+    if: always() && needs.deterministic.outputs.handled != 'true'
     uses: ./.github/workflows/routine-template.yml
     with:
       routine_name: "Kevin — S3 comment radar"
       prompt_file: docs/agents/runner-prompts/kevin-stream3-radar.md
-      model: claude-haiku-4-5-20251001
+      model: claude-haiku-5-5
       allowed_tools: "Bash,Read,Grep,Glob"
       timeout_minutes: 15
       checkout_token_secret: GITHUB_TOKEN

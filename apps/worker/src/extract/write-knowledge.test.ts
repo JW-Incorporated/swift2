@@ -8,6 +8,7 @@ import {
   abandonQuietTheories,
   projectKnowledgeDoc,
   refreshSymbolActivity,
+  mergeNewFactsIntoOriginal,
 } from './write-knowledge';
 
 /** A minimal thenable query-builder stub — every chain method returns
@@ -17,7 +18,7 @@ function chain(result: { data?: unknown; error?: unknown }) {
   const obj: Record<string, unknown> = {
     then: (resolve: (r: typeof result) => void) => resolve(result),
   };
-  for (const method of ['insert', 'select', 'single', 'maybeSingle', 'eq', 'neq', 'lt', 'update', 'upsert']) {
+  for (const method of ['insert', 'select', 'single', 'maybeSingle', 'eq', 'neq', 'is', 'lt', 'update', 'upsert']) {
     obj[method] = () => obj;
   }
   return obj;
@@ -31,7 +32,7 @@ function fakeDb(fromImpl: (table: string) => unknown, rpcImpl?: (fn: string, arg
 }
 
 describe('writeCurrentItem', () => {
-  it('writes redline_ok=true when nothing trips the redline screen', async () => {
+  it('emits an event only when redline and publish-quality gates both pass', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-1' }, error: null }));
     const result = await writeCurrentItem(
       db,
@@ -42,20 +43,199 @@ describe('writeCurrentItem', () => {
         category: 'release',
         tags: ['music'],
         headline: 'New single announced',
-        summary: 'Taylor announced a new single today.',
-        detail: 'The announcement came via her official Instagram.',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
         symbols: ['13'],
+        entities: [],
+        statusHint: 'confirmed',
+      } as never,
+      [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      'https://www.people.com/photo.jpg',
+    );
+    expect(result.id).toBe('item-1');
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
+    expect(db.from).toHaveBeenNthCalledWith(1, 'current_item');
+    expect(db.from).toHaveBeenNthCalledWith(2, 'events');
+  });
+
+  it('holds a quality-failing row without inserting an events row', async () => {
+    const db = fakeDb(() => chain({ data: { id: 'item-held' }, error: null }));
+    let insertedRow: Record<string, unknown> | undefined;
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      const c = chain({ data: { id: 'item-held' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        insertedRow = row;
+        return c;
+      };
+      return c;
+    });
+    const result = await writeCurrentItem(
+      db,
+      'story-1',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'release',
+        tags: ['music'],
+        headline: 'New single announced',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+        symbols: ['13'],
+        entities: [],
+        statusHint: 'confirmed',
+        // no imageUrl
+      } as never,
+      [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+    );
+    expect(result.id).toBe('item-held');
+    expect(result.redlineOk).toBe(false);
+    expect(result.holdReason).toBe('missing_image');
+    expect(insertedRow?.redline_ok).toBe(false);
+    expect(insertedRow?.quality_hold_reason).toBe('missing_image');
+    expect(db.from).toHaveBeenCalledTimes(1);
+    expect(db.from).toHaveBeenCalledWith('current_item');
+  });
+
+  it('holds the row when the summary/detail are too thin, even with an image and a clean redline', async () => {
+    const db = fakeDb(() => chain({ data: { id: 'item-thin' }, error: null }));
+    const result = await writeCurrentItem(
+      db,
+      'story-1',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'sighting',
+        tags: [],
+        headline: 'Seen out',
+        summary: 'Taylor was seen.',
+        detail: 'Short.',
+        symbols: [],
+        entities: [],
+        statusHint: 'reported',
+      } as never,
+      [],
+      undefined,
+      'https://www.people.com/photo.jpg',
+    );
+    expect(result.redlineOk).toBe(false);
+    expect(result.holdReason).toBe('summary_too_short');
+  });
+
+  it('regression: reads the image from the positional imageUrl param (the real run-extract-stage call shape), not off the item', async () => {
+    const inserted: Record<string, unknown>[] = [];
+    const db = fakeDb(() => {
+      const c = chain({ data: { id: 'item-r' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        inserted.push(row);
+        return c;
+      };
+      return c;
+    });
+    const result = await writeCurrentItem(
+      db,
+      'story-r',
+      'tloas',
+      {
+        observedOn: '2026-08-23',
+        category: 'release',
+        tags: ['music'],
+        headline: 'New single announced',
+        summary:
+          'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+        detail:
+          'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+        symbols: [],
         entities: [],
         statusHint: 'reported',
       },
       [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' }],
+      undefined,
+      'https://www.people.com/photo.jpg',
     );
-    expect(result.id).toBe('item-1');
+    expect(result.holdReason).toBeUndefined();
     expect(result.redlineOk).toBe(true);
-    expect(new Date(result.expiresAt).getTime()).toBeGreaterThan(Date.now());
+    expect(inserted[0]?.image_url).toBe('https://www.people.com/photo.jpg');
   });
 
-  it('writes redline_ok=false — but still writes the row — when a string trips the redline screen', async () => {
+  describe('video embed', () => {
+    const videoItem = {
+      observedOn: '2026-08-23',
+      category: 'release',
+      tags: ['music'],
+      headline: 'New single announced',
+      summary:
+        'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+      detail:
+        'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+      symbols: [],
+      entities: [],
+      statusHint: 'reported',
+    } as never;
+    const sources = [{ outletName: 'YouTube', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', tier: 'official' as const }];
+    const embed = { provider: 'youtube' as const, videoId: 'dQw4w9WgXcQ', channelId: 'UCqECaJ8Gagnn7YCbPEzWH6g', verifiedAt: '2026-11-08T12:00:00.000Z' };
+    const poster = 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg';
+
+    function recordingDb(errorFor: (row: Record<string, unknown>) => unknown) {
+      const inserted: Record<string, unknown>[] = [];
+      const db = fakeDb(() => {
+        let current: Record<string, unknown> = {};
+        const c = chain({ data: { id: 'item-v' }, error: null }) as Record<string, unknown>;
+        c.insert = (row: Record<string, unknown>) => {
+          inserted.push(row);
+          current = row;
+          return c;
+        };
+        c.then = (resolve: (r: unknown) => void) => {
+          const error = errorFor(current);
+          resolve(error ? { data: null, error } : { data: { id: 'item-v' }, error: null });
+        };
+        return c;
+      });
+      return { db, inserted };
+    }
+
+    it('includes the embed in the inserted row', async () => {
+      const { db, inserted } = recordingDb(() => null);
+      const result = await writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster, undefined, embed);
+      expect(result.redlineOk).toBe(true);
+      expect(inserted[0]?.embed).toEqual(embed);
+    });
+
+    it('omits the embed key when there is none', async () => {
+      const { db, inserted } = recordingDb(() => null);
+      await writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster);
+      expect(inserted[0]).not.toHaveProperty('embed');
+    });
+
+    it.each([
+      { code: '42703', message: 'column "embed" of relation "current_item" does not exist' },
+      { code: 'PGRST204', message: "Could not find the 'embed' column of 'current_item' in the schema cache" },
+    ])('retries without the embed when the column is absent ($code)', async (missing) => {
+      const { db, inserted } = recordingDb((row) => ('embed' in row ? missing : null));
+      const result = await writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster, undefined, embed);
+      expect(result.id).toBe('item-v');
+      expect(inserted).toHaveLength(2);
+      expect(inserted[0]).toHaveProperty('embed');
+      expect(inserted[1]).not.toHaveProperty('embed');
+    });
+
+    it('still throws on an unrelated insert failure', async () => {
+      const { db, inserted } = recordingDb(() => ({ code: '23505', message: 'duplicate key' }));
+      await expect(
+        writeCurrentItem(db, 'story-v', 'tloas', videoItem, sources, undefined, poster, undefined, embed),
+      ).rejects.toThrow('current_item insert failed: duplicate key');
+      expect(inserted).toHaveLength(1);
+    });
+  });
+
+  it('holds a redline-failing row without inserting an events row', async () => {
     const db = fakeDb(() => chain({ data: { id: 'item-2' }, error: null }));
     const result = await writeCurrentItem(
       db,
@@ -66,16 +246,23 @@ describe('writeCurrentItem', () => {
         category: 'relationship',
         tags: [],
         headline: 'Is she pregnant? fans speculate',
-        summary: 'Fans speculate she is pregnant based on a photo.',
-        detail: 'No official confirmation exists.',
+        summary:
+          'Fans began discussing a photograph after it circulated widely online. No official source supported the speculation, and reputable coverage emphasized that the claim remained entirely unverified.',
+        detail:
+          'The discussion began after an ordinary public photograph was reposted without context across several fan accounts. No representative, official channel, or reputable outlet confirmed the claim, and the available reporting offered no factual basis for it. The item is retained only for audit review because the subject matter crosses the privacy redline and must never be served or used to trigger a notification event.',
         symbols: [],
         entities: [],
-        statusHint: 'rumor',
+        statusHint: 'confirmed',
       },
       [],
+      undefined,
+      'https://www.people.com/photo.jpg',
     );
     expect(result.redlineOk).toBe(false);
+    expect(result.holdReason).toBe('redline_failed');
     expect(result.id).toBe('item-2'); // still written for audit
+    expect(db.from).toHaveBeenCalledTimes(1);
+    expect(db.from).toHaveBeenCalledWith('current_item');
   });
 
   it('throws on an insert failure', async () => {
@@ -99,6 +286,72 @@ describe('writeCurrentItem', () => {
         [],
       ),
     ).rejects.toThrow('current_item insert failed');
+  });
+});
+
+describe('mergeNewFactsIntoOriginal', () => {
+  const GOOD_ORIGINAL = {
+    headline: 'New single announced',
+    summary:
+      'Taylor announced a new single today during a surprise livestream event watched by millions. Fans immediately began speculating about which upcoming album the single belongs to.',
+    detail:
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques that have accompanied past album rollouts, drawing on nearly a decade of precedent across multiple prior eras, and echoing the exact visual motifs fans had already flagged earlier in the week as likely hints.',
+    sources: [{ outletName: 'Billboard', url: 'https://billboard.com/x', tier: 'established' as const }],
+    imageUrl: 'https://www.people.com/photo.jpg',
+  };
+
+  function fakeMergeDb(): { db: SupabaseClient; updatedRow: () => Record<string, unknown> | undefined } {
+    let updatedRow: Record<string, unknown> | undefined;
+    const db = fakeDb(() => {
+      const c = chain({ data: null, error: null }) as Record<string, unknown>;
+      c.update = (row: Record<string, unknown>) => {
+        updatedRow = { ...updatedRow, ...row };
+        return c;
+      };
+      return c;
+    });
+    return { db, updatedRow: () => updatedRow };
+  }
+
+  it('keeps the original copy and redline_ok=true when the merge rewrite FAILS the quality gate (too thin)', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary: 'Short.',
+      mergedDetail: 'Too thin.',
+      duplicateSources: [{ outletName: 'Variety', url: 'https://variety.com/y', tier: 'established' }],
+      duplicateImageUrl: null,
+    });
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    const row = updatedRow();
+    // The original's good copy survives — the failing rewrite is discarded.
+    expect(row?.summary).toBe(GOOD_ORIGINAL.summary);
+    expect(row?.detail).toBe(GOOD_ORIGINAL.detail);
+    expect(row?.redline_ok).toBe(true);
+    expect(row?.quality_hold_reason).toBeNull();
+    // Sources are still unioned and the duplicate is still folded in even
+    // though its rewrite was rejected.
+    expect((row?.sources as unknown[]).length).toBe(2);
+  });
+
+  it('sets quality_hold_reason to null and uses the rewrite when the merge passes the quality gate', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    const mergedSummary =
+      'Taylor announced a new single AND a surprise music video today during a livestream watched by millions worldwide. Fans immediately began speculating about which upcoming album the single belongs to.';
+    const mergedDetail =
+      'The announcement came via her official Instagram account, posted shortly after midnight with a cryptic caption that fans quickly decoded using the same numerology and color-language techniques, and a companion outlet also confirmed a surprise music video would drop alongside the single within the next 24 hours, extending the rollout across multiple platforms at once and drawing comparisons to past surprise-release eras that fans had already been tracking closely.';
+    const result = await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary,
+      mergedDetail,
+      duplicateSources: [{ outletName: 'Variety', url: 'https://variety.com/y', tier: 'established' }],
+      duplicateImageUrl: null,
+    });
+    expect(result.redlineOk).toBe(true);
+    expect(result.holdReason).toBeUndefined();
+    const row = updatedRow();
+    expect(row?.summary).toBe(mergedSummary);
+    expect(row?.detail).toBe(mergedDetail);
+    expect(row?.quality_hold_reason).toBeNull();
   });
 });
 
@@ -173,6 +426,96 @@ describe('upsertLiveTheory', () => {
     });
     const result = await upsertLiveTheory(db, { name: 'Ticket Countdown Theory', claim: 'x' }, ['13'], '2026-08-23');
     expect(result.id).toBe('theory-existing');
+  });
+});
+
+describe('upsertLiveTheory media gate', () => {
+  const THEORY = { name: 'Brand New Theory', claim: 'Something new' };
+  const GOOD_IMAGE = 'https://www.people.com/photo.jpg';
+
+  /** call 1 = select of existing rows, call 2 = insert/update, call 3+ = events. */
+  function recordingDb(existing: unknown[] = []) {
+    const writes: { table: string; row?: Record<string, unknown>; patch?: Record<string, unknown> }[] = [];
+    const db = fakeDb(() => chain({ data: [], error: null }));
+    let call = 0;
+    (db.from as unknown as ReturnType<typeof vi.fn>).mockImplementation((table: string) => {
+      call++;
+      if (call === 1) return chain({ data: existing, error: null });
+      const c = chain({ data: { id: 'theory-new' }, error: null }) as Record<string, unknown>;
+      c.insert = (row: Record<string, unknown>) => {
+        writes.push({ table, row });
+        return c;
+      };
+      c.update = (patch: Record<string, unknown>) => {
+        writes.push({ table, patch });
+        return c;
+      };
+      return c;
+    });
+    return { db, writes };
+  }
+
+  it('holds a text-only theory (no evidence image): image_url null, reason recorded, no easter_egg event', async () => {
+    const { db, writes } = recordingDb();
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29');
+    expect(result.published).toBe(false);
+    expect(result.holdReason).toBe('missing_image');
+    expect(writes).toHaveLength(1);
+    expect(writes[0]).toMatchObject({
+      table: 'live_theory',
+      row: { image_url: null, quality_hold_reason: 'missing_image' },
+    });
+  });
+
+  it('publishes a theory whose evidence image passes, carrying image_url and the cited evidence id', async () => {
+    const { db, writes } = recordingDb();
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29', {
+      imageUrl: GOOD_IMAGE,
+      evidenceIds: ['current:ci-1'],
+    });
+    expect(result.published).toBe(true);
+    expect(writes[0]?.row).toMatchObject({
+      image_url: GOOD_IMAGE,
+      quality_hold_reason: null,
+      evidence_ids: ['current:ci-1'],
+    });
+    expect(writes.some((w) => w.table === 'events')).toBe(true);
+  });
+
+  it('rejects an off-allowlist image host the same way the news gate does', async () => {
+    const { db, writes } = recordingDb();
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29', {
+      imageUrl: 'https://evil.example.com/a.jpg',
+    });
+    expect(result.published).toBe(false);
+    expect(result.holdReason).toBe('image_host_not_allowlisted');
+    expect(writes[0]?.row).toMatchObject({ image_url: null, quality_hold_reason: 'image_host_not_allowlisted' });
+  });
+
+  it('a re-observation adopts an image onto a previously imageless theory and merges evidence ids', async () => {
+    const { db, writes } = recordingDb([
+      { id: 'theory-existing', name: 'Brand New Theory', symbols: ['owl'], heat: 2, image_url: null, evidence_ids: ['current:old'] },
+    ]);
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29', {
+      imageUrl: GOOD_IMAGE,
+      evidenceIds: ['current:ci-2'],
+    });
+    expect(result).toMatchObject({ id: 'theory-existing', published: true, holdReason: null });
+    expect(writes[0]?.patch).toMatchObject({
+      image_url: GOOD_IMAGE,
+      quality_hold_reason: null,
+      evidence_ids: ['current:old', 'current:ci-2'],
+    });
+  });
+
+  it('a re-observation never overwrites an existing valid image and stays published', async () => {
+    const { db, writes } = recordingDb([
+      { id: 'theory-existing', name: 'Brand New Theory', symbols: ['owl'], heat: 2, image_url: GOOD_IMAGE, evidence_ids: [] },
+    ]);
+    const result = await upsertLiveTheory(db, THEORY, ['owl'], '2026-10-29');
+    expect(result.published).toBe(true);
+    expect(result.holdReason).toBe(null);
+    expect(writes[0]?.patch).not.toHaveProperty('image_url');
   });
 });
 

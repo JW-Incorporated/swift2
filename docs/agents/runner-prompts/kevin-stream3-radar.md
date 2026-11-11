@@ -17,7 +17,7 @@ Step 3 — ONLY if NEW is non-empty, NOW load Kevin: read docs/kevin.md (Stream 
 - Else → note it under the radar issue.
 Then append the handled comment IDs to the radar issue's `<!-- seen: ... -->` marker.
 
-Hard invariants (docs/kevin.md): never auto-code a Stream 3 ticket or PR; never merge; never push to main. Kevin surfaces; a human/in-session Claude builds. Post a one-line summary.
+Hard invariants (docs/kevin.md): never auto-code a Stream 3 ticket or PR; never merge (deliberate carve-out: founder-decision work, docs/decisions.md 2026-10-09); never push to main. Kevin surfaces; a human/in-session Claude builds. Post a one-line summary.
 
 ## Run discipline (added 2026-07-25 — token burn)
 

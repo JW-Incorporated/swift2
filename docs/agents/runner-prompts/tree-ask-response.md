@@ -40,7 +40,7 @@ plan.)
   (section 3), then comment. Anything that stays unfinished goes in the comment with
   the day it will be done.
 - **CAN'T** — you can't or shouldn't, and you say exactly why in one or two sentences:
-  a hard invariant (anything that posts, approves or edits `social/queue/` approvals;
+  a hard invariant (anything that calls a platform, runs the poster, or writes a `social/queue/` `approval` key;
   an unshipped feature; a channel that needs a `docs/decisions.md` entry; the crisis
   stop) or a guardrail (`docs/social/guardrails.md` — name which one; photo credit is NOT a blocker: credit when the photographer is known, none when unknown, owner 2026-10-01), a gate (`scripts/social/check-drafts.mjs`), or missing
   evidence (an unsourced claim). Name what would change your answer if anything.
@@ -76,7 +76,7 @@ daily draft run (`scripts/social/prepare-draft-inputs.mjs` → `redrafts[]`,
 `docs/agents/runner-prompts/tree-daily-draft.md` step 3.5, 11:00 UTC daily) drafts them
 fresh and marks the note done once an item cites `ask #<N>`. Without this exact syntax the
 daily run cannot see it. In your Disposition, say which day's run will draft them (the next
-11:00 UTC run after your PR merges) and that the new pairs still need the owner's ✅.
+11:00 UTC run after your PR merges) and that the new pairs go out through `social-tree-approve.yml` like any other draft (no owner ✅ since 2026-10-09).
 Anything the ask wants that you cannot draft (an unsourced claim, a photo that doesn't
 exist) goes in the same comment.
 

@@ -431,9 +431,9 @@ export default {
             status: "unconfirmed",
             url: "https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-trademarks-female-rage-musical-rcna152147",
             sourceTier: "established",
-            lastCheckedOn: "2026-08-17",
+            lastCheckedOn: "2026-10-30",
             note:
-              "The trademark filing is documented fact; the 'is a musical coming' read is the unconfirmed part. Re-checked Aug 2026: no production announced and the mark not abandoned. Resolves if a titled stage production is announced; fades if the trademark lapses unused. No location.",
+              "The trademark filing is documented fact; the 'is a musical coming' read is the unconfirmed part. Aug 2026: mark not abandoned. 2026-10-30: still no production announced, no fresh reporting (USPTO status not re-verified). Resolves if a titled stage production is announced; fades if the trademark lapses unused. No location.",
           },
         ],
       },
@@ -1491,9 +1491,9 @@ export default {
             reportedOn: '2025-08-20',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-upcoming-tour-reportedly-132936634.html',
-            note: 'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 — consistent with that earlier window lapsing with no announcement. Blind-item sourcing (Deuxmoi), carried at the lowest tier. As of this check no tour is announced. Resolves on an official tour announcement; fades otherwise. No location.',
+            note: 'A later data point on the same open question as the Us Weekly report above, pushing the projected start from 2026 to 2027 — consistent with that earlier window lapsing with no announcement. Blind-item sourcing (Deuxmoi), carried at the lowest tier. As of this check no tour is announced. Resolves on an official tour announcement; fades otherwise. No location. 2026-10-30: still none; 2027 open.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-08-24',
+            lastCheckedOn: '2026-10-30',
           },
         ],
       },
@@ -1662,6 +1662,7 @@ export default {
       month: 2,
       day: 9,
       category: 'fashion',
+      relatedIds: ['moment:vault-ttpd-super-bowl-lix-with-the-haim-sisters-and-ice-spice'],
       title: 'Super Bowl LIX: an oversized white blazer, in Chiefs colors',
       snippet: 'A Saint Laurent double-breasted blazer, crystal denim shorts, and white Paris Texas boots — red-and-white, coordinated for game day.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/',
@@ -1745,9 +1746,9 @@ export default {
             reportedOn: '2026-05-20',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-finally-doing-super-203611519.html',
-            note: 'The open successor to the LX debunk above. On record: Roc Nation informally inquired, and she has repeatedly said she won\'t perform while Kelce plays (Fallon, Oct. 2025, "too locked in"). No LXI performer was named as of this check. Resolves confirmed if the NFL ever names her for a Super Bowl; stays open otherwise, fades if the talk dies. Performance venue, on-record — no location.',
+            note: 'The open successor to the LX debunk above. On record: Roc Nation informally inquired, and she has repeatedly said she won\'t perform while Kelce plays (Fallon, Oct. 2025, "too locked in"). No LXI performer was named as of this check. Resolves confirmed if the NFL names her; fades if the talk dies. No location. Re-checked 2026-10-18: no LXI performer named yet — open.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-13',
+            lastCheckedOn: '2026-10-18',
           },
         ],
       },
@@ -2019,6 +2020,7 @@ export default {
       month: 2,
       day: 2,
       category: 'fashion',
+      relatedIds: ['moment:vault-ttpd-a-plaid-vivienne-westwood-corset-for-monday-night-football'],
       title: "2025 Grammys red carpet: sequined Vivienne Westwood, in Chiefs red",
       snippet:
         'A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling "T" — for Travis — plus Casadei heels.',
@@ -4665,11 +4667,11 @@ export default {
               'Team Trump\'s TikTok posted Donald and Melania Trump watching fireworks — captioned "Mood because it\'s August and Donald Trump is your president," set to Taylor\'s "august" — taunting "I\'m sure @Taylor Swift is going to be super excited we used her song!" By Friday the audio was gone ("The copyright owner hasn\'t made this sound available in your country"); who pulled it stayed unconfirmed.',
             reportedBy: 'Variety',
             reportedOn: '2026-08-08',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://variety.com/2026/music/news/taylor-swift-song-august-removed-trump-tiktok-video-1236830512/',
-            note: 'The muting is documented across outlets (Variety, Rolling Stone, Deadline, EW); what is unconfirmed is who issued the copyright block. Continues the Taylor-vs-Trump thread here — a "Father Figure" clip was similarly muted in Nov 2025. Resolves if Taylor, her team, or her label confirms it acted (or it is shown to be TikTok\'s automated system); fades if no one claims it. No location.',
+            note: 'The muting is documented (Variety, Rolling Stone, Deadline, EW); unconfirmed is who issued the copyright block. A "Father Figure" clip was similarly muted in Nov 2025. Re-checked 2026-11-04: FADED. Three months on, no one has claimed it, Taylor\'s team and the White House never commented, and no rights holder was named. Reported in August, never confirmed or denied. No location.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-30',
+            lastCheckedOn: '2026-11-04',
           },
         ],
       },
@@ -6233,6 +6235,22 @@ export default {
           focalPoint: '50% 45%', credit: 'Taylor Swift/Instagram, via Vogue',
           caption: 'Taylor Swift, Travis Kelce and the royal family in the backstage selfie from Wembley on June 21, 2024.', kind: 'primary',
         }],
+        // Part B embed (Photo Enrichment, Vault Run 2026-10-09): the page IS
+        // this Instagram post, so embed the real post rather than only the
+        // Vogue-hosted still. Shortcode taken from the Vogue article that
+        // embeds it; verified via the rendered embed/captioned page as
+        // taylorswift's own account (273M followers, verified), caption
+        // "Happy Bday M8! London shows are off to a splendid start 🇬🇧🇺🇸🤝"
+        // tagging @princeandprincessofwales — the June 21, 2024 royal
+        // backstage visit. The sibling shortcode C8hINcxNFo5 is the Wales
+        // account's post, not hers.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C8hIungMPmD',
+          label:
+            "Taylor's own Instagram: the backstage selfie with Travis Kelce and the Wales family at her first London Eras Tour show — \"Happy Bday M8! London shows are off to a splendid start.\"",
+          postedOn: '2024-06-21',
+        },
       },
     },
     {
@@ -6410,6 +6428,7 @@ export default {
       month: 10,
       day: 7,
       category: 'sighting',
+      relatedIds: ['moment:vault-ttpd-2025-grammys-red-carpet-sequined-vivienne-westwood-in-chiefs'],
       title: 'A plaid Vivienne Westwood corset for Monday Night Football',
       snippet:
         'Taylor arrived at Arrowhead Stadium in a plaid Vivienne Westwood corset and mini skirt as the Chiefs beat the Saints 26-13, sitting with her father Scott and reuniting with Chiefs WAGs afterward.',
@@ -6434,6 +6453,7 @@ export default {
       month: 12,
       day: 31,
       category: 'relationship',
+      relatedIds: ['moment:vault-red-a-new-years-eve-kiss-with-harry-styles-in-times-square', 'moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve'],
       title: 'A New Year\'s Eve kiss in Kansas City',
       snippet:
         'Taylor and Kelce rang in 2025 with a private, low-key celebration and a midnight kiss in Kansas City; a source called the night "romantic."',
@@ -6483,6 +6503,7 @@ export default {
       month: 1,
       day: 26,
       category: 'relationship',
+      relatedIds: ['moment:vault-midnights-a-kiss-to-celebrate-the-afc-championship'],
       title: 'A field kiss after the AFC Championship win',
       snippet:
         'After the Chiefs beat the Bills 32-29 to reach Super Bowl LIX, Taylor came onto the field to kiss and embrace Kelce; the couple reportedly told each other "I love you so much."',
@@ -6532,6 +6553,7 @@ export default {
       month: 2,
       day: 9,
       category: 'sighting',
+      relatedIds: ['moment:vault-ttpd-super-bowl-lix-an-oversized-white-blazer-in-chiefs-colors'],
       title: 'Super Bowl LIX with the Haim sisters and Ice Spice',
       snippet:
         'Taylor arrived at Caesars Superdome with the Haim sisters and Ice Spice to watch the Chiefs face the Eagles in Super Bowl LIX, drawing a mixed jumbotron crowd reaction; the Chiefs lost 40-22.',
@@ -6580,6 +6602,7 @@ export default {
       month: 5,
       day: 31,
       category: 'fashion',
+      relatedIds: ['moment:vault-fearless-bowling-with-selena-gomez-in-studio-city', 'moment:vault-tloas-selena-gomez-on-marriage-advice-for-taylor-i-think-shes-prob', 'moment:vault-midnights-a-sparkling-green-gucci-gown-at-the-golden-globes'],
       title: 'A sequined Gucci set for a masters-buyback dinner with Selena Gomez',
       snippet:
         'Celebrating her masters buyback announcement, Taylor stepped out at NYC\'s Monkey Bar wearing a Gucci sequined silk-and-wool set, De Beers diamond earrings, and a diamond tennis bracelet.',

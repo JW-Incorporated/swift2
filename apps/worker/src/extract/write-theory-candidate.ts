@@ -44,6 +44,8 @@ export interface TheoryCandidateContext {
   community: string;
   /** Public post permalink — omitted (never invented) for a Facebook-sourced bundle, matching fan_theory_candidate.sample_urls' "empty for Facebook" column note. */
   permalink?: string;
+  /** Stable source thread id; retained without the public sample URL cap. */
+  threadId: string;
   /** This post's own heat/score signal (e.g. comment count) — rolls into peak_score via max(), never averaged down. */
   score: number;
   /** ISO date (YYYY-MM-DD). */
@@ -56,6 +58,7 @@ interface ExistingCandidateRow {
   peak_score: number;
   communities: string[];
   sample_urls: unknown;
+  source_thread_ids?: string[];
   numeric_signals: number[] | null;
 }
 
@@ -81,7 +84,9 @@ export async function upsertTheoryCandidate(
 
   const { data: existing, error: selectError } = await db
     .from('fan_theory_candidate')
-    .select('id, mention_count, peak_score, communities, sample_urls, numeric_signals')
+    .select(
+      'id, mention_count, peak_score, communities, sample_urls, source_thread_ids, numeric_signals',
+    )
     .eq('theory_key', theory.theoryKey)
     .maybeSingle();
   if (selectError) throw new Error(`fan_theory_candidate select failed: ${selectError.message}`);
@@ -94,8 +99,14 @@ export async function upsertTheoryCandidate(
       ? row.communities
       : [...row.communities, ctx.community];
     const existingUrls = Array.isArray(row.sample_urls) ? (row.sample_urls as string[]) : [];
+    const sourceThreadIds = row.source_thread_ids ?? [];
+    const alreadyCounted =
+      sourceThreadIds.includes(ctx.threadId) || Boolean(sampleUrl && existingUrls.includes(sampleUrl));
+    const nextSourceThreadIds = sourceThreadIds.includes(ctx.threadId)
+      ? sourceThreadIds
+      : [...sourceThreadIds, ctx.threadId];
     const sampleUrls =
-      sampleUrl && !existingUrls.includes(sampleUrl) && existingUrls.length < MAX_SAMPLE_URLS
+      sampleUrl && !alreadyCounted && existingUrls.length < MAX_SAMPLE_URLS
         ? [...existingUrls, sampleUrl]
         : existingUrls;
 
@@ -103,10 +114,11 @@ export async function upsertTheoryCandidate(
       .from('fan_theory_candidate')
       .update({
         last_seen_on: ctx.today,
-        mention_count: row.mention_count + 1,
+        mention_count: alreadyCounted ? row.mention_count : row.mention_count + 1,
         peak_score: Math.max(row.peak_score, ctx.score),
         communities,
         sample_urls: sampleUrls,
+        source_thread_ids: nextSourceThreadIds,
         numeric_signals: [
           ...new Set([...(row.numeric_signals ?? []), ...(theory.numericSignals ?? [])]),
         ],
@@ -137,6 +149,7 @@ export async function upsertTheoryCandidate(
       status: 'candidate',
       redline_ok: true, // theoryCandidatePassesScreen already gated this call, same posture as upsertLiveTheory's insert branch
       sample_urls: sampleUrl ? [sampleUrl] : [],
+      source_thread_ids: [ctx.threadId],
       numeric_signals: theory.numericSignals ?? [],
     })
     .select('id')

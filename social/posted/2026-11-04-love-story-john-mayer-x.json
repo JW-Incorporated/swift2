@@ -1,0 +1,47 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "campaign": "timeline:love-story:john-mayer-2009:2026-11-04",
+  "scheduledAt": "2026-11-04T23:00:00Z",
+  "body": "she was 20 and already writing like she had nothing to prove. the John Mayer stretch is tiny on the calendar, but 'Dear John' — off Speak Now, a record with zero co-writers — is Taylor at her most direct 🤍 where it sits on the whole map → https://longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1r6n7aq-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1r6n7aq/an_instagram_story_from_october_2017/",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: An Instagram Story from October 2017"
+  ],
+  "photoId": "reddit-taylorswiftpictures-1r6n7aq-ig45",
+  "why": "X sibling of the Love Story timeline pair (calendar 11-04). Next unposted chapter after 'Back to December / Lautner' (rel-lautner, 10-29) in the lens's start-date order is rel-mayer — John Mayer, Dec 2009–Feb 2010, 'Dear John' on Speak Now. Own-post copy, not a truncated IG caption; utm_campaign=timeline, not thread. Confirmed public history only, no wrongdoing framing.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "X sibling of the next love-story chapter after Lautner in the lens order — rel-mayer (John Mayer, late 2009) — reframed on 'Dear John' and Speak Now being entirely self-written. Own-post copy, distinct from the IG caption, under X's weighted limit. Generic Taylor fan photo, so media is a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-03T18:38:51.302Z",
+    "pr": 6579,
+    "message": "social-tree-approve run 41695353496",
+    "contentHash": "sha256:a1e76873abfbd0b8a9205c9ea9563a55c28a1b5471b05602fa184d3d4623020c",
+    "mediaDigest": "sha256:f8882e17bc0d669f4ca7d3d54a379eb58c6130590a223db23146497fda27a996",
+    "sig": "hmac-sha256:0f189b1b2b456ffa3e3adcc3f2ad17aa75aabd07d8264281805c088a858d0f13"
+  },
+  "postedAt": "2026-11-04T23:27:14.507Z",
+  "platformPostId": "2118122990919389210",
+  "url": "https://x.com/longlivetscom/status/2118122990919389210"
+}

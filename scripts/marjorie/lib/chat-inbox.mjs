@@ -4,6 +4,7 @@
 // agent reads. No network and no env — `chat-poll.mjs` does the I/O, and
 // `chat-poll.test.ts` covers both files.
 import { SOCIAL_APPROVERS } from '../../social/lib/approvers.mjs';
+import { ROUTES } from '../../lib/discord-route.mjs';
 import { authorName, hasOwnReaction, isRootOrWebhookMessage, snowflakeMs } from './discord-bot.mjs';
 
 export const CLAIM = '👀';
@@ -33,9 +34,11 @@ const MESSAGE_TEXT_CAP = 4000;
 // "started a thread" notices are system types and never answered.
 const HUMAN_TYPES = new Set([0, 19]);
 
+// Chat channels are found by id only (scripts/lib/discord-route.mjs ROUTES): the doorbell on the
+// Hermes VM has no env for them, and a by-name lookup broke when the channels were renamed.
 export const BOTS = {
-  marjorie: { name: 'Marjorie', channelName: 'longlive-marjorie', workflow: 'routine-marjorie-chat.yml', channelEnv: 'DISCORD_MARJORIE_CHANNEL_ID' },
-  tree: { name: 'Tree', channelName: 'longlive-tree', workflow: 'routine-tree-chat.yml', channelEnv: 'DISCORD_TREE_CHANNEL_ID' },
+  marjorie: { name: 'Marjorie', channelName: 'marjorie', channelId: ROUTES.marjorie.id, workflow: 'routine-marjorie-chat.yml', channelEnv: ROUTES.marjorie.env },
+  tree: { name: 'Tree', channelName: 'tree-main', channelId: ROUTES['tree-main'].id, workflow: 'routine-tree-chat.yml', channelEnv: ROUTES['tree-main'].env },
 };
 
 /** Each chat routine sets `run-name` to exactly this, so the poll can find a claimed message's run. */
@@ -124,10 +127,15 @@ export function isFailureNotice(m, messageId) {
 // is read by the poll, never by chat (W8, W2 review LOW).
 const APPROVAL_POST_REF = /^ref: (?:PR #\d+ · [0-9a-f]{40} · (?:\*|.+\.json)|reddit · .+)$/;
 
+// Reddit/Facebook cards are now posted by the bot (no webhook_id; scripts/lib/discord-route.mjs), so a
+// bot-authored card whose last line is a `ref: reddit ·` line counts too — never a bot PR-approval ref.
+const REDDIT_POST_REF = /^ref: reddit · .+$/;
+
 export function isApprovalPost(m) {
-  if (!m?.webhook_id) return false;
-  const lines = String(m.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
-  return APPROVAL_POST_REF.test(lines[lines.length - 1] ?? '');
+  const lines = String(m?.content ?? '').split('\n').map((l) => l.trim()).filter(Boolean);
+  const last = lines[lines.length - 1] ?? '';
+  if (m?.webhook_id) return APPROVAL_POST_REF.test(last);
+  return Boolean(m?.author?.bot) && REDDIT_POST_REF.test(last);
 }
 
 const byAge = (a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp) || (BigInt(a.messageId) < BigInt(b.messageId) ? -1 : 1);
@@ -258,8 +266,21 @@ function clip(text, cap) {
   return s.length > cap ? `${s.slice(0, cap)}…` : s;
 }
 
+/**
+ * The pictures and files on a message. `hasBody` already counts attachments,
+ * so an image-only ask is dispatched; without this it reached the agent as
+ * empty text (#5505). Discord's CDN urls are signed and expire, so they are
+ * only usable during the run that reads them.
+ */
+function attachments(m) {
+  return (Array.isArray(m?.attachments) ? m.attachments : []).map((a) => ({
+    filename: String(a?.filename ?? ''), url: String(a?.url ?? ''),
+    content_type: String(a?.content_type ?? ''), size: Number(a?.size ?? 0),
+  }));
+}
+
 function line(m) {
-  return { id: m.id, author: authorName(m.author), is_bot: Boolean(m.webhook_id || m.author?.bot), at: m.timestamp, text: clip(m.content, HISTORY_TEXT_CAP) };
+  return { id: m.id, author: authorName(m.author), is_bot: Boolean(m.webhook_id || m.author?.bot), at: m.timestamp, text: clip(m.content, HISTORY_TEXT_CAP), attachments: attachments(m) };
 }
 
 /**
@@ -281,6 +302,7 @@ export function buildContext({ bot, guildId, channelId, threadId, message, histo
     author: authorName(message.author),
     at: message.timestamp,
     text: clip(message.content, MESSAGE_TEXT_CAP),
+    attachments: attachments(message),
     replying_to: message.referenced_message ? line(message.referenced_message) : null,
     thread_root: threadRoot ? line(threadRoot) : null,
     history: history.map(line),

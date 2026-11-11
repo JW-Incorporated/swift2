@@ -7,6 +7,9 @@ import {
   cachedAbout,
   eligibilityRank,
   fetchSubAbout,
+  fetchThreadReplyState,
+  parseThreadReplyState,
+  threadJsonUrl,
   imageCommentsLabel,
   loadAboutCache,
   parseAbout,
@@ -160,5 +163,62 @@ describe('about.json cache', () => {
     expect(imageCommentsLabel('unknown')).toBe(
       "🖼️ image replies unverified — if there's no image button, post the text",
     );
+  });
+});
+
+const thread = (data: Record<string, unknown>) => [
+  { data: { children: [{ kind: 't3', data }] } },
+  { data: { children: [] } },
+];
+const PERMALINK = 'https://www.reddit.com/r/TaylorSwift/comments/abc123/rank_the_eras/';
+
+describe('thread.json reply-ability', () => {
+  it('reads locked, archived, restricted and quarantined threads as unreplyable', () => {
+    expect(parseThreadReplyState(thread({ locked: true })).state).toBe('locked');
+    expect(parseThreadReplyState(thread({ archived: true })).state).toBe('archived');
+    expect(parseThreadReplyState(thread({ subreddit_type: 'restricted' })).state).toBe(
+      'no-comment',
+    );
+    expect(parseThreadReplyState(thread({ subreddit_type: 'private' })).state).toBe('no-comment');
+    expect(parseThreadReplyState(thread({ quarantine: true })).state).toBe('no-comment');
+  });
+
+  it('an open thread in a public sub is ok; an unreadable body is unknown', () => {
+    expect(
+      parseThreadReplyState(thread({ locked: false, archived: false, subreddit_type: 'public' }))
+        .state,
+    ).toBe('ok');
+    expect(parseThreadReplyState({}).state).toBe('unknown');
+    expect(parseThreadReplyState(null).state).toBe('unknown');
+  });
+
+  it('builds the anonymous thread JSON url and refuses other hosts', () => {
+    expect(threadJsonUrl(PERMALINK)).toBe(
+      'https://www.reddit.com/r/TaylorSwift/comments/abc123/rank_the_eras.json?raw_json=1&limit=1',
+    );
+    expect(threadJsonUrl('https://example.com/x/')).toBeNull();
+  });
+
+  it('fetches anonymously and parses; a 403 or a network error degrades to unknown', async () => {
+    const ok = vi.fn(
+      async () => new Response(JSON.stringify(thread({ locked: true })), { status: 200 }),
+    );
+    expect((await fetchThreadReplyState(PERMALINK, { fetchImpl: ok as never })).state).toBe(
+      'locked',
+    );
+    const headers = (
+      ok.mock.calls[0] as unknown as [string, { headers: Record<string, string> }]
+    )[1].headers;
+    expect(Object.keys(headers).some((h) => /authorization/i.test(h))).toBe(false);
+    const blocked = await fetchThreadReplyState(PERMALINK, {
+      fetchImpl: (async () => new Response('no', { status: 403 })) as never,
+    });
+    expect(blocked).toEqual({ state: 'unknown', error: 'HTTP 403' });
+    const down = await fetchThreadReplyState(PERMALINK, {
+      fetchImpl: (async () => {
+        throw new Error('boom');
+      }) as never,
+    });
+    expect(down).toEqual({ state: 'unknown', error: 'boom' });
   });
 });

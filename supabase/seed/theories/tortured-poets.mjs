@@ -7,7 +7,7 @@
 // categories) — no relationship/private-life readings, per theory-weaving.md.
 // URLs verified 2026-08-05.
 
-const wiki = (article, title, notes) => ({
+const wiki = (article, title, notes, accessedAt = '2026-09-13') => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
   source_title: title,
   publisher: 'Wikipedia',
@@ -20,7 +20,7 @@ const wiki = (article, title, notes) => ({
   // cardigan → Peter, still textual with the shared-narrator layer a fan read)
   // are unchanged on the record. Nothing resolved or shifted, so this refreshes
   // the last-accessed date rather than any claim. (Prior recheck 2026-08-08.)
-  accessed_at: '2026-09-13',
+  accessed_at: accessedAt,
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
@@ -40,7 +40,19 @@ export default {
       confidence: 'reputable_reporting',
       outcome: 'pending',
       relatedSlugs: ['reputation:snake-reclamation'],
-      sources: [wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', 'the stylization and its coverage are documented in the album article')],
+      sources: [
+        {
+          source_url: 'https://www.elle.com/culture/music/a60546527/taylor-swift-thank-you-aimee-lyrics-meaning-kim-kardashian/',
+          source_title: "What Taylor Swift's 'thanK you aIMee' Song Lyrics Really Mean and Kim Kardashian References",
+          publisher: 'Elle',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            'Notes the capitalized letters in the stylized title and reads the song as aimed at the famous Kim of the claim. Replaces the TTPD Wikipedia article, which describes the song only as an attack on a high-school bully and never mentions the stylization (re-checked 2026-10-09; still unconfirmed by Taylor).',
+        },
+      ],
     },
     {
       slug: 'peter-pan-throughline',
@@ -54,8 +66,18 @@ export default {
       outcome: 'partially_confirmed',
       relatedSlugs: ['folklore:teenage-love-triangle'],
       sources: [
-        wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department'),
-        wiki('Cardigan_(song)', 'cardigan (song)'),
+        wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', undefined, '2026-10-09'),
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/',
+          source_title: "Taylor Swift's 'The Tortured Poets Department' Songs Ranked",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-10-09',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            "Describes \"Peter\" as built on the Peter Pan idea (\"You said you were gonna grow up / Then you were gonna come find me\"). Replaces the cardigan Wikipedia article, which never mentions Peter; the shared-narrator link to cardigan remains the fan layer (re-checked 2026-10-09).",
+        },
       ],
     },
     {
@@ -135,17 +157,17 @@ export default {
           source_title: "What it's like inside The Black Dog, the London pub made famous by Taylor Swift",
           publisher: 'CNN',
           source_type: 'reputable_press',
-          accessed_at: '2026-09-15',
+          accessed_at: '2026-10-08',
           reliability_score: 4,
           notes:
-            'Re-verified live 2026-09-15 (was 2026-08-16): the pub at 112 Vauxhall Walk, its "Taylor\'s Version" cocktail board and "home to tortured poets" embrace are still documented. Confidence stays reputable_reporting / partially_confirmed — Taylor has never said she meant this exact pub; the fan identification is the story.',
+            'Re-verified live 2026-10-08 (was 2026-09-15): the pub at 112 Vauxhall Walk, its "Taylor\'s Version" cocktail board and lyric-window embrace are still documented, and staff still say they cannot be certain Taylor meant this exact bar (an events manager recalled only "a certain blonde regular"). Confidence stays reputable_reporting / partially_confirmed — Taylor has never said she meant this exact pub; the fan identification is the story.',
         },
         {
           source_url: 'https://www.cbsnews.com/news/talyor-swift-london-pub-black-dog-swifties-descend/',
           source_title: "Why Swifties have sniffed out and descended upon London's Black Dog pub",
           publisher: 'CBS News',
           source_type: 'reputable_press',
-          accessed_at: '2026-09-15',
+          accessed_at: '2026-10-08',
           reliability_score: 4,
         },
       ],

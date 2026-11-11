@@ -8,7 +8,7 @@
 // confidence/outcome badges; readings are labeled, never stated as fact.
 // URLs reuse the already-verified evermore/folklore album articles.
 
-const wiki = (article, title, notes) => ({
+const wiki = (article, title, notes, accessedAt = '2026-09-12') => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
   source_title: title,
   publisher: 'Wikipedia',
@@ -19,14 +19,14 @@ const wiki = (article, title, notes) => ({
   // new on-record statement confirming any of them — nothing resolved or
   // shifted, so this refreshes the last-accessed date rather than any claim.
   // (Prior recheck 2026-08-12.)
-  accessed_at: '2026-09-12',
+  accessed_at: accessedAt,
   reliability_score: 2,
   excerpt: null,
   notes: notes ?? null,
 });
 
-const EVERMORE = (notes) =>
-  wiki('Evermore_(Taylor_Swift_album)', 'Evermore (Taylor Swift album)', notes);
+const EVERMORE = (notes, accessedAt) =>
+  wiki('Evermore_(Taylor_Swift_album)', 'Evermore (Taylor Swift album)', notes, accessedAt);
 
 export default {
   eraSlug: 'evermore',
@@ -56,8 +56,8 @@ export default {
       outcome: 'unfalsifiable',
       relatedSlugs: ['folklore:teenage-love-triangle'],
       sources: [
-        EVERMORE('the folklore/evermore sister-album shared fictional universe is documented here'),
-        wiki('Folklore_(Taylor_Swift_album)', 'Folklore (Taylor Swift album)', 'the confirmed teenage love triangle these characters belong to'),
+        EVERMORE('the folklore/evermore sister-album shared fictional universe is documented here', '2026-10-09'),
+        wiki('Folklore_(Taylor_Swift_album)', 'Folklore (Taylor Swift album)', 'the confirmed teenage love triangle these characters belong to', '2026-10-09'),
       ],
     },
     {
@@ -71,7 +71,7 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'unfalsifiable',
       relatedSlugs: [],
-      sources: [EVERMORE('the album article covers ivy among evermore\'s fictional character studies')],
+      sources: [EVERMORE('the album article covers ivy among evermore\'s fictional character studies', '2026-10-09')],
     },
     {
       slug: 'cowboy-like-me-two-con-artists',
@@ -84,7 +84,7 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'unfalsifiable',
       relatedSlugs: [],
-      sources: [EVERMORE('cowboy like me\'s narrative is discussed in the album article')],
+      sources: [EVERMORE('cowboy like me\'s narrative is discussed in the album article', '2026-10-09')],
     },
     {
       slug: 'closure-discomfort-by-design',
@@ -97,7 +97,7 @@ export default {
       confidence: 'plausible',
       outcome: 'unfalsifiable',
       relatedSlugs: [],
-      sources: [EVERMORE('the album article notes closure\'s experimental, off-kilter arrangement')],
+      sources: [EVERMORE('the album article notes closure\'s experimental, off-kilter arrangement', '2026-10-09')],
     },
     {
       slug: 'evermore-bonus-tracks-true-ending',
@@ -110,7 +110,7 @@ export default {
       confidence: 'strong_fan_consensus',
       outcome: 'unfalsifiable',
       relatedSlugs: [],
-      sources: [EVERMORE('the deluxe/bonus tracks right where you left me and it\'s time to go are listed in the album article')],
+      sources: [EVERMORE('the deluxe/bonus tracks right where you left me and it\'s time to go are listed in the album article', '2026-10-09')],
     },
     {
       slug: 'marjorie-grandmothers-vocals',

@@ -46,6 +46,7 @@ const SDK_ERRORS = new Set([
   'max_output_tokens', 'unknown',
 ]);
 const RESULT_SUBTYPES = new Set(['success', 'error_during_execution', 'error_max_turns', 'error_max_budget_usd']);
+const TOKEN_POOLS = new Set(['primary', 'backup']);
 
 function fixedValue(value, allowed) {
   return typeof value === 'string' && allowed.has(value) ? value : 'unknown';
@@ -67,7 +68,7 @@ export function findAssistantError(executionLog) {
  * Builds the small JSON artifact payload from a parsed result message plus
  * the routine's static config. Exported and pure for tests.
  */
-export function buildUsageRecord({ routineName, model, maxTurns, result, assistantError = null }) {
+export function buildUsageRecord({ routineName, model, maxTurns, result, assistantError = null, tokenPool = null }) {
   const record = {
     routineName,
     model,
@@ -77,6 +78,7 @@ export function buildUsageRecord({ routineName, model, maxTurns, result, assista
     totalCostUsd: result.total_cost_usd ?? null,
     usage: result.usage ?? null,
     generatedAt: new Date().toISOString(),
+    ...(TOKEN_POOLS.has(tokenPool) ? { tokenPool } : {}),
   };
   if (result.is_error === true) {
     record.diagnostic = {
@@ -170,7 +172,14 @@ async function main() {
     return 0;
   }
 
-  const record = buildUsageRecord({ routineName, model, maxTurns, result, assistantError: findAssistantError(executionLog) });
+  const record = buildUsageRecord({
+    routineName,
+    model,
+    maxTurns,
+    result,
+    assistantError: findAssistantError(executionLog),
+    tokenPool: process.env.ROUTINE_TOKEN_POOL,
+  });
   const summary = renderSummary(record);
 
   console.log(`::notice::${summary.replace(/\n/g, ' ')}`);

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "notes": "Offline-only recorded source-page fixtures. Bodies are deterministic test prose, never representations of real articles.",
+  "official": {
+    "outletName": "Taylor Swift official channel",
+    "articleUrl": "https://www.youtube.com/channel/UCqECaJ8Gagnn7YCbPEzWH6g",
+    "publisherUrl": "https://www.youtube.com/channel/UCqECaJ8Gagnn7YCbPEzWH6g",
+    "tier": "official",
+    "body": "Official artist channels publish the complete announcement directly for fans worldwide today with confirmed release details."
+  },
+  "outlets": {
+    "ap": { "url": "https://apnews.com/article/fixture", "body": "Associated Press reporters independently reviewed the public announcement and confirmed each material detail for this fixture report." },
+    "bbc": { "url": "https://www.bbc.com/news/entertainment-arts-fixture", "body": "BBC journalists independently checked the announcement, publication date, named work and relevant timing before this fixture report." },
+    "billboard": { "url": "https://www.billboard.com/music/pop/fixture", "body": "Billboard writers independently checked the music announcement, release information, credits and timing for this fixture report." },
+    "deadline": { "url": "https://deadline.com/2026/fixture", "body": "Deadline reporters independently reviewed the entertainment announcement and confirmed the named project details in this fixture report." },
+    "entertainment tonight": { "url": "https://www.etonline.com/fixture", "body": "Entertainment Tonight independently reviewed the public statement and confirmed the central details before publishing this fixture report." },
+    "guardian": { "url": "https://www.theguardian.com/music/fixture", "body": "Guardian journalists independently checked the public record, announcement wording, timing and project details for this fixture report." },
+    "new york times": { "url": "https://www.nytimes.com/2026/fixture.html", "body": "New York Times journalists independently confirmed the public statement, named project and announcement timing for this fixture report." },
+    "people": { "url": "https://people.com/fixture", "body": "People reporters independently checked the representative statement and central public facts before publishing this fixture report." },
+    "reuters": { "url": "https://www.reuters.com/world/fixture", "body": "Reuters journalists independently reviewed the public announcement and verified its central details before filing this fixture report." },
+    "rolling stone": { "url": "https://www.rollingstone.com/music/music-news/fixture", "body": "Rolling Stone writers independently reviewed the music announcement, relevant credits, release details and timing for this fixture report." },
+    "variety": { "url": "https://variety.com/2026/music/news/fixture", "body": "Variety reporters independently reviewed the entertainment announcement, project details and timing before publishing this fixture report." },
+    "wwd": { "url": "https://wwd.com/eye/people/fixture", "body": "WWD reporters independently reviewed the public announcement, named participants, event details and timing for this fixture report." }
+  },
+  "unverified": {
+    "articleUrl": "https://unverified.example/fixture",
+    "publisherUrl": "https://unverified.example/",
+    "tier": "unverified",
+    "body": "An unlisted publisher repeats the claim without evidence or accountable confirmation in this deterministic fixture page."
+  }
+}

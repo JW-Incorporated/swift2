@@ -24,6 +24,7 @@
  * to avoid ambiguity between the two id shapes.
  */
 import type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId } from './content-ids.generated';
+import type { PersonaSlug } from './copy-desk/routing';
 export type { EraId, TrackSlugId, SongSlug, TheoryId, VideoId };
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
@@ -499,6 +500,12 @@ export interface ContentItem {
    */
   significance?: 'defining' | 'notable';
   /**
+   * Persona byline (copy-desk spec): derived at sync time from category via
+   * `routeAuthor()`, or an explicit seed `author` override. Never stored in
+   * the DB.
+   */
+  author?: PersonaSlug;
+  /**
    * Era-timeline milestone marker (consolidation stage 2b, 2026-07-19):
    * items carrying this appear on the TimelineScrubber — MILESTONES in
    * content.ts is DERIVED from these markers, so a milestone can never
@@ -550,9 +557,41 @@ export function isEraArtFallback(url: string): boolean {
  * that is not the era-art fallback. This is the predicate depth/coverage
  * gates should use now that the single `image` field is gone: every item has
  * a non-empty `images`, so "has images" alone proves nothing.
+ *
+ * FEED-CARD GATE (2026-10-14): for deciding whether a card may RENDER a
+ * photo, use `hasDisplayablePhoto` below instead — an editorially-classified
+ * 'reference'/'archival' photo still leads the card when no primary photo
+ * exists, matching what the detail page already shows via
+ * `primaryImageRef`'s `images[0]` fallback. (Before this split, a moment
+ * whose only photo was 'archival'/'reference' rendered no card photo while
+ * its detail page showed one — the KCA-nominations post was the reported
+ * case, 42 moments in tloas were affected.)
  */
 export function hasRealPrimaryImage(item: ContentItem): boolean {
   return item.images.some((i) => i.kind === 'primary' && !isEraArtFallback(i.url));
+}
+
+/**
+ * True when the moment has at least one REAL, displayable photo — a gallery
+ * entry that is not the era-art stand-in, of ANY kind ('primary' |
+ * 'reference' | 'archival'). The feed-card gate for photo rendering (see
+ * `hasRealPrimaryImage`'s note): `primaryImageRef` already prefers the
+ * primary entry and falls back to `images[0]`, so this predicate only has to
+ * answer "is there a real photo at all?" — the era-art fallback is the sole
+ * thing that must keep a card photo-less (it's era branding, not a photo of
+ * the moment).
+ *
+ * RELIES ON: era-art entries never coexist with real photos in one item's
+ * `images` array — `buildContent()` (packages/content-enrichment/src/
+ * content.ts) plants the `/eras/<id>.png` stand-in ONLY when the moment has
+ * no real image URL. If that ever
+ * changes, `primaryImageRef` could hand back an era-art entry for an item
+ * this gate says "has a photo", so the assumption must be revisited (and,
+ * ideally, made a hard guarantee in the builder) before the gate is trusted
+ * again.
+ */
+export function hasDisplayablePhoto(item: ContentItem): boolean {
+  return item.images.some((i) => !isEraArtFallback(i.url));
 }
 
 /** An official music video embedded (never re-hosted) from YouTube. */
@@ -895,6 +934,7 @@ export type VideoNoteKind =
   | 'tour_film'
   | 'documentary'
   | 'performance'
+  | 'visualizer'
   // Appearances
   | 'interview'
   | 'award_speech'
@@ -1034,6 +1074,8 @@ export interface RunwayLook {
   /** Real, credited photos for this era's style story — always at least one. */
   images: ImageRef[];
   shopTags: string[];
+  /** Optional citations for the look, shown as a quiet "Sources" line. https only. */
+  sources?: { title: string; url: string }[];
 }
 
 export interface ReRecord {

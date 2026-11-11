@@ -95,3 +95,26 @@ export function angleUrl(url) {
   const safe = String(url ?? '').replace(/[<>\s|]/g, (c) => encodeURIComponent(c));
   return `<${safe}>`;
 }
+
+const REF_URL_RE = /^https:\/\/github\.com\/JW-Incorporated\/swift2\/pull\/(\d+)\?ref=([0-9a-f]{40})&files=([A-Za-z0-9_.%-]+)$/;
+
+/** The invisible machine ref: carried in a titleless image embed's `url`
+ * (never rendered), so the visible prompt is only the picture and captions. */
+export function buildRefUrl(prNumber, headSha, files) {
+  return `https://github.com/JW-Incorporated/swift2/pull/${prNumber}?ref=${headSha}&files=${encodeURIComponent(files.join(','))}`;
+}
+
+/** Strict, anchored inverse of buildRefUrl. Returns a match-shaped array
+ * `[whole, pr, sha, files]` (same shape as the `ref:` line regex) or null. */
+export function parseRefUrl(url) {
+  const m = typeof url === 'string' ? url.match(REF_URL_RE) : null;
+  if (!m) return null;
+  let files;
+  try {
+    files = decodeURIComponent(m[3]);
+  } catch {
+    return null;
+  }
+  if (!/^[A-Za-z0-9_./,-]+$/.test(files)) return null;
+  return [m[0], m[1], m[2], files];
+}

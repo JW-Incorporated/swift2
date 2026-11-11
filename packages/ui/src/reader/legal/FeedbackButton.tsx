@@ -203,7 +203,7 @@ export function FeedbackButton() {
       <div
         data-social-hide="feedback-button"
         data-ll-safe="feedback-button"
-        className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex items-center gap-2 md:bottom-4"
+        className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex max-w-[calc(100vw-2rem)] items-center gap-2 md:bottom-4"
       >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
             shouldn't keep coming back and annoying them"), distinct from just
@@ -238,7 +238,7 @@ export function FeedbackButton() {
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? 'Close feedback' : 'Send feedback'}
           aria-expanded={open}
-          className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
+          className="inline-flex min-w-0 items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
         >
           {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
           {/* The label is what makes the whole bottom-right cluster
@@ -248,7 +248,7 @@ export function FeedbackButton() {
               the dismiss X — which is why this looked like a stray close button
               for a missing pop-up on a phone and looked completely fine on a
               desktop viewport, where the label was showing all along. */}
-          <span>Feedback</span>
+          <span className="truncate">Feedback</span>
         </button>
       </div>
     </>

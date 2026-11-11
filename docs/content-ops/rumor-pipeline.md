@@ -147,6 +147,7 @@ which requires only a documented re-check that found nothing.
 | Field | Why |
 |---|---|
 | `lastCheckedOn` | When a lifecycle pass last looked. Without it we cannot tell "still true" from "never audited" — the distinction the whole system rests on. |
+| `note` | ONE free-text string carrying the entry's rationale and its re-check history. A lifecycle pass edits this string in place; it never adds a second `note:` key (duplicate keys silently drop the earlier text and fail `eslint no-dupe-keys` — #6071). |
 | `resolution` | `{ on, url, outlet, note }` — provenance for confirmed/debunked. A promotion without a citation is just an opinion. |
 | `sourceTier` | `official \| established \| tabloid \| social`. Drives how loudly we present it; a Deuxmoi blind item and a Reuters report are not the same claim. |
 | `locationSpecificity` | `region \| city \| venue`, declared when a claim carries location, so the matrix is machine-checkable rather than vibes. |

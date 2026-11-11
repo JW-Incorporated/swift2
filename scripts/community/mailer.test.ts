@@ -130,6 +130,28 @@ describe('destinationLine', () => {
 });
 
 describe('renderLeadCard', () => {
+  it('links facebook fallbacks to a group search and preserves a real post url', () => {
+    const fallback = renderLeadCard(
+      lead({
+        platform: 'facebook',
+        community: 'facebook:taylor-swifts-vault',
+        locator: "Taylor Swift's Vault — The first photos from a surprise performance",
+        url: null,
+      }),
+      { ackSecret: null },
+    );
+    expect(fallback).toContain(
+      'href="https://www.facebook.com/groups/2254218764714763/search/?q=first%20photos%20surprise%20performance"',
+    );
+
+    const url = 'https://www.facebook.com/groups/2254218764714763/posts/987654/';
+    const permalink = renderLeadCard(
+      lead({ platform: 'facebook', community: 'facebook:taylor-swifts-vault', url }),
+      { ackSecret: null },
+    );
+    expect(permalink).toContain(`href="${url}"`);
+  });
+
   it('includes the draft text and both ack links when a secret is given', () => {
     const html = renderLeadCard(lead(), { ackSecret: 'secret' });
     expect(html).toContain('A paste-ready reply.');
@@ -213,6 +235,7 @@ function fakeSupabase({
         eq: () => builder,
         not: () => builder,
         neq: () => builder,
+        or: () => builder,
         order: () => builder,
         limit: () => Promise.resolve({ data: rows, error: selectError }),
         update: (patch: unknown) => ({
@@ -277,9 +300,14 @@ describe('fetchLeadsToMail', () => {
   it('filters null drafts in the query so no-draft rows cannot starve sendable leads', async () => {
     const not = vi.fn();
     const neq = vi.fn();
+    const or = vi.fn();
     const builder: Record<string, unknown> = {
       select: () => builder,
       eq: () => builder,
+      or: (...args: unknown[]) => {
+        or(...args);
+        return builder;
+      },
       not: (...args: unknown[]) => {
         not(...args);
         return builder;
@@ -294,6 +322,8 @@ describe('fetchLeadsToMail', () => {
     const result = await fetchLeadsToMail({ from: () => builder }, { mode: 'daily' });
     expect(not).toHaveBeenCalledWith('draft', 'is', null);
     expect(neq).toHaveBeenCalledWith('kind', 'awareness_reply'); // the awareness lane has its own delivery
+    // only Reddit hot_thread is excluded; Facebook hot_thread and reply_to_us still mail
+    expect(or).toHaveBeenCalledWith('platform.neq.reddit,kind.neq.hot_thread');
     expect(result.map((l: Lead) => l.id)).toEqual(['ok']);
   });
 

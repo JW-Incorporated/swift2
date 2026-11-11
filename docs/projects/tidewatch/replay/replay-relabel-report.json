@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "countsByRule": {
+    "property_privacy_redline": 0,
+    "critical_new_official_work_only": 5
+  },
+  "changes": [
+    {
+      "id": "synthetic:critical_breaking:2",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:3",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:7",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:8",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    },
+    {
+      "id": "synthetic:critical_breaking:12",
+      "oldLabel": "critical_breaking",
+      "newLabel": "official_drop",
+      "rule": "critical_new_official_work_only"
+    }
+  ]
+}

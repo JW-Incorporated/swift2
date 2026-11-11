@@ -46,6 +46,17 @@ export default {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
           },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-sells-12-million-copies-of-red/',
+            source_title: 'Taylor Swift sells 1.2 million copies of "Red"',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-10',
+            reliability_score: 4,
+            notes:
+              'Third independent report of the 1.208-million first-week SoundScan figure (added 2026-10-10, Vault Run Answerer, depth-deficit #1719, sources axis 2/3→3). cbsnews.com returned HTTP 406 (bot-gated) in this run environment, so the figure was re-confirmed against the loadable Wikipedia "Red (Taylor Swift album)" article ("1.208"/"1.21 million" first week); same URL was corpus-verified for this exact fact when first added (2026-08-11).',
+          },
         ],
         // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): this item
         // stands in for the whole era's arrival (no dedicated release-day
@@ -209,7 +220,6 @@ export default {
       relatedIds: [
         'moment:vault-evermore-the-joker-and-the-queen-an-ed-sheeran-duet-with-a-nine-year-',
         'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
-        'moment:vault-red-everything-has-changed-duet',
         'moment:vault-red-the-last-time-turns-an-on-again-off-again-relationship-into-',
       ],
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
@@ -220,7 +230,19 @@ export default {
       moment: {
         context:
           'Taylor brought in Butch Walker to produce, saying she knew he would approach it "from an organic place, which is where [Sheeran] comes from." Released as a single in July 2013, it reached No. 32 on the Hot 100 — and did even better in Sheeran\'s home market, hitting the top 10 in the UK and Ireland — went double platinum in the US, and became a live duet throughout the Red Tour\'s North American run, which Sheeran opened.\n\nThe Philip Andelman video, out that June, cast two child actors as elementary-school classmates falling into an easy friendship — with Taylor and Sheeran revealed at the end as their parents. The story got an epilogue nine years later: the same two actors, grown up, were brought back for Sheeran\'s 2022 "The Joker and the Queen" video (featuring Taylor), which outlets read as a deliberate sequel.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' },
+          {
+            // Merged from the retired thin "duet" stub (issue #3756, 2026-10-08).
+            outlet: 'Nashville Scene',
+            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
+            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
+            publisher: 'Nashville Scene',
+            source_type: 'reputable_press',
+            accessed_at: '2026-10-08',
+            reliability_score: 4,
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
@@ -621,23 +643,6 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500',
             credit: 'Getty Images',
-          },
-        ],
-        // Shop pass (2026-07-21): the exact 2012 gown is discontinued --
-        // a current Jenny Packham gown, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Jenny Packham',
-            item: 'Sirocco',
-            retailer: 'jennypackham.com',
-            url: 'https://www.jennypackham.com/products/sirocco',
-            matchTier: 'unscored',
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0749/1410/3586/files/ZED104LSIROCCOBordeaux_0.jpg?v=1782401119',
-            price: '$4,930.00',
-            isAlternative: true,
-            altNote: 'Her exact 2012 rose-appliqued gown is long discontinued -- this is a current Jenny Packham gown in Bordeaux rather than nude lace, same house.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },
@@ -1236,7 +1241,7 @@ export default {
       relatedIds: [
         'moment:vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles',
         'moment:vault-1989-the-out-of-the-woods-video-closes-the-era-on-new-years-eve',
-        'moment:vault-red-taking-over-times-square-on-good-morning-america-one-day-aft',
+        'moment:vault-red-taking-over-times-square-on-good-morning-america-one-day-aft', 'moment:vault-ttpd-a-new-years-eve-kiss-in-kansas-city',
       ],
       year: 2012,
       month: 12,
@@ -1494,6 +1499,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
+            // Photo-enrichment pass (2026-10-10, Vault Run): single cover, her
+            // face upper-center above the title treatment.
+            focalPoint: '50% 28%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1630,6 +1638,9 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/AgFeZr5ptV8/hqdefault.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the "22" video
+            // frame, her hat-and-tee look centered, face upper-center.
+            focalPoint: '50% 26%',
             credit: 'Big Machine Records / YouTube',
             caption: 'Taylor in the "not a lot going on at the moment" tee — thumbnail from the official "22" music video.',
             kind: 'archival',
@@ -1684,6 +1695,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/500px-Holiday_House_on_Watch_Hill.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): shoreline view, the
+            // bluff-top houses sit in the upper-middle band above the water.
+            focalPoint: '45% 40%',
             credit: 'JJBers via Wikimedia Commons (CC BY 2.0)',
             caption: 'The Watch Hill, Rhode Island shoreline, with High Watch ("Holiday House") visible on the bluff among the neighboring homes.',
             kind: 'archival',
@@ -1720,6 +1734,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): laughing close-up,
+            // face centered, eyes high. Value matched to the same image's other
+            // seed occurrence so sync dedupe is stable.
+            focalPoint: '45% 28%',
             credit: 'Jana Zills / Wikimedia Commons',
           },
         ],
@@ -1767,6 +1785,9 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Taylor_Swift_Education_Center_%2849328753061%29.jpg/500px-Taylor_Swift_Education_Center_%2849328753061%29.jpg',
+            // Photo-enrichment pass (2026-10-10, Vault Run): the illuminated
+            // "Taylor Swift Education Center" sign, text block centered.
+            focalPoint: '50% 42%',
             credit: 'Jeremy Thompson via Wikimedia Commons (CC BY 2.0)',
             caption: 'The Taylor Swift Education Center at the Country Music Hall of Fame in Nashville, photographed in 2019.',
             kind: 'archival',
@@ -2015,6 +2036,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg/500px-Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg',
+            focalPoint: '42% 22%',
             credit: 'Weslam123 via Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Performing at the Singapore Indoor Stadium on June 9, 2014, during the Red Tour\'s closing Singapore stand.',
             kind: 'archival',
@@ -2105,6 +2127,19 @@ export default {
           },
         ],
         context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour masquerade-ball number, white/
+        // gold gown + masked dancer). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Taylor_Swift_-_RED_Tour_-_LONDON_-_I_Knew_You_Were_Trouble_%28night_4%29.jpg',
+            focalPoint: '50% 18%',
+            credit: 'Clarence Ji, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Taylor performs "I Knew You Were Trouble" in its masquerade-ball staging on the Red Tour.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -2207,55 +2242,6 @@ export default {
         ],
       },
     },
-    {
-      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
-      // consolidation stage 2a): text unchanged; legacy id kept as slug.
-      slug: "red-everything-changed",
-      // Cross-link (Stage 3, 2026-08-06): the song's writing session.
-      relatedIds: [
-        "moment:vault-red-everything-has-changed-written-on-a-trampoline-with-ed-sheer",
-      ],
-      year: 2013,
-      month: 7,
-      day: 6,
-      category: "music",
-      title: "“Everything Has Changed” duet",
-      snippet: "A folk-pop collaboration extends the album’s long single run.",
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
-      moment: {
-        sources: [
-          {
-            outlet: 'Nashville Scene',
-            url: 'https://www.nashvillescene.com/music/taylor-swift-and-ed-sheerans-everything-has-changed-video-is-entirely-too-cute-fresh-vid/article_9180df09-e061-5c53-84a9-54f5de17b0da.html',
-            source_title: 'Taylor Swift and Ed Sheeran\'s \'Everything Has Changed\' Video Is Entirely Too Cute',
-            publisher: 'Nashville Scene',
-            source_type: 'reputable_press',
-            accessed_at: '2026-08-11',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
-            source_title: 'Everything Has Changed',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-08-11',
-            reliability_score: 2,
-            notes: 'Supplement only, for the single release date — never the load-bearing citation.',
-          },
-        ],
-        context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
-            focalPoint: '45% 28%',
-            credit: 'Big Machine Records (single cover art)',
-            kind: 'primary',
-          },
-        ],
-      },
-    },
-
     // ── YouTube-appearances research pass (2026-08-12) ──
     // Links oEmbed-verified; see supabase/seed/candidates/youtube-appearances.mjs
     // and docs/research/2026-08-12-youtube-appearances-manifest.md.
@@ -2780,7 +2766,7 @@ export default {
       category: 'music',
       title: 'Ronan, a charity single built from a grieving mother\'s blog',
       snippet:
-        'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
+        'Written from Maya Thompson\'s blog posts about her late son Ronan — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
@@ -2970,6 +2956,19 @@ export default {
           },
         ],
         context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
+        // Photo added 2026-10-08 (Vault Run, Photo Enrichment lane): the page
+        // carried the studio MV but no photo. Live-staging complement, downloaded
+        // and vision-confirmed this run (Red Tour B-stage tower, acoustic guitar
+        // on a stool). Wikimedia Commons, curl HTTP 200 image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            focalPoint: '50% 48%',
+            credit: 'Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Taylor plays "Begin Again" acoustic atop the Red Tour’s B-stage tower.',
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],

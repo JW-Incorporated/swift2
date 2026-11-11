@@ -161,13 +161,13 @@ export function renderHumanAction({ number, issue, title, createdAt, now, holder
     300,
   );
   const step = clip(
-    '1. Reply in #longlive-marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
+    '1. Reply in #marjorie with one word: `assign` (a session takes it this week), `defer` (she stops chasing; it stays open), or `close`.',
     200,
   );
   return {
     number,
     issue: source.number,
-    body: `## #${number} \u{1F7E1} [DECIDE] #${source.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${source.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${source.number} under stalled.`,
+    body: `## #${number} \u{1F7E1} [DECIDE] #${source.number} has had no activity for 4 days (~2 min)\n<!-- ha filed=${new Date(now).toISOString().slice(0, 10)} -->\n<!-- marjorie-chase: 96h issue=${source.number} -->\n<!-- ha verify: issue-closed ${source.number} -->\n\n**Why:** ${why}\n\n**Steps:**\n${step}\n\n**Worked if:** the next brief no longer lists #${source.number} under stalled.`,
   };
 }
 
@@ -178,6 +178,7 @@ export function evaluateDispatchChase({
   openActions = '',
   doneActions = '',
   pendingHaPrs = [],
+  skippedHaPrs = [],
   now = Date.now(),
   ownAuthors = [],
 } = {}) {
@@ -260,6 +261,9 @@ export function evaluateDispatchChase({
     humanActions,
     autoDefers: planAutoDefers({ issues, openActions, pendingHaPrs, now: nowMs }),
     pendingHumanActions: pendingHaPrs.filter((pr) => /^marjorie\/chase-ha-\d+(?:-\d+)*$/.test(pr.headRef || '')).map((pr) => pr.number),
+    // PRs whose HUMAN-ACTIONS.md status could not be read; carried so the sweep
+    // log names them rather than silently treating them as untouched.
+    skippedHaPrs,
     brief: {
       stalled: items.filter((item) => /^stale-/.test(item.verdict)),
       held: items.filter((item) => item.verdict === 'held'),

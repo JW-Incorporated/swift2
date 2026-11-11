@@ -103,7 +103,7 @@ async function main() {
   if (!Array.isArray(data) || data.length === 0) {
     console.log(
       "knowledge-freshness: no tier='current' rows exist yet — expected until the extract stage has a live " +
-        'ANTHROPIC_API_KEY (HUMAN-ACTIONS.md #13) and runs at least once. Not itself evidence of staleness.',
+        'Claude subscription wrapper and runs at least once. Not itself evidence of staleness.',
     );
     return 2;
   }

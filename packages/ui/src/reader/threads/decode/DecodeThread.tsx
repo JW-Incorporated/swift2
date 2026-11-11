@@ -100,7 +100,7 @@ export function DecodeThread({ clues = CLUE_PAIRS }: { clues?: CluePair[] }) {
             Clues planted in one era. Payoffs that arrive years later. Tap any pair to reveal the connection.
           </p>
           <button
-            aria-label="Toggle filters"
+            aria-expanded={showFilters}
             onClick={() => setShowFilters((v) => !v)}
             className="era-btn-ghost flex flex-none items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm transition-all"
             style={{ background: showFilters ? 'var(--era-accent)' : 'var(--era-surface)', color: showFilters ? 'var(--era-bg)' : 'var(--era-ink)' }}

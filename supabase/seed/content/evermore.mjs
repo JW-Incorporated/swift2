@@ -650,8 +650,9 @@ export default {
             price: '$2,880.00',
             isAlternative: true,
             altNote:
-              'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
-            verifiedAt: '2026-09-13T19:02:13.189Z'
+              'Her gown was custom-built; this was Etro\'s closest long silk gown, but as of 2026-10-25 its page redirects to a category listing — no longer live.',
+            inStock: false,
+            verifiedAt: '2026-10-25T19:30:00.000Z'
           },
         ],
       },
@@ -3646,8 +3647,9 @@ export default {
             price: '$2,880.00',
             isAlternative: true,
             altNote:
-              'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
+              'Her gown was custom-built; this was Etro\'s closest long silk gown, but as of 2026-10-25 its page redirects to a category listing — no longer live.',
+            inStock: false,
+            verifiedAt: '2026-10-25T19:30:00.000Z'
           },
         ],
       },

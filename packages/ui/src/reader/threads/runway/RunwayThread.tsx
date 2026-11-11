@@ -7,6 +7,7 @@ import { accentFgFor, eraStyle } from '../../lib/theme';
 import { RUNWAY_LOOKS } from '@swift2/experience';
 import { autoFocalPoint, focalPointOf } from '@swift2/experience';
 import { FromTheEras } from '../FromTheEras';
+import { RunwaySources } from './RunwaySources';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
 // allowlist covers only YouTube posters) — same pattern as MomentDetail.
@@ -73,6 +74,7 @@ export function RunwayThread() {
                 <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
                   {look.description}
                 </p>
+                <RunwaySources sources={look.sources} />
               </div>
 
               {feature && (

@@ -54,6 +54,6 @@ export function renderStrategy({ bullets, changedAt = '' }, { repo }) {
   return [
     '## 🧭 Strategy', '',
     ...bullets.map((b) => `- ${b}`), '',
-    `_${changedAt ? `Last changed ${changedAt} — ` : ''}[full strategy](${link}) — challenge or steer it by talking to Marjorie in #longlive-marjorie._`,
+    `_${changedAt ? `Last changed ${changedAt} — ` : ''}[full strategy](${link}) — challenge or steer it by talking to Marjorie in #marjorie._`,
   ].join('\n');
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { getDevicePrefs, updateDevicePrefs } from './notification-prefs';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { DEFAULT_CADENCE } from '@swift2/shared';
 
 const DEVICE_ID = '11111111-1111-4111-8111-111111111111';
 
@@ -171,5 +172,34 @@ describe('updateDevicePrefs', () => {
     await expect(
       updateDevicePrefs(db, DEVICE_ID, { prefs: [{ category: 'song_drop', cadence: 'daily' }] }),
     ).rejects.toThrow('upsert failed');
+  });
+});
+
+describe('getDevicePrefs baby_watch (opt-in, default opted out)', () => {
+  function dbWithPrefRows(rows: Array<{ device_id: string; category: string; cadence: string }>) {
+    const deviceMaybeSingle = vi.fn().mockResolvedValue({ data: fakeDevicesRow(), error: null });
+    const deviceEq = vi.fn().mockReturnValue({ maybeSingle: deviceMaybeSingle });
+    const deviceSelect = vi.fn().mockReturnValue({ eq: deviceEq });
+    const prefsEq = vi.fn().mockResolvedValue({ data: rows, error: null });
+    const prefsSelect = vi.fn().mockReturnValue({ eq: prefsEq });
+    return {
+      from: vi.fn((table: string) =>
+        table === 'devices' ? { select: deviceSelect } : { select: prefsSelect },
+      ),
+    } as unknown as SupabaseClient;
+  }
+
+  it('defaults to opted out: no baby_watch pref is surfaced without a persisted row', async () => {
+    const result = await getDevicePrefs(dbWithPrefRows([]), DEVICE_ID);
+    expect(result?.prefs.find((p) => p.category === 'baby_watch')).toBeUndefined();
+    expect(DEFAULT_CADENCE.baby_watch).toBe('off');
+  });
+
+  it('surfaces the persisted opt-in once a baby_watch row exists', async () => {
+    const result = await getDevicePrefs(
+      dbWithPrefRows([{ device_id: DEVICE_ID, category: 'baby_watch', cadence: 'instant' }]),
+      DEVICE_ID,
+    );
+    expect(result?.prefs.find((p) => p.category === 'baby_watch')?.cadence).toBe('instant');
   });
 });

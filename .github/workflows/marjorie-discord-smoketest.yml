@@ -30,7 +30,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-      - name: Post a smoke-test message to #longlive-marjorie
+      - name: Post a smoke-test message to #marjorie
         if: ${{ inputs.mode == 'post' }}
         run: |
           echo "Marjorie Discord smoke test — $(date -u +%Y-%m-%dT%H:%M:%SZ)" > /tmp/smoketest-body.txt

@@ -20,7 +20,8 @@ export async function verifyImage(url, { fetchImpl = fetch } = {}) {
     response = await fetchImpl(url, { method: 'GET', redirect: 'follow', headers: { Range: 'bytes=0-1023' } });
   }
   if (response.status === 403) return { verdict: 'blocked', status: response.status };
-  if (!response.ok) return { verdict: 'invalid', status: response.status };
+  if ([404, 410].includes(response.status)) return { verdict: 'invalid', status: response.status };
+  if (!response.ok) return { verdict: 'unavailable', status: response.status };
   const contentType = response.headers.get('content-type') ?? '';
   if (!contentType.toLowerCase().startsWith('image/')) return { verdict: 'invalid', status: response.status };
   const size = declaredSize(response) ?? (await response.arrayBuffer()).byteLength;

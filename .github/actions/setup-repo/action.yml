@@ -21,6 +21,10 @@ inputs:
     description: 'Git ref to check out. Leave unset for the default (the triggering ref).'
     required: false
     default: ''
+  fetch-depth:
+    description: 'Commits to fetch (actions/checkout fetch-depth). 0 = full history.'
+    required: false
+    default: '1'
   node-version:
     description: 'Node version for actions/setup-node.'
     required: false
@@ -47,6 +51,7 @@ runs:
       with:
         token: ${{ inputs.token || github.token }}
         ref: ${{ inputs.ref }}
+        fetch-depth: ${{ inputs.fetch-depth }}
 
     - uses: actions/setup-node@v7
       with:

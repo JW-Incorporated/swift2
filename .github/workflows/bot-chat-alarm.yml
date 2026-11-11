@@ -13,7 +13,7 @@
 #                   repo). With `dry_run` it prints the body and stops here.
 #   alert (ops)     chat-alarm.mjs alert: upsert-alert.sh opens or closes the
 #                   watchdog-alert issue, posting the state change in
-#                   #longlive-marjorie (email only if that post fails); an
+#                   #marjorie (email only if that post fails); an
 #                   open starts routine-marjorie-ops.yml now, not at :18,
 #                   and, for a stuck message with no run at all,
 #                   bot-chat-poll.yml. Each is attempted even if another

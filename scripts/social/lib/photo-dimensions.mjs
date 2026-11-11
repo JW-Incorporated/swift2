@@ -13,6 +13,18 @@ import { imageMeta } from '../../content-engine/checkers/image-liveness.mjs';
 export const IG_MIN_ASPECT_RATIO = 0.8;
 export const IG_MAX_ASPECT_RATIO = 1.91;
 
+// The only formats this pipeline produces and uploads. check-drafts.mjs
+// hard-fails any other extension, so a photo the pre-compute offers in a
+// format the gate refuses is a slot that can never pass the checker: on
+// 2026-10-18 the library's one .gif was handed to Tree's beat as its assigned
+// photo and the run burned 51/50 turns with no PR (issue #6058). Aspect ratio
+// was filtered here; format was not.
+export const ALLOWED_MEDIA_EXTENSIONS = new Set(['png', 'jpg', 'jpeg']);
+
+/** True when `mediaPath`'s extension is one check-drafts.mjs will accept. */
+export const hasAllowedMediaExtension = (mediaPath) =>
+  ALLOWED_MEDIA_EXTENSIONS.has(String(mediaPath ?? '').split('.').pop()?.toLowerCase() ?? '');
+
 export const isIgAspect = (width, height) => {
   const ratio = width / height;
   return Number.isFinite(ratio) && ratio >= IG_MIN_ASPECT_RATIO && ratio <= IG_MAX_ASPECT_RATIO;
@@ -23,6 +35,8 @@ export async function igUsablePhotos(library, publicDir) {
   const usable = new Set();
   const unreadable = [];
   for (const entry of library) {
+    // A format the checker refuses can never ship, whatever its dimensions.
+    if (!hasAllowedMediaExtension(entry.mediaPath)) continue;
     // Library photos are Git LFS pointers in CI checkouts (docs/decisions.md
     // 2026-10-07), so recorded dimensions win over reading the binary.
     if (entry.width && entry.height) {

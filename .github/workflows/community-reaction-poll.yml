@@ -1,0 +1,43 @@
+# Community reply cards, owner reactions (#5988). Reads the owner's own
+# ✅ (posted) / ❌ (skipped) on delivered reply cards and applies the existing
+# ackPosted / ackSkipped, then confirms with a small bot reaction. Reads and
+# reacts only; never posts a message. workflow_dispatch ONLY: the home clock
+# (scripts/ops/clock-table.json) fires it about every 14 minutes, because new
+# GitHub crons have proven unreliable here. Plain run: steps, no agent;
+# DISCORD_BOT_TOKEN comes from the main-only `social` environment.
+name: community-reaction-poll
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: community-reaction-poll
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    environment: social
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - run: npm ci --ignore-scripts
+
+      - name: Apply owner reactions to community reply cards
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_TREE_BOT_TOKEN: ${{ secrets.DISCORD_TREE_BOT_TOKEN }}
+          DISCORD_TREE_MAIN_CHANNEL_ID: ${{ vars.DISCORD_TREE_MAIN_CHANNEL_ID }}
+          DISCORD_TREE_REDDIT_CHANNEL_ID: ${{ vars.DISCORD_TREE_REDDIT_CHANNEL_ID }}
+          DISCORD_TREE_FACEBOOK_CHANNEL_ID: ${{ vars.DISCORD_TREE_FACEBOOK_CHANNEL_ID }}
+        run: npx tsx scripts/community/community-reaction-poll.mjs

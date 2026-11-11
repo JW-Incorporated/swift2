@@ -36,7 +36,7 @@ const _debut = {
       summary:
         'A girl asks to be remembered through the soundtrack of a first love: when her favorite country star comes on, she hopes her ex thinks of her.',
       inspiration:
-        'Swift has said she wrote it in math class about Brett, a senior boyfriend about to leave for college, then finished it with Liz Rose after school.',
+        'Swift has said she wrote it in math class about an older boyfriend about to leave for college, then finished it with Liz Rose after school.',
       themes: ['first love', 'memory and nostalgia', 'small-town summer'],
       easterEggs:
         'Her early liner notes hid capitalized-letter messages per song — the codes that trained fans to hunt for Easter eggs in everything since.',
@@ -119,6 +119,79 @@ const _debut = {
         wiki('Picture to Burn', 'Picture_to_Burn', 'song article: lyric edit and single history'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          "The debut album's loudest act of revenge, and a real hit: released to US country radio on February 4, 2008 as the fourth single from Taylor Swift, it reached No. 3 on Hot Country Songs and No. 28 on the Hot 100, and was certified double platinum by the RIAA in 2014 (chart and certification figures as summarized in its Wikipedia entry). Swift told CMT at the time that, even before it was a single, it 'would get the most crowd response' on the road, which is why she was excited to release it.",
+          "It matters because it is the unvarnished version of a teenager's anger, and she never disowned it. She called it 'my angry song on my album,' and later told MTV News that the way she would say and feel that kind of pain now is 'a lot different,' while having no regrets about her earlier songs. Songfacts adds a footnote on its reach: the first video Sabrina Carpenter ever posted to YouTube, on August 3, 2009, was a cover of it."
+        ],
+        meaning: {
+          confirmed: [
+            "Track 2 of Taylor Swift (October 24, 2006), written by Swift and Liz Rose and produced by Nathan Chapman.",
+            "Swift called it 'my angry song on my album' in a CMT Insider interview before the video shoot, and described the song as being about 'just being mad,' adding that it is 'brutally honest' and has 'a comedic edge.'",
+            "She told CMT it was the first time she had fire in one of her videos, and that the song 'would get the most crowd response' at her shows before it was a single.",
+            "In a 2011 MTV News interview she recalled the song as talking about how 'I hate your truck' and 'I hate that you ignored me,' and said she wouldn't express that pain the same way now."
+          ],
+          supported: [
+            "Swift has said the song is about a guy who didn't like her back and whom she found cocky; her account of an after-school writing session with Liz Rose, in which the chorus grew out of her blurting that she hated his truck, is reported by Songfacts and Wikipedia. She has described it as one of her most honest songs.",
+            "The original album lyric included a line about telling the ex's friends he is gay; later versions replaced it with a milder line. That edit is documented in both the song's Wikipedia article and Songfacts.",
+            "Critics read the song as teenage anger played with a wink. Musicologist James E. Perone, cited in Wikipedia, heard country and alternative rock deliberately fused, with banjo and distorted guitar breaks tying it to both worlds."
+          ]
+        },
+        live: [
+          {
+            date: "October 10, 2007",
+            event: "Regis & Kelly",
+            note: "An early television performance during promotion of the debut album, per the song's Wikipedia entry."
+          },
+          {
+            date: "2009-2010",
+            event: "The Fearless Tour",
+            note: "On her first headlining tour, per Wikipedia, it closed the main set before the encore."
+          }
+        ],
+        connections: [
+          {
+            relatedId: "song:tim-mcgraw",
+            label: "Tim McGraw",
+            why: "Both debut-album songs were written with Liz Rose and produced by Nathan Chapman: 'Tim McGraw' is the wistful goodbye, 'Picture to Burn' the furious one."
+          },
+          {
+            relatedId: "song:teardrops-on-my-guitar",
+            label: "Teardrops on My Guitar",
+            why: "An earlier single from the same record that tells the opposite side of the same teenage story: the crush who never noticed her, where this one is the boy she can't stand."
+          },
+          {
+            relatedId: "song:our-song",
+            label: "Our Song",
+            why: "Another single from the debut in a very different mood; together with this song it shows the range the album ran on, from giddy to scorched earth."
+          }
+        ],
+        voices: [
+          {
+            who: "Taylor Swift",
+            context: "Telling MTV News how her songwriting had changed",
+            note: "She recalled the song as being about hating a boy's truck and being ignored, said the way she'd say and feel that pain now is 'a lot different,' and said she had no regrets about her earlier songs."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Fans the Flames on \"Picture to Burn\" - CMT News (2008, archived)",
+            url: "https://web.archive.org/web/20121022081232/http://www.cmt.com/news/country-music/1583617/taylor-swift-fans-the-flames-on-picture-to-burn.jhtml"
+          },
+          {
+            name: "Taylor Swift Explains How Her Songwriting Has Grown - MTV News (archived)",
+            url: "https://web.archive.org/web/20110903125904/http://www.mtv.com/news/articles/1664730/taylor-swift-songwriting.jhtml"
+          },
+          {
+            name: "Picture to Burn - Wikipedia",
+            url: "https://en.wikipedia.org/wiki/Picture_to_Burn"
+          },
+          {
+            name: "Picture To Burn by Taylor Swift - Songfacts",
+            url: "https://www.songfacts.com/facts/taylor-swift/picture-to-burn"
+          }
+        ]
+      },
     },
     {
       slug: 'teardrops-on-my-guitar',
@@ -130,11 +203,11 @@ const _debut = {
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
       isSingle: true,
-      note: 'The unrequited-crush ballad that named the real boy — Drew from her high school — and crossed her over to pop radio for the first time.',
+      note: 'The unrequited-crush ballad about a boy who only confided in her about someone else — and crossed her over to pop radio for the first time.',
       summary:
         'She is the shoulder a boy leans on while he gushes about another girl; the song sits in the ache of smiling through it.',
       inspiration:
-        'Confirmed to be about classmate Drew Hardwick, whom Swift named publicly; he reportedly had no idea until the song was on the radio.',
+        'About a real high-school classmate she liked, whom she has not identified by full name.',
       themes: ['unrequited love', 'hiding feelings', 'high-school heartache'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
       sources: [
@@ -231,6 +304,40 @@ const _debut = {
         'Fan reading: often ranked by fans among the best-written debut tracks — a favorite pick for early evidence of her bridge-writing instincts.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A debut-album deep cut that Swift herself singled out early. In a Rolling Stone profile (published under the title '2008's Country Lolita') she named it her favorite song on the record lyrically, and in 2023 she played it at the piano as an Eras Tour surprise song in Houston (Billboard said it was her first live performance of it on tour in a decade)."
+        ],
+        meaning: {
+          confirmed: [
+            "Swift told Rolling Stone: 'My favorite song on the record lyrically is called Cold As You. The hook is I've never been anywhere cold as you. I love a line in a song where afterward you're just like... burn.' Asked whether her best songs are burn songs, she answered, 'Nah, I think my best songs are longing heartbreak songs.'"
+          ],
+          supported: [
+            "A Billboard critic's essay on the debut album called it a bitter kiss-off and an early sign of the sharper takedown songs she would write later. That is the critic's reading, not Swift's."
+          ]
+        },
+        live: [
+          {
+            date: "April 23, 2023",
+            event: "The Eras Tour, Houston (NRG Stadium)",
+            note: "Billboard's surprise-song list says she played it at the piano on the third Houston night, joking 'No shade to the other songs on the album,' and that it trended on Twitter while she sang it."
+          }
+        ],
+        sources: [
+          {
+            name: "2008's Country Lolita: Taylor Swift - Rolling Stone",
+            url: "https://www.rollingstone.com/music/music-news/2008s-country-lolita-taylor-swift-192759/"
+          },
+          {
+            name: "Why Taylor Swift's Self-Titled Debut Is Her Best Album - Billboard",
+            url: "https://www.billboard.com/music/pop/taylor-swift-self-titled-debut-best-album-8029960/"
+          },
+          {
+            name: "All the Surprise Songs Taylor Swift Performed on The Eras Tour - Billboard",
+            url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/"
+          }
+        ]
+      },
     },
     {
       slug: 'the-outside',
@@ -259,11 +366,11 @@ const _debut = {
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
-      note: 'Written the day she learned a friend was struggling with an eating disorder — the debut album at its most tender.',
+      note: 'Written the day she learned a friend was going through a hard time — the debut album at its most tender.',
       summary:
         'A letter to a beautiful friend who is quietly falling apart, about how the girls who seem to have it all can be the ones barely holding on.',
       inspiration:
-        'Swift confirmed she wrote it about a close friend battling bulimia, starting it the same day she found out.',
+        'Written about a close friend who was struggling, started the day she learned of it.',
       themes: ['friendship', 'hidden pain', 'beauty-standard pressure'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
@@ -277,14 +384,37 @@ const _debut = {
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
       producers: ['Nathan Chapman'],
-      note: 'A daydream about a boy named Cory — admiring from a distance and wishing him well whether or not the story ever starts.',
+      note: 'A daydream about a boy she admired from afar — admiring from a distance and wishing him well whether or not the story ever starts.',
       summary:
         'Affection without possession: she catalogs what makes a boy shine and leaves the door open rather than forcing an ending.',
       inspiration:
-        'Swift said in early album commentary it was written about a boy named Cory she admired mostly from afar.',
+        'Described in early album commentary as written about a boy she admired mostly from afar.',
       themes: ['crushes', 'admiration', 'open endings'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
+      dossier: {
+        whyItMatters: [
+          "A debut-album song Swift brought back for one night in Brazil. Billboard reported that at the Rio de Janeiro Eras Tour show on Nov. 17, 2023, she played 'Stay Beautiful' before debuting 'Suburban Legends' live, and described it as a song from her earliest catalog that 'hadn't been played live in probably 15 years.' That estimate is Billboard's, not Swift's."
+        ],
+        meaning: {
+          confirmed: [
+            "Introducing it in Rio, Swift said (as quoted by Billboard): 'I wanted to play something to honor the fact that so many amazing Brazilian fans have been with me since day one, since the first album.' She added: 'It's because you, just this crowd, Rio, you're just so beautiful. And I hope you stay that way.' That is how she framed the song that night: as a dedication to the crowd, not an explanation of the original song."
+          ]
+        },
+        live: [
+          {
+            date: "November 17, 2023",
+            event: "The Eras Tour, Rio de Janeiro (Estadio Olimpico Nilton Santos)",
+            note: "Billboard reported it was played just before the live debut of 'Suburban Legends,' in the acoustic set."
+          }
+        ],
+        sources: [
+          {
+            name: "Taylor Swift Performs 'Suburban Legends' Live for the First Time in Rio de Janeiro - Billboard",
+            url: "https://www.billboard.com/music/music-news/taylor-swift-suburban-legends-live-rio-de-janeiro-brazil-eras-tour-1235491862/"
+          }
+        ]
+      },
     },
     {
       slug: 'shouldve-said-no',
@@ -373,7 +503,7 @@ const _debut = {
       summary:
         'A love story that ages from seven to eighty-seven, tracing a couple from backyard dares to a porch-swing forever.',
       inspiration:
-        'Swift confirmed the song was inspired by her real next-door neighbors, a couple who shared their decades-long love story over dinner.',
+        'Reportedly inspired by her real next-door neighbors, a couple who shared their decades-long love story over dinner.',
       themes: ['lifelong love', 'small-town roots', 'growing old together'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
@@ -471,7 +601,7 @@ const _debut = {
       inspiration: null,
       themes: ['authenticity', 'friendship', 'belonging'],
       fanLore:
-        'Fan reading: the home-video-style music video starred her real childhood best friend Abigail, cementing the friendship interpretation.',
+        'Fan reading: the home-video-style music video starred her real childhood best friend, cementing the friendship interpretation.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       sources: [ALBUM],
     },

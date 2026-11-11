@@ -59,11 +59,13 @@ const aboutOk = async (name: string) =>
   name === 'Spicy'
     ? { imageComments: 'unknown', over18: true }
     : { imageComments: name === 'swifties' ? 'text_only' : 'image', over18: false };
+const threadOk = async () => ({ state: 'ok' });
 const run = (over: Record<string, unknown>) =>
   runAwarenessScan({
     config,
     catalog,
     fetchAbout: aboutOk,
+    fetchThread: threadOk,
     now: NOW,
     sleep: async () => {},
     random: () => 0,
@@ -182,6 +184,60 @@ describe('awareness scan', () => {
     expect(rows.find((r) => r.community === 'swifties')?.image_comments).toBe('text_only');
     expect(rows.some((r) => r.thread_id === 'seen1')).toBe(false);
     expect(rows.every((r) => /^(era|moment):/.test(r.image_ref))).toBe(true);
+  });
+
+  it('drops locked, archived and restricted threads found through RSS and refills from the pool', async () => {
+    const fetchImpl = feeds({
+      TaylorSwift: [
+        entry('a1', 'Rank the eras from best to worst', 5, 'TaylorSwift'),
+        entry('a2', 'When did folklore come out', 8, 'TaylorSwift'),
+        entry('a3', 'Easter egg theory about the album', 9, 'TaylorSwift'),
+      ],
+    });
+    const states: Record<string, string> = { a1: 'locked', a2: 'archived', a3: 'ok' };
+    const fetchThread = vi.fn(async (link: string) => ({
+      state: states[/comments\/(\w+)/.exec(link)?.[1] ?? ''] ?? 'ok',
+    }));
+    const result = await run({ fetchImpl: fetchImpl as never, fetchThread, dryRun: true });
+    expect(result.dropped).toEqual({ locked: 1, archived: 1 });
+    expect(result.rows.map((r: { thread_id: string }) => r.thread_id)).toEqual(['a3']);
+    const restricted = await run({
+      fetchImpl: fetchImpl as never,
+      fetchThread: async () => ({ state: 'no-comment' }),
+      dryRun: true,
+    });
+    expect(restricted.dropped).toEqual({ 'no-comment': 3 });
+    expect(restricted.kept).toBe(0);
+  });
+
+  it('a blocked thread check (403) still delivers the lead, labelled unverified, and stops checking', async () => {
+    const fetchImpl = feeds({
+      TaylorSwift: [
+        entry('a1', 'Rank the eras from best to worst', 5, 'TaylorSwift'),
+        entry('a2', 'When did folklore come out', 8, 'TaylorSwift'),
+      ],
+    });
+    const fetchThread = vi.fn(async () => ({ state: 'unknown', error: 'HTTP 403' }));
+    const result = await run({ fetchImpl: fetchImpl as never, fetchThread, dryRun: true });
+    expect(result.kept).toBe(2);
+    expect(result.dropped).toEqual({});
+    expect(fetchThread).toHaveBeenCalledTimes(1);
+    expect(result.rows.every((r: { context: string }) => /unverified/.test(r.context))).toBe(true);
+  });
+
+  it('verified threads carry no unverified note', async () => {
+    const fetchImpl = feeds({
+      TaylorSwift: [entry('a1', 'Rank the eras from best to worst', 5, 'TaylorSwift')],
+    });
+    const result = await run({ fetchImpl: fetchImpl as never, dryRun: true });
+    expect(result.rows[0].context).not.toMatch(/unverified/);
+  });
+
+  it('makes no thread check in a throttled run', async () => {
+    const fetchImpl = vi.fn(async () => new Response('blocked', { status: 429 }));
+    const fetchThread = vi.fn(threadOk);
+    await run({ fetchImpl: fetchImpl as never, fetchThread, dryRun: true });
+    expect(fetchThread).not.toHaveBeenCalled();
   });
 
   it('makes 2 requests a run and the persisted state walks every feed in turn', async () => {
@@ -440,5 +496,20 @@ describe('Facebook adoption', () => {
     ).toBe(true);
     expect(rows.some((r: { locator: string }) => r.locator === leads[0].locator)).toBe(false);
     expect(rows.some((r: { locator: string }) => r.locator.includes('dog'))).toBe(false);
+  });
+
+  it('carries the permalink of an adopted lead through to the awareness row', async () => {
+    const supabase = fakeSupabase({
+      fbLeads: [
+        {
+          community: 'facebook:g',
+          locator: 'G — which era is best',
+          title: null,
+          url: 'https://www.facebook.com/groups/1/posts/9/',
+        },
+      ],
+    });
+    const rows = await adoptFacebookLeads(supabase, { catalog, now: NOW });
+    expect(rows[0].url).toBe('https://www.facebook.com/groups/1/posts/9/');
   });
 });

@@ -25,3 +25,13 @@ export async function isLfsPointer(filePath) {
     await handle?.close();
   }
 }
+
+/** `{ oid, size }` parsed from a Git LFS pointer buffer, or `null` when it is not a well-formed pointer. */
+export function parseLfsPointer(buffer) {
+  if (!isLfsPointerBuffer(buffer) || buffer.length > 1024) return null;
+  const text = Buffer.from(buffer).toString('utf8');
+  const oid = /^oid sha256:([0-9a-f]{64})$/m.exec(text)?.[1];
+  if (!oid) return null;
+  const size = Number(/^size (\d+)$/m.exec(text)?.[1]);
+  return { oid, size: Number.isFinite(size) ? size : null };
+}

@@ -44,7 +44,7 @@ export function main(argv = process.argv.slice(2), { execImpl = execFileSync, ro
   };
   let plan = resolveChaseAction(input);
   if (!plan.ok) {
-    console.log(`chase-action: no action (${plan.reason})`);
+    console.log(`chase-action: no action (${plan.reason}${plan.detail ? `: ${plan.detail}` : ''})`);
     return 1;
   }
   if (plan.noop) {

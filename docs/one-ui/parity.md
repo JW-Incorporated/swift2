@@ -21,8 +21,15 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 - Frozen fixture (`scripts/parity/fixture/`, committed): a content snapshot taken
   once: the published bundle (`content/`, side b reads it from disk at `/content`
   via `serve.mjs`) and the seven baked modules the web build imports
-  (`web/*.generated.ts`, side a). BOTH sides render from it, so baselines do NOT move
-  when live content (`supabase/seed/**`) changes. CI `build-web` runs
+  (`web/*.generated.ts`, side a), plus the lens data (`experience/lenses.generated.ts`,
+  overlaid onto `packages/experience/src/` by both builds: `--apply` in build-web, `--lenses` in
+  build-dom). BOTH sides render from it, so baselines do NOT move
+  when live content (`supabase/seed/**`, lenses included) changes. Lenses were once regenerated
+  from `supabase/seed/lenses/**` on every run, which moved `crossing` and `lens-fashion-scrubber`
+  on seed-only PRs that parity skipped (#5341); they are frozen now.
+  To refresh the lenses deliberately: `node scripts/sync-longlive-lenses.mjs`, then
+  `cp packages/experience/src/lenses.generated.ts scripts/parity/fixture/experience/`
+  (or a full `--regenerate`), commit, then re-baseline. CI `build-web` runs
   `npm run sync:content` (for the unrelated generated files), then
   `make-fixture.mjs --apply` (overlays the snapshot over `apps/web` and fails unless
   baked and bundle hash equal `fixture.json`), then `npx next build` directly
@@ -50,6 +57,12 @@ disagree with each other or with committed Linux baselines. Epic #4788.
 - Projects: Pixel 7 (chromium), iPhone 15 (webkit), iPad Pro 11 portrait and
   landscape (webkit); 2 workers locally, one CI job per project.
 
+Persona bylines (#5391): every frozen item carries the `author` the live sync derives (`routeAuthor`), in both the bundle
+and the baked `content-vault.generated.ts`, so moment bylines are covered. The frozen category is lost at sync time
+(tags are many-to-one), so the authors were injected into the existing snapshot by id rather than re-freezing all live
+content, which keeps the baseline diff to bylines. `fixture-authors.test.ts` fails if a frozen item lacks one. A later
+`--regenerate` carries authors natively.
+
 ## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 
 The a-vs-b specs run each side in its own browser context (`pages.a` is the test's page, `pages.b` a second
@@ -57,7 +70,10 @@ context with the same device options, armed by the same handler). When both side
 in-memory image cache served side b an image side a had just fetched, so b's request never reached the route
 handler and the recorded external-image sets differed although both sides rendered the image.
 
-Fixed clock (`clock.setFixedTime`, never `install`), reduced motion, animations
+Fixed clock (`clock.setFixedTime`, never `install`; side a's server clock is frozen
+to the same instant by the `scripts/parity/freeze-date.cjs` preload on its `next build` and
+`next start`, because React keeps server-rendered attributes on hydration, so the current-era
+scrubber ridge otherwise followed the real date and drifted past the pixel tolerance, 2026-10-30), reduced motion, animations
 disabled, caret hidden, first-visit flags in `localStorage`, `/vault/live`
 stubbed empty, Vercel analytics stubbed, every external image answered by one
 generated grey PNG (every external image URL is recorded per side and the a and b

@@ -1,0 +1,208 @@
+# Independent social judge (docs/decisions.md 2026-11-08 "Shared voice system").
+# A tree/draft/* PR that touches social/queue/*.json gets every changed caption
+# scored by a SEPARATE claude-opus-5-5 call (scripts/social/judge-drafts.mjs,
+# rubric in scripts/social/lib/judge-rubric.mjs). The result is committed back
+# to the PR branch as `critique.judge` by github-actions[bot] (an allowed Tree
+# commit author in tree-approve-gate.mjs, and the commit touches only
+# social/queue/*.json), so social-tree-approve.yml stays unchanged and
+# deterministic: its trusted check-drafts run requires every judge score >= 4
+# and an HMAC (SOCIAL_JUDGE_KEY) that only this workflow can produce, and reads
+# nothing but the committed files. The judge scores the caption `body` only. No LLM ever runs in the approval
+# workflow.
+#
+# pull_request_target: this file and every script it runs come from main. The
+# PR's queue files are fetched as git objects and read/written as DATA only
+# (regular files only, in a separate worktree); nothing from the PR is executed.
+#
+# After a judge commit lands with every score >= 4, this workflow dispatches
+# social-tree-approve.yml for the PR with SOCIAL_POSTER_PAT (the same identity
+# and call as routine-tree-daily-draft.yml's approve-backstop), because Tree's
+# own dispatch fires before the judge can have run. A low score is commented
+# on the PR and not dispatched; the draft goes stale and is retired.
+#
+# workflow_dispatch + calibrate_models runs scripts/social/calibrate-judge.mjs
+# over judge-calibration/social/ (gold must clear every dimension, negatives
+# must fall on their expected one).
+name: social-draft-judge
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "social/queue/**"
+  workflow_dispatch:
+    inputs:
+      calibrate_models:
+        description: "Comma list of judge models to calibrate against judge-calibration/social/ (e.g. claude-opus-5-5); non-zero exit when a model misses the bars"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  judge:
+    # PR author list = TREE_PR_AUTHORS in scripts/social/tree-approve-gate.mjs.
+    if: >-
+      github.event_name == 'pull_request_target' &&
+      startsWith(github.head_ref, 'tree/draft/') &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (github.event.pull_request.user.login == 'claude[bot]' || github.event.pull_request.user.login == 'sffan15-sys')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # main-only environment (pull_request_target runs on the base ref); it holds SOCIAL_JUDGE_KEY.
+    environment: social
+    permissions:
+      contents: write
+      pull-requests: write
+    # Never cancel: a cancel between the push and the dispatch would strand a passing draft.
+    concurrency:
+      group: social-draft-judge-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    env:
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      HEAD_REF: ${{ github.head_ref }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --silent
+      # Same pinned installer as news-worker.yml; judge-drafts.mjs shells out to `claude`.
+      - name: Install Claude Code
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Fetch the PR head as data and list its changed queue files
+        id: pin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          [[ "$HEAD_REF" =~ ^tree/draft/[A-Za-z0-9._/-]+$ ]] || { echo "::error::unexpected head ref" >&2; exit 1; }
+          git fetch --no-tags --depth=1 origin "refs/heads/$HEAD_REF"
+          HEAD_SHA=$(git rev-parse FETCH_HEAD)
+          git worktree add --detach "$RUNNER_TEMP/pr" "$HEAD_SHA"
+          : > "$RUNNER_TEMP/files.txt"
+          gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[] | select(.status != "removed") | .filename' | while IFS= read -r f; do
+            [[ "$f" =~ ^social/queue/[A-Za-z0-9][A-Za-z0-9._-]*\.json$ ]] || continue
+            MODE=$(git ls-tree "$HEAD_SHA" -- "$f" | cut -d' ' -f1)
+            [ "$MODE" = "100644" ] || continue
+            echo "$RUNNER_TEMP/pr/$f" >> "$RUNNER_TEMP/files.txt"
+          done
+          echo "count=$(wc -l < "$RUNNER_TEMP/files.txt" | tr -d ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Judge the captions
+        id: judge
+        if: steps.pin.outputs.count != '0'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+        run: |
+          set -euo pipefail
+          mapfile -t FILES < "$RUNNER_TEMP/files.txt"
+          node scripts/social/judge-drafts.mjs --summary "$RUNNER_TEMP/judge-summary.md" --judged-out "$RUNNER_TEMP/judged.json" "${FILES[@]}"
+
+      # Separate step: ONLY SOCIAL_JUDGE_KEY is in its env (no Claude token, never SOCIAL_APPROVAL_KEY).
+      # Signs exactly the records the judge step wrote this run. Without the key the records stay
+      # unsigned and approval does not enforce the judge (rollout; it warns loudly).
+      - name: Sign the judge records
+        if: steps.pin.outputs.count != '0'
+        env:
+          SOCIAL_JUDGE_KEY: ${{ secrets.SOCIAL_JUDGE_KEY }}
+        run: node scripts/social/judge-drafts.mjs --sign "$RUNNER_TEMP/judged.json"
+
+      - name: Commit the judge records to the PR branch
+        id: push
+        if: steps.pin.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/pr"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- social/queue
+          if git diff --cached --quiet; then
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --name-only | grep -Ev '^social/queue/[A-Za-z0-9][A-Za-z0-9._-]*\.json$' && { echo "::error::judge commit touched a non-queue file" >&2; exit 1; } || true
+          git commit -m "social: independent judge scores (PR #$PR)"
+          git push origin "HEAD:refs/heads/$HEAD_REF"
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Comment the scores on the PR
+        if: always() && steps.pin.outputs.count != '0' && steps.judge.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -s "$RUNNER_TEMP/judge-summary.md" ]; then
+            gh pr comment "$PR" --repo "$REPO" --body-file "$RUNNER_TEMP/judge-summary.md" || true
+          fi
+
+      - name: Dispatch social-tree-approve once every score clears
+        if: steps.push.outputs.pushed == 'true' && steps.judge.outputs.all_pass == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
+        run: gh workflow run social-tree-approve.yml --repo "$REPO" --ref main -f pr="$PR"
+
+  calibrate:
+    if: github.event_name == 'workflow_dispatch' && inputs.calibrate_models != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Validate inputs
+        env:
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+        run: |
+          [[ "$INPUT_CALIBRATE_MODELS" =~ ^[a-z0-9.,-]+$ ]] || { echo "::error::calibrate_models must match ^[a-z0-9.,-]+$" >&2; exit 1; }
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - run: npm ci --ignore-scripts --silent
+      - name: Install Claude Code
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Deterministic gates over the fixtures
+        run: node scripts/social/calibrate-judge.mjs --deterministic
+      - name: Run the social judge calibration
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          OUT_DIR: ${{ runner.temp }}/social-judge-calibration
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+        run: |
+          status=0
+          node scripts/social/calibrate-judge.mjs "$OUT_DIR" --models "$INPUT_CALIBRATE_MODELS" > "$RUNNER_TEMP/summary.md" || status=$?
+          { echo '## Social judge calibration'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: social-judge-calibration
+          path: ${{ runner.temp }}/social-judge-calibration
+          retention-days: 14

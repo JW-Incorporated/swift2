@@ -46,11 +46,21 @@
 
 import {
   OFFICIAL_DOMAINS,
+  OFFICIAL_YOUTUBE_CHANNEL_IDS,
+  OFFICIAL_TICKETING_IDS,
   ESTABLISHED_DOMAINS,
   ESTABLISHED_SOURCE_NAMES,
 } from './source-tiers.generated.mjs';
 
-export { OFFICIAL_DOMAINS, ESTABLISHED_DOMAINS, ESTABLISHED_SOURCE_NAMES };
+export {
+  OFFICIAL_DOMAINS,
+  OFFICIAL_YOUTUBE_CHANNEL_IDS,
+  OFFICIAL_TICKETING_IDS,
+  ESTABLISHED_DOMAINS,
+  ESTABLISHED_SOURCE_NAMES,
+};
+
+export const OFFICIAL_TICKETING_DOMAINS = new Set(['ticketmaster.com']);
 
 /** Case-insensitive `www.`-stripped hostname, or null for an unparsable url. */
 export function hostOf(url) {
@@ -68,9 +78,38 @@ function domainOrSubdomainOf(host, set) {
   return false;
 }
 
-/** True when `url`'s host resolves to Taylor's own verified domain. */
+function officialYouTubeUrl(url) {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (host !== 'youtube.com' && !host.endsWith('.youtube.com')) return false;
+  const pathChannelId = /^\/channel\/([^/]+)\/?$/.exec(url.pathname)?.[1];
+  const feedChannelId =
+    url.pathname === '/feeds/videos.xml' ? url.searchParams.get('channel_id') : null;
+  return OFFICIAL_YOUTUBE_CHANNEL_IDS.has(pathChannelId ?? feedChannelId ?? '');
+}
+
+function officialFirstPartyUrl(url) {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (host === 'taylorswift.com' || host.endsWith('.taylorswift.com')) return true;
+  if (!domainOrSubdomainOf(host, OFFICIAL_DOMAINS)) return false;
+  return /\/(?:taylor-swift|taylorswift)(?:\/|$)/i.test(url.pathname);
+}
+
+function officialTicketingUrl(url) {
+  const host = url.hostname.toLowerCase().replace(/^www\./, '');
+  if (!domainOrSubdomainOf(host, OFFICIAL_TICKETING_DOMAINS)) return false;
+  const pathId = /\/(?:artist|attractions)\/([^/]+?)(?:\.json)?\/?$/i.exec(url.pathname)?.[1];
+  const urlIds = [pathId ?? '', url.searchParams.get('attractionId') ?? ''];
+  return urlIds.some((id) => OFFICIAL_TICKETING_IDS.has(id));
+}
+
+/** True for a verified artist/label URL or an exact channel/ticketing id rule. */
 export function isOfficialDomain(url) {
-  return domainOrSubdomainOf(hostOf(url), OFFICIAL_DOMAINS);
+  try {
+    const parsed = new URL(String(url));
+    return officialFirstPartyUrl(parsed) || officialYouTubeUrl(parsed) || officialTicketingUrl(parsed);
+  } catch {
+    return false;
+  }
 }
 
 /** True when `url`'s host is a direct-publisher domain on the allowlist. */

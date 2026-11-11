@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ERAS } from '@swift2/experience';
-import { eraStyle, statusBarStyleFor, MERCH_THEME, themeStyle, VAULT_THEME } from './theme';
+import { accentFgFor, eraStyle, statusBarStyleFor, MERCH_THEME, themeStyle, VAULT_THEME } from './theme';
 
 // #659: --era-accent-text needs to reach every consumer even though most
 // themes don't set an explicit `accentText` override.
@@ -60,6 +60,21 @@ describe('SignificanceBadge colors — WCAG AA 4.5:1 (#3318)', () => {
   it.each(themes)('$id: "notable" outline text clears 4.5:1 (accentText on surface)', ({ theme }) => {
     const fg = theme.accentText ?? theme.accent;
     expect(contrastRatio(fg, theme.surface)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+
+// #5255: DecodeCard's "Decode the payoff" button is a solid fill of the
+// *plant* era's accent, painted with that era's accentFgFor — not the page's
+// --era-bg, which measured 4.47:1 on a Red-accent fill under another era.
+describe('"Decode the payoff" button — WCAG AA 4.5:1 for every plant era (#5255)', () => {
+  it.each(ERAS.map((e) => ({ id: e.id, theme: e.theme })))('$id: accentFgFor on accent clears 4.5:1', ({ theme }) => {
+    expect(contrastRatio(accentFgFor(theme), theme.accent)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('red: the old era-bg-on-accent pairing was the failing one', () => {
+    const red = ERAS.find((e) => e.id === 'red')!.theme;
+    expect(contrastRatio(red.bg, red.accent)).toBeLessThan(4.5);
+    expect(contrastRatio(accentFgFor(red), red.accent)).toBeGreaterThanOrEqual(4.5);
   });
 });
 
