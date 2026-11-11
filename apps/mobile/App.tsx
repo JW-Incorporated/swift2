@@ -11,7 +11,7 @@
 // swallowed taps. `react-native-safe-area-context` reads real window insets
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { AppState, Linking, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
@@ -51,9 +51,11 @@ import { FirstLaunchScreen } from './components/FirstLaunchScreen';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
+import { splashCanHideWithoutDom, splashHandoff } from './lib/splash-handoff';
 
 installDiagnostics();
 installSpeedTest();
+const splash = splashHandoff();
 
 export default function App() {
   const [updateRequired, setUpdateRequired] = useState(false);
@@ -63,6 +65,19 @@ export default function App() {
   // D-7: native overlays present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
   // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
   const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
+  const hostWatch = useMemo(
+    () => ({
+      ...domMount.watch,
+      ready: () => {
+        domMount.watch.ready();
+        splash.hide();
+      },
+    }),
+    [domMount.watch],
+  );
+  useEffect(() => {
+    if (splashCanHideWithoutDom(domMount.mount, updateRequired)) splash.hide();
+  }, [domMount.mount, updateRequired]);
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   const theme = effectiveNativeTheme(domRendered, useSyncExternalStore(subscribeNativeTheme, getNativeTheme));
   useEffect(() => {
@@ -173,7 +188,7 @@ export default function App() {
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
             <DomHostMount
-              watch={domMount.watch}
+              watch={hostWatch}
               forceFailure={domMount.forceFailure}
               siteUrl={SITE_URL}
               state={nativeRoute}
