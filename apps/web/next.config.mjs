@@ -11,6 +11,8 @@ const nextConfig = {
     '/api/share-card': ['./lib/longlive/share-fonts/**/*'],
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2678400,
     // YouTube poster thumbnails for the click-to-play music-video facade.
     remotePatterns: [{ protocol: 'https', hostname: 'i.ytimg.com' }],
   },
