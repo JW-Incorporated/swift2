@@ -15,7 +15,11 @@ function fakeTimers() {
       return next++;
     },
     clearTimeout: (h: unknown) => void pending.delete(h as number),
-    fire: () => [...pending.values()].forEach((fn) => fn()),
+    fire: () => {
+      const fns = [...pending.values()];
+      pending.clear();
+      fns.forEach((fn) => fn());
+    },
     size: () => pending.size,
   };
 }
@@ -106,6 +110,76 @@ describe('createSplashHandoff', () => {
     const h = createSplashHandoff(() => m, fakeTimers());
     h.hide();
     await flush();
+    expect(m.hideAsync).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('hide hardening', () => {
+  it('held never settles: hideAsync is still called once after the bound', async () => {
+    const m = mod({ preventAutoHideAsync: vi.fn(() => new Promise<boolean>(() => undefined)) });
+    const t = fakeTimers();
+    const h = createSplashHandoff(() => m, t);
+    h.hide();
+    await flush();
+    expect(m.hideAsync).not.toHaveBeenCalled();
+    t.fire();
+    await flush();
+    expect(m.hideAsync).toHaveBeenCalledTimes(1);
+    t.fire();
+    await flush();
+    expect(m.hideAsync).toHaveBeenCalledTimes(1);
+  });
+
+  it('rejects twice then resolves: 3 calls, then no more', async () => {
+    let n = 0;
+    const m = mod({ hideAsync: vi.fn(async () => (++n < 3 ? Promise.reject(new Error('x')) : undefined)) });
+    const t = fakeTimers();
+    createSplashHandoff(() => m, t).hide();
+    for (let i = 0; i < 6; i++) {
+      await flush();
+      t.fire();
+    }
+    await flush();
+    expect(m.hideAsync).toHaveBeenCalledTimes(3);
+  });
+
+  it('always rejects: exactly 3 calls', async () => {
+    const m = mod({ hideAsync: vi.fn(async () => Promise.reject(new Error('x'))) });
+    const t = fakeTimers();
+    createSplashHandoff(() => m, t).hide();
+    for (let i = 0; i < 8; i++) {
+      await flush();
+      t.fire();
+    }
+    await flush();
+    expect(m.hideAsync).toHaveBeenCalledTimes(3);
+  });
+
+  it('throws synchronously: retried the same way, 3 calls', async () => {
+    const m = mod({
+      hideAsync: vi.fn(() => {
+        throw new Error('sync');
+      }),
+    });
+    const t = fakeTimers();
+    createSplashHandoff(() => m, t).hide();
+    for (let i = 0; i < 8; i++) {
+      await flush();
+      t.fire();
+    }
+    await flush();
+    expect(m.hideAsync).toHaveBeenCalledTimes(3);
+  });
+
+  it('hide() called 5 times starts one sequence', async () => {
+    const m = mod();
+    const t = fakeTimers();
+    const h = createSplashHandoff(() => m, t);
+    for (let i = 0; i < 5; i++) h.hide();
+    for (let i = 0; i < 3; i++) {
+      await flush();
+      t.fire();
+    }
     expect(m.hideAsync).toHaveBeenCalledTimes(1);
   });
 });

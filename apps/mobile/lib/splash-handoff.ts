@@ -6,6 +6,10 @@ import type { MountState } from './watchdog-gate';
 import { PENDING_MAX_MS } from './watchdog-policy';
 
 export const SPLASH_SAFETY_MS = PENDING_MAX_MS * 2;
+/** Longest hide() waits for a hung preventAutoHideAsync before calling hideAsync anyway. */
+export const HIDE_WAIT_MS = 500;
+export const HIDE_RETRY_MS = 300;
+export const HIDE_ATTEMPTS = 3;
 
 export interface SplashModule {
   preventAutoHideAsync: () => Promise<unknown>;
@@ -44,13 +48,25 @@ export function createSplashHandoff(
     if (timer !== undefined) timers.clearTimeout(timer);
     const m = mod;
     if (!m) return;
-    void held.then(() => {
+    let begun = false;
+    const attempt = (n: number): void => {
+      const again = (): void => {
+        if (n < HIDE_ATTEMPTS) timers.setTimeout(() => attempt(n + 1), HIDE_RETRY_MS);
+      };
       try {
-        return Promise.resolve(m.hideAsync()).catch(() => undefined);
+        Promise.resolve(m.hideAsync()).catch(again);
       } catch {
-        return undefined;
+        again();
       }
-    });
+    };
+    const begin = (): void => {
+      if (begun) return;
+      begun = true;
+      timers.clearTimeout(waitTimer);
+      attempt(1);
+    };
+    const waitTimer = timers.setTimeout(begin, HIDE_WAIT_MS);
+    void held.then(begin);
   };
   if (mod) timer = timers.setTimeout(hide, safetyMs);
   return { hide };
