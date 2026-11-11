@@ -16,7 +16,7 @@ interface ClownEmptyStateProps {
 export function ClownEmptyState({ intro, onSelect, onFanTheoryChip }: ClownEmptyStateProps) {
   return (
     <div className="mx-auto max-w-xl text-center text-[color:var(--clown-ink-soft)]">
-      <p className="text-[13px] opacity-70">{intro}</p>
+      <p className="text-[13px]">{intro}</p>
       <p className="mt-3 text-sm leading-relaxed">{CLOWN_JARGON_GUIDE}</p>
       <div
         className="mt-4 flex flex-wrap justify-center gap-2"

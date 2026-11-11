@@ -9,6 +9,8 @@ vi.mock('expo-updates', () => ({
   fetchUpdateAsync: () => h.fetch(),
   reloadAsync: () => h.reload(),
 }));
+const r = vi.hoisted(() => ({ persist: vi.fn(async () => {}), discard: vi.fn(async () => {}) }));
+vi.mock('./retained-link', () => ({ persistRetainedLink: () => r.persist(), discardRetainedLink: () => r.discard() }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '7:u1',
   loadWatchdogRecord: async () => h.rec,
@@ -23,7 +25,7 @@ vi.mock('./watchdog-store', () => ({
   },
 }));
 
-import { prepareIdleReload, retryDomAttempt, retryRecord } from './recovery-retry';
+import { RETAINED_PERSIST_TIMEOUT_MS, prepareIdleReload, retryDomAttempt, retryRecord } from './recovery-retry';
 import { currentWatchdogWriter } from './watchdog-writer';
 import { decideMount, freshRecord, recordStrike, readRecord, type WatchdogRecord } from './watchdog';
 
@@ -198,5 +200,31 @@ describe('prepareIdleReload', () => {
     h.rec = rec('ready');
     h.saveOk = false;
     expect(await prepareIdleReload()).toBe(false);
+  });
+});
+
+describe('retained link around the reload (#5139)', () => {
+  beforeEach(() => {
+    r.persist.mockReset().mockResolvedValue(undefined);
+    r.discard.mockReset().mockResolvedValue(undefined);
+  });
+
+  it('a never-resolving retained write cannot hang Retry: the reload still happens', async () => {
+    vi.useFakeTimers();
+    r.persist.mockImplementation(() => new Promise<void>(() => {}));
+    const done = retryDomAttempt(() => 5);
+    await vi.advanceTimersByTimeAsync(RETAINED_PERSIST_TIMEOUT_MS + 1);
+    expect(await done).toBe('reload-requested');
+    expect(h.reload).toHaveBeenCalledTimes(1);
+    vi.useRealTimers();
+  });
+
+  it('a failed reload discards the persisted link; a requested reload keeps it', async () => {
+    h.reload.mockRejectedValue(new Error('no'));
+    expect(await retryDomAttempt(() => 5)).toBe('reload-failed');
+    expect(r.discard).toHaveBeenCalledTimes(1);
+    h.reload.mockResolvedValue(undefined);
+    expect(await retryDomAttempt(() => 5)).toBe('reload-requested');
+    expect(r.discard).toHaveBeenCalledTimes(1);
   });
 });
