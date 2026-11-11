@@ -47,10 +47,11 @@ describe('heading outline has no h1 → h3 jumps (#703)', () => {
     // h1 → h3 jump.
     // A11Y-7: the era hero is an h2 (the masthead owns the page's one h1).
     expect(headings.filter((l) => l === 1)).toHaveLength(0);
-    expect(headings[0]).toBe(2);
-    expect(headings[1]).toBe(2);
-    const h2Index = 1;
-    expect(headings.filter((l) => l === 2)).toHaveLength(2);
+    // The current era has an Era Secret pool (#6442), so its card title is a
+    // third h2 between the hero and the feed list, as on every other era.
+    expect(headings.slice(0, 3)).toEqual([2, 2, 2]);
+    const h2Index = 2;
+    expect(headings.filter((l) => l === 2)).toHaveLength(3);
     // Every heading after the h2 (the card titles) is an h3 — never a
     // further h1/h2 reopening the jump the fix closed.
     for (const level of headings.slice(h2Index + 1)) {
