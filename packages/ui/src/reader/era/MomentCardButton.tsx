@@ -155,7 +155,7 @@ export function MomentCardButton({
 }) {
   const { Image } = useHost();
   const loadAttrs = eager
-    ? ({ loading: 'eager', fetchPriority: 'high' } as const)
+    ? ({ loading: 'eager' } as const)
     : ({ loading: 'lazy', decoding: 'async' } as const);
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);

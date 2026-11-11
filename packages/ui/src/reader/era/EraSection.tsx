@@ -213,6 +213,7 @@ export function EraSection({
             src={resolveUrl(era.image || '/placeholder.svg')}
             alt=""
             fill
+            sizes="100vw"
             priority={eagerImages}
             loading={eagerImages ? 'eager' : 'lazy'}
             fetchPriority={eagerImages ? 'high' : undefined}

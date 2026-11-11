@@ -128,7 +128,7 @@ export function BottomNav() {
               onClick={() => setMode(tab.mode)}
               className={cn(
                 'flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-semibold transition-colors',
-                active ? 'text-accent' : 'text-ink-soft',
+                active ? 'text-[color:var(--era-accent-text)]' :'text-ink-soft',
               )}
             >
               <Icon className="size-5" aria-hidden />

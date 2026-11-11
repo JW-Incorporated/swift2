@@ -14,6 +14,7 @@
 import { CornerDownLeft, Loader2, Plus } from 'lucide-react';
 import type { RefObject } from 'react';
 import { useAutoResizeTextarea } from './lib/clown-chat-ui';
+import { requestOpenFeedback } from '../legal/lib/feedback-open-event';
 
 const MAX_CHARS = 300;
 const INPUT_PLACEHOLDER = 'lets clown around';
@@ -81,6 +82,13 @@ export function ClownChatComposer({ className, text, setText, submit, busy, text
       <p className="mt-2.5 text-center text-[11px] text-[color:var(--clown-ink-soft)] opacity-80">
         clown bot theorises from the vault. It can be wrong &mdash; that&rsquo;s the point.
       </p>
+      <button
+        type="button"
+        onClick={requestOpenFeedback}
+        className="relative mx-auto mt-0.5 block px-2 text-[11px] text-[color:var(--clown-ink-soft)] underline underline-offset-2 before:absolute before:-inset-y-2 before:inset-x-0 before:content-[''] md:hidden"
+      >
+        Report a problem
+      </button>
     </div>
   );
 }

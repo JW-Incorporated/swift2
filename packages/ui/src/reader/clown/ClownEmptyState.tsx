@@ -5,19 +5,18 @@ interface ClownEmptyStateProps {
   intro: string;
   onSelect: (prompt: string) => void;
   /** Community Engine plan §Phase 2, card P2-5 — sends immediately (zero
-   * model calls), unlike `onSelect` above which only prefills the composer.
+   * model calls), flagged as a chip so the route skips the model.
    * Optional so this component's other, already-tested call sites/stories
    * are unaffected if one ever omits it; the button simply doesn't render. */
   onFanTheoryChip?: () => void;
 }
 
-/** Newcomer-readable definitions and composer prefills; never auto-sends
- * except via `onFanTheoryChip`, which is deliberately the one exception —
- * see that prop's own doc comment. */
+/** Newcomer-readable definitions and starter questions; a starter tap sends
+ * its question immediately (`onSelect`), same as a typed submit. */
 export function ClownEmptyState({ intro, onSelect, onFanTheoryChip }: ClownEmptyStateProps) {
   return (
     <div className="mx-auto max-w-xl text-center text-[color:var(--clown-ink-soft)]">
-      <p className="text-[13px] opacity-70">{intro}</p>
+      <p className="text-[13px]">{intro}</p>
       <p className="mt-3 text-sm leading-relaxed">{CLOWN_JARGON_GUIDE}</p>
       <div
         className="mt-4 flex flex-wrap justify-center gap-2"
