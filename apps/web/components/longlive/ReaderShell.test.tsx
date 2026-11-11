@@ -65,12 +65,14 @@ describe('ReaderShell slots', () => {
     expect(screen.queryByTestId('s-threads')).toBeNull();
   });
 
-  it('keeps header, main, footer, spacer, overlays, nav order', () => {
+  it('keeps skip link, header, main, footer, spacer, overlays, nav order', () => {
     const { container } = renderShell(slots);
     const shell = container.querySelector('.era-shell');
     const tags = Array.from(shell?.children ?? []).map((c) => c.tagName.toLowerCase());
-    expect(tags.slice(0, 4)).toEqual(['header', 'main', 'div', 'div']);
-    expect(shell?.children[3]?.getAttribute('aria-hidden')).toBe('true');
+    expect(tags.slice(0, 5)).toEqual(['a', 'header', 'main', 'div', 'div']);
+    expect(shell?.children[0]?.getAttribute('href')).toBe('#main-content');
+    expect(shell?.children[2]?.getAttribute('id')).toBe('main-content');
+    expect(shell?.children[4]?.getAttribute('aria-hidden')).toBe('true');
   });
 
   it('web LongLive passes every surface slot', async () => {

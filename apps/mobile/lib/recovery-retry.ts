@@ -7,6 +7,7 @@ import { STRIKES_TO_FALLBACK, freshRecord, type WatchdogRecord } from './watchdo
 import { QUARANTINE_AFTER_FALLBACK_CYCLES } from './watchdog-policy';
 import { currentBuildKey, loadWatchdogRecord } from './watchdog-store';
 import { currentWatchdogWriter } from './watchdog-writer';
+import { discardRetainedLink, persistRetainedLink } from './retained-link';
 
 export type RetryOutcome = 'reload-requested' | 'save-failed' | 'reload-failed';
 
@@ -41,6 +42,7 @@ export async function prepareIdleReload(now: () => number = Date.now): Promise<b
 
 export const OTA_CHECK_TIMEOUT_MS = 8000;
 export const OTA_FETCH_TIMEOUT_MS = 30000;
+export const RETAINED_PERSIST_TIMEOUT_MS = 1500;
 
 export type RetryPhase = 'checking' | 'downloading';
 
@@ -78,10 +80,12 @@ export async function retryDomAttempt(now: () => number = Date.now, onPhase?: (p
     return 'save-failed';
   }
   await fetchPendingUpdate(onPhase);
+  await raceTimeout(persistRetainedLink(), RETAINED_PERSIST_TIMEOUT_MS);
   try {
     await Updates.reloadAsync();
     return 'reload-requested';
   } catch {
+    await discardRetainedLink();
     return 'reload-failed';
   }
 }

@@ -36,7 +36,6 @@ releases/releases.mjs#the-tortured-poets-department d0a25ddf064fa893
 releases/releases.mjs#ttpd-the-anthology 52bbfe787adfd1ce
 releases/releases.mjs#the-life-of-a-showgirl 81b8018220d17f6a
 tours/tours.mjs#fearless-tour 9991be8f92e7ed2d
-tours/tours.mjs#speak-now-world-tour e3d156363f65f0b8
 tours/tours.mjs#the-red-tour fbb7c5c2dbe649dc
 tours/tours.mjs#the-1989-world-tour 9c561bbd78199077
 tours/tours.mjs#reputation-stadium-tour ec75773242086f14
