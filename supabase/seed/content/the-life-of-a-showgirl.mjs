@@ -17632,6 +17632,68 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-11-11 (Vault Run, Content Shift lane) from intake #6814.
+      // Billboard (Gil Kaufman, Nov. 11) loaded directly and read in full; it
+      // reports THR's own announcement, with quotes from Maer Roshan and Sherry
+      // Lansing. The gala date is not announced ("typically early December"),
+      // so none is given here. Redlines: clean — a public industry honor.
+      slug: 'showgirl-sherry-lansing-leadership-award',
+      significance: 'notable',
+      year: 2026,
+      month: 11,
+      day: 11,
+      category: 'business',
+      relatedIds: ['moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame'],
+      title: 'Taylor gets the 2026 Sherry Lansing Leadership Award, with Greta Gerwig presenting',
+      snippet:
+        'The Hollywood Reporter announced on Nov. 11, 2026 that Taylor will receive the Sherry Lansing Leadership Award at its Women in Entertainment gala in Los Angeles, with Greta Gerwig presenting.',
+      sourceUrl:
+        'https://www.billboard.com/culture/events/taylor-swift-2026-sherry-lansing-leadership-award-greta-gerwig-1236379462/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Wednesday, Nov. 11, 2026, The Hollywood Reporter announced that Taylor is this year\'s recipient of the Sherry Lansing Leadership Award, to be handed over at its annual Women in Entertainment breakfast gala in Los Angeles. The gala usually lands in early December, and Greta Gerwig will present the award. The two are friends; on Late Night with Seth Meyers in October 2025, while promoting The Life of a Showgirl, Taylor told a story about Travis Kelce mixing up Gerwig and Hugh Grant\'s wife at an Eras Tour show.\n\nThe award is named for Lansing, the former Paramount Pictures chief and the first woman to run a Hollywood studio. It goes to trailblazers and philanthropists in entertainment and media, and past honorees include Adele, Gwyneth Paltrow, Charlize Theron, Reese Witherspoon, Barbra Streisand and Meryl Streep.\n\nTHR editor-in-chief Maer Roshan made ownership the headline: "Taylor Swift took on an industry that has long underestimated women and won on every front: artistically, commercially and on the question of who owns her work." Lansing said much the same. "She has paved the way for women in music, demonstrating what is possible when a woman takes ownership of her work, her career and her future," she told THR, and added a word for "her generosity and commitment to giving back."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/events/taylor-swift-2026-sherry-lansing-leadership-award-greta-gerwig-1236379462/',
+            source_title: 'Taylor Swift to Receive 2026 Sherry Lansing Leadership Award From Greta Gerwig at Women in Entertainment Gala',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-11',
+            reliability_score: 4,
+            notes:
+              'By Gil Kaufman, Nov. 11, 2026; read in full. Primary for the award, Gerwig presenting, the early-December LA breakfast gala, past honorees, and the Roshan and Lansing quotes.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-the-hollywood-reporter-women-in-entertainment-1236751852/',
+            source_title:
+              "Taylor Swift Will Be Honored With The Hollywood Reporter's Sherry Lansing Leadership Award at Women in Entertainment Gala",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-11',
+            reliability_score: 4,
+            notes:
+              'By THR Staff, Nov. 11, 2026; loaded directly. The host publication\'s own announcement: the award, Gerwig presenting, the Women in Entertainment breakfast gala in Los Angeles.',
+          },
+        ],
+        // Downloaded and viewed 2026-11-11: HTTP 200, image/jpeg, 1024px wide.
+        // Billboard's featured image for its report: Taylor at the Academy
+        // Museum Gala in Los Angeles, Oct. 17, 2026. Caption says so plainly.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/P108QRF2-e1792406932507.jpg?w=1024',
+            credit: 'Gilbert Flores/Variety, via Billboard',
+            caption:
+              'Taylor at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, the photo Billboard ran with its report on the Sherry Lansing award.',
+            kind: 'reference',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
