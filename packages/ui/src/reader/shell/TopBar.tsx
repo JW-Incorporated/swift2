@@ -57,7 +57,7 @@ export function TopBar() {
             type="button"
             onClick={handleHome}
             aria-label="Long Live — back to home"
-            className="shrink-0 rounded-md font-era text-[length:min(1rem,20px)] font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-xl"
+            className="relative shrink-0 rounded-md font-era text-[length:min(1rem,20px)] font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent before:absolute before:-inset-y-2.5 before:inset-x-0 before:content-[''] md:text-xl"
           >
             Long&nbsp;Live
           </button>
@@ -66,7 +66,7 @@ export function TopBar() {
             <button
               type="button"
               onClick={() => setSelectorOpen(true)}
-              className="group flex min-w-0 items-center gap-[min(0.25rem,4px)] rounded-full px-[min(0.5rem,8px)] py-1 text-left transition-colors hover:bg-surface"
+              className="group relative flex min-w-0 items-center gap-[min(0.25rem,4px)] rounded-full px-[min(0.5rem,8px)] py-1 text-left transition-colors before:absolute before:-inset-y-2 before:inset-x-0 before:content-[''] hover:bg-surface"
             >
               <span className="min-w-0 truncate text-sm font-medium text-ink">
                 {/* Context label (P4 step 19) — mobile shortens to the era's

@@ -19,7 +19,7 @@ const buttonVariants = cva(
         sm: 'h-8 px-3',
         md: 'h-10 px-5',
         lg: 'h-12 px-7 text-base',
-        icon: 'h-[min(2.5rem,44px)] w-[min(2.5rem,44px)]',
+        icon: "relative h-[min(2.5rem,44px)] w-[min(2.5rem,44px)] before:absolute before:-inset-[3px] before:content-['']",
       },
     },
     defaultVariants: {
