@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Taylor Swift's Knicks Drama Involves Tyler Kolek’s Girlfriend
+
+- first seen: 2026-11-11 07:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Recent developments in the Knicks drama surrounding Taylor Swift include involvement from Tyler Kolek’s girlfriend. Details about the nature of this twist have yet to be disclosed.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/articles/taylor-swift-knicks-drama-takes-060000084.html
+
 ## Jan Ravnik announces Taylor Swift song for 'DWTS' season
 
 - first seen: 2026-11-11 05:13 UTC | category: music | importance: 6
@@ -707,19 +715,3 @@ Stories: 83
 - summary: Taylor Swift reflects on a personal thought in her quote for the day, emphasizing daily contemplation. Fans are invited to engage with her words through the link provided.
 - sources:
   - [unverified] www.grunge.com — https://www.grunge.com/2303721/quote-of-the-day-taylor-swift-think-about-every-day/
-
-## Tyler Kolek Responds to Taylor Swift Fan Comment Amid Knicks Banter
-
-- first seen: 2026-11-08 07:15 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 9
-- summary: Tyler Kolek acknowledges his comment about being a Taylor Swift fan, which led to lighthearted teasing from the Knicks. This playful exchange highlights the intersection of sports and pop culture.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-wears-red-sweater-polo-cheer-travis-kelce-chiefs-12240975
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/taylor-swift-goes-absolutely-wild-at-arrowhead-as-travis-kelce-scores-touchdown-video.html
-  - [unverified] New York Post — https://nypost.com/2026/11/08/sports/knicks-tyler-kolek-owns-up-to-taylor-swift-fan-comment-that-earned-him-some-fun-ribbing/
-  - [unverified] Page Six — https://pagesix.com/2026/11/08/entertainment/frenemies-taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-after-surprise-travis-kelce-wedding-invite/
-  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article317986017.html
-  - [established] The New York Times — https://www.nytimes.com/athletic/7762791/2026/11/08/taylor-swift-knicks-fandom-tyler-kolek-apology/
-  - [unverified] USA Today — https://www.usatoday.com/story/sports/nfl/chiefs/2026/11/08/taylor-swift-karlie-kloss-chiefs-game/92679917007/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/digital/news/taylor-swift-karlie-kloss-reunite-travis-kelce-chiefs-game-1236942684/
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/why-taylor-swift-fans-mad-154200587.html
