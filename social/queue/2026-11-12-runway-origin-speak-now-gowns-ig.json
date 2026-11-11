@@ -30,5 +30,16 @@
     ],
     "revision": 1
   },
-  "why": "IG sibling of the Runway origin-story hero. Single photo, no screenshot slide: I could not verify a rich Runway-lens screenshot this run, and a flat one is banned. The caption survives the Facebook cross-post (no swipe line)."
+  "why": "IG sibling of the Runway origin-story hero. Single photo, no screenshot slide: I could not verify a rich Runway-lens screenshot this run, and a flat one is banned. The caption survives the Facebook cross-post (no swipe line).",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-11T18:42:50.730Z",
+    "pr": 6804,
+    "message": "social-tree-approve run 43080112682",
+    "contentHash": "sha256:74cd1f327eb8d1a385ac31e766ba5ddc1ed1a386bb3266a49ea20dbb590bf3a2",
+    "mediaDigest": "sha256:93b08b4f2553aa85a66b8c8f8f0af0503e36313d9e4d79a67619aa4ac47e473b",
+    "sig": "hmac-sha256:43abb47eaf126755cb3e65c60043648b18f7fa64c37c8e4fae2c133acfdf5cc2"
+  }
 }

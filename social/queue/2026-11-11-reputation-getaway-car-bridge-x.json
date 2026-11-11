@@ -31,5 +31,16 @@
     ],
     "revision": 1
   },
-  "why": "11-11 was launch:photo-viewer DAY +2, gated on day 0 shipping. Day 0 (11-09) did not ship (it fell back to the reputation olive-branch post), so per the beat's gate this is heartbeat:era-deep-cut on reputation. Vault: reputation.mjs 'The Getaway Car bridge, written in under 30 seconds on camera' (Rolling Stone). Hook = the artifact (the phone recording); the IG half leads with the number. No share hook fits a studio anecdote honestly; tag-a-friend ran 11-07/08/09, so none."
+  "why": "11-11 was launch:photo-viewer DAY +2, gated on day 0 shipping. Day 0 (11-09) did not ship (it fell back to the reputation olive-branch post), so per the beat's gate this is heartbeat:era-deep-cut on reputation. Vault: reputation.mjs 'The Getaway Car bridge, written in under 30 seconds on camera' (Rolling Stone). Hook = the artifact (the phone recording); the IG half leads with the number. No share hook fits a studio anecdote honestly; tag-a-friend ran 11-07/08/09, so none.",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-11T18:42:50.730Z",
+    "pr": 6804,
+    "message": "social-tree-approve run 43080112682",
+    "contentHash": "sha256:e859b7a4b4b8779162440f98301a7a973649194eecb9e917df122b18de019b02",
+    "mediaDigest": "sha256:4a5356a59a6856e97fab9148226642b635361698bad36da4374127e216a33478",
+    "sig": "hmac-sha256:721ba18f6ca0dc864a424b479eb86398a5fe879bf339f304c3dfac409a2ec920"
+  }
 }
