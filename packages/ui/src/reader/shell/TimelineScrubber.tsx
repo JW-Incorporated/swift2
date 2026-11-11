@@ -166,6 +166,9 @@ export function TimelineScrubber() {
   const [active, setActive] = useState(false); // hovering or dragging
   const [focused, setFocused] = useState(false); // keyboard focus on the rail
   const [linger, setLinger] = useState(false); // shortly after release
+  // The idle vertical pill's height as a fraction of the rail's, measured (never
+  // in the scroll path) so it can be kept fully inside the rail at both ends.
+  const [pillRatio, setPillRatio] = useState(0.15);
   const [nowPct, setNowPct] = useState<number | null>(null);
   // Bumped after every measure() so date->position lookups (ticks, milestones,
   // ridge, ...) — which read the anchors ref directly during render — repaint
@@ -560,6 +563,18 @@ export function TimelineScrubber() {
   const showLabels = active || focused || linger;
 
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
+  const pillMounted = currentPct != null && pillDate != null;
+  // Month-granular on purpose: the pill's text (so its height) only changes then.
+  const pillMonth = pillDate != null ? new Date(pillDate).getUTCFullYear() * 12 + new Date(pillDate).getUTCMonth() : -1;
+  useEffect(() => {
+    const pill = pillRef.current;
+    const rail = railRef.current;
+    if (!pill || !rail || showLabels) return;
+    const railHeight = rail.offsetHeight;
+    if (!railHeight) return;
+    const ratio = pill.offsetHeight / railHeight;
+    setPillRatio((prev) => (Math.abs(prev - ratio) < 0.005 ? prev : ratio));
+  }, [pillMonth, pillMounted, showLabels, railMaxHeight, anchorPaddingTop]);
   const nearestItem = useMemo(() => {
     if (hoverDate == null || !items.length) return null;
     let best = items[0];
@@ -639,6 +654,7 @@ export function TimelineScrubber() {
             const d = scrubberKeyTarget(e.key, currentDate, start, end);
             if (d == null) return;
             e.preventDefault();
+            setFocused(true);
             setCurrentDate(d);
             setCurrentPct(pctForDate(d));
             scrollToDate(d);
@@ -790,7 +806,7 @@ export function TimelineScrubber() {
                     top: `${currentPct}%`,
                     transform: showLabels
                       ? scrubberPillTransform(currentPct)
-                      : scrubberVerticalPillTransform(currentPct),
+                      : scrubberVerticalPillTransform(currentPct, pillRatio),
                     background: 'var(--era-surface)',
                     borderColor: 'var(--era-line)',
                     color: 'var(--era-ink)',
