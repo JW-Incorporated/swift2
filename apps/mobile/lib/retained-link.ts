@@ -14,6 +14,16 @@ export interface RetainedLink {
 const secureStore = () => import('expo-secure-store');
 
 let latest: RetainedLink | null = null;
+let restored = false;
+
+/** True once this process replayed a retained link: like a link-launched process, it never auto-reloads. */
+export function retainedLinkRestored(): boolean {
+  return restored;
+}
+
+export function noteRetainedRestored(): void {
+  restored = true;
+}
 
 /** Most recent live link wins. */
 export function noteLiveLink(url: string, at: number): void {
@@ -26,6 +36,7 @@ export function currentRetainedLink(): RetainedLink | null {
 
 export function resetRetainedLink(): void {
   latest = null;
+  restored = false;
 }
 
 export function serializeRetained(link: RetainedLink): string {

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { canonicalizeLink } from './notification-tap-queue';
 import type { TapGate } from './notification-tap-gate';
 import { isDiagLink, openDiagPanel } from './diag-link';
-import { noteLiveLink, takeRetainedLink } from './retained-link';
+import { noteLiveLink, noteRetainedRestored, takeRetainedLink } from './retained-link';
 
 const APP_SCHEME = 'longlive://';
 const SITE = 'https://www.longlivets.com';
@@ -67,6 +67,7 @@ export function startDeepLinkIntake(
   let stopped = false;
   let seq = 0;
   let slotOpen = true;
+  let initialUrl: string | null = null;
   let launch: { key: string; id: string; from: 'initial' | 'event' } | null = null;
   const valid = (raw: unknown): string | null => {
     if (stopped || typeof raw !== 'string') return null;
@@ -80,6 +81,7 @@ export function startDeepLinkIntake(
     }
     const url = valid(raw);
     if (url === null) return;
+    if (from === 'initial') initialUrl = url;
     const key = urlKey(url);
     let id = `link:${++seq}:${key}`;
     if (launch !== null && launch.key === key && launch.from !== from && now() - startAt <= LAUNCH_PAIR_MS) {
@@ -101,7 +103,10 @@ export function startDeepLinkIntake(
     .then(() => ports.takeRetained?.())
     .then((raw) => {
       const url = valid(raw);
-      if (url !== null) gate.enqueue({ id: `retained:${urlKey(url)}`, deepLink: url, source: 'deeplink' });
+      if (url === null) return;
+      noteRetainedRestored();
+      if (url === initialUrl) return;
+      gate.enqueue({ id: `retained:${urlKey(url)}`, deepLink: url, source: 'deeplink' });
     })
     .catch(() => {});
   return () => {

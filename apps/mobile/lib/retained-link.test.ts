@@ -19,6 +19,7 @@ import {
   parseFreshRetained,
   persistRetainedLink,
   resetRetainedLink,
+  retainedLinkRestored,
   takeRetainedLink,
 } from './retained-link';
 import { startDeepLinkIntake } from './use-deep-links';
@@ -108,5 +109,41 @@ describe('deep link intake with a retained link (#5139)', () => {
     startDeepLinkIntake({ enqueue }, { getInitialURL: async () => null, listen: () => () => {}, takeRetained: async () => 'longlive://?item=z' });
     await flush();
     expect(enqueue).toHaveBeenCalledTimes(1);
+  });
+
+  it('a retained link equal to the replayed initial URL navigates once', async () => {
+    const urls: string[] = [];
+    const enqueue = vi.fn((t: { deepLink: string }) => (urls.push(t.deepLink), 'queued' as const));
+    startDeepLinkIntake({ enqueue }, {
+      getInitialURL: async () => 'longlive://?item=same',
+      listen: () => () => {},
+      takeRetained: async () => 'https://www.longlivets.com/?item=same',
+    });
+    await flush();
+    expect(urls).toEqual(['https://www.longlivets.com/?item=same']);
+    expect(retainedLinkRestored()).toBe(true);
+  });
+
+  it('marks the process link-restored only when a valid retained link replays', async () => {
+    const enqueue = vi.fn(() => 'queued' as const);
+    startDeepLinkIntake({ enqueue }, { getInitialURL: async () => null, listen: () => () => {}, takeRetained: async () => null });
+    await flush();
+    startDeepLinkIntake({ enqueue }, { getInitialURL: async () => null, listen: () => () => {}, takeRetained: async () => 'https://evil.test/x' });
+    await flush();
+    expect(retainedLinkRestored()).toBe(false);
+    startDeepLinkIntake({ enqueue }, { getInitialURL: async () => null, listen: () => () => {}, takeRetained: async () => 'longlive://?item=z' });
+    await flush();
+    expect(retainedLinkRestored()).toBe(true);
+  });
+
+  it('an expired retained link is dropped and never marks the process restored', async () => {
+    noteLiveLink('https://www.longlivets.com/?item=a', 1000);
+    await persistRetainedLink();
+    const taken = await takeRetainedLink(1001 + RETAINED_LINK_TTL_MS);
+    const enqueue = vi.fn(() => 'queued' as const);
+    startDeepLinkIntake({ enqueue }, { getInitialURL: async () => null, listen: () => () => {}, takeRetained: async () => taken });
+    await flush();
+    expect(enqueue).not.toHaveBeenCalled();
+    expect(retainedLinkRestored()).toBe(false);
   });
 });

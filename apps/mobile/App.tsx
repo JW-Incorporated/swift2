@@ -23,6 +23,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
 import { useDeepLinks } from './lib/use-deep-links';
+import { retainedLinkRestored } from './lib/retained-link';
 import { DiagLinkHost } from './components/DiagLinkHost';
 import { loadAppConfig, loadLaunchFlags } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
@@ -144,7 +145,7 @@ export default function App() {
       },
       prepareReload: () => prepareIdleReload(),
       userEngaged: isReaderEngaged,
-      launchedFromLink: () => launchedFromLink,
+      launchedFromLink: () => launchedFromLink || retainedLinkRestored(),
       hasPendingLink: () => notificationTapGate.size() > 0 || Date.now() - lastLinkAt < LINK_RECENT_MS,
       isDev: typeof __DEV__ !== 'undefined' && __DEV__,
     });
