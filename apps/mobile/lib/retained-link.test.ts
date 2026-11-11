@@ -146,4 +146,76 @@ describe('deep link intake with a retained link (#5139)', () => {
     expect(enqueue).not.toHaveBeenCalled();
     expect(retainedLinkRestored()).toBe(false);
   });
+
+  it('the first live link of a normally launched process (no initial URL) is retained and restored after Retry', async () => {
+    let live: (u: string) => void = () => {};
+    startDeepLinkIntake({ enqueue: vi.fn(() => 'queued' as const) }, { getInitialURL: async () => null, listen: (cb) => ((live = cb), () => {}) });
+    await flush();
+    live('longlive://?item=first');
+    expect(currentRetainedLink()?.url).toBe('https://www.longlivets.com/?item=first');
+    await persistRetainedLink();
+    resetRetainedLink();
+    const urls: string[] = [];
+    startDeepLinkIntake({ enqueue: (t: { deepLink: string }) => (urls.push(t.deepLink), 'queued' as const) }, {
+      getInitialURL: async () => null,
+      listen: () => () => {},
+      takeRetained: () => takeRetainedLink(),
+    });
+    await flush();
+    expect(urls).toEqual(['https://www.longlivets.com/?item=first']);
+  });
+
+  it('the url-event echo of the initial URL is not recorded as a live link', async () => {
+    let live: (u: string) => void = () => {};
+    startDeepLinkIntake(gateFor(), { getInitialURL: async () => 'longlive://?item=init', listen: (cb) => ((live = cb), () => {}) });
+    await flush();
+    live('longlive://?item=init');
+    expect(currentRetainedLink()).toBeNull();
+  });
+
+  it('a delivered link is not retained by a later Retry', async () => {
+    let live: (u: string) => void = () => {};
+    let settle: (id: string) => void = () => {};
+    const ids: string[] = [];
+    startDeepLinkIntake(
+      { enqueue: (t: { id: string }) => (ids.push(t.id), 'queued' as const), onSettled: (cb: (id: string) => void) => ((settle = cb), () => {}) },
+      { getInitialURL: async () => null, listen: (cb) => ((live = cb), () => {}) },
+    );
+    await flush();
+    live('longlive://?item=a');
+    live('longlive://?item=b');
+    settle(ids[0]);
+    expect(currentRetainedLink()?.url).toBe('https://www.longlivets.com/?item=b');
+    settle(ids[1]);
+    expect(currentRetainedLink()).toBeNull();
+    await persistRetainedLink();
+    expect(store.map.size).toBe(0);
+  });
+
+  it('a retained link that is a www/apex or trailing-slash variant of the initial URL navigates once', async () => {
+    const enqueue = vi.fn(() => 'queued' as const);
+    startDeepLinkIntake({ enqueue }, {
+      getInitialURL: async () => 'https://www.longlivets.com/vault/era-1/?a=1&b=2',
+      listen: () => () => {},
+      takeRetained: async () => 'https://longlivets.com/vault/era-1?b=2&a=1',
+    });
+    await flush();
+    expect(enqueue).toHaveBeenCalledTimes(1);
+  });
+
+  it('drops the retained link when a live link was already tapped in this process', async () => {
+    let live: (u: string) => void = () => {};
+    let release: (u: string | null) => void = () => {};
+    const urls: string[] = [];
+    startDeepLinkIntake({ enqueue: (t: { deepLink: string }) => (urls.push(t.deepLink), 'queued' as const) }, {
+      getInitialURL: async () => null,
+      listen: (cb) => ((live = cb), () => {}),
+      takeRetained: () => new Promise((r) => (release = r)),
+    });
+    await flush();
+    live('longlive://?item=fresh');
+    release('https://www.longlivets.com/?item=old');
+    await flush();
+    expect(urls).toEqual(['https://www.longlivets.com/?item=fresh']);
+  });
 });

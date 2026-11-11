@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { canonicalizeLink } from './notification-tap-queue';
 import type { TapGate } from './notification-tap-gate';
 import { isDiagLink, openDiagPanel } from './diag-link';
-import { noteLiveLink, noteRetainedRestored, takeRetainedLink } from './retained-link';
+import { clearRetainedLinkIfDelivered, noteLiveLink, noteRetainedRestored, takeRetainedLink } from './retained-link';
 
 const APP_SCHEME = 'longlive://';
 const SITE = 'https://www.longlivets.com';
@@ -40,6 +40,20 @@ function urlKey(url: string): string {
   return `${url.length.toString(36)}-${h1.toString(36)}${h2.toString(36)}`;
 }
 
+/** Same site destination: host (www/apex), trailing slash and query parameter order do not distinguish links. */
+function sameDestination(a: string, b: string): boolean {
+  const ca = canonicalizeLink(a);
+  const cb = canonicalizeLink(b);
+  if (ca === null || cb === null) return false;
+  const shape = (rel: string) => {
+    const u = new URL(rel, SITE);
+    const path = u.pathname.length > 1 ? u.pathname.replace(/\/+$/, '') : u.pathname;
+    const query = [...u.searchParams].map(([k, v]) => `${k}=${v}`).sort().join('&');
+    return `${path}?${query}#${u.hash}`;
+  };
+  return shape(ca) === shape(cb);
+}
+
 export interface DeepLinkPorts {
   getInitialURL(): Promise<string | null>;
   /** Subscribes to live URL events; returns the unsubscribe. */
@@ -58,7 +72,7 @@ export const LAUNCH_PAIR_MS = 10_000;
  * order. Everything else (other URLs, same-side repeats, later re-taps) gets a fresh `link:` sequence id.
  */
 export function startDeepLinkIntake(
-  gate: Pick<TapGate, 'enqueue'>,
+  gate: Pick<TapGate, 'enqueue'> & Partial<Pick<TapGate, 'onSettled'>>,
   ports: DeepLinkPorts,
   now: () => number = Date.now,
   onDiag: () => void = openDiagPanel,
@@ -68,6 +82,7 @@ export function startDeepLinkIntake(
   let seq = 0;
   let slotOpen = true;
   let initialUrl: string | null = null;
+  let liveEventSeen = false;
   let launch: { key: string; id: string; from: 'initial' | 'event' } | null = null;
   const valid = (raw: unknown): string | null => {
     if (stopped || typeof raw !== 'string') return null;
@@ -84,7 +99,9 @@ export function startDeepLinkIntake(
     if (from === 'initial') initialUrl = url;
     const key = urlKey(url);
     let id = `link:${++seq}:${key}`;
+    let echo = false;
     if (launch !== null && launch.key === key && launch.from !== from && now() - startAt <= LAUNCH_PAIR_MS) {
+      echo = launch.from === 'initial';
       id = launch.id;
       launch = null;
     } else if (slotOpen && launch === null) {
@@ -92,10 +109,14 @@ export function startDeepLinkIntake(
       launch = { key, id: `cold:${key}`, from };
       id = launch.id;
     }
-    if (from === 'event' && id.startsWith('link:')) noteLiveLink(url, now());
+    if (from === 'event' && !echo) {
+      liveEventSeen = true;
+      noteLiveLink(url, now(), id);
+    }
     gate.enqueue({ id, deepLink: url, source: 'deeplink' });
   };
   const off = ports.listen((raw) => ingest(raw, 'event'));
+  const offSettled = gate.onSettled?.((id) => clearRetainedLinkIfDelivered(id));
   ports
     .getInitialURL()
     .then((raw) => ingest(raw, 'initial'))
@@ -105,17 +126,18 @@ export function startDeepLinkIntake(
       const url = valid(raw);
       if (url === null) return;
       noteRetainedRestored();
-      if (url === initialUrl) return;
+      if (liveEventSeen || (initialUrl !== null && sameDestination(url, initialUrl))) return;
       gate.enqueue({ id: `retained:${urlKey(url)}`, deepLink: url, source: 'deeplink' });
     })
     .catch(() => {});
   return () => {
     stopped = true;
     off();
+    offSettled?.();
   };
 }
 
-export function useDeepLinks(gate: Pick<TapGate, 'enqueue'>): void {
+export function useDeepLinks(gate: Pick<TapGate, 'enqueue' | 'onSettled'>): void {
   useEffect(() => {
     let stop: (() => void) | null = null;
     let cancelled = false;

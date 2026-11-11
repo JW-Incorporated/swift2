@@ -15,6 +15,7 @@ const secureStore = () => import('expo-secure-store');
 
 let latest: RetainedLink | null = null;
 let restored = false;
+let latestId: string | null = null;
 
 /** True once this process replayed a retained link: like a link-launched process, it never auto-reloads. */
 export function retainedLinkRestored(): boolean {
@@ -26,8 +27,17 @@ export function noteRetainedRestored(): void {
 }
 
 /** Most recent live link wins. */
-export function noteLiveLink(url: string, at: number): void {
+export function noteLiveLink(url: string, at: number, id: string | null = null): void {
   latest = { url, at };
+  latestId = id;
+}
+
+/** The tap for the retained link was delivered (or dropped): the fan already got there, so Retry must not replay it. */
+export function clearRetainedLinkIfDelivered(id: string): void {
+  if (latestId !== null && latestId === id) {
+    latest = null;
+    latestId = null;
+  }
 }
 
 export function currentRetainedLink(): RetainedLink | null {
@@ -36,6 +46,7 @@ export function currentRetainedLink(): RetainedLink | null {
 
 export function resetRetainedLink(): void {
   latest = null;
+  latestId = null;
   restored = false;
 }
 
@@ -63,6 +74,15 @@ export async function persistRetainedLink(): Promise<void> {
     await (await secureStore()).setItemAsync(RETAINED_LINK_KEY, serializeRetained(latest));
   } catch {
     // Retry proceeds without the link
+  }
+}
+
+/** Best effort: removes a persisted link when the reload that would have consumed it failed. */
+export async function discardRetainedLink(): Promise<void> {
+  try {
+    await (await secureStore()).deleteItemAsync(RETAINED_LINK_KEY);
+  } catch {
+    // nothing persisted or store unavailable
   }
 }
 
