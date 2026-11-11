@@ -3469,6 +3469,48 @@
       "sha256": "0f1ca073e782d579ac89f1b8b5358a07094cfaf1ba845a2b4498802f7985b748",
       "reason": "Split-screen collage of two people; not a single prominent subject.",
       "date": "2026-11-10"
+    },
+    {
+      "id": "press-0910516a34b7",
+      "sha256": "81f761a2b2e109a7bd03a055f0399019b420d35196dbfd38143e25a1b08c9ec1",
+      "reason": "Split collage: couple plus aerial house view; two people, not single subject",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "press-ff9ce2a86c44",
+      "sha256": "ccf79cef6f537a80c789e9f47988fe6d9b92b1941213736e04816ad43142e432",
+      "reason": "Two main people plus others; large man dominates, not a single subject",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "press-9b09400351d5",
+      "sha256": "eb8d9abdb2aeca49060e686285a56111ec85bb48c295d2e2fda0120786ab1a63",
+      "reason": "Two people prominent; the man is as dominant as the woman, not a single subject.",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "press-f6d87efea5c4",
+      "sha256": "0d301ecc1e7a563a285db7d51039313dfb3409bb1cd8c651ac7b7d63a79f6f3c",
+      "reason": "Shows an older man with gray hair; doesn't plausibly match the Taylor Swift caption",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "press-e92a47b5cfee",
+      "sha256": "5f0f0b0cb2237b5364c0bd0115207a354fe4911cfa61a45813bb2f664fefc9d1",
+      "reason": "Vintage B&W photo of a male bassist; doesn't match Taylor Swift caption",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "wikimedia-137560960",
+      "sha256": "7aa79b85da83040b61882b46d9d24607c0707a11b7dfbf9990d42438120afeaa",
+      "reason": "Wide stage shot with several performers and stadium; no single prominent subject",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "press-05b8b8c76cde",
+      "sha256": "9f4845ccbf1cab7b79d6fa26c23c99eaaf55f35142a8d29d6f46a96db6a9b7e6",
+      "reason": "Good concert shot, but a male guitarist doesn't match the Taylor Swift caption.",
+      "date": "2026-11-11"
     }
   ]
 }
