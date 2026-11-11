@@ -32,7 +32,8 @@ describe('MerchSection section header copy', () => {
     merch.fanMade = [];
     const empty = html();
     expect(empty).toContain('Nothing&#x27;s been vetted yet');
-    expect(empty).toContain('when we have a vetted feed for it');
+    expect(empty).toContain('We don&#x27;t have a vetted feed from the official store yet.');
+    expect(empty).toContain('Nothing&#x27;s been vetted yet. This is where those listings will live.');
   });
 
   it('drops the empty-state sentences once the lists have items', () => {
@@ -40,8 +41,8 @@ describe('MerchSection section header copy', () => {
     merch.fanMade = [item];
     const full = html();
     expect(full).not.toContain('been vetted yet');
-    expect(full).not.toContain('when we have a vetted feed for it');
-    expect(full).toContain('Pulled straight from the official store.');
-    expect(full).toContain('One maker per listing, hand-checked before it&#x27;s added.');
+    expect(full).not.toContain('vetted feed');
+    expect(full).toContain('Synced from the official Taylor Swift store.');
+    expect(full).toContain('One maker per listing, checked against our fan-made rules before it&#x27;s added.');
   });
 });
