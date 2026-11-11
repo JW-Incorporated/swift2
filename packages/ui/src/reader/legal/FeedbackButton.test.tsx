@@ -15,7 +15,18 @@ import { FeedbackButton } from './FeedbackButton';
 import { FEEDBACK_DRAFT_KEY, FEEDBACK_QUEUE_KEY } from './lib/feedback-outbox';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 
-vi.mock('../store', () => ({ useAppState: () => ({ clownChatExpanded: false }) }));
+const baseState = {
+  mode: 'era',
+  openItemId: null,
+  trackGuideEraId: null,
+  openTrackKey: null,
+  theoryGuideEraId: null,
+  selectorOpen: false,
+  searchOpen: false,
+  clownChatExpanded: false,
+};
+let appState: Record<string, unknown> = baseState;
+vi.mock('../store', () => ({ useAppState: () => appState }));
 vi.mock('./lib/feedback-location', () => ({
   buildLocation: () => ({}),
   describeView: () => 'home',
@@ -64,6 +75,81 @@ const fireOnline = () =>
 const queueOf = (local: Map<string, string>) => JSON.parse(local.get(FEEDBACK_QUEUE_KEY) ?? '[]');
 const bodyOf = (apiFetch: ReturnType<typeof vi.fn>, call = 0) =>
   JSON.parse(apiFetch.mock.calls[call]![0].body);
+
+describe('FeedbackButton placement', () => {
+  const trigger = () => screen.queryByRole('button', { name: 'Send feedback' });
+  const dismiss = () =>
+    screen.queryByRole('button', { name: 'Dismiss the feedback button for this session' });
+  const phone = { matches: true, addEventListener: () => {}, removeEventListener: () => {} };
+  const scrollTo = (y: number) =>
+    act(() => {
+      Object.defineProperty(window, 'scrollY', { configurable: true, value: y });
+      window.dispatchEvent(new Event('scroll'));
+    });
+
+  afterEach(() => {
+    cleanup();
+    appState = baseState;
+    document.body.style.overflow = '';
+    Reflect.deleteProperty(window, 'matchMedia');
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 });
+  });
+
+  it.each([
+    ['moment detail', { openItemId: 'm1' }],
+    ['track guide', { trackGuideEraId: 'red' }],
+    ['song detail', { openTrackKey: 'k' }],
+    ['theory guide', { theoryGuideEraId: 'red' }],
+    ['era selector', { selectorOpen: true }],
+    ['search', { searchOpen: true }],
+  ])('renders neither the pill nor its dismiss X while %s is open', (_n, patch) => {
+    appState = { ...baseState, ...patch };
+    mount(new Map(), vi.fn());
+    expect(trigger()).toBeNull();
+    expect(dismiss()).toBeNull();
+  });
+
+  it('hides while a local-state overlay holds the shared scroll lock, and returns on release', async () => {
+    mount(new Map(), vi.fn());
+    expect(trigger()).not.toBeNull();
+    await act(async () => {
+      document.body.style.overflow = 'hidden';
+    });
+    await waitFor(() => expect(trigger()).toBeNull());
+    await act(async () => {
+      document.body.style.overflow = '';
+    });
+    await waitFor(() => expect(trigger()).not.toBeNull());
+  });
+
+  it('on a phone, collapses to the icon circle past one viewport and expands back at the top', () => {
+    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
+    const label = () => trigger()!.querySelector('span')!;
+    expect(label().className).toContain('opacity-100');
+    scrollTo(window.innerHeight + 200);
+    expect(label().className).toContain('opacity-0');
+    expect(label().getAttribute('aria-hidden')).toBe('true');
+    expect(trigger()!.getAttribute('aria-label')).toBe('Send feedback');
+    scrollTo(300);
+    expect(label().className).toContain('opacity-0');
+    scrollTo(0);
+    expect(label().className).toContain('opacity-100');
+  });
+
+  it('never collapses on wider viewports', () => {
+    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
+    scrollTo(window.innerHeight * 3);
+    expect(trigger()!.querySelector('span')!.className).toContain('opacity-100');
+  });
+
+  it('is hidden on phones (not desktop) on the Clownbot tab, which owns the bottom of the screen', () => {
+    appState = { ...baseState, mode: 'clownbot' };
+    mount(new Map(), vi.fn());
+    expect(trigger()!.parentElement!.className).toContain('max-md:hidden');
+  });
+});
 
 describe('FeedbackButton outbox', () => {
   let local: Map<string, string>;
