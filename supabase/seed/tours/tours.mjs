@@ -703,15 +703,12 @@ export default {
               'the March 30 London date at The O2 Arena, last before the North American leg, is in the tour dates table',
               '2026-11-11',
             ),
-            {
-              ...press(
-                'https://tasteofcountry.com/taylor-swift-20-million-albums-sold/',
-                'Taylor Swift Surpasses 20 Million Album Sales',
-                'Taste of Country',
-                'supports the London O2 Arena show wrapping up the overseas leg',
-              ),
-              accessed_at: '2026-11-11',
-            },
+            press(
+              'https://tasteofcountry.com/taylor-swift-20-million-albums-sold/',
+              'Taylor Swift Surpasses 20 Million Album Sales',
+              'Taste of Country',
+              'supports the London O2 Arena show wrapping up the overseas leg',
+            ),
           ],
         },
         {
@@ -728,15 +725,12 @@ export default {
               'the May 27 Omaha date opens the North American rows of the tour dates table',
               '2026-11-11',
             ),
-            {
-              ...press(
-                'https://www.prnewswire.com/news-releases/taylor-swift-adds-16-dates-to-speak-now-world-tour-2011-118596984.html',
-                'Taylor Swift Adds 16 Dates to SPEAK NOW WORLD TOUR 2011',
-                'PR Newswire',
-                'tour press release; supports the May 27 US kickoff with two shows at the Qwest Center in Omaha',
-              ),
-              accessed_at: '2026-11-11',
-            },
+            press(
+              'https://www.prnewswire.com/news-releases/taylor-swift-adds-16-dates-to-speak-now-world-tour-2011-118596984.html',
+              'Taylor Swift Adds 16 Dates to SPEAK NOW WORLD TOUR 2011',
+              'PR Newswire',
+              'tour press release; supports the May 27 US kickoff with two shows at the Qwest Center in Omaha',
+            ),
           ],
         },
         {
@@ -754,15 +748,12 @@ export default {
               'the Justin Bieber Baby guest spot is listed in the tour article',
               '2026-11-11',
             ),
-            {
-              ...press(
-                'https://theboot.com/justin-bieber-taylor-swift-duet-baby-los-angeles/',
-                'Justin Bieber Makes Surprise Appearance at Taylor Swift Show',
-                'The Boot',
-                'supports the August 23 Staples Center duet on the first of four nights',
-              ),
-              accessed_at: '2026-11-11',
-            },
+            press(
+              'https://theboot.com/justin-bieber-taylor-swift-duet-baby-los-angeles/',
+              'Justin Bieber Makes Surprise Appearance at Taylor Swift Show',
+              'The Boot',
+              'supports the August 23 Staples Center duet on the first of four nights',
+            ),
           ],
         },
         {
@@ -797,15 +788,12 @@ export default {
               'the Tim McGraw and Kenny Chesney Nashville guest spots are listed in the tour article',
               '2026-11-11',
             ),
-            {
-              ...press(
-                'https://tasteofcountry.com/taylor-swift-performs-with-tim-mcgraw-and-kenny-chesney-at-nashville-show/',
-                'Taylor Swift Performs With Tim McGraw and Kenny Chesney at Nashville Show',
-                'Taste of Country',
-                'supports both September 17 Bridgestone Arena duets and their songs',
-              ),
-              accessed_at: '2026-11-11',
-            },
+            press(
+              'https://tasteofcountry.com/taylor-swift-performs-with-tim-mcgraw-and-kenny-chesney-at-nashville-show/',
+              'Taylor Swift Performs With Tim McGraw and Kenny Chesney at Nashville Show',
+              'Taste of Country',
+              'supports both September 17 Bridgestone Arena duets and their songs',
+            ),
           ],
         },
         {
@@ -823,24 +811,18 @@ export default {
               'the Usher and T.I. Atlanta guest spots are listed in the tour article',
               '2026-11-11',
             ),
-            {
-              ...press(
-                'https://tasteofcountry.com/t-i-taylor-swift-live-your-life-video/',
-                'Rapper T.I. Joins Taylor Swift Onstage in Atlanta',
-                'Taste of Country',
-                "supports the Usher 'Yeah' duet and the T.I. duet at separate shows of the Atlanta weekend",
-              ),
-              accessed_at: '2026-11-11',
-            },
-            {
-              ...press(
-                'https://www.columbian.com/news/2011/oct/02/ti-taylor-swift-perform-surprise-duet-in-ga/',
-                'T.I., Taylor Swift perform surprise duet in Ga.',
-                'Associated Press via The Columbian',
-                'places the T.I. duet on the Sunday night at Philips Arena, so the Usher duet falls on the Saturday show',
-              ),
-              accessed_at: '2026-11-11',
-            },
+            press(
+              'https://tasteofcountry.com/t-i-taylor-swift-live-your-life-video/',
+              'Rapper T.I. Joins Taylor Swift Onstage in Atlanta',
+              'Taste of Country',
+              "supports the Usher 'Yeah' duet and the T.I. duet at separate shows of the Atlanta weekend",
+            ),
+            press(
+              'https://www.columbian.com/news/2011/oct/02/ti-taylor-swift-perform-surprise-duet-in-ga/',
+              'T.I., Taylor Swift perform surprise duet in Ga.',
+              'Associated Press via The Columbian',
+              'places the T.I. duet on the Sunday night at Philips Arena, so the Usher duet falls on the Saturday show',
+            ),
           ],
         },
         {
