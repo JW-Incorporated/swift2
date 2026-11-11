@@ -59,7 +59,8 @@ export function MerchCard({ item }: { item: MerchItem }) {
       ? 'Official item'
       : 'Fan-made item';
   const shopLink = renderer.forMerchItem(item);
-  const shopAriaLabel = `Shop ${item.brand} ${item.item}${soldOut ? ' (sold out)' : ''}${showsMatch && !exactPiece ? ' (similar style, not the exact piece)' : ''}`;
+  const shopContext = `${item.brand} ${item.item}${soldOut ? ' (sold out)' : ''}${showsMatch && !exactPiece ? ' (similar style, not the exact piece)' : ''}`;
+  const shopAriaLabel = `Shop ${shopContext}`;
   const alternateLink = item.altListing
     ? item.category === 'official-store'
       ? renderer.forMerch(item.altListing, 'official')
@@ -187,10 +188,12 @@ export function MerchCard({ item }: { item: MerchItem }) {
           href={shopLink.href}
           target="_blank"
           rel="nofollow sponsored noopener noreferrer"
-          aria-label={shopAriaLabel}
           className="mt-3 flex min-h-[44px] items-center justify-between gap-2 border border-[color:var(--merch-line)] px-3 text-[11px] font-medium uppercase tracking-[0.14em] text-[color:var(--merch-cream)] transition-colors hover:border-[color:var(--merch-lilac)]"
         >
-          <span>Shop it{item.price ? ` · ${item.price}` : ''}</span>
+          <span>
+            Shop it{item.price ? ` · ${item.price}` : ''}
+            <span className="sr-only">: {shopContext}</span>
+          </span>
           <ExternalLink
             className="h-3.5 w-3.5 shrink-0 text-[color:var(--merch-lilac)]"
             aria-hidden="true"
