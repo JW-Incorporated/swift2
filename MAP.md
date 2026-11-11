@@ -227,12 +227,13 @@ read once on mount (`deepLink.ts`) and never written back.
 | `apps/web/lib/longlive/clown-usage.ts` (+ `.test.ts`) | Ported cap reservoir |
 | `apps/web/components/longlive/ClownChat.tsx` | App-panel shell — state, the `ask()` fetch/stream loop, layout — fullscreen toggle + docked composer split out below (300-line cap, HUMAN-ACTIONS.md #15 LOW finding) |
 | `apps/web/components/longlive/ClownChatTitlebar.tsx` | Titlebar (avatar/label/online dot/expand toggle), split out of ClownChat.tsx (300-line cap) |
-| `apps/web/components/longlive/ClownEmptyState.tsx` | Newcomer vocabulary guide + four composer-prefill starters; buttons never auto-send |
+| `apps/web/components/longlive/ClownEmptyState.tsx` | Newcomer vocabulary guide + four starter questions; a tap sends the question immediately |
 | `apps/web/components/longlive/ClownChatComposer.tsx` | Docked composer pill (textarea/send), split out of ClownChat.tsx (300-line cap); textarea auto-grows via `useAutoResizeTextarea` |
 | `apps/web/lib/longlive/clown-chat-ui.ts` | `useAutoResizeTextarea` / `useStickToBottomScroll` — the composer's grow-to-fit and the stream's stick-to-bottom-unless-scrolled-up auto-scroll |
 | `apps/web/components/longlive/ClownMessageRow.tsx` | One transcript turn — user bubble + bot reply (split out of ClownChat.tsx, 300-line cap) |
 | `apps/web/lib/longlive/useChromeOffset.ts` | Live sticky-chrome height hook, split out of ClownChat.tsx (300-line cap) — wraps `chrome-offset.ts`'s `measureChromeHeight` |
 | `packages/ui/src/reader/clown/lib/useClownAsk.ts` | `/api/clown` ask loop hook (busy/error/investigating state, abort, stream reader), split out of `ClownChat.tsx` (300-line cap, pure move) |
+| `packages/ui/src/reader/legal/lib/{useOverlayOpen,useCompactOnScroll,feedback-open-event}.ts` | FeedbackButton helpers: hide the pill while any reader overlay is open (store state, the shared body scroll lock, and `useOverlayPresence` from the native-host full-screen slots); icon-only collapse past one viewport on phone widths; `requestOpenFeedback()` lets the Clownbot "Report a problem" control open the panel |
 | `packages/ui/src/reader/legal/lib/feedback-location.ts` | `Location` type + `describeView`/`buildLocation` for the feedback ticket, split out of `FeedbackButton.tsx` (300-line cap, pure move) |
 | `apps/web/components/longlive/ClownBoard.tsx` | The two columns. Knowledge-engine Stage 7: column 1 also renders `live_theory` rows (`lib/longlive/use-live-theories.ts`), sorted by heat, above the static list |
 | `apps/web/components/longlive/ClownItemCard.tsx` | One column item / one source card |

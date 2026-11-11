@@ -12,10 +12,22 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { HostProvider } from '../../host/context';
 import type { HostAdapter } from '../../host/types';
 import { FeedbackButton } from './FeedbackButton';
+import { requestOpenFeedback } from './lib/feedback-open-event';
 import { FEEDBACK_DRAFT_KEY, FEEDBACK_QUEUE_KEY } from './lib/feedback-outbox';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 
-vi.mock('../store', () => ({ useAppState: () => ({ clownChatExpanded: false }) }));
+const baseState = {
+  mode: 'era',
+  openItemId: null,
+  trackGuideEraId: null,
+  openTrackKey: null,
+  theoryGuideEraId: null,
+  selectorOpen: false,
+  searchOpen: false,
+  clownChatExpanded: false,
+};
+let appState: Record<string, unknown> = baseState;
+vi.mock('../store', () => ({ useAppState: () => appState }));
 vi.mock('./lib/feedback-location', () => ({
   buildLocation: () => ({}),
   describeView: () => 'home',
@@ -64,6 +76,105 @@ const fireOnline = () =>
 const queueOf = (local: Map<string, string>) => JSON.parse(local.get(FEEDBACK_QUEUE_KEY) ?? '[]');
 const bodyOf = (apiFetch: ReturnType<typeof vi.fn>, call = 0) =>
   JSON.parse(apiFetch.mock.calls[call]![0].body);
+
+describe('FeedbackButton placement', () => {
+  const trigger = () => screen.queryByRole('button', { name: 'Send feedback' });
+  const dismiss = () =>
+    screen.queryByRole('button', { name: 'Dismiss the feedback button for this session' });
+  const realMatchMedia = window.matchMedia;
+  const phone = { matches: true, addEventListener: () => {}, removeEventListener: () => {} };
+  const scrollTo = (y: number) =>
+    act(() => {
+      Object.defineProperty(window, 'scrollY', { configurable: true, value: y });
+      window.dispatchEvent(new Event('scroll'));
+    });
+
+  afterEach(() => {
+    cleanup();
+    appState = baseState;
+    document.body.style.overflow = '';
+    window.matchMedia = realMatchMedia;
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 });
+  });
+
+  it.each([
+    ['moment detail', { openItemId: 'm1' }],
+    ['track guide', { trackGuideEraId: 'red' }],
+    ['song detail', { openTrackKey: 'k' }],
+    ['theory guide', { theoryGuideEraId: 'red' }],
+    ['era selector', { selectorOpen: true }],
+    ['search', { searchOpen: true }],
+  ])('renders neither the pill nor its dismiss X while %s is open', (_n, patch) => {
+    appState = { ...baseState, ...patch };
+    mount(new Map(), vi.fn());
+    expect(trigger()).toBeNull();
+    expect(dismiss()).toBeNull();
+  });
+
+  it('hides while a local-state overlay holds the shared scroll lock, and returns on release', async () => {
+    mount(new Map(), vi.fn());
+    expect(trigger()).not.toBeNull();
+    await act(async () => {
+      document.body.style.overflow = 'hidden';
+    });
+    await waitFor(() => expect(trigger()).toBeNull());
+    await act(async () => {
+      document.body.style.overflow = '';
+    });
+    await waitFor(() => expect(trigger()).not.toBeNull());
+  });
+
+  it('on a phone, collapses to the icon circle past one viewport and expands back at the top', () => {
+    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
+    const label = () => trigger()!.querySelector('span')!;
+    expect(label().className).toContain('opacity-100');
+    scrollTo(window.innerHeight + 200);
+    expect(label().className).toContain('opacity-0');
+    expect(label().getAttribute('aria-hidden')).toBe('true');
+    expect(trigger()!.getAttribute('aria-label')).toBe('Send feedback');
+    scrollTo(300);
+    expect(label().className).toContain('opacity-0');
+    scrollTo(0);
+    expect(label().className).toContain('opacity-100');
+  });
+
+  it('never collapses on wider viewports', () => {
+    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
+    scrollTo(window.innerHeight * 3);
+    expect(trigger()!.querySelector('span')!.className).toContain('opacity-100');
+  });
+
+  it('on phones the Clownbot tab hides the pill and its X; the in-chat report control opens the panel', async () => {
+    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
+    appState = { ...baseState, mode: 'clownbot' };
+    mount(new Map(), vi.fn());
+    expect(trigger()).toBeNull();
+    expect(dismiss()).toBeNull();
+    act(() => requestOpenFeedback());
+    expect(await screen.findByRole('dialog', { name: 'Send feedback' })).toBeTruthy();
+  });
+
+  it('keeps the pill on the Clownbot tab at desktop widths', () => {
+    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+    appState = { ...baseState, mode: 'clownbot' };
+    mount(new Map(), vi.fn());
+    expect(trigger()).not.toBeNull();
+    expect(dismiss()).not.toBeNull();
+  });
+
+  it('drops the dismiss X while compact, and brings it back at the top', () => {
+    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
+    expect(dismiss()).not.toBeNull();
+    scrollTo(window.innerHeight + 200);
+    expect(dismiss()).toBeNull();
+    expect(trigger()).not.toBeNull();
+    scrollTo(0);
+    expect(dismiss()).not.toBeNull();
+  });
+});
 
 describe('FeedbackButton outbox', () => {
   let local: Map<string, string>;

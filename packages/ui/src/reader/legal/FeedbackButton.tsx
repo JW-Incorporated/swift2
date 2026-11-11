@@ -9,6 +9,9 @@ import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { useBackDismiss } from '../lib/useBackDismiss';
 import { describeView } from './lib/feedback-location';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
+import { useOverlayOpen } from './lib/useOverlayOpen';
+import { useCompactOnScroll } from './lib/useCompactOnScroll';
+import { OPEN_FEEDBACK_EVENT } from './lib/feedback-open-event';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
 // the viewport as you scroll. Opens a small free-form panel; on submit it POSTs
@@ -57,6 +60,8 @@ export function FeedbackButton() {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const textareaId = useId();
+  const overlayOpen = useOverlayOpen(state);
+  const { compact, phone } = useCompactOnScroll();
 
   // Hydrate before paint, never during render — reading sessionStorage
   // during render would break SSR (no `window`), but a plain post-paint
@@ -68,6 +73,12 @@ export function FeedbackButton() {
   // already-dismissed session never actually shows the flash.
   useLayoutEffect(() => {
     if (readDismissed()) setDismissed(true);
+  }, []);
+
+  useEffect(() => {
+    const openPanel = () => setOpen(true);
+    window.addEventListener(OPEN_FEEDBACK_EVENT, openPanel);
+    return () => window.removeEventListener(OPEN_FEEDBACK_EVENT, openPanel);
   }, []);
 
   function dismissForSession() {
@@ -97,7 +108,8 @@ export function FeedbackButton() {
   // outright (not just visually hiding it) also keeps it out of the tab
   // order while it's invisible. Checked after every hook above so hook order
   // stays identical across renders.
-  if (dismissed || state.clownChatExpanded) return null;
+  if (dismissed && !open) return null;
+  const hidePill = dismissed || (!open && (overlayOpen || (phone && state.mode === 'clownbot')));
 
   return (
     <>
@@ -200,6 +212,7 @@ export function FeedbackButton() {
           "Feedback" silently dismissed the widget instead of opening it
           (re-review finding D, 2026-08-13). Laid out side by side with a gap
           instead, so the two 44px targets never overlap. */}
+      {!hidePill && (
       <div
         data-social-hide="feedback-button"
         data-ll-safe="feedback-button"
@@ -222,7 +235,7 @@ export function FeedbackButton() {
             there's an invisible pop up that I need to clear"). The `bg-*`
             utility that used to sit here was inert — globals.css is ordered
             after Tailwind's utilities, so `.era-icon-btn` won regardless. */}
-        {!open && (
+        {!open && !compact && (
           <button
             type="button"
             onClick={dismissForSession}
@@ -238,7 +251,9 @@ export function FeedbackButton() {
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? 'Close feedback' : 'Send feedback'}
           aria-expanded={open}
-          className="inline-flex min-w-0 items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-transform hover:scale-105 active:scale-95"
+          className={`inline-flex min-w-0 items-center rounded-full border border-line bg-surface/90 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-[transform,padding,gap] motion-reduce:transition-none hover:scale-105 active:scale-95 ${
+            compact && !open ? 'gap-0 px-3' : 'gap-2 px-4'
+          }`}
         >
           {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
           {/* The label is what makes the whole bottom-right cluster
@@ -248,9 +263,17 @@ export function FeedbackButton() {
               the dismiss X — which is why this looked like a stray close button
               for a missing pop-up on a phone and looked completely fine on a
               desktop viewport, where the label was showing all along. */}
-          <span className="truncate">Feedback</span>
+          <span
+            aria-hidden={compact && !open ? true : undefined}
+            className={`truncate transition-[max-width,opacity] motion-reduce:transition-none ${
+              compact && !open ? 'max-w-0 opacity-0' : 'max-w-[8rem] opacity-100'
+            }`}
+          >
+            Feedback
+          </span>
         </button>
       </div>
+      )}
     </>
   );
 }

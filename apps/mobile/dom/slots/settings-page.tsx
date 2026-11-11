@@ -3,6 +3,7 @@ import { NotificationSettingsPage } from '@swift2/ui/reader/settings/Notificatio
 import { ERA_CSS_VAR_NAMES, ERA_TOKENS } from '@swift2/experience';
 import { useHost } from '@swift2/ui';
 import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
+import { useOverlayPresence } from '@swift2/ui/reader/legal/lib/useOverlayOpen';
 import { inboxOverlay, useInboxOpen } from './inbox-store';
 import { useOnboardingPhase } from './onboarding-store';
 import { useDialog } from './use-dialog';
@@ -51,6 +52,7 @@ export function SettingsPage() {
   }, [open, notifications]);
 
   useBackDismiss(open, settingsOverlay.close);
+  useOverlayPresence(open);
 
   if (!open) return null;
   return (
