@@ -452,7 +452,7 @@ infrastructure — no new send path, reuses `sendPushBatch` and the same
 |---|---|
 | `supabase/migrations/20260913000000_notifications_fun.sql` | `lyrics`, `lyric_history`, `on_this_day`, `countdown_sends` tables + `events.drop_at` column. `service_role`-only RLS, same posture as every other notifications table |
 | `supabase/seed/lyrics/starter-pool.mjs` | **DRAFT** 224-entry lyric pool, `verified: false` until founder review — see STATE.md |
-| `supabase/seed/on-this-day/starter-pool.mjs` | 37 entries derived from the real `MILESTONES` timeline (`content.ts`) — not new content |
+| `supabase/seed/on-this-day/starter-pool.mjs` | 98 entries, each derived from a dated, confirmed vault item with its own date (the first 38 from the real `MILESTONES` timeline in `content.ts`, 60 more from other day-dated items, #6669) — not new content; one entry per calendar day |
 | `scripts/seed-lyrics.mjs` / `scripts/seed-on-this-day.mjs` (`npm run db:seed:lyrics` / `db:seed:on-this-day`) | Wholesale-replace seeders, same pattern as `seed-tracks.mjs` |
 | `packages/core/src/notification-fun-schedule.ts` | DST-safe Daily/Weekly/Monthly send-day + period-boundary math for fun cadences, mirrors `notification-digest-schedule.ts` |
 | `packages/core/src/notification-fun.ts` | Pure selection (`selectLyricForDevice` 12-month no-repeat, `selectOnThisDayEntry` silent-skip, `scheduleCountdowns` T-7d/T-1d/release-hour) + DB orchestration (`dispatchFunNotifications`, `scheduleCountdownsForPendingEvents`, `dispatchDueCountdowns`) |

@@ -56,4 +56,13 @@ describe('On This Day starter pool deep links', () => {
     }
     expect(problems).toEqual([]);
   });
+
+  it('every month has at least 6 entries (#6669)', () => {
+    const thin: string[] = [];
+    for (let month = 1; month <= 12; month++) {
+      const count = (ON_THIS_DAY_STARTER_POOL as PoolRow[]).filter((row) => row.month === month).length;
+      if (count < 6) thin.push(`month ${month}: ${count}`);
+    }
+    expect(thin).toEqual([]);
+  });
 });
