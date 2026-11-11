@@ -27,6 +27,14 @@ so far".
 
 Stories: 87
 
+## Ohio Neighbors of Taylor Swift and Travis Kelce Oppose Landscaping Plans
+
+- first seen: 2026-11-11 18:02 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Neighbors of Taylor Swift and Travis Kelce in Ohio are expressing concerns over proposed landscaping plans in their area. The reasons behind their opposition reflect local community dynamics.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/insane-reason-why-taylor-swift-174147823.html
+
 ## Taylor Swift to Receive Hollywood Reporter’s Leadership Award at Gala
 
 - first seen: 2026-11-11 17:04 UTC | category: business | importance: 6
@@ -38,9 +46,10 @@ Stories: 87
 ## Neighbors Discuss Kelce-Swift Mansion Dispute at Meeting
 
 - first seen: 2026-11-11 17:04 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Community members gathered to voice concerns regarding the ongoing dispute related to the mansion shared by Taylor Swift and Travis Kelce in Ohio. The meeting addressed various local issues stemming from the situation.
 - sources:
+  - [unverified] Lancaster Eagle-Gazette — https://www.lancastereaglegazette.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
   - [unverified] Wooster Daily Record — https://www.the-daily-record.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
 
 ## Bill Maher Critiques Taylor Swift's Love Life in Recent Broadcast
@@ -142,11 +151,12 @@ Stories: 87
 ## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
 
 - first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
 - sources:
   - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
   - [unverified] News24 — https://www.news24.com.au/lifestyle/celebrity-life/taylor-swift-and-travis-kelces-ohio-neighbors-fight-over-sixfoot-black-aluminum-privacy-fence/video/e38030009be36e3eefcac4a31dfc01f7
+  - [unverified] Page Six — https://pagesix.com/2026/11/11/entertainment/travis-kelce-recruits-taylor-swift-for-next-new-heights-podcast-event/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-neighbours-081923820.html
 
 ## Taylor Swift Seen at Chiefs Game with Karlie Kloss
@@ -738,11 +748,3 @@ Stories: 87
 - sources:
   - [unverified] HITC — https://www.hitc.com/what-taylor-swift-said-in-2014-to-defend-the-new-york-knicks-after-being-told-theyre-not-very-good/
   - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/knicks-tyler-kolek-sings-taylor-swift-song-after-drama/
-
-## Taylor Swift and Travis Kelce Discuss First Christmas Plans Together
-
-- first seen: 2026-11-08 17:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing their first Christmas dilemma as a married couple and are considering making a significant change for the holiday. This marks a new chapter in their relationship as they navigate family traditions.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-travis-kelce-christmas-dilemma/
