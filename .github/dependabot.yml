@@ -32,6 +32,14 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      # Playwright is pinned to the parity container image and version guard in
+      # .github/workflows/parity.yml (image tag + `npx playwright --version` check,
+      # two jobs). Bump all three together, deliberately, with baselines regenerated.
+      playwright:
+        patterns:
+          - "@playwright/*"
+          - "playwright"
+          - "playwright-core"
       # One PR for all low-risk dev-dependency patch/minor bumps.
       dev-dependencies:
         dependency-type: "development"
