@@ -57,30 +57,31 @@ export function TopBar() {
             type="button"
             onClick={handleHome}
             aria-label="Long Live — back to home"
-            className="relative shrink-0 rounded-md font-era text-[length:min(1rem,20px)] font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent before:absolute before:-inset-y-2.5 before:inset-x-0 before:content-[''] md:text-xl"
+            className="relative shrink-0 rounded-md font-era text-[length:min(1rem,20px)] font-semibold tracking-tight max-[22rem]:text-[length:min(0.9375rem,15px)] transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent before:absolute before:-inset-y-2.5 before:inset-x-0 before:content-[''] md:text-xl"
           >
             Long&nbsp;Live
           </button>
-          <span className="h-5 w-px shrink-0 bg-line @max-[15rem]:hidden" aria-hidden />
+          <span className="h-5 w-px shrink-0 bg-line @max-[22rem]:hidden" aria-hidden />
           {mode === 'era' ? (
             <button
               type="button"
               onClick={() => setSelectorOpen(true)}
-              className="group relative flex min-w-0 items-center gap-[min(0.25rem,4px)] rounded-full px-[min(0.5rem,8px)] py-1 text-left transition-colors before:absolute before:-inset-y-2 before:inset-x-0 before:content-[''] hover:bg-surface"
+              className="group relative flex min-w-0 items-center gap-[min(0.25rem,4px)] rounded-full px-[min(0.5rem,8px)] py-1 text-left @max-[20rem]:gap-[min(0.125rem,2px)] @max-[22rem]:px-[min(0.25rem,4px)] @max-[20rem]:px-[min(0.125rem,2px)] transition-colors before:absolute before:-inset-y-2 before:inset-x-0 before:content-[''] hover:bg-surface"
             >
-              <span className="min-w-0 truncate text-sm font-medium text-ink">
+              <span className="min-w-0 truncate text-sm font-medium text-ink @max-[20rem]:text-[length:min(0.8125rem,13px)]">
                 {/* Context label (P4 step 19) — mobile shortens to the era's
                     shortName, desktop keeps the full name, same split the era
                     name itself already used. */}
                 <span className="sm:hidden">
-                  <span className="@max-[20rem]:hidden">Era: </span>
+                  <span className="@max-[22rem]:sr-only">Era: </span>
                   {era.shortName}
                 </span>
+                {era.name !== era.shortName && <span className="sr-only sm:hidden"> ({era.name})</span>}
                 <span className="hidden sm:inline">Era: {era.name}</span>
                 <span className="sr-only">{' — open the eras menu'}</span>
               </span>
               <ChevronDown
-                className="size-[min(0.875rem,14px)] shrink-0 text-ink-soft transition-transform group-hover:translate-y-0.5"
+                className="size-[min(0.875rem,14px)] @max-[20rem]:size-[min(0.75rem,12px)] shrink-0 text-ink-soft transition-transform group-hover:translate-y-0.5"
                 aria-hidden
               />
               {era.isCurrent && (
