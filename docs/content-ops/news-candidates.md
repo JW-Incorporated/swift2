@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Exploring Reasons Taylor Swift Hasn't Headlined Coachella
+
+- first seen: 2026-11-11 15:42 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article from Cosmopolitan investigates the reasons behind Taylor Swift not headlining Coachella, providing insights into her festival appearances. The piece raises questions and explores various factors influencing her decision.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74398661/why-taylor-swift-doesnt-play-coachella/
+
+## Neighbors Concerned Landscaping Affects Wildlife Near Swift and Kelce
+
+- first seen: 2026-11-11 15:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Neighbors of Taylor Swift and Travis Kelce are reportedly worried that landscaping changes could impact local wildlife and their mating habits. The concerns have surfaced amidst ongoing discussions about the couple's living arrangements.
+- sources:
+  - [unverified] TMZ — https://www.tmz.com/2026/11/11/taylor-swift-travis-kelce-ohio-neighbor-wildlife-concerns/
 
 ## Utah Approves Venue Aiming to Attract Artists Like Taylor Swift
 
