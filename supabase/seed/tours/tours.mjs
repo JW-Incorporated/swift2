@@ -825,13 +825,21 @@ export default {
             ),
             {
               ...press(
-                'https://www.aceshowbiz.com/news/view/00044156.html',
-                "Video: Taylor Swift and T.I. Make 'Live Your Life' Duet in Atlanta",
-                'AceShowbiz',
-                'supports the October 2 T.I. duet at Philips Arena and the Usher duet the day before',
+                'https://tasteofcountry.com/t-i-taylor-swift-live-your-life-video/',
+                'Rapper T.I. Joins Taylor Swift Onstage in Atlanta',
+                'Taste of Country',
+                "supports the Usher 'Yeah' duet and the T.I. duet at separate shows of the Atlanta weekend",
               ),
               accessed_at: '2026-11-11',
-              reliability_score: 3,
+            },
+            {
+              ...press(
+                'https://www.columbian.com/news/2011/oct/02/ti-taylor-swift-perform-surprise-duet-in-ga/',
+                'T.I., Taylor Swift perform surprise duet in Ga.',
+                'Associated Press via The Columbian',
+                'places the T.I. duet on the Sunday night at Philips Arena, so the Usher duet falls on the Saturday show',
+              ),
+              accessed_at: '2026-11-11',
             },
           ],
         },
@@ -1302,6 +1310,16 @@ export default {
         { date: '2012-03-18', city: 'Auckland', venue: 'Vector Arena', country: 'New Zealand' },
       ],
       note: 'Opened in Singapore, closed in Auckland — 110 theatrical shows (aerial ballet, a levitating balcony) for the album she wrote entirely alone.',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=oKar-tF__ac',
+          oembed_fetched_at: '2026-11-11',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
       sources: [
         wiki('Speak_Now_World_Tour', 'Speak Now World Tour'),
         press(
