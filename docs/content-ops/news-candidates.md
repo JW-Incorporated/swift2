@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
+
+- first seen: 2026-11-12 23:22 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Karlie Kloss have reportedly grown closer after resolving a rift that lasted for years. Their recent outing together at a Chiefs game suggests a renewed friendship, according to a source.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html
 
 ## Taylor Swift's Backup Dancer Suggests Kelce Brothers as DWTS Judges
 
