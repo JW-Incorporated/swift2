@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 80
 
 ## Ella Langley Achieves Crossover Success Like Taylor Swift
 
@@ -692,27 +692,3 @@ Stories: 83
 - summary: Travis Kelce and Taylor Swift were seen leaving Arrowhead Stadium following the Kansas City Chiefs' win. Their public appearance continues to attract attention from fans and media alike.
 - sources:
   - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/11/08/kansas-city-chiefs-travis-kelce-taylor-swift-epic-exit-arrowhead-stadium-nfl-week-9/92685227007/
-
-## Taylor Swift and Karlie Kloss spotted together on the road
-
-- first seen: 2026-11-09 02:47 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift and Karlie Kloss are featured in a Vogue article highlighting their friendship during a recent outing. The piece showcases their bond and some shared moments on the road together.
-- sources:
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-karlie-kloss-best-friends-march-2015-cover
-
-## Taylor Swift and Travis Kelce Seen Departing Chiefs Game in Vintage Cadillac
-
-- first seen: 2026-11-09 02:47 UTC | category: sighting | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift and Travis Kelce were spotted leaving a Chiefs game together in a vintage Cadillac. The sighting highlights their public presence at sporting events this season.
-- sources:
-  - [established] People — https://people.com/taylor-swift-travis-kelce-smile-leave-game-together-in-vintage-cadillac-12243992
-
-## Taylor Swift and Karlie Kloss Attend Chiefs Game Together
-
-- first seen: 2026-11-09 02:47 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss were spotted together at a recent Chiefs game, prompting widespread attention. Their outing has generated significant media coverage and public interest.
-- sources:
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/08/taylor-swift-karlie-kloss-chiefs-game-drama-explained/92683150007/
