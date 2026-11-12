@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Charity Shares Details of Gift from Taylor Swift and Travis Kelce
+
+- first seen: 2026-11-12 08:15 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A charity has announced a 'very generous donation' received as a wedding gift from Taylor Swift and Travis Kelce. The specifics of the donation and its intended impact were not disclosed.
+- sources:
+  - [unverified] HITC — https://www.hitc.com/charity-reveals-very-generous-donation-as-taylor-swift-and-travis-kelces-wedding-gift/
 
 ## Taylor Swift Campaigns for Best Song Oscar for "I Knew It, I Knew You"
 
