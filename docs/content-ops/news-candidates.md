@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Artist Creates Charm Necklace for Taylor Swift
+
+- first seen: 2026-11-12 13:12 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An artist from Cuyahoga Falls has crafted a charm necklace specifically for Taylor Swift. This unique piece highlights the artist's creativity and dedication to Swift's style.
+- sources:
+  - [unverified] Cleveland.com — https://www.cleveland.com/entertainment/2026/11/kelce-family-chooses-local-artists-charm-necklace-as-gift-for-taylor-swift.html
 
 ## Taylor Swift and Travis Kelce Request Charity Donations from Wedding Guests
 
