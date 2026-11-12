@@ -1068,7 +1068,7 @@ export default {
       thumbnailUrl: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
       moment: {
         context:
-          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.',
+          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.\n\nOne question about the night was settled a week out. The show is set to honor Dolly Parton, who died in August, and Taylor had already made her own tributes public: a statement after Parton\'s death ("A world without Dolly doesn\'t feel possible, real, or right") and a September VMAs Video of the Year win dedicated to "the ultimate showgirl, Dolly Parton." On Nov. 11, a CMA source told E! News that Taylor will not perform in the Parton tribute. The CMA had not named the tribute\'s performers at that point, and the report addressed only the stage, not her attendance.',
         sources: [
           {
             outlet: 'Variety',
@@ -1097,6 +1097,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-15',
             reliability_score: 3,
+          },
+          // Content Shift (Vault Run 2026-11-12, intake #6813): CMA source on
+          // the record to E! News that Taylor is not in the Parton tribute.
+          // Page fetched and read this run; attendance not addressed by it.
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026',
+            source_title: 'Taylor Swift Is Not Performing in Dolly Parton Tribute at CMA Awards 2026',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-12',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -13090,11 +13102,17 @@ export default {
               'A year after she addressed it on Fallon, the halftime question came back for Super Bowl LXI in February 2027. Puck\'s Dave Brooks reported on Oct. 20, 2026, citing multiple sources, that Jay-Z, who picks the halftime act, had chosen himself, which entertainment coverage read as ruling out a Taylor halftime show for another year. The NFL had not announced the headliner.',
             reportedBy: 'Heavy (via Yahoo Entertainment), citing Puck',
             reportedOn: '2026-10-21',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/nfl-taylor-swift-decision-leaked-213302955.html',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-24',
-            note: 'Read directly 2026-10-24 (Heavy, Oct. 21, 2026, quoting Puck\'s Oct. 20 story "Jay-Z Picks Jay-Z for Super Bowl LXI"). Resolves when the NFL announces the Super Bowl LXI halftime headliner: confirmed if it is Jay-Z with no Taylor set, debunked if Taylor headlines. A separate anonymous-insider read on why she would pass was left out as a non-claim about her private plans. No location.',
+            lastCheckedOn: '2026-11-12',
+            note: 'Read directly 2026-10-24 (Heavy, Oct. 21, 2026, quoting Puck\'s Oct. 20 story "Jay-Z Picks Jay-Z for Super Bowl LXI"). Confirmed 2026-11-12: Apple Music named Jay-Z the LXI headliner on Oct. 26, 2026, with no Taylor set announced. Guests are not yet named, so this settles the headliner report only. An anonymous-insider read on why she would pass was left out. No location.',
+            resolution: {
+              on: '2026-10-26',
+              url: 'https://www.fox5ny.com/news/jay-z-confirmed-perform-super-bowl-lxi-halftime-show',
+              outlet: 'FOX 5 New York',
+              note: 'Jay-Z confirmed as the Super Bowl LXI halftime headliner (Feb. 14, 2027, SoFi Stadium), announced by Apple Music in a video. Taylor is not named.',
+            },
           },
         ],
         // Photo pass #762 (2026-08-14): the YouTube thumbnail above is a
@@ -17342,6 +17360,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-i-knew-it-i-knew-you-tops-pop-airplay-a-record-extending-16t',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
       ],
       year: 2026,
       month: 11,
@@ -17520,7 +17539,10 @@ export default {
       // Photo: Just Jared's wide frame (pagesix.com is not an allowlisted photo
       // host); see the note on the photo for why this frame.
       slug: 'showgirl-arrowhead-karlie-kloss-jets-2026',
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-red-a-california-road-trip-with-new-best-friend-karlie-kloss',
+      ],
       year: 2026,
       month: 11,
       day: 8,

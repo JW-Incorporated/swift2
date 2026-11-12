@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-10',
+  updatedOn: '2026-11-12',
   items: [
     {
       // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
@@ -154,7 +154,7 @@ export default {
       // frames fans as "clowning for Debut TV".
       // Rechecked 2026-11-08 (Vault Run): neither reputation TV nor debut TV has been announced or dated.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-10',
+      lastCheckedOn: '2026-11-12',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -284,7 +284,7 @@ export default {
       // didn't happen. Still unconnected to anything official.
       // Rechecked 2026-11-08 (Vault Run): nothing official connects the green TS images to a release.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-10',
+      lastCheckedOn: '2026-11-12',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -316,7 +316,7 @@ export default {
       // color system, or release plan has been confirmed.
       // Rechecked 2026-11-08 (Vault Run): no TS13 title, color system or release plan announced.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-10',
+      lastCheckedOn: '2026-11-12',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -357,7 +357,7 @@ export default {
       date: '2026-08-27',
       // Rechecked 2026-11-08 (Vault Run): still no album announced; an early-Nov. Daily Mail insider report (via Yahoo) of two albums of unreleased music keeps it `reported`.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-10',
+      lastCheckedOn: '2026-11-12',
       headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. On 2 Nov 2026 a Daily Mail insider (via Cosmopolitan) went further, saying she has "enough material to fill her next two albums". That is another anonymous tip, not an announcement. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',
@@ -462,6 +462,25 @@ export default {
       tags: ['superbowl', 'clowned'],
     },
     {
+      id: 'superbowl-lxi-halftime-jay-z',
+      status: 'confirmed',
+      date: '2026-10-26',
+      lastCheckedOn: '2026-11-12',
+      headline: 'Super Bowl LXI halftime is Jay-Z, not Taylor',
+      detail:
+        'The halftime question came back for Super Bowl LXI (14 February 2027, SoFi Stadium) and was answered on 26 October 2026: Apple Music announced Jay-Z as the headliner in a video, a week after Puck reported he had picked himself. Taylor was not part of the announcement, and she has said she will not play the halftime show while Travis is still an active player. Guest performers had not been named as of 12 November 2026.',
+      sources: [
+        {
+          name: 'FOX 5 New York',
+          url: 'https://www.fox5ny.com/news/jay-z-confirmed-perform-super-bowl-lxi-halftime-show',
+        },
+      ],
+      prompts: [
+        'Two Super Bowls in a row the halftime slot went to someone else. Is "not while Travis plays" the whole explanation, or is there a case she never wanted it?',
+      ],
+      tags: ['superbowl'],
+    },
+    {
       id: 'kelce-dog-wendy',
       status: 'confirmed',
       date: '2026-09-02',
@@ -495,11 +514,15 @@ export default {
       id: 'cma-return-2026',
       status: 'confirmed',
       date: '2026-09-10',
-      lastCheckedOn: '2026-09-20',
+      lastCheckedOn: '2026-11-12',
       headline: 'Going back to the CMAs — "I haven\'t yee\'d my last haw"',
       detail:
-        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year.',
+        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year. One thing is settled ahead of the night: on 11 November 2026 a CMA source told E! News that Taylor will not perform in the show\'s Dolly Parton tribute. The report covered only the tribute stage, not whether she attends.',
       sources: [
+        {
+          name: 'E! News',
+          url: 'https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026',
+        },
         {
           name: 'Variety',
           url: 'https://variety.com/2026/music/news/taylor-swift-attending-cma-awards-song-nomination-i-knew-it-1236857806/',
