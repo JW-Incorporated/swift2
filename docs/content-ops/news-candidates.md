@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 81
+
+## Neighbors voice concerns over Taylor Swift and Travis Kelce's new mansion
+
+- first seen: 2026-11-12 17:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Neighbors of Taylor Swift and Travis Kelce express worries that their new mansion may disrupt local wildlife mating behaviors. The couple's property choices have sparked discussions about environmental impacts.
+- sources:
+  - [unverified] Paste Magazine — https://www.pastemagazine.com/music/taylor-swift-and-travis-kelces-neighbors-fear-new-mansion-will-prevent-local-animals-from-having-sex
 
 ## Taylor Swift and Travis Kelce's Landscaping Project Affects Local Wildlife
 
@@ -105,16 +113,19 @@ Stories: 85
 - verification_status: rumor | source_count: 1
 - summary: Fans were met with disappointing news about Taylor Swift ahead of the Chiefs-Falcons game. Details surrounding the news have not been specified.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/fans-gets-disappointing-taylor-swift-083547539.html
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/fans-gets-disappointing-taylor-swift-news-before-falcons-game/
 
 ## Charity Shares Details of Gift from Taylor Swift and Travis Kelce
 
 - first seen: 2026-11-12 08:15 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 7
 - summary: A charity has announced a 'very generous donation' received as a wedding gift from Taylor Swift and Travis Kelce. The specifics of the donation and its intended impact were not disclosed.
 - sources:
   - [unverified] HITC — https://www.hitc.com/charity-reveals-very-generous-donation-as-taylor-swift-and-travis-kelces-wedding-gift/
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-travis-kelce-plan-wall-ohio-million-mansion-12250612
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/12/taylor-swift-and-travis-kelce-hit-with-cma-awards-drama-before-major-nfl-stretch.html
+  - [unverified] NBC Boston — https://www.nbcboston.com/entertainment/entertainment-news/taylor-swift-travis-kelce-wedding-guests-donate-charity-instead-gifts/4048377/
+  - [unverified] WV News — https://www.wvnews.com/news/wvnews/taylor-swift-travis-kelce-wedding-gift-benefits-west-virginia-cat-rescue/article_c46ebd3c-d535-440d-aa62-fcdea55839fd.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-last-074919901.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/ll-see-wife-cook-travis-143530157.html
 
@@ -683,43 +694,3 @@ Stories: 85
 - summary: Taylor Swift was seen expressing pride in Travis Kelce as he reached a significant career milestone during a Kansas City Chiefs game. Her supportive moment has garnered attention in the media.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-cheers-travis-kelce-touchdown-milestone-chiefs-jets-game-12244548
-
-## Tyler Kolek's girlfriend comments on Taylor Swift Knicks fan drama
-
-- first seen: 2026-11-09 16:51 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tyler Kolek's girlfriend engages in a discussion surrounding the ongoing drama involving Taylor Swift and the Knicks fan situation, labeling it as 'fakest'.
-- sources:
-  - [unverified] New York Post — https://nypost.com/2026/11/09/sports/tyler-koleks-girlfriend-jumps-into-taylor-swift-fakest-knicks-fan-drama/
-
-## Taylor Swift and Karlie Kloss Reconnect: A Look at Their Friendship Timeline
-
-- first seen: 2026-11-09 16:51 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss are spending time together once more, prompting a review of their friendship history. The article provides a complete timeline of their relationship.
-- sources:
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74376911/taylor-swift-karlie-kloss-timeline/
-
-## 2027 Grammy Nominations Highlight Female Artist Dominance
-
-- first seen: 2026-11-09 16:51 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: The 2027 Grammy nominations are anticipated to showcase a strong presence of female artists in major categories, according to reports. This trend of female representation continues to evolve within the music industry.
-- sources:
-  - [unverified] ABC7 New York — https://abc7ny.com/post/grammy-nominations-2027-female-artists-expected-dominate-major-categories/20026706/
-
-## Taylor Swift Wears Super Bowl Pendant Again
-
-- first seen: 2026-11-09 16:51 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen wearing a sentimental diamond pendant during a recent appearance, which holds significance due to its connection to the Super Bowl.
-- sources:
-  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74375461/taylor-swift-diamond-87-super-bowl-necklace-rewear/
-
-## Taylor Swift Displays Game-Day Fashion Supporting Travis Kelce
-
-- first seen: 2026-11-09 16:51 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was seen in a game-day outfit that featured stylish elements referencing her husband, Travis Kelce, as she showcased her support for the Chiefs. The appearance highlights her connection to both football and fashion.
-- sources:
-  - [established] People — https://people.com/taylor-swift-wears-tommy-hilfiger-support-husband-travis-kelce-arrowhead-stadium-12230387
