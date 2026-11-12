@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 81
+
+## Jan Ravnik Suggests Kelce Brothers as Dream Guest Judges on 'DWTS'
+
+- first seen: 2026-11-12 04:28 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Former Taylor Swift dancer and current 'DWTS' pro Jan Ravnik has named the Kelce brothers as his ideal guest judges for the show. The suggestion highlights the ongoing intersection of sports and entertainment.
+- sources:
+  - [unverified] Entertainment Weekly — https://ew.com/dwts-pro-jan-dream-guest-judge-is-one-of-kelce-brothers-12249379
 
 ## Ella Langley Achieves Crossover Success Like Taylor Swift
 
