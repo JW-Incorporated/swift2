@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 83
+
+## Taylor Swift's Off-Duty Style Includes Wedding Detail
+
+- first seen: 2026-11-12 17:32 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift showcases her off-duty style, which now includes a new detail related to her wedding. The update was covered by ELLE, highlighting her fashion choices.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74412660/taylor-swift-off-duty-style-wedding-detail-photo/
+
+## Taylor Swift Acquires Shrubs Amid Travis Kelce Divorce Speculation
+
+- first seen: 2026-11-12 17:32 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly getting 10’ shrubs, coinciding with predictions regarding a potential divorce from Travis Kelce. The timing of these events has sparked interest among fans and the media.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-getting-her-10-150607748.html
 
 ## Neighbors voice concerns over Taylor Swift and Travis Kelce's new mansion
 
