@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 85
+
+## Taylor Swift Tribute Featured at Sarasota's Van Wezel
+
+- first seen: 2026-11-12 14:15 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A tribute to Taylor Swift, along with 'Rocky in Concert' and a holiday comedy, will be presented at Sarasota's Van Wezel. The events are part of the venue's upcoming entertainment schedule.
+- sources:
+  - [unverified] ABC7 WWSB — https://www.mysuncoast.com/2026/11/12/taylor-swift-tribute-rocky-concert-holiday-comedy-coming-sarasotas-van-wezel/
 
 ## Artist Creates Charm Necklace for Taylor Swift
 
@@ -713,33 +721,3 @@ Stories: 87
 - summary: A source indicates that Taylor Swift and Travis Kelce are facing a significant family issue as Christmas approaches.
 - sources:
   - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-travis-kelce-face-134522000.html
-
-## Knicks PG Covers Taylor Swift's 'Blank Space' After Criticism
-
-- first seen: 2026-11-09 13:52 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Following a previous comment about Taylor Swift, a Knicks point guard covers her song 'Blank Space' and clarifies his stance, stating he has nothing against her.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/pop/taylor-swift-fakest-fan-diss-knicks-kolek-apology-blank-space-1236377879/
-
-## Taylor Swift and Travis Kelce Depart Chiefs Game in Vintage Cadillac
-
-- first seen: 2026-11-09 13:52 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and her husband, Travis Kelce, were spotted leaving a Kansas City Chiefs game in a cream-colored vintage Cadillac. The couple's appearance attracted attention as they made their exit after the event.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swift-and-travis-kelce-leave-chiefs-game-in-cadillac/
-
-## Taylor Swift and Travis Kelce Donate $26 Million to Charities
-
-- first seen: 2026-11-09 13:52 UTC | category: business | importance: 8
-- verification_status: corroborated | source_count: 7
-- summary: In 2026, Taylor Swift and Travis Kelce made significant contributions totaling $26 million to 20 different charities, focusing their support on initiatives related to food security. This philanthropic effort highlights their commitment to charitable causes.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437942/taylor-swift-travis-kelce-leave-chiefs-game-in-vintage-car
-  - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/taylor-swift-and-travis-kelce-find-allies-as-war-over-ohio-mansion-heats-up/
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971727/taylor-swift-travis-kelce-christmas-2/
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article317993777.html
-  - [unverified] The Times — https://www.thetimes.com/uk/technology-uk/article/jensen-huang-alice-chinese-spy-wife-nvidia-tb9f9d2g2
-  - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
