@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 86
 
-## Taylor Swift Receives Sherry Lansing Leadership Award from The Hollywood Reporter
+## Taylor Swift and Travis Kelce Request Charity Donations from Wedding Guests
 
-- first seen: 2026-11-12 11:11 UTC | category: business | importance: 8
+- first seen: 2026-11-12 12:12 UTC | category: relationship | importance: 7
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award by The Hollywood Reporter, recognizing her achievements and influence in the entertainment industry.
+- summary: Taylor Swift and Travis Kelce reportedly requested that their wedding guests make charity donations instead of providing gifts, according to Us Weekly.
 - sources:
-  - [unverified] KS95 94.5 — https://www.ks95.com/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award/
+  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-asked-wedding-guests-for-donations/
+
+## Parts of Taylor Swift's B.C. Place Contract Remain Confidential
+
+- first seen: 2026-11-12 12:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Key sections of Taylor Swift's contract for B.C. Place will not be disclosed, as reported by Bob Mackin. The details of the agreement remain under wraps, maintaining confidentiality around the specifics of the contract.
+- sources:
+  - [unverified] Bob Mackin | Substack — https://bobmackin.substack.com/p/exclusive-key-parts-of-taylor-swifts
 
 ## Travis Kelce Discusses Plans with Taylor Swift
 
@@ -42,6 +50,14 @@ Stories: 84
 - summary: Travis Kelce expressed hopes that Taylor Swift, whom he refers to as his 'wife', will help devise a plan to reach 'new heights'.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/interviews/articles/travis-kelce-hopes-wife-taylor-091441918.html
+
+## Taylor Swift Receives Sherry Lansing Leadership Award from The Hollywood Reporter
+
+- first seen: 2026-11-12 11:11 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award by The Hollywood Reporter, recognizing her achievements and influence in the entertainment industry.
+- sources:
+  - [unverified] JAM Broadcasting — https://jambroadcasting.com/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award/
 
 ## Source Reveals Unexpected Element in Taylor Swift and Karlie Kloss Feud
 
