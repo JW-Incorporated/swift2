@@ -1068,7 +1068,7 @@ export default {
       thumbnailUrl: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
       moment: {
         context:
-          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.',
+          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.\n\nOne question about the night was settled a week out. The show is set to honor Dolly Parton, who died in August, and Taylor had already made her own tributes public: a statement after Parton\'s death ("A world without Dolly doesn\'t feel possible, real, or right") and a September VMAs Video of the Year win dedicated to "the ultimate showgirl, Dolly Parton." On Nov. 11, a CMA source told E! News that Taylor will not perform in the Parton tribute. The CMA had not named the tribute\'s performers at that point, and the report addressed only the stage, not her attendance.',
         sources: [
           {
             outlet: 'Variety',
@@ -1097,6 +1097,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-15',
             reliability_score: 3,
+          },
+          // Content Shift (Vault Run 2026-11-12, intake #6813): CMA source on
+          // the record to E! News that Taylor is not in the Parton tribute.
+          // Page fetched and read this run; attendance not addressed by it.
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026',
+            source_title: 'Taylor Swift Is Not Performing in Dolly Parton Tribute at CMA Awards 2026',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-12',
+            reliability_score: 4,
           },
         ],
         photos: [
