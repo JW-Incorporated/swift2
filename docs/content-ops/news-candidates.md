@@ -27,6 +27,14 @@ so far".
 
 Stories: 83
 
+## Steph Curry Defends Ayesha Amid Criticism Over On-Screen Kiss
+
+- first seen: 2026-11-12 18:32 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Steph Curry publicly defended his wife Ayesha against online trolls after they criticized her for an on-screen kiss. He emphasized the negative implications of such criticism and addressed double standards in how women are perceived in sports and society.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/12/steph-curry-ayesha-curry-manosphere-marriage-backlash
+
 ## Taylor Swift's Off-Duty Style Includes Wedding Detail
 
 - first seen: 2026-11-12 17:32 UTC | category: fashion | importance: 5
@@ -702,11 +710,3 @@ Stories: 83
 - summary: Taylor Swift fans accused Olivia Rodrigo of copying two artists with her new Christmas song, but both artists have come to her defense. This incident highlights the ongoing conversation about originality in music.
 - sources:
   - [unverified] BuzzFeed — https://www.buzzfeed.com/stephaniesoteriou/robbie-williams-defends-olivia-rodrigo-copying-claims
-
-## Taylor Swift Celebrates Travis Kelce's Career Milestone at Chiefs Game
-
-- first seen: 2026-11-09 17:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen expressing pride in Travis Kelce as he reached a significant career milestone during a Kansas City Chiefs game. Her supportive moment has garnered attention in the media.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-cheers-travis-kelce-touchdown-milestone-chiefs-jets-game-12244548
