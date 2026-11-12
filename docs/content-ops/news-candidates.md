@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
+
+## Ella Langley Achieves Crossover Success Like Taylor Swift
+
+- first seen: 2026-11-12 02:27 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Ella Langley is recognized as the first female artist since Taylor Swift to successfully crossover multiple country songs to pop radio. This achievement highlights her impact in the music industry.
+- sources:
+  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/11/11/ella-langley-becomes-the-first-female-artist-since-taylor-swift-to-crossover-multiple-country-songs-to-pop-radio/
 
 ## Taylor Swift to Receive Honor at Women in Entertainment Gala
 
@@ -708,19 +716,3 @@ Stories: 84
 - summary: Taylor Swift and Karlie Kloss were spotted together at a recent Chiefs game, prompting widespread attention. Their outing has generated significant media coverage and public interest.
 - sources:
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/08/taylor-swift-karlie-kloss-chiefs-game-drama-explained/92683150007/
-
-## Taylor Swift and Travis Kelce Face 2027 Breakup Speculation Report
-
-- first seen: 2026-11-09 01:48 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new report discusses potential breakup speculation surrounding Taylor Swift and Travis Kelce, suggesting concerns about their relationship in 2027. This has generated attention among fans and media alike.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-lead-013000760.html
-
-## Taylor Swift Seen With Karlie Kloss At Chiefs Game
-
-- first seen: 2026-11-09 01:48 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was spotted seated next to former Project Runway host Karlie Kloss at a Chiefs game. Kloss, alongside her husband Joshua Kushner, has recently made headlines for reviving LIFE magazine.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/taylor-swift-karlie-kloss-chiefs-game-1237216947/
