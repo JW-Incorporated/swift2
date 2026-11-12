@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
+
+## Jessica Sibley Discusses Time 3.0 and Taylor Swift's Influence
+
+- first seen: 2026-11-12 19:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jessica Sibley explores the Time 3.0 transformation plan and highlights Taylor Swift's impact on trust and technology in media. The discussion focuses on innovative approaches in today's landscape.
+- sources:
+  - [unverified] FIPP — https://www.fipp.com/news/trust-tech-and-taylor-swift-jessica-sibley-on-the-remarkable-time-3-0-transformation-plan/
 
 ## Steph Curry Defends Ayesha Amid Criticism Over On-Screen Kiss
 
@@ -694,19 +702,3 @@ Stories: 83
 - summary: Taylor Swift and Karlie Kloss were seen together at a Kansas City Chiefs game featuring Travis Kelce. Their reunion attracted attention as both are prominent figures in the entertainment industry.
 - sources:
   - [unverified] Extra — https://extratv.com/2026/11/09/taylor-swift-and-karlie-kloss-reunite-at-travis-kelce-chiefs-game/
-
-## Tyler Kolek Performs a Taylor Swift Song After Recent Comments
-
-- first seen: 2026-11-09 18:52 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Knicks player Tyler Kolek clarifies his previous remarks about Taylor Swift by singing one of her songs, showcasing a lighter moment. This event highlights the crossover between sports and pop culture.
-- sources:
-  - [established] People — https://people.com/knicks-tyler-kolek-backtracks-taylor-swift-shade-breaks-into-one-of-her-songs-12244643
-
-## Olivia Rodrigo Defended by Artists Amid Accusations from Taylor Swift Fans
-
-- first seen: 2026-11-09 18:52 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift fans accused Olivia Rodrigo of copying two artists with her new Christmas song, but both artists have come to her defense. This incident highlights the ongoing conversation about originality in music.
-- sources:
-  - [unverified] BuzzFeed — https://www.buzzfeed.com/stephaniesoteriou/robbie-williams-defends-olivia-rodrigo-copying-claims
