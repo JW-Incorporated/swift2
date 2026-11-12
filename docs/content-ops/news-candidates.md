@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Source Reveals Unexpected Element in Taylor Swift and Karlie Kloss Feud
+
+- first seen: 2026-11-12 10:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new source suggests there may be an unexpected third party involved in the feud between Taylor Swift and Karlie Kloss. The details of this development have not yet been disclosed.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-feud-091220088.html
 
 ## Fans Encounter Disappointing News Regarding Taylor Swift Before Game
 
