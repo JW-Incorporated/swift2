@@ -17360,6 +17360,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-i-knew-it-i-knew-you-tops-pop-airplay-a-record-extending-16t',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
       ],
       year: 2026,
       month: 11,
@@ -17538,7 +17539,10 @@ export default {
       // Photo: Just Jared's wide frame (pagesix.com is not an allowlisted photo
       // host); see the note on the photo for why this frame.
       slug: 'showgirl-arrowhead-karlie-kloss-jets-2026',
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-red-a-california-road-trip-with-new-best-friend-karlie-kloss',
+      ],
       year: 2026,
       month: 11,
       day: 8,
