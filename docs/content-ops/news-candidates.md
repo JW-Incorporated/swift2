@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 85
+
+## Taylor Swift and Travis Kelce's Landscaping Project Affects Local Wildlife
+
+- first seen: 2026-11-12 16:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report highlights concerns regarding the landscaping work by Taylor Swift and Travis Kelce, noting its impact on animal life. The discussion is based on coverage from TMZ on TV featured by Yahoo.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swift-travis-kelce-landscaping-152242006.html
 
 ## Details of Kelce-Swift Wedding Shared by West Virginia Shelter
 
@@ -715,19 +723,3 @@ Stories: 86
 - summary: Taylor Swift was seen in a game-day outfit that featured stylish elements referencing her husband, Travis Kelce, as she showcased her support for the Chiefs. The appearance highlights her connection to both football and fashion.
 - sources:
   - [established] People — https://people.com/taylor-swift-wears-tommy-hilfiger-support-husband-travis-kelce-arrowhead-stadium-12230387
-
-## Nike Sneaker Inspired by Taylor Swift's Eras Tour Bracelets
-
-- first seen: 2026-11-09 15:52 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Jimmy Fallon received an exclusive pair of sneakers inspired by the friendship bracelets from Taylor Swift's Eras Tour. The collaboration highlights the influence of Swift's tour on fashion.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/taylor-swifts-eras-tour-friendship-bracelets-inspired-a-nike-sneaker-and-jimmy-fallon-got-a-pair-25497-c1/
-
-## Taylor Swift and Travis Kelce Encounter Family Issue Before Christmas
-
-- first seen: 2026-11-09 15:52 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A source indicates that Taylor Swift and Travis Kelce are facing a significant family issue as Christmas approaches.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-travis-kelce-face-134522000.html
