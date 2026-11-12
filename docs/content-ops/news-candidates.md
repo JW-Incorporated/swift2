@@ -27,6 +27,22 @@ so far".
 
 Stories: 84
 
+## Taylor Swift Receives Sherry Lansing Leadership Award from The Hollywood Reporter
+
+- first seen: 2026-11-12 11:11 UTC | category: business | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award by The Hollywood Reporter, recognizing her achievements and influence in the entertainment industry.
+- sources:
+  - [unverified] KS95 94.5 — https://www.ks95.com/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award/
+
+## Travis Kelce Discusses Plans with Taylor Swift
+
+- first seen: 2026-11-12 11:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce expressed hopes that Taylor Swift, whom he refers to as his 'wife', will help devise a plan to reach 'new heights'.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/interviews/articles/travis-kelce-hopes-wife-taylor-091441918.html
+
 ## Source Reveals Unexpected Element in Taylor Swift and Karlie Kloss Feud
 
 - first seen: 2026-11-12 10:12 UTC | category: relationship | importance: 5
@@ -703,25 +719,3 @@ Stories: 84
   - [unverified] The Times — https://www.thetimes.com/uk/technology-uk/article/jensen-huang-alice-chinese-spy-wife-nvidia-tb9f9d2g2
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/world/us/taylor-swift-and-travis-kelce-donated-26-million-to-20-charities-in-2026-their-gifts-supported-food-banks-childrens-hospitals-and-education-programmes-across-the-us/articleshow/135669462.cms
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-fans-made-same-125018703.html
-
-## Knicks Player Tyler Kolek Faces Criticism for Comments on Taylor Swift
-
-- first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Tyler Kolek, a player for the Knicks, has come under scrutiny for his remarks regarding Taylor Swift. The comments have sparked a strong reaction, drawing attention to his remarks and their context.
-- sources:
-  - [unverified] South China Morning Post — https://www.scmp.com/magazines/style/people/celebrities/article/3373755/meet-knicks-star-tyler-kolek-who-called-taylor-swift-fakest-celebrity-fan
-
-## Taylor Swift Reunites with Karlie Kloss After Nearly a Decade
-
-- first seen: 2026-11-09 10:52 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 7
-- summary: Fans of Taylor Swift have expressed their excitement following her recent reunion with model Karlie Kloss, marking the first time the two have been together publicly in nearly ten years. This moment has sparked significant reactions within the fan community.
-- sources:
-  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-karlie-kloss-reunite-chiefs-game-after-rumored-rift-12244119
-  - [unverified] KMTR — https://nbc16.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift
-  - [unverified] Page Six — https://pagesix.com/2026/11/09/entertainment/how-taylor-swift-and-karlie-kloss-moved-past-years-of-tension-theyve-gotten-a-lot-closer/
-  - [unverified] Rural Radio Network — https://ruralradio.com/kuvr/abc_news/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game-abcid97a8cd67/
-  - [unverified] WBAL News Radio — https://www.wbal.com/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
-  - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
