@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Details of Kelce-Swift Wedding Shared by West Virginia Shelter
+
+- first seen: 2026-11-12 15:12 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A West Virginia shelter has disclosed an interesting detail related to the wedding of Travis Kelce and Taylor Swift. The information was reported by the Kansas City Star.
+- sources:
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article318040810.html
 
 ## Taylor Swift Tribute Featured at Sarasota's Van Wezel
 
@@ -94,11 +102,13 @@ Stories: 85
 ## Charity Shares Details of Gift from Taylor Swift and Travis Kelce
 
 - first seen: 2026-11-12 08:15 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: A charity has announced a 'very generous donation' received as a wedding gift from Taylor Swift and Travis Kelce. The specifics of the donation and its intended impact were not disclosed.
 - sources:
   - [unverified] HITC — https://www.hitc.com/charity-reveals-very-generous-donation-as-taylor-swift-and-travis-kelces-wedding-gift/
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/12/taylor-swift-and-travis-kelce-hit-with-cma-awards-drama-before-major-nfl-stretch.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-last-074919901.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/ll-see-wife-cook-travis-143530157.html
 
 ## Taylor Swift Campaigns for Best Song Oscar for "I Knew It, I Knew You"
 
