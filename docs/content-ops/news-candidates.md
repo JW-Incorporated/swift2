@@ -27,6 +27,14 @@ so far".
 
 Stories: 81
 
+## Taylor Swift Campaigns for Best Song Oscar for "I Knew It, I Knew You"
+
+- first seen: 2026-11-12 05:27 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is actively campaigning for the Best Song Oscar for her track "I Knew It, I Knew You." Her ongoing efforts to secure the award have garnered attention in entertainment news.
+- sources:
+  - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/11/taylor-swifts-continuing-saga-of-really-really-wanting-the-best-song-oscar-for-i-knew-it-i-knew-you-campaign-continues-apace
+
 ## Jan Ravnik Suggests Kelce Brothers as Dream Guest Judges on 'DWTS'
 
 - first seen: 2026-11-12 04:28 UTC | category: business | importance: 5
@@ -692,11 +700,3 @@ Stories: 81
   - [unverified] WBAL News Radio — https://www.wbal.com/taylor-swift-karlie-kloss-reunite-at-kansas-city-chiefs-game
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/karlie-kloss-taylor-swift-kansas-city-chiefs-football-game-1239406793/
   - [unverified] Yahoo Life UK — https://uk.style.yahoo.com/taylor-swift-fans-react-she-094410152.html
-
-## Kelce and Swift Spotted Exiting Arrowhead Stadium After Chiefs Victory
-
-- first seen: 2026-11-09 04:43 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce and Taylor Swift were seen leaving Arrowhead Stadium following the Kansas City Chiefs' win. Their public appearance continues to attract attention from fans and media alike.
-- sources:
-  - [unverified] Chiefs Wire — https://chiefswire.usatoday.com/story/sports/nfl/chiefs/2026/11/08/kansas-city-chiefs-travis-kelce-taylor-swift-epic-exit-arrowhead-stadium-nfl-week-9/92685227007/
