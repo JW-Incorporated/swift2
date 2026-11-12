@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 84
+
+## Taylor Swift to Receive Honor at Women in Entertainment Gala
+
+- first seen: 2026-11-12 01:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to be honored at the upcoming Women in Entertainment Gala, recognizing her contributions to the industry. The event aims to celebrate influential women in the field.
+- sources:
+  - [unverified] MyNewsLA.com — https://mynewsla.com/crime/2026/11/11/taylor-swift-to-be-honored-at-women-in-entertainment-gala/
 
 ## Taylor Swift and Travis Kelce Pose in Red for a Cause
 
@@ -716,20 +724,3 @@ Stories: 85
 - summary: Taylor Swift was spotted seated next to former Project Runway host Karlie Kloss at a Chiefs game. Kloss, alongside her husband Joshua Kushner, has recently made headlines for reviving LIFE magazine.
 - sources:
   - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/taylor-swift-karlie-kloss-chiefs-game-1237216947/
-
-## Caitlin Clark Unveils Taylor Swift-Inspired Nike Sneakers
-
-- first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Caitlin Clark has shared that her exclusive Nike sneakers, featuring a friendship bracelet design, are inspired by Taylor Swift. This connection highlights the influence of Swift in the world of fashion and sports.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/basketball/wnba/indiana-fever/2026/11/09/caitlin-clark-reveals-the-taylor-swift-inspiration-behind-her-exclusive-nike-friendship-bracelet-sneakers.html
-
-## Caitlin Clark Unveils Taylor Swift-Inspired CC1 Colorway
-
-- first seen: 2026-11-09 00:50 UTC | category: fashion | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Caitlin Clark has shared details about a unique Taylor Swift-inspired colorway for her CC1 sneakers, stating that it is an exclusive design. This release highlights the influence of Taylor Swift on style and sports.
-- sources:
-  - [unverified] New York Post — https://www.aol.com/articles/tyler-kolek-girlfriend-jumps-taylor-162031000.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-details-taylor-202804549.html
