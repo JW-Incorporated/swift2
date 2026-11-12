@@ -25,15 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 81
 
-## Taylor Swift and Travis Kelce Wedding Photo Sparks Interest
+## Taylor Swift's Backup Dancer Suggests Kelce Brothers as DWTS Judges
 
-- first seen: 2026-11-12 20:27 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new photo of Taylor Swift and Travis Kelce has emerged, revealing surprising details about their wedding. The image has caught the attention of fans and media alike, generating discussions about the couple's upcoming nuptials.
+- first seen: 2026-11-12 22:22 UTC | category: business | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A backup dancer for Taylor Swift believes that brothers Jason and Travis Kelce would make incredible judges on 'Dancing with the Stars'.
 - sources:
-  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/photo-taylor-swift-travis-kelce-142857088.html
+  - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-dancer-jan-ravnik-travis-kelce-judge-dwts-1236380670/
 
 ## Travis Kelce Suggests Taylor Swift's Involvement in 'New Heights' Live Event
 
@@ -42,6 +42,14 @@ Stories: 82
 - summary: Travis Kelce mentioned that Taylor Swift could potentially assist with the next live event for the 'New Heights' podcast. This statement highlights the crossover interest between their respective careers.
 - sources:
   - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-hints--taylor-swift-help-new-heights-podcast-next-live-event
+
+## Taylor Swift and Travis Kelce Wedding Photo Sparks Interest
+
+- first seen: 2026-11-12 20:27 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new photo of Taylor Swift and Travis Kelce has emerged, revealing surprising details about their wedding. The image has caught the attention of fans and media alike, generating discussions about the couple's upcoming nuptials.
+- sources:
+  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/photo-taylor-swift-travis-kelce-142857088.html
 
 ## Jessica Sibley Discusses Time 3.0 and Taylor Swift's Influence
 
@@ -687,19 +695,3 @@ Stories: 82
 - summary: An article discusses the awards history of 'The Hunger Games' ahead of the new release 'Sunrise on the Reaping', mentioning notable winners including Jennifer Lawrence and Taylor Swift.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/hunger-games-awards-history-ahead-003000026.html
-
-## Stars Attend Kansas City Chiefs Games with Taylor Swift
-
-- first seen: 2026-11-09 21:41 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A variety of celebrities have been spotted joining Taylor Swift at recent Kansas City Chiefs games. The gatherings have captured the attention of fans and media alike.
-- sources:
-  - [established] People — https://people.com/taylor-swift-celebrity-friends-at-kansas-city-chiefs-games-12244829
-
-## Fans Discuss 5 Songs That Define Taylor Swift's Legacy Since Her 2006 Debut
-
-- first seen: 2026-11-09 21:41 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Three superfans share their thoughts on five songs from Taylor Swift's debut album that continue to define her legacy 20 years later, highlighting the impact of her early work.
-- sources:
-  - [unverified] Grazia — https://graziamagazine.com/us/articles/in-2006-taylor-swift-released-her-debut-album-at-just-16-3-superfans-reveal-the-5-songs-that-still-define-her-legacy-20-years-later/
