@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Taylor Swift and Travis Kelce Pose in Red for a Cause
+
+- first seen: 2026-11-12 00:27 UTC | category: fashion | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is seen posing in a festive red outfit alongside husband Travis Kelce. The appearance highlights the couple's involvement in a meaningful cause.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-poses-travis-kelce-red-sweater-hancock-county-humane-foundation-12249632
+
+## Taylor Swift's Announcement Brings Joy to Travis Kelce
+
+- first seen: 2026-11-12 00:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An announcement by Taylor Swift is reported to bring happiness to her husband, Travis Kelce. The details of the announcement have not been disclosed in the snippet.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-announcement-husband-travis-221500450.html
+
+## Billboard Speculates on Album of the Year Nominees
+
+- first seen: 2026-11-12 00:27 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Billboard has predicted that Taylor Swift, Olivia Rodrigo, and Don Toliver will be contenders for Album of the Year nominations. This speculation highlights their impact in the music industry.
+- sources:
+  - [unverified] foxy99.com — https://foxy99.com/2026/11/11/billboard-predicts-taylor-swift-olivia-rodrigo-and-don-toliver-for-album-of-the-year-nominations/
 
 ## Travis Kelce to Seek Taylor Swift's Advice on New Business Venture
 
@@ -709,11 +733,3 @@ Stories: 83
 - sources:
   - [unverified] New York Post — https://www.aol.com/articles/tyler-kolek-girlfriend-jumps-taylor-162031000.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-details-taylor-202804549.html
-
-## Bill Maher Faces Backlash Over Comment on Taylor Swift
-
-- first seen: 2026-11-09 00:03 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Comedian Bill Maher received criticism following a sarcastic remark he made regarding Taylor Swift. The backlash highlights the strong feelings fans have towards the singer.
-- sources:
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/08/sarcastic-comment-about-taylor-swift-causes-bill-maher-some-trouble.html
