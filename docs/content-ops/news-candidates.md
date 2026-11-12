@@ -27,6 +27,22 @@ so far".
 
 Stories: 82
 
+## Taylor Swift and Travis Kelce Wedding Photo Sparks Interest
+
+- first seen: 2026-11-12 20:27 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A new photo of Taylor Swift and Travis Kelce has emerged, revealing surprising details about their wedding. The image has caught the attention of fans and media alike, generating discussions about the couple's upcoming nuptials.
+- sources:
+  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/photo-taylor-swift-travis-kelce-142857088.html
+
+## Travis Kelce Suggests Taylor Swift's Involvement in 'New Heights' Live Event
+
+- first seen: 2026-11-12 20:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce mentioned that Taylor Swift could potentially assist with the next live event for the 'New Heights' podcast. This statement highlights the crossover interest between their respective careers.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-hints--taylor-swift-help-new-heights-podcast-next-live-event
+
 ## Jessica Sibley Discusses Time 3.0 and Taylor Swift's Influence
 
 - first seen: 2026-11-12 19:27 UTC | category: business | importance: 5
@@ -150,13 +166,14 @@ Stories: 82
 ## Charity Shares Details of Gift from Taylor Swift and Travis Kelce
 
 - first seen: 2026-11-12 08:15 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 7
+- verification_status: corroborated | source_count: 8
 - summary: A charity has announced a 'very generous donation' received as a wedding gift from Taylor Swift and Travis Kelce. The specifics of the donation and its intended impact were not disclosed.
 - sources:
   - [unverified] HITC — https://www.hitc.com/charity-reveals-very-generous-donation-as-taylor-swift-and-travis-kelces-wedding-gift/
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-travis-kelce-plan-wall-ohio-million-mansion-12250612
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/12/taylor-swift-and-travis-kelce-hit-with-cma-awards-drama-before-major-nfl-stretch.html
   - [unverified] NBC Boston — https://www.nbcboston.com/entertainment/entertainment-news/taylor-swift-travis-kelce-wedding-guests-donate-charity-instead-gifts/4048377/
+  - [unverified] Washington Times — https://www.washingtontimes.com/news/2026/nov/12/taylor-swift-travis-kelces-ohio-neighbors-get-spicy-landscaping-plans/
   - [unverified] WV News — https://www.wvnews.com/news/wvnews/taylor-swift-travis-kelce-wedding-gift-benefits-west-virginia-cat-rescue/article_c46ebd3c-d535-440d-aa62-fcdea55839fd.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-last-074919901.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/ll-see-wife-cook-travis-143530157.html
@@ -686,19 +703,3 @@ Stories: 82
 - summary: Three superfans share their thoughts on five songs from Taylor Swift's debut album that continue to define her legacy 20 years later, highlighting the impact of her early work.
 - sources:
   - [unverified] Grazia — https://graziamagazine.com/us/articles/in-2006-taylor-swift-released-her-debut-album-at-just-16-3-superfans-reveal-the-5-songs-that-still-define-her-legacy-20-years-later/
-
-## Paul McCartney Joins Forbes List with $1.4 Billion Fortune
-
-- first seen: 2026-11-09 19:46 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Paul McCartney has been listed by Forbes with a fortune of $1.4 billion, placing him behind Jay-Z and Taylor Swift. This acknowledgment highlights the significant financial achievements of prominent music artists.
-- sources:
-  - [unverified] Complex — https://www.complex.com/music/a/jaelaniturnerwilliams/paul-mccartney-net-worth-forbes-billionaire
-
-## Taylor Swift and Karlie Kloss Spotted Together at Chiefs Game
-
-- first seen: 2026-11-09 19:46 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss were seen together at a Kansas City Chiefs game featuring Travis Kelce. Their reunion attracted attention as both are prominent figures in the entertainment industry.
-- sources:
-  - [unverified] Extra — https://extratv.com/2026/11/09/taylor-swift-and-karlie-kloss-reunite-at-travis-kelce-chiefs-game/
