@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 93
+
+## Taylor Swift Scheduled to Perform at Country Music Awards After 10 Years
+
+- first seen: 2026-11-13 20:29 UTC | category: tour | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the Country Music Awards for the first time since 2013, marking a significant return to the event. This performance is highly anticipated by fans and marks a notable moment in her career.
+- sources:
+  - [unverified] Washington Times — https://www.washingtontimes.com/news/2026/nov/13/taylor-swift-perform-country-music-awards-first-time-since-2013/
 
 ## Taylor Swift to Perform at CMA Awards After 13 Years
 
@@ -803,19 +811,3 @@ Stories: 94
 - summary: An article reviews Taylor Swift's best and worst outfits worn during date nights with Travis Kelce. The piece focuses on her fashion choices in public appearances with the NFL star.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swifts-best-worst-date-181500886.html
-
-## Taylor Swift and Karlie Kloss Resolve Differences at Arrowhead
-
-- first seen: 2026-11-10 20:17 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss have reportedly mended their past rifts during a recent encounter at Arrowhead. This event marks a significant moment in their relationship history.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-put-195141964.html
-
-## Taylor Swift and Karlie Kloss Reconcile Sooner Than Fans Expected
-
-- first seen: 2026-11-10 20:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss have reportedly reconciled their friendship earlier than fans anticipated. The update suggests a positive turnaround in their relationship.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235092065/when-taylor-swift-karlie-kloss-reconcile/
