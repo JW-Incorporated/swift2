@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Brittany Mahomes Responds to Taylor Swift Pregnancy Joke
+
+- first seen: 2026-11-13 08:47 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brittany Mahomes has reacted to a pregnancy joke made about Taylor Swift, highlighting the ongoing fan discussions around Swift's personal life. The exchange continues to attract attention from both fans and media.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/patrick-mahomes-wife-brittany-reacts-080325099.html
 
 ## Taylor Swift Among Stars Playing Uno, Created in Cincinnati
 
