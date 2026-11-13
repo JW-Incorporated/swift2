@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 82
+
+## Taylor Swift and Travis Kelce Share New Photo Amid Wedding Detail Reveal
+
+- first seen: 2026-11-13 09:46 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A newly surfaced photo of Taylor Swift and Travis Kelce has emerged, coinciding with the revelation of a heartfelt detail from their wedding. The couple continues to attract attention with their public appearances.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/celebrities/taylor-swift-and-travis-kelce-pose-for-rare-new-photo-as-sweet-detail-from-their-wedding-comes-to-light
 
 ## Brittany Mahomes Responds to Taylor Swift Pregnancy Joke
 
@@ -696,19 +704,3 @@ Stories: 83
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-travis-kelce-new-ohio-neighbors-speak-out-12246928
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/10/taylor-swift-and-travis-kelce-face-christmas-family-dilemma-as-both-sides-make-holiday-plans.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/neither-wants-disappoint-taylor-swift-110012607.html
-
-## Taylor Swift's Unbuttoned Polo Styled with $4K Pendant
-
-- first seen: 2026-11-10 09:27 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent sighting, Taylor Swift was seen wearing an unbuttoned polo shirt accessorized with a $4,000 pendant by Stephanie Gottlieb. This fashion choice highlights her unique style.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/taylor-swift-elevates-unbuttoned-polo-081415131.html
-
-## Taylor Swift and Travis Kelce Involved in Ohio Mansion Dispute
-
-- first seen: 2026-11-10 09:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift and Travis Kelce have received unexpected support in their ongoing legal battle over a $5.35 million mansion in Ohio.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-unexpected-090345821.html
