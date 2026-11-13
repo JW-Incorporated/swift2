@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 85
+
+## Taylor Swift Reportedly Upset Over Wedding Leak
+
+- first seen: 2026-11-13 12:47 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports suggest that Taylor Swift is angry about a wedding leak, described as a 'betrayal' on her special day. This incident highlights the challenges celebrities face in keeping personal events private.
+- sources:
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234972664/taylor-swift-travis-kelce-wedding-gift-leak/
+
+## Ella Langley Achieves Historic Feat Alongside Taylor Swift
+
+- first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
+
+## Taylor Swift Facing New Controversy Over Scooter Braun Agreement
+
+- first seen: 2026-11-13 12:47 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Sources indicate that Taylor Swift is involved in a new controversy related to her deal with Scooter Braun. This issue arises as previous tensions over their business relationship resurface.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-faces-fresh-row-110000309.html
 
 ## Taylor Swift and Travis Kelce Share New Photo Amid Wedding Detail Reveal
 
