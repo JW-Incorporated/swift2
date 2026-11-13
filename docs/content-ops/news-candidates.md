@@ -27,6 +27,14 @@ so far".
 
 Stories: 94
 
+## Taylor Swift to Perform at CMA Awards After 13 Years
+
+- first seen: 2026-11-13 19:57 UTC | category: tour | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: After a 13-year hiatus, Taylor Swift is set to perform at the CMA Awards, marking her return to the event. This performance will bring her back to the country music scene.
+- sources:
+  - [unverified] WBIR — https://www.wbir.com/video/entertainment/taylor-swift-to-perform-at-cma-awards-after-13-years/51-0857f20f-020a-46a6-b329-e785774fed19
+
 ## Cara Delevingne Calls Taylor Swift's Wedding to Travis Kelce a Highlight
 
 - first seen: 2026-11-13 18:57 UTC | category: relationship | importance: 7
@@ -274,19 +282,23 @@ Stories: 94
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 10
+- verification_status: corroborated | source_count: 14
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
+  - [unverified] - Saving Country Music — https://savingcountrymusic.com/on-taylor-swift-playing-the-2026-cma-awards/
   - [unverified] ABC11 News — https://abc11.com/post/cma-awards-2026-preview-lainey-wilson-ella-langley-taylor-swift-lead-country-musics-big-night/20028284/
+  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/11/13/taylor-swift-set-to-perform-at-2026-cma-awards/
   - [unverified] KCTV — https://www.kctv5.com/video/2026/11/13/taylor-swift-perform-cma-awards-first-time-13-years/
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
   - [established] People — https://people.com/taylor-swift-to-perform-at-the-2026-cma-awards-12252679
   - [unverified] Rural Radio Network — https://ruralradio.com/maxcountry/abc_news/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-abcide22d3bf1/
+  - [unverified] Scripps News — https://www.scrippsnews.com/entertainment/music/taylor-swift-makes-cma-awards-comeback-13-years-after-last-performance
   - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/13/taylor-swift-oscar-grammy-campaigns-continue-shell-play-live-on-cma-awards-next-week-appearing-for-first-time-in-13-yes-13-years
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
   - [unverified] WSMV — https://www.wsmv.com/2026/11/13/taylor-swift-perform-60th-cma-awards-nashville-first-time-13-years/
   - [unverified] WZTV — https://fox17.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perfom-cma-awards-164004454.html
 
 ## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
 
@@ -807,11 +819,3 @@ Stories: 94
 - summary: Taylor Swift and Karlie Kloss have reportedly reconciled their friendship earlier than fans anticipated. The update suggests a positive turnaround in their relationship.
 - sources:
   - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235092065/when-taylor-swift-karlie-kloss-reconcile/
-
-## Neighbors Support Kelce and Swift in Mansion Dispute
-
-- first seen: 2026-11-10 19:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Neighbors have come forward to defend Travis Kelce and Taylor Swift amid a dispute related to their $5.35 million mansion in Ohio. The situation has garnered attention from local media and the public.
-- sources:
-  - [unverified] Akron Beacon Journal — https://www.beaconjournal.com/story/news/2026/11/10/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-neighbors-defend/92706391007/
