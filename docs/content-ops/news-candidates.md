@@ -27,6 +27,22 @@ so far".
 
 Stories: 92
 
+## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
+
+- first seen: 2026-11-13 22:26 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to return to the CMA Awards stage for the first time in 13 years. This performance marks a significant moment in her music career at this prestigious country music event.
+- sources:
+  - [unverified] Buckeye Country 105.5 — https://buckeyecountry105.iheart.com/content/2026-11-13-taylor-swift-to-return-to-cma-awards-stage-13-years-after-her-last-performance/
+
+## Taylor Swift Comments on Raising Children After Marriage to Tracis Kelce
+
+- first seen: 2026-11-13 22:26 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares her thoughts on raising children in a rare comment, following her wedding to Tracis Kelce four months ago. This remark highlights her personal reflections on family life.
+- sources:
+  - [unverified] HELLO! — https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/
+
 ## Taylor Swift's Campaign Strategy for 2027 Oscars Discussed by Vulture
 
 - first seen: 2026-11-13 21:27 UTC | category: business | importance: 7
@@ -226,16 +242,18 @@ Stories: 92
 ## Ella Langley Achieves Historic Feat Alongside Taylor Swift
 
 - first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 9
+- verification_status: corroborated | source_count: 11
 - summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
 - sources:
   - [unverified] 13WHAM-TV — https://13wham.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination?teaserSource=databricks
   - [unverified] All Country News — https://www.allcountrynews.com/post/taylor-swift-is-returning-to-the-cma-awards-stage-after-13-years-and-yes-that-number-feels-right
   - [established] Deadline — https://deadline.com/2026/11/cma-awards-performers-ella-langley-taylor-swift-1237213808/
+  - [unverified] Fresh Fiction — https://freshfiction.tv/taylor-swift-on-tailoring-her-voice-to-the-toy-story-franchise-with-i-knew-it-i-knew-you/
   - [unverified] Newser — https://www.newser.com/story/399980/taylor-swift-to-return-to-cma-awards-stage-after-13-years.html
   - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
   - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-2013-cma-awards-performance-red-vince-gill-alison-krauss/
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
+  - [unverified] upi — https://www.upi.com/Entertainment_News/Movies/2026/11/13/Taylor-Swift-Toy-Story-5-song/2711794597118/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-to-perform-cma-awards-first-time-13-years-1236946968/
   - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-to-perform-at-60th-cma-awards/12367805/
 
@@ -787,19 +805,3 @@ Stories: 92
 - summary: Taylor Swift and Travis Kelce have received the backing of their neighbor for the construction of an 8-foot privacy wall at their $5.35 million estate in Ohio.
 - sources:
   - [unverified] Realtor.com — https://www.realtor.com/news/celebrity-real-estate/taylor-swift-travis-kelce-neighbor-backs-ohio-mansion-fence/
-
-## Taylor Swift Tops Musician Billionaire List in 2026
-
-- first seen: 2026-11-10 22:21 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: In November 2026, Taylor Swift has been recognized as the leading billionaire among musicians, highlighting her financial success. The report was featured by Young Hollywood.
-- sources:
-  - [unverified] Young Hollywood — https://younghollywood.com/scene/taylor-swift-billionaire-musician-ranking-paul-mccartney-jay-z.html
-
-## Man Reflects on One-Sided Dispute with Taylor Swift
-
-- first seen: 2026-11-10 22:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A man expresses his regret after initiating a one-sided conflict involving Taylor Swift. The situation has drawn attention but remains primarily personal.
-- sources:
-  - [unverified] The Cut — https://www.thecut.com/article/tyler-kolek-regrets-starting-one-sided-taylor-swift-beef.html
