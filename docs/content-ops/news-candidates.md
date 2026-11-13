@@ -27,6 +27,23 @@ so far".
 
 Stories: 94
 
+## Cara Delevingne Calls Taylor Swift's Wedding to Travis Kelce a Highlight
+
+- first seen: 2026-11-13 18:57 UTC | category: relationship | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: In an exclusive report, Cara Delevingne described Taylor Swift's wedding to Travis Kelce as an 'absolute highlight' of her year. The sentiment underscores the close friendship between the two stars.
+- sources:
+  - [established] People — https://people.com/cara-delevingne-calls-bestie-taylor-swift-wedding-to-travis-kelce-an-absolute-highlight-of-her-year-exclusive-12252662
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-180219938.html
+
+## Scooter Braun's Withdrawal from Call Her Daddy Linked to Taylor Swift
+
+- first seen: 2026-11-13 18:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Scooter Braun's connection to the Call Her Daddy drama has been revealed, highlighting Taylor Swift's influence as a factor in his decision to step back from the situation. The article explores these dynamics.
+- sources:
+  - [unverified] Daily Mail — https://www.dailymail.com/tvshowbiz/article-16287479/The-truth-Scooter-Brauns-involvement-Call-Daddy-drama-Taylor-Swift-reason-pulled-out.html
+
 ## Taylor Swift to Perform at CMAs After 13-Year Hiatus
 
 - first seen: 2026-11-13 17:57 UTC | category: tour | importance: 7
@@ -257,15 +274,19 @@ Stories: 94
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
   - [unverified] ABC11 News — https://abc11.com/post/cma-awards-2026-preview-lainey-wilson-ella-langley-taylor-swift-lead-country-musics-big-night/20028284/
+  - [unverified] KCTV — https://www.kctv5.com/video/2026/11/13/taylor-swift-perform-cma-awards-first-time-13-years/
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
   - [established] People — https://people.com/taylor-swift-to-perform-at-the-2026-cma-awards-12252679
   - [unverified] Rural Radio Network — https://ruralradio.com/maxcountry/abc_news/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-abcide22d3bf1/
+  - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/13/taylor-swift-oscar-grammy-campaigns-continue-shell-play-live-on-cma-awards-next-week-appearing-for-first-time-in-13-yes-13-years
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
+  - [unverified] WSMV — https://www.wsmv.com/2026/11/13/taylor-swift-perform-60th-cma-awards-nashville-first-time-13-years/
+  - [unverified] WZTV — https://fox17.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
 
 ## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
 
@@ -794,19 +815,3 @@ Stories: 94
 - summary: Neighbors have come forward to defend Travis Kelce and Taylor Swift amid a dispute related to their $5.35 million mansion in Ohio. The situation has garnered attention from local media and the public.
 - sources:
   - [unverified] Akron Beacon Journal — https://www.beaconjournal.com/story/news/2026/11/10/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-neighbors-defend/92706391007/
-
-## Kelce Family's Journey from NFL to Pop Culture Explored
-
-- first seen: 2026-11-10 18:17 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: USA Today delves into the Kelce family's transition from NFL athletes to prominent figures in pop culture. The article highlights their influence and the significance of their public personas.
-- sources:
-  - [unverified] USA Today — https://www.usatoday.com/picture-gallery/sports/nfl/2026/11/10/kelce-family-travis-jason-taylor-swift-donna-kylie-photos/92619539007/
-
-## Property near Taylor Swift's home sells for $11.1 million
-
-- first seen: 2026-11-10 18:17 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A property located near Taylor Swift's residence in Watch Hill has been sold for $11.1 million. The sale has garnered attention due to its proximity to the singer's home.
-- sources:
-  - [unverified] Westerly Sun — https://www.thewesterlysun.com/daily-news-alerts/watch-hill-property-near-taylor-swifts-home-sells-for-11-1-million/article_e25fa100-dff2-4ae1-8f80-de6592cf634a.html
