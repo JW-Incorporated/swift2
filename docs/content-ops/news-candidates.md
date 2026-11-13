@@ -27,6 +27,22 @@ so far".
 
 Stories: 84
 
+## 8 Nail Ideas Inspired by Taylor Swift's Sparkly Manicure
+
+- first seen: 2026-11-13 01:23 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: InStyle showcases eight gold fairy dust nail designs inspired by Taylor Swift's popular sparkly manicure. The article highlights creative nail art that fans can try to emulate Swift's glamorous style.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/gold-fairy-dust-nails-12246851
+
+## Taylor Swift Puts Hobby on Hold for Travis Kelce
+
+- first seen: 2026-11-13 01:23 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Reports indicate that Taylor Swift is making lifestyle changes, including putting a hobby on hold, for Travis Kelce. This marks a notable shift in her routine as the pair navigate their relationship.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/travis-kelce-sees-a-significant-lifestyle-change-as-taylor-swift-reportedly-puts-her-hobby-on-hold-for-him-12319381
+
 ## New Crossword Features Taylor Swift Songs
 
 - first seen: 2026-11-13 00:22 UTC | category: music | importance: 3
@@ -703,19 +719,3 @@ Stories: 84
 - summary: A Knicks guard has retracted his comments suggesting Taylor Swift is a 'fake fan' following backlash from her supporters, including his wife. The incident highlights the passionate defense of Swift's fanbase.
 - sources:
   - [unverified] 930 WFMD Free Talk — https://www.wfmd.com/2026/11/09/knicks-guard-walks-back-comment-about-taylor-swift-being-fake-fan-after-swifties-including-his-wife-attack/
-
-## Taylor Swift Wears Outfit with Subtle Nod to Travis Kelce
-
-- first seen: 2026-11-10 00:43 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift showcased her latest game day outfit, featuring a subtle reference to her husband, Travis Kelce. Her choice reflects her unique style and connection to her partner during public appearances.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-game-day-outfit-subtle-tribute-travis-kelce-chiefs-12244669
-
-## Taylor Swift's Connection to 'The Hunger Games' Awards History
-
-- first seen: 2026-11-10 00:43 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses the awards history of 'The Hunger Games' ahead of the new release 'Sunrise on the Reaping', mentioning notable winners including Jennifer Lawrence and Taylor Swift.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/movies/articles/hunger-games-awards-history-ahead-003000026.html
