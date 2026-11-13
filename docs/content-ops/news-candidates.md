@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Mansion
+
+- first seen: 2026-11-13 13:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce are reportedly facing significant pushback regarding their Ohio mansion. The situation has drawn attention in the media but further details have not been disclosed.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-face-more-strong-pushback-over-ohio-mansion
 
 ## Taylor Swift Reportedly Upset Over Wedding Leak
 
