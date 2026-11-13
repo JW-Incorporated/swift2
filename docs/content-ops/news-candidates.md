@@ -62,10 +62,11 @@ Stories: 82
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
+  - [unverified] Rural Radio Network — https://ruralradio.com/maxcountry/abc_news/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-abcide22d3bf1/
 
 ## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
 
