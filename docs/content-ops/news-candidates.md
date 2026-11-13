@@ -27,6 +27,30 @@ so far".
 
 Stories: 94
 
+## Taylor Swift to Perform at CMAs After 13-Year Hiatus
+
+- first seen: 2026-11-13 17:57 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the Country Music Association Awards (CMAs) for the first time in 13 years. This performance marks a significant return for the pop icon to the country music stage.
+- sources:
+  - [unverified] Good Morning America — https://www.goodmorningamerica.com/culture/story/taylor-swift-perform-cmas-1st-time-13-years-138104764
+
+## Taylor Swift and Travis Kelce Request Something Special From Wedding Guests
+
+- first seen: 2026-11-13 17:57 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have requested guests not to bring gifts to their wedding but have asked for something else instead. Specifics about what they are requesting remain undisclosed.
+- sources:
+  - [unverified] Cinemablend — https://www.cinemablend.com/streaming-news/taylor-swift-travis-kelce-no-gifts-wedding-they-ask-guests-something
+
+## Taylor Swift to Perform at CMAs After 13-Year Hiatus
+
+- first seen: 2026-11-13 17:57 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to make her first performance at the Country Music Association Awards in 13 years. This marks a significant return to the event for the artist.
+- sources:
+  - [unverified] WBAL News Radio — https://www.wbal.com/taylor-swift-to-perform-at-cmas-for-1st-time-in-13-years
+
 ## Taylor Swift and CMAs Reunite
 
 - first seen: 2026-11-13 16:58 UTC | category: music | importance: 6
@@ -161,12 +185,13 @@ Stories: 94
 ## Ella Langley Achieves Historic Feat Alongside Taylor Swift
 
 - first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 9
 - summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
 - sources:
   - [unverified] 13WHAM-TV — https://13wham.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination?teaserSource=databricks
   - [unverified] All Country News — https://www.allcountrynews.com/post/taylor-swift-is-returning-to-the-cma-awards-stage-after-13-years-and-yes-that-number-feels-right
   - [established] Deadline — https://deadline.com/2026/11/cma-awards-performers-ella-langley-taylor-swift-1237213808/
+  - [unverified] Newser — https://www.newser.com/story/399980/taylor-swift-to-return-to-cma-awards-stage-after-13-years.html
   - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
   - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-2013-cma-awards-performance-red-vince-gill-alison-krauss/
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
@@ -232,10 +257,12 @@ Stories: 94
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
+  - [unverified] ABC11 News — https://abc11.com/post/cma-awards-2026-preview-lainey-wilson-ella-langley-taylor-swift-lead-country-musics-big-night/20028284/
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
+  - [established] People — https://people.com/taylor-swift-to-perform-at-the-2026-cma-awards-12252679
   - [unverified] Rural Radio Network — https://ruralradio.com/maxcountry/abc_news/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-abcide22d3bf1/
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
@@ -783,30 +810,3 @@ Stories: 94
 - summary: A property located near Taylor Swift's residence in Watch Hill has been sold for $11.1 million. The sale has garnered attention due to its proximity to the singer's home.
 - sources:
   - [unverified] Westerly Sun — https://www.thewesterlysun.com/daily-news-alerts/watch-hill-property-near-taylor-swifts-home-sells-for-11-1-million/article_e25fa100-dff2-4ae1-8f80-de6592cf634a.html
-
-## Paul McCartney Becomes World's 3rd-Richest Musician After Taylor Swift and Jay-Z
-
-- first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Paul McCartney's fortune has reached $1.4 billion, positioning him as the third-richest musician globally, following Taylor Swift and Jay-Z. This financial milestone highlights his significant success in the music industry.
-- sources:
-  - [established] People — https://people.com/paul-mccartney-becomes-billionaire-taylor-swift-jayz-12246717
-
-## Taylor Swift-themed workout class supports Arizona animal charities
-
-- first seen: 2026-11-10 17:17 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A workout class inspired by Taylor Swift is being organized with proceeds going to benefit animals in Arizona. The initiative emphasizes community support and animal welfare.
-- sources:
-  - [unverified] Your Valley — https://www.yourvalley.net/paradise-valley-independent/stories/taylor-swift-themed-workout-class-to-benefit-arizona-animals,739559
-
-## Paul McCartney Becomes Billionaire, Ranks Third Richest Musician
-
-- first seen: 2026-11-10 17:17 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 4
-- summary: Paul McCartney has reached billionaire status, making him the third richest musician worldwide, following Jay Z and Taylor Swift. This milestone highlights his successful career in music and business.
-- sources:
-  - [unverified] AudioPhix — https://audiophix.com/paul-mccartney-finally-follows-taylor-swift-jay-z-footsteps
-  - [unverified] Business Insider — https://www.businessinsider.com/billionaire-musicians-list-beyonce-paul-mccartney-taylor-swift-2026-11
-  - [unverified] Louder — https://www.loudersound.com/news/paul-mccartney-details-ringo-starr-reunion-plans-becomes-third-billionaire-musician-2026
-  - [unverified] The Indian Express — https://indianexpress.com/article/entertainment/music/paul-mccartney-billionaire-third-richest-musician-after-jay-z-taylor-swift-10957544/
