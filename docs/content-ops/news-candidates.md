@@ -27,6 +27,14 @@ so far".
 
 Stories: 82
 
+## Revealed: The Story Behind Taylor Swift and Karlie Kloss's Fallout
+
+- first seen: 2026-11-13 02:48 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Insiders share the untold details regarding Taylor Swift's dramatic fallout with Karlie Kloss.
+- sources:
+  - [unverified] Bored Panda — https://www.boredpanda.com/insiders-spill-taylor-swift-karlie-kloss-dramatic-fallout-after-reunion/
+
 ## 8 Nail Ideas Inspired by Taylor Swift's Sparkly Manicure
 
 - first seen: 2026-11-13 01:23 UTC | category: fashion | importance: 5
@@ -695,11 +703,3 @@ Stories: 82
 - summary: Taylor Swift was spotted wearing a $79 unbuttoned Tommy Hilfiger sweater polo during a recent game day event. Her choice of outfit has garnered attention among fans and fashion enthusiasts alike.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/taylor-swift-leaves-79-tommy-054458817.html
-
-## Taylor Swift and Karlie Kloss Reignite Their Friendship
-
-- first seen: 2026-11-10 02:43 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss restore their friendship, exploring the reasons behind their renewed bond. The details about their reconciliation reflect the importance of their relationship in the public eye.
-- sources:
-  - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235091923/reason-taylor-swift-karlie-kloss-friends-again/
