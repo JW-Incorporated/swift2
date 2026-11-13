@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "campaign": "timeline:love-story:jake-gyllenhaal-2010:2026-11-14",
+  "scheduledAt": "2026-11-14T23:00:00Z",
+  "body": "you knew this one was coming, and honestly i'm still not ready 🧣\n\nnext stop on the Blank Spaces timeline: Taylor and Jake Gyllenhaal. spotted backstage at SNL in October 2010, split by that January. three months on the calendar!\n\nand somehow it's the chapter fans file All Too Well under, with The Moment I Knew and We Are Never Ever Getting Back Together right beside it.\n\nwhen the 10 minute version finally arrived on Red (Taylor's Version) in November 2021, it debuted at #1 and became the longest song ever to top the Hot 100. TEN MINUTES.\n\n📸 minds-eye (CC BY-SA 2.0), via Wikimedia Commons\n\nthe whole map, in order 👉 https://longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/wikimedia-10747743.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-10747743",
+  "mediaCredit": "Swift,_Taylor_(2007).jpg: minds-eye\nderivative work: Sehome Bay (talk) (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007)_cropped_2.JPG",
+  "altText": [
+    "American country musician Taylor Swift performing live."
+  ],
+  "why": "Love Story timeline (calendar 11-14). Next unposted chapter after rel-mayer (11-04) is rel-gyllenhaal: Oct 2010 to Jan 2011, SNL sighting and January split per the seed's sources; songs per supabase/seed/lenses/relationships.mjs. Chart fact from the rerecords lens (Pitchfork). Songs framed as the chapter fans file them under, never asserted as fact about him. utm_campaign=timeline. Lens post, share-design exempt.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "Executes the named love-story slot with the next chapter in lens order (rel-gyllenhaal, fall 2010) and checkable details: SNL sighting, January split, and the 10 minute All Too Well as the longest Hot 100 No. 1 ever. Credited live photo, not chapter-specific, so media is a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}

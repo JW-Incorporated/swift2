@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "campaign": "timeline:love-story:jake-gyllenhaal-2010:2026-11-14",
+  "scheduledAt": "2026-11-14T23:00:00Z",
+  "body": "deep breath, everyone 🧣 Taylor + Jake Gyllenhaal was a three-month blip in late 2010 that somehow ended up as ATW territory. its 10 min version is the Hot 100's longest #1 ever, by runtime. next stop on our map: https://longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=timeline",
+  "media": [
+    "/social/library/photos/wikimedia-10747743.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-10747743",
+  "mediaCredit": "Swift,_Taylor_(2007).jpg: minds-eye\nderivative work: Sehome Bay (talk) (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007)_cropped_2.JPG",
+  "altText": [
+    "American country musician Taylor Swift performing live."
+  ],
+  "why": "Love Story timeline (calendar 11-14). Next unposted chapter after rel-mayer (11-04) in the lens's start-date order is rel-gyllenhaal: Oct 2010 to Jan 2011, songs All Too Well (10 Minute Version), The Moment I Knew, WANEGBT (supabase/seed/lenses/relationships.mjs). #1 / longest-ever Hot 100 No. 1 from the rerecords lens (Pitchfork). Hook = direct address, not a date-stamp, not a quoted song title. X half written first.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Executes the named love-story slot with the exact next chapter in lens order (rel-gyllenhaal, fall 2010) and a checkable chart fact: the 10 minute All Too Well is the longest Hot 100 No. 1 ever. Credited live photo of Taylor, not chapter-specific, so media is a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}

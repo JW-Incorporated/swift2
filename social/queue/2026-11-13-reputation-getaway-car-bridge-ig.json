@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "campaign": "heartbeat:era-deep-cut:reputation-getaway-car-bridge:2026-11-13",
+  "scheduledAt": "2026-11-13T23:00:00Z",
+  "body": "OMG the Getaway Car bridge took under 30 seconds.\n\nTaylor and Jack Antonoff were in the studio making reputation, her iPhone just happened to be recording, and the song's whole big turn arrives on camera in real time. you can actually watch it happen!!\n\nJack later told Rolling Stone it was the only time in all his hours in studios \"that a camera was ever on when magic actually happened.\" that sentence lives in my head now 🖤\n\nreputation turned 9 this week, and this is still my favorite thing about it. send this to whoever still screams that bridge in the car.\n\n📸 Paolo Villanueva (CC BY 2.0), via Wikimedia Commons\n\nthe whole moment 👉 https://longlivets.com/?item=vault-reputation-the-getaway-car-bridge-written-in-under-30-seconds-on-camera&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat",
+  "media": [
+    "/social/library/photos/taylor-reputation-inglewood-2023-4-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reputation-inglewood-2023-4-ig45",
+  "photoEra": "reputation",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Reputation_Era_Set_(53109437566).jpg",
+  "altText": [
+    "Taylor Swift mid-stride in a snake-sequined black-and-red bodysuit, singing into a microphone during the reputation set of the Eras Tour, Inglewood 2023."
+  ],
+  "why": "11-13 23:00Z was launch:photo-viewer DAY +4. Its gate: if day 0 did not ship, fall back to heartbeat:era-deep-cut on reputation. Day 0 (11-09) never shipped, so this is the fallback. Vault moment: Getaway Car bridge in under 30 seconds (Rolling Stone, Antonoff quote). reputation released 2017-11-10, so 9 years this week. Share hook grounded in the bridge itself; no tag-a-friend (one posted 11-09).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "The arc's own fallback (reputation deep cut) with a sourced, checkable moment: the Getaway Car bridge written in under 30 seconds on Taylor's phone, plus Antonoff's Rolling Stone quote, in reputation's 9th-anniversary week. Era-matched Eras photo, not the studio moment, so media is a 3.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  }
+}
