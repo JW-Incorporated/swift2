@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 91
 
 ## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
 
@@ -67,6 +67,14 @@ Stories: 92
 - sources:
   - [unverified] WBIR — https://www.wbir.com/video/entertainment/taylor-swift-to-perform-at-cma-awards-after-13-years/51-0857f20f-020a-46a6-b329-e785774fed19
 
+## Scooter Braun's Withdrawal from Call Her Daddy Linked to Taylor Swift
+
+- first seen: 2026-11-13 18:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Scooter Braun's connection to the Call Her Daddy drama has been revealed, highlighting Taylor Swift's influence as a factor in his decision to step back from the situation. The article explores these dynamics.
+- sources:
+  - [unverified] Daily Mail — https://www.dailymail.com/tvshowbiz/article-16287479/The-truth-Scooter-Brauns-involvement-Call-Daddy-drama-Taylor-Swift-reason-pulled-out.html
+
 ## Cara Delevingne Calls Taylor Swift's Wedding to Travis Kelce a Highlight
 
 - first seen: 2026-11-13 18:57 UTC | category: relationship | importance: 7
@@ -75,14 +83,6 @@ Stories: 92
 - sources:
   - [established] People — https://people.com/cara-delevingne-calls-bestie-taylor-swift-wedding-to-travis-kelce-an-absolute-highlight-of-her-year-exclusive-12252662
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-180219938.html
-
-## Scooter Braun's Withdrawal from Call Her Daddy Linked to Taylor Swift
-
-- first seen: 2026-11-13 18:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Scooter Braun's connection to the Call Her Daddy drama has been revealed, highlighting Taylor Swift's influence as a factor in his decision to step back from the situation. The article explores these dynamics.
-- sources:
-  - [unverified] Daily Mail — https://www.dailymail.com/tvshowbiz/article-16287479/The-truth-Scooter-Brauns-involvement-Call-Daddy-drama-Taylor-Swift-reason-pulled-out.html
 
 ## Taylor Swift to Perform at CMAs After 13-Year Hiatus
 
@@ -242,7 +242,7 @@ Stories: 92
 ## Ella Langley Achieves Historic Feat Alongside Taylor Swift
 
 - first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 11
+- verification_status: corroborated | source_count: 12
 - summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
 - sources:
   - [unverified] 13WHAM-TV — https://13wham.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination?teaserSource=databricks
@@ -254,6 +254,7 @@ Stories: 92
   - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-2013-cma-awards-performance-red-vince-gill-alison-krauss/
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Movies/2026/11/13/Taylor-Swift-Toy-Story-5-song/2711794597118/
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/movies/2026/11/13/taylor-swift-toy-story-5-song-oscars/92766305007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-to-perform-cma-awards-first-time-13-years-1236946968/
   - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-to-perform-at-60th-cma-awards/12367805/
 
@@ -316,12 +317,13 @@ Stories: 92
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 14
+- verification_status: corroborated | source_count: 15
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
   - [unverified] - Saving Country Music — https://savingcountrymusic.com/on-taylor-swift-playing-the-2026-cma-awards/
   - [unverified] ABC11 News — https://abc11.com/post/cma-awards-2026-preview-lainey-wilson-ella-langley-taylor-swift-lead-country-musics-big-night/20028284/
   - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/11/13/taylor-swift-set-to-perform-at-2026-cma-awards/
+  - [unverified] Countrytown — https://countrytown.com/news/taylor-swift-perform-cma-awards-first-time-in-13-years/jEUynoGAg4I/14-11-26
   - [unverified] KCTV — https://www.kctv5.com/video/2026/11/13/taylor-swift-perform-cma-awards-first-time-13-years/
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
   - [established] People — https://people.com/taylor-swift-to-perform-at-the-2026-cma-awards-12252679
@@ -797,11 +799,3 @@ Stories: 92
 - summary: A report discusses a supposed feud between Taylor Swift and Travis Kelce's neighbor, suggesting it may not be as it appears. The situation is highlighted in a Yahoo article, clarifying misconceptions.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-alleged-225137523.html
-
-## Swift and Kelce Obtain Neighbor Support for Ohio Estate Privacy Wall
-
-- first seen: 2026-11-10 23:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have received the backing of their neighbor for the construction of an 8-foot privacy wall at their $5.35 million estate in Ohio.
-- sources:
-  - [unverified] Realtor.com — https://www.realtor.com/news/celebrity-real-estate/taylor-swift-travis-kelce-neighbor-backs-ohio-mansion-fence/
