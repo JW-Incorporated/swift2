@@ -3715,6 +3715,156 @@
       "sha256": "c83b3194a1b88b75d44781a93f4941d4f926b2c4616c7d38d0e7e5f30621788a",
       "reason": "Street crowd scene outside venue; no prominent single subject.",
       "date": "2026-11-12"
+    },
+    {
+      "id": "openverse-6ff66c6c-1090-48f8-bcf8-829de5a10596",
+      "sha256": "1869f7496680ca66676a6828ee86f703cf902f1b09b5c972c69667fdaa2cf09b",
+      "reason": "Three people posing outdoors; not a single subject or concert photo",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-4d92db1a-ac06-4e35-9b4a-3591b3e3e1da",
+      "sha256": "b5d67416b40a5bf36a748d5b2454d89fe93e319bd474f55834beedd439b6391c",
+      "reason": "Three people posing outdoors; no single subject, no concert context.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-fec3891c-bd21-4cfd-b82b-27bbeddc1153",
+      "sha256": "abddad9dbc7934fa061ae80dea8aab5927fa581fc2e51cc0962b29da3ebd63a2",
+      "reason": "Three people posing outdoors; no single subject, no concert context.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "press-b234f095609d",
+      "sha256": "2d0e72328a17053d17a06e38bb8de81a8029591497fc299d78ecc7374d7a3f4c",
+      "reason": "Two-person side-by-side collage; not a single main subject",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-698554e1-75a6-4b56-8d79-ab7815f0278c",
+      "sha256": "c6ba6b6a2c86b8827a0d3dce984b27d04c4b804b8ff89b262fa3b6c87a11f39f",
+      "reason": "Three people outdoors, no concert; no single main subject",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-82756247-ee6d-4121-a0af-75085a150b02",
+      "sha256": "19bc50890208e80247a20ef9895fda125a987da2eb5cd94de1d88589fa056539",
+      "reason": "Car dominates; people small inside, not a concert shot",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-853c275c-fe2a-4fe3-bb7f-dc3b2805afd7",
+      "sha256": "867e13027f6f743d98c2a2604d306915d39edbb79b302849848fda511a844f88",
+      "reason": "Photo of a white car on a driveway; no person or concert.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "press-3b189ce013ff",
+      "sha256": "b48801ea45ce8e3a88f93440670a1f00a1fdc0746ba2651eabf39c5c1ce92bce",
+      "reason": "Split-screen collage of two people, TV-like stills; not a single subject.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "press-2ae16f9f5e96",
+      "sha256": "59161efc053d0732b1afde69f58a472811131375d45f26bed9a2e715e7ba3820",
+      "reason": "Two people equally prominent; a man shares the frame, so not a single subject.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-3b527beb-7454-4bdc-988e-a3dc30c81d8b",
+      "sha256": "1a3e22f6f3e44d6491d02eec96b59300623532f6d5569b8ff3406f1f3cbe4eea",
+      "reason": "House and car dominate; tiny person on balcony, not a concert shot.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "press-fe023238667a",
+      "sha256": "f17b6e502a8d6c89b838fa96260ce8f421587f4ac32b2f74767c7cf449e6b8e4",
+      "reason": "Two people; man in red dominates, woman on edge, not a single subject",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-02a48440-df98-4ac3-99b5-d54abbb575e1",
+      "sha256": "50c2ab1ef7a8beb0c0f730d9e19a964b33f486971ed9af0f70bd9d474aee0e91",
+      "reason": "Beads in containers (friendship bracelet supplies); no person pictured.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "press-5d2ae44daf03",
+      "sha256": "eb42247483d3685ff95e771e36b5459390ce460616524b166d44fcbaacfeb641",
+      "reason": "Photo of a charm necklace, no person shown; object only.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-4afb3891-324b-44e1-a2cb-6e7b313c0c3c",
+      "sha256": "348f5a1567b576cc2bca4e11bbaa44aac34184bee5d0dc22406ff03f239a8f43",
+      "reason": "Three people posing outdoors; no single main subject, not a concert shot",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-e8a7867e-7ddf-4a12-a988-0da819118daa",
+      "sha256": "d2227dde407837a14e4697034e5f3a03ecb550862eeed9dc7b208d90e092b379",
+      "reason": "Garden peonies by a house; no person, doesn't match caption.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-37f2d5c7-65b8-4a26-9dfe-ae5196f79904",
+      "sha256": "74d892251c2a0438a20b2cab11b0cf1a296458227d4c308344dda1d91bfc9344",
+      "reason": "Night stadium exterior with searchlights; no person visible.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-8a30845f-daa4-4cfd-98d0-ddccb9d1be21",
+      "sha256": "0d869f179b3389c1fe7533f8ea9c6d87501ee4e8cd5ab034c151f80ff777982d",
+      "reason": "Storefront and sidewalk text; no concert or prominent person.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-a4bd0790-c9e9-4ef7-b44a-bd4928ecbacd",
+      "sha256": "be730e7937ba5ceb6385af7e619dffce78aedc7640602c114b37a2f41e0feb42",
+      "reason": "Man posing by merch truck with poster collage; not a concert subject photo",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-94e59cba-86be-4d5b-b50c-3571c36ccf7c",
+      "sha256": "7026f11bbe8c131ed99d58cffd3cb3d09d8f0aa6e6cb50b125d9bd2c3f6902e2",
+      "reason": "Balloon display with two small bystanders and bank logos; no singer shown",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-2b81dd44-065f-4052-9d4e-6cdfdf7fcd84",
+      "sha256": "5782c1daf2d7ac27075c76a2889bc3f5dbe792f2311c93c16173eec080c11f88",
+      "reason": "Two men in Cubs gear on a street; no concert or single subject",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-053eeea8-2d31-4b7c-a7f7-17026a597b83",
+      "sha256": "59e838b06d20c9d4f9e5c7156a18d9250c1ff7576701b7a824a201b490409b23",
+      "reason": "Man pointing at \"I love T-Swift\" graffiti; not a concert photo of the singer.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-e320dba4-cc28-4c90-b236-a5853d504221",
+      "sha256": "701cbc879869306c3676377902fce13aa2a0104cae3e18c17f5029d8e30049a6",
+      "reason": "Street crowd of people from behind; no single prominent subject, not a concert shot",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-454af323-c36d-4598-b549-caf35fe24339",
+      "sha256": "1969a5a67b111a1405956bb4e8e06e6c9581771c50da003264349874142f4f48",
+      "reason": "No person; microphone, tripod and merch truck on pavement.",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-6e0f55c8-7d4f-49cc-8b84-953b11754cba",
+      "sha256": "5cf736b1ce413122ada1f17cbb88e1a60cf10e121d19f01b0d0ab7a577af1829",
+      "reason": "Street scene with merch truck and bystanders; no single prominent person",
+      "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-3c294ca7-539a-4482-aa2b-c406132c4f88",
+      "sha256": "b5f689e3448f535d661c3fcd6cbd0036905d7e2a941779be83f1b548154e3896",
+      "reason": "Crowd on park lawn panorama; no prominent person pictured.",
+      "date": "2026-11-13"
     }
   ]
 }
