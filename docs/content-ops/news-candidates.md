@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 92
+
+## Taylor Swift's Campaign Strategy for 2027 Oscars Discussed by Vulture
+
+- first seen: 2026-11-13 21:27 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A discussion on Taylor Swift's approach to campaigning for the 2027 Oscars, highlighting the strategies she is utilizing. The analysis suggests that her efforts are aligned with successful campaigning methods.
+- sources:
+  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-is-campaigning-correctly-in-2027-oscars-run.html
 
 ## Taylor Swift Scheduled to Perform at Country Music Awards After 10 Years
 
@@ -795,19 +803,3 @@ Stories: 93
 - summary: A man expresses his regret after initiating a one-sided conflict involving Taylor Swift. The situation has drawn attention but remains primarily personal.
 - sources:
   - [unverified] The Cut — https://www.thecut.com/article/tyler-kolek-regrets-starting-one-sided-taylor-swift-beef.html
-
-## Taylor Swift Reportedly Frustrated in Marriage with Travis Kelce
-
-- first seen: 2026-11-10 21:17 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A report indicates that Taylor Swift is feeling frustrated in her marriage with Travis Kelce, adding a new development to their relationship. The situation highlights ongoing challenges they may be facing together.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234971950/taylor-swift-travis-kelce-neighbor-drama/
-
-## A Look at Taylor Swift's Date-Night Outfits with Travis Kelce
-
-- first seen: 2026-11-10 21:17 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article reviews Taylor Swift's best and worst outfits worn during date nights with Travis Kelce. The piece focuses on her fashion choices in public appearances with the NFL star.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swifts-best-worst-date-181500886.html
