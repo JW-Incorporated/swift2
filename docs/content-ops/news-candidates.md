@@ -25,7 +25,16 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 88
+
+## Taylor Swift to Perform at 60th Annual CMA Awards
+
+- first seen: 2026-11-13 14:57 UTC | category: tour | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is set to take the stage at the 60th Annual CMA Awards, showcasing her talent at this prestigious event. Fans eagerly anticipate her performance during the award ceremony.
+- sources:
+  - [unverified] Pollstar News — https://news.pollstar.com/2026/11/13/taylor-swift-to-perform-at-the-60th-annual-cma-awards/
+  - [unverified] The Music Universe — https://themusicuniverse.com/taylor-swift-to-perform-at-60th-annual-cma-awards/
 
 ## Taylor Swift to Perform at CMAs After 13 Years
 
@@ -46,10 +55,12 @@ Stories: 89
 ## Taylor Swift Set to Perform at CMA Awards After 13-Year Hiatus
 
 - first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift will be making her return to the CMA Awards stage, performing for the first time in 13 years. This marks a significant moment in her career as she reconnects with the country music scene.
 - sources:
+  - [unverified] KATU — http://www.kunptv.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
   - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/11/13/taylor-swift-2026-cma-awards-performance/92563780007/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perform-60th-cma-141546824.html
 
 ## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Mansion
 
@@ -67,14 +78,6 @@ Stories: 89
 - sources:
   - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234972664/taylor-swift-travis-kelce-wedding-gift-leak/
 
-## Ella Langley Achieves Historic Feat Alongside Taylor Swift
-
-- first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
-
 ## Taylor Swift Facing New Controversy Over Scooter Braun Agreement
 
 - first seen: 2026-11-13 12:47 UTC | category: business | importance: 6
@@ -82,6 +85,15 @@ Stories: 89
 - summary: Sources indicate that Taylor Swift is involved in a new controversy related to her deal with Scooter Braun. This issue arises as previous tensions over their business relationship resurface.
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-faces-fresh-row-110000309.html
+
+## Ella Langley Achieves Historic Feat Alongside Taylor Swift
+
+- first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
+- sources:
+  - [unverified] Country Now — https://countrynow.com/taylor-swift-to-perform-at-cma-awards-for-first-time-in-13-years/
+  - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
 
 ## Taylor Swift and Travis Kelce Share New Photo Amid Wedding Detail Reveal
 
@@ -742,21 +754,3 @@ Stories: 89
 - summary: Robbie Williams has publicly defended Taylor Swift following her recent legal action against him. This comes after Swift was said to have been negatively impacted by the situation.
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/ended-taylor-taylor-swift-sued-143016584.html
-
-## Taylor Swift's Handwritten Note Sparks Speculation of New Music Release
-
-- first seen: 2026-11-10 14:22 UTC | category: release | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A recent handwritten note from Taylor Swift has fans buzzing about the possibility of a Christmas album or a surprise release. The note has generated excitement and speculation among her followers.
-- sources:
-  - [unverified] Yahoo News Singapore — https://sg.news.yahoo.com/taylor-swift-handwritten-note-fans-141027590.html
-
-## Taylor Swift and Travis Kelce reportedly face Christmas dilemma
-
-- first seen: 2026-11-10 14:22 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift and Travis Kelce are said to be confronting a dilemma ahead of Christmas, as neither wants to disappoint during the holidays. The situation reflects their current relationship dynamics.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-travis-kelce-new-ohio-neighbors-speak-out-12246928
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/10/taylor-swift-and-travis-kelce-face-christmas-family-dilemma-as-both-sides-make-holiday-plans.html
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/neither-wants-disappoint-taylor-swift-110012607.html
