@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 83
+
+## Taylor Swift Among Stars Playing Uno, Created in Cincinnati
+
+- first seen: 2026-11-13 05:48 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, along with other celebrities, participated in a game of Uno, which was originally developed in Cincinnati. The game's roots trace back to the city, emphasizing its cultural significance.
+- sources:
+  - [unverified] Cincinnati Enquirer — http://www.cincinnati.com/story/entertainment/2026/11/13/uno-played-by-taylor-swift-created-cincinnati-barbershop/84320017007/
 
 ## Revealed: The Story Behind Taylor Swift and Karlie Kloss's Fallout
 
