@@ -49,7 +49,7 @@ Stories: 82
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift, along with other celebrities, participated in a game of Uno, which was originally developed in Cincinnati. The game's roots trace back to the city, emphasizing its cultural significance.
 - sources:
-  - [unverified] Cincinnati Enquirer — http://www.cincinnati.com/story/entertainment/2026/11/13/uno-played-by-taylor-swift-created-cincinnati-barbershop/84320017007/
+  - [unverified] Cincinnati Enquirer — https://www.cincinnati.com/story/entertainment/2026/11/13/uno-played-by-taylor-swift-created-cincinnati-barbershop/84320017007/
 
 ## Revealed: The Story Behind Taylor Swift and Karlie Kloss's Fallout
 
