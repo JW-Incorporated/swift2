@@ -1068,7 +1068,7 @@ export default {
       thumbnailUrl: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
       moment: {
         context:
-          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.\n\nOne question about the night was settled a week out. The show is set to honor Dolly Parton, who died in August, and Taylor had already made her own tributes public: a statement after Parton\'s death ("A world without Dolly doesn\'t feel possible, real, or right") and a September VMAs Video of the Year win dedicated to "the ultimate showgirl, Dolly Parton." On Nov. 11, a CMA source told E! News that Taylor will not perform in the Parton tribute. The CMA had not named the tribute\'s performers at that point, and the report addressed only the stage, not her attendance.',
+          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.\n\nOne question about the night was settled a week out. The show is set to honor Dolly Parton, who died in August, and Taylor had already made her own tributes public: a statement after Parton\'s death ("A world without Dolly doesn\'t feel possible, real, or right") and a September VMAs Video of the Year win dedicated to "the ultimate showgirl, Dolly Parton." On Nov. 11, a CMA source told E! News that Taylor will not perform in the Parton tribute. The CMA had not named the tribute\'s performers at that point, and the report addressed only the stage, not her attendance.\n\nTwo days later the night grew bigger. On Nov. 13, the CMA and ABC announced Taylor as a performer at the 60th CMA Awards, her first performance on the show in 13 years. The last one was 2013, when she sang "Red" with Vince Gill and Alison Krauss and received the CMA Pinnacle Award. "I Knew It, I Knew You," written for the Toy Story 5 soundtrack and produced by Jack Antonoff, is her 26th career CMA nomination; it is up for Single of the Year against Ella Langley, Lainey Wilson and Cody Johnson.',
         sources: [
           {
             outlet: 'Variety',
@@ -1109,6 +1109,35 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-11-12',
             reliability_score: 4,
+          },
+          // Content Shift (Vault Run 2026-11-13, intake #6840): performance
+          // announcement. People article read this run via its Yahoo
+          // syndication (byline Ilana Kaplan, updated Nov. 13).
+          {
+            outlet: 'People',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-perform-2026-cma-152528933.html',
+            source_title: 'Taylor Swift to Perform at the 2026 CMA Awards for the First Time in 13 Years',
+            publisher: 'People (via Yahoo Entertainment)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+          },
+          {
+            // Added to the existing moment, not authored as a duplicate,
+            // per the YouTube-appearance "enrich, don't create" rule.
+            // oEmbed-verified this run: title "Taylor Swift to perform at
+            // CMAs for first time in 13 years", author_name "Good Morning
+            // America". Not a videos-row candidate: it is news coverage,
+            // not a performance.
+            outlet: 'Good Morning America',
+            url: 'https://www.youtube.com/watch?v=03lWt4T_2go',
+            source_title: 'Taylor Swift to perform at CMAs for first time in 13 years',
+            publisher: 'Good Morning America (ABC)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+            notes:
+              'Official GMA YouTube upload, published Nov. 13, 2026; the announcement segment. oEmbed-verified (author_name "Good Morning America").',
           },
         ],
         photos: [
@@ -6064,7 +6093,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.\n\nA later interview added a complementary detail: there was a no-gifts rule. Asked whether he had brought the newlyweds a present, Gronkowski told NBC Sports, "Didn\'t get him anything. You weren\'t supposed to get them gifts, so it\'s a good thing I didn\'t." It fit the reception\'s whole logic — nothing was expected at the door, and the prizes worth taking home were the ones guests played for.',
+          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.\n\nA later interview added a complementary detail: there was a no-gifts rule. Asked whether he had brought the newlyweds a present, Gronkowski told NBC Sports, "Didn\'t get him anything. You weren\'t supposed to get them gifts, so it\'s a good thing I didn\'t." It fit the reception\'s whole logic — nothing was expected at the door, and the prizes worth taking home were the ones guests played for.\n\nThe rule had a second half, and it surfaced in November. The couple had asked guests to give to charity in lieu of gifts, and on Nov. 11 the Hancock County Humane Foundation, a small cat rescue in New Cumberland, West Virginia, thanked one of them: Mike Simon, Travis\'s agent since the 2013 NFL Draft, and his wife Lisa had chosen the foundation for their wedding-gift donation. "The amazing bride and groom asked for donations to charities in lieu of gifts and Mike and Lisa chose us!!" the rescue wrote, posting a photo of the four of them. The foundation has spent more than 30 years finding homes for stray and unwanted cats and kittens.',
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -6116,6 +6145,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-26',
             reliability_score: 4,
+          },
+          // Content Shift (Vault Run 2026-11-13, intake #6830): the
+          // charity-in-lieu-of-gifts half of the rule. Both pages read in full
+          // this run; they agree on the donors, the charity and its caption.
+          {
+            outlet: 'WV News',
+            url: 'https://www.wvnews.com/news/wvnews/taylor-swift-travis-kelce-wedding-gift-benefits-west-virginia-cat-rescue/article_c46ebd3c-d535-440d-aa62-fcdea55839fd.html',
+            source_title: 'Taylor Swift, Travis Kelce wedding gift benefits West Virginia cat rescue',
+            publisher: 'WV News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Us Weekly',
+            url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-asked-wedding-guests-for-donations/',
+            source_title: 'Taylor Swift and Travis Kelce Asked Wedding Guests to Donate to Charity in Lieu of Gifts',
+            publisher: 'Us Weekly',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
           },
         ],
         // Photo pass #762 (2026-08-14): the raffle itself has no dedicated
@@ -17489,7 +17539,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.',
+          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.\n\nBoth campaigns sit inside a larger deal. On Mar. 30, 2026, Tommy Hilfiger named Travis its global brand ambassador, a partnership that runs from fall 2026 into spring 2027 and pairs a campaign with a design collaboration on reworked Tommy classics. Kelce joined a roster that has included Rafael Nadal, Gigi Hadid, Lewis Hamilton and Zendaya.',
         sources: [
           {
             outlet: 'WWD',
@@ -17511,6 +17561,17 @@ export default {
             accessed_at: '2026-11-07',
             reliability_score: 3,
             notes: 'Nov. 5, 2026; independent pickup carrying the same quotes, attributed to WWD.',
+          },
+          {
+            outlet: 'Daily Front Row',
+            url: 'https://fashionweekdaily.com/travis-kelce-tommy-hilfiger/',
+            source_title: 'Travis Kelce Signs Multi-Season Partnership With Tommy Hilfiger',
+            publisher: 'Daily Front Row',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes:
+              'By Charles Manning, Mar. 30, 2026; read in full. Primary for the global brand ambassador role, the fall 2026 to spring 2027 span, the campaign-plus-design-collaboration scope and the past-ambassador roster. Does not mention the holiday campaign.',
           },
         ],
         // Official campaign image published by WWD ("Courtesy of Tommy
@@ -17555,7 +17616,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.',
+          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.\n\nWTVC (NewsChannel 9) notes the pair had last been photographed together in 2018, at the Reputation Stadium Tour stop in Nashville. Kloss has said little about the reunion. Weeks after her own wedding she told NBC\'s Today, "Listen, I try to protect the privacy of my friends\' personal lives," and called Taylor and Travis "an amazing couple." Neither Taylor nor her representatives commented on the Chiefs game.',
         photos: [
           {
             url: 'https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg',
@@ -17596,6 +17657,17 @@ export default {
             reliability_score: 3,
             notes:
               'By Bradley Stern, Nov. 8, 2026; read in full. Independent confirmation of Kloss in the private suite at Arrowhead vs. the Jets and the red sweater. Primary for Kelce\'s 200th NFL appearance and Kloss\'s 2018 New York Times quote.',
+          },
+          {
+            outlet: 'WTVC NewsChannel 9',
+            url: 'https://newschannel9.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift',
+            source_title: 'Taylor Swift and Karlie Kloss reunite at Chiefs game years after rumored rift',
+            publisher: 'WTVC (Sinclair)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+            notes:
+              'By Elizabeth Stanton, Nov. 9, 2026; read in full. Third independent confirmation of Kloss in the suite with Andrea Swift and Donna Kelce. Primary for the 2018 Nashville Reputation Stadium Tour as the last time the two were photographed together and for Kloss\'s Today quote. Reports no score and no statement from Taylor or her reps.',
           },
         ],
       },
@@ -17712,6 +17784,66 @@ export default {
               'Taylor at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, the photo Billboard ran with its report on the Sherry Lansing award.',
             kind: 'reference',
             focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      // Content Shift (Vault Run 2026-11-13, intake #6832). Exchange read in
+      // full in Complex (Jason's lines and Travis's reply) and ClutchPoints
+      // via Yahoo (Travis's line, crediting People). Episode oEmbed-verified:
+      // author_name "New Heights" (allowlisted channel), watch page reads
+      // "Premiered Nov 11, 2026" and its description names the Philadelphia
+      // tailgate. Written as the joke it was: nothing here says Taylor has
+      // agreed to design anything. Redlines: clean; no venue detail beyond
+      // the city of a public fan event.
+      slug: 'showgirl-new-heights-tailgate-stage-joke',
+      year: 2026,
+      month: 11,
+      day: 11,
+      category: 'relationship',
+      title: '"I\'ll see what my wife can cook up": Travis volunteers Taylor for the next New Heights stage',
+      snippet:
+        'On the Nov. 11 New Heights episode, Jason Kelce asked whether anyone knew "anything about stages" for their next fan tailgate. Travis did: "I\'ll see what my wife can cook up."',
+      sourceUrl: 'https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Kelce brothers opened the Nov. 11, 2026 episode of New Heights by looking back at their fan tailgate in Philadelphia ahead of the Eagles-Giants game, which Jason called the best one they had done. What made it work, he said, was the stage: it gave the crowd a clear view of the sumo wrestling and hobby-horse events that earlier tailgates in Philadelphia and Kansas City had struggled to show. "The problem is most tailgates don\'t have a stage," he said, floating the idea of building their own, then asked, "Do you know anybody who knows anything about stages?"\n\n"Yeah, I actually do," Travis said. "I\'ll see what my wife can cook up." Married to the woman behind the Eras Tour, he had an obvious answer, but it was a joke on a podcast, not an announcement. Neither brother described an actual plan, and Taylor has said nothing about it.',
+        video: {
+          youtubeId: '59cfTptr3k8',
+          title: 'Josh Downs is a Chief, Cousins Traded, Super Bowl Bears & Did We Just Become Best Friends?? | 211',
+        },
+        sources: [
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic',
+            source_title: "Travis Kelce Wants Taylor Swift to Work Her Magic for Next 'New Heights' Event",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes: 'By Anne Erickson, Nov. 11, 2026; read in full. Carries the full exchange and the tailgate context.',
+          },
+          {
+            outlet: 'ClutchPoints',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-pumped-see-wife-012104265.html',
+            source_title: 'Travis Kelce pumped to see what his wife Taylor Swift has in store for special New Heights event',
+            publisher: 'ClutchPoints (via Yahoo Entertainment)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes: 'By Burtland Dixon; read in full. Confirms Travis\'s line and the Nov. 11 episode, crediting People for the original report.',
+          },
+          {
+            outlet: 'New Heights',
+            url: 'https://www.youtube.com/watch?v=59cfTptr3k8',
+            source_title: 'Josh Downs is a Chief, Cousins Traded, Super Bowl Bears & Did We Just Become Best Friends?? | 211',
+            publisher: 'New Heights (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-13',
+            reliability_score: 5,
+            notes: 'The episode itself, premiered Nov. 11, 2026. oEmbed-verified (author_name "New Heights").',
           },
         ],
       },
