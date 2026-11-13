@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 93
+
+## Tribute Artist Performs Taylor Swift Songs at Van Wezel
+
+- first seen: 2026-11-13 15:57 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A tribute artist dedicated to Taylor Swift's hit 'Blank Space' has performed live for one night at the Van Wezel Performing Arts Hall. The event showcased the artist's interpretation of Swift's music, celebrating her popular work.
+- sources:
+  - [unverified] ABC7 WWSB — https://www.mysuncoast.com/2026/11/13/blank-space-taylor-swift-tribute-artist-performs-van-wezel-one-night-only/
+
+## Taylor Swift Scheduled to Perform at CMA Awards
+
+- first seen: 2026-11-13 15:57 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to take the stage at the upcoming CMA Awards, as reported by MusicRow.com. This performance is part of her ongoing commitments to engage with fans through live events.
+- sources:
+  - [unverified] MusicRow.com — https://musicrow.com/2026/11/taylor-swift-to-perform-at-the-cma-awards/
+
+## Taylor Swift to Perform at CMA Awards After 13 Years
+
+- first seen: 2026-11-13 15:57 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is set to perform at the upcoming CMA Awards, marking her first appearance in 13 years. Her song, "I Knew It, I Knew You," from the Toy Story 5 soundtrack, has been nominated for Single of the Year.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-will-perform-2026-cma-awards-1235657442/
+
+## Taylor Swift Encouraged to Regain Control of Wedding Plans
+
+- first seen: 2026-11-13 15:57 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A source reports that Taylor Swift has been urged to take back control of her wedding amidst ongoing drama. Details about the specific situation remain unspecified.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-urged-back-control-092453000.html
+
+## Taylor Swift to perform at CMAs after 13 years
+
+- first seen: 2026-11-13 15:57 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the Country Music Association Awards for the first time in 13 years, marking a notable return to the event.
+- sources:
+  - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/taylor-swift-cmas-performance-decade/
+
+## Taylor Swift to Perform at CMA Awards After a Decade
+
+- first seen: 2026-11-13 15:57 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is scheduled to perform at the CMA Awards, marking her first appearance at the event since 2013. This performance is highly anticipated by fans and marks a significant return to the country music scene for the artist.
+- sources:
+  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/11/13/taylor-swift-to-perform-at-the-cma-awards-for-the-first-time-since-2013/
 
 ## Taylor Swift to Perform at 60th Annual CMA Awards
 
@@ -89,11 +137,15 @@ Stories: 88
 ## Ella Langley Achieves Historic Feat Alongside Taylor Swift
 
 - first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 6
 - summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
 - sources:
-  - [unverified] Country Now — https://countrynow.com/taylor-swift-to-perform-at-cma-awards-for-first-time-in-13-years/
+  - [unverified] 13WHAM-TV — https://13wham.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination?teaserSource=databricks
+  - [established] Deadline — https://deadline.com/2026/11/cma-awards-performers-ella-langley-taylor-swift-1237213808/
   - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
+  - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-2013-cma-awards-performance-red-vince-gill-alison-krauss/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-to-perform-cma-awards-first-time-13-years-1236946968/
+  - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-to-perform-at-60th-cma-awards/12367805/
 
 ## Taylor Swift and Travis Kelce Share New Photo Amid Wedding Detail Reveal
 
@@ -746,11 +798,3 @@ Stories: 88
 - summary: Taylor Swift and Emma Stone were spotted together at an event, creating an adorable moment on the red carpet. The appearance has caught the interest of fans and media alike.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/lifestyle/videos/emma-stone-taylor-swifts-adorable-160000382.html
-
-## Robbie Williams Defends Taylor Swift Amid Legal Dispute
-
-- first seen: 2026-11-10 15:22 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Robbie Williams has publicly defended Taylor Swift following her recent legal action against him. This comes after Swift was said to have been negatively impacted by the situation.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/ended-taylor-taylor-swift-sued-143016584.html
