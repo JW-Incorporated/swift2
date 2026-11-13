@@ -149,6 +149,25 @@ paste-ready follow-up prompt into the report for the founder's next session.
 | R2 | 2026-09-21 | first Monday Tree brief posted as Tree; ≥1 feedback ledger entry with reason; daily draft PR quotes a reason or states none; approval latency in scorecard |
 | R3 | 2026-10-02 | per-post metrics flowing; lessons ledger has ≥3 dated rules; telemetry week-over-week delta present; A4 sampling report has scores |
 | R4 | 2026-10-16 | rejection + edit rate trend over 4 weeks; any campaign type eligible for ladder (**this is now Wave 5's entry gate — R4's answer decides whether Wave 5 runs at all**); founder thread replies ingested ≥2 weeks; propose plan close or extension |
+| R5 | 2026-11-13 | re-ask T7 on a corrected corpus; did supply recover; brief delivery; close or close out. **Reported ADJUST — `rechecks/R5.md`.** Supply recovered (2 → 5–6 briefs/wk), delivery fixed (4 of 4 Mondays on schedule). **R5 is the last checkpoint; no R6** (a third extension needs a founder decision). |
+
+### Close-out proposed by R5 (2026-11-13) — awaiting founder confirmation
+
+R5 found that the **2026-10-09 founder decision retiring the ✅ for IG/X**
+(Tree self-clears via `social-tree-approve.yml`) granted blanket autonomy —
+strictly more than Wave 5 would have granted, on authority rather than
+evidence. Since that path writes no `social/feedback/` row, T7's bar (≥8 plain
+✅ / 28d, 0 ❌) is now **unmeetable by construction**: the ledger's last row is
+2026-10-21 and every family reads 0–2 briefs while posting runs at its highest
+rate in six weeks.
+
+**R5 therefore recommends retiring Wave 5 and T7 as _superseded_, not
+unearned, and closing the epic out.** Nothing above is rewritten pending
+Joey's confirmation; the reasoning and the two mechanical carry items are in
+`rechecks/R5.md`. One founder question is open there: Tree has had no human
+corrective signal of any kind since 2026-10-22, and ✏️ was never used once in
+the plan's life — if that is intended, S3's reason protocol and T5's lessons
+ledger should be retired alongside T7.
 
 ## Non-negotiables carried into every wave prompt
 

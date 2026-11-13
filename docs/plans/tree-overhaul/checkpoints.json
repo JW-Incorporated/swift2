@@ -82,7 +82,7 @@
     {
       "id": "R5",
       "due": "2026-11-13",
-      "status": "pending",
+      "status": "reported",
       "title": "Did supply recover? Re-ask T7 on a clean corpus, then close or close-out",
       "checks": [
         "PRECONDITION (carried from R4, 2026-10-16): `node scripts/social/weekly-scorecard.mjs 2>&1 | grep -c 'unrecognised campaign prefix'` returns 0. R4 measured 9. Until it is 0 the ladder corpus has null pillars and the T7 answer stays UNVERIFIABLE — it must not satisfy PLAN.md's Wave 5 entry gate. Tracked by issue #5538 (open, unassigned at R4).",
