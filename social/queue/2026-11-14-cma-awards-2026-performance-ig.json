@@ -1,0 +1,34 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "media": [
+    "/social/library/photos/wikimedia-22985343.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-22985343",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114086406).jpg",
+  "scheduledAt": "2026-11-14T15:00:00Z",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "campaign": "heartbeat:event-news:cma-awards-2026-performance-2026-11-14",
+  "body": "OMG taylor is performing at the CMAs again!!! 🤍\n\nthe last time she played that show was 2013: an acoustic \"red\" with alison krauss and vince gill. thirteen years later, she's coming back.\n\nand her toy story 5 song \"i knew it, i knew you\" is nominated for single of the year, so wednesday could be a very big night.\n\nthe 60th CMA Awards air live wednesday, nov 18 on ABC and disney+, with hulu the day after.\n\nthis photo is taylor on good morning america in october 2012, the week red came out. so yes, we are fully back in our red era until wednesday.\n\nrelive red on longlivets.com → https://longlivets.com/?era=red&utm_source=instagram&utm_medium=social&utm_campaign=news\n\n📷 Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons\n\n#TaylorSwift #CMAawards #RedEra #Swifties #LongLive",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "Gush-first caption on confirmed news: the 2013 acoustic \"Red\" with Krauss and Gill, the Single of the Year nomination and the air details. The Red-launch-week GMA photo makes the throwback land.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "Event news, intake #6840: the CMAs/ABC confirmed on 2026-11-13 that Taylor performs at the 60th CMA Awards (Nov 18), her first CMA performance since 2013. Free day, no displacement: 11-14 15:00Z (11-13 23:00Z was under 3h away). IG sibling, longer gush-first caption; same photo as the X half."
+}

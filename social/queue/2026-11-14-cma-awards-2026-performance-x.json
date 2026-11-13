@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "media": [
+    "/social/library/photos/wikimedia-22985343.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "wikimedia-22985343",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114086406).jpg",
+  "scheduledAt": "2026-11-14T15:00:00Z",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "campaign": "heartbeat:event-news:cma-awards-2026-performance-2026-11-14",
+  "body": "13 YEARS. that's how long we've waited for taylor to sing at the CMAs again, and it's happening wednesday 🥹 2013 gave us that acoustic red set. 2026 gives us a single of the year nominee in the room. nov 18, ABC + disney+ https://longlivets.com/?era=red&utm_source=x&utm_medium=social&utm_campaign=news",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 5
+    },
+    "total": 22,
+    "rationale": "Confirmed same-day news with the exact 13-year gap (the 2013 acoustic \"Red\") and the Single of the Year nod carrying it. A Red-launch-week GMA photo ties the 2013 song to the return.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "why": "Event news, intake #6840: the CMAs/ABC confirmed on 2026-11-13 that Taylor performs at the 60th CMA Awards (Nov 18), her first CMA performance since 2013. Free day, no displacement: 11-14 15:00Z (11-13 23:00Z was under 3h away). X half written first; hook = the number."
+}
