@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 84
+
+## New Crossword Features Taylor Swift Songs
+
+- first seen: 2026-11-13 00:22 UTC | category: music | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: A new crossword puzzle featuring titles from Taylor Swift's discography has been published by Scot Scoop News. This engaging activity allows fans to test their knowledge of her songs.
+- sources:
+  - [unverified] Scot Scoop News — https://scotscoop.com/crossword-taylor-swift-songs/
+
+## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
+
+- first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
+- sources:
+  - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
 
 ## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
 
