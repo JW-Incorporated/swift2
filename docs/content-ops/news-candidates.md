@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 89
+
+## Taylor Swift to Perform at CMAs After 13 Years
+
+- first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to take the stage at the Country Music Association Awards for the first time in 13 years, marking a significant return to the event.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-perform-cmas-1st-133205847.html
+
+## Taylor Swift Set to Perform at CMAs After 13-Year Hiatus
+
+- first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift will be performing at the Country Music Association Awards (CMAs) for the first time in 13 years, marking a significant return to the event.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/GMA/Culture/taylor-swift-perform-cmas-1st-time-13-years/story?id=138104764
+
+## Taylor Swift Set to Perform at CMA Awards After 13-Year Hiatus
+
+- first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift will be making her return to the CMA Awards stage, performing for the first time in 13 years. This marks a significant moment in her career as she reconnects with the country music scene.
+- sources:
+  - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/11/13/taylor-swift-2026-cma-awards-performance/92563780007/
 
 ## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Mansion
 
