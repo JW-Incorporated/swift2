@@ -28,7 +28,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 3,
+        "specific": 4,
+        "formula": 4,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-13T21:45:50.382Z",
+      "bodyHash": "sha256:a86e6223ed73638134793b3beb6e9a0a1d7145f1e395a86c9b8f1b1af9baaa2b"
+    }
   },
   "why": "Event news, intake #6840: the CMAs/ABC confirmed on 2026-11-13 that Taylor performs at the 60th CMA Awards (Nov 18), her first CMA performance since 2013. Free day, no displacement: 11-14 15:00Z (11-13 23:00Z was under 3h away). X half written first; hook = the number."
 }
