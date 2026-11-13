@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 94
+
+## Taylor Swift and CMAs Reunite
+
+- first seen: 2026-11-13 16:58 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to rekindle her relationship with the Country Music Association (CMAs) according to Hits Daily Double. This marks a notable return of the artist to the country music stage.
+- sources:
+  - [unverified] Hits Daily Double — https://www.hitsdailydouble.com/news/nashville/taylor-swift-and-cmas-are-getting-back-together-2026-11-13
+
+## Taylor Swift to Attend CMA Awards After 13 Years
+
+- first seen: 2026-11-13 16:58 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to participate in the CMA Awards, marking her first appearance at the event in 13 years. This return highlights her ongoing connection to the country music genre.
+- sources:
+  - [unverified] American Songwriter — https://americansongwriter.com/taylor-swift-is-about-to-do-something-at-the-cma-awards-she-hasnt-done-in-13-years/
+
+## Taylor Swift-Inspired 'Patient Zero Party' Held in Georgetown, DC
+
+- first seen: 2026-11-13 16:58 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A party inspired by Taylor Swift, called the 'Patient Zero Party', took place in Georgetown, Washington DC.
+- sources:
+  - [unverified] Georgetown DC — https://www.georgetowndc.com/news/taylor-swift-inspired-patient-zero-party/
 
 ## Tribute Artist Performs Taylor Swift Songs at Van Wezel
 
@@ -42,14 +66,6 @@ Stories: 93
 - summary: Taylor Swift is set to take the stage at the upcoming CMA Awards, as reported by MusicRow.com. This performance is part of her ongoing commitments to engage with fans through live events.
 - sources:
   - [unverified] MusicRow.com — https://musicrow.com/2026/11/taylor-swift-to-perform-at-the-cma-awards/
-
-## Taylor Swift to Perform at CMA Awards After 13 Years
-
-- first seen: 2026-11-13 15:57 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift is set to perform at the upcoming CMA Awards, marking her first appearance in 13 years. Her song, "I Knew It, I Knew You," from the Toy Story 5 soundtrack, has been nominated for Single of the Year.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-will-perform-2026-cma-awards-1235657442/
 
 ## Taylor Swift Encouraged to Regain Control of Wedding Plans
 
@@ -74,6 +90,14 @@ Stories: 93
 - summary: Taylor Swift is scheduled to perform at the CMA Awards, marking her first appearance at the event since 2013. This performance is highly anticipated by fans and marks a significant return to the country music scene for the artist.
 - sources:
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/11/13/taylor-swift-to-perform-at-the-cma-awards-for-the-first-time-since-2013/
+
+## Taylor Swift to Perform at CMA Awards After 13 Years
+
+- first seen: 2026-11-13 15:57 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is set to perform at the upcoming CMA Awards, marking her first appearance in 13 years. Her song, "I Knew It, I Knew You," from the Toy Story 5 soundtrack, has been nominated for Single of the Year.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-will-perform-2026-cma-awards-1235657442/
 
 ## Taylor Swift to Perform at 60th Annual CMA Awards
 
@@ -137,13 +161,15 @@ Stories: 93
 ## Ella Langley Achieves Historic Feat Alongside Taylor Swift
 
 - first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 6
+- verification_status: corroborated | source_count: 8
 - summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
 - sources:
   - [unverified] 13WHAM-TV — https://13wham.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination?teaserSource=databricks
+  - [unverified] All Country News — https://www.allcountrynews.com/post/taylor-swift-is-returning-to-the-cma-awards-stage-after-13-years-and-yes-that-number-feels-right
   - [established] Deadline — https://deadline.com/2026/11/cma-awards-performers-ella-langley-taylor-swift-1237213808/
   - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
   - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-2013-cma-awards-performance-red-vince-gill-alison-krauss/
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-to-perform-cma-awards-first-time-13-years-1236946968/
   - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-to-perform-at-60th-cma-awards/12367805/
 
@@ -206,11 +232,13 @@ Stories: 93
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
   - [unverified] Rural Radio Network — https://ruralradio.com/maxcountry/abc_news/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-abcide22d3bf1/
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
+  - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
 
 ## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
 
@@ -782,19 +810,3 @@ Stories: 93
   - [unverified] Business Insider — https://www.businessinsider.com/billionaire-musicians-list-beyonce-paul-mccartney-taylor-swift-2026-11
   - [unverified] Louder — https://www.loudersound.com/news/paul-mccartney-details-ringo-starr-reunion-plans-becomes-third-billionaire-musician-2026
   - [unverified] The Indian Express — https://indianexpress.com/article/entertainment/music/paul-mccartney-billionaire-third-richest-musician-after-jay-z-taylor-swift-10957544/
-
-## World's Third-Richest Musician Behind Jay-Z and Taylor Swift
-
-- first seen: 2026-11-10 16:17 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A Facebook post highlights that a musician has become the world's third-richest, following Jay-Z and Taylor Swift in wealth rankings.
-- sources:
-  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/he-is-now-the-worlds-third-richest-musician-behind-jay-z-and-taylor-swift/1631102115718115/
-
-## Taylor Swift and Emma Stone Share Red Carpet Moment
-
-- first seen: 2026-11-10 16:17 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Emma Stone were spotted together at an event, creating an adorable moment on the red carpet. The appearance has caught the interest of fans and media alike.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/lifestyle/videos/emma-stone-taylor-swifts-adorable-160000382.html
