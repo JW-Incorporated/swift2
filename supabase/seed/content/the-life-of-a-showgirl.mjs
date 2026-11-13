@@ -17539,7 +17539,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.',
+          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.\n\nBoth campaigns sit inside a larger deal. On Mar. 30, 2026, Tommy Hilfiger named Travis its global brand ambassador, a partnership that runs from fall 2026 into spring 2027 and pairs a campaign with a design collaboration on reworked Tommy classics. Kelce joined a roster that has included Rafael Nadal, Gigi Hadid, Lewis Hamilton and Zendaya.',
         sources: [
           {
             outlet: 'WWD',
@@ -17561,6 +17561,17 @@ export default {
             accessed_at: '2026-11-07',
             reliability_score: 3,
             notes: 'Nov. 5, 2026; independent pickup carrying the same quotes, attributed to WWD.',
+          },
+          {
+            outlet: 'Daily Front Row',
+            url: 'https://fashionweekdaily.com/travis-kelce-tommy-hilfiger/',
+            source_title: 'Travis Kelce Signs Multi-Season Partnership With Tommy Hilfiger',
+            publisher: 'Daily Front Row',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes:
+              'By Charles Manning, Mar. 30, 2026; read in full. Primary for the global brand ambassador role, the fall 2026 to spring 2027 span, the campaign-plus-design-collaboration scope and the past-ambassador roster. Does not mention the holiday campaign.',
           },
         ],
         // Official campaign image published by WWD ("Courtesy of Tommy
@@ -17605,7 +17616,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.',
+          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.\n\nWTVC (NewsChannel 9) notes the pair had last been photographed together in 2018, at the Reputation Stadium Tour stop in Nashville. Kloss has said little about the reunion. Weeks after her own wedding she told NBC\'s Today, "Listen, I try to protect the privacy of my friends\' personal lives," and called Taylor and Travis "an amazing couple." Neither Taylor nor her representatives commented on the Chiefs game.',
         photos: [
           {
             url: 'https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg',
@@ -17646,6 +17657,17 @@ export default {
             reliability_score: 3,
             notes:
               'By Bradley Stern, Nov. 8, 2026; read in full. Independent confirmation of Kloss in the private suite at Arrowhead vs. the Jets and the red sweater. Primary for Kelce\'s 200th NFL appearance and Kloss\'s 2018 New York Times quote.',
+          },
+          {
+            outlet: 'WTVC NewsChannel 9',
+            url: 'https://newschannel9.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift',
+            source_title: 'Taylor Swift and Karlie Kloss reunite at Chiefs game years after rumored rift',
+            publisher: 'WTVC (Sinclair)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+            notes:
+              'By Elizabeth Stanton, Nov. 9, 2026; read in full. Third independent confirmation of Kloss in the suite with Andrea Swift and Donna Kelce. Primary for the 2018 Nashville Reputation Stadium Tour as the last time the two were photographed together and for Kloss\'s Today quote. Reports no score and no statement from Taylor or her reps.',
           },
         ],
       },
