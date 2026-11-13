@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 82
 
 ## 8 Nail Ideas Inspired by Taylor Swift's Sparkly Manicure
 
@@ -703,19 +703,3 @@ Stories: 84
 - summary: Taylor Swift and Karlie Kloss restore their friendship, exploring the reasons behind their renewed bond. The details about their reconciliation reflect the importance of their relationship in the public eye.
 - sources:
   - [unverified] SheKnows — https://www.sheknows.com/entertainment/articles/1235091923/reason-taylor-swift-karlie-kloss-friends-again/
-
-## Knicks Guard Apologizes for Comments on Taylor Swift's Fandom
-
-- first seen: 2026-11-10 01:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Knicks guard Tyler Kolek has retracted his remarks calling Taylor Swift a 'performative' fan after backlash from Swifties, including his wife. The Knicks organization has also expressed appreciation for Swift's support.
-- sources:
-  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/knicks-guard-walks-back-comment-taylor-swift-fake-fan-swifties-wife-attack
-
-## Knicks Guard Clarifies Remarks on Taylor Swift Fan Status
-
-- first seen: 2026-11-10 01:43 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A Knicks guard has retracted his comments suggesting Taylor Swift is a 'fake fan' following backlash from her supporters, including his wife. The incident highlights the passionate defense of Swift's fanbase.
-- sources:
-  - [unverified] 930 WFMD Free Talk — https://www.wfmd.com/2026/11/09/knicks-guard-walks-back-comment-about-taylor-swift-being-fake-fan-after-swifties-including-his-wife-attack/
