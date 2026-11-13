@@ -30,7 +30,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 4,
+        "formula": 3,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-13T18:36:02.120Z",
+      "bodyHash": "sha256:946edd464cbfc15c9ecbdc2ca5cbac6fe23c26f0fe1be98f55c4b6e46bc3ad67"
+    }
   },
   "approval": {
     "v": 4,
