@@ -27,6 +27,14 @@ so far".
 
 Stories: 90
 
+## Taylor Swift Discusses Her Experience Writing for 'Toy Story 5'
+
+- first seen: 2026-11-14 03:18 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shared her thoughts on writing a song for 'Toy Story 5', describing it as a new experience for her as a songwriter. She emphasized the creative journey involved in this project.
+- sources:
+  - [unverified] Gold Derby — https://www.goldderby.com/film/2026/taylor-swift-toy-story-5-interview/
+
 ## Taylor Swift Pays Nelly $50,000 for Surprise Concert Appearance
 
 - first seen: 2026-11-14 02:23 UTC | category: tour | importance: 7
@@ -777,11 +785,3 @@ Stories: 90
 - summary: Jan Ravnik has revealed that a Taylor Swift anthem will be featured in the upcoming season of 'Dancing With The Stars.' The announcement highlights Swift's continued influence in popular entertainment.
 - sources:
   - [unverified] USA Today — https://www.usatoday.com/videos/entertainment/tv/2026/11/10/jan-ravnik-taylor-swift-anthem-song-dwts/92720241007/
-
-## Taylor Swift and Karlie Kloss Reunite Amidst Differences
-
-- first seen: 2026-11-11 03:18 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss recently reunited, although reports suggest they might not see eye to eye on certain matters. Details on their current dynamic remain unclear.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-reunion-192000728.html
