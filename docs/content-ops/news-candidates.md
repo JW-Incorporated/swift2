@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 90
+
+## Taylor Swift Pays Nelly $50,000 for Surprise Concert Appearance
+
+- first seen: 2026-11-14 02:23 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift reportedly paid Nelly $50,000, delivered in a McDonald's bag, for his surprise appearance at a recent concert. This unusual payment method has caught attention online.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66110648/?ref_=nmnw_art_perm
 
 ## Taylor Swift to Perform at 60th Annual CMA Awards Honoring Dolly Parton
 
@@ -777,41 +785,3 @@ Stories: 93
 - summary: Taylor Swift and Karlie Kloss recently reunited, although reports suggest they might not see eye to eye on certain matters. Details on their current dynamic remain unclear.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-reunion-192000728.html
-
-## Landscaping Changes at Taylor Swift and Travis Kelce's Home Spark Debate
-
-- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 7
-- summary: The recent landscaping changes around Taylor Swift and Travis Kelce's home in Northeast Ohio have generated controversy among residents. Discussions focus on the impact of these alterations on the neighborhood's aesthetic and community standards.
-- sources:
-  - [unverified] Cleveland.com — https://www.cleveland.com/news/2026/11/taylor-swift-travis-kelces-bratenahl-landscaping-plan-approved-despite-neighbors-dissent.html
-  - [unverified] Consequence of Sound — https://consequence.net/2026/11/taylor-swift-and-travis-kelces-landscaping-plans-approved-despite-concern-for-animals-sex-lives/
-  - [unverified] FOX 8 News — https://fox8.com/video/landscaping-changes-around-taylor-swift-travis-kelces-northeast-ohio-home-draws-controversy/12358044/
-  - [unverified] HITC — https://www.hitc.com/taylor-swift-to-help-husband-travis-kelce-and-brother-in-law-jason-kelce-with-the-new-heights-podcast/
-  - [unverified] News24 — https://www.news24.com.au/lifestyle/celebrity-life/taylor-swift-and-travis-kelces-ohio-neighbors-fight-over-sixfoot-black-aluminum-privacy-fence/video/e38030009be36e3eefcac4a31dfc01f7
-  - [unverified] Page Six — https://pagesix.com/2026/11/11/entertainment/travis-kelce-recruits-taylor-swift-for-next-new-heights-podcast-event/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-taylor-swift-neighbours-081923820.html
-
-## Taylor Swift Seen at Chiefs Game with Karlie Kloss
-
-- first seen: 2026-11-11 02:17 UTC | category: sighting | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was spotted attending a Chiefs game alongside model Karlie Kloss, sparking reactions on social media. Fans and onlookers shared their thoughts about the sighting, reigniting discussions around their friendship.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-attending-chiefs-game-045748233.html
-
-## Taylor Swift Responds to Knicks Player's Claim of Being a Fake Fan
-
-- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift addresses comments made by a Knicks player who claimed she is a fake fan. The situation has garnered media attention, showcasing her engagement with sports culture.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-just-got-the-last-laugh-after-knicks-player-claims-fake-fan
-
-## Neighbors Lose Fight Against Swift and Kelce's Home Landscaping Plans
-
-- first seen: 2026-11-11 02:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's neighbors in Ohio have unsuccessfully tried to prevent the couple's landscaping plans for their new home. The developments will proceed despite the opposition from nearby residents.
-- sources:
-  - [unverified] Page Six — https://pagesix.com/2026/11/10/entertainment/taylor-swift-and-travis-kelces-ohio-neighbors-lose-fight-to-stop-landscape-plans-for-new-home/
