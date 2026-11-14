@@ -2,9 +2,29 @@
 
 <!-- ha-format: 2 -->
 
-> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #152 🔴 [BLOCKING] Give every story on the site its own web address Google can find (~5 min)
+<!-- ha filed=2026-11-14 -->
+<!-- ha verify: issue-closed 6306 -->
+
+**Why:** Search engines see the whole site as one page, so none of the stories we publish can be found by a fan searching Google (search sent just 3 of 30 pageviews last week). This is the week's growth bet 3; it is already decided and only needs one Claude Code session to build.
+**Steps:**
+1. Open Claude Code in Documents\Claude\Projects\Swift2.
+2. Paste the prompt from issue #6306 (the copy button on its code block) and let it run.
+**Worked if:** Issue #6306 is closed — moments and eras have their own web addresses with unique titles, listed in the sitemap.
+
+## #151 🔴 [BLOCKING] Fix the build fleet that runs green but ships no dispatched work (~10 min)
+<!-- ha filed=2026-11-14 -->
+<!-- ha verify: issue-closed 6690 -->
+
+**Why:** The engineering fleet completes every run green but lands no dispatched ticket — 39 are stuck (oldest 27 days), including 3 of this week's growth priorities. Until the pipeline is fixed, re-dispatching does nothing and growth work cannot ship. The ops-fixer already tried and got stuck.
+**Steps:**
+1. Open Claude Code in Documents\Claude\Projects\Swift2.
+2. Paste the prompt from issue #6690 (the copy button on its code block) and let it run.
+**Worked if:** Issue #6690 is closed — an eligible build ticket produces a PR or a logged, surfaced skip reason, and the backlog starts draining.
 
 ## #150 🔴 [BLOCKING] Replace the Awin API token so the merch sync runs again (~5 min)
 <!-- ha filed=2026-11-11 -->
