@@ -17848,6 +17848,65 @@ export default {
         ],
       },
     },
+    {
+      // Content Shift 2026-11-14, intake #6870. Dated to Nov. 13, when the
+      // remarks were first published; neither outlet dates the press
+      // conference itself. Vulture (cited on the ticket) could not be loaded
+      // from this environment, so the album praise is paraphrased from Kiss
+      // FM's agency report rather than quoted in English. Redlines: the
+      // iPad remark is about friends' children and the film, never framed as
+      // anything about Taylor's own family.
+      slug: 'showgirl-toy-story-5-awards-press-human-albums',
+      year: 2026,
+      month: 11,
+      day: 13,
+      category: 'music',
+      title: 'Campaigning for "I Knew It, I Knew You," Taylor names her two albums of the year',
+      snippet:
+        'At a Toy Story 5 press conference for Golden Globe voters, Taylor singled out Rosalía\'s LUX and Olivia Dean\'s The Art of Loving as records that prove music made by people still lands, and called the film\'s take on kids and screens "a parent-to-parent decision."',
+      sourceUrl: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Awards season for "I Knew It, I Knew You," her original song for Toy Story 5, brought Taylor to a press conference held for Golden Globe voters, and her remarks surfaced on Nov. 13 and 14, 2026. Asked about technology in music and what makes a song move people, she held up two records: Rosalía\'s LUX, which she called conceptual, ambitious, expansive and perfect, and Olivia Dean\'s The Art of Loving, which she likened to a warm hug. Her point was that both connect because they were made by people.\n\nShe also spoke about the film itself. "I have so many friends who\'ve gone to see this film because they have a young child," she told HELLO!, and "they don\'t really know what to do about the whole iPad thing." She praised the movie for not preaching: "there\'s no bad guy," it "really does emphasize trying to elongate childhoods, trying to make space and room for imagination," and "they\'re not heavy-handed about it." On screen time, "it\'s really a parent-to-parent decision." Of the song, she said, "I feel like I relate to this song even more every time I hear it and every time I sing it."',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+            source_title: 'Taylor Swift makes very rare comment on raising children, 4 months after wedding to Travis Kelce',
+            publisher: 'HELLO! Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Gill Pringle, Nov. 13, 2026; read in full. Primary for every English quote here (Toy Story 5 press conference, song promotion). The headline frames the remarks as about her own children; the quotes are about friends and the film, and are used only that way.',
+          },
+          {
+            outlet: 'Kiss FM (Spain)',
+            url: 'https://kissfm.es/2026/11/14/taylor-swift-se-rinde-ante-rosalia-y-su-disco-lux',
+            source_title: 'Taylor Swift se rinde ante Rosalía y su disco \'LUX\'',
+            publisher: 'Kiss FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Adrián Martín (agency copy), Nov. 14, 2026; read in full. Places the remarks at a press conference for Golden Globe voters and carries her descriptions of LUX and The Art of Loving (in Spanish; paraphrased here).',
+          },
+          {
+            outlet: 'Taylor Swift',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-14',
+            reliability_score: 5,
+            notes: 'The song being campaigned. oEmbed-verified 2026-11-14 (author_name "Taylor Swift").',
+          },
+        ],
+      },
+    },
     // NOTE (2026-09-06, t_187359e9 — founder escalation): a
     // 'florida-orchestra-taylor-swift-symphony-era-mahaffey' moment dated
     // 2026-09-12 was authored here on 2026-09-06 (PR #3910/#3906) — SIX DAYS
