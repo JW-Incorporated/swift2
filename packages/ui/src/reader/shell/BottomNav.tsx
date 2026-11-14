@@ -132,7 +132,7 @@ export function BottomNav() {
               )}
             >
               <Icon className="size-5" aria-hidden />
-              {!tab.iconOnly && <span className="max-w-full truncate">{tab.label}</span>}
+              {!tab.iconOnly && <span className="max-w-full truncate max-[22rem]:tracking-[-0.04em]">{tab.label}</span>}
             </button>
           );
         })}

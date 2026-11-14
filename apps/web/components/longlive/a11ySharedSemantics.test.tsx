@@ -66,7 +66,12 @@ describe('A11Y-6 era button accessible name contains its visible label', () => {
     const desktop = btn.querySelector('span.hidden.sm\\:inline')!;
     expect(mobile.textContent).toBe(`Era: ${era.shortName}`);
     expect(desktop.textContent).toBe(`Era: ${era.name}`);
-    expect(btn.querySelector('.sr-only')?.textContent).toBe(' — open the eras menu');
+    const srTexts = Array.from(btn.querySelectorAll('.sr-only')).map((n) => n.textContent);
+    expect(srTexts).toContain(' — open the eras menu');
+    // Narrow widths hide the visible "Era: " prefix and show only the short name, so the
+    // full name travels as sr-only context: the name keeps "Era: <short> (<full>)".
+    expect(srTexts).toContain(` (${era.name})`);
+    expect(mobile.querySelector('span')?.className).toContain('@max-[22rem]:sr-only');
   });
 });
 

@@ -119,7 +119,7 @@ export function ClownBoard({ onSelect, lore = [] }: ClownBoardProps) {
           <h2 className="font-[family-name:var(--era-font)] text-2xl font-semibold text-[color:var(--era-ink)]">
             {THEORIES_HEADING}
           </h2>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--era-accent)]/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[color:var(--era-accent)]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--era-accent)]/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[color:var(--era-accent-text)]">
             {theories.length > 0 && <PulseDot />}
             {theories.length} open
           </span>
@@ -127,7 +127,7 @@ export function ClownBoard({ onSelect, lore = [] }: ClownBoardProps) {
         <p className="mt-1.5 text-[13px] leading-relaxed text-[color:var(--era-ink-soft)]">{THEORIES_SUB}</p>
         {liveBoardItems.length > 0 && (
           <>
-            <p className="mt-4 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[color:var(--era-accent)]">
+            <p className="mt-4 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[color:var(--era-accent-text)]">
               <PulseDot />
               Live from the knowledge engine
             </p>
@@ -164,7 +164,7 @@ export function ClownBoard({ onSelect, lore = [] }: ClownBoardProps) {
             <div className="mt-4">
               {eggGroups.map((group) => (
                 <div key={group.era}>
-                  <p className="mb-2 mt-5 text-[11px] font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)] opacity-75 first:mt-0">
+                  <p className="mb-2 mt-5 text-[11px] font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)] opacity-85 first:mt-0">
                     {group.era}
                   </p>
                   <ul className="space-y-2.5">
@@ -180,7 +180,7 @@ export function ClownBoard({ onSelect, lore = [] }: ClownBoardProps) {
                 type="button"
                 onClick={() => setExpanded((v) => !v)}
                 aria-expanded={expanded}
-                className="mt-4 inline-flex min-h-[44px] items-center rounded-full border border-[color:var(--era-line)] px-4 text-sm font-medium text-[color:var(--era-ink-soft)] transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent)]"
+                className="mt-4 inline-flex min-h-[44px] items-center rounded-full border border-[color:var(--era-line)] px-4 text-sm font-medium text-[color:var(--era-ink-soft)] transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent-text)]"
               >
                 {expanded ? 'Show fewer' : `Show all ${groupableEggs.length}`}
               </button>
