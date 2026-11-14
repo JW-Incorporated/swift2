@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 77
 
 ## Taylor Swift Discusses Love for Lux and Olivia Dean
 
@@ -680,28 +680,3 @@ Stories: 80
 - summary: An article discusses Taylor Swift wearing a posture-correcting bra and the author's experience testing it. The piece highlights Swift's influence on fashion choices.
 - sources:
   - [unverified] Yahoo — https://shopping.yahoo.com/health/fitness/articles/taylor-swift-newly-fianc-e-141200668.html
-
-## Travis Kelce Invites Taylor Swift to Next 'New Heights' Event
-
-- first seen: 2026-11-11 21:06 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has expressed a desire for Taylor Swift to contribute her influence at the upcoming 'New Heights' event. The collaboration hints at the personal connection between the two.
-- sources:
-  - [unverified] Complex — https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic
-
-## Travis Kelce Partners with Taylor Swift on New Business Venture
-
-- first seen: 2026-11-11 21:06 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce seeks the assistance of his wife, Taylor Swift, for an unexpected business initiative. The new venture's details have not been disclosed in the initial news.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/travis-kelce-enlists-wife-taylor-swift-help-new-heights-event-12249315
-
-## Taylor Swift's Participation in CMA Awards 2026 Tribute Examined
-
-- first seen: 2026-11-11 21:06 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: E! News discusses whether Taylor Swift will take part in the Dolly Parton tribute at the 2026 CMA Awards.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026
-  - [unverified] IMDb — https://www.imdb.com/de/news/ni66106819/?ref_=nwc_art_perm
