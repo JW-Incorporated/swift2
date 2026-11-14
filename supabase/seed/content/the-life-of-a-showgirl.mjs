@@ -17670,6 +17670,23 @@ export default {
               'By Elizabeth Stanton, Nov. 9, 2026; read in full. Third independent confirmation of Kloss in the suite with Andrea Swift and Donna Kelce. Primary for the 2018 Nashville Reputation Stadium Tour as the last time the two were photographed together and for Kloss\'s Today quote. Reports no score and no statement from Taylor or her reps.',
           },
         ],
+        // Rumor Desk 2026-11-14 (Vault Run lane 4), intake #6871. The suite
+        // sighting above is documented fact; only the reconciliation is
+        // unsettled, so it lives here and not in the narrative. No location
+        // in the claim.
+        rumors: [
+          {
+            claim:
+              'Taylor and Karlie Kloss patched up their years-long rift "a few years ago" and have since "gotten a lot closer," according to an unnamed source in Page Six on Nov. 9, 2026.',
+            reportedBy: 'Page Six (via OK! / Yahoo Style Canada)',
+            reportedOn: '2026-11-09',
+            status: 'unconfirmed',
+            url: 'https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html',
+            note: 'A single anonymous source; neither Taylor nor Kloss has addressed it, and neither has ever said publicly what caused the falling-out. Adjudicable: either one confirming or denying a reconciliation settles it. Read in full via the OK! syndication (Taylor Camp, Nov. 12, 2026), which links the Page Six original.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-11-14',
+          },
+        ],
       },
     },
     {
