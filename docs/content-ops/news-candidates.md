@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 91
+Stories: 93
+
+## Taylor Swift to Perform at 60th Annual CMA Awards Honoring Dolly Parton
+
+- first seen: 2026-11-14 01:23 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the 60th Annual CMA Awards, where Dolly Parton will be honored for her contributions to country music.
+- sources:
+  - [unverified] WKRN News 2 — https://www.wkrn.com/news/local-news/nashville/dolly-parton-to-be-honored-at-the-60th-annual-cma-awards-taylor-swift-to-perform/
+
+## Taylor Swift Hesitant to Share Wedding Photos Following Design Leak
+
+- first seen: 2026-11-14 01:23 UTC | category: release | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is reportedly hesitant to release her wedding photos, despite encouragement from friends, after some designs were leaked. This has raised discussions about her privacy and the impact of design leaks on personal moments.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-reluctant-release-233051049.html
 
 ## Taylor Swift's Return to the CMAs Raises Questions
 
