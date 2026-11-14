@@ -17853,6 +17853,16 @@ export default {
             notes: 'By Burtland Dixon; read in full. Confirms Travis\'s line and the Nov. 11 episode, crediting People for the original report.',
           },
           {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/travis-kelce-hints--taylor-swift-help-new-heights-podcast-next-live-event',
+            source_title: "Travis Kelce Hints That Taylor Swift Can Help Out The 'New Heights' Podcast's Next Live Event",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Autumn Hawkins, Nov. 12, 2026. Same exchange and Philadelphia tailgate context; presents it as a hint, and cites no confirmation from Taylor, the Kelces or the show.',
+          },
+          {
             outlet: 'New Heights',
             url: 'https://www.youtube.com/watch?v=59cfTptr3k8',
             source_title: 'Josh Downs is a Chief, Cousins Traded, Super Bowl Bears & Did We Just Become Best Friends?? | 211',
