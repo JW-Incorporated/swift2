@@ -3865,6 +3865,24 @@
       "sha256": "b5f689e3448f535d661c3fcd6cbd0036905d7e2a941779be83f1b548154e3896",
       "reason": "Crowd on park lawn panorama; no prominent person pictured.",
       "date": "2026-11-13"
+    },
+    {
+      "id": "openverse-80872379-da5d-4cd2-b7a3-adc4023ff1d8",
+      "sha256": "ba287f11da67104134b90e275e7bf84ee475682cfd3bc7f420e8b76154fa95f9",
+      "reason": "AI-looking limo and neon sign scene, no person, garbled text",
+      "date": "2026-11-14"
+    },
+    {
+      "id": "press-d09de9fbbcf1",
+      "sha256": "7c1e956e478890af5f2096b50d5734b5303ae076440379a803e416c587d90fb7",
+      "reason": "Split-panel collage of three people; no single prominent subject.",
+      "date": "2026-11-14"
+    },
+    {
+      "id": "press-2e961cd04d7d",
+      "sha256": "6038c172e633ea7e8b4c72dd621a9e4f02a780cd9790041649df3c3fd06b9412",
+      "reason": "Other people in frame, blurry foreground blocks, partial back view, murky.",
+      "date": "2026-11-14"
     }
   ]
 }
