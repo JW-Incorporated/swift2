@@ -207,7 +207,7 @@ export function DecodeCard({
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-[11px] underline underline-offset-2 opacity-60 transition-opacity hover:opacity-100"
+                    className="flex items-center gap-1 text-[11px] underline underline-offset-2 hover:decoration-2"
                     style={{ color: 'var(--era-ink-soft)' }}
                   >
                     <ExternalLink size={9} />
