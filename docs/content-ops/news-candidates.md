@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 87
 
 ## Taylor Swift's Met Gala Fashion Journey: A Glamorous Overview
 
@@ -46,10 +46,11 @@ Stories: 89
 ## Taylor Swift Discusses Her Experience Writing for 'Toy Story 5'
 
 - first seen: 2026-11-14 03:18 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift shared her thoughts on writing a song for 'Toy Story 5', describing it as a new experience for her as a songwriter. She emphasized the creative journey involved in this project.
 - sources:
   - [unverified] Gold Derby — https://www.goldderby.com/film/2026/taylor-swift-toy-story-5-interview/
+  - [unverified] Obsessed by Kevin Fallon — https://obsessed.substack.com/p/taylor-swift-spills-on-how-personal-toy-story-is-to-her
 
 ## Taylor Swift Pays Nelly $50,000 for Surprise Concert Appearance
 
@@ -761,19 +762,3 @@ Stories: 89
 - summary: Travis Kelce expressed interest in seeing what his wife, Taylor Swift, might contribute to an upcoming New Heights podcast event.
 - sources:
   - [established] People — https://people.com/travis-kelce-plans-to-enlist-wife-taylor-swift-for-next-new-heights-podcast-event-12248830
-
-## Taylor Swift's Breakup Song Lyrics Linked to NHL Player
-
-- first seen: 2026-11-11 13:41 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's lyrics inspired by breakups have been mentioned in connection with NHL player Connor Hellebuyck amidst ongoing trade discussions. The article explores these parallels in the context of the sports world.
-- sources:
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25531667-taylor-swift-breakup-song-lyrics-connor-hellebuyck-and-ongoing-nhl-trade-dramas
-
-## Quiz Highlights Kind Celebrities for World Kindness Day 2026
-
-- first seen: 2026-11-11 13:41 UTC | category: business | importance: 3
-- verification_status: single_source | source_count: 1
-- summary: A new quiz challenges participants to identify celebrities known for their acts of kindness in celebration of World Kindness Day 2026.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zjw2jfr?at_medium=RSS&at_campaign=rss
