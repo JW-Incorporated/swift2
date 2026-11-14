@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 88
 
 ## Taylor Swift Discusses Her Experience Writing for 'Toy Story 5'
 
@@ -769,11 +769,3 @@ Stories: 89
 - summary: Dark Horse Estate, known for being the recording site for Taylor Swift and Dolly Parton, has been put on the market for $19.5 million. The property highlights its significance in the music industry.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/lifestyle/articles/dark-horse-estate-where-taylor-094700308.html
-
-## Taylor Swift's Knicks Drama Involves Tyler Kolek’s Girlfriend
-
-- first seen: 2026-11-11 07:13 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Recent developments in the Knicks drama surrounding Taylor Swift include involvement from Tyler Kolek’s girlfriend. Details about the nature of this twist have yet to be disclosed.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/articles/taylor-swift-knicks-drama-takes-060000084.html
