@@ -27,6 +27,14 @@ so far".
 
 Stories: 91
 
+## Taylor Swift's Return to the CMAs Raises Questions
+
+- first seen: 2026-11-14 00:23 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An article discusses Taylor Swift's unexpected decision to return to the Country Music Association Awards, despite her already established success. The piece explores her motivations for appearing at the event.
+- sources:
+  - [unverified] Inc.com — https://www.inc.com/kamya-marwah/taylor-swift-cma-awards-return-branding-strategy/91436587
+
 ## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
 
 - first seen: 2026-11-13 22:26 UTC | category: tour | importance: 7
@@ -791,11 +799,3 @@ Stories: 91
 - summary: Taylor Swift and Travis Kelce's neighbors in Ohio have unsuccessfully tried to prevent the couple's landscaping plans for their new home. The developments will proceed despite the opposition from nearby residents.
 - sources:
   - [unverified] Page Six — https://pagesix.com/2026/11/10/entertainment/taylor-swift-and-travis-kelces-ohio-neighbors-lose-fight-to-stop-landscape-plans-for-new-home/
-
-## Clarifying the Alleged Neighbor Dispute Involving Taylor Swift and Travis Kelce
-
-- first seen: 2026-11-11 00:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report discusses a supposed feud between Taylor Swift and Travis Kelce's neighbor, suggesting it may not be as it appears. The situation is highlighted in a Yahoo article, clarifying misconceptions.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelces-alleged-225137523.html
