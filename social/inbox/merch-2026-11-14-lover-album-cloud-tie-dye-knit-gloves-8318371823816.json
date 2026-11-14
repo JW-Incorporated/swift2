@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-14-lover-album-cloud-tie-dye-knit-gloves-8318371823816",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-14T00:57:10.776Z",
+  "deadline": "2026-11-17T00:57:10.776Z",
+  "status": "open",
+  "facts": {
+    "name": "Lover Album Cloud Tie-Dye Knit Gloves",
+    "price": "35.00",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/lover-album-cloud-tie-dye-knit-gloves",
+    "firstSeenAt": "2026-11-14T00:56:26.895Z"
+  },
+  "media": [
+    "/social/library/merch-drop-43537202104.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/lover-album-cloud-tie-dye-knit-gloves",
+  "altTextHint": "A Long Live store-drop card for 130 items newly available on the official store, led by \"1989 Tote Bag\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
