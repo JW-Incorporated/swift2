@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 80
 
 ## Taylor Swift Discusses Love for Lux and Olivia Dean
 
@@ -92,14 +92,6 @@ Stories: 82
 - sources:
   - [unverified] IMDb — https://www.imdb.com/news/ni66110648/?ref_=nmnw_art_perm
 
-## Taylor Swift to Perform at 60th Annual CMA Awards Honoring Dolly Parton
-
-- first seen: 2026-11-14 01:23 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the 60th Annual CMA Awards, where Dolly Parton will be honored for her contributions to country music.
-- sources:
-  - [unverified] WKRN News 2 — https://www.wkrn.com/news/local-news/nashville/dolly-parton-to-be-honored-at-the-60th-annual-cma-awards-taylor-swift-to-perform/
-
 ## Taylor Swift Hesitant to Share Wedding Photos Following Design Leak
 
 - first seen: 2026-11-14 01:23 UTC | category: release | importance: 6
@@ -107,6 +99,14 @@ Stories: 82
 - summary: Taylor Swift is reportedly hesitant to release her wedding photos, despite encouragement from friends, after some designs were leaked. This has raised discussions about her privacy and the impact of design leaks on personal moments.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-reluctant-release-233051049.html
+
+## Taylor Swift to Perform at 60th Annual CMA Awards Honoring Dolly Parton
+
+- first seen: 2026-11-14 01:23 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the 60th Annual CMA Awards, where Dolly Parton will be honored for her contributions to country music.
+- sources:
+  - [unverified] WKRN News 2 — https://www.wkrn.com/news/local-news/nashville/dolly-parton-to-be-honored-at-the-60th-annual-cma-awards-taylor-swift-to-perform/
 
 ## Taylor Swift's Return to the CMAs Raises Questions
 
@@ -705,19 +705,3 @@ Stories: 82
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026
   - [unverified] IMDb — https://www.imdb.com/de/news/ni66106819/?ref_=nwc_art_perm
-
-## Taylor Swift Tribute Band Blank Space Performs in Jacksonville
-
-- first seen: 2026-11-11 20:02 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The tribute band Blank Space is set to perform in Jacksonville, providing fans an inside look at their rendition of Taylor Swift's music. This event highlights the local tribute scene and showcases the popularity of Swift's music.
-- sources:
-  - [unverified] UNF Spinnaker — https://unfspinnaker.com/117197/latest-stories/blank-space-comes-to-jacksonville-an-inside-look-at-the-taylor-swift-tribute-band/
-
-## Taylor Swift to Be Honored at THR's Women In Entertainment Gala
-
-- first seen: 2026-11-11 20:02 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to receive a special honor at The Hollywood Reporter's Women In Entertainment Gala, highlighting her contributions to the industry.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66106618/?ref_=nwc_art_perm
