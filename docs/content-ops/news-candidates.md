@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 76
 
 ## Taylor Swift Discusses Love for Lux and Olivia Dean
 
@@ -672,11 +672,3 @@ Stories: 77
 - summary: Taylor Swift expressed her anger over wedding photos that have gone viral, sparking considerable debate surrounding a particular choice she made. The situation has drawn significant media attention and public discussion.
 - sources:
   - [unverified] Heatworld — https://heatworld.com/celebrity/news/taylor-swifts-fury-as-pictures-of-her-wedding-go-viral-this-one-choice-has-caused-huge-controversy/
-
-## Taylor Swift Featured in Article on Posture-Correcting Bra
-
-- first seen: 2026-11-11 22:02 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses Taylor Swift wearing a posture-correcting bra and the author's experience testing it. The piece highlights Swift's influence on fashion choices.
-- sources:
-  - [unverified] Yahoo — https://shopping.yahoo.com/health/fitness/articles/taylor-swift-newly-fianc-e-141200668.html
