@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-14-taylor-swift-the-eras-tour-sweater-dress-8322204270792",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-14T00:57:10.776Z",
+  "deadline": "2026-11-17T00:57:10.776Z",
+  "status": "open",
+  "facts": {
+    "name": "Taylor Swift | The Eras Tour Sweater Dress",
+    "price": "95.00",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/taylor-swift-the-eras-tour-sweater-dress",
+    "firstSeenAt": "2026-11-14T00:56:26.895Z"
+  },
+  "media": [
+    "/social/library/merch-drop-43537202104.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/taylor-swift-the-eras-tour-sweater-dress",
+  "altTextHint": "A Long Live store-drop card for 130 items newly available on the official store, led by \"1989 Tote Bag\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
