@@ -27,6 +27,14 @@ so far".
 
 Stories: 88
 
+## Taylor Swift Announces News Ahead of Chiefs-Falcons Game
+
+- first seen: 2026-11-14 11:12 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has shared exciting news just days before the upcoming game between the Chiefs and Falcons. Details of the announcement were not specified.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-exciting-news-before-falcons-game/
+
 ## Taylor Swift Discusses Her Experience Writing for 'Toy Story 5'
 
 - first seen: 2026-11-14 03:18 UTC | category: music | importance: 7
@@ -761,11 +769,3 @@ Stories: 88
 - summary: A new quiz challenges participants to identify celebrities known for their acts of kindness in celebration of World Kindness Day 2026.
 - sources:
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/zjw2jfr?at_medium=RSS&at_campaign=rss
-
-## Dark Horse Estate Listed for $19.5 Million, Notable Recording Location
-
-- first seen: 2026-11-11 10:41 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Dark Horse Estate, known for being the recording site for Taylor Swift and Dolly Parton, has been put on the market for $19.5 million. The property highlights its significance in the music industry.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/lifestyle/articles/dark-horse-estate-where-taylor-094700308.html
