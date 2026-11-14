@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 76
+Stories: 75
+
+## Nelly recounts flight story involving Taylor Swift and money
+
+- first seen: 2026-11-14 23:33 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly shared a story about a flight from St. Louis that involved Taylor Swift and $50,000 in a McDonald's bag. The anecdote highlights a unique moment related to the artist's life.
+- sources:
+  - [unverified] FOX 2 — https://fox2now.com/news/missouri/nelly-shares-taylor-swift-story-a-flight-from-st-louis-and-50k-in-a-mcdonalds-bag/
+
+## Fans Praise Taylor Swift's Alleged Transformation Following Viral Moment
+
+- first seen: 2026-11-14 23:33 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Fans are expressing appreciation for Taylor Swift's alleged cosmetic procedures after a subtle transformation gained attention online. Many compliment the work done, suggesting that her aesthetic choices have been well-received.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/fans-applaud-taylor-swifts-alleged-121627547.html
 
 ## Taylor Swift Discusses Love for Lux and Olivia Dean
 
@@ -648,27 +664,3 @@ Stories: 76
 - summary: Billboard has predicted that Taylor Swift, Olivia Rodrigo, and Don Toliver will be contenders for Album of the Year nominations. This speculation highlights their impact in the music industry.
 - sources:
   - [unverified] foxy99.com — https://foxy99.com/2026/11/11/billboard-predicts-taylor-swift-olivia-rodrigo-and-don-toliver-for-album-of-the-year-nominations/
-
-## Travis Kelce to Seek Taylor Swift's Advice on New Business Venture
-
-- first seen: 2026-11-11 23:27 UTC | category: business | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Travis Kelce has announced plans to consult with Taylor Swift regarding an upcoming business project, expressing confidence in her creative skills.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-tailgate-stage-help-1236379701/
-
-## Knicks Address Taylor Swift Incident Involving Tyler Kolek
-
-- first seen: 2026-11-11 23:02 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The New York Knicks provided a response regarding an incident involving Taylor Swift and Tyler Kolek. Further details surrounding the defense of Swift by the team remain unclear.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/videos/why-did-knicks-defend-taylor-205515637.html
-
-## Taylor Swift responds to viral wedding photos causing controversy
-
-- first seen: 2026-11-11 23:02 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expressed her anger over wedding photos that have gone viral, sparking considerable debate surrounding a particular choice she made. The situation has drawn significant media attention and public discussion.
-- sources:
-  - [unverified] Heatworld — https://heatworld.com/celebrity/news/taylor-swifts-fury-as-pictures-of-her-wedding-go-viral-this-one-choice-has-caused-huge-controversy/
