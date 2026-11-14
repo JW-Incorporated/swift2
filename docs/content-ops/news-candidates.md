@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 89
+
+## Taylor Swift's Met Gala Fashion Journey: A Glamorous Overview
+
+- first seen: 2026-11-14 13:06 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A timeline showcasing Taylor Swift's Met Gala fashion evolution, featuring her style choices from Louis Vuitton to her platinum blonde look.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swifts-met-gala-fashion-113900384.html
 
 ## Taylor Swift Announces News Ahead of Chiefs-Falcons Game
 
