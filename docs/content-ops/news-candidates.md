@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 82
 
 ## Taylor Swift Shares Holiday Update Ahead of NFL Game
 
@@ -722,19 +722,3 @@ Stories: 84
 - sources:
   - [unverified] Lancaster Eagle-Gazette — https://www.lancastereaglegazette.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
   - [unverified] Wooster Daily Record — https://www.the-daily-record.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
-
-## Bill Maher Critiques Taylor Swift's Love Life in Recent Broadcast
-
-- first seen: 2026-11-11 16:42 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Bill Maher commented on Taylor Swift's romantic life during his latest show, making a reference that has garnered attention. This marks another instance of Maher addressing Swift's relationship history on-air.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/bill-maher-takes-another-swipe-154408597.html
-
-## DWTS Pro's Taylor Swift Anthem Raises Fan Speculations
-
-- first seen: 2026-11-11 16:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jan Ravnik from 'Dancing with the Stars' has chosen a Taylor Swift anthem, prompting fans to speculate about potential shade being thrown at someone. This choice has stirred discussions among viewers.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/articles/dwts-pro-jan-ravnik-throwing-140056325.html
