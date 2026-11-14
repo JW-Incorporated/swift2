@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 82
+Stories: 80
+
+## Taylor Swift Discusses Parenting Following Recent Wedding
+
+- first seen: 2026-11-14 18:02 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made rare comments regarding raising children, shortly after her wedding to Travis Kelce four months ago. The statements reflect her views on family life post-marriage.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-makes-rare-comments-165010688.html
 
 ## Taylor Swift Shares Holiday Update Ahead of NFL Game
 
@@ -696,29 +704,3 @@ Stories: 82
 - summary: Taylor Swift is set to receive a special honor at The Hollywood Reporter's Women In Entertainment Gala, highlighting her contributions to the industry.
 - sources:
   - [unverified] IMDb — https://www.imdb.com/news/ni66106618/?ref_=nwc_art_perm
-
-## Ohio Neighbors of Taylor Swift and Travis Kelce Oppose Landscaping Plans
-
-- first seen: 2026-11-11 18:02 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Neighbors of Taylor Swift and Travis Kelce in Ohio are expressing concerns over proposed landscaping plans in their area. The reasons behind their opposition reflect local community dynamics.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/insane-reason-why-taylor-swift-174147823.html
-
-## Taylor Swift to Receive Hollywood Reporter’s Leadership Award at Gala
-
-- first seen: 2026-11-11 17:04 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award at the Women in Entertainment Gala, presented by Lifetime and Lilly, with Greta Gerwig delivering the award.
-- sources:
-  - [established] Billboard — https://www.billboard.com/culture/events/taylor-swift-2026-sherry-lansing-leadership-award-greta-gerwig-1236379462/
-  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/news/general-news/taylor-swift-the-hollywood-reporter-women-in-entertainment-1236751852/
-
-## Neighbors Discuss Kelce-Swift Mansion Dispute at Meeting
-
-- first seen: 2026-11-11 17:04 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Community members gathered to voice concerns regarding the ongoing dispute related to the mansion shared by Taylor Swift and Travis Kelce in Ohio. The meeting addressed various local issues stemming from the situation.
-- sources:
-  - [unverified] Lancaster Eagle-Gazette — https://www.lancastereaglegazette.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
-  - [unverified] Wooster Daily Record — https://www.the-daily-record.com/story/news/2026/11/11/taylor-swift-travis-kelce-bratenahl-ohio-home-plans-meeting-neighbors-vocal/92723006007/
