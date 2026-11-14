@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 82
+
+## Taylor Swift Discusses Love for Lux and Olivia Dean
+
+- first seen: 2026-11-14 19:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent interview with Vulture, Taylor Swift shared her thoughts on the art of love as it pertains to her connections with Lux and Olivia Dean.
+- sources:
+  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-rosalia-olivia-dean-praise.html
 
 ## Taylor Swift Scheduled to Perform at the CMA Awards
 
@@ -398,13 +406,14 @@ Stories: 81
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 15
+- verification_status: corroborated | source_count: 16
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
   - [unverified] - Saving Country Music — https://savingcountrymusic.com/on-taylor-swift-playing-the-2026-cma-awards/
   - [unverified] ABC11 News — https://abc11.com/post/cma-awards-2026-preview-lainey-wilson-ella-langley-taylor-swift-lead-country-musics-big-night/20028284/
   - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/11/13/taylor-swift-set-to-perform-at-2026-cma-awards/
   - [unverified] Countrytown — https://countrytown.com/news/taylor-swift-perform-cma-awards-first-time-in-13-years/jEUynoGAg4I/14-11-26
+  - [unverified] FOX 17 West Michigan News — https://www.fox17online.com/videos/news/national-news/taylor-swift-is-headed-back-to-country-musics-biggest-night-performing-at-the-cma-awards-for-the-first-time-in-13-years
   - [unverified] KCTV — https://www.kctv5.com/video/2026/11/13/taylor-swift-perform-cma-awards-first-time-13-years/
   - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
   - [established] People — https://people.com/taylor-swift-to-perform-at-the-2026-cma-awards-12252679
