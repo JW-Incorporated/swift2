@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 86
+
+## Taylor Swift Shares Holiday Update Ahead of NFL Game
+
+- first seen: 2026-11-14 15:07 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has released a significant update regarding the holidays just days before the Kansas City Chiefs face the Atlanta Falcons. The news connects her to the ongoing NFL events drawing fan attention.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-drops-big-holiday-update-days-before-kansas-city-chiefs-atlanta-falcons-game-12326557
 
 ## Taylor Swift's Met Gala Fashion Journey: A Glamorous Overview
 
@@ -746,19 +754,3 @@ Stories: 87
 - summary: Neighbors of Taylor Swift and Travis Kelce are reportedly worried that landscaping changes could impact local wildlife and their mating habits. The concerns have surfaced amidst ongoing discussions about the couple's living arrangements.
 - sources:
   - [unverified] TMZ — https://www.tmz.com/2026/11/11/taylor-swift-travis-kelce-ohio-neighbor-wildlife-concerns/
-
-## Utah Approves Venue Aiming to Attract Artists Like Taylor Swift
-
-- first seen: 2026-11-11 14:42 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Utah has approved a new outdoor venue designed to attract major artists, including Taylor Swift and Beyoncé. The initiative aims to boost the state's music scene and draw high-profile performances.
-- sources:
-  - [unverified] The Salt Lake Tribune — https://www.sltrib.com/artsliving/2026/11/11/utah-outdoor-music-venue-festival/
-
-## Travis Kelce Invites Taylor Swift to New Heights Podcast Event
-
-- first seen: 2026-11-11 14:42 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Travis Kelce expressed interest in seeing what his wife, Taylor Swift, might contribute to an upcoming New Heights podcast event.
-- sources:
-  - [established] People — https://people.com/travis-kelce-plans-to-enlist-wife-taylor-swift-for-next-new-heights-podcast-event-12248830
