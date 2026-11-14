@@ -28,7 +28,18 @@
     "rulesChecked": [
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 3,
+        "specific": 4,
+        "formula": 3,
+        "notEmbarrassed": 3
+      },
+      "at": "2026-11-14T20:14:39.561Z",
+      "bodyHash": "sha256:5480a7fe5182f58abf4788a1417a1aad5dd81295c916e83c832f76f22295a699"
+    }
   },
   "why": "Event draft for intake #6870: at a virtual awards-season press conference for 'I Knew It, I Knew You' (Nov 13), Taylor named Olivia Dean's The Art of Loving and Rosalía's LUX her favorite albums of the year (inmusicblog, Geo.tv, qconciertos; setting per HELLO!). Parenting/iPad remark deliberately left out (family/minors blocklist). Fills 11-15 (no beat filled that day; 11-14 is taken by the CMA news pair, which never yields). Photo is the run's reserved eventPhoto, same on both halves. Share hook: send-to-a-friend, grounded in her album picks."
 }
