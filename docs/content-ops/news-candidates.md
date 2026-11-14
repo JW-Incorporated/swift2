@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 80
+Stories: 81
+
+## Taylor Swift Scheduled to Perform at the CMA Awards
+
+- first seen: 2026-11-14 18:44 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the upcoming CMA Awards, sparking speculation among fans about potential surprises during her appearance. Two theories regarding her performance have been shared in anticipation of the event.
+- sources:
+  - [unverified] Cinemablend — https://www.cinemablend.com/television/taylor-swift-performing-cma-awards-2-wild-theories-what-might-happen
 
 ## Taylor Swift Discusses Parenting Following Recent Wedding
 
