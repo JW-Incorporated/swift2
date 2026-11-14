@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-14-reputation-snake-bucket-bag-8318369595592",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-14T00:57:10.776Z",
+  "deadline": "2026-11-17T00:57:10.776Z",
+  "status": "open",
+  "facts": {
+    "name": "reputation Snake Bucket Bag",
+    "price": "65.00",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/reputation-snake-bucket-bag",
+    "firstSeenAt": "2026-11-14T00:56:26.895Z"
+  },
+  "media": [
+    "/social/library/merch-drop-43537202104.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/reputation-snake-bucket-bag",
+  "altTextHint": "A Long Live store-drop card for 130 items newly available on the official store, led by \"1989 Tote Bag\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
