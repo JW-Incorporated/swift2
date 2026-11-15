@@ -3883,6 +3883,36 @@
       "sha256": "6038c172e633ea7e8b4c72dd621a9e4f02a780cd9790041649df3c3fd06b9412",
       "reason": "Other people in frame, blurry foreground blocks, partial back view, murky.",
       "date": "2026-11-14"
+    },
+    {
+      "id": "openverse-23465f30-c064-4292-953b-bc56a6eb4f6b",
+      "sha256": "8008b8009a83dfe5e6d6db5e99dc49dcc5fc62306e3499d9cfd54a6d1eeb77dc",
+      "reason": "Crowd/plaza overview with merch line; no single prominent person",
+      "date": "2026-11-15"
+    },
+    {
+      "id": "press-82953587ba92",
+      "sha256": "82cd859aeb58e9248d1432ff81b31702f452be75eb858d63165b8268696a095d",
+      "reason": "A tall man dominates the frame beside the woman, plus another man at left.",
+      "date": "2026-11-15"
+    },
+    {
+      "id": "openverse-d0d189a3-f06f-4143-b20e-e45436ccbc74",
+      "sha256": "64ea18d794a70c77d2c9f4a818ad136dc9afdb03c9ad85967f93977e760c2a55",
+      "reason": "Dark room of viewers watching screens; performer tiny, no single subject",
+      "date": "2026-11-15"
+    },
+    {
+      "id": "openverse-bb956500-4fb9-4a91-a714-943ab20c5a06",
+      "sha256": "4d63628428bab0704c9cd8b1e50bcf6697b2afbdf9701438168f59894f501527",
+      "reason": "Group photo of watch party attendees; no single prominent subject",
+      "date": "2026-11-15"
+    },
+    {
+      "id": "openverse-968da3d0-9bb6-4873-9f53-b0b18047f944",
+      "sha256": "c4b8da4417dc4b1903294e480d3afa6b28faf5eedf4a8be6a0e15ad952ced097",
+      "reason": "Back view of performer; rejected per back-view rule despite good quality",
+      "date": "2026-11-15"
     }
   ]
 }
