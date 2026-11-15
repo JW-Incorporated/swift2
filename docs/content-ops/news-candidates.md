@@ -27,6 +27,14 @@ so far".
 
 Stories: 67
 
+## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
+
+- first seen: 2026-11-15 16:19 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Reports discuss the potential for Taylor Swift to attend the upcoming Chiefs vs Falcons game, with speculation surrounding her attendance and its implications. Details on her plans remain unconfirmed.
+- sources:
+  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
+
 ## Taylor Swift shares brief insights on parenting in new comments
 
 - first seen: 2026-11-15 13:37 UTC | category: relationship | importance: 6
@@ -586,11 +594,3 @@ Stories: 67
 - summary: Neighbors of Taylor Swift and Travis Kelce express worries that their new mansion may disrupt local wildlife mating behaviors. The couple's property choices have sparked discussions about environmental impacts.
 - sources:
   - [unverified] Paste Magazine — https://www.pastemagazine.com/music/taylor-swift-and-travis-kelces-neighbors-fear-new-mansion-will-prevent-local-animals-from-having-sex
-
-## Taylor Swift and Travis Kelce's Landscaping Project Affects Local Wildlife
-
-- first seen: 2026-11-12 16:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report highlights concerns regarding the landscaping work by Taylor Swift and Travis Kelce, noting its impact on animal life. The discussion is based on coverage from TMZ on TV featured by Yahoo.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swift-travis-kelce-landscaping-152242006.html
