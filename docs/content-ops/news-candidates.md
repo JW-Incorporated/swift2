@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 68
 
 ## Taylor Swift shares brief insights on parenting in new comments
 
@@ -602,11 +602,3 @@ Stories: 69
 - summary: A West Virginia shelter has disclosed an interesting detail related to the wedding of Travis Kelce and Taylor Swift. The information was reported by the Kansas City Star.
 - sources:
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article318040810.html
-
-## Taylor Swift Tribute Featured at Sarasota's Van Wezel
-
-- first seen: 2026-11-12 14:15 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A tribute to Taylor Swift, along with 'Rocky in Concert' and a holiday comedy, will be presented at Sarasota's Van Wezel. The events are part of the venue's upcoming entertainment schedule.
-- sources:
-  - [unverified] ABC7 WWSB — https://www.mysuncoast.com/2026/11/12/taylor-swift-tribute-rocky-concert-holiday-comedy-coming-sarasotas-van-wezel/
