@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 68
+
+## Update on Taylor Swift's Attendance at Chiefs Game Today
+
+- first seen: 2026-11-15 17:17 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An update has been provided regarding Taylor Swift's potential attendance at today's Chiefs game. Fans are eager to know if she will be present at the event.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66112359/?ref_=nmnw_art_perm
+
+## Animal Rescue in West Virginia Receives Donation Linked to Swift-Kelce Wedding
+
+- first seen: 2026-11-15 17:17 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A West Virginia animal rescue has received a donation associated with the wedding of Taylor Swift and Travis Kelce. The donation highlights the charitable contributions tied to high-profile events.
+- sources:
+  - [unverified] Lootpress — https://www.lootpress.com/west-virginia-animal-rescue-receives-donation-connected-to-taylor-swift-and-travis-kelce-wedding/
 
 ## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
 
@@ -586,11 +602,3 @@ Stories: 67
 - summary: Taylor Swift is reportedly getting 10’ shrubs, coinciding with predictions regarding a potential divorce from Travis Kelce. The timing of these events has sparked interest among fans and the media.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-getting-her-10-150607748.html
-
-## Neighbors voice concerns over Taylor Swift and Travis Kelce's new mansion
-
-- first seen: 2026-11-12 17:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Neighbors of Taylor Swift and Travis Kelce express worries that their new mansion may disrupt local wildlife mating behaviors. The couple's property choices have sparked discussions about environmental impacts.
-- sources:
-  - [unverified] Paste Magazine — https://www.pastemagazine.com/music/taylor-swift-and-travis-kelces-neighbors-fear-new-mansion-will-prevent-local-animals-from-having-sex
