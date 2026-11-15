@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 71
 
 ## Taylor Swift Shares Thoughts on Parenting After Kelce Wedding
 
@@ -633,11 +633,3 @@ Stories: 72
   - [unverified] WV News — https://www.wvnews.com/news/wvnews/taylor-swift-travis-kelce-wedding-gift-benefits-west-virginia-cat-rescue/article_c46ebd3c-d535-440d-aa62-fcdea55839fd.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-last-074919901.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/ll-see-wife-cook-travis-143530157.html
-
-## Taylor Swift Campaigns for Best Song Oscar for "I Knew It, I Knew You"
-
-- first seen: 2026-11-12 05:27 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is actively campaigning for the Best Song Oscar for her track "I Knew It, I Knew You." Her ongoing efforts to secure the award have garnered attention in entertainment news.
-- sources:
-  - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/11/taylor-swifts-continuing-saga-of-really-really-wanting-the-best-song-oscar-for-i-knew-it-i-knew-you-campaign-continues-apace
