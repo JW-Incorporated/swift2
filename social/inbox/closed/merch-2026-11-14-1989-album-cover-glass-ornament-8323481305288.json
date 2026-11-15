@@ -5,7 +5,7 @@
   "lane": "merch",
   "createdAt": "2026-11-14T00:57:10.776Z",
   "deadline": "2026-11-17T00:57:10.776Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "name": "1989 Album Cover Glass Ornament",
     "price": "25.00",
@@ -23,5 +23,6 @@
   "links": {
     "pr": null,
     "issue": null
-  }
+  },
+  "declinedReason": "Not time-sensitive: one $25 ornament out of a 130-item store sync reads the same next month (timely 2 of 5, gate is 4), and the attached card shows a different product (1989 Tote Bag), so the image cannot carry the post."
 }
