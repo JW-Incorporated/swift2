@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 69
+Stories: 68
+
+## University Professors Adapt Lectures into Songs Featuring Taylor Swift
+
+- first seen: 2026-11-15 11:37 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Professors from Western University are creatively transforming their lectures into songs, including references to artists like Taylor Swift and Queen. This innovative approach aims to engage students in learning through music.
+- sources:
+  - [unverified] CBC — https://www.cbc.ca/news/canada/london/western-university-singing-professors-9.7420015
 
 ## Taylor Swift Shares Personal Update Before Chiefs-Falcons Game
 
@@ -594,19 +602,3 @@ Stories: 69
 - summary: Key sections of Taylor Swift's contract for B.C. Place will not be disclosed, as reported by Bob Mackin. The details of the agreement remain under wraps, maintaining confidentiality around the specifics of the contract.
 - sources:
   - [unverified] Bob Mackin | Substack — https://bobmackin.substack.com/p/exclusive-key-parts-of-taylor-swifts
-
-## Travis Kelce Discusses Plans with Taylor Swift
-
-- first seen: 2026-11-12 11:11 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce expressed hopes that Taylor Swift, whom he refers to as his 'wife', will help devise a plan to reach 'new heights'.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/interviews/articles/travis-kelce-hopes-wife-taylor-091441918.html
-
-## Taylor Swift Receives Sherry Lansing Leadership Award from The Hollywood Reporter
-
-- first seen: 2026-11-12 11:11 UTC | category: business | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award by The Hollywood Reporter, recognizing her achievements and influence in the entertainment industry.
-- sources:
-  - [unverified] JAM Broadcasting — https://jambroadcasting.com/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award/
