@@ -27,6 +27,22 @@ so far".
 
 Stories: 68
 
+## Taylor Swift's Cozy Christmas Living Room Design Highlighted
+
+- first seen: 2026-11-15 21:08 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A feature in Homes and Gardens showcases Taylor Swift's Christmas living room, highlighting its anti-minimalist style and cozy atmosphere.
+- sources:
+  - [unverified] Homes and Gardens — https://www.homesandgardens.com/celebrity-homes/taylor-swifts-anti-minimalist-2014-christmas-living-room-is-a-masterclass-in-old-world-charm-its-nostalgic-and-cozy
+
+## Taylor Swift's Attendance at Chiefs vs Falcons Game Questioned
+
+- first seen: 2026-11-15 21:08 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A report addresses the speculation regarding Taylor Swift's presence at the Chiefs vs Falcons game. Discussion continues about her possible attendance.
+- sources:
+  - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-the-chiefs-vs-falcons-game-today
+
 ## Travis Kelce Leaves Chiefs Game with Injury
 
 - first seen: 2026-11-15 20:12 UTC | category: relationship | importance: 5
@@ -59,14 +75,6 @@ Stories: 68
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-rare-thoughts-relatable-parenting-dilemma-12256259
 
-## Update on Taylor Swift's Attendance at Chiefs Game Today
-
-- first seen: 2026-11-15 17:17 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An update has been provided regarding Taylor Swift's potential attendance at today's Chiefs game. Fans are eager to know if she will be present at the event.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66112359/?ref_=nmnw_art_perm
-
 ## Animal Rescue in West Virginia Receives Donation Linked to Swift-Kelce Wedding
 
 - first seen: 2026-11-15 17:17 UTC | category: business | importance: 6
@@ -74,6 +82,14 @@ Stories: 68
 - summary: A West Virginia animal rescue has received a donation associated with the wedding of Taylor Swift and Travis Kelce. The donation highlights the charitable contributions tied to high-profile events.
 - sources:
   - [unverified] Lootpress — https://www.lootpress.com/west-virginia-animal-rescue-receives-donation-connected-to-taylor-swift-and-travis-kelce-wedding/
+
+## Update on Taylor Swift's Attendance at Chiefs Game Today
+
+- first seen: 2026-11-15 17:17 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: An update has been provided regarding Taylor Swift's potential attendance at today's Chiefs game. Fans are eager to know if she will be present at the event.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66112359/?ref_=nmnw_art_perm
 
 ## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
 
@@ -588,19 +604,3 @@ Stories: 68
 - summary: A backup dancer for Taylor Swift believes that brothers Jason and Travis Kelce would make incredible judges on 'Dancing with the Stars'.
 - sources:
   - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-dancer-jan-ravnik-travis-kelce-judge-dwts-1236380670/
-
-## Travis Kelce Suggests Taylor Swift's Involvement in 'New Heights' Live Event
-
-- first seen: 2026-11-12 20:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce mentioned that Taylor Swift could potentially assist with the next live event for the 'New Heights' podcast. This statement highlights the crossover interest between their respective careers.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-hints--taylor-swift-help-new-heights-podcast-next-live-event
-
-## Taylor Swift and Travis Kelce Wedding Photo Sparks Interest
-
-- first seen: 2026-11-12 20:27 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A new photo of Taylor Swift and Travis Kelce has emerged, revealing surprising details about their wedding. The image has caught the attention of fans and media alike, generating discussions about the couple's upcoming nuptials.
-- sources:
-  - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/photo-taylor-swift-travis-kelce-142857088.html
