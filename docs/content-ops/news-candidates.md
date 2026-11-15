@@ -27,6 +27,14 @@ so far".
 
 Stories: 70
 
+## Taylor Swift Shares Personal Update Before Chiefs-Falcons Game
+
+- first seen: 2026-11-15 09:42 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has shared personal news prior to the Chiefs-Falcons game. The details of the news are not specified in the snippet provided.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-shares-personal-news-084228979.html
+
 ## Taylor Swift Shares Thoughts on Parenting After Kelce Wedding
 
 - first seen: 2026-11-15 04:53 UTC | category: relationship | importance: 6
@@ -610,11 +618,3 @@ Stories: 70
 - summary: A new source suggests there may be an unexpected third party involved in the feud between Taylor Swift and Karlie Kloss. The details of this development have not yet been disclosed.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-feud-091220088.html
-
-## Fans Encounter Disappointing News Regarding Taylor Swift Before Game
-
-- first seen: 2026-11-12 09:12 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Fans were met with disappointing news about Taylor Swift ahead of the Chiefs-Falcons game. Details surrounding the news have not been specified.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/fans-gets-disappointing-taylor-swift-news-before-falcons-game/
