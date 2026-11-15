@@ -27,6 +27,22 @@ so far".
 
 Stories: 68
 
+## Taylor Swift Discusses Lessons Learned from Past Friendships
+
+- first seen: 2026-11-15 18:12 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In a recent InStyle interview, Taylor Swift shares insights into the lessons she's gained from distancing herself from friends she considers the 'wrong' ones. Her reflections highlight personal growth and changing relationships.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-growing-apart-from-wrong-friends-past-friendships-toy-story-5-song-12256039
+
+## Taylor Swift Discusses Parenting Dilemma in InStyle Interview
+
+- first seen: 2026-11-15 18:12 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In a recent InStyle interview, Taylor Swift shares her thoughts on a relatable parenting dilemma, providing a rare glimpse into her insights on parenting. The discussion highlights her perspective and experiences with challenges faced by parents.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-rare-thoughts-relatable-parenting-dilemma-12256259
+
 ## Update on Taylor Swift's Attendance at Chiefs Game Today
 
 - first seen: 2026-11-15 17:17 UTC | category: sighting | importance: 5
@@ -586,19 +602,3 @@ Stories: 68
 - summary: Steph Curry publicly defended his wife Ayesha against online trolls after they criticized her for an on-screen kiss. He emphasized the negative implications of such criticism and addressed double standards in how women are perceived in sports and society.
 - sources:
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/12/steph-curry-ayesha-curry-manosphere-marriage-backlash
-
-## Taylor Swift's Off-Duty Style Includes Wedding Detail
-
-- first seen: 2026-11-12 17:32 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift showcases her off-duty style, which now includes a new detail related to her wedding. The update was covered by ELLE, highlighting her fashion choices.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74412660/taylor-swift-off-duty-style-wedding-detail-photo/
-
-## Taylor Swift Acquires Shrubs Amid Travis Kelce Divorce Speculation
-
-- first seen: 2026-11-12 17:32 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly getting 10’ shrubs, coinciding with predictions regarding a potential divorce from Travis Kelce. The timing of these events has sparked interest among fans and the media.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-getting-her-10-150607748.html
