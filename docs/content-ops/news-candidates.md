@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 67
 
 ## Taylor Swift Discusses Lessons Learned from Past Friendships
 
@@ -594,11 +594,3 @@ Stories: 68
 - summary: Jessica Sibley explores the Time 3.0 transformation plan and highlights Taylor Swift's impact on trust and technology in media. The discussion focuses on innovative approaches in today's landscape.
 - sources:
   - [unverified] FIPP — https://www.fipp.com/news/trust-tech-and-taylor-swift-jessica-sibley-on-the-remarkable-time-3-0-transformation-plan/
-
-## Steph Curry Defends Ayesha Amid Criticism Over On-Screen Kiss
-
-- first seen: 2026-11-12 18:32 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Steph Curry publicly defended his wife Ayesha against online trolls after they criticized her for an on-screen kiss. He emphasized the negative implications of such criticism and addressed double standards in how women are perceived in sports and society.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/sport/2026/nov/12/steph-curry-ayesha-curry-manosphere-marriage-backlash
