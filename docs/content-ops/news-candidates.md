@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 71
+Stories: 70
 
 ## Taylor Swift Shares Thoughts on Parenting After Kelce Wedding
 
@@ -618,18 +618,3 @@ Stories: 71
 - summary: Fans were met with disappointing news about Taylor Swift ahead of the Chiefs-Falcons game. Details surrounding the news have not been specified.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/fans-gets-disappointing-taylor-swift-news-before-falcons-game/
-
-## Charity Shares Details of Gift from Taylor Swift and Travis Kelce
-
-- first seen: 2026-11-12 08:15 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 8
-- summary: A charity has announced a 'very generous donation' received as a wedding gift from Taylor Swift and Travis Kelce. The specifics of the donation and its intended impact were not disclosed.
-- sources:
-  - [unverified] HITC — https://www.hitc.com/charity-reveals-very-generous-donation-as-taylor-swift-and-travis-kelces-wedding-gift/
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-travis-kelce-plan-wall-ohio-million-mansion-12250612
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/12/taylor-swift-and-travis-kelce-hit-with-cma-awards-drama-before-major-nfl-stretch.html
-  - [unverified] NBC Boston — https://www.nbcboston.com/entertainment/entertainment-news/taylor-swift-travis-kelce-wedding-guests-donate-charity-instead-gifts/4048377/
-  - [unverified] Washington Times — https://www.washingtontimes.com/news/2026/nov/12/taylor-swift-travis-kelces-ohio-neighbors-get-spicy-landscaping-plans/
-  - [unverified] WV News — https://www.wvnews.com/news/wvnews/taylor-swift-travis-kelce-wedding-gift-benefits-west-virginia-cat-rescue/article_c46ebd3c-d535-440d-aa62-fcdea55839fd.html
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-last-074919901.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/ll-see-wife-cook-travis-143530157.html
