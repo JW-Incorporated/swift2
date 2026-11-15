@@ -125,6 +125,8 @@ The explanation column is required for every uncovered row. It reports only the 
 | Fearless (Taylor’s Version) Vault Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Fearless (Taylor's Version) vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Fearless (Taylor’s Version) White Horse Quarter-Zip Sherpa | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Fearless Tour T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Fearless Tour Tea Party T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Feather-Trim Sequin-Embellished Mini Dress | brannacouture.com | none | uncovered | direct retailer URL | tloas.vault-tloas-orange-sequins-and-feathers | not listed in checked-in E0 Awin advertiser directory |
 | Fernanda Blouse | garmentory.com | none | uncovered | direct retailer URL | evermore.vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas | not listed in checked-in E0 Awin advertiser directory |
 | Fighting Dragons With You White Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -369,6 +371,8 @@ The explanation column is required for every uncovered row. It reports only the 
 | Speak Now (Taylor's Version) Tracklist White Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor’s Version) Trinket Dish | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now (Taylor's Version) Vintage T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Speak Now Tour Hoodie (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Speak Now Tour T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now World Tour Balcony Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Storm Inside a Teacup Porcelain Mug | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Strappy Houndstooth Tweed A-Line Dress | nordstrom.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date | not listed in checked-in E0 Awin advertiser directory |
@@ -405,9 +409,11 @@ The explanation column is required for every uncovered row. It reports only the 
 | Taylor Swift &#124; The Eras Tour Through Vancouver I White T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Through Vancouver II Black T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Tie Dye Tank Top | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Red Tour Hoodie (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Album Heart Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Bejeweled Watch | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Butterfly Hair Clip Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift Butterfly Hat (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Checker Game Towel | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Cowboy Boot Ceramic Vase | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Eras Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -415,9 +421,12 @@ The explanation column is required for every uncovered row. It reports only the 
 | Taylor Swift Eras Tour Inspired Chubby Pumpkins! Set of 12, Variation 2 | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift evermore Album Plaid Sweater Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Fearless Paisley Hair Scarf | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift Love Leather Bracelet (From The Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Midnights Album Fleece Polo | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Navy Dad Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift Photo T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Themed Birthday Party Friendship Bracelets, Personalized Swiftie Gifts | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
+| Taylor Swift Tour T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress | lulus.com | none | uncovered | direct retailer URL | reputation.vault-reputation-seven-pastel-outfit-changes-in-the-me-video | not listed in checked-in E0 Awin advertiser directory |
 | Teo Cashmere Short Sleeve Sweater | thereformation.com | none | uncovered | direct retailer URL | tloas.vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati | not listed in checked-in E0 Awin advertiser directory |
 | Thank You For The Lovely Bouquet Cropped T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -468,6 +477,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | The Life of a Showgirl: The Encore Black T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Life of a Showgirl: The Encore Digital Download | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Life of a Showgirl: The Encore White T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| The Red Album Photo Collage T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Sky is Opalite Choker Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Sky is Opalite Heart Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Sky is Opalite Striped Sweatband | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -555,9 +565,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 541 |
+| total | 551 |
 | wrapped | 0 |
 | awin-apply | 7 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 428 |
+| direct-by-policy | 438 |
