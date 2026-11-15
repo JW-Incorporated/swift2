@@ -27,6 +27,14 @@ so far".
 
 Stories: 68
 
+## Taylor Swift Scheduled to Perform at CMA Awards 2026
+
+- first seen: 2026-11-15 22:43 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the 2026 CMA Awards, with details on the date and her nomination available. Viewers can find information on how to watch the event.
+- sources:
+  - [unverified] stupidDOPE — https://stupiddope.com/2026/11/taylor-swift-returns-to-the-cma-awards-stage-after-13-years-the-no-1-song-that-brought-her-back/
+
 ## Taylor Swift's Cozy Christmas Living Room Design Highlighted
 
 - first seen: 2026-11-15 21:08 UTC | category: fashion | importance: 5
@@ -597,11 +605,3 @@ Stories: 68
 - summary: Taylor Swift and Karlie Kloss have reportedly grown closer after resolving a rift that lasted for years. Their recent outing together at a Chiefs game suggests a renewed friendship, according to a source.
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html
-
-## Taylor Swift's Backup Dancer Suggests Kelce Brothers as DWTS Judges
-
-- first seen: 2026-11-12 22:22 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A backup dancer for Taylor Swift believes that brothers Jason and Travis Kelce would make incredible judges on 'Dancing with the Stars'.
-- sources:
-  - [established] Billboard — https://www.billboard.com/culture/tv-film/taylor-swift-dancer-jan-ravnik-travis-kelce-judge-dwts-1236380670/
