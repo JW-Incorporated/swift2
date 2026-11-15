@@ -27,6 +27,14 @@ so far".
 
 Stories: 68
 
+## Taylor Swift and Dakota Johnson Sport Autumn's Mouse Haircut Trend
+
+- first seen: 2026-11-15 23:43 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Both Taylor Swift and Dakota Johnson have embraced the 'Mouse Haircut,' which is expected to be a popular hairstyle for Autumn 2026, according to Paris Select Book.
+- sources:
+  - [unverified] Paris Select Book — https://www.parisselectbook.com/en/2026/11/15/dakota-johnson-and-taylor-swift-wear-the-mouse-haircut-the-hair-trend-of-autumn-2026/
+
 ## Taylor Swift Scheduled to Perform at CMA Awards 2026
 
 - first seen: 2026-11-15 22:43 UTC | category: tour | importance: 7
@@ -597,11 +605,3 @@ Stories: 68
   - [unverified] WSMV — https://www.wsmv.com/2026/11/13/taylor-swift-perform-60th-cma-awards-nashville-first-time-13-years/
   - [unverified] WZTV — https://fox17.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perfom-cma-awards-164004454.html
-
-## Taylor Swift and Karlie Kloss Reconnect at Chiefs Game
-
-- first seen: 2026-11-12 23:22 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Karlie Kloss have reportedly grown closer after resolving a rift that lasted for years. Their recent outing together at a Chiefs game suggests a renewed friendship, according to a source.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html
