@@ -94,9 +94,10 @@ Stories: 68
 ## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
 
 - first seen: 2026-11-15 16:19 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Reports discuss the potential for Taylor Swift to attend the upcoming Chiefs vs Falcons game, with speculation surrounding her attendance and its implications. Details on her plans remain unconfirmed.
 - sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74426037/taylor-swift-travis-kelce-chiefs-falcons-game-attendance/
   - [unverified] Fox News — https://www.foxnews.com/outkick-sports/taylor-swift-husband-travis-kelce-injures-ankle-falcons-questionable-return
   - [unverified] HITC — https://www.hitc.com/taylor-swift-and-travis-kelce-pregnant-online-rumours-debunked-after-brittany-mahomes-liked-post/
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
@@ -584,7 +585,7 @@ Stories: 68
   - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/13/taylor-swift-oscar-grammy-campaigns-continue-shell-play-live-on-cma-awards-next-week-appearing-for-first-time-in-13-yes-13-years
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
-  - [unverified] USA Today — https://www.usatoday.com/picture-gallery/entertainment/celebrities/2026/11/13/taylor-swift-cma-awards-photos/92763458007/
+  - [unverified] USA Today — https://www.aol.com/articles/taylor-swift-says-toy-story-225303000.html
   - [unverified] WSMV — https://www.wsmv.com/2026/11/13/taylor-swift-perform-60th-cma-awards-nashville-first-time-13-years/
   - [unverified] WZTV — https://fox17.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perfom-cma-awards-164004454.html
