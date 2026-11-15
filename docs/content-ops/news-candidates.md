@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 68
+
+## Travis Kelce Leaves Chiefs Game with Injury
+
+- first seen: 2026-11-15 20:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce, known for his relationship with Taylor Swift, exited the Kansas City Chiefs game due to an ankle injury. The incident has drawn attention from fans and media alike.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438137/travis-kelce-injured-in-first-quarter-chiefs-game-return-questionable
+
+## Taylor Swift Not Seen at Chiefs vs. Falcons Game Following CMA Awards News
+
+- first seen: 2026-11-15 20:12 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was reportedly absent from the Chiefs versus Falcons game after the announcement of the CMA Awards. The timing of her absence has drawn attention from fans and media alike.
+- sources:
+  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-kansas-city-chiefs-atlanta-falcons-game/
 
 ## Taylor Swift Discusses Lessons Learned from Past Friendships
 
@@ -62,9 +78,11 @@ Stories: 67
 ## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
 
 - first seen: 2026-11-15 16:19 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: Reports discuss the potential for Taylor Swift to attend the upcoming Chiefs vs Falcons game, with speculation surrounding her attendance and its implications. Details on her plans remain unconfirmed.
 - sources:
+  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/taylor-swift-husband-travis-kelce-injures-ankle-falcons-questionable-return
+  - [unverified] HITC — https://www.hitc.com/taylor-swift-and-travis-kelce-pregnant-online-rumours-debunked-after-brittany-mahomes-liked-post/
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
 
 ## Taylor Swift shares brief insights on parenting in new comments
@@ -586,11 +604,3 @@ Stories: 67
 - summary: A new photo of Taylor Swift and Travis Kelce has emerged, revealing surprising details about their wedding. The image has caught the attention of fans and media alike, generating discussions about the couple's upcoming nuptials.
 - sources:
   - [unverified] Yahoo News Canada — https://ca.news.yahoo.com/photo-taylor-swift-travis-kelce-142857088.html
-
-## Jessica Sibley Discusses Time 3.0 and Taylor Swift's Influence
-
-- first seen: 2026-11-12 19:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jessica Sibley explores the Time 3.0 transformation plan and highlights Taylor Swift's impact on trust and technology in media. The discussion focuses on innovative approaches in today's landscape.
-- sources:
-  - [unverified] FIPP — https://www.fipp.com/news/trust-tech-and-taylor-swift-jessica-sibley-on-the-remarkable-time-3-0-transformation-plan/
