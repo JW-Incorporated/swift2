@@ -27,6 +27,14 @@ so far".
 
 Stories: 72
 
+## Joe Jonas' Dating History Includes Taylor Swift and Sophie Turner
+
+- first seen: 2026-11-15 02:53 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: AOL.com reviews the dating history of Joe Jonas, highlighting relationships with notable figures such as Taylor Swift and Sophie Turner.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/joe-jonas-dating-history-years-215548000.html
+
 ## Taylor Swift Discusses Human Impact on Music Creation
 
 - first seen: 2026-11-15 00:28 UTC | category: music | importance: 5
@@ -35,14 +43,6 @@ Stories: 72
 - sources:
   - [unverified] TheWrap — https://www.thewrap.com/creative-content/music/taylor-swift-human-beings-winning-technology-music/
 
-## Nelly recounts flight story involving Taylor Swift and money
-
-- first seen: 2026-11-14 23:33 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly shared a story about a flight from St. Louis that involved Taylor Swift and $50,000 in a McDonald's bag. The anecdote highlights a unique moment related to the artist's life.
-- sources:
-  - [unverified] FOX 2 — https://fox2now.com/news/missouri/nelly-shares-taylor-swift-story-a-flight-from-st-louis-and-50k-in-a-mcdonalds-bag/
-
 ## Fans Praise Taylor Swift's Alleged Transformation Following Viral Moment
 
 - first seen: 2026-11-14 23:33 UTC | category: fashion | importance: 5
@@ -50,6 +50,14 @@ Stories: 72
 - summary: Fans are expressing appreciation for Taylor Swift's alleged cosmetic procedures after a subtle transformation gained attention online. Many compliment the work done, suggesting that her aesthetic choices have been well-received.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/fans-applaud-taylor-swifts-alleged-121627547.html
+
+## Nelly recounts flight story involving Taylor Swift and money
+
+- first seen: 2026-11-14 23:33 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Nelly shared a story about a flight from St. Louis that involved Taylor Swift and $50,000 in a McDonald's bag. The anecdote highlights a unique moment related to the artist's life.
+- sources:
+  - [unverified] FOX 2 — https://fox2now.com/news/missouri/nelly-shares-taylor-swift-story-a-flight-from-st-louis-and-50k-in-a-mcdonalds-bag/
 
 ## Taylor Swift Discusses Love for Lux and Olivia Dean
 
@@ -632,11 +640,3 @@ Stories: 72
 - summary: Former Taylor Swift dancer and current 'DWTS' pro Jan Ravnik has named the Kelce brothers as his ideal guest judges for the show. The suggestion highlights the ongoing intersection of sports and entertainment.
 - sources:
   - [unverified] Entertainment Weekly — https://ew.com/dwts-pro-jan-dream-guest-judge-is-one-of-kelce-brothers-12249379
-
-## Ella Langley Achieves Crossover Success Like Taylor Swift
-
-- first seen: 2026-11-12 02:27 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Ella Langley is recognized as the first female artist since Taylor Swift to successfully crossover multiple country songs to pop radio. This achievement highlights her impact in the music industry.
-- sources:
-  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/11/11/ella-langley-becomes-the-first-female-artist-since-taylor-swift-to-crossover-multiple-country-songs-to-pop-radio/
