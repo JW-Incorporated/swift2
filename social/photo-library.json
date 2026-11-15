@@ -3200,6 +3200,20 @@
       "sha256": "0aac7345a517619c1a0ab9a50bcc7ec2e40ad65430fcbb3564d872843f4475ef"
     },
     {
+      "id": "openverse-f6a09613-48d2-4498-87f6-be5915ddf294",
+      "mediaPath": "/social/library/photos/openverse-f6a09613-48d2-4498-87f6-be5915ddf294.jpg",
+      "credit": "jurvetson (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/44124348109@N01/53079631118",
+      "alt": "Taylor Swift photo: Taylor Swift Eras Tour",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 1024,
+      "height": 771,
+      "bytes": 54187,
+      "sha256": "84dc0b7a72ee194ff3f818468b8d3be84a8a362776ca6c86a52019ef306037f6"
+    },
+    {
       "id": "openverse-f6b43b1c-07ca-44ea-b79d-d125af2c20f7",
       "mediaPath": "/social/library/photos/openverse-f6b43b1c-07ca-44ea-b79d-d125af2c20f7.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
@@ -3366,6 +3380,20 @@
       "height": 769,
       "bytes": 94696,
       "sha256": "f061feab4ba1b50a621461cfb7591b378c36b5548ce23b6390abaa4e609d6877"
+    },
+    {
+      "id": "press-72cad8830189",
+      "mediaPath": "/social/library/photos/press-72cad8830189.jpg",
+      "source": "https://www.cinemablend.com/television/taylor-swift-performing-cma-awards-2-wild-theories-what-might-happen",
+      "alt": "Taylor Swift in the news: Taylor Swift Is Performing At The CMA Awards, And I Have 2 Wild Theories About What Might Happen During It",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via CinemaBlend",
+      "width": 2000,
+      "height": 1125,
+      "bytes": 104144,
+      "sha256": "be5b0a58635eb2db3caf68845cbea53a0be94d21efa632c56dea855ff1b02ea4"
     },
     {
       "id": "press-874fcba42ef6",
