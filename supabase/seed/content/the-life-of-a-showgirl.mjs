@@ -17684,6 +17684,7 @@ export default {
             url: 'https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html',
             note: 'A single anonymous source; neither Taylor nor Kloss has addressed it, and neither has ever said publicly what caused the falling-out. Adjudicable: either one confirming or denying a reconciliation settles it. Read in full via the OK! syndication (Taylor Camp, Nov. 12, 2026), which links the Page Six original.',
             sourceTier: 'tabloid',
+            locationSpecificity: 'region',
             lastCheckedOn: '2026-11-14',
           },
         ],
