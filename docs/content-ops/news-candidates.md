@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 67
+
+## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
+
+- first seen: 2026-11-15 12:37 UTC | category: tour | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the CMA Awards for the first time in 13 years, marking her return to the event. This performance is highly anticipated by fans and signifies a noteworthy moment in her career.
+- sources:
+  - [unverified] Williamson Source — https://williamsonsource.com/taylor-swift-to-perform-at-cma-awards-for-the-first-time-in-13-years/
 
 ## University Professors Adapt Lectures into Songs Featuring Taylor Swift
 
@@ -41,7 +49,7 @@ Stories: 68
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift has shared personal news prior to the Chiefs-Falcons game. The details of the news are not specified in the snippet provided.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-shares-personal-news-084228979.html
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-personal-news-before-falcons-game/
 
 ## Taylor Swift Shares Thoughts on Parenting After Kelce Wedding
 
@@ -586,19 +594,3 @@ Stories: 68
 - summary: An artist from Cuyahoga Falls has crafted a charm necklace specifically for Taylor Swift. This unique piece highlights the artist's creativity and dedication to Swift's style.
 - sources:
   - [unverified] Cleveland.com — https://www.cleveland.com/entertainment/2026/11/kelce-family-chooses-local-artists-charm-necklace-as-gift-for-taylor-swift.html
-
-## Taylor Swift and Travis Kelce Request Charity Donations from Wedding Guests
-
-- first seen: 2026-11-12 12:12 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce reportedly requested that their wedding guests make charity donations instead of providing gifts, according to Us Weekly.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-asked-wedding-guests-for-donations/
-
-## Parts of Taylor Swift's B.C. Place Contract Remain Confidential
-
-- first seen: 2026-11-12 12:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Key sections of Taylor Swift's contract for B.C. Place will not be disclosed, as reported by Bob Mackin. The details of the agreement remain under wraps, maintaining confidentiality around the specifics of the contract.
-- sources:
-  - [unverified] Bob Mackin | Substack — https://bobmackin.substack.com/p/exclusive-key-parts-of-taylor-swifts
