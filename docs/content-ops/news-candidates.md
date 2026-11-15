@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 67
 
 ## Taylor Swift shares brief insights on parenting in new comments
 
@@ -594,11 +594,3 @@ Stories: 68
 - summary: A report highlights concerns regarding the landscaping work by Taylor Swift and Travis Kelce, noting its impact on animal life. The discussion is based on coverage from TMZ on TV featured by Yahoo.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/videos/taylor-swift-travis-kelce-landscaping-152242006.html
-
-## Details of Kelce-Swift Wedding Shared by West Virginia Shelter
-
-- first seen: 2026-11-12 15:12 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A West Virginia shelter has disclosed an interesting detail related to the wedding of Travis Kelce and Taylor Swift. The information was reported by the Kansas City Star.
-- sources:
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article318040810.html
