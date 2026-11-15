@@ -27,6 +27,14 @@ so far".
 
 Stories: 72
 
+## Taylor Swift Shares Thoughts on Parenting After Kelce Wedding
+
+- first seen: 2026-11-15 04:53 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: In new comments following Travis Kelce's wedding, Taylor Swift discussed her views on raising children. The remarks come amid her ongoing relationship with Kelce.
+- sources:
+  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-reveals-what-she-thinks-about-raising-kids-in-new-comments-after-travis-kelce-wedding-12328257
+
 ## Joe Jonas' Dating History Includes Taylor Swift and Sophie Turner
 
 - first seen: 2026-11-15 02:53 UTC | category: relationship | importance: 5
@@ -438,7 +446,7 @@ Stories: 72
 ## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
 
 - first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 16
+- verification_status: corroborated | source_count: 17
 - summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
 - sources:
   - [unverified] - Saving Country Music — https://savingcountrymusic.com/on-taylor-swift-playing-the-2026-cma-awards/
@@ -454,6 +462,7 @@ Stories: 72
   - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/13/taylor-swift-oscar-grammy-campaigns-continue-shell-play-live-on-cma-awards-next-week-appearing-for-first-time-in-13-yes-13-years
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
   - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
+  - [unverified] USA Today — https://www.usatoday.com/picture-gallery/entertainment/celebrities/2026/11/13/taylor-swift-cma-awards-photos/92763458007/
   - [unverified] WSMV — https://www.wsmv.com/2026/11/13/taylor-swift-perform-60th-cma-awards-nashville-first-time-13-years/
   - [unverified] WZTV — https://fox17.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perfom-cma-awards-164004454.html
@@ -632,11 +641,3 @@ Stories: 72
 - summary: Taylor Swift is actively campaigning for the Best Song Oscar for her track "I Knew It, I Knew You." Her ongoing efforts to secure the award have garnered attention in entertainment news.
 - sources:
   - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/11/taylor-swifts-continuing-saga-of-really-really-wanting-the-best-song-oscar-for-i-knew-it-i-knew-you-campaign-continues-apace
-
-## Jan Ravnik Suggests Kelce Brothers as Dream Guest Judges on 'DWTS'
-
-- first seen: 2026-11-12 04:28 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Former Taylor Swift dancer and current 'DWTS' pro Jan Ravnik has named the Kelce brothers as his ideal guest judges for the show. The suggestion highlights the ongoing intersection of sports and entertainment.
-- sources:
-  - [unverified] Entertainment Weekly — https://ew.com/dwts-pro-jan-dream-guest-judge-is-one-of-kelce-brothers-12249379
