@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 72
 
 ## Taylor Swift Discusses Human Impact on Music Creation
 
@@ -640,11 +640,3 @@ Stories: 73
 - summary: Ella Langley is recognized as the first female artist since Taylor Swift to successfully crossover multiple country songs to pop radio. This achievement highlights her impact in the music industry.
 - sources:
   - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/11/11/ella-langley-becomes-the-first-female-artist-since-taylor-swift-to-crossover-multiple-country-songs-to-pop-radio/
-
-## Taylor Swift to Receive Honor at Women in Entertainment Gala
-
-- first seen: 2026-11-12 01:27 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to be honored at the upcoming Women in Entertainment Gala, recognizing her contributions to the industry. The event aims to celebrate influential women in the field.
-- sources:
-  - [unverified] MyNewsLA.com — https://mynewsla.com/crime/2026/11/11/taylor-swift-to-be-honored-at-women-in-entertainment-gala/
