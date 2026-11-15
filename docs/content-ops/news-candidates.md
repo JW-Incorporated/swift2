@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 67
+Stories: 69
+
+## Taylor Swift shares brief insights on parenting in new comments
+
+- first seen: 2026-11-15 13:37 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made rare comments regarding parenting, stating, 'We don’t have all the information yet.' The remarks were noted during a recent media interaction.
+- sources:
+  - [unverified] The Comeback — https://thecomeback.com/nfl/we-dont-have-all-the-information-yet-taylor-swift-gives-rare-comments-on-parenting.html
+
+## Inside Taylor Swift's Real Estate Portfolio
+
+- first seen: 2026-11-15 13:37 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A look at Taylor Swift's impressive real estate holdings, showcasing her high-end properties and lucrative investments. The article highlights her ventures in the real estate market and the various homes she owns.
+- sources:
+  - [unverified] Realtor.com — https://www.realtor.com/news/celebrity-real-estate/taylor-swift-real-estate-portfolio-truly-golden/
+
+## Taylor Swift Voices Support for Human-Made Music
+
+- first seen: 2026-11-15 13:37 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift expresses her support for music created by human beings, emphasizing its ongoing importance in the industry. This statement underscores her stance on the value of artistic authenticity.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/human-beings-still-winning-taylor-125025897.html
 
 ## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
 
@@ -586,11 +610,3 @@ Stories: 67
 - summary: A tribute to Taylor Swift, along with 'Rocky in Concert' and a holiday comedy, will be presented at Sarasota's Van Wezel. The events are part of the venue's upcoming entertainment schedule.
 - sources:
   - [unverified] ABC7 WWSB — https://www.mysuncoast.com/2026/11/12/taylor-swift-tribute-rocky-concert-holiday-comedy-coming-sarasotas-van-wezel/
-
-## Artist Creates Charm Necklace for Taylor Swift
-
-- first seen: 2026-11-12 13:12 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An artist from Cuyahoga Falls has crafted a charm necklace specifically for Taylor Swift. This unique piece highlights the artist's creativity and dedication to Swift's style.
-- sources:
-  - [unverified] Cleveland.com — https://www.cleveland.com/entertainment/2026/11/kelce-family-chooses-local-artists-charm-necklace-as-gift-for-taylor-swift.html
