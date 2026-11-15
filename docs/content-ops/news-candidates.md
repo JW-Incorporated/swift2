@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 69
 
 ## Taylor Swift Shares Personal Update Before Chiefs-Falcons Game
 
@@ -610,11 +610,3 @@ Stories: 70
 - summary: Taylor Swift is set to be honored with the Sherry Lansing Leadership Award by The Hollywood Reporter, recognizing her achievements and influence in the entertainment industry.
 - sources:
   - [unverified] JAM Broadcasting — https://jambroadcasting.com/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award/
-
-## Source Reveals Unexpected Element in Taylor Swift and Karlie Kloss Feud
-
-- first seen: 2026-11-12 10:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new source suggests there may be an unexpected third party involved in the feud between Taylor Swift and Karlie Kloss. The details of this development have not yet been disclosed.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-karlie-kloss-feud-091220088.html
