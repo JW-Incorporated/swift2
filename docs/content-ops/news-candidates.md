@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 64
 
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
@@ -559,11 +559,3 @@ Stories: 65
 - summary: A newly surfaced photo of Taylor Swift and Travis Kelce has emerged, coinciding with the revelation of a heartfelt detail from their wedding. The couple continues to attract attention with their public appearances.
 - sources:
   - [unverified] Parade Magazine — https://parade.com/celebrities/taylor-swift-and-travis-kelce-pose-for-rare-new-photo-as-sweet-detail-from-their-wedding-comes-to-light
-
-## Brittany Mahomes Responds to Taylor Swift Pregnancy Joke
-
-- first seen: 2026-11-13 08:47 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brittany Mahomes has reacted to a pregnancy joke made about Taylor Swift, highlighting the ongoing fan discussions around Swift's personal life. The exchange continues to attract attention from both fans and media.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/patrick-mahomes-wife-brittany-reacts-080325099.html
