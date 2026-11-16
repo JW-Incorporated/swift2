@@ -162,6 +162,12 @@ docs/marketing/social-strategy.md
 # `paths:` trigger of auto-merge-content.yml (frozen), so these PRs land through
 # the opener's own `gh pr merge --auto`, gated by the same required `build` check.
 docs/strategy/growth-strategy.md
+# Its Changelog archive (#6893): lines older than 8 weeks rotate out of the file
+# above into this one so the append-only Changelog cannot outgrow the size cap.
+# Written only by `rotateChangelog` in scripts/marjorie/lib/strategy-doc.mjs during
+# the same `open-pr` run, append-only and validator-enforced like the live section,
+# so it rides the same PR and must merge on the same terms.
+docs/strategy/growth-strategy-changelog.md
 
 # ── Audit reports written by the content-engine runners. ────────────────────
 docs/audits/

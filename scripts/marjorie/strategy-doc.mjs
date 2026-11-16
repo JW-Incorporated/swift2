@@ -1,8 +1,10 @@
 // CLI for the living growth strategy (docs/strategy/growth-strategy.md; mechanics in
 // lib/strategy-doc.mjs; charter: docs/agents/marjorie.md, "Visible strategy and owner steering").
 //
-//   node scripts/marjorie/strategy-doc.mjs check [--file <path>] [--previous <path>] [--allow-owner-append]
-//       exit 1 listing every structural problem (default file: the checked-in strategy).
+//   node scripts/marjorie/strategy-doc.mjs check [--file <path>] [--previous <path>] [--archive <path>] [--allow-owner-append]
+//       exit 1 listing every structural problem (default file: the checked-in strategy). The size cap
+//       measures everything EXCEPT the append-only `## Changelog`, whose aged-out lines live in
+//       docs/strategy/growth-strategy-changelog.md (--archive, default that file) and still count as kept.
 //   node scripts/marjorie/strategy-doc.mjs add-direction --from-context <chat-context.json> [--date YYYY-MM-DD] [--file <path>]
 //       chat only: append the OWNER's message, word for word and dated, plus a changelog line. The only
 //       source is the context job's file, and only when that job verified the author is the owner
@@ -21,13 +23,13 @@ import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } fr
 import path from 'node:path';
 import { runMain } from '../lib/cli.mjs';
 import { parseArgs } from './loop-asks.mjs';
-import { addOwnerDirection, CHANGELOG_HEADING, parseSections, rebaseOntoMain, STRATEGY_FILE, validateStrategy } from './lib/strategy-doc.mjs';
+import { addOwnerDirection, CHANGELOG_ARCHIVE_FILE, CHANGELOG_HEADING, parseSections, rebaseOntoMain, rotateChangelog, STRATEGY_FILE, validateArchive, validateStrategy } from './lib/strategy-doc.mjs';
 
 export const UPDATE_WORKFLOW = 'routine-fable-strategy-update.yml';
 export const DAILY_CAP = 4;
 export const MAX_FOCUS = 300;
 const USAGE =
-  'usage: strategy-doc.mjs check [--file <path>] [--previous <path>] [--allow-owner-append]\n' +
+  'usage: strategy-doc.mjs check [--file <path>] [--previous <path>] [--archive <path>] [--allow-owner-append]\n' +
   '       strategy-doc.mjs add-direction --from-context <chat-context.json> [--date YYYY-MM-DD] [--file <path>]\n' +
   '       strategy-doc.mjs save-update --pr <N> [--focus "<text>"] [--dir <dir>]\n' +
   '       strategy-doc.mjs dispatch --dir <dir>\n' +
@@ -72,7 +74,9 @@ function openPr({ file, kind, runUrl }, { exec, env, root }) {
     console.log(`::error::strategy-doc: no proposal at ${file} — the agent did not write the strategy rewrite its prompt requires`);
     return 1;
   }
+  const archiveTarget = path.join(root, CHANGELOG_ARCHIVE_FILE);
   const current = existsSync(target) ? read(target) : '';
+  const currentArchive = existsSync(archiveTarget) ? read(archiveTarget) : '';
   let proposal = read(file);
   if (current.trim()) {
     const rebased = rebaseOntoMain(proposal, current);
@@ -82,12 +86,15 @@ function openPr({ file, kind, runUrl }, { exec, env, root }) {
     }
     proposal = rebased.text;
   }
-  const problems = validateStrategy(proposal, current);
+  // Rotation runs after the rebase, so a line main re-applied can still age out this run.
+  const rotated = rotateChangelog(proposal, currentArchive);
+  proposal = rotated.text;
+  const problems = [...validateStrategy(proposal, current, { archive: rotated.archive }), ...validateArchive(rotated.archive, currentArchive)];
   if (problems.length > 0) {
     for (const p of problems) console.log(`::error::strategy-doc: ${p}`);
     return 1;
   }
-  if (proposal.trim() === current.trim()) {
+  if (proposal.trim() === current.trim() && rotated.archive === currentArchive) {
     console.log('strategy-doc: the rewrite equals main — no PR.');
     return 0;
   }
@@ -95,9 +102,14 @@ function openPr({ file, kind, runUrl }, { exec, env, root }) {
   const branch = `strategy/${kind}-${date}-${env.GITHUB_RUN_ID || Date.now()}`;
   mkdirSync(path.dirname(target), { recursive: true });
   writeFileSync(target, proposal.endsWith('\n') ? proposal : `${proposal}\n`);
+  const paths = [STRATEGY_FILE];
+  if (rotated.archive !== currentArchive) {
+    writeFileSync(archiveTarget, rotated.archive);
+    paths.push(CHANGELOG_ARCHIVE_FILE);
+  }
   const ident = ['-c', 'user.name=github-actions[bot]', '-c', 'user.email=41898282+github-actions[bot]@users.noreply.github.com'];
   exec('git', ['checkout', '-b', branch]);
-  exec('git', ['add', STRATEGY_FILE]);
+  exec('git', ['add', ...paths]);
   exec('git', [...ident, 'commit', '-m', `${k.title} ${date}`, '-m', `Rewritten by ${k.who}.`, '-m', k.trailer]);
   exec('git', ['push', '-u', 'origin', 'HEAD']);
   const added = newChangelogLines(current, proposal);
@@ -108,6 +120,7 @@ function openPr({ file, kind, runUrl }, { exec, env, root }) {
     '',
     '**Changelog lines added**',
     ...(added.length > 0 ? added : ['- (none beyond edits to existing sections)']),
+    ...(rotated.moved.length > 0 ? ['', `**Changelog lines rotated to \`${CHANGELOG_ARCHIVE_FILE}\`** (append-only, nothing dropped): ${rotated.moved.length}`] : []),
     ...(runUrl ? ['', `Run: ${runUrl}`] : []),
     '',
     k.trailer,
@@ -202,7 +215,11 @@ export async function main(argv = process.argv.slice(2), { exec = execReal, env 
   const { command, flags } = parseArgs(argv);
   if (command === 'check') {
     const file = str(flags.file, STRATEGY_FILE);
-    const problems = validateStrategy(read(file), typeof flags.previous === 'string' ? read(flags.previous) : '', { ownerAppend: Boolean(flags['allow-owner-append']) });
+    const archiveFile = str(flags.archive, CHANGELOG_ARCHIVE_FILE);
+    const problems = validateStrategy(read(file), typeof flags.previous === 'string' ? read(flags.previous) : '', {
+      ownerAppend: Boolean(flags['allow-owner-append']),
+      archive: existsSync(archiveFile) ? read(archiveFile) : '',
+    });
     for (const p of problems) console.log(`strategy-doc: ${p}`);
     console.log(problems.length === 0 ? `strategy-doc: ${file} is well-formed.` : `strategy-doc: ${problems.length} problem(s).`);
     return problems.length === 0 ? 0 : 1;
