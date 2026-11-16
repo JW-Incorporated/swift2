@@ -61,7 +61,15 @@ The explanation column is required for every uncovered row. It reports only the 
 | 2027 Taylor Swift &#124; The Eras Tour 12" x 12" Flap Calendar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 2027 Taylor Swift &#124; The Eras Tour 12" x 12" PL Calendar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 2027 Taylor Swift &#124; The Eras Tour 7" x 7" Mini Calendar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Cozy Slippers | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Decorative Charcuterie Board | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Metallic Wrapping Paper | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Notebook | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Quilted Tote Bag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Raglan Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Scarf | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Zip-Up Fleece Sherpa Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Ain't That The Worst Thing You Ever Heard? T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All I Think About Is Karma Snake Necklace | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All Too Well Backpack | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -380,6 +388,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Striped Silk-Blend Dress (1932 Stripe White & Black) | revolve.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden | not listed in checked-in E0 Awin advertiser directory |
 | Swiftie Definition Sign, Taylor Swift Fan Decor, Eras Tour Inspired Gift | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Swiftmas Fingerless Mittens | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Swiftmas Metallic Wrapping Paper | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Take Me to the Lakes Fleece Sherpa Zip-Up Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Inspired Bookmarks&#124;Life of a Bookgirl&#124;Tour&#124;Gifts&#124;Readers | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift &#124; Patient Zero T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -565,9 +574,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 551 |
+| total | 560 |
 | wrapped | 0 |
 | awin-apply | 7 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 438 |
+| direct-by-policy | 447 |
