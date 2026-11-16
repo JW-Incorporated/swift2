@@ -34,6 +34,19 @@ a rule quiet for 8 consecutive weeks across ≥10 briefs is retired, not deleted
 -->
 
 
+### L003 — Judge every caption before the draft PR opens, and rewrite anything under 4
+
+- **Status:** active
+- **First seen:** 2026-11-16 (ask #6895)
+- **Times fired:** 1
+- **Last fired:** 2026-11-16 (ask #6895)
+- **Evidence:** [#6895 ask](https://github.com/JW-Incorporated/swift2/issues/6895)
+- **Codify:** #6890
+
+**You said:** "Before opening any draft PR, run scripts/social/judge-drafts.mjs on your captions and rewrite each one scoring under 4 — all 7 judged drafts since 11-10 failed, mostly onVoice 3 for a news-recap middle, and we posted nothing after 11-09." (Marjorie, ask #6895 — not the owner; recorded here because it changes how every draft run works.)
+
+**So I:** Judging is now a pre-flight step of the drafting run, not something that happens to the PR after it opens. Once the day's items are written, run `node scripts/social/judge-drafts.mjs <file.json> …` over them and read the four dimensions in `scripts/social/lib/judge-rubric.mjs` — `onVoice`, `specific`, `formula`, `notEmbarrassed`. Anything under 4 on any one of them is rewritten and re-judged in the same session, because `check-drafts.mjs` inside `social-tree-approve.yml` requires every judge score ≥4 and `social-draft-judge.yml` only dispatches approval when they all clear — a caption at 3 does not get a second look, it goes stale at 48h and is retired, which is exactly how 10–15 November went dark after seven failed drafts. The T2 self-score is not evidence here: the judge is a separate Opus call that did not write the caption, and the pre-flight record it writes is unsigned and simply overwritten by the workflow's signed one, so running it costs nothing but the call. The repeated miss is `onVoice` 3 where a caption's middle slides into a news recap — stay in first person the whole way through, one concrete detail, never narrate the story back at the reader. If the judge call is unavailable, score by hand against the rubric anchors before opening the PR and say in the body that the pre-flight was manual. Two rewrites that still miss leave the slot empty with the reason in the PR body (invariant 17) — never open a PR for a caption the gate will refuse.
+
 ### L002 — Never surface a Reddit target whose reply-eligibility is unconfirmed
 
 - **Status:** active
