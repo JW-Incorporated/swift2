@@ -5,7 +5,7 @@
   "lane": "merch",
   "createdAt": "2026-11-14T00:57:10.776Z",
   "deadline": "2026-11-17T00:57:10.776Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "name": "1989 Bandana",
     "price": "15.00",
@@ -23,5 +23,6 @@
   "links": {
     "pr": null,
     "issue": null
-  }
+  },
+  "declinedReason": "Existing official-store listing picked up by a bulk catalog sync (148 items first-seen at once on 2026-11-14), not a new drop; timely scores 2, under the hard floor of 4, so it has no claim on a calendar slot."
 }
