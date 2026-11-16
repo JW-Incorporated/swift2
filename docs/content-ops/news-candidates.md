@@ -27,20 +27,54 @@ so far".
 
 Stories: 65
 
+## Live Broadcast for 2027 Grammy Nominations Set
+
+- first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: The nominations for the 69th Grammy Awards will be announced live from Times Square, New York City. The event starts at 4:45 am PT and can be followed on Grammy.com.
+- sources:
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/grammy-nominations-2027/
+
+## 2027 Grammy Nominations Announced Live
+
+- first seen: 2026-11-16 13:22 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: The Recording Academy is announcing nominees for the 2027 Grammy Awards live on Monday morning. The reveal includes all 100 categories and is hosted by CEO Harvey Mason Jr. with celebrity guests.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-nominations-2027-complete-list-2-1236948743/
+
+## Taylor Swift Earns 2027 Grammy Nominations
+
+- first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is among the artists nominated for the 2027 Grammy Awards. A full list of nominees has been published by The Boston Globe.
+- sources:
+  - [unverified] The Boston Globe — https://www.bostonglobe.com/2026/11/16/arts/2027-grammy-nominees/
+
+## Taylor Swift Joins 2026 CMA Awards Performer Lineup
+
+- first seen: 2026-11-16 13:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is among several artists, including Luke Combs and Chris Stapleton, added to the performer lineup for the 2026 CMA Awards.
+- sources:
+  - [unverified] CelebrityAccess — https://celebrityaccess.com/2026/11/16/taylor-swift-luke-combs-chris-stapleton-and-more-added-to-2026-cma-awards-performer-lineup/
+
 ## Taylor Swift's The Life of a Showgirl: The Encore Not Eligible for 2027 Grammys
 
 - first seen: 2026-11-16 11:47 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: E! News reports that Taylor Swift’s upcoming project, The Life of a Showgirl: The Encore, will not be eligible for the 2027 Grammy Awards. Details on the reasons behind this decision are yet to be clarified.
 - sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/why-taylor-swifts-em-showgirl-110000000.html
   - [unverified] E! News — https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated
 
 ## Taylor Swift Set to Perform at CMA Awards After 13 Years
 
 - first seen: 2026-11-16 10:48 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift is confirmed to return to the CMA Awards stage for her first performance in 13 years, marking a significant moment for the artist and the awards event.
 - sources:
+  - [unverified] Full Access Magazine — https://www.fullaccessmagazine.com/2026/11/16/taylor-swift-cma-awards-2026-performance/
   - [unverified] KTNN — https://www.ktnnonline.com/2026/11/16/taylor-swift-to-return-to-cma-awards-stage-for-first-performance-in-13-years/
 
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
@@ -524,46 +558,3 @@ Stories: 65
   - [unverified] KATU — http://www.kunptv.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
   - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/11/13/taylor-swift-2026-cma-awards-performance/92563780007/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perform-60th-cma-141546824.html
-
-## Taylor Swift and Travis Kelce Encounter Backlash Over Ohio Mansion
-
-- first seen: 2026-11-13 13:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce are reportedly facing significant pushback regarding their Ohio mansion. The situation has drawn attention in the media but further details have not been disclosed.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-face-more-strong-pushback-over-ohio-mansion
-
-## Taylor Swift Reportedly Upset Over Wedding Leak
-
-- first seen: 2026-11-13 12:47 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Reports suggest that Taylor Swift is angry about a wedding leak, described as a 'betrayal' on her special day. This incident highlights the challenges celebrities face in keeping personal events private.
-- sources:
-  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234972664/taylor-swift-travis-kelce-wedding-gift-leak/
-
-## Taylor Swift Facing New Controversy Over Scooter Braun Agreement
-
-- first seen: 2026-11-13 12:47 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Sources indicate that Taylor Swift is involved in a new controversy related to her deal with Scooter Braun. This issue arises as previous tensions over their business relationship resurface.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swift-faces-fresh-row-110000309.html
-
-## Ella Langley Achieves Historic Feat Alongside Taylor Swift
-
-- first seen: 2026-11-13 12:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 12
-- summary: Ella Langley, a 27-year-old country star, has reached a significant milestone in her career alongside renowned artists Shania Twain, Faith Hill, and Taylor Swift. This achievement highlights Langley's growing influence in the country music scene.
-- sources:
-  - [unverified] 13WHAM-TV — https://13wham.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination?teaserSource=databricks
-  - [unverified] All Country News — https://www.allcountrynews.com/post/taylor-swift-is-returning-to-the-cma-awards-stage-after-13-years-and-yes-that-number-feels-right
-  - [established] Deadline — https://deadline.com/2026/11/cma-awards-performers-ella-langley-taylor-swift-1237213808/
-  - [unverified] Fresh Fiction — https://freshfiction.tv/taylor-swift-on-tailoring-her-voice-to-the-toy-story-franchise-with-i-knew-it-i-knew-you/
-  - [unverified] Newser — https://www.newser.com/story/399980/taylor-swift-to-return-to-cma-awards-stage-after-13-years.html
-  - [unverified] Parade Magazine — https://parade.com/entertainment/country-star-ella-langley-27-achieves-historic-feat-next-to-shania-twain-faith-hill-and-taylor-swift
-  - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-2013-cma-awards-performance-red-vince-gill-alison-krauss/
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
-  - [unverified] upi — https://www.upi.com/Entertainment_News/Movies/2026/11/13/Taylor-Swift-Toy-Story-5-song/2711794597118/
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/movies/2026/11/13/taylor-swift-toy-story-5-song-oscars/92766305007/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-to-perform-cma-awards-first-time-13-years-1236946968/
-  - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-to-perform-at-60th-cma-awards/12367805/
