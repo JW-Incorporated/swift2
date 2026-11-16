@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 70
+Stories: 72
+
+## Ice Spice and Millie Bobby Brown Form Close Bond at Taylor Swift’s Wedding
+
+- first seen: 2026-11-16 15:42 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Ice Spice revealed that she and Millie Bobby Brown became very close after meeting at Taylor Swift's wedding, describing their bond as 'like sisters.'
+- sources:
+  - [established] People — https://people.com/ice-spice-and-millie-bobby-brown-became-sisters-after-meeting-at-taylor-swifts-wedding-12257917
+
+## Raye, Rosalia, and Dolly Parton Nominated for Grammy Awards
+
+- first seen: 2026-11-16 15:42 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: British artist Raye has received 11 Grammy nominations. The nominations also recognize Dolly Parton two months after her passing, showcasing her legacy in the music industry.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cq9vwkggpx73o?at_medium=RSS&at_campaign=rss
 
 ## Taylor Swift Invites Olivia Rodrigo for a Collaboration
 
@@ -118,14 +134,6 @@ Stories: 70
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2027-grammys-nominees-list-1236755720/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-nominations-2027-complete-list-2-1236948743/
 
-## Taylor Swift Joins 2026 CMA Awards Performer Lineup
-
-- first seen: 2026-11-16 13:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among several artists, including Luke Combs and Chris Stapleton, added to the performer lineup for the 2026 CMA Awards.
-- sources:
-  - [unverified] CelebrityAccess — https://celebrityaccess.com/2026/11/16/taylor-swift-luke-combs-chris-stapleton-and-more-added-to-2026-cma-awards-performer-lineup/
-
 ## Taylor Swift Earns 2027 Grammy Nominations
 
 - first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
@@ -134,6 +142,14 @@ Stories: 70
 - sources:
   - [unverified] The Boston Globe — https://www.bostonglobe.com/2026/11/16/arts/2027-grammy-nominees/
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/16/grammys-2027-nominations-list/92733138007/
+
+## Taylor Swift Joins 2026 CMA Awards Performer Lineup
+
+- first seen: 2026-11-16 13:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is among several artists, including Luke Combs and Chris Stapleton, added to the performer lineup for the 2026 CMA Awards.
+- sources:
+  - [unverified] CelebrityAccess — https://celebrityaccess.com/2026/11/16/taylor-swift-luke-combs-chris-stapleton-and-more-added-to-2026-cma-awards-performer-lineup/
 
 ## Taylor Swift's The Life of a Showgirl: The Encore Not Eligible for 2027 Grammys
 
