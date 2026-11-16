@@ -27,6 +27,22 @@ so far".
 
 Stories: 77
 
+## Taylor Swift and Travis Kelce Reach Significant Career Milestones
+
+- first seen: 2026-11-16 19:31 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have both achieved noteworthy career milestones, doing so just one day apart. Their accomplishments highlight their success in their respective fields.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-sets-2027-grammy-record-travis-kelce-hits-career-first-12258309
+
+## Alex Warren Mentions Taylor Swift at Kids’ Choice Awards
+
+- first seen: 2026-11-16 19:31 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In an exclusive interview, Alex Warren shared his thoughts on various topics including Taylor Swift during the Kids' Choice Awards.
+- sources:
+  - [unverified] extratv.com — https://extratv.com/2026/11/16/alex-warren-talks-slime-taylor-swift-and-what-he-s-thankful-for-at-kids-choice-exclusive/
+
 ## Details on the 2026 CMAs including performances and viewing options
 
 - first seen: 2026-11-16 18:38 UTC | category: music | importance: 5
@@ -641,20 +657,3 @@ Stories: 77
 - summary: After a 13-year hiatus, Taylor Swift is set to perform at the CMA Awards, marking her return to the event. This performance will bring her back to the country music scene.
 - sources:
   - [unverified] WBIR — https://www.wbir.com/video/entertainment/taylor-swift-to-perform-at-cma-awards-after-13-years/51-0857f20f-020a-46a6-b329-e785774fed19
-
-## Scooter Braun's Withdrawal from Call Her Daddy Linked to Taylor Swift
-
-- first seen: 2026-11-13 18:57 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Scooter Braun's connection to the Call Her Daddy drama has been revealed, highlighting Taylor Swift's influence as a factor in his decision to step back from the situation. The article explores these dynamics.
-- sources:
-  - [unverified] Daily Mail — https://www.dailymail.com/tvshowbiz/article-16287479/The-truth-Scooter-Brauns-involvement-Call-Daddy-drama-Taylor-Swift-reason-pulled-out.html
-
-## Cara Delevingne Calls Taylor Swift's Wedding to Travis Kelce a Highlight
-
-- first seen: 2026-11-13 18:57 UTC | category: relationship | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: In an exclusive report, Cara Delevingne described Taylor Swift's wedding to Travis Kelce as an 'absolute highlight' of her year. The sentiment underscores the close friendship between the two stars.
-- sources:
-  - [established] People — https://people.com/cara-delevingne-calls-bestie-taylor-swift-wedding-to-travis-kelce-an-absolute-highlight-of-her-year-exclusive-12252662
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-180219938.html
