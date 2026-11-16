@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 65
+
+## Taylor Swift and Vegas Rivalry Revealed in Leaked Emails
+
+- first seen: 2026-11-16 01:43 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Leaked private emails have unveiled the extent of the ongoing feud between Taylor Swift and a rival in Vegas. The situation seems to highlight a bitter spat that has garnered media attention.
+- sources:
+  - [unverified] Daily Mail — https://www.dailymail.com/tvshowbiz/article-16285001/taylor-swift-las-vegas-showgirl-lawsuit.html
 
 ## Taylor Swift and Dakota Johnson Sport Autumn's Mouse Haircut Trend
 
@@ -110,13 +118,14 @@ Stories: 66
 ## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
 
 - first seen: 2026-11-15 16:19 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: Reports discuss the potential for Taylor Swift to attend the upcoming Chiefs vs Falcons game, with speculation surrounding her attendance and its implications. Details on her plans remain unconfirmed.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a74426037/taylor-swift-travis-kelce-chiefs-falcons-game-attendance/
   - [unverified] Fox News — https://www.foxnews.com/outkick-sports/taylor-swift-husband-travis-kelce-injures-ankle-falcons-questionable-return
   - [unverified] HITC — https://www.hitc.com/taylor-swift-and-travis-kelce-pregnant-online-rumours-debunked-after-brittany-mahomes-liked-post/
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/statistically-speaking-taylor-swift-travis-170438313.html
 
 ## Taylor Swift shares brief insights on parenting in new comments
 
@@ -557,19 +566,3 @@ Stories: 66
 - summary: Insiders share the untold details regarding Taylor Swift's dramatic fallout with Karlie Kloss.
 - sources:
   - [unverified] Bored Panda — https://www.boredpanda.com/insiders-spill-taylor-swift-karlie-kloss-dramatic-fallout-after-reunion/
-
-## 8 Nail Ideas Inspired by Taylor Swift's Sparkly Manicure
-
-- first seen: 2026-11-13 01:23 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: InStyle showcases eight gold fairy dust nail designs inspired by Taylor Swift's popular sparkly manicure. The article highlights creative nail art that fans can try to emulate Swift's glamorous style.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/gold-fairy-dust-nails-12246851
-
-## Taylor Swift Puts Hobby on Hold for Travis Kelce
-
-- first seen: 2026-11-13 01:23 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Reports indicate that Taylor Swift is making lifestyle changes, including putting a hobby on hold, for Travis Kelce. This marks a notable shift in her routine as the pair navigate their relationship.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/travis-kelce-sees-a-significant-lifestyle-change-as-taylor-swift-reportedly-puts-her-hobby-on-hold-for-him-12319381
