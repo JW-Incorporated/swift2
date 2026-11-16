@@ -30,10 +30,9 @@ Stories: 65
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
 - first seen: 2026-11-16 03:39 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: rumor | source_count: 1
 - summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
 - sources:
-  - [unverified] HITC — https://www.hitc.com/why-did-taylor-swift-miss-chiefs-vs-falcons-clash-where-travis-kelce-got-injured/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
 
 ## Travis Kelce Leaves Field Injured After Tackle
