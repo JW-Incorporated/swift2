@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 73
+Stories: 74
+
+## Taylor Swift Nominated for 2027 Grammy Awards
+
+- first seen: 2026-11-16 17:43 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: The 2027 Grammy nominations have been announced, with Taylor Swift among the leading nominees alongside Raye, Ella Langley, and Olivia Rodrigo. The nominations reflect the talent and impact of these artists in the music industry.
+- sources:
+  - [unverified] WLOS — https://wlos.com/news/entertainment/gallery/2027-grammy-nominations-raye-ella-langley-olivia-rodrgio-taylor-swift-lead-the-pack
+
+## Taylor Swift's Absence at Travis Kelce's Game Amid Divorce Rumors
+
+- first seen: 2026-11-16 17:43 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's decision to miss Travis Kelce's game has sparked discussions regarding ongoing divorce rumors. The situation has prompted mixed reactions from fans and analysts alike.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/real-reason-taylor-swift-skipped-170621678.html
+
+## Taylor Swift's Grammys Nomination Reveal Included Easter Eggs
+
+- first seen: 2026-11-16 17:43 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made a surprise appearance during the Grammys nomination announcement, which featured several Easter eggs for fans to discover. The reveal has sparked interest and excitement among her supporters.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74440428/taylor-swift-surprise-grammys-2027-nomination-appearance-easter-eggs-explained/
+
+## Taylor Swift Achieves 5 Consecutive Years of Major-Category Grammy Nominations
+
+- first seen: 2026-11-16 17:43 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has made history by securing five consecutive years of nominations in major categories at the Grammy Awards, marking a significant milestone in her career.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-grammy-record-2027-nominations-major-categories-1236382987/
 
 ## Yamaha Acquires Disguise for $285M, Powers Major Tours
 
@@ -43,14 +75,6 @@ Stories: 73
 - sources:
   - [unverified] Audacy — https://www.audacy.com/national/video/pharrell-and-taylor-swift-announce-grammy-nominations-xbx7jke
 
-## Taylor Swift Receives 5 Grammy Nominations This Year
-
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been nominated for five Grammy Awards, although she did not receive a nomination in a key category. Details on the nominations can be found in the full article.
-- sources:
-  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/taylor-swift-grammys-2027-nominations-analysis/
-
 ## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
 
 - first seen: 2026-11-16 16:43 UTC | category: tour | importance: 8
@@ -67,6 +91,14 @@ Stories: 73
 - sources:
   - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74441070/taylor-swift-horseshoe-grammy-nominations-2026/
 
+## Taylor Swift Surprises Fans at 2027 Grammys Nominations Announcement
+
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a surprise appearance during the announcement of the 2027 Grammy nominations, delighting fans and attendees. Her presence added excitement to the event, drawing significant attention from the media.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438148/taylor-swifts-surprise-appearance-during-grammys-2027-nominations
+
 ## Taylor Swift Not Nominated for Best Pop Vocal Album at 2027 Grammys
 
 - first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
@@ -75,13 +107,13 @@ Stories: 73
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/2027-grammy-nominations-taylor-swift-raye-beyonce-1239418518/
 
-## Taylor Swift Surprises Fans at 2027 Grammys Nominations Announcement
+## Taylor Swift Receives 5 Grammy Nominations This Year
 
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 8
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
 - verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise appearance during the announcement of the 2027 Grammy nominations, delighting fans and attendees. Her presence added excitement to the event, drawing significant attention from the media.
+- summary: Taylor Swift has been nominated for five Grammy Awards, although she did not receive a nomination in a key category. Details on the nominations can be found in the full article.
 - sources:
-  - [unverified] E! News — https://www.eonline.com/news/1438148/taylor-swifts-surprise-appearance-during-grammys-2027-nominations
+  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/taylor-swift-grammys-2027-nominations-analysis/
 
 ## Ice Spice and Millie Bobby Brown Form Close Bond at Taylor Swift’s Wedding
 
@@ -602,27 +634,3 @@ Stories: 73
 - summary: Taylor Swift is set to make her first performance at the Country Music Association Awards in 13 years. This marks a significant return to the event for the artist.
 - sources:
   - [unverified] WBAL News Radio — https://www.wbal.com/taylor-swift-to-perform-at-cmas-for-1st-time-in-13-years
-
-## Taylor Swift and CMAs Reunite
-
-- first seen: 2026-11-13 16:58 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to rekindle her relationship with the Country Music Association (CMAs) according to Hits Daily Double. This marks a notable return of the artist to the country music stage.
-- sources:
-  - [unverified] Hits Daily Double — https://www.hitsdailydouble.com/news/nashville/taylor-swift-and-cmas-are-getting-back-together-2026-11-13
-
-## Taylor Swift to Attend CMA Awards After 13 Years
-
-- first seen: 2026-11-13 16:58 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to participate in the CMA Awards, marking her first appearance at the event in 13 years. This return highlights her ongoing connection to the country music genre.
-- sources:
-  - [unverified] American Songwriter — https://americansongwriter.com/taylor-swift-is-about-to-do-something-at-the-cma-awards-she-hasnt-done-in-13-years/
-
-## Taylor Swift-Inspired 'Patient Zero Party' Held in Georgetown, DC
-
-- first seen: 2026-11-13 16:58 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A party inspired by Taylor Swift, called the 'Patient Zero Party', took place in Georgetown, Washington DC.
-- sources:
-  - [unverified] Georgetown DC — https://www.georgetowndc.com/news/taylor-swift-inspired-patient-zero-party/
