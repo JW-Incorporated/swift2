@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 77
+Stories: 78
+
+## Keltie Knight Reflects on Taylor Swift's Kind Gesture at 2009 VMAs
+
+- first seen: 2026-11-16 20:28 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Keltie Knight, who served as a backup dancer for Taylor Swift at the 2009 VMAs, recalls a touching moment that has remained with her since then.
+- sources:
+  - [established] People — https://people.com/keltie-knight-the-f-them-theory-excerpt-exclusive-12258100
+
+## Rhode Island Affirms Legislative Authority on 'Taylor Swift Tax'
+
+- first seen: 2026-11-16 20:28 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Rhode Island officials state that the 'Taylor Swift Tax' is within their legislative powers, confirming its status. This tax is linked to the impact of Taylor Swift's activities in the state.
+- sources:
+  - [unverified] Bloomberg Tax — https://news.bloombergtax.com/financial-accounting/rhode-island-says-taylor-swift-tax-is-within-legislative-power
+
+## Kathy Griffin Critiques Taylor Swift and Her Fans
+
+- first seen: 2026-11-16 20:28 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kathy Griffin publicly critiques Taylor Swift and her fans, comparing them to MAGA supporters in a recent statement. Her comments have sparked discussions among the online community.
+- sources:
+  - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/kathy-griffin-taylor-swift-mediocrity
 
 ## Taylor Swift and Travis Kelce Reach Significant Career Milestones
 
@@ -330,6 +354,7 @@ Stories: 77
 - summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
 - sources:
   - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/taylor-swift-dancer-travis-kelce-jason-kelce-dwts
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdXpzY3BGakRyZGxHR3lROFNRdk5tUkQwOEIyM0NqN2c5czU5Y0ZrZXJUdkY2X0NIbWpuV2xDVl9kSDFGelhKeTZJemtySC1JbFhLRDRqbmU2NlpiUDhBTFV4S3VmMWtEOXV3UDc4RVpMRzBHRnhEYVN6alRTN3gtdnVFV1F2MTQxVUNj?oc=5
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
 
 ## Travis Kelce Leaves Field Injured After Tackle
@@ -641,19 +666,3 @@ Stories: 77
 - summary: A discussion on Taylor Swift's approach to campaigning for the 2027 Oscars, highlighting the strategies she is utilizing. The analysis suggests that her efforts are aligned with successful campaigning methods.
 - sources:
   - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-is-campaigning-correctly-in-2027-oscars-run.html
-
-## Taylor Swift Scheduled to Perform at Country Music Awards After 10 Years
-
-- first seen: 2026-11-13 20:29 UTC | category: tour | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the Country Music Awards for the first time since 2013, marking a significant return to the event. This performance is highly anticipated by fans and marks a notable moment in her career.
-- sources:
-  - [unverified] Washington Times — https://www.washingtontimes.com/news/2026/nov/13/taylor-swift-perform-country-music-awards-first-time-since-2013/
-
-## Taylor Swift to Perform at CMA Awards After 13 Years
-
-- first seen: 2026-11-13 19:57 UTC | category: tour | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: After a 13-year hiatus, Taylor Swift is set to perform at the CMA Awards, marking her return to the event. This performance will bring her back to the country music scene.
-- sources:
-  - [unverified] WBIR — https://www.wbir.com/video/entertainment/taylor-swift-to-perform-at-cma-awards-after-13-years/51-0857f20f-020a-46a6-b329-e785774fed19
