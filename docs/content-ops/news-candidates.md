@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 66
+
+## Travis Kelce Leaves Field Injured After Tackle
+
+- first seen: 2026-11-16 02:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce sustained an injury during a game, limping off the field following a brutal tackle. This incident raises concerns about his health and its impact on his relationship with Taylor Swift.
+- sources:
+  - [unverified] The Daily Beast — https://www.thedailybeast.com/travis-kelce-limps-off-field-after-brutal-tackle
 
 ## Taylor Swift and Vegas Rivalry Revealed in Leaked Emails
 
@@ -118,7 +126,7 @@ Stories: 65
 ## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
 
 - first seen: 2026-11-15 16:19 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 6
 - summary: Reports discuss the potential for Taylor Swift to attend the upcoming Chiefs vs Falcons game, with speculation surrounding her attendance and its implications. Details on her plans remain unconfirmed.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a74426037/taylor-swift-travis-kelce-chiefs-falcons-game-attendance/
@@ -126,6 +134,7 @@ Stories: 65
   - [unverified] HITC — https://www.hitc.com/taylor-swift-and-travis-kelce-pregnant-online-rumours-debunked-after-brittany-mahomes-liked-post/
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/statistically-speaking-taylor-swift-travis-170438313.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-husband-travis-kelce-191429600.html
 
 ## Taylor Swift shares brief insights on parenting in new comments
 
