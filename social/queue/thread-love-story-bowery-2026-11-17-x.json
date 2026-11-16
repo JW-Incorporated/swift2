@@ -1,0 +1,34 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1tl4pqb-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1tl4pqb-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1tl4pqb/she_knows_exactly_how_good_she_looks_in_this/",
+  "scheduledAt": "2026-11-17T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: She knows exactly how good she looks in this outfit."
+  ],
+  "campaign": "thread:love-story:single-best-item:2026-11-hero",
+  "body": "the William Bowery reveal still makes me SCREAM. a fake name stitched from Joe's composer great-grandfather and a New York neighborhood, and in Long Pond Taylor told us he wrote the entire \"exile\" piano part 🥹 my favorite thing in the whole lens https://www.longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "why": "X sibling of the Nov 17 Blank Spaces single-best-item pair, written as its own post: the pseudonym origin plus the \"exile\" piano part (Vault folklore `william-bowery-is-joe`). Different hook shape from the IG caption (the artifact vs the date).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "The X half leads with the reaction to the William Bowery reveal, then the two sourced details: the name built from a great-grandfather and a neighborhood, and the \"exile\" piano part. One idea plus the Blank Spaces lens link.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
