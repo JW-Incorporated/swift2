@@ -27,6 +27,14 @@ so far".
 
 Stories: 78
 
+## Taylor Swift's Grammy Nomination Look Highlights Significant Easter Eggs
+
+- first seen: 2026-11-16 21:27 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift showcased a notable look for her Grammy nomination, featuring distinctive elements that caught the attention of fashion enthusiasts. InStyle highlights the significant details present in her appearance.
+- sources:
+  - [unverified] unknown — https://www.instyle.com/taylor-swift-grammy-awards-nomination-horseshoe-necklaces-easter-eggs-12258942
+
 ## Keltie Knight Reflects on Taylor Swift's Kind Gesture at 2009 VMAs
 
 - first seen: 2026-11-16 20:28 UTC | category: music | importance: 5
@@ -337,6 +345,7 @@ Stories: 78
   - [unverified] AOL.com — https://www.aol.com/articles/why-taylor-swifts-em-showgirl-110000000.html
   - [unverified] E! News — https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-2025-album-life-of-a-showgirl-nominated-2027-grammys-explainer-12253055
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMiaEFVX3lxTE55cVVfN29fZ3dfdE5WbVlIM1l4WTZQcVBUTFpjVzRjdEZGc2dMVTlHdlVQS1RoTHk3dmV0SnJzWXVTN1RnZEFJWTg1OVRQSnQ3ZEVJNFBzbVhNVWZGMjBVUEFid0VZTHlB?oc=5
 
 ## Taylor Swift Set to Perform at CMA Awards After 13 Years
 
@@ -658,11 +667,3 @@ Stories: 78
 - summary: Taylor Swift shares her thoughts on raising children in a rare comment, following her wedding to Tracis Kelce four months ago. This remark highlights her personal reflections on family life.
 - sources:
   - [unverified] HELLO! — https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/
-
-## Taylor Swift's Campaign Strategy for 2027 Oscars Discussed by Vulture
-
-- first seen: 2026-11-13 21:27 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A discussion on Taylor Swift's approach to campaigning for the 2027 Oscars, highlighting the strategies she is utilizing. The analysis suggests that her efforts are aligned with successful campaigning methods.
-- sources:
-  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-is-campaigning-correctly-in-2027-oscars-run.html
