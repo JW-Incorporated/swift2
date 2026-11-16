@@ -25,7 +25,63 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 72
+Stories: 73
+
+## Yamaha Acquires Disguise for $285M, Powers Major Tours
+
+- first seen: 2026-11-16 16:43 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Yamaha has acquired Disguise for $285 million. Disguise's visual technology has been utilized in tours by major artists, including Taylor Swift.
+- sources:
+  - [unverified] Music Business Worldwide — https://www.musicbusinessworldwide.com/yamaha-strikes-285m-deal-to-acquire-disguise-whose-visual-tech-has-powered-tours-by-bad-bunny-beyonce-and-taylor-swift/
+
+## Pharrell and Taylor Swift Confirm Grammy Nominations
+
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Pharrell Williams and Taylor Swift have announced their nominations for the upcoming Grammy Awards. The specifics of the nominations have not been detailed in the announcement.
+- sources:
+  - [unverified] Audacy — https://www.audacy.com/national/video/pharrell-and-taylor-swift-announce-grammy-nominations-xbx7jke
+
+## Taylor Swift Receives 5 Grammy Nominations This Year
+
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has been nominated for five Grammy Awards, although she did not receive a nomination in a key category. Details on the nominations can be found in the full article.
+- sources:
+  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/taylor-swift-grammys-2027-nominations-analysis/
+
+## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
+
+- first seen: 2026-11-16 16:43 UTC | category: tour | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to make her return to the CMA stage after a 13-year absence, marking a significant moment for both the artist and the awards show. The performance is highly anticipated by fans and industry professionals alike.
+- sources:
+  - [unverified] FOX4KC.com — https://fox4kc.com/news/taylor-swift-to-return-to-the-cma-stage-after-13-years/
+
+## Taylor Swift Wears Antique Diamond Horseshoe Necklace Again During Livestream
+
+- first seen: 2026-11-16 16:43 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: During the Grammy nominations livestream, Taylor Swift was spotted wearing her antique diamond horseshoe necklace once more. The piece has become a notable accessory in her appearances.
+- sources:
+  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74441070/taylor-swift-horseshoe-grammy-nominations-2026/
+
+## Taylor Swift Not Nominated for Best Pop Vocal Album at 2027 Grammys
+
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has not received a nomination for Best Pop Vocal Album at the 2027 Grammy Awards. The nominations were led by Raye, with Beyoncé Knowles-Carter achieving 100 career nominations and newcomer Ella Langley recognized in all four major categories.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/2027-grammy-nominations-taylor-swift-raye-beyonce-1239418518/
+
+## Taylor Swift Surprises Fans at 2027 Grammys Nominations Announcement
+
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a surprise appearance during the announcement of the 2027 Grammy nominations, delighting fans and attendees. Her presence added excitement to the event, drawing significant attention from the media.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438148/taylor-swifts-surprise-appearance-during-grammys-2027-nominations
 
 ## Ice Spice and Millie Bobby Brown Form Close Bond at Taylor Swift’s Wedding
 
@@ -126,10 +182,11 @@ Stories: 72
 ## 2027 Grammy Nominations Announced Live
 
 - first seen: 2026-11-16 13:22 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: The Recording Academy is announcing nominees for the 2027 Grammy Awards live on Monday morning. The reveal includes all 100 categories and is hosted by CEO Harvey Mason Jr. with celebrity guests.
 - sources:
   - [unverified] Haute Living — https://hauteliving.com/2026/11/2027-grammy-nominations/802693/
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2518235/9-thoughts-on-the-2027-grammy-nominations/columns/sounding-board/
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/nov/16/grammy-nominations-2027-female-artists
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2027-grammys-nominees-list-1236755720/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-nominations-2027-complete-list-2-1236948743/
@@ -173,9 +230,10 @@ Stories: 72
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
 - first seen: 2026-11-16 03:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
 - sources:
+  - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/taylor-swift-dancer-travis-kelce-jason-kelce-dwts
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
 
 ## Travis Kelce Leaves Field Injured After Tackle
@@ -568,51 +626,3 @@ Stories: 72
 - summary: A party inspired by Taylor Swift, called the 'Patient Zero Party', took place in Georgetown, Washington DC.
 - sources:
   - [unverified] Georgetown DC — https://www.georgetowndc.com/news/taylor-swift-inspired-patient-zero-party/
-
-## Tribute Artist Performs Taylor Swift Songs at Van Wezel
-
-- first seen: 2026-11-13 15:57 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A tribute artist dedicated to Taylor Swift's hit 'Blank Space' has performed live for one night at the Van Wezel Performing Arts Hall. The event showcased the artist's interpretation of Swift's music, celebrating her popular work.
-- sources:
-  - [unverified] ABC7 WWSB — https://www.mysuncoast.com/2026/11/13/blank-space-taylor-swift-tribute-artist-performs-van-wezel-one-night-only/
-
-## Taylor Swift Scheduled to Perform at CMA Awards
-
-- first seen: 2026-11-13 15:57 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to take the stage at the upcoming CMA Awards, as reported by MusicRow.com. This performance is part of her ongoing commitments to engage with fans through live events.
-- sources:
-  - [unverified] MusicRow.com — https://musicrow.com/2026/11/taylor-swift-to-perform-at-the-cma-awards/
-
-## Taylor Swift Encouraged to Regain Control of Wedding Plans
-
-- first seen: 2026-11-13 15:57 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A source reports that Taylor Swift has been urged to take back control of her wedding amidst ongoing drama. Details about the specific situation remain unspecified.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/taylor-swift-urged-back-control-092453000.html
-
-## Taylor Swift to perform at CMAs after 13 years
-
-- first seen: 2026-11-13 15:57 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the Country Music Association Awards for the first time in 13 years, marking a notable return to the event.
-- sources:
-  - [unverified] NewsNation — https://www.newsnationnow.com/entertainment-news/taylor-swift-cmas-performance-decade/
-
-## Taylor Swift to Perform at CMA Awards After a Decade
-
-- first seen: 2026-11-13 15:57 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is scheduled to perform at the CMA Awards, marking her first appearance at the event since 2013. This performance is highly anticipated by fans and marks a significant return to the country music scene for the artist.
-- sources:
-  - [unverified] Whiskey Riff — https://www.whiskeyriff.com/2026/11/13/taylor-swift-to-perform-at-the-cma-awards-for-the-first-time-since-2013/
-
-## Taylor Swift to Perform at CMA Awards After 13 Years
-
-- first seen: 2026-11-13 15:57 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift is set to perform at the upcoming CMA Awards, marking her first appearance in 13 years. Her song, "I Knew It, I Knew You," from the Toy Story 5 soundtrack, has been nominated for Single of the Year.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-will-perform-2026-cma-awards-1235657442/
