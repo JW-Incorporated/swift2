@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 65
+
+## Taylor Swift's The Life of a Showgirl: The Encore Not Eligible for 2027 Grammys
+
+- first seen: 2026-11-16 11:47 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: E! News reports that Taylor Swift’s upcoming project, The Life of a Showgirl: The Encore, will not be eligible for the 2027 Grammy Awards. Details on the reasons behind this decision are yet to be clarified.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated
 
 ## Taylor Swift Set to Perform at CMA Awards After 13 Years
 
