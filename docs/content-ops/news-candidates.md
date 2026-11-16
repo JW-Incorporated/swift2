@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 65
+Stories: 66
+
+## Kathy Griffin Critiques Taylor Swift's Fanbase and Calls Star Mediocre
+
+- first seen: 2026-11-16 13:43 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kathy Griffin has publicly criticized Taylor Swift's fanbase, comparing them negatively and calling the star mediocre. The comments have sparked discussions among fans and media outlets.
+- sources:
+  - [unverified] BuzzFeed — https://www.buzzfeed.com/stephaniesoteriou/kathy-griffin-says-taylor-swift-fans-worse-than-maga
 
 ## Live Broadcast for 2027 Grammy Nominations Set
 
