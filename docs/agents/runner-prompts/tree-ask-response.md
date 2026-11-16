@@ -90,7 +90,11 @@ is CAN'T.
 Open ONE PR per ask: branch `tree/ask/<N>-<short-slug>`, label `tree`, title
 `Tree: <what changed> (answers #<N>)`. Body: a TL;DR line, `Answers #<N>`, what changed
 and why in plain sentences, the evidence you used, and — for a `social/calendar.md`
-edit — the clean output of `node scripts/social/check-drafts.mjs`. Do NOT merge it and
+edit — the clean output of `node scripts/social/check-drafts.mjs`. Before you open it,
+verify the change: run the narrowest test that covers what you touched (`npx vitest run
+<path>`, or `npm test` when the change is cross-cutting) and paste the result in the body.
+A file another script parses (`social/lessons.md`, `social/calendar.md`) is never shipped
+on a hand-written round-trip check alone. Do NOT merge it and
 do NOT babysit it. If the PR touches a charter-protected rule you were unsure about, say
 so in the body for the reviewer instead of guessing.
 
