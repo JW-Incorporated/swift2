@@ -3913,6 +3913,30 @@
       "sha256": "c4b8da4417dc4b1903294e480d3afa6b28faf5eedf4a8be6a0e15ad952ced097",
       "reason": "Back view of performer; rejected per back-view rule despite good quality",
       "date": "2026-11-15"
+    },
+    {
+      "id": "press-f0094119e711",
+      "sha256": "bb8349f9b31d749c158452fb8ca43299c35ce2ee8813e6f500bc761759810b26",
+      "reason": "Shot through glass with reflections; another man shares frame; soft/obstructed.",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "press-30bbd2218ee2",
+      "sha256": "ec2b468b6bbfe42f1c8dd6c43e23b006b5b0b276c013ca32fa105afd4ebf29f8",
+      "reason": "Football player kneeling, face hidden; caption names Taylor Swift as subject",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "press-62e823e4b475",
+      "sha256": "4ab382f386f7e0b8a063eb1cefba79de4189be316a6009ee82a56f0b9d5c1b04",
+      "reason": "Bearded man in football jersey; caption's \"Taylor Swift in the news\" framing mismatches",
+      "date": "2026-11-16"
+    },
+    {
+      "id": "openverse-d2b46ad3-26ce-4a46-8013-5387464c5e17",
+      "sha256": "84e4f476b303708e2b9d93d8e45786df00cc4cb2f3857727165c44557b96b89e",
+      "reason": "Group photo of a dozen fans at a watch party; no single prominent person.",
+      "date": "2026-11-16"
     }
   ]
 }
