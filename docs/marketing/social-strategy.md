@@ -769,6 +769,29 @@ see §3, it's the only real engagement data we can get.
 
 ## 2. The weekly calendar grammar
 
+### How the calendar ships — one PR, exactly two files
+
+**Added 2026-11-16 (Tree), from Marjorie's ask #6897.** The fortnight plan ships
+as its own PR touching **only `social/calendar.md` and
+`social/calendar.brief.json`**. Both are on
+`.github/content-automerge-allowlist.txt` and both are in
+`auto-merge-content.yml`'s `paths:` trigger, so a PR limited to them arms
+auto-merge and lands the moment `build` is green. That is the *only* way the
+calendar reaches `main`: the weekly run never merges its own PR, and a plan
+sitting in a branch is a plan the daily draft run cannot read.
+
+One path outside the allow set and the whole PR declines — "the PR waits for a
+founder. That is the fail-safe direction," which is correct for merge authority
+and fatal for a calendar. PR #6744 is the worked example: the plan PR also
+edited `HUMAN-ACTIONS.md`, which is not allowlisted, so it never merged and
+`main`'s calendar expired on 2026-11-15 with nothing planned for CMA week.
+
+So anything else a weekly run wants to write — a `HUMAN-ACTIONS.md` card, a
+lessons-ledger edit, a strategy change like this one — goes in a **separate PR,
+opened after the calendar PR**, even when the files involved are themselves
+allowlisted. The plan is the one artifact with a hard deadline (the next 11:00Z
+draft run), so it travels alone and nothing else gets to strand it.
+
 ### The bar every post clears — three criteria, not an average
 
 **Added 2026-10-05 (Tree), from the owner's own words about the one post he has
