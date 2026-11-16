@@ -12,6 +12,13 @@
 //   node scripts/social/judge-drafts.mjs --dir <queue-dir> [--summary <out.md>] [--model <id>]
 //   node scripts/social/judge-drafts.mjs <file.json> [file.json …]
 //   node scripts/social/judge-drafts.mjs --sign <judged-files.json>
+// `--reasons-out <file>` writes { "<basename>": { scores, reasons } } for the drafts judged
+// this run. The reasons are deliberately NOT committed into the queue file (see
+// buildJudgeRecord); this hands them to the same run's rewrite pass
+// (scripts/social/rewrite-drafts.mjs, issue #6890) so a below-4 caption gets one rewrite that
+// is given the judge's own words instead of a dark slot. `--pass <n>` labels the summary so a
+// run that judges twice names both passes on the PR. `--already <judged-out.json>` keeps the
+// second pass from re-scoring a caption the first pass already scored for the same body.
 // The judge step runs with the Claude token and NO signing key and writes unsigned records
 // (listing them via --judged-out); the sign step runs with ONLY SOCIAL_JUDGE_KEY and adds an
 // HMAC `sig` to exactly those records. A record already in a draft is never trusted without a
@@ -64,6 +71,19 @@ export function alreadyJudged(item, model = JUDGE_MODEL, { key = '', file = '' }
   return Boolean(judge) && judge.model === model && judge.bodyHash === bodyHash(item.body) && verifyJudgeSig(judge, file, key);
 }
 
+/**
+ * True for a record THIS run already wrote for this exact body: same model, bodyHash still
+ * matching. Only ever consulted for a file named by `--already` (the `--judged-out` list of an
+ * earlier pass in the same run), where the record's provenance is this process, not the draft —
+ * so no signature is needed to trust it. It is what lets judge pass 2 score only the captions
+ * the rewrite pass actually changed: re-scoring a caption that already cleared pass 1 would let
+ * ordinary judge variance refuse a draft whose rewrite worked (#6890).
+ */
+export function judgedThisRun(item, model = JUDGE_MODEL) {
+  const judge = item?.critique?.judge;
+  return Boolean(judge) && judge.model === model && judge.bodyHash === bodyHash(item.body);
+}
+
 /** Adds `sig` to an existing judge record; null when there is nothing to sign or no key. */
 export function signItem(item, file, key) {
   if (!key || !item?.critique?.judge) return null;
@@ -97,7 +117,7 @@ function targetsFrom(args) {
     if (!dir) throw new Error('--dir requires a path');
     return readdirSync(dir).filter((f) => f.endsWith('.json')).sort().map((f) => path.join(dir, f));
   }
-  const skip = new Set(['--summary', '--model', '--judged-out']);
+  const skip = new Set(['--summary', '--model', '--judged-out', '--reasons-out', '--pass', '--already']);
   return args.filter((a, i) => !a.startsWith('--') && !skip.has(args[i - 1]));
 }
 
@@ -131,23 +151,35 @@ async function main() {
     console.log('judge-drafts: no draft files to judge.');
     return 0;
   }
+  const alreadyFlag = flag(args, '--already');
+  const already = new Set(
+    alreadyFlag ? JSON.parse(readFileSync(alreadyFlag, 'utf8')).map((f) => path.resolve(f)) : [],
+  );
   const lines = [];
   const judgedFiles = [];
+  const reasons = {};
   let failed = false;
   let allPass = true;
   for (const file of files) {
     const item = JSON.parse(readFileSync(file, 'utf8'));
-    const { item: judged, outcome } = await judgeItem(item, { model });
+    const { item: judged, outcome } = already.has(path.resolve(file)) && judgedThisRun(item, model)
+      ? { item, outcome: { status: 'skipped', reason: 'already judged in this run' } }
+      : await judgeItem(item, { model });
     if (outcome.status === 'ok') {
       writeFileSync(file, `${JSON.stringify(judged, null, 2)}\n`);
       judgedFiles.push(file);
+      reasons[path.basename(file)] = { scores: outcome.scores, reasons: outcome.reasons };
     } else if (outcome.status !== 'skipped') failed = true;
     if (checkJudge(judged, { required: true }).length > 0) allPass = false;
     lines.push(summaryLine(path.basename(file), outcome));
   }
-  const summary = `## Independent social judge (${model})\n\n${lines.join('\n')}\n`;
+  const pass = flag(args, '--pass');
+  const label = pass ? ` — judge pass ${pass}` : '';
+  const summary = `## Independent social judge (${model})${label}\n\n${lines.join('\n')}\n`;
   const judgedOut = flag(args, '--judged-out');
   if (judgedOut) writeFileSync(judgedOut, JSON.stringify(judgedFiles));
+  const reasonsOut = flag(args, '--reasons-out');
+  if (reasonsOut) writeFileSync(reasonsOut, JSON.stringify(reasons, null, 2));
   const out = flag(args, '--summary');
   if (out) writeFileSync(out, summary);
   console.log(summary);
