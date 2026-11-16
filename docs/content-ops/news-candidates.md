@@ -25,14 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 65
 
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
 - first seen: 2026-11-16 03:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
 - sources:
+  - [unverified] HITC — https://www.hitc.com/why-did-taylor-swift-miss-chiefs-vs-falcons-clash-where-travis-kelce-got-injured/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
 
 ## Travis Kelce Leaves Field Injured After Tackle
@@ -567,11 +568,3 @@ Stories: 66
 - summary: Brittany Mahomes has reacted to a pregnancy joke made about Taylor Swift, highlighting the ongoing fan discussions around Swift's personal life. The exchange continues to attract attention from both fans and media.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/patrick-mahomes-wife-brittany-reacts-080325099.html
-
-## Taylor Swift Among Stars Playing Uno, Created in Cincinnati
-
-- first seen: 2026-11-13 05:48 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift, along with other celebrities, participated in a game of Uno, which was originally developed in Cincinnati. The game's roots trace back to the city, emphasizing its cultural significance.
-- sources:
-  - [unverified] Cincinnati Enquirer — https://www.cincinnati.com/story/entertainment/2026/11/13/uno-played-by-taylor-swift-created-cincinnati-barbershop/84320017007/
