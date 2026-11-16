@@ -25,7 +25,55 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 74
+Stories: 77
+
+## Details on the 2026 CMAs including performances and viewing options
+
+- first seen: 2026-11-16 18:38 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article provides comprehensive information on the upcoming 2026 Country Music Awards, highlighting the performers and how audiences can watch the event. It serves as a guide for fans of country music and the CMAs.
+- sources:
+  - [unverified] ABC7 New York — https://abc7ny.com/story/everything-know-2026-cmas-performing-how-watch/20045058/
+
+## Taylor Swift Jokes About Grammy Nominations While Presenting 2027 Nods
+
+- first seen: 2026-11-16 18:38 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift humorously addresses her past Song of the Year losing streak during the presentation of the 2027 Grammy nominations.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-grammy-nominations-reveal-jokes-losing-streak-1236383098/
+
+## Taylor Swift Sports Good Luck Charm for Grammy Nominations
+
+- first seen: 2026-11-16 18:38 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift was seen wearing her ‘I Knew It, I Knew You’ good luck charm while celebrating her Grammy nominations. The charm is a personal item that she associates with good luck during awards season.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/11/16/style/taylor-swift-wears-i-knew-it-i-knew-you-horseshoe-necklace-for-grammys-2027-nominations/
+
+## Taylor Swift Comments on Grammy Nominations Record
+
+- first seen: 2026-11-16 18:38 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift humorously noted her record tie in a particular Grammy category, mentioning that she remains '0 for 8' in wins. This remark highlights her ongoing presence in the awards conversation.
+- sources:
+  - [established] People — https://people.com/taylor-swift-appears-during-2027-grammys-nominations-ties-album-of-the-year-record-12258272
+
+## Taylor Swift and Travis Kelce Receive Support Over Ohio Home Backlash
+
+- first seen: 2026-11-16 18:38 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce have reportedly found support from neighbors as they face backlash regarding their Ohio home. The couple has been under public scrutiny, but reports indicate local residents are standing by them.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-find-neighborly-support-amid-backlash-over-ohio-home
+
+## Taylor Swift Announces CMA Stage Return After 13 Years
+
+- first seen: 2026-11-16 18:38 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has confirmed her return to the CMA stage after a 13-year absence. This appearance marks her much-anticipated comeback to the iconic country music event.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-return-cma-stage-153731696.html
 
 ## Taylor Swift Nominated for 2027 Grammy Awards
 
@@ -99,14 +147,6 @@ Stories: 74
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438148/taylor-swifts-surprise-appearance-during-grammys-2027-nominations
 
-## Taylor Swift Not Nominated for Best Pop Vocal Album at 2027 Grammys
-
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has not received a nomination for Best Pop Vocal Album at the 2027 Grammy Awards. The nominations were led by Raye, with Beyoncé Knowles-Carter achieving 100 career nominations and newcomer Ella Langley recognized in all four major categories.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/2027-grammy-nominations-taylor-swift-raye-beyonce-1239418518/
-
 ## Taylor Swift Receives 5 Grammy Nominations This Year
 
 - first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
@@ -114,6 +154,14 @@ Stories: 74
 - summary: Taylor Swift has been nominated for five Grammy Awards, although she did not receive a nomination in a key category. Details on the nominations can be found in the full article.
 - sources:
   - [unverified] Gold Derby — https://www.goldderby.com/music/2026/taylor-swift-grammys-2027-nominations-analysis/
+
+## Taylor Swift Not Nominated for Best Pop Vocal Album at 2027 Grammys
+
+- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has not received a nomination for Best Pop Vocal Album at the 2027 Grammy Awards. The nominations were led by Raye, with Beyoncé Knowles-Carter achieving 100 career nominations and newcomer Ella Langley recognized in all four major categories.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/2027-grammy-nominations-taylor-swift-raye-beyonce-1239418518/
 
 ## Ice Spice and Millie Bobby Brown Form Close Bond at Taylor Swift’s Wedding
 
@@ -610,27 +658,3 @@ Stories: 74
 - sources:
   - [established] People — https://people.com/cara-delevingne-calls-bestie-taylor-swift-wedding-to-travis-kelce-an-absolute-highlight-of-her-year-exclusive-12252662
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-travis-kelce-wedding-180219938.html
-
-## Taylor Swift to Perform at CMAs After 13-Year Hiatus
-
-- first seen: 2026-11-13 17:57 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the Country Music Association Awards (CMAs) for the first time in 13 years. This performance marks a significant return for the pop icon to the country music stage.
-- sources:
-  - [unverified] Good Morning America — https://www.goodmorningamerica.com/culture/story/taylor-swift-perform-cmas-1st-time-13-years-138104764
-
-## Taylor Swift and Travis Kelce Request Something Special From Wedding Guests
-
-- first seen: 2026-11-13 17:57 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have requested guests not to bring gifts to their wedding but have asked for something else instead. Specifics about what they are requesting remain undisclosed.
-- sources:
-  - [unverified] Cinemablend — https://www.cinemablend.com/streaming-news/taylor-swift-travis-kelce-no-gifts-wedding-they-ask-guests-something
-
-## Taylor Swift to Perform at CMAs After 13-Year Hiatus
-
-- first seen: 2026-11-13 17:57 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to make her first performance at the Country Music Association Awards in 13 years. This marks a significant return to the event for the artist.
-- sources:
-  - [unverified] WBAL News Radio — https://www.wbal.com/taylor-swift-to-perform-at-cmas-for-1st-time-in-13-years
