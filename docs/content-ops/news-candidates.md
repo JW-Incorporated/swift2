@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 68
+Stories: 66
 
 ## Taylor Swift and Dakota Johnson Sport Autumn's Mouse Haircut Trend
 
@@ -573,35 +573,3 @@ Stories: 68
 - summary: Reports indicate that Taylor Swift is making lifestyle changes, including putting a hobby on hold, for Travis Kelce. This marks a notable shift in her routine as the pair navigate their relationship.
 - sources:
   - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/travis-kelce-sees-a-significant-lifestyle-change-as-taylor-swift-reportedly-puts-her-hobby-on-hold-for-him-12319381
-
-## New Crossword Features Taylor Swift Songs
-
-- first seen: 2026-11-13 00:22 UTC | category: music | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: A new crossword puzzle featuring titles from Taylor Swift's discography has been published by Scot Scoop News. This engaging activity allows fans to test their knowledge of her songs.
-- sources:
-  - [unverified] Scot Scoop News — https://scotscoop.com/crossword-taylor-swift-songs/
-
-## Taylor Swift to Receive Sherry Lansing Leadership Award at Women in Entertainment Gala
-
-- first seen: 2026-11-13 00:22 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 17
-- summary: Taylor Swift is set to be honored with The Hollywood Reporter’s Sherry Lansing Leadership Award at the Women in Entertainment Gala, which will take place at Loyola Marymount University.
-- sources:
-  - [unverified] - Saving Country Music — https://savingcountrymusic.com/on-taylor-swift-playing-the-2026-cma-awards/
-  - [unverified] ABC11 News — https://abc11.com/post/cma-awards-2026-preview-lainey-wilson-ella-langley-taylor-swift-lead-country-musics-big-night/20028284/
-  - [unverified] Country 103.7 Charlotte — https://country1037fm.com/2026/11/13/taylor-swift-set-to-perform-at-2026-cma-awards/
-  - [unverified] Countrytown — https://countrytown.com/news/taylor-swift-perform-cma-awards-first-time-in-13-years/jEUynoGAg4I/14-11-26
-  - [unverified] FOX 17 West Michigan News — https://www.fox17online.com/videos/news/national-news/taylor-swift-is-headed-back-to-country-musics-biggest-night-performing-at-the-cma-awards-for-the-first-time-in-13-years
-  - [unverified] KCTV — https://www.kctv5.com/video/2026/11/13/taylor-swift-perform-cma-awards-first-time-13-years/
-  - [unverified] Loyola Marymount University — https://newsroom.lmu.edu/lmu-in-the-news/the-hollywood-reporter-taylor-swift-will-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-at-women-in-entertainment-gala/
-  - [established] People — https://people.com/taylor-swift-to-perform-at-the-2026-cma-awards-12252679
-  - [unverified] Rural Radio Network — https://ruralradio.com/maxcountry/abc_news/taylor-swift-to-be-honored-with-the-hollywood-reporters-sherry-lansing-leadership-award-abcide22d3bf1/
-  - [unverified] Scripps News — https://www.scrippsnews.com/entertainment/music/taylor-swift-makes-cma-awards-comeback-13-years-after-last-performance
-  - [unverified] Showbiz411 — https://www.showbiz411.com/2026/11/13/taylor-swift-oscar-grammy-campaigns-continue-shell-play-live-on-cma-awards-next-week-appearing-for-first-time-in-13-yes-13-years
-  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-perform-2026-cma-awards-1236754753/
-  - [unverified] upi — https://www.upi.com/Entertainment_News/Music/2026/11/13/taylor-swift-perform-cma-awards/2241794587546/
-  - [unverified] USA Today — https://www.aol.com/articles/taylor-swift-says-toy-story-225303000.html
-  - [unverified] WSMV — https://www.wsmv.com/2026/11/13/taylor-swift-perform-60th-cma-awards-nashville-first-time-13-years/
-  - [unverified] WZTV — https://fox17.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perfom-cma-awards-164004454.html
