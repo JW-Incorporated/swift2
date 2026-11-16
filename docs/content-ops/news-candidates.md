@@ -27,6 +27,14 @@ so far".
 
 Stories: 66
 
+## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
+
+- first seen: 2026-11-16 03:39 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
+
 ## Travis Kelce Leaves Field Injured After Tackle
 
 - first seen: 2026-11-16 02:39 UTC | category: relationship | importance: 5
@@ -567,11 +575,3 @@ Stories: 66
 - summary: Taylor Swift, along with other celebrities, participated in a game of Uno, which was originally developed in Cincinnati. The game's roots trace back to the city, emphasizing its cultural significance.
 - sources:
   - [unverified] Cincinnati Enquirer — https://www.cincinnati.com/story/entertainment/2026/11/13/uno-played-by-taylor-swift-created-cincinnati-barbershop/84320017007/
-
-## Revealed: The Story Behind Taylor Swift and Karlie Kloss's Fallout
-
-- first seen: 2026-11-13 02:48 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Insiders share the untold details regarding Taylor Swift's dramatic fallout with Karlie Kloss.
-- sources:
-  - [unverified] Bored Panda — https://www.boredpanda.com/insiders-spill-taylor-swift-karlie-kloss-dramatic-fallout-after-reunion/
