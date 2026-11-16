@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 66
+Stories: 70
+
+## Taylor Swift Invites Olivia Rodrigo for a Collaboration
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has invited fellow artist Olivia Rodrigo to collaborate on a project, as reported by The Onion.
+- sources:
+  - [unverified] The Onion — https://theonion.com/taylor-swift-invites-olivia-rodrigo-to-collab-under-box-propped-up-by-stick/
+
+## 2027 Grammy Nominees for Album Of The Year Announced
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: The nominees for Album Of The Year at the 2027 Grammy Awards include Rosalía, Phoebe Bridgers, and Taylor Swift, highlighting a diverse array of talent in the music industry.
+- sources:
+  - [established] Stereogum — https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news
+
+## Taylor Swift Sets Record for Consecutive Album of the Year Nominations
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has achieved a significant milestone by tying the Grammy record for consecutive Album of the Year nominations. This accomplishment highlights her impact and consistent performance in the music industry.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-ties-grammy-record-album-of-the-year-1236948334/
+
+## 2027 Grammy Award Nominees Announced
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A partial list of nominees for the 2027 Grammy Awards has been released, showcasing various artists and categories. The complete list and details are expected to follow soon.
+- sources:
+  - [unverified] WRAL — https://www.wral.com/news/ap/a481a-partial-list-of-2027-grammy-award-nominees/
+
+## Taylor Swift Nominated for 2027 Grammy Award
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has received a nomination for Album of the Year at the 2027 Grammy Awards for her work titled 'The Fate of Ophelia'. The nominations also feature several other prominent artists including Raye, Rosalía, and Olivia Rodrigo.
+- sources:
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/nov/16/grammy-nominations-2027-album-of-the-year
+
+## Taylor Swift Ties Album of the Year Record at Grammy Nominations
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has tied the record for Album of the Year nominations at the Grammys, according to TheWrap. Raye is also recognized for leading the Grammy nominations this year.
+- sources:
+  - [unverified] TheWrap — https://www.thewrap.com/creative-content/music/grammy-nominations-2026-list/
+
+## Taylor Swift Nominated for Five Grammys for 2027 Awards
+
+- first seen: 2026-11-16 15:32 UTC | category: music | importance: 9
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has received five Grammy nominations, highlighting her album 'The Life of a Showgirl' and her track for 'Toy Story 5'. The awards ceremony is scheduled for February 2027.
+- sources:
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-grammy-nominations-2027-1236755878/
+
+## Beyoncé and Taylor Swift Highlight Grammys 2027 History
+
+- first seen: 2026-11-16 15:32 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Beyoncé, Taylor Swift, and others are making notable contributions to the history of the Grammys for 2027. This event reflects their impact on the music industry as they prepare for future nominations and achievements.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1437974/grammys-2027-nominations-beyonce-taylor-swift-more-make-history
 
 ## Kathy Griffin Critiques Taylor Swift's Fanbase and Calls Star Mediocre
 
@@ -46,18 +110,13 @@ Stories: 66
 ## 2027 Grammy Nominations Announced Live
 
 - first seen: 2026-11-16 13:22 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
+- verification_status: corroborated | source_count: 4
 - summary: The Recording Academy is announcing nominees for the 2027 Grammy Awards live on Monday morning. The reveal includes all 100 categories and is hosted by CEO Harvey Mason Jr. with celebrity guests.
 - sources:
+  - [unverified] Haute Living — https://hauteliving.com/2026/11/2027-grammy-nominations/802693/
+  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/nov/16/grammy-nominations-2027-female-artists
+  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2027-grammys-nominees-list-1236755720/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-nominations-2027-complete-list-2-1236948743/
-
-## Taylor Swift Earns 2027 Grammy Nominations
-
-- first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among the artists nominated for the 2027 Grammy Awards. A full list of nominees has been published by The Boston Globe.
-- sources:
-  - [unverified] The Boston Globe — https://www.bostonglobe.com/2026/11/16/arts/2027-grammy-nominees/
 
 ## Taylor Swift Joins 2026 CMA Awards Performer Lineup
 
@@ -67,14 +126,24 @@ Stories: 66
 - sources:
   - [unverified] CelebrityAccess — https://celebrityaccess.com/2026/11/16/taylor-swift-luke-combs-chris-stapleton-and-more-added-to-2026-cma-awards-performer-lineup/
 
+## Taylor Swift Earns 2027 Grammy Nominations
+
+- first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift is among the artists nominated for the 2027 Grammy Awards. A full list of nominees has been published by The Boston Globe.
+- sources:
+  - [unverified] The Boston Globe — https://www.bostonglobe.com/2026/11/16/arts/2027-grammy-nominees/
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/16/grammys-2027-nominations-list/92733138007/
+
 ## Taylor Swift's The Life of a Showgirl: The Encore Not Eligible for 2027 Grammys
 
 - first seen: 2026-11-16 11:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: E! News reports that Taylor Swift’s upcoming project, The Life of a Showgirl: The Encore, will not be eligible for the 2027 Grammy Awards. Details on the reasons behind this decision are yet to be clarified.
 - sources:
   - [unverified] AOL.com — https://www.aol.com/articles/why-taylor-swifts-em-showgirl-110000000.html
   - [unverified] E! News — https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-2025-album-life-of-a-showgirl-nominated-2027-grammys-explainer-12253055
 
 ## Taylor Swift Set to Perform at CMA Awards After 13 Years
 
@@ -531,38 +600,3 @@ Stories: 66
 - summary: Taylor Swift is set to perform at the upcoming CMA Awards, marking her first appearance in 13 years. Her song, "I Knew It, I Knew You," from the Toy Story 5 soundtrack, has been nominated for Single of the Year.
 - sources:
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-will-perform-2026-cma-awards-1235657442/
-
-## Taylor Swift to Perform at 60th Annual CMA Awards
-
-- first seen: 2026-11-13 14:57 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is set to take the stage at the 60th Annual CMA Awards, showcasing her talent at this prestigious event. Fans eagerly anticipate her performance during the award ceremony.
-- sources:
-  - [unverified] Pollstar News — https://news.pollstar.com/2026/11/13/taylor-swift-to-perform-at-the-60th-annual-cma-awards/
-  - [unverified] The Music Universe — https://themusicuniverse.com/taylor-swift-to-perform-at-60th-annual-cma-awards/
-
-## Taylor Swift to Perform at CMAs After 13 Years
-
-- first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to take the stage at the Country Music Association Awards for the first time in 13 years, marking a significant return to the event.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-perform-cmas-1st-133205847.html
-
-## Taylor Swift Set to Perform at CMAs After 13-Year Hiatus
-
-- first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift will be performing at the Country Music Association Awards (CMAs) for the first time in 13 years, marking a significant return to the event.
-- sources:
-  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/GMA/Culture/taylor-swift-perform-cmas-1st-time-13-years/story?id=138104764
-
-## Taylor Swift Set to Perform at CMA Awards After 13-Year Hiatus
-
-- first seen: 2026-11-13 14:02 UTC | category: tour | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift will be making her return to the CMA Awards stage, performing for the first time in 13 years. This marks a significant moment in her career as she reconnects with the country music scene.
-- sources:
-  - [unverified] KATU — http://www.kunptv.com/news/entertainment/taylor-swift-performing-at-60th-annual-cma-awards-in-nashville-tennessee-country-music-i-knew-it-i-knew-you-single-of-the-year-nomination
-  - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/11/13/taylor-swift-2026-cma-awards-performance/92563780007/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/concerts/articles/taylor-swift-perform-60th-cma-141546824.html
