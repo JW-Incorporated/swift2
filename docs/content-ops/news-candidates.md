@@ -27,6 +27,22 @@ so far".
 
 Stories: 78
 
+## Taylor Swift Discusses Friendship Dynamics After Blake Lively Fallout
+
+- first seen: 2026-11-16 22:27 UTC | category: relationship | importance: 6
+- verification_status: single_source | source_count: 0
+- summary: In a recent interview, Taylor Swift reflected on her experiences with friendship, specifically mentioning her interactions with certain friends after her fallout with Blake Lively.
+- sources:
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMipAFBVV95cUxNVkdqZjhQaVM3aWRDQ2hUNWxfa2xMX2JuVF9PNlJRRm5UR2JJT3NycENEcmxKbFlLckZLVi1UcnBiYTI4NDl0NHk5dk5MRG9EaGl4ME92WnZtU3dWSUowZ21WVWRrdXFac0VCN0trMl9NdDZQejV1R09KVlAydGhkRlRFYU5pWHJZZk9DaHJHR2RfU0NxOXRxclNtdUhsQzM1QjlEdw?oc=5
+
+## Taylor Swift Returns to the CMAs Among Other Entertainment News
+
+- first seen: 2026-11-16 22:27 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift's return to the CMAs is highlighted in a report on recent entertainment news, alongside Robert Pattinson becoming the new James Bond.
+- sources:
+  - [unverified] unknown — https://www.dcnewsnow.com/living-local-dmv/robert-pattinson-becomes-the-new-james-bond-taylor-swift-returns-to-the-cmas-and-more-entertainment-news/
+
 ## Taylor Swift's Grammy Nomination Look Highlights Significant Easter Eggs
 
 - first seen: 2026-11-16 21:27 UTC | category: fashion | importance: 5
@@ -651,19 +667,3 @@ Stories: 78
 - summary: An article discusses Taylor Swift's unexpected decision to return to the Country Music Association Awards, despite her already established success. The piece explores her motivations for appearing at the event.
 - sources:
   - [unverified] Inc.com — https://www.inc.com/kamya-marwah/taylor-swift-cma-awards-return-branding-strategy/91436587
-
-## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
-
-- first seen: 2026-11-13 22:26 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to return to the CMA Awards stage for the first time in 13 years. This performance marks a significant moment in her music career at this prestigious country music event.
-- sources:
-  - [unverified] Buckeye Country 105.5 — https://buckeyecountry105.iheart.com/content/2026-11-13-taylor-swift-to-return-to-cma-awards-stage-13-years-after-her-last-performance/
-
-## Taylor Swift Comments on Raising Children After Marriage to Tracis Kelce
-
-- first seen: 2026-11-13 22:26 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift shares her thoughts on raising children in a rare comment, following her wedding to Tracis Kelce four months ago. This remark highlights her personal reflections on family life.
-- sources:
-  - [unverified] HELLO! — https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/
