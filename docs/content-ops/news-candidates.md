@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 63
+Stories: 64
+
+## Taylor Swift Set to Perform at CMA Awards After 13 Years
+
+- first seen: 2026-11-16 10:48 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is confirmed to return to the CMA Awards stage for her first performance in 13 years, marking a significant moment for the artist and the awards event.
+- sources:
+  - [unverified] KTNN — https://www.ktnnonline.com/2026/11/16/taylor-swift-to-return-to-cma-awards-stage-for-first-performance-in-13-years/
 
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
