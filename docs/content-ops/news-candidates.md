@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 64
+Stories: 63
 
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
@@ -551,11 +551,3 @@ Stories: 64
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/movies/2026/11/13/taylor-swift-toy-story-5-song-oscars/92766305007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-to-perform-cma-awards-first-time-13-years-1236946968/
   - [unverified] WKRN News 2 — https://www.wkrn.com/video/taylor-swift-to-perform-at-60th-cma-awards/12367805/
-
-## Taylor Swift and Travis Kelce Share New Photo Amid Wedding Detail Reveal
-
-- first seen: 2026-11-13 09:46 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A newly surfaced photo of Taylor Swift and Travis Kelce has emerged, coinciding with the revelation of a heartfelt detail from their wedding. The couple continues to attract attention with their public appearances.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/celebrities/taylor-swift-and-travis-kelce-pose-for-rare-new-photo-as-sweet-detail-from-their-wedding-comes-to-light
