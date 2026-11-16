@@ -3410,6 +3410,20 @@
       "sha256": "1ac7e09681d2f709bce267306dc3b6f2b831baceacdaec7aa38d33a01196ffad"
     },
     {
+      "id": "press-88a065f1e736",
+      "mediaPath": "/social/library/photos/press-88a065f1e736.jpg",
+      "source": "https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-kansas-city-chiefs-atlanta-falcons-game/",
+      "alt": "Taylor Swift in the news: Is Taylor Swift at the Kansas City Chiefs-Atlanta Falcons Game?",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Us Weekly",
+      "width": 1334,
+      "height": 702,
+      "bytes": 91545,
+      "sha256": "f2b9af4f7ab2d19eeaa00acca85b8694452e8512fba37d71790dd527c85a509e"
+    },
+    {
       "id": "press-8da242d3fd5e",
       "mediaPath": "/social/library/photos/press-8da242d3fd5e.jpg",
       "source": "https://www.vulture.com/article/taylor-swift-is-campaigning-correctly-in-2027-oscars-run.html",
@@ -3464,6 +3478,20 @@
       "height": 1125,
       "bytes": 115266,
       "sha256": "7add819ba71c484d7cb5831fd3cd49f5a87666f3504ed3b9679a624e9c5bf91a"
+    },
+    {
+      "id": "press-c52ab1258aa2",
+      "mediaPath": "/social/library/photos/press-c52ab1258aa2.jpg",
+      "source": "https://www.usmagazine.com/entertainment/news/taylor-swifts-quotes-about-returning-to-country-roots/",
+      "alt": "Taylor Swift in the news: Taylor Swift's Quotes About Returning to Country Roots",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Us Weekly",
+      "width": 1432,
+      "height": 752,
+      "bytes": 104649,
+      "sha256": "394ac3ea9a77c27ce4e4a699333fdb325384c57eeb7705573789cba59aa14ac7"
     },
     {
       "id": "press-cb56c13b2f20",
