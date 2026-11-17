@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 90
+Stories: 91
+
+## Taylor Swift Reflects on Friendship Amid Recent Updates
+
+- first seen: 2026-11-17 15:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's recent comments on friendship resonate in light of updates regarding her relationships with Karlie Kloss and Blake Lively. This has sparked interest among fans about her views on personal connections.
+- sources:
+  - [unverified] Cinemablend — https://www.cinemablend.com/television/taylor-swift-discusses-friendship-amidst-karlie-kloss-blake-lively-updates
+
+## 2027 Grammy Nominations Announced
+
+- first seen: 2026-11-17 15:17 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The list of nominees for the 2027 Grammy Awards has been released by TODAY.com. Fans can now see which artists are in contention for music's prestigious honors.
+- sources:
+  - [unverified] TODAY.com — https://www.today.com/popculture/awards/grammy-nominations-2027-rcna608836
 
 ## Taylor Swift Surprises Fans Post Chiefs-Falcons Game
 
@@ -754,11 +770,3 @@ Stories: 90
 - summary: Taylor Swift has made rare comments regarding raising children, shortly after her wedding to Travis Kelce four months ago. The statements reflect her views on family life post-marriage.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-makes-rare-comments-165010688.html
-
-## Taylor Swift Shares Holiday Update Ahead of NFL Game
-
-- first seen: 2026-11-14 15:07 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has released a significant update regarding the holidays just days before the Kansas City Chiefs face the Atlanta Falcons. The news connects her to the ongoing NFL events drawing fan attention.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-drops-big-holiday-update-days-before-kansas-city-chiefs-atlanta-falcons-game-12326557
