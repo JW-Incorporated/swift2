@@ -1,7 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
 import { setTracksRawProvider, trackKey } from '@swift2/experience';
 
-const item = { id: 'interrupted-speech', slug: 'interrupted-speech-slug' };
+const item = {
+  id: 'interrupted-speech',
+  slug: 'interrupted-speech-slug',
+  eraId: 'fearless',
+  title: 'The interrupted speech',
+  dateLabel: 'September 2009',
+  summary: 'A defining public turning point.',
+};
 const track = { title: 'Fearless', note: 'A rushing first-love anthem.', trackNumber: 1 };
 
 vi.mock('@/components/longlive/LongLive', () => ({ LongLive: () => null }));
@@ -17,7 +24,13 @@ function searchParams(params: Record<string, string>) {
   return Promise.resolve(params);
 }
 
-const metadataFor = (params: Record<string, string>) => generateMetadata({ searchParams: searchParams(params) });
+const parent = Promise.resolve({
+  title: { absolute: 'Long Live — a time machine' },
+  openGraph: { title: 'Long Live', description: 'Generic.', type: 'website', url: '/' },
+  twitter: { card: 'summary_large_image', title: 'Long Live', description: 'Generic.' },
+}) as never;
+
+const metadataFor = (params: Record<string, string>) => generateMetadata({ searchParams: searchParams(params) }, parent);
 
 describe('generateMetadata (og:image selection)', () => {
   it('points at the lens card for a recognized lens', async () => {
@@ -31,12 +44,25 @@ describe('generateMetadata (og:image selection)', () => {
     expect(meta.openGraph?.images).toEqual(['/api/og?mode=clownbot']);
   });
 
-  it('falls back to no override for an unrecognized lens with no mode', async () => {
-    await expect(metadataFor({ lens: 'not-real' })).resolves.toEqual({});
+  it('keeps generic text and image for an unrecognized lens with no mode', async () => {
+    const meta = await metadataFor({ lens: 'not-real' });
+    expect(meta.title).toBeUndefined();
+    expect(meta.description).toBeUndefined();
+    expect(meta.openGraph?.images).toBeUndefined();
   });
 
-  it('falls back to no override for a bare homepage (no params)', async () => {
-    await expect(metadataFor({})).resolves.toEqual({});
+  it('makes home og:title and twitter:title match the document title', async () => {
+    const meta = await metadataFor({});
+    expect(meta.openGraph).toMatchObject({ title: 'Long Live — a time machine', description: 'Generic.' });
+    expect(meta.twitter).toMatchObject({ title: 'Long Live — a time machine' });
+  });
+
+  it('sets text metadata from the resolved item', async () => {
+    const meta = await metadataFor({ item: item.id });
+    expect(meta.title).toBe('The interrupted speech — Long Live');
+    expect(meta.description).toBe('A defining public turning point.');
+    expect(meta.openGraph).toMatchObject({ title: 'The interrupted speech — Long Live', description: 'A defining public turning point.' });
+    expect(meta.twitter).toMatchObject({ title: 'The interrupted speech — Long Live', description: 'A defining public turning point.' });
   });
 
   it('an invalid lens paired with a valid mode uses the mode, not the invalid lens', async () => {
@@ -59,6 +85,8 @@ describe('generateMetadata (og:image selection)', () => {
   });
 
   it('uses the static fallback for an invalid target', async () => {
-    await expect(metadataFor({ era: 'not-an-era' })).resolves.toEqual({});
+    const meta = await metadataFor({ era: 'not-an-era' });
+    expect(meta.title).toBeUndefined();
+    expect(meta.openGraph?.images).toBeUndefined();
   });
 });

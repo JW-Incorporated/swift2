@@ -12,6 +12,17 @@ import {
 } from '@swift2/shared';
 import { fetchDevicePrefs, setCategoryCadence } from './prefs-client';
 
+// A push that arrives while the app is open: without a handler expo-notifications shows nothing. Banner + list, no
+// sound, no badge change. iOS shows a banner; Android (silent) delivers to the notification shade with no heads-up.
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowBanner: true,
+    shouldShowList: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 const MUTE_ACTION_ID = 'mute-this-type';
 const SETTINGS_ACTION_ID = 'open-settings';
 

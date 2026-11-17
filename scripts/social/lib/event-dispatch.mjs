@@ -8,8 +8,6 @@
 // Deterministic and deliberately cheap — Tree's own run still decides draft vs.
 // decline against the rubric and the #36 blocklist; this only bounds WHICH
 // events get a run, and how many per day.
-import { keywordsOf, textMatches } from '../../marjorie/lib/growth-coverage.mjs';
-
 /** Dedupe marker, put on the intake issue BEFORE dispatching (never re-dispatched). */
 export const DISPATCH_LABEL = 'tree-event-dispatched';
 // 48h, matching docs/marketing/social-strategy.md §1(e2)'s own same-day floor
@@ -64,6 +62,75 @@ export function titleTokens(title) {
   return new Set(words);
 }
 
+// --- The already-covered gate (#6526) ----------------------------------------
+// Until 2026-11-02 this was growth-coverage's keywordsOf/textMatches: the
+// headline's capitalised words, SUBSTRING-matched, 2 hits anywhere in the whole
+// posted corpus. On the week to 2026-11-01 that marked every one of the 27
+// site-covered moments "already covered" and 0 reached social. `Eras` and `Tour`
+// (#6448) hit every Eras Tour post ever made; `Sam` (#6484) hit the word "same";
+// and the news desk's publisher/date tail — "(KVOA, Oct 30 2026)" — contributed
+// matchable tokens of its own.
+//
+// growth-coverage keeps that matcher on purpose: it is tuned for recall on the
+// weekly growth review, where its output is a hint a reviewer re-checks. A
+// dispatch gate gets no second look, so it needs the opposite bias — hence this
+// local rule: a recent item (48h, the same window the scan itself uses) that
+// either names the intake issue or shares MOST of the headline's distinctive
+// words as WHOLE words.
+export const COVERED_WINDOW_HOURS = EVENT_WINDOW_HOURS;
+/** Share of the headline's distinctive words a recent item must carry (floor of 2). */
+export const COVERED_MIN_RATIO = 0.6;
+// The news desk appends its source to every headline: "(The Times, Oct 29 2026)",
+// "(SI/Fox News-OutKick, Oct 18 2026)". Those words are about provenance, never
+// the story, and a post never repeats them — so they are dropped before counting.
+const ATTRIBUTION_RE = /\s*\([^()]*\b(?:19|20)\d{2}\b[^()]*\)\s*$/;
+
+/** The headline's own distinctive words, without the news desk's source/date tail. */
+export function storyTokens(title) {
+  return titleTokens(String(title ?? '').replace(ATTRIBUTION_RE, ''));
+}
+
+/** The prose a social item can show this story in. */
+const itemText = (data) => `${data?.body ?? ''} ${data?.campaign ?? ''} ${data?.why ?? ''}`;
+
+/** When a social item speaks for: posted time, else the slot it is scheduled into. */
+function itemTimeMs(data) {
+  for (const value of [data?.postedAt, data?.scheduledAt]) {
+    const at = Date.parse(value ?? '');
+    if (Number.isFinite(at)) return at;
+  }
+  return null;
+}
+
+/**
+ * The recent social item that already covers this intake story, or null.
+ * `issue`: `{ number, title }`; `socialItems`: `{ ref, data }` of everything
+ * posted/queued/in an open draft PR.
+ *
+ * Two paths, either one enough: the item NAMES the intake issue (`#6448` in its
+ * body/campaign/why — what an event draft writes), or it carries most of the
+ * headline's distinctive words as whole words. Only items timestamped inside
+ * `windowHours` count; an undated item still counts, because the only shape that
+ * reaches here undated is a draft in flight, which is current by nature.
+ */
+export function coveredBy(issue, socialItems, { nowMs, windowHours = COVERED_WINDOW_HOURS } = {}) {
+  const tokens = [...storyTokens(issue?.title)];
+  const need = Math.max(2, Math.ceil(tokens.length * COVERED_MIN_RATIO));
+  const floor = nowMs - windowHours * 3_600_000;
+  const mention = Number.isFinite(Number(issue?.number)) ? new RegExp(`(^|[^\\w/])#${Number(issue.number)}(?!\\d)`) : null;
+  for (const item of socialItems ?? []) {
+    if (!item?.data) continue;
+    const at = itemTimeMs(item.data);
+    if (at !== null && at < floor) continue;
+    const text = itemText(item.data);
+    if (mention?.test(text)) return { ref: item.ref ?? null, via: 'intake issue reference' };
+    const words = titleTokens(text);
+    const shared = tokens.filter((t) => words.has(t));
+    if (shared.length >= need) return { ref: item.ref ?? null, via: `${shared.length}/${tokens.length} headline words: ${shared.join(', ')}` };
+  }
+  return null;
+}
+
 /**
  * The site-fronted moment this intake title is the same story as, or null.
  * `siteMoments`: the latest new-on-site feed's `moments` (`{ id, title }`).
@@ -114,7 +181,8 @@ export function judgeTitle(title, { siteFronted = false } = {}) {
 
 /**
  * `issues`: `{ number, title, createdAt, labels: string[] }` (open intake issues);
- * `socialItems`: `{ data }` of everything posted/queued/in an open draft PR;
+ * `socialItems`: `{ ref, data }` of everything posted/queued/in an open draft
+ * PR — only the last `windowHours` of it can mark a story covered (`coveredBy`);
  * `siteMoments`: the latest new-on-site feed's `moments` — a match promotes an
  * issue past TIMELY_RE and sorts it ahead of ordinary news (§1(e2));
  * `dispatchedToday`: how many events were already dispatched this UTC day.
@@ -132,8 +200,8 @@ export function pickEvents({ issues, socialItems, siteMoments, nowMs, dispatched
     const moment = siteFrontedMoment(issue.title, siteMoments);
     const verdict = judgeTitle(issue.title, { siteFronted: Boolean(moment) });
     if (!verdict.ok) { skip(verdict.why); continue; }
-    const keywords = keywordsOf(issue.title);
-    if ((socialItems ?? []).some(({ data }) => textMatches(`${data?.body ?? ''} ${data?.campaign ?? ''} ${data?.why ?? ''}`, keywords))) { skip('already covered by a posted/queued/drafted item'); continue; }
+    const covered = coveredBy(issue, socialItems, { nowMs, windowHours });
+    if (covered) { skip(`already covered by a posted/queued/drafted item${covered.ref ? ` — ${covered.ref} (${covered.via})` : ''}`); continue; }
     eligible.push({ issue, moment });
   }
   eligible.sort((a, b) => Number(Boolean(b.moment)) - Number(Boolean(a.moment)) || Date.parse(b.issue.createdAt) - Date.parse(a.issue.createdAt));

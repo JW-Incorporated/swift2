@@ -22,6 +22,12 @@ describe('EXTRACT_SYSTEM_PROMPT — Card 2 copy standard', () => {
     expect(EXTRACT_SYSTEM_PROMPT).toMatch(/[Nn]ever invent a fact/);
   });
 
+  it('keeps facts about the event, never about the fetch or the page', () => {
+    expect(EXTRACT_SYSTEM_PROMPT).toContain(
+      "Facts describe the event only. Never emit a fact about the fetch, the page, the article's structure or missing content; if the page has no usable statements, return an empty facts list.",
+    );
+  });
+
   it('extends the no-invention rule to the newly added article text', () => {
     expect(EXTRACT_SYSTEM_PROMPT.toLowerCase()).toContain('article text');
     expect(EXTRACT_SYSTEM_PROMPT).toMatch(/article text.*untrusted source material/i);

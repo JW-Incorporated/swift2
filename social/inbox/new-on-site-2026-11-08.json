@@ -1,0 +1,67 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-08",
+  "windowDays": 7,
+  "since": "2026-11-01T00:00:00.000Z",
+  "count": 4,
+  "media": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg",
+    "https://wwd.com/wp-content/uploads/2026/11/WI26_TH_PerfectHoliday_MSW_TRAVISKELCE_03.jpg?w=1200",
+    "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-at-a-toy-story-5-screening-taylor-tells-the-room-about-abiga",
+      "eraId": "tloas",
+      "title": "At a Toy Story 5 screening, Taylor tells the room about Abigail",
+      "year": 2026,
+      "month": 11,
+      "day": 1,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-at-a-toy-story-5-screening-taylor-tells-the-room-about-abiga",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+    },
+    {
+      "id": "vault-tloas-i-knew-it-i-knew-you-picks-up-a-hollywood-music-in-media-nod",
+      "eraId": "tloas",
+      "title": "\"I Knew It, I Knew You\" picks up a Hollywood Music in Media nod",
+      "year": 2026,
+      "month": 11,
+      "day": 2,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-i-knew-it-i-knew-you-picks-up-a-hollywood-music-in-media-nod",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+    },
+    {
+      "id": "vault-tloas-the-cancelled-vienna-shows-get-their-own-documentary-taylor-",
+      "eraId": "tloas",
+      "title": "The cancelled Vienna shows get their own documentary, \"Taylor Swift Wien\"",
+      "year": 2026,
+      "month": 11,
+      "day": 5,
+      "category": "tour",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-the-cancelled-vienna-shows-get-their-own-documentary-taylor-",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg"
+    },
+    {
+      "id": "vault-tloas-travis-kelce-on-his-first-holiday-as-a-married-man",
+      "eraId": "tloas",
+      "title": "Travis Kelce on his \"first holiday as a married man\"",
+      "year": 2026,
+      "month": 11,
+      "day": 5,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-travis-kelce-on-his-first-holiday-as-a-married-man",
+      "mediaKind": "photo",
+      "media": "https://wwd.com/wp-content/uploads/2026/11/WI26_TH_PerfectHoliday_MSW_TRAVISKELCE_03.jpg?w=1200"
+    }
+  ]
+}

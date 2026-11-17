@@ -33,7 +33,7 @@ async function pairFromPrecompute(extraPosted: Array<{ ref: string; data: Record
   const photo = inputs.photos.eras.debut.next;
   expect(beat.needsDraft).toBe(true);
   const base = { lane: 'calendar', campaign: 'heartbeat:era-deep-cut:debut-2007-2026-10-01', scheduledAt: '2026-10-01T23:00:00Z', media: photo.media, mediaKind: 'photo', photoId: photo.photoId, photoEra: 'debut', mediaCredit: photo.mediaCredit, mediaSource: photo.mediaSource, altText: photo.altText, why: 'Calendar 10-01 beat; one never-used debut photo from the pre-compute on both halves of the pair.', critique };
-  const ig = { ...base, platform: 'instagram', body: 'ok but the very first album was written by a sixteen year old in her bedroom and it still holds up. a debut that went platinum on her own songs, one very loud answer to everyone who doubted it. tag the friend who knows every word.\n\nlonglivets.com/?era=debut&utm_source=instagram&utm_medium=social&utm_campaign=debut-2007' };
+  const ig = { ...base, platform: 'instagram', body: 'the very first album was written by a sixteen year old in her bedroom and it still holds up. a debut that went platinum on her own songs, one very loud answer to everyone who doubted it. tag the friend who knows every word.\n\nlonglivets.com/?era=debut&utm_source=instagram&utm_medium=social&utm_campaign=debut-2007' };
   const x = { ...base, platform: 'x', body: 'Sixteen, a guitar, and a self-titled debut that went platinum. Every song still on the record is hers. https://longlivets.com/?era=debut&utm_source=x&utm_medium=social&utm_campaign=debut-2007' };
   return { ig, x, inputs, posted, photo };
 }

@@ -5,6 +5,7 @@ import type { FilterId } from '@swift2/experience';
 import type { Era } from '@swift2/experience';
 import type { WatchableVideoNote } from '@swift2/content-enrichment';
 import type { CurrentItem } from '@swift2/shared';
+import { SCRUBBER_GUTTER_CLASS } from '../shell/timelineScrubberLayout';
 import { MomentCard } from './MomentCard';
 import { VideoMomentCard } from './VideoMomentCard';
 import { ThreadDoorwayCard, EggDoorwayCard } from './DoorwayCard';
@@ -51,7 +52,7 @@ export function EraFeedList({
   onOpenCurrentItem: (item: CurrentItem) => void;
 }) {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
+    <div className={`mx-auto max-w-4xl py-10 pl-4 ${SCRUBBER_GUTTER_CLASS}`}>
       {/* Visually hidden: card titles are h3, so without this the outline
           jumps h1 (era) → h3 (card) — axe `heading-order` (#703). */}
       <h2 className="sr-only">Moments from {era.shortName}</h2>

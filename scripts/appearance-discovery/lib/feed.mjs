@@ -101,3 +101,8 @@ export function parseFeed(xml) {
 export function looksLikeFeed(xml) {
   return /<feed[\s>]/.test(String(xml ?? '').slice(0, 2000));
 }
+
+/** Uploads-playlist feed for a `UC…` channel id (same entries, same Atom shape). */
+export function playlistFeedUrl(channelId) {
+  return `https://www.youtube.com/feeds/videos.xml?playlist_id=UU${String(channelId).slice(2)}`;
+}

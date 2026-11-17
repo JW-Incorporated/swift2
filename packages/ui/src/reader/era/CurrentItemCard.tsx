@@ -7,6 +7,8 @@ import type { EraId } from '@swift2/experience';
 import { formatFullDate } from '@swift2/experience';
 import { outletFor } from '@swift2/experience';
 import { useHost } from '../../host/context';
+import { MomentVideo } from './MomentVideo';
+import { currentItemVideo } from './current-item-video';
 
 /** Same remote-vs-local-asset check every other card's `<Image>` call uses
  * (`momentShared.ts`'s `isRemoteUrl`, duplicated here rather than imported —
@@ -60,7 +62,40 @@ export function CurrentItemCard({
   const outlet = outletFor(item);
   const { Image } = useHost();
   const [imageFailed, setImageFailed] = useState(false);
-  const showImage = Boolean(item.imageUrl) && !imageFailed;
+  const video = currentItemVideo(item);
+  const showImage = !video && Boolean(item.imageUrl) && !imageFailed;
+  const body = (
+    <>
+      {showImage && (
+        <span className="relative -mx-5 -mt-5 mb-4 block aspect-[16/9] overflow-hidden rounded-t-xl">
+          <Image
+            src={item.imageUrl!}
+            alt={item.headline}
+            fill
+            unoptimized={isRemoteUrl(item.imageUrl!)}
+            loading="lazy"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+            onError={() => setImageFailed(true)}
+          />
+        </span>
+      )}
+      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]">
+        <Radio className="h-3.5 w-3.5" aria-hidden />
+        Live{outlet ? ` · reported by ${outlet}` : ''}
+      </span>
+      <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
+        {item.headline}
+      </h3>
+      {displayDate && (
+        <p className="mt-1 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+          {formatFullDate(displayDate)}
+        </p>
+      )}
+      <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{item.summary}</p>
+    </>
+  );
+  const cardClass = 'era-card group block w-full rounded-2xl border-2 border-dashed p-5 text-left transition';
   return (
     <li
       className="relative min-w-0 scroll-mt-28 md:col-span-2"
@@ -69,39 +104,18 @@ export function CurrentItemCard({
       data-ll-date={new Date(sortDate).getTime()}
       data-ll-exact={displayDate != null ? '1' : '0'}
     >
-      <button
-        onClick={onOpen}
-        className="era-card group block w-full rounded-2xl border-2 border-dashed p-5 text-left transition"
-        style={{ borderColor: 'var(--era-accent)' }}
-      >
-        {showImage && (
-          <span className="relative -mx-5 -mt-5 mb-4 block aspect-[16/9] overflow-hidden rounded-t-xl">
-            <Image
-              src={item.imageUrl!}
-              alt={item.headline}
-              fill
-              unoptimized={isRemoteUrl(item.imageUrl!)}
-              loading="lazy"
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover"
-              onError={() => setImageFailed(true)}
-            />
-          </span>
-        )}
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]">
-          <Radio className="h-3.5 w-3.5" aria-hidden />
-          Live{outlet ? ` · reported by ${outlet}` : ''}
-        </span>
-        <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
-          {item.headline}
-        </h3>
-        {displayDate && (
-          <p className="mt-1 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-            {formatFullDate(displayDate)}
-          </p>
-        )}
-        <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{item.summary}</p>
-      </button>
+      {video ? (
+        <div className={cardClass} style={{ borderColor: 'var(--era-accent)' }}>
+          <MomentVideo video={video} caption={null} playNoun="video" className="mb-4" />
+          <button onClick={onOpen} className="block w-full text-left">
+            {body}
+          </button>
+        </div>
+      ) : (
+        <button onClick={onOpen} className={cardClass} style={{ borderColor: 'var(--era-accent)' }}>
+          {body}
+        </button>
+      )}
     </li>
   );
 }

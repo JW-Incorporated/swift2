@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-14-take-me-to-the-lakes-fleece-sherpa-zip-up-jacket-8317864673480",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-14T00:57:10.776Z",
+  "deadline": "2026-11-17T00:57:10.776Z",
+  "status": "open",
+  "facts": {
+    "name": "Take Me to the Lakes Fleece Sherpa Zip-Up Jacket",
+    "price": "125.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/take-me-to-the-lakes-fleece-sherpa-zip-up-jacket",
+    "firstSeenAt": "2026-11-14T00:56:26.895Z"
+  },
+  "media": [
+    "/social/library/merch-drop-43537202104.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/take-me-to-the-lakes-fleece-sherpa-zip-up-jacket",
+  "altTextHint": "A Long Live store-drop card for 130 items newly available on the official store, led by \"1989 Tote Bag\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

@@ -1262,6 +1262,17 @@ export default {
             kind: 'archival',
             focalPoint: '48% 31%',
           },
+          {
+            url: 'https://i.ytimg.com/vi/JqIt0H6XqpA/maxresdefault.jpg',
+            focalPoint: '35% 35%',
+            // 1280x720 maxres frame curl-verified 200 image/jpeg, downloaded and
+            // viewed: Taylor on stage beside the film's director at the Sundance
+            // opening-night Q&A. oEmbed verified 2026-11-05: "Taylor Swift: Miss
+            // Americana - Sundance 2020 World Premiere Q&A", author Scott D. Menzel.
+            credit: 'Scott D. Menzel (Sundance 2020 premiere Q&A, YouTube)',
+            caption: 'Taylor on stage at the Sundance opening-night Q&A for Miss Americana, Jan. 23, 2020.',
+            kind: 'video-still',
+          },
         ],
       },
     },

@@ -13,7 +13,6 @@ export function Byline({ author, className = '' }: { author?: PersonaSlug; class
     <HostLink
       href={`/desk#${persona.slug}`}
       data-testid="byline"
-      aria-label={`${persona.mark}. By ${persona.name}, one of our editorial characters. Meet the desk.`}
       className={`inline-flex items-center gap-2 text-sm text-[color:var(--era-ink-soft)] hover:text-[color:var(--era-ink)] ${className}`}
     >
       <span
@@ -24,6 +23,7 @@ export function Byline({ author, className = '' }: { author?: PersonaSlug; class
       </span>
       <span>
         By <span className="font-medium text-[color:var(--era-ink)]">{persona.name}</span>
+        <span className="sr-only">, one of our editorial characters. Meet the desk.</span>
       </span>
     </HostLink>
   );

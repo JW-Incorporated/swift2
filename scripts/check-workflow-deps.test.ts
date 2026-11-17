@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { checkWorkflow, scanImports, scriptsRunBy } from './check-workflow-deps.mjs';
+import {
+  checkWorkflow,
+  localActionBeforeCheckout,
+  scanImports,
+  scriptsRunBy,
+} from './check-workflow-deps.mjs';
 
 const FILES: Record<string, string> = {
   'scripts/needs-pkg.mjs': `import { createClient } from '@supabase/supabase-js';\n`,
@@ -14,7 +19,11 @@ const read = (rel: string) => FILES[rel] ?? null;
 const opts = { read, tracked: new Set(Object.keys(FILES)) };
 const pkgScripts = { 'run-it': 'node scripts/needs-pkg.mjs' };
 
-const job = (steps: unknown[]) => ({ jobs: { j: { steps } } });
+const checkout = { uses: 'actions/checkout@v7' };
+/** A realistic job: local actions always follow a checkout step. */
+const job = (steps: unknown[]) => ({ jobs: { j: { steps: [checkout, ...steps] } } });
+/** Steps verbatim, for step-ordering assertions. */
+const rawJob = (steps: unknown[]) => ({ jobs: { j: { steps } } });
 const setup = (npmCi?: string) => ({
   uses: './.github/actions/setup-repo',
   ...(npmCi ? { with: { 'npm-ci': npmCi } } : {}),
@@ -44,7 +53,29 @@ describe('scanImports', () => {
   });
 });
 
+describe('localActionBeforeCheckout', () => {
+  it('flags a local action used as the first step (#6610)', () => {
+    expect(localActionBeforeCheckout(rawJob([setup()]).jobs.j)).toBe('./.github/actions/setup-repo');
+  });
+  it('passes when actions/checkout runs first', () => {
+    expect(localActionBeforeCheckout(rawJob([checkout, setup()]).jobs.j)).toBeNull();
+  });
+  it('ignores jobs with no local action', () => {
+    expect(localActionBeforeCheckout(rawJob([{ uses: 'actions/setup-node@v7' }]).jobs.j)).toBeNull();
+  });
+  it('still flags a local action reached after a non-checkout step', () => {
+    expect(localActionBeforeCheckout(rawJob([{ run: 'echo hi' }, setup()]).jobs.j)).toBe(
+      './.github/actions/setup-repo',
+    );
+  });
+});
+
 describe('checkWorkflow', () => {
+  it('reports a local action used before checkout', () => {
+    const problems = checkWorkflow('w.yml', rawJob([setup('true')]), pkgScripts, opts);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('before any actions/checkout');
+  });
   it('flags a job that runs a package-importing script without installing', () => {
     const doc = job([setup(), { run: 'node scripts/needs-pkg.mjs' }]);
     const problems = checkWorkflow('w.yml', doc, pkgScripts, opts);

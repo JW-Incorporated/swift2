@@ -190,14 +190,21 @@ describe('hasRelevantTopic — recency language never substitutes for a real mat
     expect(hasRelevantTopic('any fresh rumor this week', CORPUS)).toBe(true);
   });
 
-  it('"today" lexically colliding with a real Vault track title ("Today Was a Fairytale…") still does not resolve scope, against the real corpus (DEBUG.md third-pass repro)', () => {
-    // The synthetic CORPUS above never reproduced this — none of its docs
-    // are titled with a recency word. The real Vault corpus has a moment
-    // literally titled "Today Was a Fairytale breaks a download record in a
-    // week", which the old plain-lexical `hasRelevantTopic` scored as an
-    // exact title-word hit (score 12, threshold 8) purely off "today" — a
-    // temporal word, not a real topic word for this query.
-    expect(hasRelevantTopic('what should I cook today', allClownDocs())).toBe(false);
+  it('a corpus title containing a recency word ("Today Was a Fairytale…") never makes a recency-only or off-topic query relevant (DEBUG.md third-pass repro)', () => {
+    const colliding: ClownDoc[] = [
+      doc({ id: 'moment:today-was-a-fairytale', kind: 'moment', title: 'Today Was a Fairytale breaks a download record in a week' }),
+    ];
+    expect(hasRelevantTopic('today', colliding)).toBe(false);
+    expect(hasRelevantTopic('what is new this week today', colliding)).toBe(false);
+    expect(hasRelevantTopic('what should I zzqxv today', colliding)).toBe(false);
+    expect(hasRelevantTopic('what happened to the Fairytale today', colliding)).toBe(true);
+  });
+
+  it('against the real corpus, a query made only of recency words never resolves scope', () => {
+    const real = allClownDocs();
+    expect(hasRelevantTopic('today', real)).toBe(false);
+    expect(hasRelevantTopic('what is new right now this week lately', real)).toBe(false);
+    expect(hasRelevantTopic('what should I zzqxv today', real)).toBe(false);
   });
 });
 

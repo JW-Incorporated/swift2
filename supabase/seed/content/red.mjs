@@ -645,23 +645,6 @@ export default {
             credit: 'Getty Images',
           },
         ],
-        // Shop pass (2026-07-21): the exact 2012 gown is discontinued --
-        // a current Jenny Packham gown, verified in stock, closest real match.
-        products: [
-          {
-            brand: 'Jenny Packham',
-            item: 'Sirocco',
-            retailer: 'jennypackham.com',
-            url: 'https://www.jennypackham.com/products/sirocco',
-            matchTier: 'unscored',
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/0749/1410/3586/files/ZED104LSIROCCOBordeaux_0.jpg?v=1782401119',
-            price: '$4,930.00',
-            isAlternative: true,
-            altNote: 'Her exact 2012 rose-appliqued gown is long discontinued -- this is a current Jenny Packham gown in Bordeaux rather than nude lace, same house.',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
-          },
-        ],
       },
     },
     {
@@ -1350,6 +1333,7 @@ export default {
       },
     },
     {
+      relatedIds: ['moment:vault-tloas-karlie-kloss-back-beside-taylor-this-time-in-the-arrowhead-s'],
       significance: 'notable', // the friendship the era's whole "squad" phase and imagery grew out of (docs/decisions.md, 2026-07-19)
       year: 2014,
       month: 3,

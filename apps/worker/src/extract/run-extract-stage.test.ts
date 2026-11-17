@@ -51,7 +51,7 @@ function chain(result: { data?: unknown; error?: unknown }) {
   const query: Record<string, unknown> = {
     then: (resolve: (value: typeof result) => void) => resolve(result),
   };
-  for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update'])
+  for (const method of ['eq', 'is', 'limit', 'not', 'select', 'update', 'order'])
     query[method] = () => query;
   return query;
 }
@@ -80,6 +80,7 @@ function fakeDb(rawItems: unknown[]): SupabaseClient {
 describe('runExtractStage Reddit comment context', () => {
   beforeEach(() => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    vi.stubEnv('NEWS_WRITER_V2', 'off');
     mocks.abandonQuietTheories.mockReset().mockResolvedValue(0);
     mocks.createUsage.mockReset().mockResolvedValue({});
     mocks.extractWithLLM.mockReset().mockResolvedValue({ kind: 'skip', redlineFlags: [] });

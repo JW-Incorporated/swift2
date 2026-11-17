@@ -1,0 +1,49 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "body": "i will never be normal about this one 🧶\n\nin the 'willow' video she spends the whole thing holding onto one golden thread. it's not just a pretty visual — it's a direct payoff to a motif she planted a whole album earlier.\n\nthe thing you couldn't see before, now gold in her hands. plant in folklore, payoff in evermore.\n\nso: which exact song is that golden string resolving? we lined up every clue and its payoff in the Clue Web so you can trace it and settle it yourself.\n\ntag the friend who keeps a running list of her easter eggs 💛\n\nphoto: Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons\nlonglivets.com/?lens=easter-eggs&utm_source=instagram&utm_medium=social&utm_campaign=thread",
+  "media": [
+    "/social/library/photos/taylor-evermore-arlington-2023-2-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "evermore-arlington-2023-2-ig45",
+  "photoEra": "evermore",
+  "mediaCredit": "Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_Eras_Tour_-_Evermore_act_Arlington.jpg",
+  "scheduledAt": "2026-11-06T23:00:00Z",
+  "altText": [
+    "Taylor Swift in a long burnt-orange gown standing on the mossy stage during the evermore set of the Eras Tour in Arlington, Texas, 2023."
+  ],
+  "campaign": "thread:easter-eggs:quiz-poll:2026-11-hero",
+  "why": "IG sibling of the Clue Web thread-hero slot (Calendar 2026-11-06 23:00Z, quiz-poll angle). Asks the same question in prose and sends people to the lens to settle it; structurally distinct opener/vocabulary from the X half ('i will never be normal about this one' vs 'quick one for the string theorists'). Anchored on EGG_NODES egg-string-willow (evermore, 2020, confirmed:true). Evermore era-matched photo per themed-campaign photoEra rule. Thread-of-the-month post, exempt from the mandatory share-hook but a genuine tag line fits and is included.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 5,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "The IG half of the Clue Web thread hero: the golden thread in 'willow' as the visible payoff of folklore's invisible string, posed as a question that the lens settles. Warm fan-first voice, one verifiable egg, a link, and an honest tag hook. Evermore-era stage photo matches the era the motif resolves into.",
+    "rulesChecked": [
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-05T18:52:53.486Z",
+    "pr": 6642,
+    "message": "social-tree-approve run 42088325505",
+    "contentHash": "sha256:52baa71e113631dded91cad32f0bf6f5d4113d419ffb7cd8f8c7866c77f70cdc",
+    "mediaDigest": "sha256:6d2d1be83bc247a86914b0709ede2d62073e6ed9a9e49a6f17c7ffad8fd950ce",
+    "sig": "hmac-sha256:9e58a9514d47cb8a1697ba196f422348ea1b05335231439481984c04ee0747da"
+  },
+  "postedAt": "2026-11-06T23:02:00.515Z",
+  "platformPostId": "18096376916170486",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

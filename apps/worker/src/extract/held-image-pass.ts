@@ -23,6 +23,7 @@ interface HeldRow {
   image_url: string | null;
   sources: { name: string; url: string; tier: SourceTier }[] | null;
   image_attempts: number | null;
+  facts?: unknown[] | null;
 }
 
 export interface HeldImagePassResult {
@@ -44,7 +45,7 @@ export async function reresolveHeldImages(
   const since = new Date(now.getTime() - HELD_WINDOW_DAYS * 86_400_000).toISOString().slice(0, 10);
   const { data, error } = await db
     .from('current_item')
-    .select('id,headline,summary,detail,image_url,sources,image_attempts')
+    .select('id,headline,summary,detail,image_url,sources,image_attempts,facts')
     .eq('quality_hold_reason', 'missing_image')
     .is('retracted_at', null)
     .is('promoted_to', null)
@@ -72,6 +73,8 @@ export async function reresolveHeldImages(
         detail: row.detail,
         imageUrl: image,
         redlineOk: clean([row.headline, row.summary, row.detail]),
+        facts: row.facts ?? null,
+        sources: (row.sources ?? []).map((s) => ({ name: s.name, url: s.url })),
       });
       const facts = {
         image_attempts: (row.image_attempts ?? 0) + 1,

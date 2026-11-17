@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ONBOARDING_PRESETS, type OnboardingPresetId } from '@swift2/shared';
 import { useHost } from '@swift2/ui';
 import { useBackDismiss } from '@swift2/ui/reader/lib/useBackDismiss';
+import { useOverlayPresence } from '@swift2/ui/reader/legal/lib/useOverlayOpen';
 import { onboardingOverlay, useOnboardingPhase } from './onboarding-store';
 import { NEUTRAL } from './settings-page';
 import { useDialog } from './use-dialog';
@@ -23,6 +24,7 @@ export function OnboardingOverlay() {
   const [busy, setBusy] = useState<OnboardingPresetId | 'skip' | 'customize' | null>(null);
   const [error, setError] = useState<string | null>(null);
   const dialog = useDialog(phase === 'shown');
+  useOverlayPresence(phase === 'shown' && !!notifications);
   const capable = !!notifications?.onboardingOffered && !!notifications.markOnboardingOffered;
   // Back while a CTA is in flight is swallowed by the bridge's busy guard before the stack is consulted.
   // Escape is "Not now" (marks the offer seen); Back only closes it, so the offer returns next time.

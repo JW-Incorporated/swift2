@@ -35,7 +35,10 @@
 // and writes no files, so it is safe anywhere and is what the tests and
 // reviewers exercise.
 //
-// Exit code: non-zero when any channel failed to fetch/parse, when filing was
+// Exit code: a channel whose feed answered 404/5xx on both the channel and the
+// uploads-playlist feed is a YouTube outage — a `::warning::`, exit 0 (even if
+// every channel). Non-zero when any channel failed any other way (parse error,
+// DNS/timeout, 403, 429), when filing was
 // refused (dedupe fail-closed), when any issue create failed, or when an
 // inbox intent failed to build — loud beats quiet (see runners.md: a silent
 // no-op is indistinguishable from a broken run).
@@ -46,7 +49,7 @@ import { fileURLToPath } from 'node:url';
 import { gh, httpsRequest } from '../lib/gh.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import { CHANNELS, feedUrl } from './channels.mjs';
-import { parseFeed, looksLikeFeed } from './lib/feed.mjs';
+import { parseFeed, looksLikeFeed, playlistFeedUrl } from './lib/feed.mjs';
 import { matchRule, isFresh } from './lib/filter.mjs';
 import { videoIdsIn, planFilings, fingerprintMarker } from './lib/dedupe.mjs';
 import { buildAppearanceIntent } from './lib/appearance-intent.mjs';
@@ -54,7 +57,7 @@ import { validateIntent } from '../social/lib/inbox.mjs';
 import { clampMaxPerRun } from './lib/spend-limits.mjs';
 import { emitOfficialYoutubeEvent } from './lib/emit-official-youtube-event.mjs';
 import { runMain } from '../lib/cli.mjs';
-import { fetchAllFeeds } from './lib/feed-retry.mjs';
+import { fetchAllFeeds, splitFailures } from './lib/feed-retry.mjs';
 
 const INTAKE_LABEL = 'intake';
 // Matches the label as it already exists on the repo — the upsert is a no-op
@@ -103,8 +106,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * One attempt at a feed. Separated from the retry wrapper so the retry decision
  * can distinguish "the internet blinked" from "this channel is misconfigured".
  */
-async function fetchChannelOnce(channel) {
-  const url = feedUrl(channel.channelId);
+async function fetchChannelOnce(channel, url = feedUrl(channel.channelId)) {
   const res = await withTimeout(httpsRequest(url), FETCH_TIMEOUT_MS, url);
   // 404, 429 and 5xx are all treated as transient: YouTube's feed endpoint
   // intermittently 404s every channel from datacenter IPs (run 37554874410).
@@ -112,9 +114,10 @@ async function fetchChannelOnce(channel) {
   if (res.status === 404 || res.status === 429 || res.status >= 500) {
     const e = new Error(`${channel.name}: feed HTTP ${res.status}`);
     e.transient = true;
+    e.status = res.status;
     throw e;
   }
-  if (res.status !== 200) throw new Error(`${channel.name}: feed HTTP ${res.status}`);
+  if (res.status !== 200) throw Object.assign(new Error(`${channel.name}: feed HTTP ${res.status}`), { status: res.status });
   return res;
 }
 
@@ -123,10 +126,10 @@ async function fetchChannelOnce(channel) {
  * fetchAllFeeds. A timeout or socket-level error carries no HTTP status and is
  * transient; parse failures below are final (loud, immediately).
  */
-async function fetchChannel(channel) {
+async function fetchChannel(channel, url) {
   let res;
   try {
-    res = await fetchChannelOnce(channel);
+    res = await fetchChannelOnce(channel, url);
   } catch (e) {
     if (e.transient === undefined && !/feed HTTP \d+$/.test(e.message)) e.transient = true;
     throw e;
@@ -141,6 +144,11 @@ async function fetchChannel(channel) {
   if (!entries.length) throw new Error(`${channel.name}: feed parsed to 0 entries (shape change?)`);
   return { channelTitle, entries };
 }
+
+// Same entries and Atom shape as the channel feed, behind a separate backend path;
+// tried once per channel after its retries ended in a 404/5xx outage.
+const fetchChannelViaPlaylist = (channel) =>
+  fetchChannel(channel, playlistFeedUrl(channel.channelId));
 
 /**
  * Every YouTube video id already cited anywhere under supabase/seed — i.e. the
@@ -302,9 +310,11 @@ async function main() {
   const fetched = await fetchAllFeeds({
     channels: CHANNELS,
     fetchOne: fetchChannel,
+    fallbackOne: fetchChannelViaPlaylist,
     sleep,
     log: (line) => console.error(line),
   });
+  const { outage, fatal } = splitFailures(fetched.failures);
   const failedBy = new Map(fetched.failures.map((f) => [f.channel, f.error]));
 
   for (const channel of CHANNELS) {
@@ -464,14 +474,20 @@ async function main() {
   console.log(
     `summary: ${CHANNELS.length - failures.length}/${CHANNELS.length} channels ok, ${totalEntries} entries, ` +
       `${candidates.length} relevant+fresh, ${plan.toFile.length} ${FILE_MODE ? 'to file' : 'would file'}, ` +
-      `${plan.skipped.length} skipped, ${filed} filed, ${staged} staged${plan.refuse ? ', REFUSED (fail closed)' : ''}`,
+      `${plan.skipped.length} skipped, ${filed} filed, ${staged} staged${plan.refuse ? ', REFUSED (fail closed)' : ''}, ${fetched.fallbackUsed.length} via playlist fallback`,
   );
+  if (outage.length) {
+    const all = outage.length === CHANNELS.length ? 'ALL channels' : `${outage.length} channel(s)`;
+    console.log(
+      `::warning::appearance-discovery: ${all} hit a YouTube feed outage (404/5xx on the channel and playlist feeds); not failing the run for an upstream outage`,
+    );
+  }
   if (failures.length) console.error(`channel failures:\n  ${failures.join('\n  ')}`);
   if (createFailures.length) console.error(`create failures:\n  ${createFailures.join('\n  ')}`);
   if (draftFailures.length)
     console.error(`social draft failures:\n  ${draftFailures.join('\n  ')}`);
 
-  if (failures.length || createFailures.length || draftFailures.length || plan.refuse)
+  if (fatal.length || createFailures.length || draftFailures.length || plan.refuse)
     process.exitCode = 1;
 }
 

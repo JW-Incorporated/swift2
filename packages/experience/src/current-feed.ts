@@ -1,9 +1,23 @@
 import type { CurrentItem, CurrentItemStatus, LiveTheory } from '@swift2/shared';
-import { passesCurrentItemQualityGate } from '@swift2/shared';
+import { outletLabel, passesCurrentItemQualityGate } from '@swift2/shared';
 import { resolveAnchor } from './anchor-date';
 import { formatRelativeTime } from './format';
 import type { EraFeedEntry } from './era-feed';
 import type { VideoNote } from './types';
+
+const YOUTUBE_ID = /^[A-Za-z0-9_-]{11}$/;
+
+/** A live item that carries a playable video embed: the one predicate the
+ * card, detail, Videos chip and this-week pinning all agree on. */
+export function isPlayableVideoItem(item: CurrentItem): boolean {
+  const embed = item.embed;
+  return (
+    item.mediaKind === 'video' &&
+    embed != null &&
+    embed.provider === 'youtube' &&
+    YOUTUBE_ID.test(embed.videoId)
+  );
+}
 
 /**
  * Builds the fifth `EraFeedEntry` kind ('current') from the current era's
@@ -67,7 +81,8 @@ export function collapseMergedDuplicates(items: readonly CurrentItem[]): Current
 /** First reported source's outlet name, for the "Live · reported by X" chip
  * (PLAN.md Stage 5 — outlet from `sources` jsonb, first entry's `name`). */
 export function outletFor(item: CurrentItem): string | undefined {
-  return item.sources[0]?.name || undefined;
+  const first = item.sources[0];
+  return first ? outletLabel(first) : undefined;
 }
 
 /**

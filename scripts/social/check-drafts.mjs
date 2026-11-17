@@ -16,6 +16,15 @@
 //   - openers       — bans the "did you know" formula opener outright, and
 //                     flags a draft whose first 6 words match the opening of
 //                     any post from the last 14 days or any other queue item.
+//                     Plus a FIRST-WORD diversity cap on Instagram drafts
+//                     (#6747, checkFirstWordDiversity): the 6-word reuse
+//                     match cannot see a formula that shares only its
+//                     opening word, so the six IG captions posted
+//                     2026-11-02 → 11-08 all cleared it while four of the
+//                     six opened on the literal word "i". A draft whose
+//                     first word already opened more than
+//                     openers.firstWordMaxRepeats of the last
+//                     openers.firstWordWindow posted IG items now fails.
 //   - campaign pair — the hard pairing rule (Joey, 2026-08-25, made
 //                     UNCONDITIONAL 2026-08-26): a draft whose `campaign` has
 //                     no sibling on the OTHER platform in social/queue/ or
@@ -73,6 +82,12 @@
 //     already shipped doesn't retroactively fail every future PR that
 //     merely touches social/queue/ near them.
 //
+// Voice (2026-11-08 shared voice system): lib/voice-gates.mjs hard-fails em dashes >1,
+// contrast frames, a repeated tag-a-friend CTA, a repeated question lead and 4-gram copying of
+// recent posts; lib/judge-rubric.mjs validates critique.judge, REQUIRED (HMAC-verified with
+// SOCIAL_JUDGE_KEY) under `--require-judge` or inside social-tree-approve once that key exists
+// (Tree's draft-time run has no judge yet).
+//
 // A requested-but-unresolvable target (doesn't exist under social/queue/) is
 // a HARD failure, not a warning — silently checking nothing and exiting 0
 // would be a false green.
@@ -91,6 +106,8 @@ import { weightedTweetLength, WEIGHTED_URL_LENGTH } from './lib/x-length.mjs';
 import { THEMED_CAMPAIGN_PREFIXES, findCritiqueIssues, FAST_LANE_LANES, isValidSinglePlatformReason } from './lib/queue-schema.mjs';
 import { parseLessons } from './lib/lessons.mjs';
 import { checkPhotoReuse } from './lib/photo-reuse.mjs';
+import { checkVoiceStyle } from './lib/voice-gates.mjs';
+import { checkJudge, judgeEnforcement } from './lib/judge-rubric.mjs';
 import { checkImageReuse } from './lib/image-reuse.mjs';
 import { buildLedger, fingerprintMedia, readLedger } from './lib/image-ledger.mjs';
 import { fingerprintEngineMissing } from './lib/image-fingerprint.mjs';
@@ -220,6 +237,50 @@ function normalizeOpener(text) {
 function firstWords(text, n) {
   const normalized = normalizeOpener(text).replace(/\s+/g, ' ');
   return normalized.split(' ').filter(Boolean).slice(0, n).join(' ');
+}
+
+/**
+ * The single opening word, lowercased, with punctuation stripped from both
+ * ends and curly apostrophes folded to straight ones — so `"Okay,`, `okay`
+ * and `Okay…` are one word, while `it's` stays one word and does not become
+ * `it`. Used only by checkFirstWordDiversity (#6747).
+ */
+export function firstWord(text) {
+  return firstWords(text, 1)
+    .replace(/[‘’]/g, "'")
+    .replace(/[^\p{L}\p{N}']+$/u, '');
+}
+
+/**
+ * First-word diversity cap, Instagram only (#6747).
+ *
+ * checkOpeners' reuse rule matches the first SIX words, so a formula that
+ * varies words 2-6 is invisible to it: every one of the six IG captions
+ * posted 2026-11-02 → 11-08 cleared that gate while four of the six opened
+ * on the literal word "i" (`i went digging…`, `i will never…`, `i did not
+ * expect…`, `i cannot stop…`). Banning each stem as it appears, which is
+ * what social/strategy-params.json's bannedOpeners had been doing, is a
+ * game of whack-a-mole one word wide — this counts the opening word itself
+ * against recent history instead.
+ *
+ * `recentIgPosted` is the chronological tail of posted Instagram items (raw
+ * item data, oldest first) as returned by recentInstagramPosted(); only its
+ * last `openers.firstWordWindow` entries are counted, and the draft itself
+ * is never in it. Fewer than a full window of history is not an exemption:
+ * the cap is on the repeats, not on the window being full.
+ */
+export function checkFirstWordDiversity(file, item, recentIgPosted = [], params = PARAMS) {
+  if (item?.platform !== 'instagram') return [];
+  const word = firstWord(item?.body);
+  if (!word) return [];
+  const window = params.openers.firstWordWindow;
+  const max = params.openers.firstWordMaxRepeats;
+  const recent = (recentIgPosted ?? []).slice(-window);
+  const matches = recent.filter((posted) => firstWord(posted?.body) === word);
+  if (matches.length <= max) return [];
+  return [
+    `opener: first word "${word}" already opened ${matches.length} of the last ${recent.length} posted Instagram items (at most ${max} may, social/strategy-params.json openers.firstWordMaxRepeats) — open on a different word, and let the subject carry the first clause.`,
+  ];
 }
 
 function tokenSet(text) {
@@ -854,7 +915,12 @@ export function checkCritique(item, { activeLessonIds = [] } = {}) {
   return findCritiqueIssues(item, { activeLessonIds });
 }
 
-export async function recentInstagramPosted(n = Math.max(PARAMS.photoReuse.igHistoryWindow, PARAMS.photoMix.window)) {
+// The window has to cover every consumer of this tail — photo reuse, photo
+// mix AND the first-word diversity cap (#6747) — or the widest of them
+// silently gets a short history.
+export async function recentInstagramPosted(
+  n = Math.max(PARAMS.photoReuse.igHistoryWindow, PARAMS.photoMix.window, PARAMS.openers.firstWordWindow),
+) {
   const posted = (await readJsonDir(POSTED_DIR)).map((p) => p.data).filter((d) => d.platform === 'instagram');
   return posted.sort((a, b) => new Date(a.postedAt) - new Date(b.postedAt)).slice(-n);
 }
@@ -896,14 +962,14 @@ async function resolveTargets(argv) {
       return { error: `manifest "${manifestPath}" must be a JSON array of file path strings.` };
     }
   } else {
-    rawPaths = argv;
+    rawPaths = argv.filter((a) => a !== '--require-judge');
   }
 
   if (!rawPaths.length) return { targetPaths: null };
   return { targetPaths: rawPaths.map((a) => (path.isAbsolute(a) ? a : path.resolve(ROOT, a))) };
 }
 
-export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS, imageContext = null }) {
+export async function checkDraft(target, { allQueue, allPosted = [], openerContext, recentIg, activeLessonIds = [], params = PARAMS, imageContext = null, requireJudge = false, judgeKey = '', now = Date.now() }) {
   const schemaFindings = checkSchema(target.data);
   if (schemaFindings.length) return schemaFindings; // other rules assume a valid shape — don't risk a confusing crash/misfire
 
@@ -938,6 +1004,7 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...imageFindings,
     ...(await checkVoice(target.file, target.data.body)),
     ...checkOpeners(target.file, target.data, openerContext, params),
+    ...checkFirstWordDiversity(target.file, target.data, recentIg, params),
     ...checkCampaignPair(target.file, target.data, allQueue, allPosted, params),
     ...checkSimultaneousPair(target.file, target.data, allQueue, params),
     ...checkCrossPostCopy(target.file, target.data, allQueue, params),
@@ -947,6 +1014,8 @@ export async function checkDraft(target, { allQueue, allPosted = [], openerConte
     ...checkPhotoReuse(target.file, target.data, allQueue, allPosted, [...PHOTO_LIBRARY_BY_ID.values()], params.photoReuse),
     ...checkExperiment(target.data),
     ...checkCritique(target.data, { activeLessonIds }),
+    ...checkVoiceStyle(target.data, allPosted.map((p) => p.data), { now }),
+    ...checkJudge(target.data, { required: requireJudge, key: judgeKey, file: path.basename(target.file) }),
   ];
 }
 
@@ -1021,10 +1090,19 @@ async function main() {
   }
   const imageContext = { ledger, library: PHOTO_LIBRARY, fingerprintOf, engineMissing };
 
+  // The pre-merge approval gate (social-tree-approve.yml) requires the independent judge; Tree's own
+  // draft-time run cannot have it yet (the judge runs on the opened PR), so it only validates one if present.
+  const enforcement = judgeEnforcement({ argv: process.argv, env: process.env, postedCount: allPosted.length });
+  if (enforcement.error) {
+    console.error(enforcement.error);
+    process.exit(1);
+  }
+  if (enforcement.warning) console.warn(enforcement.warning);
+
   let hadFindings = false;
   let hadWarnings = false;
   for (const target of targets) {
-    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS, imageContext });
+    const findings = await checkDraft(target, { allQueue, allPosted, openerContext, recentIg, activeLessonIds: ACTIVE_LESSON_IDS, imageContext, requireJudge: enforcement.requireJudge, judgeKey: enforcement.key });
     // A warning (currently only checkLength's over-270-but-within-280 case)
     // is advisory: it prints, but never flips the exit code on its own — see
     // WARNING_PREFIX/isWarningFinding. Any non-warning finding is a hard

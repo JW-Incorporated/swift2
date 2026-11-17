@@ -22,6 +22,18 @@ describe('extractYouTubeId', () => {
     expect(extractYouTubeId('https://music.youtube.com/watch?v=dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
   });
 
+  it('extracts ID from youtube.com/shorts/ID', () => {
+    expect(extractYouTubeId('https://www.youtube.com/shorts/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('https://m.youtube.com/shorts/dQw4w9WgXcQ?feature=share')).toBe('dQw4w9WgXcQ');
+  });
+
+  it('rejects a channel, playlist or malformed-ID youtube URL', () => {
+    expect(extractYouTubeId('https://www.youtube.com/@TaylorSwift')).toBeNull();
+    expect(extractYouTubeId('https://www.youtube.com/playlist?list=PLxyz')).toBeNull();
+    expect(extractYouTubeId('https://www.youtube.com/shorts/short')).toBeNull();
+    expect(extractYouTubeId('https://evil.example/youtu.be/dQw4w9WgXcQ')).toBeNull();
+  });
+
   it('tolerates extra query params', () => {
     expect(extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=10s&list=PLxyz')).toBe('dQw4w9WgXcQ');
   });

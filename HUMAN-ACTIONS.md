@@ -2,9 +2,44 @@
 
 <!-- ha-format: 2 -->
 
-> **11 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **14 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #150 🔴 [BLOCKING] Replace the Awin API token so the merch sync runs again (~5 min)
+<!-- ha filed=2026-11-11 -->
+<!-- ha verify: workflow-green merch-awin-sync.yml -->
+
+**Why:** merch-awin-sync has failed every run since early November with `Awin programme request failed (401)`: Awin is rejecting the stored token. Until it is replaced, Awin merch programmes and links stop refreshing (#6660, watchdog #6624).
+**Steps:**
+1. Sign in at https://ui.awin.com, open the account menu (top right) and choose `API Credentials`.
+2. Create a new token (or copy the current one if it is shown as active) and copy it.
+3. Open https://github.com/JW-Incorporated/swift2/settings/secrets/actions and click `AWIN_API_TOKEN`.
+4. Click Update secret, paste the token, click Update secret.
+5. Open https://github.com/JW-Incorporated/swift2/actions/workflows/merch-awin-sync.yml and click Run workflow.
+**Worked if:** The newest merch-awin-sync run on that page is green.
+
+## #149 🔴 [BLOCKING] Add SOCIAL_JUDGE_KEY to the social environment (~3 min)
+<!-- ha filed=2026-11-08 -->
+<!-- ha verify: secret-exists SOCIAL_JUDGE_KEY -->
+
+**Why:** Unsigned judge scores are re-judged every run, so approval is not enforced (`judge not enforced`) AND a premature approve run stamps, then dies when the re-judge moves the PR head: 2 posts last week vs 12 (#6890). Fixing the key fixes both.
+**Steps:**
+1. In PowerShell run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))` and copy the output.
+2. Open https://github.com/JW-Incorporated/swift2/settings/environments and click `social`.
+3. Under Environment secrets click Add environment secret, Name `SOCIAL_JUDGE_KEY`, paste the value, click Add secret.
+**Worked if:** Settings > Environments > social lists SOCIAL_JUDGE_KEY under Environment secrets.
+
+## #148 🟢 [UPGRADE] Swap the site's Supabase key from secret to publishable (~10 min)
+<!-- ha filed=2026-11-04 -->
+
+**Why:** Production `NEXT_PUBLIC_SUPABASE_ANON_KEY` holds an `sb_secret_` key, so the site's reads skip the database's visibility rules. That hid 31 posts (fixed in code by #6617). The key isn't in public JS today, but any future client import of that variable would publish full DB access.
+**Steps:**
+1. In Claude Code (Swift2), say: "HA #148: check nothing on the web relies on the public key bypassing RLS". Wait for its OK.
+2. Supabase → Swift2 → Settings → API Keys: copy the Publishable key.
+3. Vercel → swift2-web → Settings → Environment Variables → NEXT_PUBLIC_SUPABASE_ANON_KEY (Production) → Edit → paste it → Save.
+4. Vercel → Deployments → latest Production → Redeploy.
+**Worked if:** https://www.longlivets.com/vault/live/tloas still returns 95+ items after the redeploy.
 
 ## #146 🟡 [DECIDE] PR #5662 (expo bump) stuck red 10 days (~5 min)
 <!-- ha filed=2026-10-23 -->

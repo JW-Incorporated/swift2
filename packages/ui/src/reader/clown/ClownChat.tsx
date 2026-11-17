@@ -80,7 +80,7 @@ export function ClownChat({ lore }: ClownChatProps) {
   const { clownMessages } = useAppState();
   const { setClownChatExpanded } = useAppActions();
   const messages = clownMessages;
-  const { busy, error, investigating, ask } = useClownAsk(setText);
+  const { busy, error, investigating, ask, isInFlight } = useClownAsk(setText);
   useReportBusy('clown-chat', busy || text.trim() !== '');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const streamRef = useRef<HTMLDivElement>(null);
@@ -159,10 +159,16 @@ export function ClownChat({ lore }: ClownChatProps) {
     });
   }, []);
 
-  const handleStarterSelect = useCallback((prompt: string) => {
-    setText(prompt);
-    requestAnimationFrame(() => textareaRef.current?.focus({ preventScroll: true }));
-  }, []);
+  /** A starter chip sends its question exactly as if typed and submitted. */
+  const handleStarterSelect = useCallback(
+    (prompt: string) => {
+      const t = prompt.trim();
+      if (!t || busy || isInFlight()) return;
+      const draft = text.trim();
+      void ask(t, { keepDraft: draft !== '' && draft !== t });
+    },
+    [busy, isInFlight, ask, text],
+  );
 
   const panelClassName = expanded
     ? 'fixed inset-x-0 top-0 bottom-[var(--keyboard-inset,0px)] z-50 flex w-full flex-col overflow-hidden bg-[color:var(--clown-bg)]'
@@ -191,6 +197,7 @@ export function ClownChat({ lore }: ClownChatProps) {
     // fourth repetition that only pushed the panel down. pt-3 sits the panel
     // close under TopBar — kept in sync with CONTAINER_TOP_PADDING above.
     <div className="mx-auto max-w-4xl px-4 pb-28 pt-3">
+      <h1 className="sr-only">Clownbot</h1>
       <div className={panelClassName} style={panelStyle}>
         {/* titlebar — instant "this is an app" signal */}
         <ClownChatTitlebar

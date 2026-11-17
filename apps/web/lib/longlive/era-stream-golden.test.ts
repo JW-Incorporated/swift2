@@ -52,7 +52,11 @@ describe('OS-032 golden view-model: native pipeline matches web section order', 
 
     // Reference pipeline: the web's pre-refactor steps, run directly against
     // the same primitives era-stream.ts calls internally.
-    const referenceMerged = spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, doorwayEntries));
+    // Egg doorways no longer join the stream (2026-11-03) — the builder is
+    // still handed them, so this also proves it drops them.
+    const referenceMerged = spaceDoorways(
+      mergeEraFeed(items, videoFeed, era.start, era.end, doorwayEntries.filter((e) => e.kind !== 'egg')),
+    );
     const referenceFiltered = visibleFeed(referenceMerged, filters);
     const referenceEntries = clusterSameDayMoments(referenceFiltered);
     const referenceVisible = referenceFiltered.flatMap((e) => (e.kind === 'moment' ? [e.item] : []));

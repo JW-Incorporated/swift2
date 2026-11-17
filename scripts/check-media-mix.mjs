@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
  * Media-mix report (video-first slice 0, docs/plans/2026-10-31-video-first.md)
- * — prints what share of each era's feed is video. Informational only: it
- * always exits 0, it is NOT a CI gate.
+ * — prints what share of each era's feed is video. It also checks the 15%
+ * per-era video floor (tloas exempt). The floor is ADVISORY: a breach prints
+ * a ::warning:: and still exits 0 unless --enforce is passed. CI runs it
+ * advisory because main is already below the floor on some eras.
  *
  * WHY THIS EXISTS (Workflow rule 8): the video-first plan needs a repeatable
  * number before the feed changes — what share of each era's feed is video.
@@ -23,8 +25,7 @@
  *                     (moments + video records + live items)
  *
  * One row per era + an ALL row. With --json the same data is printed as
- * JSON instead. Live data is only fetched when --live is passed (today the
- * live count is always 0 — no live items embed a video yet).
+ * JSON instead. Live data is only fetched when --live is passed (live items count as video when media_kind is 'video').
  */
 
 import { runMain } from './lib/cli.mjs';
@@ -34,7 +35,7 @@ import { runMain } from './lib/cli.mjs';
  *
  * @param {Array<{ id: string, video?: { youtubeId?: string, watchUrl?: string } | null }>} moments
  * @param {Array<{ slug: string, youtubeId?: string | null, watchUrl?: string | null }>} videoRecords
- * @param {Array<{ id: string, embed?: unknown }>} liveItems
+ * @param {Array<{ id: string, mediaKind?: string }>} liveItems
  * @param {number} [liveVideoCount] — how many live items have a video (pre-computed)
  * @returns {object} row with counts + total + videoShare
  */
@@ -54,6 +55,39 @@ export function mediaMixRow(moments, videoRecords = [], liveItems = [], liveVide
     total,
     videoShare,
   };
+}
+
+/** A live item counts as video when its media_kind says so (the embed alone is not trusted). */
+export function isLiveVideo(item) {
+  return item.mediaKind === 'video';
+}
+
+export const VIDEO_SHARE_FLOOR = 0.15;
+export const FLOOR_EXEMPT_ERAS = ['tloas'];
+
+/**
+ * Eras whose video share is below the floor (docs/decisions.md 2026-11-03,
+ * point 4). Exempt eras and eras with no entries never violate.
+ *
+ * @param {Array<{ id: string, label: string, row: { total: number, videoShare: number } }>} rows
+ * @returns {Array<{ id: string, label: string, videoShare: number }>}
+ */
+export function floorViolations(rows, floor = VIDEO_SHARE_FLOOR, exempt = FLOOR_EXEMPT_ERAS) {
+  return rows
+    .filter(({ id, row }) => !exempt.includes(id) && row.total > 0 && row.videoShare < floor)
+    .map(({ id, label, row }) => ({ id, label, videoShare: row.videoShare }));
+}
+
+/** Prints the floor verdict to stderr; returns the exit code (1 only when enforced). */
+function reportFloor(violations, enforce) {
+  if (violations.length === 0) return 0;
+  const names = violations.map((v) => `${v.label} ${pct(v.videoShare)}`).join(', ');
+  const level = enforce ? 'error' : 'warning';
+  console.error(
+    `::${level}::media-mix: below the ${VIDEO_SHARE_FLOOR * 100}% video floor: ${names}` +
+      (enforce ? '' : ' (advisory — pass --enforce to fail)'),
+  );
+  return enforce ? 1 : 0;
 }
 
 function pct(share) {
@@ -99,7 +133,7 @@ async function main() {
     }
   }
 
-  const liveVideoCount = liveItems.filter((item) => item.embed != null).length;
+  const liveVideoCount = liveItems.filter(isLiveVideo).length;
 
   // Build per-era rows + the ALL aggregate.
   const rows = [];
@@ -109,8 +143,9 @@ async function main() {
     const eraLive = era.id === CURRENT_ERA_ID ? liveItems : [];
     const eraLiveVid = era.id === CURRENT_ERA_ID ? liveVideoCount : 0;
     const row = mediaMixRow(eraMoments, eraVideos, eraLive, eraLiveVid);
-    rows.push({ label: era.name, row });
+    rows.push({ id: era.id, label: era.name, row });
   }
+  const exitCode = () => reportFloor(floorViolations(rows), args.includes('--enforce'));
 
   const totalEntries = rows.reduce((n, r) => n + r.row.total, 0);
   const totalVideos = rows.reduce(
@@ -134,7 +169,7 @@ async function main() {
     };
     if (liveNote) console.error(liveNote);
     console.log(JSON.stringify(payload, null, 2));
-    return;
+    return exitCode();
   }
 
   const header =
@@ -181,6 +216,7 @@ async function main() {
   console.log(sep);
   console.log(buildRow('ALL', allRow, 8));
   if (liveNote) console.log(liveNote);
+  return exitCode();
 }
 
 if (

@@ -4,7 +4,7 @@
 // the row the query container for the rem-based container queries below it
 // (container-query rem tracks the root font-size, unlike media-query rem).
 export const TOPBAR_ROW_CLASS =
-  'flex @container items-center justify-between gap-[min(0.5rem,8px)] border-b border-line bg-bg/80 px-[min(1rem,16px)] py-3 backdrop-blur-xl md:gap-[min(0.75rem,12px)] md:px-[min(1.5rem,24px)]';
+  'flex @container items-center justify-between gap-[min(0.5rem,8px)] border-b border-line bg-bg px-[min(1rem,16px)] py-3 md:gap-[min(0.75rem,12px)] md:px-[min(1.5rem,24px)]';
 
 export const TOPBAR_LEFT_CLASS =
   'flex min-w-0 items-center gap-[min(0.5rem,8px)] md:gap-[min(0.75rem,12px)]';

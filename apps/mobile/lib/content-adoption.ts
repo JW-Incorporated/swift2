@@ -193,6 +193,8 @@ export function createContentAdoption(deps: ContentAdoptionDeps) {
       routeSeen = true;
       reconsider();
     },
+    /** The same busy/engaged gate the adoption idle hold uses (unknown route counts as engaged). */
+    userEngaged: () => engaged() || busy,
     /** AppState change: only a transition INTO 'active' adopts (and only from a different state). */
     appState(next: string) {
       const prev = appState;

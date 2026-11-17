@@ -128,6 +128,9 @@ jobs:
       # scripts/social/lib/queue-schema.mjs for the eleven X posts that cost.
       - run: npm run validate:social
       - run: npm run check:generated
+      # Video floor (decisions 2026-11-03): ADVISORY until main clears 15% on
+      # every era but tloas; add `-- --enforce` to make it fail the build.
+      - run: npm run check:media-mix
       - run: npm run check:privacy-inventory
       - run: npm run check:affiliate-coverage
       - run: npm run check:content-inert
@@ -218,6 +221,8 @@ jobs:
       - run: npm run check:content-bundle
       - run: npm run validate:social
       - run: npm run check:generated
+      # Video floor (decisions 2026-11-03), advisory — see build-full.
+      - run: npm run check:media-mix
       # docs/** PRs route here; build-full's check on docs/launch-readiness.md
       # claims is offline and cheap, so docs-only PRs keep it.
       - run: npm run check:launch-gates

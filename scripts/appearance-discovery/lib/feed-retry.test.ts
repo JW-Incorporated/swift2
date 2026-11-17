@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { fetchAllFeeds } from './feed-retry.mjs';
+import { fetchAllFeeds, splitFailures } from './feed-retry.mjs';
 
 const transient = (msg: string) => Object.assign(new Error(msg), { transient: true });
 const chans = [{ name: 'A' }, { name: 'B' }, { name: 'C' }];
@@ -55,5 +55,82 @@ describe('fetchAllFeeds', () => {
     expect(sleep).not.toHaveBeenCalled();
     expect(fetchOne).toHaveBeenCalledTimes(1);
     expect(r.failures).toHaveLength(1);
+  });
+
+  describe('playlist fallback', () => {
+    const http = (status: number) =>
+      Object.assign(new Error(`feed HTTP ${status}`), { status, transient: status !== 403 });
+    const run = (status: number, fallbackOne: () => Promise<unknown>) =>
+      fetchAllFeeds({
+        channels: [chans[0]],
+        fetchOne: vi.fn(async () => {
+          throw http(status);
+        }),
+        fallbackOne,
+        sleep: vi.fn(async () => {}),
+        jitter: () => 0,
+      });
+
+    it.each([404, 500])('is tried once after a %i and recovers the channel', async (status) => {
+      const fallbackOne = vi.fn(async () => ({ ok: 'pl' }));
+      const r = await run(status, fallbackOne);
+      expect(fallbackOne).toHaveBeenCalledTimes(1);
+      expect(r.failures).toEqual([]);
+      expect(r.fallbackUsed).toEqual([chans[0]]);
+    });
+
+    it('is not tried after a 403', async () => {
+      const fallbackOne = vi.fn(async () => ({ ok: 'pl' }));
+      const r = await run(403, fallbackOne);
+      expect(fallbackOne).not.toHaveBeenCalled();
+      expect(r.failures).toHaveLength(1);
+    });
+
+    it('is not tried when the channel feed succeeds', async () => {
+      const fallbackOne = vi.fn();
+      const r = await fetchAllFeeds({
+        channels: chans,
+        fetchOne: async () => ({ ok: true }),
+        fallbackOne,
+        sleep: async () => {},
+      });
+      expect(fallbackOne).not.toHaveBeenCalled();
+      expect(r.fallbackUsed).toEqual([]);
+    });
+
+    it('reports the ORIGINAL failure when the fallback also fails', async () => {
+      const r = await run(
+        404,
+        vi.fn(async () => {
+          throw http(500);
+        }),
+      );
+      expect(r.failures).toHaveLength(1);
+      expect(r.failures[0].error.status).toBe(404);
+      expect(r.fallbackUsed).toEqual([]);
+    });
+  });
+});
+
+describe('splitFailures (exit logic input)', () => {
+  const f = (error: object) => ({ channel: { name: 'X' }, error: Object.assign(new Error('e'), error) });
+  it('all ok: nothing to report', () => {
+    expect(splitFailures([])).toEqual({ outage: [], fatal: [] });
+  });
+  it('some ok, some 404/5xx: outage only, no fatal', () => {
+    const r = splitFailures([f({ status: 404 }), f({ status: 503 })]);
+    expect(r.outage).toHaveLength(2);
+    expect(r.fatal).toHaveLength(0);
+  });
+  it('all upstream-failed: outage only, no fatal', () => {
+    const r = splitFailures([f({ status: 404 }), f({ status: 500 }), f({ status: 404 })]);
+    expect(r.fatal).toHaveLength(0);
+  });
+  it('one non-upstream error (parse, DNS, 403, 429) stays fatal', () => {
+    for (const bad of [{}, { status: 403 }, { status: 429 }, { transient: true }]) {
+      const r = splitFailures([f({ status: 404 }), f(bad)]);
+      expect(r.outage).toHaveLength(1);
+      expect(r.fatal).toHaveLength(1);
+    }
   });
 });

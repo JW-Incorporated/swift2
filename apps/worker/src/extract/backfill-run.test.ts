@@ -3,6 +3,7 @@ import {
   loadBackfillCandidates,
   type BackfillCandidateRow,
 } from './backfill';
+import { RETIRED_REASONS } from './backfill-retire';
 import { runBackfill } from './backfill-run';
 
 function baseItem(overrides: Partial<BackfillCandidateRow> = {}): BackfillCandidateRow {
@@ -24,18 +25,22 @@ function selectChain(data: unknown) {
       resolve({ data, error: null })
     ),
   };
-  for (const method of ['select', 'is', 'neq', 'gt', 'order', 'limit']) chain[method] = () => chain;
+  for (const method of ['select', 'is', 'neq', 'or', 'gt', 'order', 'limit']) chain[method] = () => chain;
   return chain;
 }
 
 afterEach(() => vi.unstubAllEnvs());
 
 describe('loadBackfillCandidates', () => {
-  it('includes worker-debunked and retracted current item rows', async () => {
+  it('includes worker-debunked and retracted current item rows but never a retired one', async () => {
     let rows = [
       { id: 'ci-live', status: 'reported', promoted_to: null },
       { id: 'ci-retracted', status: 'reported', retracted_at: '2099-01-01', promoted_to: null },
       { id: 'ci-worker-debunked', status: 'debunked', retracted_at: null, promoted_to: null },
+      { id: 'ci-retired', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_below_floor' },
+      { id: 'ci-retired-dup', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_duplicate' },
+      { id: 'ci-retired-unwritable', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_unwritable' },
+      { id: 'ci-retired-nn', status: 'reported', retracted_at: null, promoted_to: null, quality_hold_reason: 'retired_not_notable' },
     ];
     const chain = {
       select: () => chain,
@@ -45,6 +50,12 @@ describe('loadBackfillCandidates', () => {
       },
       neq: (column: string, value: unknown) => {
         rows = rows.filter((row) => row[column as keyof typeof row] !== value);
+        return chain;
+      },
+      or: (filter: string) => {
+        for (const reason of RETIRED_REASONS) expect(filter).toContain(reason);
+        const excluded = /not\.in\.\(([^)]*)\)/.exec(filter)![1]!.split(',');
+        rows = rows.filter((row) => !excluded.includes(String((row as { quality_hold_reason?: string }).quality_hold_reason)));
         return chain;
       },
       gt: () => chain,

@@ -40,7 +40,7 @@ describe('FeedbackButton — "an X in a circle... as if there\'s an invisible po
     // unlabelled icon under 640px, leaving the dismiss X as the only legible
     // thing in the corner. The label is what ties the X to a "Feedback"
     // control instead of to an imaginary dialog.
-    expect(idleCluster).toMatch(/<span[^>]*>Feedback<\/span>/);
+    expect(idleCluster).toMatch(/<span[^>]*>\s*Feedback\s*<\/span>/);
     // Scoped to real class attributes — the prose above this assertion's
     // subject in the component names the old `hidden sm:inline` too.
     for (const [, classes] of idleCluster.matchAll(/className="([^"]*)"/g)) {

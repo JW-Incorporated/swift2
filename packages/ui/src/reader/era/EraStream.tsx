@@ -401,7 +401,7 @@ export function EraStream() {
       <header className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-5 pb-10 pt-12 text-center sm:pt-16">
         <LandingMasthead
           onNavigate={(m) => {
-            // 'era' is a no-op: the stream IS the era surface already.
+            // 'era' never reaches here: the masthead opens the era picker itself for that gloss.
             if (m === 'threads' || m === 'mood' || m === 'clownbot') setMode(m);
           }}
           currentItems={currentItems}

@@ -152,7 +152,7 @@ function TrackRow({
         {hasDeepDive ? (
           <button
             onClick={() => openTrack(trackKey(eraId, track))}
-            className="group flex w-full items-center justify-between gap-3 text-left"
+            className="group relative flex w-full items-center justify-between gap-3 text-left before:absolute before:-inset-y-2.5 before:inset-x-0 before:content-['']"
             aria-label={`${track.title} — open song dossier`}
           >
             <span className="flex min-w-0 flex-wrap items-center gap-2">

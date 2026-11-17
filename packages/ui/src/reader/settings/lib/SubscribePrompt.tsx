@@ -32,7 +32,7 @@ export function SubscribePrompt({
         type="button"
         onClick={onSubscribe}
         disabled={kind === 'subscribing' || kind === 'denied'}
-        className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[color:var(--era-accent-fg)] transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[color:var(--era-accent-fg)] transition-opacity hover:opacity-90 disabled:bg-surface disabled:text-ink-soft disabled:hover:opacity-100"
       >
         {kind === 'subscribing' ? 'Enabling\u2026' : 'Enable notifications'}
       </button>

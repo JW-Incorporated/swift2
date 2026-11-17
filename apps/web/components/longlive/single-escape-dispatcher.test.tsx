@@ -61,19 +61,31 @@ describe('single Escape dispatcher', () => {
     resetBackStackForTests();
   });
 
-  it('Feedback over a moment: Escape closes only Feedback, the second closes the moment', async () => {
+  it('the Feedback pill is not offered over a moment, and returns once it closes', async () => {
     mount();
     act(() => actions.openItem(MOMENT));
     await settle();
     expect(momentOpen()).toBe(true);
+    expect(screen.queryByRole('button', { name: 'Send feedback' })).toBeNull();
+    await escape();
+    expect(momentOpen()).toBe(false);
+    expect(screen.queryByRole('button', { name: 'Send feedback' })).not.toBeNull();
+  });
+
+  it('a moment opened over the Feedback panel (deep link): Escape closes only the moment, then Feedback', async () => {
+    mount();
     fireEvent.click(screen.getByRole('button', { name: 'Send feedback' }));
     await settle();
     expect(feedbackOpen()).toBe(true);
-    await escape(screen.getByLabelText('Describe the issue'));
-    expect(feedbackOpen()).toBe(false);
+    act(() => actions.openItem(MOMENT));
+    await settle();
     expect(momentOpen()).toBe(true);
+    expect(feedbackOpen()).toBe(true);
     await escape();
     expect(momentOpen()).toBe(false);
+    expect(feedbackOpen()).toBe(true);
+    await escape(screen.getByLabelText('Describe the issue'));
+    expect(feedbackOpen()).toBe(false);
   });
 
   it('TrackDetail over a moment: Escape closes only the top', async () => {

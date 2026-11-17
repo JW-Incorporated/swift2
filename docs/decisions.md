@@ -7,6 +7,294 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-11 — YouTube feed fetches fall back to the uploads-playlist feed; appearance-discovery stops failing on a YouTube outage
+
+**Decision (Claude, reversible):** after a YouTube channel feed's retries end in
+a 404/5xx, both pipelines try `videos.xml?playlist_id=UU…` once (same id with
+`UC` -> `UU`; same entries and Atom shape, keyless). The worker does it in
+`rss.ts` `parseFeed`, appearance-discovery in `feed-retry.mjs` `fetchAllFeeds`.
+A failed fallback reports the original error. appearance-discovery no longer
+exits 1 for channels that end in 404/5xx (including all 14): it prints a
+`::warning::` and exits 0; parse errors, DNS/timeouts, 403 and 429 still exit 1.
+
+**Why.** Issue #6773 and run 42939092805 (`0/14 channels ok`, red): YouTube
+rejects runner IPs for hours; a red run nobody can act on is noise. The
+playlist feed is a separate backend path, but it has not been observed during
+an outage, so it may fail the same way; the exit change covers that case.
+
+**Alternatives.** YouTube Data API (needs a key; owner rule is keyless). HTML
+scraping (rejected). A persisted last-ok gate for appearance-discovery (the
+workflow keeps no state between runs). Reverse by removing `fallbackOne` and
+`splitFailures`.
+
+## 2026-11-10 — A YouTube feed never fails the news cycle on its failure counter (amends the 3-consecutive escalation)
+
+**Decision (Claude, reversible):** in `ingest-stage.ts` the "N consecutive
+failures + no success in 3h" escalation is skipped for a source whose URL is a
+YouTube `/feeds/videos.xml` feed and whose error is upstream (404/5xx/network;
+a 403 is a block and still escalates). The 48h "no success" rule and
+non-upstream errors still fail the run; the
+counter is still written. One flag, one helper (`isYouTubeFeedUrl`, already in
+`retry.ts`), three tests.
+
+**Why.** YouTube's feed server answers 404 (sometimes 500) to every feed for
+hours at a stretch — recurring since late 2025, no status page, and the feeds
+themselves are fine afterwards. `retry.ts` already waits 20s/40s inside a cycle
+for exactly this. On 2026-11-10 the stretch outlasted the 3-cycle escalation:
+runs 02:40Z and 03:28Z exited 1 on `realErrors: 1` with every other stage green
+(30 GNews items resolved), which is enough to file a "failed its last 2 runs"
+alert for a condition nobody can act on. Measured from a home IP at 03:45Z: 7 of
+8 sequential fetches 404/500, header `server: YouTube RSS Feeds server`; other
+RSS sources 200 with the same UA. A red run must mean something to fix.
+
+**Alternatives.** Disable the source row (loses the official channel entirely
+and needs a DB write per flap). Raise the threshold globally (hides a real
+outage on every other source). A `flaky: true` source config flag (needs a
+migration to reach the live row; the URL test needs nothing). Reverse by
+deleting the `knownFlaky` term.
+
+## 2026-11-09 — Sub-confirmed stamp is a chip + footer note on every detail (amends 2026-07-19's "unmissable banner")
+
+**Decision (Joey, 2026-11-09, in chat):** a reported/rumored item is stamped the
+same way everywhere — a small dashed `role="note"` chip under the title and a
+one-line explainer in the footer above the sources — on both the live news
+detail (`CurrentItemDetail`, #6748) and the Vault moment detail
+(`MomentDetail`'s `ConfidenceBanner` + new `ConfidenceNote`). The full-width
+dashed box introduced 2026-07-19 ("UNMISSABLE … a rumor can never visually
+pass as fact") is retired on both.
+
+**Why:** Joey, reviewing the app: confirmed posts "looked excellent" and the
+not-confirmed ones "still have the bad format … I want them both to look the
+same." The box sat between the headline and the story and pushed the lead
+below the fold on a phone; the honesty requirement is met by the chip (still
+the accessible name screen readers and the parity harness key on) plus the
+footer line, which together say the same words the box did.
+
+**Alternatives considered:** keep the box on moments only (rejected — the
+inconsistency is the complaint); drop the stamp below the fold entirely
+(rejected — a rumor must still read as a rumor at a glance, so the chip stays
+under the title). The "What's rumored" `RumorSection` and the era-card
+"Unconfirmed" chip are untouched.
+
+## 2026-11-08 — Video-first slice 3: `current_item.embed` + `media_kind` (architect call)
+
+**Decision.** `current_item` gains a nullable `embed` jsonb (`{provider:'youtube', videoId, title?, channelId?, verifiedAt?}`) and `media_kind` text (`video`|`image`|`text`, check-constrained, default `text`, backfilled to `image` where `image_url` is set). A trigger derives `video` from a non-null embed and `image` from a set `image_url`, so existing writers need no change. No unified feed-item table; no automatic `video_work` rows. Readers expose both fields unchanged (no view exists; the row-level public-read policy covers all columns). `check-media-mix` counts `media_kind='video'` live items as video. Worker fill is slice 4, rendering slice 5. Reverse: drop the trigger, constraints and the two columns.
+
+---
+
+## 2026-11-08 — News significance policy: tiers, hold-not-skip, tier-aware cap, Opus judge (amends 2026-11-03)
+
+**Owner ask (chat, 2026-11-08).** "Only important news, never noise real fans don't care about." The 2026-11-03 engine gates source quality, corroboration, dedupe, volume and prose, and nothing in it asks whether a story matters. A read of the 98 live tloas items found about 57% noise (gossip, other celebrities remarking on her, outfits, Travis game items, Grammy predictions, anniversaries, listicles).
+
+**Decision.**
+- Every candidate is tiered by significance. Tier 1 is official or Taylor-originated and fandom-wide (releases, tour, videos, her own statements). Tier 2 is a concrete development from a reputable source (verified charts and records, award nominations and wins, confirmed collaborations, official merch, on-record interviews, catalog and industry news). Tier 3 is noise and is never published.
+- Owner rulings, final: (1) Travis or relationship news posts only when Taylor or Travis say it on record, never on anonymous sources. (2) Fashion and sightings post only when tied to a tier-1 or tier-2 event, for example her red carpet at an awards show she is nominated at. (3) Noise already live is retired (hidden, reversible), never deleted.
+- A significance stage runs between pass A and the worth gate in `apps/worker/src/extract/run-extract-stage.ts`. It holds, it never skips: `quality_hold_reason` is `not_notable:<rule>` (deterministic layer) or `not_notable:judge` (LLM layer). No skip reason is added to `prompt.ts`.
+- Layer 1 is pure and deterministic (`significance-rules.ts`, no I/O): anonymous-source relationship, wedding and baby stories, sightings and fashion with no tier-1/2 event, other celebrities remarking on her, Travis sports filler, listicles, anniversaries, net worth and jet items, "fans think" speculation.
+- Layer 2 is a structured Opus 5.5 judgment, `{tier, reason}`, through the existing judge client, with the rubric above and `heat` (distinct host count) as an input. A judge error or exhausted budget defers the item for retry (fail closed).
+- The result is stored in `current_item.significance_verdict` (`{tier, reason, model, at}`), additive migration.
+- The daily text cap becomes tier-aware: tier 1 never capped, tier 2 capped at 4 per day, tier 3 never published. This replaces first-come-first-served for the 6-per-day cap of 2026-11-03 once wired.
+- Rollout: the logic and calibration ship first with no live wiring. Wiring the live path and retiring existing noise are later slices. Acceptance on the labeled fixture set: at least 90% of NOISE held and at least 95% of IMPORTANT kept, across 3 runs.
+- Slice S4 wiring (2026-11-08): the stage runs in `run-extract-stage.ts` only on the new-row branch, after the dedupe decision (merges, discards, dedupe holds and video attaches skip it), behind `NEWS_SIGNIFICANCE=off|shadow|on` (mirrors `NEWS_WRITER_V2`; unset is off). `news-worker.yml` ships `shadow`: every item is tiered, `significance_verdict` is stored, `significanceHeld`/`significanceDeferred`/`tierCounts` are logged (shadow counts what it would hold), and nothing is held or deferred. `on` holds tier 3 as a quality-hold row (`redline_ok=false`, `not_notable:<rule|judge>`), defers on judge failure through the v2 retry (fail closed, at most 3 attempts; on the final attempt a rule-based fallback applies: an official source is tier 1, two established hosts tier 2, else held as `not_notable:judge_unavailable`). Tier-2 items held by the daily cap are intentionally not republished (fewer, better posts), and switches the cap to tier-aware (`daily_tier2_cap` at 4 tier-2 per UTC day; tier 1 uncapped; the video attach path never reaches the cap). Rollback: `shadow` then `off`. Judge budget: own usage scope `significance`, 30 calls per run and 400 per day, each story judged at most once per run (a busy hour is about 10 clusters, so 3x headroom per run; layer-1 holds spend nothing).
+
+**Why.** Tier is outlet quality, not story quality, so People, Elle and Billboard gossip clears every existing gate. Holding rather than skipping keeps the decision reversible and visible in the hold reasons.
+
+**Alternatives considered.** A new skip reason in the Haiku prompt (rejected: skips are unrecoverable and the cheap model is the wrong judge of fan importance). Deterministic rules only (rejected: cannot judge "is this a development"). Reusing the unused classify `importance` score (rejected: never calibrated).
+
+**Reversal.** The stage is a single call site; remove it and the hold reasons stop. Retired rows are restored by clearing the hidden flag.
+
+Approved by: owner (chat, 2026-11-08). Design: architect (Fable) consult.
+
+---
+
+## 2026-11-08 — Shared voice system with layered registers (amends 2026-08-25 by constraint, not reversal)
+
+**Decision.** News and social share one voice core (the rules in `docs/content-ops/editorial-voice-and-pipeline.md`: Taylor naming, AI-tell cut list, no fabrication, length discipline) and add a register on top.
+- News register: third-person fan editor, as today.
+- Social register: first-person fan gush stays allowed. It is constrained by the shared core plus an independent Opus judge.
+- The judge for Tree's social drafts is a separate Opus call from the writer, never the writer grading itself.
+- `social-tree-approve.yml` stays deterministic. No LLM runs in that workflow.
+
+**Why.** The 2026-08-25 ruling (no human review before publish) stands. This adds a quality constraint inside the draft step and does not reintroduce a human gate. Shared rules stop news and social drifting apart.
+
+**Alternatives considered.** One register for both (rejected: the owner wants first-person gush on social). An LLM check inside the approve workflow (rejected: it keeps the approval path deterministic and auditable).
+
+**Reversal.** Drop the judge call from the drafting step; the voice core is additive.
+
+Approved by: owner (chat, 2026-11-08).
+
+---
+
+## 2026-11-08 — Backfill `rewrite` mode with a snapshot of facts
+
+**Decision.** `BACKFILL_MODE=rewrite` re-writes live v2 posts from their stored `facts` (no pass A) with the current writer, judge and gate. Before any write it snapshots the old copy, facts and writing score; it writes only if the facts hash is unchanged, keeps the old copy on any failure, and never retires. `restore-copy-snapshot` restores facts and score when the snapshot carries them.
+
+**Why.** Force mode only handles rows without facts, so the ~98 live posts could not get the current fan-voice writer. Retiring noise is a separate step driven by the significance tiers.
+
+**Alternatives considered.** Re-running pass A on live rows (rejected: it can change which event the row describes). Rewriting without a snapshot (rejected: not reversible).
+
+**Reversal.** Run `restore-copy-snapshot`.
+
+Approved by: owner (chat, 2026-11-08); PM call recorded here (reversible).
+
+---
+
+## 2026-11-08 — YouTube Data API key deferred, with a revisit trigger
+
+**Decision.** No YouTube Data API key for now. This keeps the "Not doing" line of `docs/plans/2026-10-31-video-first.md` §6 and adds a trigger. Revisit when any of these is true: slice 6 ships; the weekly YouTube soft-miss rate exceeds 10%; or fan-shot footage is approved (Q4).
+
+**Why.** The key is a spend/credential call and the current supply path works. The trigger names the evidence that would change that.
+
+**Reversal.** Not applicable; nothing is built.
+
+Approved by: owner (chat, 2026-11-08).
+
+---
+
+## 2026-11-03 (amendment 3, dated 2026-11-04, owner) — News posts: fan-voice sentences
+
+**Decision.** This amends the news post quality engine entry below. Owner, 2026-11-04: "a fan would add their opinion" … "'Honestly, this is the most Taylor thing she's done all year' is a great example, we want that to be allowed." The rule becomes: every fact needs a source, but not every sentence needs a fact.
+- Sentences carrying no factual claim may have empty refs. These are opinion, reaction, transition and callback-to-feeling sentences.
+- Cap: at most 2 per post, named constant `MAX_VOICE_SENTENCES = 2`.
+- They must be warm or affectionate fan takes. Never insult or mock real people.
+- They must not assert any checkable fact: no numbers, dates, records, superlatives of fact, quotes, or events.
+- Grounding is judged on factual sentences only.
+
+**Enforcement.**
+- Gate: empty refs no longer fail `uncited_sentence` or `citations_missing`. New failures `too_many_voice_sentences` (count over the cap) and `voice_sentence_has_fact` (an empty-refs sentence with a digit, month name, 4-digit year, quoted span or outlet/credit pattern). Every paragraph still needs at least one cited sentence.
+- Judge: grounding scores only sentences that state facts, and an empty-refs sentence that smuggles a fact is a grounding problem. A well-placed genuine fan reaction helps earn a voice 5; wire-service register with no personality caps voice at 3; opinion that insults or mocks a real person fails voice.
+- Calibration: two gold drafts gain a voice line, and two negatives are added (`neg-voice-smuggled-fact`, `neg-voice-mean`). The Amendment 1 acceptance rule is unchanged and applies to the new set.
+
+**Why.** Posts that read as wire copy lack the fan-site personality that is the product's differentiator. The deterministic guard is a cheap backstop; the judge is the real check.
+
+**Reversal.** Revert the commit; the cap and guard are one constant and one check.
+
+Approved by: owner (chat, 2026-11-04).
+
+---
+
+## 2026-11-03 (amendment 2) — News writer pass B moves to Opus 5.5
+
+**Decision.** Pass B uses `claude-opus-5-5` instead of `claude-sonnet-5-5`. Writer caps drop from 60/run and 200/day to 40/run and 150/day, per the architect's switch plan.
+
+**Why.** The bake-off ran on the 31-item kit (`scripts/news/fixtures/writer-eval-kit-dry2.jsonl`), scored by the calibrated Opus judge:
+
+| Writer | Pass | Voice >= 4 | Grounding >= 4 | non_repetition >= 4 | Run |
+|---|---|---|---|---|---|
+| Sonnet | 9/31 (29%) | 10 | 20 | 24 | 41749205871 |
+| Opus | 17/31 (55%) | 25 | 20 | 25 | 41749210452 |
+
+- The architect's switch rule was ">= 2x Sonnet's pass rate". The result is 1.9x, just under the bar.
+- The PM switched anyway. The owner said quality comes first and tokens are plentiful, the 2x margin was mainly a budget guard, and the voice gap is decisive.
+- Opus's remaining holds are mostly grounding (6). That is the next lever.
+
+**Reversal.** One constant in `apps/worker/src/extract/writer-client.ts`.
+
+Approved by: PM (reversible); follows the owner's quality-first direction.
+
+---
+
+## 2026-11-03 (amendment) — News quality judge: Opus 5.5, rewritten rubric, calibration gate
+
+**Decision.** This amends the judge in the entry below.
+- **Model:** the judge moves from Haiku to `claude-opus-5-5`. Sonnet is a candidate in the blind writer comparison (#6572), so using it as judge would invite self-preference.
+- **Pass rule:** `grounding >= 4 AND voice >= 4 AND context >= 3 AND non_repetition >= 3`, replacing "all >= 4". `writing_score` is the sum (4-20), and its DB check is widened.
+- **Rubric:**
+  - the headline is out of the judge's scope (pass A writes it);
+  - `OBSERVED_ON` is given, so "today" and "this week" are judged against the story date;
+  - lead teaser plus body detail is not repetition, but a third mention is;
+  - required outlet credits are never docked;
+  - one or two figurative phrases are fine;
+  - per-score anchors;
+  - no gold exemplars in the prompt.
+- **Calibration gate:** `scripts/news/calibrate-judge.mjs` runs before any judge change ships, using fixtures in `apps/worker/src/extract/__fixtures__/judge-calibration/`. A judge model passes only if:
+  - gold drafts pass across 3 runs, with at most one non-grounding miss in all 15 judgments and zero grounding misses;
+  - 5 targeted negatives fail on their expected dimension;
+  - at least ceil(n x 26/31) legacy posts fail (26 of the current 30).
+- **Caveats:**
+  - The gold set was revised against Opus during R2-R6, so it is partly circular; the negatives and legacy are the independent signal. Add a held-out gold item at the next judge change.
+  - `writing_score` rows written before this change hold the old 1-5 minimum, and rows after hold the 4-20 sum; never compare across the change.
+
+**Why.** The Haiku judge failed 5/5 PM-written gold drafts for out-of-scope reasons. It docked the headline, read teaser-then-detail as repetition, and treated required attribution as wire copy.
+- **Calibration R1 (all three models):** no model accepted. Gold per run was Haiku 0/0/0, Sonnet 1/1/1 and Opus 1/1/2. Negatives were 4/5 for each and legacy 30/30 for each.
+- **R2-R6 (fixture and rubric fixes):** Opus settled at gold 14/15 per round, negatives 5/5 and legacy 30/30. Every remaining Opus gold miss was valid (ungrounded phrases, a context item dated after the story) or a borderline voice score on a thin story. Haiku stayed at 1/5.
+- **Gold rule:** the original "5/5 on all 3 runs" rule was amended to tolerate one non-grounding miss in 15, because a single borderline voice call is run-to-run variance. Grounding misses are still never tolerated.
+
+**Alternatives.**
+- Haiku plus rubric fixes: calibrated at 1/5 gold, so rejected.
+- Sonnet as judge: rejected over self-preference in #6572.
+- Lowering the voice bar to 3: rejected, because voice is the fan-site differentiator.
+
+**Reversal.** Revert the commit. The calibration gate re-runs any change.
+
+**Open follow-ups.**
+- The context pack must exclude moments and prior items dated after the item's `observed_on` (an anachronism risk for backfill).
+- Wire id/merged_into/url into the context-pack self-exclusion (#6592).
+- Re-judge the 31 Sonnet and 31 Opus tune drafts, then apply the writer switch rule (Opus only if its pass rate is at least 2x Sonnet's).
+
+Approved by: architect (Fable) consult 2026-11-03 14:20; the calibration rule amendment by the PM (reversible), recorded here.
+
+---
+
+## 2026-11-03 — News post quality engine: two-pass writer, writing gate, 30-day dedupe, daily text cap, snapshot backfill (owner-ordered; architect consult)
+
+**Owner asks (chat, 2026-11-03).** News posts read as flat summaries with no fan voice or context, are too short, and repeat the headline and lead in the body. They also have no image inside the post and show bare link icons. "We must ensure the quality of our posts remains high, and the balance of text to video stays solid." Fix every existing post and the engine. Video-first answers: Q1 demote news, plus a pinned "This week's news" section (rolling 7 days) at the top of the feed that replaces the egg doorway card. Q2 yes, Q3 yes, Q4 no, Q5 nypost.com images yes.
+
+**Decision.**
+1. **Two-pass writer.**
+   - Pass A (Haiku, `apps/worker/src/extract/prompt.ts`) stops writing prose. It emits a `facts` list (`claim`, `attribution`, `confidence`, at most 8) plus a headline, category and status hint. The facts go into a new nullable `current_item.facts jsonb`.
+   - Pass B (`claude-sonnet-5-5`, through the same subscription `callWorkerClaude`) writes the copy from the facts plus a small vault context pack: era summary, up to 5 related era moments, and up to 3 related current items from the last 30 days. It produces:
+     - `summary`, now the lead: 2-3 sentences, 200-400 characters, the hook and why it matters, no outlet names.
+     - `detail`, now the body: 150-280 words covering what happened, the context or era tie-in, and what to watch.
+   - Every body sentence cites a fact or a context item. The writer never sees article text.
+   - Columns are kept and only their roles change. The body floor goes from 60 to 120 words.
+2. **Rejection.**
+   - A deterministic "worth a post" floor comes before pass B. A post needs one of: an official or established source; at least 2 distinct hosts; or a confirmed release, tour or appearance. Otherwise it is held as `below_tier_floor`.
+   - Deterministic writing checks run inside `evaluateCurrentItemQuality`:
+     - hedge words: at most 2 in the body, none in the lead;
+     - lead/body 4-gram overlap below 0.25;
+     - headline/lead overlap below 0.7;
+     - the voice doc's AI-tell list;
+     - each outlet named at most once;
+     - substance;
+     - full citations.
+   - A Haiku rubric judge then scores voice, context, grounding and non-repetition, each 1-5, and requires 4 or more on all of them.
+   - Failure triggers one rewrite with the reasons, then a hold (`writing_quality:<reason>`). Nothing gets a third call.
+   - A deferred writer means hold. Pass-A text never ships.
+3. **Duplicates.**
+   - The same-event window goes from 7 to 30 days.
+   - The shortlist becomes lexical top-5, plus rows sharing at least 2 entities, plus rows sharing a normalized fact.
+   - Vault moments within ±14 days and videos join the gate as read-only candidates.
+   - Merges stop rewriting prose: they append facts and re-run pass B, which ends the "same facts twice" shape.
+4. **Balance.** A worker-side cap of 6 image+text items per day for the current era, measured by `writing_score`, with the rest held as `daily_text_cap`. In the feed, news lives in the pinned 7-day section and leaves the main stream. `check:media-mix` becomes a CI floor of 15% video on `supabase/seed/content/**` PRs, with tloas exempt until video supply lands.
+5. **Backfill.**
+   - `backfill.ts` gains `mode: 'force'`. Before any write it snapshots the old copy into a new append-only `current_item_copy_snapshot` table, with a restore script.
+   - A dry-run artifact (old versus new) is reviewed on a 20-row sample before the live run. At the writer cap this takes 2 nightly runs.
+   - Rows that fail the floor, or are now duplicates, are held or merged, never deleted.
+   - Rows older than 10 days are left alone.
+6. **Model budgets (cost model).**
+   - Haiku extract: unchanged at 150 per run and 600 per day.
+   - Writer (Sonnet): 60 per run and 200 per day, at most 2 calls per published item (write plus one rewrite).
+   - Judge (Haiku): one call per candidate.
+   - Everything runs on the owner's Claude subscription token, which is rate-window bound and not metered. All of it is worker-side and never in a request path. Exhausting a budget holds the item and never ships weaker text.
+7. **Local compute (Qwen)** is used for the migration, regex and test tables, the cap plumbing and an offline eval harness. It is never used for production copy, judge verdicts or backfill writes.
+
+**Why.** The defect is structural: one call writes three fields from one input, nothing checks repetition or voice, and the floors are length-only. A facts list makes grounding and repetition checks mechanical. Snapshotting makes the backfill reversible.
+
+**Alternatives.**
+- A bigger single-pass prompt on Sonnet: it fixes voice but not repetition, and it can't be audited.
+- New `lead`/`body` columns: these touch five areas of code and are expensive to reverse.
+- Embeddings for dedupe: a new dependency, and facts plus entities cover it.
+
+**Reversal.**
+- Schema changes are additive.
+- Prompts and gates revert by commit.
+- Rewritten copy restores from `current_item_copy_snapshot`.
+
+Approved by: Joey (direction, 2026-11-03 chat). Design: architect (Fable) consult, logged in STATE.md.
+
+---
+
 ## 2026-10-21 — Tree daily: deterministic self-approve backstop + max_turns 75
 
 **Decision.** `routine-tree-daily-draft.yml` raises `max_turns` 50 to 75 and gains an `approve-backstop` job (`if: ${{ !cancelled() }}` after `run`, so a manual cancel never dispatches approval; read-only job permissions, the dispatch uses the PAT) that finds today's open `tree/draft/<UTC date>` PR (label `tree`, Tree-identity author), skips if it has no `social/queue/*.json` or a `social-tree-approve` run already started since the PR opened (within 2h), and otherwise dispatches `social-tree-approve.yml --ref main -f pr=<n>` with `SOCIAL_POSTER_PAT` (the same token and `sffan15-sys` identity as the agent's `GH_DISPATCH_TOKEN`). Every gate in the approve workflow is unchanged (dispatcher/author identity, file allowlist, check-drafts, 48h `scheduledAt`, `SOCIAL_FREEZE`); only who triggers it changes. The prompt's step 7 still tells the agent to dispatch it itself.
@@ -9266,3 +9554,7 @@ task or reverting this change restores the RSS-only system.
 ## 2026-10-23 — Jev no longer decides privacy_redline
 
 **Decision.** Any Jev answer indicating personal subject or speculation escalates to Haiku, which is the sole model-side privacy authority; the action layer holds on blocklist, Haiku privacy, or a Jev-decided item that should have escalated (invariant). Model-decided privacy on a primary-source item is held for the verifier, not dropped (follow-up). Full Haiku-primary remains pre-authorised, re-evaluated per source family when a Tier A miss is a confident Jev decision. Reverse by restoring the privacy branch in classFromAnswers. (Architect #17.) The earlier Jev-answer net on Haiku-decided rows (speculativePersonal) was removed deliberately: Haiku's label is final for escalated items; stored pre-change Jev-decided rows with high personal answers will plan as hold_invariant (safe direction).
+
+## 2026-11-11 — Vault Run PRs open as drafts; the publish job marks them ready
+
+**Decision.** `auto-merge-content.yml` arms `vault/*` PRs on `opened`/`synchronize`, so the first green `build` merged the day's PR while later lanes were still pushing and their commits landed on a deleted branch (11-06 and 11-08; issue #6757). The run procedure now opens the PR as a draft (`gh pr create --draft`), STEP 0 adoption returns an adopted PR to draft (`gh pr ready --undo`), and the publish job's "Open or update the PR" step runs `gh pr ready` after every lane has pushed. `auto-merge-content.yml` is unchanged: its `check-drafts`, `guard-code` and `enable` jobs already skip `draft == true` and already trigger on `ready_for_review`, so every gate (branch/author, allowlist, freeze, hold labels) runs exactly as before once the PR is ready. `gh pr ready` runs under `SOCIAL_POSTER_PAT`, so the event is not suppressed the way a `GITHUB_TOKEN` event would be. A run that dies before publish leaves a draft, which is never armed (safe direction). Reverse by dropping `--draft` and the `gh pr ready` step.

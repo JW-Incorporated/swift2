@@ -137,11 +137,11 @@ export default {
               'When reputation arrived on Apple Music in Dolby Atmos in December 2025, Taylor had quietly altered two lyrics from the 2017 originals — sharpening a line in "I Did Something Bad" and swapping a word in "Delicate" — and fans and music press read the tweaks as an Easter-egg tease that reputation (Taylor\'s Version) or its unreleased Vault tracks were finally near.',
             reportedBy: 'Rolling Stone (Maya Georgi)',
             reportedOn: '2025-12-12',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-lyric-changes-explained-1235483070/',
-            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. Resolves on an announced reputation re-record or Vault release, fades if the window stays empty. Re-checked 2026-08-19: still nothing announced — kept STILL LIVE (not faded), the same active reputation-TV question its two sibling entries were re-checked on 2026-08-15. No location.',
+            note: 'The lyric edits are documented; the re-record tease is the unconfirmed read. Re-checked 2026-08-19: still live. Re-checked 2026-11-04: FADED. Eleven months on, no re-record or Vault release announced and nothing followed up on the Atmos tweaks. Reported December 2025, never confirmed or denied. The wider reputation-TV question stays live in the sibling entries. No location.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-08-19',
+            lastCheckedOn: '2026-11-04',
           },
         ],
       },
@@ -1445,6 +1445,20 @@ export default {
             kind: 'archival',
             focalPoint: '53% 40%',
           },
+          {
+            url: 'https://i.ytimg.com/vi/dfnCAmr569k/maxres2.jpg',
+            focalPoint: '50% 38%',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Ed Sheeran, grinning in a frame from the "End Game" video.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/dfnCAmr569k/maxres3.jpg',
+            focalPoint: '45% 42%',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The London double-decker stretch of the "End Game" video.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -2525,25 +2539,6 @@ export default {
           {
             url: 'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
             credit: 'Footwear News',
-          },
-        ],
-        // Shop pass (2026-07-22): the exact custom striped romper is
-        // discontinued -- a current black sequin romper, verified in
-        // stock, closest real match.
-        products: [
-          {
-            brand: 'Julian Chang',
-            item: 'Eres Long-Sleeve V Neck Sequin Romper',
-            retailer: 'julianchang.com',
-            url: 'https://julianchang.com/products/eres-romper',
-            matchTier: 'inspired',
-            matchScore: 25,
-            kind: 'dress',
-            imageUrl: 'https://cdn.shopify.com/s/files/1/2100/2615/files/3135BlackSequinJulianChang.jpg?v=1758735654',
-            price: '$315.00',
-            isAlternative: true,
-            altNote: 'The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced).',
-            verifiedAt: '2026-08-30T19:22:10.691Z'
           },
         ],
       },

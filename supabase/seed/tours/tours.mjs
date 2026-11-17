@@ -690,6 +690,73 @@ export default {
           ],
         },
         {
+          date: '2011-03-30',
+          city: 'London',
+          venue: 'The O2 Arena',
+          setlistChange:
+            'The last night of the Europe leg: the tour closed its overseas run at The O2 before a two-month break ahead of North America.',
+          confidence: 'reputable_reporting',
+          sources: [
+            wiki(
+              'Speak_Now_World_Tour',
+              'Speak Now World Tour',
+              'the March 30 London date at The O2 Arena, last before the North American leg, is in the tour dates table',
+              '2026-11-11',
+            ),
+            press(
+              'https://tasteofcountry.com/taylor-swift-20-million-albums-sold/',
+              'Taylor Swift Surpasses 20 Million Album Sales',
+              'Taste of Country',
+              'supports the London O2 Arena show wrapping up the overseas leg',
+            ),
+          ],
+        },
+        {
+          date: '2011-05-27',
+          city: 'Omaha, NE',
+          venue: 'Qwest Center Omaha',
+          setlistChange:
+            'The first North American show: the tour reached the United States in Omaha, the first of two nights at the Qwest Center.',
+          confidence: 'reputable_reporting',
+          sources: [
+            wiki(
+              'Speak_Now_World_Tour',
+              'Speak Now World Tour',
+              'the May 27 Omaha date opens the North American rows of the tour dates table',
+              '2026-11-11',
+            ),
+            press(
+              'https://www.prnewswire.com/news-releases/taylor-swift-adds-16-dates-to-speak-now-world-tour-2011-118596984.html',
+              'Taylor Swift Adds 16 Dates to SPEAK NOW WORLD TOUR 2011',
+              'PR Newswire',
+              'tour press release; supports the May 27 US kickoff with two shows at the Qwest Center in Omaha',
+            ),
+          ],
+        },
+        {
+          date: '2011-08-23',
+          city: 'Los Angeles, CA',
+          venue: 'Staples Center',
+          guests: ['Justin Bieber'],
+          setlistChange:
+            "Justin Bieber walked out as a surprise guest to sing 'Baby' with her on the first of four Staples Center nights.",
+          confidence: 'reputable_reporting',
+          sources: [
+            wiki(
+              'Speak_Now_World_Tour',
+              'Speak Now World Tour',
+              'the Justin Bieber Baby guest spot is listed in the tour article',
+              '2026-11-11',
+            ),
+            press(
+              'https://theboot.com/justin-bieber-taylor-swift-duet-baby-los-angeles/',
+              'Justin Bieber Makes Surprise Appearance at Taylor Swift Show',
+              'The Boot',
+              'supports the August 23 Staples Center duet on the first of four nights',
+            ),
+          ],
+        },
+        {
           date: '2011-08-28',
           city: 'Los Angeles, CA',
           venue: 'Staples Center',
@@ -703,6 +770,58 @@ export default {
               'Speak Now World Tour',
               'the Nicki Minaj Super Bass guest spot is documented in the tour article',
               '2026-07-09',
+            ),
+          ],
+        },
+        {
+          date: '2011-09-17',
+          city: 'Nashville, TN',
+          venue: 'Bridgestone Arena',
+          guests: ['Tim McGraw', 'Kenny Chesney'],
+          setlistChange:
+            "On the second Nashville night she brought out two country headliners: Tim McGraw sang 'Just to See You Smile' with her, and Kenny Chesney joined for 'Big Star'.",
+          confidence: 'reputable_reporting',
+          sources: [
+            wiki(
+              'Speak_Now_World_Tour',
+              'Speak Now World Tour',
+              'the Tim McGraw and Kenny Chesney Nashville guest spots are listed in the tour article',
+              '2026-11-11',
+            ),
+            press(
+              'https://tasteofcountry.com/taylor-swift-performs-with-tim-mcgraw-and-kenny-chesney-at-nashville-show/',
+              'Taylor Swift Performs With Tim McGraw and Kenny Chesney at Nashville Show',
+              'Taste of Country',
+              'supports both September 17 Bridgestone Arena duets and their songs',
+            ),
+          ],
+        },
+        {
+          date: '2011-10-01',
+          city: 'Atlanta, GA',
+          venue: 'Philips Arena',
+          guests: ['Usher'],
+          setlistChange:
+            "Usher joined her for 'Yeah!' on the first of two Atlanta nights; T.I. followed the next evening with 'Live Your Life'.",
+          confidence: 'reputable_reporting',
+          sources: [
+            wiki(
+              'Speak_Now_World_Tour',
+              'Speak Now World Tour',
+              'the Usher and T.I. Atlanta guest spots are listed in the tour article',
+              '2026-11-11',
+            ),
+            press(
+              'https://tasteofcountry.com/t-i-taylor-swift-live-your-life-video/',
+              'Rapper T.I. Joins Taylor Swift Onstage in Atlanta',
+              'Taste of Country',
+              "supports the Usher 'Yeah' duet and the T.I. duet at separate shows of the Atlanta weekend",
+            ),
+            press(
+              'https://www.columbian.com/news/2011/oct/02/ti-taylor-swift-perform-surprise-duet-in-ga/',
+              'T.I., Taylor Swift perform surprise duet in Ga.',
+              'Associated Press via The Columbian',
+              'places the T.I. duet on the Sunday night at Philips Arena, so the Usher duet falls on the Saturday show',
             ),
           ],
         },
@@ -1173,6 +1292,16 @@ export default {
         { date: '2012-03-18', city: 'Auckland', venue: 'Vector Arena', country: 'New Zealand' },
       ],
       note: 'Opened in Singapore, closed in Auckland — 110 theatrical shows (aerial ballet, a levitating balcony) for the album she wrote entirely alone.',
+      media: [
+        {
+          kind: 'oembed',
+          rights: 'platform_tos',
+          provider: 'youtube',
+          post_url: 'https://www.youtube.com/watch?v=oKar-tF__ac',
+          oembed_fetched_at: '2026-11-11',
+          attribution: 'Taylor Swift — official YouTube channel',
+        },
+      ],
       sources: [
         wiki('Speak_Now_World_Tour', 'Speak Now World Tour'),
         press(

@@ -93,6 +93,10 @@ export function TrackDetail() {
   const [showSwipeHint, setShowSwipeHint] = useState(false);
   useEffect(() => {
     if (!track) return;
+    if (typeof window.matchMedia === 'function') {
+      if (!window.matchMedia('(pointer: coarse)').matches) return;
+      if (window.matchMedia('(min-width: 1024px)').matches) return;
+    }
     if ((prevTrack || nextTrack) && !readSwipeHintSeen(storage)) {
       setShowSwipeHint(true);
       writeSwipeHintSeen(storage);
@@ -197,21 +201,22 @@ export function TrackDetail() {
         </div>
       )}
 
-      {/* One-time swipe hint (#774 Option 2), mobile only — desktop already
-          has the always-visible gutter arrows. */}
-      {showSwipeHint && (
-        <div
-          className="fixed inset-x-0 bottom-6 z-40 flex justify-center px-4 lg:hidden"
-          aria-live="polite"
-        >
-          <span className="era-card rounded-full border px-4 py-2 text-xs font-medium shadow-lg">
-            Swipe to move between songs
-          </span>
-        </div>
-      )}
-
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
+        {/* One-time swipe hint (#774 Option 2), touch devices only — desktop
+            already has the always-visible gutter arrows. Lives in the hero's
+            free area so it can never cover the song's text rows. */}
+        {showSwipeHint && (
+          <div
+            data-swipe-hint
+            className="absolute inset-x-0 bottom-12 z-10 flex justify-center px-4 lg:hidden"
+            aria-live="polite"
+          >
+            <span className="era-card rounded-full border px-4 py-2 text-xs font-medium shadow-lg">
+              Swipe to move between songs
+            </span>
+          </div>
+        )}
         <Image
           src={resolveUrl(era.image || '/placeholder.svg')}
           alt=""

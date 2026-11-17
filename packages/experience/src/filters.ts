@@ -1,5 +1,6 @@
 import type { ContentTag, LensId } from './types';
 import type { EraFeedEntry } from './feed-types';
+import { isPlayableVideoItem } from './current-feed';
 
 /** R2: exactly six, forever. Videos is a peer chip, not a separate axis. */
 export type FilterId = ContentTag | 'Videos';
@@ -105,7 +106,8 @@ export function filtersForEntry(
       return ['Lore'];
     case 'current': {
       const known = new Set<FilterId>(ALL_FILTERS);
-      return entry.item.tags.filter((t): t is FilterId => known.has(t as FilterId));
+      const tags = entry.item.tags.filter((t): t is FilterId => known.has(t as FilterId));
+      return isPlayableVideoItem(entry.item) && !tags.includes('Videos') ? [...tags, 'Videos'] : tags;
     }
     default: {
       const exhaustive: never = entry;

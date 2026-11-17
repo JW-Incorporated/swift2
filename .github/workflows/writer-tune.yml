@@ -1,0 +1,207 @@
+# Prompt-tuning runs for the two-pass news writer (docs/decisions.md 2026-11-03):
+# runs scripts/news/tune-writer.mjs (the real writer, writing gate and judge via
+# the claude -p wrapper) over the writer-eval-kit.jsonl from a content-backfill
+# run's `backfill-report` artifact. No database: the harness's usage store is
+# in-memory, so it never writes usage_daily or eats the production writer budget.
+#
+# workflow_dispatch only. code_ref lets a tuning branch's prompts run without
+# merging them.
+name: writer-tune
+
+on:
+  workflow_dispatch:
+    inputs:
+      kit_run_id:
+        description: 'Run id of the content-backfill run whose backfill-report artifact holds writer-eval-kit.jsonl (not needed with kit_file or calibrate_models)'
+        type: string
+        default: ''
+      kit_file:
+        description: 'Optional repo-relative writer-eval-kit.jsonl to use instead of downloading one (e.g. scripts/news/fixtures/writer-eval-kit-dry2.jsonl)'
+        type: string
+        default: ''
+      n:
+        description: 'Optional: evenly sample this many kit items (empty = all)'
+        type: string
+        default: ''
+      code_ref:
+        description: 'Optional branch to check out (default: the dispatch ref)'
+        type: string
+        default: ''
+      writer_model:
+        description: 'Optional writer model override (claude-sonnet-5-5 or claude-opus-5-5; empty = default)'
+        type: string
+        default: ''
+      judge_only_file:
+        description: 'Optional repo-relative drafts.jsonl: skip the writer and judge these drafts (lines: {kitId, lead, paragraphs})'
+        type: string
+        default: ''
+      judge_all:
+        description: 'Also judge drafts the writing gate rejected, so tone is scored on every draft (they still count as holds)'
+        type: boolean
+        default: false
+      calibrate_significance:
+        description: 'Optional comma list of judge models (e.g. claude-opus-5-5): run scripts/news/calibrate-significance.mjs (layer-1 rules plus the significance judge over the labeled live items, 3 runs) instead of the writer harness; non-zero exit when a model misses the bars (90% NOISE held, 95% IMPORTANT kept)'
+        type: string
+        default: ''
+      calibrate_models:
+        description: 'Optional comma list of judge models (e.g. claude-haiku-5-5,claude-sonnet-5-5,claude-opus-5-5): run scripts/news/calibrate-judge.mjs instead of the writer harness; non-zero exit when a model misses the bars'
+        type: string
+        default: ''
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: writer-tune
+  cancel-in-progress: false
+
+jobs:
+  tune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Validate inputs
+        env:
+          INPUT_KIT_RUN_ID: ${{ inputs.kit_run_id }}
+          INPUT_KIT_FILE: ${{ inputs.kit_file }}
+          INPUT_N: ${{ inputs.n }}
+          INPUT_CODE_REF: ${{ inputs.code_ref }}
+          INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
+          INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+          INPUT_CALIBRATE_SIGNIFICANCE: ${{ inputs.calibrate_significance }}
+          INPUT_JUDGE_ALL: ${{ inputs.judge_all }}
+        run: |
+          if [ "$INPUT_JUDGE_ALL" != "true" ] && [ "$INPUT_JUDGE_ALL" != "false" ]; then
+            echo "::error::judge_all must be true or false, got '$INPUT_JUDGE_ALL'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_CALIBRATE_MODELS" =~ ^[a-z0-9.,-]*$ ]]; then
+            echo "::error::calibrate_models must match ^[a-z0-9.,-]*$, got '$INPUT_CALIBRATE_MODELS'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_CALIBRATE_SIGNIFICANCE" =~ ^[a-z0-9.,-]*$ ]]; then
+            echo "::error::calibrate_significance must match ^[a-z0-9.,-]*$, got '$INPUT_CALIBRATE_SIGNIFICANCE'"
+            exit 1
+          fi
+          if [ -n "$INPUT_CALIBRATE_SIGNIFICANCE" ] && [ -n "$INPUT_CALIBRATE_MODELS" ]; then
+            echo "::error::set only one of calibrate_models and calibrate_significance"
+            exit 1
+          fi
+          if ! [[ "$INPUT_WRITER_MODEL" =~ ^[a-z0-9.-]*$ ]]; then
+            echo "::error::writer_model must match ^[a-z0-9.-]*$, got '$INPUT_WRITER_MODEL'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_JUDGE_ONLY_FILE" =~ ^[A-Za-z0-9._/-]*$ ]] || [[ "$INPUT_JUDGE_ONLY_FILE" == /* ]] || [[ "$INPUT_JUDGE_ONLY_FILE" == *..* ]]; then
+            echo "::error::judge_only_file must be a repo-relative path matching ^[A-Za-z0-9._/-]*$ without '..', got '$INPUT_JUDGE_ONLY_FILE'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_KIT_FILE" =~ ^[A-Za-z0-9._/-]*$ ]] || [[ "$INPUT_KIT_FILE" == /* ]] || [[ "$INPUT_KIT_FILE" == *..* ]]; then
+            echo "::error::kit_file must be a repo-relative path matching ^[A-Za-z0-9._/-]*$ without '..', got '$INPUT_KIT_FILE'"
+            exit 1
+          fi
+          if [ -z "$INPUT_KIT_FILE" ] && [ -z "$INPUT_CALIBRATE_MODELS" ] && [ -z "$INPUT_CALIBRATE_SIGNIFICANCE" ] && ! [[ "$INPUT_KIT_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "::error::kit_run_id must be a numeric run id (or pass kit_file / calibrate_models), got '$INPUT_KIT_RUN_ID'"
+            exit 1
+          fi
+          if ! [[ "$INPUT_N" =~ ^[0-9]*$ ]]; then
+            echo "::error::n must be empty or a non-negative integer, got '$INPUT_N'"
+            exit 1
+          fi
+          if [ -n "$INPUT_CODE_REF" ] && ! [[ "$INPUT_CODE_REF" =~ ^[A-Za-z0-9._/-]+$ ]]; then
+            echo "::error::code_ref must match ^[A-Za-z0-9._/-]+$, got '$INPUT_CODE_REF'"
+            exit 1
+          fi
+
+      - name: Checkout (resolve local composite actions)
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.code_ref || github.ref_name }}
+      - uses: ./.github/actions/setup-repo
+        with:
+          npm-ci: 'true'
+
+      - name: Install Claude Code
+        continue-on-error: true
+        run: |
+          CLAUDE_CODE_VERSION="2.1.300"
+          for attempt in 1 2 3; do
+            timeout --foreground --kill-after=10 120 bash -c "curl -fsSL https://claude.ai/install.sh | bash -s -- $CLAUDE_CODE_VERSION" && break
+            if [ "$attempt" -eq 3 ]; then
+              echo "Failed to install Claude Code after 3 attempts"
+              exit 1
+            fi
+            sleep 5
+          done
+          "$HOME/.local/bin/claude" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Download the writer eval kit
+        if: ${{ inputs.calibrate_models == '' && inputs.calibrate_significance == '' && inputs.kit_file == '' }}
+        uses: actions/download-artifact@v8
+        with:
+          name: backfill-report
+          run-id: ${{ inputs.kit_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ runner.temp }}/kit
+
+      - name: Run the writer tuning harness
+        if: ${{ inputs.calibrate_models == '' && inputs.calibrate_significance == '' }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          KIT_DIR: ${{ runner.temp }}/kit
+          OUT_DIR: ${{ runner.temp }}/writer-tune
+          INPUT_N: ${{ inputs.n }}
+          INPUT_WRITER_MODEL: ${{ inputs.writer_model }}
+          INPUT_JUDGE_ONLY_FILE: ${{ inputs.judge_only_file }}
+          INPUT_KIT_FILE: ${{ inputs.kit_file }}
+          INPUT_JUDGE_ALL: ${{ inputs.judge_all }}
+        run: |
+          set -o pipefail
+          KIT_PATH="$KIT_DIR/writer-eval-kit.jsonl"
+          if [ -n "$INPUT_KIT_FILE" ]; then KIT_PATH="$GITHUB_WORKSPACE/$INPUT_KIT_FILE"; fi
+          EXTRA=()
+          if [ -n "$INPUT_N" ]; then EXTRA+=(--n "$INPUT_N"); fi
+          if [ -n "$INPUT_WRITER_MODEL" ]; then EXTRA+=(--writer-model "$INPUT_WRITER_MODEL"); fi
+          if [ -n "$INPUT_JUDGE_ONLY_FILE" ]; then EXTRA+=(--judge-only "$GITHUB_WORKSPACE/$INPUT_JUDGE_ONLY_FILE"); fi
+          if [ "$INPUT_JUDGE_ALL" = "true" ]; then EXTRA+=(--judge-all); fi
+          npx --no-install tsx scripts/news/tune-writer.mjs "$KIT_PATH" "$OUT_DIR" --concurrency 2 "${EXTRA[@]}" | tee "$RUNNER_TEMP/summary.md"
+          { echo '## Writer tuning'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run the judge calibration gate
+        if: ${{ inputs.calibrate_models != '' }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          OUT_DIR: ${{ runner.temp }}/writer-tune
+          INPUT_CALIBRATE_MODELS: ${{ inputs.calibrate_models }}
+        run: |
+          status=0
+          npx --no-install tsx scripts/news/calibrate-judge.mjs "$OUT_DIR" --models "$INPUT_CALIBRATE_MODELS" > "$RUNNER_TEMP/summary.md" || status=$?
+          { echo '## Judge calibration'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+
+      - name: Run the significance calibration gate
+        if: ${{ inputs.calibrate_significance != '' }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_BACKUP: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_BACKUP }}
+          OUT_DIR: ${{ runner.temp }}/writer-tune
+          INPUT_CALIBRATE_SIGNIFICANCE: ${{ inputs.calibrate_significance }}
+        run: |
+          status=0
+          npx --no-install tsx scripts/news/calibrate-significance.mjs "$OUT_DIR" --models "$INPUT_CALIBRATE_SIGNIFICANCE" > "$RUNNER_TEMP/summary.md" || status=$?
+          { echo '## Significance calibration'; echo; cat "$RUNNER_TEMP/summary.md"; } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
+
+      # The repo is PUBLIC: this holds only public news text and model output, no secrets.
+      - name: Upload tuning output
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: writer-tune
+          path: ${{ runner.temp }}/writer-tune
+          retention-days: 14
+          if-no-files-found: error

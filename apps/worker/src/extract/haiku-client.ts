@@ -15,6 +15,7 @@
 
 import { CURRENT_ITEM_CATEGORIES, CURRENT_ITEM_STATUSES, LOCATION_LEVELS } from '@swift2/shared';
 import type { CurrentItemCategory, CurrentItemStatus, LocationLevel } from '@swift2/shared';
+import { sanitizeFacts } from './facts';
 import { EXTRACT_SYSTEM_PROMPT, RECORD_KNOWLEDGE_TOOL } from './prompt';
 import type {
   ExtractCommentThread,
@@ -160,6 +161,8 @@ function sanitizeCurrentItem(value: unknown): ExtractedCurrentItem | undefined {
     ? (p.location_level as LocationLevel)
     : undefined;
 
+  const facts = sanitizeFacts(p.facts);
+
   return {
     observedOn,
     category,
@@ -171,6 +174,7 @@ function sanitizeCurrentItem(value: unknown): ExtractedCurrentItem | undefined {
     entities: strArray(p.entities),
     ...(locationLevel ? { locationLevel } : {}),
     statusHint,
+    ...(facts ? { facts } : {}),
   };
 }
 

@@ -3,6 +3,7 @@
 import { ArrowRight, Gem, Heart, RefreshCw, Shirt } from 'lucide-react';
 import { getThread } from '@swift2/experience';
 import type { Era, LensId } from '@swift2/experience';
+import { SCRUBBER_GUTTER_CLASS } from '../shell/timelineScrubberLayout';
 
 // Split out of EraSection.tsx (PLAN.md P3 step 15 — see MAP.md).
 
@@ -27,7 +28,7 @@ export function EraThreadsPivot({
   if (eraThreads.length === 0) return null;
   return (
     <div className="border-t border-[color:var(--era-line)]">
-      <div className="mx-auto max-w-4xl px-4 py-8 md:pr-8">
+      <div className={`mx-auto max-w-4xl pl-4 py-8 ${SCRUBBER_GUTTER_CLASS}`}>
         <div className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
           Threads running through {era.shortName}
         </div>

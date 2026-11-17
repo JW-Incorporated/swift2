@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useState } from 'react';
 import { dailyGloss, GLOSS_SECTIONS } from '@swift2/experience';
-import type { AppMode } from '../store';
+import { useAppActions, type AppMode } from '../store';
 import type { CurrentItem } from '@swift2/shared';
 import { summarizeCurrentActivity } from '@swift2/experience';
 
@@ -44,6 +44,7 @@ export function LandingMasthead({
   onNavigate: (mode: AppMode) => void;
   currentItems?: CurrentItem[];
 }) {
+  const { setSelectorOpen } = useAppActions();
   const [dayKey, setDayKey] = useState<string | null>(null);
   useLayoutEffect(() => setDayKey(todayKey()), []);
   const gloss = (dayKey ? dailyGloss(dayKey) : GLOSS_SECTIONS[0]) ?? GLOSS_SECTIONS[0]!;
@@ -65,7 +66,7 @@ export function LandingMasthead({
       </p>
       <button
         type="button"
-        onClick={() => onNavigate(gloss.mode)}
+        onClick={() => (gloss.mode === 'era' ? setSelectorOpen(true) : onNavigate(gloss.mode))}
         className="era-btn-ghost mt-1 inline-flex min-h-14 max-w-full flex-wrap items-center justify-center gap-x-1.5 rounded-full px-4 py-2 text-center text-xs sm:text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
       >
         <span className="font-semibold text-[color:var(--era-ink)]">{gloss.label}</span>

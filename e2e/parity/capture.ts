@@ -15,7 +15,7 @@ export async function captureLocator(page: Page, selector: string): Promise<Buff
 }
 
 /** The song overlay's one-time swipe hint shows for 3 s after mount, so which capture catches it is a race; never part of a viewport capture. */
-const TRANSIENT_HINT = 'div.fixed.bottom-6[aria-live="polite"]';
+const TRANSIENT_HINT = '[data-swipe-hint]';
 
 /** PNG of the viewport at scroll top: where the safe-area insets show (body top padding, nav bottom padding). */
 /** `hideSelectors` are hidden (not masked: a mask rectangle moves with its element and would expose different pixels beneath). */

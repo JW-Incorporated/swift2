@@ -173,13 +173,28 @@ a lead can be wrong about what the video even is.
 4. **Category defaults to `music`** unless the item is plainly something else
    from the allowed set (`sighting`, `fashion`, `relationship`, `tour`,
    `business`, `music`, `release`, `video`).
-5. **A `videos/<era>.mjs` entry is the exception, not the rule.** Only an
-   official performance, documentary, or film — from the official channel or the
-   rights-holder's channel — may become a `videos` row, and only when it fits
-   the existing kind enum (`music_video`, `lyric_video`, `short_film`,
-   `tour_film`, `documentary`, `performance`). Do not invent a kind, and do not
-   widen the enum to fit a video: if it does not fit, it is a moment source, not
-   a video row.
+5. **A `videos/<era>.mjs` entry needs an official source and a kind the
+   schema already has** (`VIDEO_KINDS` in `packages/shared/src/vault-types.ts`).
+   Works: `music_video`, `lyric_video`, `short_film`, `tour_film`,
+   `documentary`, `performance`, `visualizer`, from the official channel or the
+   rights-holder's channel. Appearances (updated 2026-11-08, video-first
+   slice 7): `interview`, `award_speech`, `speech`, `press_event`, and live
+   `performance`, but ONLY when the upload is on one of the 14 allowlisted
+   channels in `packages/shared/src/youtube-channels.mjs` (Taylor Swift,
+   GRAMMYs, MTV, American Music Awards, Apple Music, The Tonight Show Starring
+   Jimmy Fallon, Late Night with Seth Meyers, The Late Show with Stephen
+   Colbert, Saturday Night Live, The Graham Norton Show, New Heights, TODAY,
+   Good Morning America, Jimmy Kimmel Live). Those are the only sources: never
+   a fan cam, never a fan or aggregator re-upload, never AI-generated footage.
+   Build appearance rows with `appearance()` from
+   `supabase/seed/videos/_appearance-helpers.mjs`, oEmbed-verify the id and
+   channel, and cite the upload as the first source. Do not invent a kind or
+   widen the enum; a video on any other channel is a moment source, not a
+   video row.
+   **Prioritize eras below the media-mix floor.** Run
+   `npm run check:media-mix -- --live` first; eras under the 15% video share
+   (folklore, Midnights, TTPD at last count) get the video additions before any
+   other era. Appearance videos are the lever for curated eras.
 6. **A fan re-upload is NEVER a `videos` `officialUrl`.** Talk-show and awards
    channels re-post clips they own, which is fine; a fan channel mirroring a
    performance is not, and those links rot or get struck. If the only URL is a

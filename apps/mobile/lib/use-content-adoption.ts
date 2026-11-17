@@ -14,6 +14,13 @@ import { lastGoodSource, type LastGoodSource } from './dom-reader-config';
 import type { DomWatch } from './watchdog-gate';
 import { createContentAdoption, type ContentAdoption } from './content-adoption';
 
+let liveAdoption: ContentAdoption | null = null;
+
+/** True when the mounted reader is busy/engaged/unknown, or no adoption is live (no healthy DOM host to reload from). */
+export function isReaderEngaged(): boolean {
+  return liveAdoption === null || liveAdoption.userEngaged();
+}
+
 export function useContentAdoption(
   testPage: boolean | null,
   host: {
@@ -47,12 +54,14 @@ export function useContentAdoption(
   useEffect(() => {
     if (testPage !== false) return;
     const a = adoption.current!;
+    liveAdoption = a;
     // The cache-first mount reads the file the previous process last loaded; its stamp is what the DOM mounted with.
     setMountedContentVersion(readStampedContentVersion() ?? (lastGoodSource() ? UNKNOWN_MOUNTED : null));
     a.appState(AppState.currentState);
     const offLoaded = subscribeContentLoaded((v) => a.loaded(v));
     const sub = AppState.addEventListener('change', (s) => a.appState(s));
     return () => {
+      if (liveAdoption === a) liveAdoption = null;
       offLoaded();
       sub.remove();
       a.dispose();

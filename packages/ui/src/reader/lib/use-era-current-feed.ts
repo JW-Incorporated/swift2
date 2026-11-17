@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { CurrentItem } from '@swift2/shared';
-import { CURRENT_ERA_ID, currentFeedEntries, type EraFeedEntry } from '@swift2/experience';
+import { CURRENT_ERA_ID, currentFeedEntries, thisWeekNewsItems, type EraFeedEntry } from '@swift2/experience';
 import type { PlayableVideoNote } from '@swift2/content-enrichment';
 
 /**
@@ -23,6 +23,9 @@ export function useEraCurrentFeed(
   liveEntries: EraFeedEntry<PlayableVideoNote>[];
   openCurrentItem: CurrentItem | null;
   setOpenCurrentItem: (item: CurrentItem | null) => void;
+  nowMs: number;
+  /** Items for the pinned "This week's news" section (empty off the current era). */
+  weekItems: CurrentItem[];
 } {
   const liveEntries = useMemo(
     () =>
@@ -30,5 +33,10 @@ export function useEraCurrentFeed(
     [eraId, eraStart, eraEnd, currentItems],
   );
   const [openCurrentItem, setOpenCurrentItem] = useState<CurrentItem | null>(null);
-  return { liveEntries, openCurrentItem, setOpenCurrentItem };
+  const [nowMs] = useState(() => Date.now());
+  const weekItems = useMemo(
+    () => (eraId === CURRENT_ERA_ID ? thisWeekNewsItems(currentItems, nowMs) : []),
+    [eraId, currentItems, nowMs],
+  );
+  return { liveEntries, openCurrentItem, setOpenCurrentItem, nowMs, weekItems };
 }

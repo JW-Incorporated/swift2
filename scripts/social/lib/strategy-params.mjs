@@ -25,7 +25,11 @@ export const DEFAULT_PARAMS = Object.freeze({
   photoReuse: { scope: 'other-campaigns', igHistoryWindow: 10, shippedWindowDays: null },
   photoMix: { window: 10, minPhotoShare: 0.7 },
   pairing: { requireBothPlatforms: true, simultaneousWindowMinutes: 5 },
-  openers: { wordWindow: 6, postedLookbackDays: 14, bannedOpeners: ['did you know'] },
+  // firstWordWindow / firstWordMaxRepeats — the first-word diversity cap
+  // (#6747): at most `firstWordMaxRepeats` of the last `firstWordWindow`
+  // posted Instagram items may already open on this draft's first word, so
+  // the 3rd repeat fails. Instagram only; see checkFirstWordDiversity.
+  openers: { wordWindow: 6, postedLookbackDays: 14, bannedOpeners: ['did you know'], firstWordWindow: 7, firstWordMaxRepeats: 2 },
   crossPost: { similarityThreshold: 0.8, pairedLookingFloor: 0.15 },
   xLength: { warnAt: 270 },
   lessons: { autoCodify: false },
@@ -53,7 +57,13 @@ const FIELD_OK = {
   },
   photoMix: { window: isPosInt, minPhotoShare: isFraction },
   pairing: { requireBothPlatforms: (v) => typeof v === 'boolean', simultaneousWindowMinutes: isPosInt },
-  openers: { wordWindow: isPosInt, postedLookbackDays: isPosInt, bannedOpeners: isStringArray },
+  openers: {
+    wordWindow: isPosInt,
+    postedLookbackDays: isPosInt,
+    bannedOpeners: isStringArray,
+    firstWordWindow: isPosInt,
+    firstWordMaxRepeats: isPosInt,
+  },
   crossPost: { similarityThreshold: isFraction, pairedLookingFloor: isFraction },
   xLength: { warnAt: (v) => isPosInt(v) && v <= X_HARD_LIMIT },
   lessons: { autoCodify: (v) => typeof v === 'boolean' },

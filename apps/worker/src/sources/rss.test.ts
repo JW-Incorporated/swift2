@@ -1,5 +1,114 @@
-import { describe, expect, it } from 'vitest';
-import { readPublisher } from './rss';
+import { describe, expect, it, vi } from 'vitest';
+import { parseFeed, readPublisher, USER_AGENT } from './rss';
+import { YOUTUBE_FEED_RETRY_DELAYS_MS } from './retry';
+
+const parserOptions = vi.hoisted(() => ({ seen: [] as unknown[] }));
+vi.mock('rss-parser', () => ({
+  default: class {
+    constructor(options: unknown) {
+      parserOptions.seen.push(options);
+    }
+  },
+}));
+
+const YT_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g';
+
+describe('parseFeed retry policy', () => {
+  it('ingests a YouTube feed that fails twice then succeeds, spaced 20s then 40s apart', async () => {
+    const sleep = vi.fn<(ms: number) => Promise<void>>(async () => {});
+    const parse = vi.fn()
+      .mockRejectedValueOnce(new Error('Status code 404'))
+      .mockRejectedValueOnce(new Error('Status code 404'))
+      .mockResolvedValueOnce({ items: [{ title: 'ok' }] });
+    await expect(parseFeed(YT_URL, parse, sleep)).resolves.toEqual({ items: [{ title: 'ok' }] });
+    expect(parse).toHaveBeenCalledTimes(3);
+    expect(sleep.mock.calls.map((c) => c[0])).toEqual([20_000, 40_000]);
+    expect(YOUTUBE_FEED_RETRY_DELAYS_MS).toEqual([20_000, 40_000]);
+  });
+
+  it('gives up after 3 YouTube attempts with the original error', async () => {
+    const sleep = vi.fn(async () => {});
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
+    await expect(parseFeed(YT_URL, parse, sleep)).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(4);
+  });
+
+  it('really waits between YouTube attempts (fake timers)', async () => {
+    vi.useFakeTimers();
+    try {
+      const parse = vi.fn()
+        .mockRejectedValueOnce(new Error('Status code 404'))
+        .mockRejectedValueOnce(new Error('Status code 404'))
+        .mockResolvedValueOnce({ items: [] });
+      const done = parseFeed(YT_URL, parse);
+      await vi.advanceTimersByTimeAsync(19_999);
+      expect(parse).toHaveBeenCalledTimes(1);
+      await vi.advanceTimersByTimeAsync(1);
+      expect(parse).toHaveBeenCalledTimes(2);
+      await vi.advanceTimersByTimeAsync(39_999);
+      expect(parse).toHaveBeenCalledTimes(2);
+      await vi.advanceTimersByTimeAsync(1);
+      await expect(done).resolves.toEqual({ items: [] });
+      expect(parse).toHaveBeenCalledTimes(3);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('does not give a non-YouTube feed the YouTube attempt budget', async () => {
+    const sleep = vi.fn(async () => {});
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
+    await expect(parseFeed('https://example.com/feed.xml', parse, sleep)).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(3);
+  });
+
+  const PLAYLIST_URL = 'https://www.youtube.com/feeds/videos.xml?playlist_id=UUqECaJ8Gagnn7YCbPEzWH6g';
+
+  it.each(['Status code 404', 'Status code 500'])('falls back to the uploads-playlist feed once after %s', async (msg) => {
+    const sleep = vi.fn(async () => {});
+    const parse = vi.fn(async (u: string) => {
+      if (u === YT_URL) throw new Error(msg);
+      return { items: [{ title: 'pl' }] };
+    });
+    await expect(parseFeed(YT_URL, parse as never, sleep)).resolves.toEqual({
+      items: [{ title: 'pl' }],
+      viaFallbackUrl: PLAYLIST_URL,
+    });
+    expect(parse.mock.calls.map((c) => c[0])).toEqual([YT_URL, YT_URL, YT_URL, PLAYLIST_URL]);
+  });
+
+  it('does not fall back on 403', async () => {
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 403'));
+    await expect(parseFeed(YT_URL, parse, vi.fn(async () => {}))).rejects.toThrow('Status code 403');
+    expect(parse).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not fall back on success', async () => {
+    const parse = vi.fn().mockResolvedValue({ items: [] });
+    await expect(parseFeed(YT_URL, parse, vi.fn(async () => {}))).resolves.toEqual({ items: [] });
+    expect(parse).toHaveBeenCalledTimes(1);
+  });
+
+  it('reports the original failure when the fallback also fails', async () => {
+    const parse = vi.fn(async (u: string) => {
+      throw new Error(u === YT_URL ? 'Status code 404' : 'Status code 500');
+    });
+    await expect(parseFeed(YT_URL, parse as never, vi.fn(async () => {}))).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(4);
+  });
+
+  it('never falls back for a non-YouTube feed', async () => {
+    const parse = vi.fn().mockRejectedValue(new Error('Status code 404'));
+    await expect(parseFeed('https://example.com/feed.xml', parse, vi.fn(async () => {}))).rejects.toThrow('Status code 404');
+    expect(parse).toHaveBeenCalledTimes(3);
+  });
+
+  it('constructs the parser with the identifying User-Agent header', () => {
+    expect(USER_AGENT).toMatch(/Swift2KnowledgeEngine/);
+    expect(parserOptions.seen).toHaveLength(1);
+    expect(parserOptions.seen[0]).toMatchObject({ headers: { 'User-Agent': USER_AGENT } });
+  });
+});
 
 // Google News RSS sets <source url="…">Outlet</source> on every item. We were
 // discarding it and attributing every story to the feed instead, which capped

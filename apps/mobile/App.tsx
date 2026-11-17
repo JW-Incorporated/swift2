@@ -11,8 +11,8 @@
 // swallowed taps. `react-native-safe-area-context` reads real window insets
 // on both platforms; `initialWindowMetrics` seeds it synchronously so the
 // first frame is already inset.
-import { useEffect, useState, useSyncExternalStore } from 'react';
-import { AppState, Platform, StyleSheet, View } from 'react-native';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import { AppState, Linking, Platform, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
@@ -23,6 +23,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SystemUI from 'expo-system-ui';
 import { notificationTapGate, useNotificationTaps } from './lib/use-notification-taps';
 import { useDeepLinks } from './lib/use-deep-links';
+import { retainedLinkRestored } from './lib/retained-link';
 import { DiagLinkHost } from './components/DiagLinkHost';
 import { loadAppConfig, loadLaunchFlags } from './lib/app-config';
 import { diagCollector, installDiagnostics } from './lib/diagnostics';
@@ -32,6 +33,11 @@ import { currentNativeBuild, isUpdateRequired } from './lib/update-required';
 import { ensureDeviceRegistered } from './lib/ensure-device-registered';
 import { flushPendingOptOut } from './lib/push-registration';
 import { registerNotificationActions } from './lib/notification-actions';
+import { registerNotificationChannelsAtStartup } from './lib/notification-channels';
+import { prepareIdleReload } from './lib/recovery-retry';
+import { isReaderEngaged } from './lib/use-content-adoption';
+import { LINK_RECENT_MS, startForegroundUpdate } from './lib/foreground-update';
+import * as Updates from 'expo-updates';
 import { SITE_URL } from './lib/site-url';
 import { RecoveryScreen } from './components/RecoveryScreen';
 import { UpdateRequiredScreen } from './components/UpdateRequiredScreen';
@@ -45,9 +51,11 @@ import { FirstLaunchScreen } from './components/FirstLaunchScreen';
 import { useDomMount, type LaunchInputs } from './lib/watchdog-gate';
 import { domSurfaceRendered } from './lib/dom-host-handlers';
 import { useNativeOverlay } from './lib/use-native-overlay';
+import { splashCanHideWithoutDom, splashHandoff } from './lib/splash-handoff';
 
 installDiagnostics();
 installSpeedTest();
+const splash = splashHandoff();
 
 export default function App() {
   const [updateRequired, setUpdateRequired] = useState(false);
@@ -57,6 +65,19 @@ export default function App() {
   // D-7: native overlays present in an RN Modal over the STILL-MOUNTED DOM host; the overlay resets
   // whenever the DOM surface is not rendered (watchdog fallback, update-required). See use-native-overlay.
   const domRendered = domSurfaceRendered(domMount.mount, updateRequired);
+  const hostWatch = useMemo(
+    () => ({
+      ...domMount.watch,
+      ready: () => {
+        domMount.watch.ready();
+        splash.hide();
+      },
+    }),
+    [domMount.watch],
+  );
+  useEffect(() => {
+    if (splashCanHideWithoutDom(domMount.mount, updateRequired)) splash.hide();
+  }, [domMount.mount, updateRequired]);
   const { state: nativeRoute, presenter } = useNativeOverlay(domRendered);
   const theme = effectiveNativeTheme(domRendered, useSyncExternalStore(subscribeNativeTheme, getNativeTheme));
   useEffect(() => {
@@ -104,11 +125,50 @@ export default function App() {
     registerNotificationActions().catch((e) => {
       console.warn('notification action registration failed', e instanceof Error ? e.message : e);
     });
+    registerNotificationChannelsAtStartup();
     // A turn-off whose server write failed offline is finished the next time the app returns to the foreground.
     const sub = AppState.addEventListener('change', (s) => s === 'active' && void flushPendingOptOut());
     return () => {
       cancelRegistration();
       sub.remove();
+    };
+  }, []);
+
+  // OTA on foreground (lib/foreground-update.ts). A full reload persists the watchdog record idle first (prepareIdleReload,
+  // only from a ready record) and never arms the monitor. A queued/just-settled tap, a URL event, an engaged reader or a
+  // link-launched process holds it off so neither a deep link nor the fan's place is lost.
+  useEffect(() => {
+    let lastLinkAt = -Infinity;
+    let launchedFromLink = true;
+    let live = true;
+    Linking.getInitialURL()
+      .then((u) => void (live && (launchedFromLink = u !== null)))
+      .catch(() => {});
+    const stamp = () => void (lastLinkAt = Date.now());
+    const offSettled = notificationTapGate.onSettled(stamp);
+    const urlSub = Linking.addEventListener('url', stamp);
+    const stop = startForegroundUpdate({
+      updates: Updates,
+      appState: {
+        get current() {
+          return AppState.currentState;
+        },
+        subscribe: (cb) => {
+          const sub = AppState.addEventListener('change', cb);
+          return () => sub.remove();
+        },
+      },
+      prepareReload: () => prepareIdleReload(),
+      userEngaged: isReaderEngaged,
+      launchedFromLink: () => launchedFromLink || retainedLinkRestored(),
+      hasPendingLink: () => notificationTapGate.size() > 0 || Date.now() - lastLinkAt < LINK_RECENT_MS,
+      isDev: typeof __DEV__ !== 'undefined' && __DEV__,
+    });
+    return () => {
+      live = false;
+      stop();
+      offSettled();
+      urlSub.remove();
     };
   }, []);
 
@@ -128,7 +188,7 @@ export default function App() {
             <UpdateRequiredScreen />
           ) : domMount.mount === 'dom' ? (
             <DomHostMount
-              watch={domMount.watch}
+              watch={hostWatch}
               forceFailure={domMount.forceFailure}
               siteUrl={SITE_URL}
               state={nativeRoute}

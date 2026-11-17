@@ -58,6 +58,28 @@ export interface KnowledgeSource {
  * The generalized "sighting" — anything observable that happened. The row
  * the current era's feed renders AND the row Content Shift promotes.
  */
+/** One pass-A fact the two-pass writer cited (current_item.facts). */
+export interface CurrentItemFact {
+  id: string;
+  claim: string;
+  attribution: string;
+  confidence: string;
+}
+
+/** `current_item.media_kind`. */
+export const CURRENT_MEDIA_KINDS = ['video', 'image', 'text'] as const;
+export type CurrentMediaKind = (typeof CURRENT_MEDIA_KINDS)[number];
+
+/** `current_item.embed` — a verified, playable video (video-first slice 3). */
+export interface CurrentItemEmbed {
+  provider: 'youtube';
+  videoId: string;
+  title?: string;
+  channelId?: string;
+  /** ISO 8601 timestamp of the oEmbed check that proved it plays. */
+  verifiedAt?: string;
+}
+
 export interface CurrentItem {
   id: string;
   /** The news_story cluster it came from; undefined for social-only rows. */
@@ -84,6 +106,9 @@ export interface CurrentItem {
   locationLevel?: LocationLevel;
   /** Hotlink from an allowlisted host, or undefined. Never rehosted. */
   imageUrl?: string;
+  /** Verified video embed; undefined for every non-video row. */
+  embed?: CurrentItemEmbed;
+  mediaKind?: CurrentMediaKind;
   socialPost?: { platform: 'instagram'; shortcode: string; postedOn?: string };
   symbols: string[];
   entities: string[];
@@ -106,6 +131,10 @@ export interface CurrentItem {
    * Nh ago" masthead line (PLAN.md Stage 5). */
   updatedAt: string;
   redlineOk: boolean;
+  /** Pass-A facts; present only on rows written by the two-pass news engine, which marks them for the writing checks. */
+  facts?: CurrentItemFact[];
+  /** Judge writing score 1-5 (min of the rubric dimensions); two-pass rows only. */
+  writingScore?: number;
   /** ISO 8601 timestamp of a live countdown/reveal target the site-diff
    * adapter detected on taylorswift.com, or undefined for every ordinary
    * current_item. `is pinned` is a plain, computed predicate over this and
