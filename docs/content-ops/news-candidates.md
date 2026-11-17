@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 85
+
+## Fans See Taylor Swift's Grammys Necklaces as Easter Eggs
+
+- first seen: 2026-11-17 00:27 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's fans believe the necklaces she wore during her Grammy livestream have significant meaning, possibly hinting at future projects or themes. The speculation surrounding these accessories highlights the ongoing engagement between her and her fanbase.
+- sources:
+  - [established] People — https://people.com/taylor-swift-fans-are-convinced-her-necklaces-are-a-major-easter-egg-12259129
+
+## Taylor Swift Shares Personal News Amid Travis Kelce's Injury
+
+- first seen: 2026-11-17 00:27 UTC | category: relationship | importance: 5
+- verification_status: single_source | source_count: 0
+- summary: Taylor Swift has announced personal news in relation to the ongoing situation with Chiefs player Travis Kelce, who is currently injured. Further details about the announcement have not been disclosed in the snippet.
+- sources:
+  - [unverified] unknown — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-announces-personal-news-235054759.html
+
+## Hosts Share Reactions to 2027 Grammy Nominations
+
+- first seen: 2026-11-17 00:27 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The hosts of 'Popcast' discuss key takeaways from the recently announced 2027 Grammy nominations, highlighting different categories and their implications.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/16/arts/music/popcast-grammy-nomination-takeaways.html
 
 ## Trump Critic Draws Comparison Between Swifties and MAGA Supporters
 
@@ -67,14 +91,6 @@ Stories: 83
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-chiefs-game-reunion/
 
-## Taylor Swift Discusses Friendship Dynamics After Blake Lively Fallout
-
-- first seen: 2026-11-16 22:27 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: In a recent interview, Taylor Swift reflected on her experiences with friendship, specifically mentioning her interactions with certain friends after her fallout with Blake Lively.
-- sources:
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMipAFBVV95cUxNVkdqZjhQaVM3aWRDQ2hUNWxfa2xMX2JuVF9PNlJRRm5UR2JJT3NycENEcmxKbFlLckZLVi1UcnBiYTI4NDl0NHk5dk5MRG9EaGl4ME92WnZtU3dWSUowZ21WVWRrdXFac0VCN0trMl9NdDZQejV1R09KVlAydGhkRlRFYU5pWHJZZk9DaHJHR2RfU0NxOXRxclNtdUhsQzM1QjlEdw?oc=5
-
 ## Taylor Swift Returns to the CMAs Among Other Entertainment News
 
 - first seen: 2026-11-16 22:27 UTC | category: sighting | importance: 5
@@ -82,6 +98,14 @@ Stories: 83
 - summary: Taylor Swift's return to the CMAs is highlighted in a report on recent entertainment news, alongside Robert Pattinson becoming the new James Bond.
 - sources:
   - [unverified] unknown — https://www.dcnewsnow.com/living-local-dmv/robert-pattinson-becomes-the-new-james-bond-taylor-swift-returns-to-the-cmas-and-more-entertainment-news/
+
+## Taylor Swift Discusses Friendship Dynamics After Blake Lively Fallout
+
+- first seen: 2026-11-16 22:27 UTC | category: relationship | importance: 6
+- verification_status: single_source | source_count: 0
+- summary: In a recent interview, Taylor Swift reflected on her experiences with friendship, specifically mentioning her interactions with certain friends after her fallout with Blake Lively.
+- sources:
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMipAFBVV95cUxNVkdqZjhQaVM3aWRDQ2hUNWxfa2xMX2JuVF9PNlJRRm5UR2JJT3NycENEcmxKbFlLckZLVi1UcnBiYTI4NDl0NHk5dk5MRG9EaGl4ME92WnZtU3dWSUowZ21WVWRrdXFac0VCN0trMl9NdDZQejV1R09KVlAydGhkRlRFYU5pWHJZZk9DaHJHR2RfU0NxOXRxclNtdUhsQzM1QjlEdw?oc=5
 
 ## Taylor Swift's Grammy Nomination Look Highlights Significant Easter Eggs
 
@@ -699,11 +723,3 @@ Stories: 83
 - summary: Taylor Swift is set to perform at the 60th Annual CMA Awards, where Dolly Parton will be honored for her contributions to country music.
 - sources:
   - [unverified] WKRN News 2 — https://www.wkrn.com/news/local-news/nashville/dolly-parton-to-be-honored-at-the-60th-annual-cma-awards-taylor-swift-to-perform/
-
-## Taylor Swift's Return to the CMAs Raises Questions
-
-- first seen: 2026-11-14 00:23 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An article discusses Taylor Swift's unexpected decision to return to the Country Music Association Awards, despite her already established success. The piece explores her motivations for appearing at the event.
-- sources:
-  - [unverified] Inc.com — https://www.inc.com/kamya-marwah/taylor-swift-cma-awards-return-branding-strategy/91436587
