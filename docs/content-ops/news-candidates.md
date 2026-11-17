@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 100
+
+## Teresa Giudice Supports Taylor Swift's 'Life of a Showgirl'
+
+- first seen: 2026-11-17 20:12 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Teresa Giudice has come to the defense of Taylor Swift regarding her project 'Life of a Showgirl', showcasing her support for the artist.
+- sources:
+  - [unverified] Vulture — https://www.vulture.com/article/teresa-giudice-defends-taylor-swifts-life-of-a-showgirl.html
+
+## Taylor Swift's Song Featured in 'Toy Story 5' for Character Jessie
+
+- first seen: 2026-11-17 20:12 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's music has been selected to feature in 'Toy Story 5,' enhancing the character Jessie with a country vibe. This marks another collaboration between Swift and the animated franchise.
+- sources:
+  - [unverified] KGET.com — https://www.kget.com/community/ricks-reviews/taylor-swifts-tune-puts-country-in-toy-story-5s-jessie/
+
+## MFA Boston to Open Taylor Swift Exhibit in 2027
+
+- first seen: 2026-11-17 20:12 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Museum of Fine Arts in Boston has announced plans to launch an exhibit dedicated to Taylor Swift, set to open in 2027. This exhibit will highlight Swift's influence and contributions to the arts.
+- sources:
+  - [unverified] Axios — https://amp.axios.com/mfa-boston-taylor-swift-eras-collection-2027-0cb83363-6b4e-4133-9770-45d1a36a5e21.html
 
 ## MFA Boston Introduces Exclusive Taylor Swift 'Eras Collection'
 
@@ -87,20 +111,21 @@ Stories: 98
 ## Taylor Swift Exhibition to Open at Boston's Museum of Fine Arts Next Year
 
 - first seen: 2026-11-17 17:12 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: A new exhibition featuring Taylor Swift is set to debut at the Museum of Fine Arts in Boston next year, showcasing her impact on music and culture.
 - sources:
   - [unverified] CBS News — https://www.cbsnews.com/boston/news/taylor-swift-eras-collection-mfa-boston/
+  - [unverified] NBC Boston — https://www.nbcboston.com/entertainment/entertainment-news/exclusive-taylor-swift-show-boston-eras/4050810/
   - [unverified] The Business Journals — https://www.bizjournals.com/boston/news/2026/11/17/taylor-swift-museum-of-fine-arts.html
   - [unverified] WCVB — https://www.wcvb.com/article/taylor-swift-exhibition-coming-to-museum-of-fine-arts-in-boston-in-april-2027/74452371
 
 ## Taylor Swift's Grammy Quip May Have Been Intentional
 
 - first seen: 2026-11-17 16:12 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
+- verification_status: single_source | source_count: 1
 - summary: Taylor Swift's recent comment related to the Song of the Year Grammy is believed to have been deliberate, suggesting a potential strategic move or a well-thought-out statement. Further details on the context of the comment have not been revealed.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-song-grammy-quip-154738184.html
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-mentions-grammy-losing-streak-song-of-the-year-1236383733/
 
 ## Taylor Swift Reflects on Friendship Amid Recent Updates
 
@@ -822,11 +847,3 @@ Stories: 98
 - summary: Nelly shared a story about a flight from St. Louis that involved Taylor Swift and $50,000 in a McDonald's bag. The anecdote highlights a unique moment related to the artist's life.
 - sources:
   - [unverified] FOX 2 — https://fox2now.com/news/missouri/nelly-shares-taylor-swift-story-a-flight-from-st-louis-and-50k-in-a-mcdonalds-bag/
-
-## Taylor Swift Discusses Love for Lux and Olivia Dean
-
-- first seen: 2026-11-14 19:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent interview with Vulture, Taylor Swift shared her thoughts on the art of love as it pertains to her connections with Lux and Olivia Dean.
-- sources:
-  - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-rosalia-olivia-dean-praise.html
