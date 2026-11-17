@@ -1358,20 +1358,6 @@ export const OFFICIAL = [
     "verifiedAt": "2026-11-17T17:40:53.846Z"
   },
   {
-    "sourceId": "7628622987464",
-    "brand": "Taylor Swift Official",
-    "item": "From The Vault Photo 1989 (Taylor's Version) Gray Hoodie",
-    "retailer": "store.taylorswift.com",
-    "url": "https://store.taylorswift.com/products/from-the-vault-photo-1989-taylors-version-gray-hoodie",
-    "price": "$64.89",
-    "inStock": false,
-    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/GCGBR6m1g3oBDrQ0lnqIJsZzOYGGs11B.png?v=1698344576",
-    "kind": "outerwear",
-    "discoveredVia": "shopify-sync",
-    "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-10-25T13:14:12.560Z"
-  },
-  {
     "sourceId": "7634797330632",
     "brand": "Taylor Swift Official",
     "item": "1989 (Taylor's Version) Cardigan Ornament",

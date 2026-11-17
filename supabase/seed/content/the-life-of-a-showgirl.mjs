@@ -16,6 +16,67 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Content Shift (Vault Run 2026-11-17, second run), intake #6938. WBUR
+      // (Andrea Shea) and CBS Boston (Neal Riley) both loaded and read in
+      // full; every date, object and quote below is from those two. The
+      // photo is the MFA's own press still from the Ophelia video. WBUR names
+      // a red Ferretti gown among the objects, so the caption does not claim
+      // the white gown pictured is on display. Redlines: clean; a publicly
+      // announced exhibition at a named museum.
+      slug: 'showgirl-mfa-boston-eras-collection-announced',
+      significance: 'notable',
+      year: 2026,
+      month: 11,
+      day: 17,
+      category: 'business',
+      title: 'The MFA Boston announces "Taylor Swift: The Eras Collection," its first show for a musician',
+      snippet:
+        'On Nov. 17, 2026, the Museum of Fine Arts, Boston announced an exhibition of more than 50 costumes, instruments and objects from Taylor\'s archive, opening April 10, 2027. It is the first show in the museum\'s history devoted to a single musician.',
+      sourceUrl: 'https://www.wbur.org/news/2026/11/17/taylor-swift-eras-archive-mfa',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Museum of Fine Arts, Boston announced on Tuesday, Nov. 17, 2026 that "Taylor Swift: The Eras Collection" opens there on April 10, 2027 and runs through Aug. 15. The museum describes it as "more than 50 iconic costumes, instruments and objects from the musician\'s archive." It is the first exhibition in the MFA\'s history dedicated solely to a musician, and Boston is the collection\'s only stop.\n\nLike the Eras Tour, the show covers her whole career, with vignettes built around "Tim McGraw" from 2006 at one end and "The Fate of Ophelia" from 2025 at the other. The objects named so far include a blood-red Alberta Ferretti gown, the green Gibson J-180 acoustic guitar, the midnight-blue crystal Zuhair Murad bodysuit, the Deering banjo from the Speak Now tour, the mandolin from the 2020 "willow" video and the typewriter from the 2024 "Fortnight" video.\n\nKristen Hoskins, the MFA\'s director of public programs, co-curated it with Jared Katz, its curator of musical instruments. Hoskins said she was excited to welcome "especially Swifties, whose passion and community building are an essential part of Taylor\'s story." Katz called the pieces "instruments and costumes from all of Taylor\'s eras, which represent a remarkable musical journey across genres over the last 20 years." Timed tickets cost $40 and go on public sale at 6 p.m. on Dec. 13, her 37th birthday. The museum will stay open until 10 p.m. on Saturdays while the show is up.',
+        sources: [
+          {
+            outlet: 'WBUR',
+            url: 'https://www.wbur.org/news/2026/11/17/taylor-swift-eras-archive-mfa',
+            source_title: "Ready for it? Taylor Swift's Eras archive is coming to the MFA",
+            publisher: 'WBUR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+            notes:
+              'By Andrea Shea, Nov. 17, 2026; read in full. Primary for the dates, the named objects, the bookend vignettes, first-for-a-musician and only-stop, the Hoskins and Katz quotes, and ticket price and on-sale time.',
+          },
+          {
+            outlet: 'CBS Boston',
+            url: 'https://www.cbsnews.com/boston/news/taylor-swift-eras-collection-mfa-boston/',
+            source_title: 'Taylor Swift "Eras Collection" coming to Museum of Fine Arts in Boston. What to know about tickets.',
+            publisher: 'CBS News Boston',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+            notes:
+              'By Neal Riley, Nov. 17, 2026; read in full. Independently confirms the title, the April 10 to Aug. 15 run and the museum\'s "more than 50" objects line.',
+          },
+        ],
+        // Downloaded and viewed 2026-11-17: HTTP 200, image/jpeg, 1200x630.
+        // CBS Boston's lead image, captioned as the Alberta Ferretti gown in
+        // "The Fate of Ophelia" video (WBUR credits it "Courtesy Taylor Swift").
+        photos: [
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/11/17/21d2da74-3720-4de4-8c73-bcc20ba2ad89/thumbnail/1200x630/453e348295241212cf549ce56236055e/03-taylor-swift-the-fate-of-ophelia-1.jpg',
+            credit: 'Courtesy Taylor Swift, via CBS Boston',
+            caption:
+              'Taylor in a custom Alberta Ferretti gown in "The Fate of Ophelia" video, the image that ran with the announcement. The song\'s vignette closes the exhibition.',
+            kind: 'reference',
+            focalPoint: '30% 45%',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-11-17 (Vault Run, Content Shift lane) from intake #6921.
       // Read directly this run: Grammy.com Song of the Year nominee page (the
       // five-nomination count, the ninth SOTY nod, the Antonoff notes), ABC
