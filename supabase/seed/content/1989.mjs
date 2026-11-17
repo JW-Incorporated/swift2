@@ -705,6 +705,132 @@ export default {
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg', focalPoint: '48% 16%', credit: 'E! Online', kind: 'archival', caption: 'Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.' }],
       },
     },
+    // Withdrawal-year beats (Vault Run 2026-11-15, #6115): the 2016-09 → 2017-05
+    // stretch had no items. Three dated, sourced exceptions to the silence,
+    // chained to "The year of silence" via relatedIds.
+    {
+      relatedIds: [
+        'moment:vault-1989-the-year-of-silence',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      year: 2016,
+      month: 10,
+      day: 22,
+      category: 'tour',
+      title: 'Her only concert of 2016, at the Formula 1 U.S. Grand Prix',
+      snippet:
+        'Three months after the Snapchat clips, Taylor played Circuit of the Americas in Austin after Saturday qualifying, to a crowd estimated at around 80,000.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-performs-at-formula-one-her-only-concert-of-the-year/',
+      thumbnailUrl: 'https://assets3.cbsnewsstatic.com/hub/i/r/2016/10/23/28677b5f-d5d1-4c16-bbe4-ca0bc470a1ec/thumbnail/1200x630g2/b1900452b531080bff12e9960f85fe17/ap-16297050306143.jpg',
+      moment: {
+        context:
+          "The show had been booked long before the summer fell apart, and Taylor kept the date. On Saturday, Oct. 22, 2016, after qualifying wrapped at Circuit of the Americas in Austin, she took the stage for a roughly 90-minute set of hits: the only full concert she played all year. Formula 1 later put the crowd at around 80,000 for the 15-song show.\n\nThe set carried one pointed surprise. At the piano she played \"This Is What You Came For,\" the Calvin Harris and Rihanna hit she had co-written under the name Nils Sjöberg, the credit that had turned into a public spat with Harris that July. She spoke to the crowd about who was in it: \"This show is really important because we have people from all over the world.\"\n\nThen she went quiet again. Apart from a December duet and one pre-Super Bowl show in February, this was the last time most fans saw her perform until reputation.",
+        sources: [
+          {
+            outlet: 'CBS News (Associated Press)',
+            url: 'https://www.cbsnews.com/news/taylor-swift-performs-at-formula-one-her-only-concert-of-the-year/',
+          },
+          {
+            outlet: 'Formula 1',
+            url: 'https://www.formula1.com/en/latest/article/one-decade-later-when-taylor-swift-performed-her-only-show-of-2016-at-the-united-states-grand-prix.5H18UiePOW5yJGtH5VO2QA',
+          },
+        ],
+        // Vault Run 2026-11-15: AP photo from CBS News' Oct. 23, 2016 concert
+        // story (file ap-16297…, dated the night of the show); curl 200
+        // image/jpeg 1200x630, downloaded and viewed: Taylor singing on stage
+        // in the 2016 bob, matching the article.
+        photos: [
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2016/10/23/28677b5f-d5d1-4c16-bbe4-ca0bc470a1ec/thumbnail/1200x630g2/b1900452b531080bff12e9960f85fe17/ap-16297050306143.jpg',
+            focalPoint: '40% 35%',
+            credit: 'AP Photo, via CBS News',
+            caption: 'On stage at Circuit of the Americas in Austin during the U.S. Grand Prix weekend, October 2016.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      relatedIds: ['moment:vault-1989-the-year-of-silence'],
+      year: 2016,
+      month: 12,
+      day: 9,
+      category: 'release',
+      title: '"I Don\'t Wanna Live Forever" breaks the silence with Zayn',
+      snippet:
+        'Her first original song since 1989 arrived as a duet with Zayn for the Fifty Shades Darker soundtrack, and debuted at No. 6 on the Hot 100.',
+      sourceUrl: 'https://www.nme.com/news/music/zayn_malik-taylor-swift-duet-dont-wanna-live-forever-listen-1902944',
+      thumbnailUrl: 'https://i.ytimg.com/vi/7F37r50VUTQ/maxresdefault.jpg',
+      moment: {
+        context:
+          "Five months into the quiet, a new Taylor vocal appeared with almost no warning. \"I Don't Wanna Live Forever,\" a duet with Zayn, came out on Dec. 9, 2016 as the lead single from the Fifty Shades Darker soundtrack, two months ahead of the film's Feb. 10 release. She wrote it with Jack Antonoff and Sam Dew, and Antonoff produced it. It was her first original song since 1989.\n\nThe song debuted at No. 6 on the Billboard Hot 100, her 20th top 10, and later climbed to No. 2. The Grant Singer-directed video followed on Jan. 27, 2017,.\n\nThere was no interview and no promotion run. For most of the withdrawal year this song was the only new Taylor vocal fans got.",
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/zayn_malik-taylor-swift-duet-dont-wanna-live-forever-listen-1902944',
+          },
+          {
+            outlet: 'YouTube (official video)',
+            url: 'https://www.youtube.com/watch?v=7F37r50VUTQ',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: "https://en.wikipedia.org/wiki/I_Don%27t_Wanna_Live_Forever",
+          },
+        ],
+        // Vault Run 2026-11-15: official video 7F37r50VUTQ oEmbed-verified
+        // (title "ZAYN, Taylor Swift - I Don't Wanna Live Forever (Fifty Shades
+        // Darker)"); maxresdefault curl 200 image/jpeg 1280x720, viewed.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/7F37r50VUTQ/maxresdefault.jpg',
+            focalPoint: '40% 50%',
+            credit: 'Republic Records, via YouTube',
+            caption: 'Taylor and Zayn in silhouette in the official "I Don\'t Wanna Live Forever" video, released January 2017.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      relatedIds: ['moment:vault-1989-the-year-of-silence'],
+      year: 2017,
+      month: 2,
+      day: 4,
+      category: 'tour',
+      title: 'One show in 2017: Super Saturday Night in Houston',
+      snippet:
+        'The night before Super Bowl LI she headlined DirecTV\'s Super Saturday Night for about 9,000 fans and played "Better Man" and the Zayn duet live for the first time.',
+      sourceUrl: 'https://stereogum.com/1923012/watch-taylor-swift-play-better-man-i-dont-wanna-live-forever-live-for-the-first-time-at-directv-super-bowl-party/news',
+      thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2017/02/GettyImages-633866118-1486310246-scaled.jpg?w=1200',
+      moment: {
+        context:
+          "On Feb. 4, 2017, the night before Super Bowl LI, Taylor headlined DirecTV Now's Super Saturday Night at Club Nomadic, a temporary venue built in Houston for Super Bowl week. A sold-out crowd of nearly 9,000 got the only show she had on the calendar. \"As far as I know I'm only doing one show in 2017,\" she told them, \"and as far as I know, this is that show.\"\n\nTwo songs got their live debuts. She played a solo version of \"I Don't Wanna Live Forever,\" her Zayn duet from December, and \"Better Man,\" the song she wrote for Little Big Town. Nine months later she came back with reputation.",
+        sources: [
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/1923012/watch-taylor-swift-play-better-man-i-dont-wanna-live-forever-live-for-the-first-time-at-directv-super-bowl-party/news',
+          },
+          {
+            outlet: 'KPRC Click2Houston',
+            url: 'https://www.click2houston.com/news/2017/02/05/taylor-swift-performs-for-9000-people-at-club-nomadic-saturday-night',
+          },
+        ],
+        // Vault Run 2026-11-15: Getty 633866118 (the Super Saturday Night
+        // performance, Club Nomadic, Feb. 4, 2017) as run by Stereogum; curl
+        // 200 image/jpeg 1200x798, downloaded and viewed: Taylor kneeling
+        // on stage with a mic.
+        photos: [
+          {
+            url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2017/02/GettyImages-633866118-1486310246-scaled.jpg?w=1200',
+            focalPoint: '50% 30%',
+            credit: 'Getty Images, via Stereogum',
+            caption: 'Performing at DirecTV Now Super Saturday Night at Club Nomadic in Houston, Feb. 4, 2017.',
+            kind: 'archival',
+          },
+        ],
+      },
+    },
     {
       significance: 'notable', // the origin point of a relationship that ran six years, already 'defining' at its end elsewhere in this corpus (docs/decisions.md, 2026-07-19)
       relatedIds: ['moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years'],

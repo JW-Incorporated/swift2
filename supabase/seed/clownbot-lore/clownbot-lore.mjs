@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-12',
+  updatedOn: '2026-11-14',
   items: [
     {
       // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
@@ -48,10 +48,11 @@ export default {
       date: '2026-11-01',
       // Rechecked 2026-11-08 (Vault Run): still `reported`, no nomination yet; the Academy's Original Song shortlist is due Dec. 15.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-10',
+      // Rechecked 2026-11-14 (Vault Run): campaign widened to Golden Globe voters (press conference reported Nov. 13-14, HELLO!); still no nomination, status unchanged.
+      lastCheckedOn: '2026-11-14',
       headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
       detail:
-        'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
+        'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. In mid-November she took the campaign to Golden Globe voters as well, at a press conference where she called the film\'s take on kids and screens "a parent-to-parent decision." The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
       sources: [
         {
           name: 'The Ankler',
@@ -64,6 +65,10 @@ export default {
         {
           name: 'TheWrap',
           url: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
+        },
+        {
+          name: 'HELLO!',
+          url: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
         },
       ],
       prompts: [

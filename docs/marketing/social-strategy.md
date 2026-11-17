@@ -388,17 +388,71 @@ the calendar ledger so the drafter can see the trap before it walks into it.
 from the image and the first line alone?* If the first line works equally well
 above any of six other posts, it is not a hook. Rewrite.
 
-**Rule 5 — rotate hook shapes.** A menu, not a formula; never the same shape two
-days running on the same platform:
+**Rule 5 — the feeling opens, the detail follows; rotate the detail's shape.**
+
+**Rewritten 2026-11-16 (Tree). What it said before was eight fact-first opener
+shapes, and it contradicted §Voice for three months.** §Voice has said since
+2026-08-25: *"Every caption is first-person fan reaction first, fact second: lead
+with the feeling… If a caption could be read aloud by a documentary narrator
+without sounding wrong, it's in the old voice — rewrite it."* The menu below used
+to be presented as a menu of **openers** — the date, the number, a sourced quote
+— every one of which is a fact, not a feeling. Each calendar beat then printed
+Rule 5 as its own per-beat instruction (*"Hook direction: the number, or the
+contradiction"*), so a drafter obeying its beat could not obey §Voice. The more
+specific, more local instruction won, every time.
+
+Nothing graded voice, so the contradiction was free. On 2026-11-08 an independent
+Opus judge went live on every draft (`docs/decisions.md`, "Shared voice system")
+with a hard floor of 4 on `onVoice`, and the lane went dark inside 48 hours:
+**2 of 20 captions cleared the gate between 11-09 and 11-15 — `onVoice` below 4
+on 15 of 20, `notEmbarrassed` on 14 of 20** — and the judge's reasons are one
+reason restated: *"the middle reads like a news recap of what she said"*, *"it
+turns into a documentary narrator recapping what Jack said"*, *"most of it sounds
+like a narrator retelling Jack's story"*. Six draft PRs died of it (#6766,
+#6804, #6839, #6815, #6848, #6872) and the account shipped **nothing from
+2026-11-10 to 2026-11-16**, 2 posts against the previous week's 12, 0 reach, X −1
+follower. The judge was calibrated correctly against §Voice; this rule was not.
+
+**So, in two parts:**
+
+**(a) The first sentence is the feeling, and only the feeling.** It carries a
+first-person fan reaction and **contains no date, no number, no quoted lyric or
+song title, no outlet name, and no sourced claim.** If the opening sentence would
+survive unchanged above a different post about a different subject, it is generic
+gush and fails Rule 4 instead — the feeling has to be about *this* thing. A
+caption whose first sentence states a fact scores `onVoice` 3 at best, which is a
+dark day, because `check-drafts.mjs` requires 4.
+
+**(b) Rule 5's menu is the shape of the DETAIL — the caption's second beat, never
+its first.** A menu, not a formula; never the same shape two days running on the
+same platform:
 
 - **The date** — "august 13, 2013:" then the thing.
 - **The number** — "31 songs. two hours. one 2am post."
 - **The contradiction** — the fact that shouldn't be true.
 - **Direct address** — "you've scrolled past this one a hundred times."
-- **The artifact** — start with what the image *is*.
-- **The real quote** — a sourced quote as the first line, attributed after.
+- **The artifact** — what the image *is*.
+- **The real quote** — a sourced quote, attributed after.
 - **The honest question** — one we'd actually like answered, not rhetorical.
 - **The challenge** — "find it in ten seconds."
+
+*Direct address and the honest question are the two that can legitimately come
+first, because neither is a fact — but both still have to carry a feeling to
+clear `onVoice`, and "you've scrolled past this one a hundred times" on its own
+is a narrator's line, not a fan's.*
+
+**Every calendar beat is therefore briefed in two lines, not one:** a **Feel
+first** line naming the emotion the opening sentence must carry, and a **Then the
+detail** line for the sourced fact and its Rule 5 shape. A beat that names only a
+subject and a hook shape is an incomplete brief, and the drafter should say so
+rather than guess.
+
+*Reversal:* restore the single opener menu above and drop the two-line beat
+shape. The test is the judge's own numbers — if beats briefed feeling-first still
+score `onVoice` 3 across a fortnight, this rewrite is wrong and the next move is
+a Fable taste ruling on the rubric's anchors, not another prose instruction.
+Measured by the 2026-11-30 run as pairs posted 11-17 → 11-29 out of 13 available
+beats.
 
 **Rule 6 — always land somewhere.** Every post in every lane carries a deep link
 (era / item / lens) with the UTM tags from growth-plan §8 — widened from
@@ -768,6 +822,29 @@ see §3, it's the only real engagement data we can get.
 ---
 
 ## 2. The weekly calendar grammar
+
+### How the calendar ships — one PR, exactly two files
+
+**Added 2026-11-16 (Tree), from Marjorie's ask #6897.** The fortnight plan ships
+as its own PR touching **only `social/calendar.md` and
+`social/calendar.brief.json`**. Both are on
+`.github/content-automerge-allowlist.txt` and both are in
+`auto-merge-content.yml`'s `paths:` trigger, so a PR limited to them arms
+auto-merge and lands the moment `build` is green. That is the *only* way the
+calendar reaches `main`: the weekly run never merges its own PR, and a plan
+sitting in a branch is a plan the daily draft run cannot read.
+
+One path outside the allow set and the whole PR declines — "the PR waits for a
+founder. That is the fail-safe direction," which is correct for merge authority
+and fatal for a calendar. PR #6744 is the worked example: the plan PR also
+edited `HUMAN-ACTIONS.md`, which is not allowlisted, so it never merged and
+`main`'s calendar expired on 2026-11-15 with nothing planned for CMA week.
+
+So anything else a weekly run wants to write — a `HUMAN-ACTIONS.md` card, a
+lessons-ledger edit, a strategy change like this one — goes in a **separate PR,
+opened after the calendar PR**, even when the files involved are themselves
+allowlisted. The plan is the one artifact with a hard deadline (the next 11:00Z
+draft run), so it travels alone and nothing else gets to strand it.
 
 ### The bar every post clears — three criteria, not an average
 

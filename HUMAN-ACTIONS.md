@@ -21,8 +21,9 @@
 
 ## #149 🔴 [BLOCKING] Add SOCIAL_JUDGE_KEY to the social environment (~3 min)
 <!-- ha filed=2026-11-08 -->
+<!-- ha verify: secret-exists SOCIAL_JUDGE_KEY -->
 
-**Why:** Until this secret exists, Tree's independent social judge writes unsigned scores and the approval gate does not enforce it (it prints `judge not enforced`), so a self-scored caption can still ship.
+**Why:** Unsigned judge scores are re-judged every run, so approval is not enforced (`judge not enforced`) AND a premature approve run stamps, then dies when the re-judge moves the PR head: 2 posts last week vs 12 (#6890). Fixing the key fixes both.
 **Steps:**
 1. In PowerShell run `[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))` and copy the output.
 2. Open https://github.com/JW-Incorporated/swift2/settings/environments and click `social`.
