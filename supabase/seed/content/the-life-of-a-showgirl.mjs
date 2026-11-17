@@ -16,6 +16,82 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-11-17 (Vault Run, Content Shift lane) from intake #6921.
+      // Read directly this run: Grammy.com Song of the Year nominee page (the
+      // five-nomination count, the ninth SOTY nod, the Antonoff notes), ABC
+      // News full list (AOTY, SOTY, Visual Media, Pop Duo/Group, and Best Pop
+      // Vocal Album without Showgirl), Stereogum (eighth AOTY nod), Deseret
+      // (Record of the Year for "The Fate of Ophelia"). Cut: the ticket's
+      // "ties Kendrick Lamar" framing (no readable source supported it) and
+      // the broadcast cameo / necklace aside (Elle and People unreadable).
+      slug: 'showgirl-2027-grammy-nominations',
+      year: 2026,
+      month: 11,
+      day: 16,
+      category: 'music',
+      title: 'Five nods for the 2027 Grammys, and a fifth straight album up for Album of the Year',
+      snippet:
+        'The Life of a Showgirl is up for Album of the Year, "The Fate of Ophelia" for Record of the Year, and the Toy Story 5 song "I Knew It, I Knew You" for Song of the Year, her ninth nomination in that category.',
+      sourceUrl: 'https://www.grammy.com/news/grammy-awards-for-song-of-the-year-meet-the-2027-nominees/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-awards-for-song-of-the-year-meet-the-2027-nominees/',
+            source_title: 'Grammy Awards for Song of the Year: Meet the 2027 Nominees',
+            publisher: 'Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-11-17',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/grammy-nominations-2027-full-list/story?id=138113372',
+            source_title: 'Grammy Awards 2027: See the full list of nominees',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+            source_title: 'Album Of The Year Grammy Nominees 2027 Include Rosalía, Phoebe Bridgers, Taylor Swift',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deseret News',
+            url: 'https://www.deseret.com/entertainment/2026/11/16/grammy-award-nominations-2027/',
+            source_title: 'Grammy awards 2027: The full list of nominees',
+            publisher: 'Deseret News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-17',
+            reliability_score: 5,
+            notes: 'oEmbed-verified this run: author_name "Taylor Swift". The Song of the Year nominee itself.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-31 (Vault Run, Content Shift lane) from intake #6483.
       // Read directly this run: Yahoo Entertainment (Mandatory syndication,
       // Nikita Nath, Oct. 29, 2026 09:19 UTC) for the on-screen question and
