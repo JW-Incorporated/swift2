@@ -27,8 +27,10 @@ The explanation column is required for every uncovered row. It reports only the 
 | 1989 (Taylor's Version) Eras Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Eras T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Keychain | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 (Taylor's Version) Knit Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Off White Photo T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor’s Version) Open Knit Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 (Taylor's Version) Paper Airplane Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Patch Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Photo Coasters | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Photo Ringer T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -48,9 +50,13 @@ The explanation column is required for every uncovered row. It reports only the 
 | 1989 (Taylor's Version) Yellow Photo T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Album Cover Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Bandana | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 Blue Seagull Sweat Short | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 Blue Seagull Tank | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 Cooler Bag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Guitar Picks | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Hair Ties | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Photo Illustration T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 Pink Seagull Tank | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Seagull Mesh Coverup Dress | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Seagull Rhinestone Tumbler | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 Seagull Sandal | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -61,6 +67,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | 2027 Taylor Swift &#124; The Eras Tour 12" x 12" Flap Calendar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 2027 Taylor Swift &#124; The Eras Tour 12" x 12" PL Calendar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 2027 Taylor Swift &#124; The Eras Tour 7" x 7" Mini Calendar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| A Lot Going On At The Moment Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Cozy Slippers | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Decorative Charcuterie Board | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -69,11 +76,15 @@ The explanation column is required for every uncovered row. It reports only the 
 | Acoustic Piano Quilted Tote Bag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Raglan Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Scarf | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Stocking | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Vinyl Case | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Acoustic Piano Work Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Acoustic Piano Zip-Up Fleece Sherpa Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Ain't That The Worst Thing You Ever Heard? T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All I Think About Is Karma Snake Necklace | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All Too Well Backpack | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All Too Well Cropped Puffer Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| All Too Well Lurex Red Scarf | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | All Too Well Snow Globe Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Alyce 40022 Short Homecoming Dress | promgirl.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-teal-fringe-dress-in-the-first-delicate-video | not listed in checked-in E0 Awin advertiser directory |
 | Alyn Halter Mini Dress | us.princesspolly.com | none | uncovered | direct retailer URL | speak-now.vault-speak-now-a-marilyn-monroe-inspired-white-halter-dress-at-the-teen-cho | not listed in checked-in E0 Awin advertiser directory |
@@ -89,6 +100,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Bex Strapless Slinky Maxi Dress With Split | meshki.us | none | uncovered | direct retailer URL | midnights.vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced | not listed in checked-in E0 Awin advertiser directory |
 | Big Reputation Album Bomber Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Black and Red reputation Snake Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Blank Space Cake Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Blank Space Heart Cake Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Blue Floral Brocade Strapless Ball Gown | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-blue-floral-gown-and-a-surprise-beyonc-reunion | not listed in checked-in E0 Awin advertiser directory |
 | Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown | macduggal.com | none | uncovered | direct retailer URL | red.vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award | not listed in checked-in E0 Awin advertiser directory |
@@ -113,6 +125,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Crystal Slit Jean | area.nyc | none | uncovered | direct retailer URL | midnights.vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in | not listed in checked-in E0 Awin advertiser directory |
 | Custom Graduation Lei &#124; Giant Friendship Bracelet Necklace &#124; Senior 2027 (GRAD ERA) | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Cutout Front Printed Long Sleeve Romper | plushfashionhub.us | none | uncovered | direct retailer URL | red.vault-red-a-mary-katrantzou-romper-signals-the-turn-toward-1989 | not listed in checked-in E0 Awin advertiser directory |
+| Dancing Round The Kitchen In the Refrigerator Light Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Debut Album Skirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Debut Album Tank | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Denim Overall Dress | copperunionapparel.com | none | uncovered | direct retailer URL | 1989.vault-1989-denim-overall-dress-street-style-on-a-new-york-afternoon | not listed in checked-in E0 Awin advertiser directory |
@@ -300,11 +313,17 @@ The explanation column is required for every uncovered row. It reports only the 
 | Purple Strapless Satin Ball Gown With Draped Detail | macduggal.com | none | uncovered | direct retailer URL | midnights.vault-midnights-a-nicole-felicia-princess-gown-for-speak-now | not listed in checked-in E0 Awin advertiser directory |
 | Red (Taylor’s Version) Argyle Scarf | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor’s Version) Argyle Sweater Vest | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Red (Taylor's Version) Balloons Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor’s Version) Cable Knit Socks | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Red (Taylor's Version) Cardigan Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor’s Version) Cardigan Plush Cat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | RED (Taylor's Version) CD | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | RED (Taylor's Version) CD (Clean) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Red (Taylor's Version) Glass Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Red (Taylor's Version) Glistened As It Fell Longsleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Red (Taylor's Version) Plaid Skirt Days | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | RED (Taylor's Version) Red Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Red (Taylor's Version) Starlight Pillow | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor's Version) State of Grace Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor’s Version) Varsity Cable Knit Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Red (Taylor’s Version) Vintage Car Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -393,6 +412,10 @@ The explanation column is required for every uncovered row. It reports only the 
 | Taylor Inspired Bookmarks&#124;Life of a Bookgirl&#124;Tour&#124;Gifts&#124;Readers | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift &#124; Patient Zero T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Guitar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Acoustic Piano Hair Clip | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Acoustic Piano Mini Backpack | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Acoustic Piano Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Acoustic Piano Woven Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Piano Zip Up Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Collage Black Long Sleeve | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Cookie Tin | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -554,6 +577,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | View of Portofino Strappy Tank | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Vintage Denim High-Waisted Jean Shorts | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | speak-now.vault-speak-now-high-waisted-shorts-become-a-recurring-signature |  |
 | Viola Dress | moniquelhuillier.com | none | uncovered | direct retailer URL | tloas.vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep | not listed in checked-in E0 Awin advertiser directory |
+| We Are Never Ever Ever Getting Back Together Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | We Found Wonderland Quarter Zip Pullover | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Welcome To New York, It’s Been Waiting For You Striped Poplin Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Welcome To New York, It’s Been Waiting For You V-Neck Pullover | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -574,9 +598,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 560 |
+| total | 584 |
 | wrapped | 0 |
 | awin-apply | 7 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 447 |
+| direct-by-policy | 471 |
