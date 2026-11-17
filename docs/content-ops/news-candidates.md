@@ -27,6 +27,14 @@ so far".
 
 Stories: 96
 
+## Sugarland Releases Cover Video of Taylor Swift's 'Patient Zero'
+
+- first seen: 2026-11-17 18:12 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Sugarland has shared a video featuring their cover of Taylor Swift's song 'Patient Zero'. The announcement comes from Dayton's New Country 103.9.
+- sources:
+  - [unverified] Dayton’s New Country 103.9 — https://newcountry1039fm.iheart.com/content/2026-11-17-sugarland-shares-video-of-their-stunning-cover-of-taylor-swifts-patient-zero/
+
 ## Taylor Swift Acknowledges Grammy Nominations in Song of the Year
 
 - first seen: 2026-11-17 17:12 UTC | category: music | importance: 7
@@ -803,11 +811,3 @@ Stories: 96
 - summary: Taylor Swift is set to perform at the upcoming CMA Awards, sparking speculation among fans about potential surprises during her appearance. Two theories regarding her performance have been shared in anticipation of the event.
 - sources:
   - [unverified] Cinemablend — https://www.cinemablend.com/television/taylor-swift-performing-cma-awards-2-wild-theories-what-might-happen
-
-## Taylor Swift Discusses Parenting Following Recent Wedding
-
-- first seen: 2026-11-14 18:02 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made rare comments regarding raising children, shortly after her wedding to Travis Kelce four months ago. The statements reflect her views on family life post-marriage.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-makes-rare-comments-165010688.html
