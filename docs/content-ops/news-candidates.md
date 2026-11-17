@@ -27,6 +27,22 @@ so far".
 
 Stories: 105
 
+## Maine Considers Luxury Home Tax Inspired by Taylor Swift
+
+- first seen: 2026-11-17 23:51 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Maine panel has proposed a luxury home tax, informally referred to as the 'Taylor Swift tax', although it has been advised that such a tax may be unconstitutional. The initiative is currently under discussion.
+- sources:
+  - [unverified] Bangor Daily News — https://www.bangordailynews.com/2026/11/17/politics/state-politics/maine-taylor-swift-luxury-home-tax/
+
+## Bad Gyal Discusses Reaction to Comments About Taylor Swift Collaboration
+
+- first seen: 2026-11-17 23:51 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Bad Gyal opened up about the tough reaction she received after stating she would never collaborate with Taylor Swift. The comments sparked discussions among fans and media.
+- sources:
+  - [unverified] Complex — https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-comments-clarification
+
 ## Taylor Swift-Inspired Christmas Ornament Available at Target
 
 - first seen: 2026-11-17 22:12 UTC | category: fashion | importance: 5
@@ -873,19 +889,3 @@ Stories: 105
 - summary: In a recent statement, Taylor Swift expressed her belief that humans are still excelling in the art of music creation. She highlighted the ongoing importance of human involvement in the music industry.
 - sources:
   - [unverified] TheWrap — https://www.thewrap.com/creative-content/music/taylor-swift-human-beings-winning-technology-music/
-
-## Fans Praise Taylor Swift's Alleged Transformation Following Viral Moment
-
-- first seen: 2026-11-14 23:33 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Fans are expressing appreciation for Taylor Swift's alleged cosmetic procedures after a subtle transformation gained attention online. Many compliment the work done, suggesting that her aesthetic choices have been well-received.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/fans-applaud-taylor-swifts-alleged-121627547.html
-
-## Nelly recounts flight story involving Taylor Swift and money
-
-- first seen: 2026-11-14 23:33 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Nelly shared a story about a flight from St. Louis that involved Taylor Swift and $50,000 in a McDonald's bag. The anecdote highlights a unique moment related to the artist's life.
-- sources:
-  - [unverified] FOX 2 — https://fox2now.com/news/missouri/nelly-shares-taylor-swift-story-a-flight-from-st-louis-and-50k-in-a-mcdonalds-bag/
