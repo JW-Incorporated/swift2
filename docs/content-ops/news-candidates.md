@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 84
+Stories: 83
+
+## Taylor Swift Nominated for Grammy Award Alongside Beyoncé
+
+- first seen: 2026-11-17 03:22 UTC | category: music | importance: 8
+- verification_status: single_source | source_count: 0
+- summary: The Grammy Award nominations include notable music stars such as Taylor Swift and Beyoncé. These nominations highlight the achievements of women in the music industry.
+- sources:
+  - [unverified] unknown — https://wsvn.com/entertainment/deco-drive/women-dominate-grammy-nominations/
 
 ## Ice Spice Discusses Connection with Star at Taylor Swift's Wedding
 
@@ -698,20 +706,3 @@ Stories: 84
 - summary: Taylor Swift has shared exciting news just days before the upcoming game between the Chiefs and Falcons. Details of the announcement were not specified.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-exciting-news-before-falcons-game/
-
-## Taylor Swift Discusses Her Experience Writing for 'Toy Story 5'
-
-- first seen: 2026-11-14 03:18 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift shared her thoughts on writing a song for 'Toy Story 5', describing it as a new experience for her as a songwriter. She emphasized the creative journey involved in this project.
-- sources:
-  - [unverified] Gold Derby — https://www.goldderby.com/film/2026/taylor-swift-toy-story-5-interview/
-  - [unverified] Obsessed by Kevin Fallon — https://obsessed.substack.com/p/taylor-swift-spills-on-how-personal-toy-story-is-to-her
-
-## Taylor Swift Pays Nelly $50,000 for Surprise Concert Appearance
-
-- first seen: 2026-11-14 02:23 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift reportedly paid Nelly $50,000, delivered in a McDonald's bag, for his surprise appearance at a recent concert. This unusual payment method has caught attention online.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66110648/?ref_=nmnw_art_perm
