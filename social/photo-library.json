@@ -3340,6 +3340,20 @@
       "sha256": "09d801b1024e360732282e9399c26ea1244fd9ac3259f087a6d27a42e8d136fe"
     },
     {
+      "id": "press-4cbe59862818",
+      "mediaPath": "/social/library/photos/press-4cbe59862818.jpg",
+      "source": "https://zeenews.india.com/entertainment/hollywood/article-grammy-2027-taylor-swift-ties-grammy-record-for-consecutive-album-of-the-year-nominations-3162308",
+      "alt": "Taylor Swift in the news: Grammy 2027: Taylor Swift ties Grammy record for consecutive Album of the Year nominations",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Zee News",
+      "width": 1280,
+      "height": 720,
+      "bytes": 68095,
+      "sha256": "bd23ac1383f122134cd15bb42900028f7a04a09c5f4db5b43799a6c1ea984844"
+    },
+    {
       "id": "press-5ec0a95f0a2a",
       "mediaPath": "/social/library/photos/press-5ec0a95f0a2a.jpg",
       "source": "https://www.essentiallysports.com/nba-active-basketball-news-knicks-issue-statement-against-own-players-after-controversial-taylor-swift-comment-tyler-kolek-miles-mcbride/",
@@ -3450,6 +3464,20 @@
       "height": 1080,
       "bytes": 133412,
       "sha256": "d1d4397e04a61980302928b81664ec701241fd62131402644c3609a97ec826fe"
+    },
+    {
+      "id": "press-94edadd5b6b8",
+      "mediaPath": "/social/library/photos/press-94edadd5b6b8.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-hidden-surprise-fans-after-falcons-game/",
+      "alt": "Taylor Swift in the news: Taylor Swift's Hidden Surprise for Fans After Chiefs-Falcons Game",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 2048,
+      "height": 1155,
+      "bytes": 299530,
+      "sha256": "c242db945d0694521f41ceb99ae03be77eeeb3fdef1961360ea44aad0f4534d9"
     },
     {
       "id": "press-a5b64984ba80",

@@ -3937,6 +3937,30 @@
       "sha256": "84e4f476b303708e2b9d93d8e45786df00cc4cb2f3857727165c44557b96b89e",
       "reason": "Group photo of a dozen fans at a watch party; no single prominent person.",
       "date": "2026-11-16"
+    },
+    {
+      "id": "press-051d962e916d",
+      "sha256": "9eb681bb5a2f3c01d6796d9eaebea405806232e190d2222405a079a7250eab19",
+      "reason": "Four-person collage; no single main subject",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "press-ccc98fd97f46",
+      "sha256": "7ed1fe7142ad87ab9f84d8f60906334c20559846cdeebeb2c9a714cb21fa4ce2",
+      "reason": "Two people equally prominent, plus crowd; not a single-subject shot",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "press-500db7ed61b8",
+      "sha256": "fa159d4576b3c3d0fa649c3f6b0480a712aaafc8ee60bf018b4d2592e87f98ae",
+      "reason": "Three-person collage of different people; no single subject for caption",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "press-dc75c0422ea7",
+      "sha256": "3bbd7f004cc670d67ddee8f05577303706c078e574e081d41959baa54c09ec77",
+      "reason": "Two people; the man is dominant, not a single prominent subject",
+      "date": "2026-11-17"
     }
   ]
 }
