@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 86
+
+## Kathy Griffin Critiques Taylor Swift's Music and Fanbase
+
+- first seen: 2026-11-17 05:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kathy Griffin made headlines with a harsh critique of Taylor Swift, calling her music mediocre and including comments about Swift's fans, often referred to as 'Swifties.' The remarks have sparked discussions among fans and the media.
+- sources:
+  - [unverified] AOL.com — https://www.aol.com/articles/kathy-griffin-roasts-taylor-swift-100450000.html
 
 ## Ice Spice and Millie Bobby Brown Bond at Taylor Swift's Wedding
 
@@ -67,14 +75,6 @@ Stories: 85
 - sources:
   - [established] People — https://people.com/taylor-swift-fans-are-convinced-her-necklaces-are-a-major-easter-egg-12259129
 
-## Taylor Swift Shares Personal News Amid Travis Kelce's Injury
-
-- first seen: 2026-11-17 00:27 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift has announced personal news in relation to the ongoing situation with Chiefs player Travis Kelce, who is currently injured. Further details about the announcement have not been disclosed in the snippet.
-- sources:
-  - [unverified] unknown — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-announces-personal-news-235054759.html
-
 ## Hosts Share Reactions to 2027 Grammy Nominations
 
 - first seen: 2026-11-17 00:27 UTC | category: music | importance: 5
@@ -82,6 +82,14 @@ Stories: 85
 - summary: The hosts of 'Popcast' discuss key takeaways from the recently announced 2027 Grammy nominations, highlighting different categories and their implications.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/16/arts/music/popcast-grammy-nomination-takeaways.html
+
+## Taylor Swift Shares Personal News Amid Travis Kelce's Injury
+
+- first seen: 2026-11-17 00:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has announced personal news in relation to the ongoing situation with Chiefs player Travis Kelce, who is currently injured. Further details about the announcement have not been disclosed in the snippet.
+- sources:
+  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-grammy-travis-kelce-injury-update/
 
 ## Trump Critic Draws Comparison Between Swifties and MAGA Supporters
 
