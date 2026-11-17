@@ -1,58 +1,43 @@
-import type { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 
-import { THREADS, getEra, resolveTrackKey } from '@swift2/experience';
 import { LongLive } from '@/components/longlive/LongLive';
-import { getContentItemByIdOrSlug } from '@/lib/longlive/content';
+import { resolveShareTarget, type ShareParams } from '@/lib/longlive/share-target';
 
 // The "cool feature only" fix (social-strategy.md §2, PR #3922 2026-09-06):
-// a shared `/?lens=hidden-clues` or `/?mode=mood` link must unfurl showing
-// that feature, not the generic brand card every other route gets from
-// `app/opengraph-image.tsx`. Recognized lens ids and the two feature modes
-// (Mood, Clownbot) point at the dynamic renderer in `app/api/og/route.tsx`;
-// everything else (bare homepage, an unrecognized/absent param, Threads
-// gallery, Community, Merch) falls through to the static file convention
-// by simply not overriding `openGraph.images`/`twitter.images` here.
-const VALID_LENS_IDS: Set<string> = new Set(THREADS.map((t) => t.id));
-const FEATURE_MODE_IDS = new Set(['mood', 'clownbot']);
+// a shared deep link must unfurl showing that target, not the generic brand
+// card. `resolveShareTarget` is the one resolver shared with `app/api/og`, so
+// the card text here and the picture it points at cannot disagree. A param
+// that does not resolve keeps the layout's generic metadata.
+//
+// Next merges `openGraph`/`twitter` shallowly, so setting either replaces the
+// layout's whole object; the unchanged layout fields are carried over from
+// `parent`. Home's og:title/twitter:title follow the document title.
+type PageSearchParams = ShareParams;
 
-function isValidEraId(id: string | undefined): id is string {
-  return Boolean(id && getEra(id).id === id);
-}
+export async function generateMetadata(
+  { searchParams }: { searchParams: Promise<PageSearchParams> },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const params = await searchParams;
+  const resolved = await parent;
+  const siteTitle = typeof resolved.title === 'string' ? resolved.title : resolved.title?.absolute;
+  const target = resolveShareTarget(params);
 
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: Promise<{ lens?: string; mode?: string; item?: string; era?: string; song?: string; guide?: string; theories?: string }>;
-}): Promise<Metadata> {
-  const { lens, mode, item, era, song, guide, theories } = await searchParams;
-  const validLens = lens && VALID_LENS_IDS.has(lens) ? lens : undefined;
-  const validMode = mode && FEATURE_MODE_IDS.has(mode) ? mode : undefined;
-  const validItem = item && getContentItemByIdOrSlug(item)?.id;
-  const validEra = isValidEraId(era) ? era : undefined;
-  const validSong = song && resolveTrackKey(song) ? song : undefined;
-  const validGuide = isValidEraId(guide) ? guide : undefined;
-  const validTheories = isValidEraId(theories) ? theories : undefined;
-  const featureParam = validLens
-    ? `lens=${encodeURIComponent(validLens)}`
-    : validMode
-      ? `mode=${encodeURIComponent(validMode)}`
-      : validItem
-        ? `item=${encodeURIComponent(validItem)}`
-        : validEra
-          ? `era=${encodeURIComponent(validEra)}`
-          : validSong
-            ? `song=${encodeURIComponent(validSong)}`
-            : validGuide
-              ? `guide=${encodeURIComponent(validGuide)}`
-              : validTheories
-                ? `theories=${encodeURIComponent(validTheories)}`
-                : undefined;
-  if (!featureParam) return {};
+  if (!target) {
+    if (!siteTitle) return {};
+    return {
+      openGraph: { ...resolved.openGraph, title: siteTitle } as Metadata['openGraph'],
+      twitter: { ...resolved.twitter, title: siteTitle } as Metadata['twitter'],
+    };
+  }
 
-  const ogUrl = `/api/og?${featureParam}`;
+  const ogUrl = `/api/og?${target.param}`;
+  const title = `${target.title} — Long Live`;
   return {
-    openGraph: { images: [ogUrl] },
-    twitter: { images: [ogUrl] },
+    title,
+    description: target.description,
+    openGraph: { ...resolved.openGraph, title, description: target.description, images: [ogUrl] } as Metadata['openGraph'],
+    twitter: { ...resolved.twitter, title, description: target.description, images: [ogUrl] } as Metadata['twitter'],
   };
 }
 

@@ -16,6 +16,9 @@ import { legalSitemapEntries } from '@/lib/longlive/legal';
 // still-open architecture gap in docs/architecture.md re: the Vault),
 // not a sitemap-config fix.
 //
+// `/desk` and `/support` are the same kind of real, server-rendered,
+// uniquely-titled, indexable route (own canonical), so they are listed too.
+//
 // The legal pages (#800) ARE real, server-rendered, uniquely-titled routes, so
 // they belong here — but only once counsel has approved them. While they are
 // drafts they render `noindex`, and listing a `noindex` URL in the sitemap is
@@ -29,6 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1,
     },
+    ...['desk', 'support'].map((path) => ({
+      url: `https://www.longlivets.com/${path}`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    })),
     ...legalSitemapEntries().map((entry) => ({
       url: entry.url,
       lastModified: new Date(),

@@ -104,6 +104,21 @@ describe('P1-23 surface media gates', () => {
     expect(errorsFor('social/inbox/new-intent.json', intent, socialInboxMediaErrors(intent))).not.toEqual([]);
   });
 
+  it('lets an appearance-discovery lead through the inbox gate with empty media', () => {
+    const intent = { id: 'appearance-x', source: 'appearance-discovery', lane: 'appearance', media: [] };
+    expect(socialInboxMediaErrors(intent)).toEqual([]);
+  });
+
+  it.each([
+    { id: 'merch-x', source: 'merch-sync', lane: 'merch', media: [] },
+    { id: 'a', source: 'appearance-discovery', lane: 'merch', media: [] },
+    { id: 'b', source: 'other', lane: 'appearance', media: [] },
+    { id: 'c', source: 'appearance-discovery', lane: 'appearance' },
+    { id: 'd', source: 'appearance-discovery', lane: 'appearance', media: [''] },
+  ])('still rejects other empty-media inbox intents (%j)', (intent) => {
+    expect(socialInboxMediaErrors(intent)).not.toEqual([]);
+  });
+
   it('rejects a new merch row without an image', () => {
     const row = { sourceId: 'new-product' };
     expect(errorsFor('merch/official.mjs#new-product', row, merchMediaErrors(row))).not.toEqual([]);

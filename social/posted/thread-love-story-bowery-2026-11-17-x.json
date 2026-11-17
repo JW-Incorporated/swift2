@@ -1,0 +1,48 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1tl4pqb-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1tl4pqb-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1tl4pqb/she_knows_exactly_how_good_she_looks_in_this/",
+  "scheduledAt": "2026-11-17T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: She knows exactly how good she looks in this outfit."
+  ],
+  "campaign": "thread:love-story:single-best-item:2026-11-hero",
+  "body": "the William Bowery reveal still makes me SCREAM. a fake name stitched from Joe's composer great-grandfather and a New York neighborhood, and in Long Pond Taylor told us he wrote the entire \"exile\" piano part 🥹 my favorite thing in the whole lens https://www.longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "why": "X sibling of the Nov 17 Blank Spaces single-best-item pair, written as its own post: the pseudonym origin plus the \"exile\" piano part (Vault folklore `william-bowery-is-joe`). Different hook shape from the IG caption (the artifact vs the date).",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "The X half leads with the reaction to the William Bowery reveal, then the two sourced details: the name built from a great-grandfather and a neighborhood, and the \"exile\" piano part. One idea plus the Blank Spaces lens link.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-16T21:03:12.384Z",
+    "pr": 6915,
+    "message": "social-tree-approve run 43955813810",
+    "contentHash": "sha256:ed85621dbd2da41c475c6a85502e5202c6b3723ca04382f444b8c16dd78525f4",
+    "mediaDigest": "sha256:9c66da0d457ca0e56c3a428b18ddf6da7e672f229b47c68c9c6a6ca5eef89acf",
+    "sig": "hmac-sha256:8d372d4755533cd71b7ec2624a5a19e450b5291ce82df837f8e84bf42b92c5b9"
+  },
+  "postedAt": "2026-11-17T23:27:11.253Z",
+  "platformPostId": "2122834008270573589",
+  "url": "https://x.com/longlivetscom/status/2122834008270573589"
+}

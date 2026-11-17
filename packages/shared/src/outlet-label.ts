@@ -6,6 +6,10 @@
 
 const KNOWN_HOSTS: Record<string, string> = {
   'people.com': 'People',
+  'tmz.com': 'TMZ',
+  'npr.org': 'NPR',
+  'vogue.com': 'Vogue',
+  'reuters.com': 'Reuters',
   'yahoo.com': 'Yahoo',
   'billboard.com': 'Billboard',
   'theankler.com': 'The Ankler',

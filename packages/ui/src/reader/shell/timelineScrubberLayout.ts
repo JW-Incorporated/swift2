@@ -18,6 +18,20 @@
 export const SCRUBBER_SHELL_CLASS =
   'pointer-events-none fixed inset-y-0 right-0 z-30 w-10 sm:w-12';
 
+// Right padding that reserves the rail's footprint so content ends before the
+// ridge's widest point: RAIL_RIGHT (16) + RIDGE_WIDTH (28) in TimelineScrubber =
+// 44px, plus a 4px gap = 3rem. The era column is max-w-4xl (896px) centered, so
+// its right edge sits (vw + 896) / 2 from the left and only comes within 48px of
+// the rail when vw < 992px = 62rem; from there up the column never reaches the
+// rail and each section keeps the symmetric padding it had before the rail got a
+// gutter. The breakpoint is spelled out in the class literals (Tailwind's scanner
+// needs literal text) and pinned by tests.
+export const SCRUBBER_GUTTER_MIN_VIEWPORT_REM = 62;
+/** Feed list, era secret, threads pivot: originally `md:pr-8`. */
+export const SCRUBBER_GUTTER_CLASS = 'pr-12 min-[62rem]:pr-8';
+/** This-week news: originally a plain symmetric `px-4`. */
+export const SCRUBBER_GUTTER_SYMMETRIC_CLASS = 'pr-12 min-[62rem]:pr-4';
+
 export const SCRUBBER_SCRIM_CLASS = 'absolute inset-y-0 right-0 w-full';
 
 // Top-aligns the rail just below the TopBar (Joey, follow-up to #2077):
@@ -194,6 +208,19 @@ export function scrubberPillTransform(pct: number): string {
   if (pct <= 2) return 'translateY(0)';
   if (pct >= 98) return 'translateY(-100%)';
   return 'translateY(-50%)';
+}
+
+/**
+ * Same job for the slim vertical idle pill, which is far taller than the wide
+ * one, so the 2%/98% snap above would clip it under the sticky chrome. Slides
+ * continuously from top-aligned at 0 to centered on the handle to
+ * bottom-aligned at 100, so it stays inside the rail without a jump.
+ * `ratio` is the pill's measured height divided by the rail's.
+ */
+export function scrubberVerticalPillTransform(pct: number, ratio = 0.15): string {
+  const r = Math.max(0.01, Math.min(1, ratio)) * 100;
+  const k = Math.min(1, Math.max(0, Math.min(Math.max(0.5, 1 - (100 - pct) / r), pct / r)));
+  return `translateY(-${(k * 100).toFixed(1)}%)`;
 }
 
 /** Place the variable-height preview away from the nearest viewport edge. */

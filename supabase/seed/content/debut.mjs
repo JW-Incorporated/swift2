@@ -1412,13 +1412,14 @@ export default {
               'A set of small July 19 Spotify "canvas" color changes — a green background on "I Knew It, I Knew You," red on "Blank Space" — was read across entertainment outlets as an Easter-egg tease that an announcement of Taylor\'s Version of the 2006 self-titled debut was imminent, pointed toward the album\'s 20th anniversary later in 2026.',
             reportedBy: 'Bustle',
             reportedOn: '2026-07-20',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.bustle.com/entertainment/taylor-swift-spotify-canvas-new-album-theories',
-            note: 'Taylor and her team said nothing, and the canvas colors reportedly reverted next day. Resolves if a debut Taylor\'s Version is announced, fades if the anniversary passes empty. Re-checked 2026-10-22: still no announcement from Taylor or her team, only fan speculation and unconfirmed retail listings. Live two days before the Oct 24 anniversary.',
+            note: 'Taylor and her team said nothing, and the canvas colors reportedly reverted next day. Resolved if a debut Taylor\'s Version was announced, faded if the Oct 24 anniversary passed empty. Faded 2026-11-12: the anniversary brought a website tribute and no announcement, and none followed in the next three weeks.',
             sourceTier: 'tabloid',
             // Lifecycle re-checks: 2026-08-14 still unannounced (fan/tabloid
-            // chatter only); 2026-10-22 web search, still unannounced.
-            lastCheckedOn: '2026-10-22',
+            // chatter only); 2026-10-22 web search, still unannounced;
+            // 2026-11-12 web search, anniversary window passed empty -> faded.
+            lastCheckedOn: '2026-11-12',
           },
           {
             // Rumor Desk 2026-07-24: a separate, earlier easter-egg wave than
@@ -1428,13 +1429,13 @@ export default {
               'A mid-June wave of easter-egg reading pointed the same way: Elite Daily noted Taylor\'s recent looks echoing her 2006 debut-promo photoshoot and a dress from Erdem\'s archive-inspired Fall 2026 collection — marking that label\'s 20th anniversary the same autumn the debut album turns 20 — as hints a debut Taylor\'s Version announcement is near.',
             reportedBy: 'Elite Daily (Hannah Kerns)',
             reportedOn: '2026-06-16',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.elitedaily.com/entertainment/taylor-swift-album-13-clues-easter-eggs',
-            note: 'Distinct from the Spotify-canvas reading above — an earlier easter-egg wave. The re-recording is on record (Taylor, June 2025: "already completely re-recorded" the debut); only the timing is unconfirmed. Re-checked 2026-10-22: still unannounced, with the Oct 24 anniversary two days out. Still live.',
+            note: 'Distinct from the Spotify-canvas reading above, an earlier easter-egg wave. The re-recording is on record (Taylor, June 2025: "already completely re-recorded" the debut); only the timing was unconfirmed. Faded 2026-11-12: the "announcement is near" read was tied to the anniversary, which passed with no announcement.',
             sourceTier: 'tabloid',
             // Lifecycle re-checks: 2026-08-14 kept live (anniversary ahead, Aug 7
-            // restock signal); 2026-10-22 still unannounced.
-            lastCheckedOn: '2026-10-22',
+            // restock signal); 2026-10-22 still unannounced; 2026-11-12 faded.
+            lastCheckedOn: '2026-11-12',
           },
           {
             // Rumor Desk 2026-08-09: a more concrete signal than the earlier
@@ -1445,11 +1446,11 @@ export default {
               'A fan-run inventory bot ("Taylor Swift Store Updates") flagged ~250,000 vinyl records restocked in Taylor\'s webstore warehouse — with per-unit weights suggesting multi-LP sets — which fans and tabloids read as a sign the finished re-recording of her 2006 debut could arrive around its 20th anniversary on Oct 24, 2026. A Target listing briefly showed SEO text for a "Taylor Swift 20" set.',
             reportedBy: 'Radar Online (Alex West), via AOL',
             reportedOn: '2026-08-07',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.aol.com/articles/taylor-swift-allegedly-restocks-250-200000000.html',
-            note: 'Sourced to a fan-bot and a tabloid write-up; Taylor and her team said nothing. The re-recording is on record as finished (May 2025 letter); only the release is unannounced. Resolves on a debut Taylor’s Version announcement, fades if the anniversary passes empty. Re-checked 2026-10-24, the anniversary: no announcement, the website tribute came with no release. Still live. No location.',
+            note: 'Sourced to a fan-bot and a tabloid write-up; Taylor and her team said nothing. The re-recording is on record as finished (May 2025 letter). Faded 2026-11-12: the Oct 24 anniversary passed with a website tribute and no release, and none followed. Reported August 2026, never confirmed or denied. No location.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-24',
+            lastCheckedOn: '2026-11-12',
           },
           {
             // Rumor Desk 2026-08-19: a different KIND of signal than the
@@ -1464,9 +1465,9 @@ export default {
             reportedOn: '2026-06-19',
             status: 'unconfirmed',
             url: 'https://popculture.com/celebrity/news/taylor-swift-spotted-at-recording-studio-amidst-new-taylors-version-speculation/',
-            note: 'A quantified betting-market probability with a hard deadline, distinct from the easter-egg and restock reads. The debut re-record is on record as finished (May 2025); only the release is unannounced. Resolves by 2026-12-31, otherwise fades. Re-checked 2026-10-24: still unannounced on the anniversary morning. No location.',
+            note: 'A quantified betting-market probability with a hard deadline, distinct from the easter-egg and restock reads. The debut re-record is on record as finished (May 2025); only the release is unannounced. Resolves by 2026-12-31, otherwise fades. Re-checked 2026-11-12: still unannounced, deadline ahead. No location.',
             sourceTier: 'social',
-            lastCheckedOn: '2026-10-24',
+            lastCheckedOn: '2026-11-12',
           },
         ],
       },

@@ -13,7 +13,7 @@ import { MomentSocialPost } from './MomentSocialPost';
 import { detailVideoFor, heroVideoFor, imageDuplicatesPageVideo } from '../lib/video-affordance';
 import { primaryImageRef, type ImageRef } from '@swift2/experience';
 import { useBackDismiss } from '../lib/useBackDismiss';
-import { ConfidenceBanner } from './ConfidenceBanner';
+import { ConfidenceBanner, ConfidenceNote, chipOutlet } from './ConfidenceBanner';
 import { RumorSection } from './RumorSection';
 import { MomentFigure } from './MomentFigure';
 import { MomentLightbox } from './MomentLightbox';
@@ -175,11 +175,12 @@ export function MomentDetail() {
       >
         <MomentHeader item={item} eraName={era.name} titleId={detailTitleId} />
 
-        {/* Sub-confirmed confidence is a full banner (2026-07-19), replacing
-            the old quiet pill — see CONFIDENCE_BANNER. Confirmed moments
-            (no confidence / confirmed tier) render exactly as before. */}
+        {/* Sub-confirmed confidence is a compact chip here plus a footer note
+            above the sources (owner 2026-11-09, matching the live news detail);
+            it was a full-width box from 2026-07-19 until then. Confirmed
+            moments (no confidence / confirmed tier) render exactly as before. */}
         {item.confidence && (
-          <ConfidenceBanner confidence={item.confidence} outlet={item.sources?.[0]?.name} />
+          <ConfidenceBanner confidence={item.confidence} outlet={chipOutlet(item.sources?.[0])} />
         )}
 
         {/* The footage, ABOVE the article (#2051, Joey 2026-08-13: "when a user
@@ -225,6 +226,8 @@ export function MomentDetail() {
         {hasRumors && item.rumors && <RumorSection rumors={item.rumors} />}
 
         <ShopTheLook products={item.products} context={{ eraId: item.eraId, momentId: item.id }} />
+
+        {item.confidence && <ConfidenceNote confidence={item.confidence} />}
 
         <MomentSources item={item} />
 

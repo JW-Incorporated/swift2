@@ -106,9 +106,11 @@ export function VideoMomentCard({
             target="_blank"
             rel="noopener noreferrer"
             className="era-card mt-4 flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-sm font-medium transition hover:opacity-90"
-            aria-label={`Watch ${video.title} on ${video.platform}`}
           >
-            <span>Watch on {video.platform}</span>
+            <span>
+              Watch on {video.platform}
+              <span className="sr-only">: {video.title}</span>
+            </span>
             <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
           </a>
         )}

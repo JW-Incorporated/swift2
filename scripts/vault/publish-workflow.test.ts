@@ -40,3 +40,17 @@ describe('routine-vault-run.yml — Open or update the PR', () => {
     expect(merged).toMatch(/::notice::/);
   });
 });
+
+describe('routine-vault-run.yml — ready marker (issue #6757)', () => {
+  it('marks the PR ready only after it is opened or updated, so lane PRs stay draft mid-run', () => {
+    const run = prStep?.run ?? '';
+    const ready = run.indexOf('gh pr ready "$PR"');
+    expect(ready).toBeGreaterThan(run.indexOf('gh pr create'));
+    expect(ready).toBeLessThan(run.indexOf('number=$PR'));
+  });
+
+  it('runs the PR step under the PAT so ready_for_review triggers auto-merge-content', () => {
+    const publish = (wf.jobs as Record<string, { env?: Record<string, string> }>).publish;
+    expect(publish?.env?.GH_TOKEN).toContain('SOCIAL_POSTER_PAT');
+  });
+});

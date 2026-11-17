@@ -214,6 +214,7 @@ jobs:
               *) printf '%s\n\nTier-2: Vault Run\n' "$BODY" > .pr-body.md; gh pr edit "$PR" --body-file .pr-body.md ;;
             esac
           fi
+          gh pr ready "$PR"
           echo "number=$PR" >> "$GITHUB_OUTPUT"
           if [ -n "$GATE_FAILED" ]; then
             gh pr comment "$PR" --body "Publish-job gate failed: $GATE_FAILED. CI's build job is the merge authority; tomorrow's run adopts this PR under STEP 0."

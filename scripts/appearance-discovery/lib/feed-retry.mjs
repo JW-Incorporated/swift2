@@ -18,16 +18,19 @@ export const RETRY_DEADLINE_MS = 10 * 60_000;
  * @param {Array} o.channels
  * @param {(channel) => Promise<any>} o.fetchOne  single attempt; throws with
  *   `.transient = true` on 404/429/5xx/network errors.
+ * @param {(channel) => Promise<any>} [o.fallbackOne]  one attempt at an equivalent
+ *   feed, tried once for a channel whose retries ended in an outage (404/5xx).
  * @param {(ms:number) => Promise<void>} o.sleep
  * @param {number[]} [o.delaysMs]  backoff before pass 2, pass 3, ...
  * @param {() => number} [o.jitter]  extra ms added to each backoff
  * @param {() => number} [o.now]
  * @param {(line:string) => void} [o.log]
- * @returns {Promise<{results: Map<any, any>, failures: Array<{channel:any, error:Error}>}>}
+ * @returns {Promise<{results: Map<any, any>, failures: Array<{channel:any, error:Error}>, fallbackUsed: any[]}>}
  */
 export async function fetchAllFeeds({
   channels,
   fetchOne,
+  fallbackOne,
   sleep,
   delaysMs = PASS_DELAYS_MS,
   jitter = () => Math.floor(Math.random() * 2_000),
@@ -64,8 +67,40 @@ export async function fetchAllFeeds({
     pending = retry;
   }
 
+  const fallbackUsed = [];
+  if (fallbackOne) {
+    for (const [channel, error] of [...final]) {
+      if (!isOutageError(error)) continue;
+      try {
+        results.set(channel, await fallbackOne(channel));
+        final.delete(channel);
+        fallbackUsed.push(channel);
+        log(`  … ${channel.name}: channel feed failed (${error.message}); used uploads-playlist fallback`);
+      } catch {
+        /* the original failure stays the reported one */
+      }
+    }
+  }
+
   return {
     results,
+    fallbackUsed,
     failures: [...final].map(([channel, error]) => ({ channel, error })),
+  };
+}
+
+/** YouTube-side outage: the feed endpoint answered 404 or 5xx. */
+export function isOutageError(error) {
+  return typeof error?.status === 'number' && (error.status === 404 || error.status >= 500);
+}
+
+/**
+ * Split final failures into upstream outages (warn, exit 0) and everything else
+ * (parse errors, DNS/timeouts, 403, 429 ...), which stay fatal.
+ */
+export function splitFailures(failures) {
+  return {
+    outage: failures.filter((f) => isOutageError(f.error)),
+    fatal: failures.filter((f) => !isOutageError(f.error)),
   };
 }

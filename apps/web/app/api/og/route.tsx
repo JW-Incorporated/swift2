@@ -1,8 +1,7 @@
 import type { NextRequest } from 'next/server';
 
-import { THREADS, getEra, getThread, resolveTrackKey } from '@swift2/experience';
 import { DEFAULT_OG_COPY, renderOgCard, type OgCardCopy } from '@/lib/longlive/og-card';
-import { getContentItemByIdOrSlug } from '@/lib/longlive/content';
+import { resolveShareTarget, type ShareParams } from '@/lib/longlive/share-target';
 import { trustedClientIp } from '@/lib/longlive/client-ip';
 import { makeRateLimiter } from '@/lib/longlive/rate-limit';
 import '../../../lib/longlive/vault-wiring';
@@ -29,88 +28,18 @@ export const revalidate = 86_400;
 const RENDER_LIMIT_PER_MIN = 120;
 const limiter = makeRateLimiter({ windowMs: 60_000, max: RENDER_LIMIT_PER_MIN, sweepIntervalMs: 60_000 });
 
-const MODE_COPY = new Map<string, OgCardCopy>([
-  [
-    'mood',
-    {
-      kicker: 'Long Live',
-      title: 'Mood',
-      subtitle: "Tell it how you're feeling, get back the songs that fit.",
-    },
-  ],
-  [
-    'clownbot',
-    {
-      kicker: 'Long Live',
-      title: 'Clownbot',
-      subtitle: 'An unhinged, permanently-online superfan you can chat with.',
-    },
-  ],
-]);
-
-const VALID_LENS_IDS = THREADS.map((t) => t.id);
-
-function eraForId(id: string) {
-  const era = getEra(id);
-  return era.id === id ? era : undefined;
-}
-
 export function ogCopyForRequest(url: URL): OgCardCopy {
-  const itemId = url.searchParams.get('item');
-  if (itemId) {
-    const item = getContentItemByIdOrSlug(itemId);
-    if (item) {
-      const era = getEra(item.eraId);
-      return { kicker: `${era.name} · ${item.dateLabel}`, title: item.title, subtitle: item.summary };
-    }
-  }
-  const eraId = url.searchParams.get('era');
-  if (eraId) {
-    try {
-      const era = eraForId(eraId);
-      if (era) return { kicker: era.yearLabel, title: era.name, subtitle: era.tagline };
-      return DEFAULT_OG_COPY;
-    } catch {
-      return DEFAULT_OG_COPY;
-    }
-  }
-  const song = url.searchParams.get('song');
-  if (song) {
-    const track = resolveTrackKey(song);
-    if (track) {
-      const era = getEra(track.eraId);
-      return { kicker: era.album, title: track.track.title, subtitle: track.track.note };
-    }
-  }
-  const guide = url.searchParams.get('guide');
-  if (guide) {
-    try {
-      const era = eraForId(guide);
-      if (era) return { kicker: `Track guide · ${era.yearLabel}`, title: era.album, subtitle: 'Every song, each with a sourced note.' };
-      return DEFAULT_OG_COPY;
-    } catch {
-      return DEFAULT_OG_COPY;
-    }
-  }
-  const theories = url.searchParams.get('theories');
-  if (theories) {
-    try {
-      const era = eraForId(theories);
-      if (era) return { kicker: `Theories & eggs · ${era.yearLabel}`, title: `${era.shortName} decoded`, subtitle: 'Every egg and theory, sourced and graded.' };
-      return DEFAULT_OG_COPY;
-    } catch {
-      return DEFAULT_OG_COPY;
-    }
-  }
-  const lens = url.searchParams.get('lens');
-  if (lens && VALID_LENS_IDS.includes(lens as (typeof VALID_LENS_IDS)[number])) {
-    const thread = getThread(lens as (typeof VALID_LENS_IDS)[number]);
-    return { kicker: 'Long Live', title: thread.title, subtitle: thread.what };
-  }
-  const mode = url.searchParams.get('mode');
-  const modeCopy = mode ? MODE_COPY.get(mode) : undefined;
-  if (modeCopy) return modeCopy;
-  return DEFAULT_OG_COPY;
+  const get = (key: keyof ShareParams) => url.searchParams.get(key) ?? undefined;
+  const target = resolveShareTarget({
+    item: get('item'),
+    song: get('song'),
+    guide: get('guide'),
+    theories: get('theories'),
+    lens: get('lens'),
+    mode: get('mode'),
+    era: get('era'),
+  });
+  return target ? target.card : DEFAULT_OG_COPY;
 }
 
 export function GET(req: NextRequest): Response {

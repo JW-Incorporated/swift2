@@ -531,3 +531,69 @@ accepted any column name, and the first real dry run failed (run 42518528423).
 Fixed in #6717. Rule: any new column filter or select on an existing table must
 be checked against the migration that defines the table (`grep supabase/migrations`),
 and reviewers check it.
+
+### Never regenerate parity baselines on a branch whose code can race the capture
+
+PR #6776 lazy-loaded the Threads surface with `next/dynamic`. The
+`parity.yml` update-baselines dispatch was run on that branch and captured
+`a-lens-love-story` before the chunk arrived on two device profiles, baking the
+race into the baseline. Reverting the code then failed with the identical pixel
+count (19,741), because the baseline was the wrong thing, not the render. Rule:
+an identical pixel count across runs means a deterministic difference, so
+suspect the baseline first. Fix or remove any capture race before regenerating.
+
+### `next/dynamic` on a deep-linkable surface is a visible race, not a free saving
+
+Same PR (#6776). `?lens=` lands directly on a surface whose code is not loaded
+yet, so the user sees the gap. The saving was 38 KB of roughly 1.4 MB. The
+content corpus, not component code, is what makes the bundle large. Rule: do
+not split a surface that a deep link can land on unless the saving is measured
+and worth a visible loading state.
+
+### The parity harness hides transient UI by selector; moving that UI breaks the hide silently
+
+PR #6784 moved the song-detail swipe hint. `e2e/parity/capture.ts` hid it with
+a layout-class selector (`div.fixed.bottom-6[aria-live="polite"]`), so the a-vs-b
+`song` comparison failed on two phone profiles. The fix is that the hint
+carries `data-swipe-hint` and the harness targets that. Rule: an a-vs-b
+mismatch is never fixed by regenerating a baseline, and harness hide-selectors
+should be data attributes owned by the component, not layout classes.
+
+### Content agents must run the corpus gates, not only `validate:content`
+
+PR #6783 passed `npm run validate:content` and still failed CI on
+`scripts/check-content-inert.test.ts`. Seed files must be inert data, and
+`{ ...press(...), accessed_at }` (object spread around a helper call) is
+rejected. Rule: any change under `supabase/seed` runs `npx vitest run scripts`
+before pushing. The Vault Run prompts gained this self-check in PR #6791.
+
+### Editing a legacy text-only record voids its exemption
+
+PR #6783 and issue #6752. Records pinned by content hash in
+`scripts/lib/surface-media-legacy.mjs` need renderable media the moment they are
+edited, so a tracklist-only fix to a release with no official video and no
+allowlisted cover-art host cannot land. Related: `scripts/lib/text-only-ratchet.mjs`
+freezes the On This Day pool at 38 text-only rows (issue #6669). Rule: check
+both ratchets before scoping a content fix.
+
+### A triage report's diagnosis is a claim
+
+The backlog triage attributed the appearance-discovery workflow failure to a Git
+LFS check. The real failure was `0/14 channels ok` (YouTube feed 404/500),
+found only when the fixer read the failed step's log (PRs #6777, #6779). Also,
+the orchestrator guessed that Dependabot PR #6735 was a grouped security
+update. It was a version-update group, and a config change built on that guess
+had to be removed (PR #6782). Rule: read the failing step's log or the PR body
+before briefing a fix on someone's summary.
+
+### A full JS reload in the mobile app is not a DOM-host reload
+
+PR #6775. The watchdog's `plannedReload` (used by content adoption) persists
+`attempting` and re-arms the ready timer, so calling it before
+`Updates.reloadAsync()` would strike and show Recovery if the reload failed.
+The right pre-step persists the record `idle` (`prepareIdleReload` in
+`apps/mobile/lib/recovery-retry.ts`). Also: never reload while the reader is
+engaged, never in a process cold-launched from a link, and re-check pending
+links immediately before the reload. PR #5318: the first live link of a
+normally launched process takes the `cold:` id, so "retain live links" keyed on
+the `link:` prefix missed the main case. Rule: test the plainest path first.

@@ -60,8 +60,8 @@ becoming its own failure mode:
    **Do not adopt it. Do not touch it.** Open today's branch fresh from `main`.
 2. **Have you (or a previous run) already left an "adoption attempt" comment on
    it?** Same answer — one attempt per PR, ever. Go to step 4.
-3. Otherwise adopt it: `gh pr merge <N> --disable-auto` FIRST (see the race
-   below), then fork TODAY's branch from the stranded one so the later jobs
+3. Otherwise adopt it: `gh pr merge <N> --disable-auto` and
+   `gh pr ready <N> --undo` FIRST (see the race below), then fork TODAY's branch from the stranded one so the later jobs
    always find `vault/<date>`: `git fetch origin <their-branch>`,
    `git checkout -b vault/<date> origin/<their-branch>` (if their branch IS
    `vault/<date>`, just check it out), merge `origin/main`, diagnose, fix, push
@@ -71,8 +71,9 @@ becoming its own failure mode:
    Open today's PR from it (the adopted work rides along) and copy every
    `Closes #<n>` line from the stranded PR's body into the new PR body, then close the stranded PR with a comment naming
    the new PR — its commits are contained in the new branch. Today's lanes run
-   on `vault/<date>` and the one PR carries both days. The push re-arms
-   auto-merge automatically — `auto-merge-content.yml` fires on `synchronize`.
+   on `vault/<date>` and the one PR carries both days. The PR stays a
+   draft until the publish job marks it ready, which re-arms auto-merge
+   (`auto-merge-content.yml` fires on `ready_for_review`).
 4. **If you could not fix it** (or you skipped it at 1/2): comment on that PR
    naming the ACTUAL error and the fact that adoption was attempted and failed,
    add the `founder-decision` label so nothing adopts it again, and then open
@@ -94,7 +95,8 @@ instead of alarming daily.
 your fix turns `build` green, GitHub squash-merges it and deletes the branch —
 possibly while you are still committing today's lanes onto it. Your next push
 then fails against a deleted branch and the day's work is stranded in a local
-clone. Disable auto-merge for the duration of the run; the final push re-arms it.
+clone. Disable auto-merge and return the PR to draft for the duration of the run (a
+non-draft PR re-arms on every push); the publish job re-arms it by marking it ready.
 
 **If the head branch is gone**, the PR is already closed (GitHub closes a PR
 when its head branch is deleted), so `gh pr list --state open` will not return
@@ -150,9 +152,11 @@ it and leave the lane's content in place.
       replaces.
    f. **Push the lane's commit onto `vault/<date>` as soon as it lands**
       (`git push -u origin vault/<date>`). If no open PR exists for the branch
-      yet, open it right after the first push (label `content-shift`, title
-      `vault: <date> — <n> lanes`, body = a one-line TL;DR plus the attribution
-      trailer below). A turn-exhausted session still ships whatever lanes
+      yet, open it right after the first push as a DRAFT (`gh pr create
+      --draft`, label `content-shift`, title `vault: <date> — <n> lanes`, body
+      = a one-line TL;DR plus the attribution trailer below). Never run
+      `gh pr ready`: a draft is never auto-merged, and the publish job marks
+      it ready once every lane has pushed (issue #6757). A turn-exhausted session still ships whatever lanes
       finished before the cutoff instead of losing the whole day.
    g. **Write the lane's yield record to the PR body** (and for a lane that is
       not due or found nothing, too — every lane reports a status, so none is

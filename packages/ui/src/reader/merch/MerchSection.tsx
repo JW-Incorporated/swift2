@@ -180,7 +180,7 @@ export function MerchSectionBody() {
 
       <div className="mx-auto max-w-[1180px] px-4 sm:px-6">
         {drops.length > 0 && (
-          <section aria-labelledby="merch-new-drops" className="pt-[50px]">
+          <section aria-labelledby="merch-new-drops" className="pb-[42px] pt-[50px]">
             <MerchSectionHead
               accent="var(--merch-gold)"
               badge="New drops"
@@ -190,7 +190,7 @@ export function MerchSectionBody() {
             <MerchGrid items={drops.slice(0, 6)} emptyMessage="" />
           </section>
         )}
-        <section id={SECTION_OFFICIAL} className="pt-[74px] pb-3">
+        <section id={SECTION_OFFICIAL} className="pt-8 pb-3">
           <MerchSectionHead
             accent="var(--merch-gold)"
             badge="Official"
@@ -199,11 +199,15 @@ export function MerchSectionBody() {
                 From <i style={{ color: 'var(--merch-gold)' }}>Taylor&apos;s</i> shop
               </>
             }
-            subtitle="Pulled straight from the official store — when we have a vetted feed for it. We don't sell anything ourselves; every card here will link straight to taylorswift.com."
+            subtitle={
+              merch.officialStore.length > 0
+                ? "Synced from the official Taylor Swift store. We don't sell anything ourselves."
+                : "We don't have a vetted feed from the official store yet. We don't sell anything ourselves; every card here will link straight to taylorswift.com."
+            }
           />
           <MerchGrid
             items={merch.officialStore}
-            emptyMessage="Nothing curated here yet — we don't have a vetted feed from the official store."
+            emptyMessage="Nothing curated here yet. We don't have a vetted feed from the official store."
             pageSize={12}
           />
         </section>
@@ -217,11 +221,15 @@ export function MerchSectionBody() {
                 Made by <i style={{ color: 'var(--merch-rose)' }}>Swifties</i>
               </>
             }
-            subtitle="One maker per listing, hand-checked before it's added. Nothing's been vetted yet — this is where those listings will live."
+            subtitle={
+              merch.fanMade.length > 0
+                ? "One maker per listing, checked against our fan-made rules before it's added."
+                : "One maker per listing, checked against our fan-made rules before it's added. Nothing's been vetted yet. This is where those listings will live."
+            }
           />
           <MerchGrid
             items={merch.fanMade}
-            emptyMessage="We haven't vetted any fan-made shops yet — each one gets hand-checked before it's listed here."
+            emptyMessage="We haven't vetted any fan-made shops yet. Each one is checked against our fan-made rules before it's listed here."
           />
         </section>
 

@@ -1,0 +1,82 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-14",
+  "windowDays": 7,
+  "since": "2026-11-07T00:00:00.000Z",
+  "count": 5,
+  "media": [
+    "https://upload.wikimedia.org/wikipedia/commons/8/82/Abdul_El-Sayed_meet-and-greet_by_Conlan_Houston_5_%28cropped%29.jpg",
+    "https://wwd.com/wp-content/uploads/2026/11/WI26_TH_PerfectHoliday_MSW_TRAVISKELCE_03.jpg?w=1200",
+    "https://www.billboard.com/wp-content/uploads/2026/10/P108QRF2-e1792406932507.jpg?w=1024",
+    "https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg",
+    "https://www.youtube.com/watch?v=59cfTptr3k8"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-taylor-gets-the-2026-sherry-lansing-leadership-award-with-gr",
+      "eraId": "tloas",
+      "title": "Taylor gets the 2026 Sherry Lansing Leadership Award, with Greta Gerwig presenting",
+      "year": 2026,
+      "month": 11,
+      "day": 11,
+      "category": "business",
+      "significance": "notable",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-taylor-gets-the-2026-sherry-lansing-leadership-award-with-gr",
+      "mediaKind": "photo",
+      "media": "https://www.billboard.com/wp-content/uploads/2026/10/P108QRF2-e1792406932507.jpg?w=1024"
+    },
+    {
+      "id": "vault-tloas-a-swiftie-wins-michigans-senate-seat-and-reviews-showgirl-on",
+      "eraId": "tloas",
+      "title": "A Swiftie wins Michigan's Senate seat, and reviews Showgirl on the way",
+      "year": 2026,
+      "month": 11,
+      "day": 3,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-a-swiftie-wins-michigans-senate-seat-and-reviews-showgirl-on",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/8/82/Abdul_El-Sayed_meet-and-greet_by_Conlan_Houston_5_%28cropped%29.jpg"
+    },
+    {
+      "id": "vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo",
+      "eraId": "tloas",
+      "title": "\"I'll see what my wife can cook up\": Travis volunteers Taylor for the next New Heights stage",
+      "year": 2026,
+      "month": 11,
+      "day": 11,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=59cfTptr3k8"
+    },
+    {
+      "id": "vault-tloas-karlie-kloss-back-beside-taylor-this-time-in-the-arrowhead-s",
+      "eraId": "tloas",
+      "title": "Karlie Kloss back beside Taylor, this time in the Arrowhead suite",
+      "year": 2026,
+      "month": 11,
+      "day": 8,
+      "category": "sighting",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-karlie-kloss-back-beside-taylor-this-time-in-the-arrowhead-s",
+      "mediaKind": "photo",
+      "media": "https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg"
+    },
+    {
+      "id": "vault-tloas-travis-kelce-on-his-first-holiday-as-a-married-man",
+      "eraId": "tloas",
+      "title": "Travis Kelce on his \"first holiday as a married man\"",
+      "year": 2026,
+      "month": 11,
+      "day": 5,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-travis-kelce-on-his-first-holiday-as-a-married-man",
+      "mediaKind": "photo",
+      "media": "https://wwd.com/wp-content/uploads/2026/11/WI26_TH_PerfectHoliday_MSW_TRAVISKELCE_03.jpg?w=1200"
+    }
+  ]
+}

@@ -85,6 +85,8 @@ const jsonLd = {
   ],
 };
 
+const ABOVE_FOLD_FONT = /^\/fonts\/(inter|playfair-display)\./;
+
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const hdrs = await headers();
   const nonce = hdrs.get('x-nonce') ?? undefined;
@@ -93,7 +95,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="en" className="bg-bg" {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}>
       <head>
-        {fontManifest.preload.map((href) => (
+        {fontManifest.preload.filter((href) => ABOVE_FOLD_FONT.test(href)).map((href) => (
           <link
             key={href}
             rel="preload"

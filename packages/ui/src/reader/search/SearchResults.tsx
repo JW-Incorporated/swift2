@@ -29,6 +29,7 @@ export function SearchResults({
   totalMatches: number;
   debounced: string;
 }) {
+  const hasMore = !showAll && groups.some((g) => g.totalMatches > g.results.length);
   let flatIndex = -1; // running index across groups, for active-row tracking
 
   /* Results / states. The listbox wraps ONLY option/group children
@@ -77,6 +78,19 @@ export function SearchResults({
             className="era-chip shrink-0 rounded-full px-3 py-1 text-xs font-medium"
           >
             Back to top matches
+          </button>
+        </div>
+      )}
+
+      {hasMore && (
+        <div className="flex items-center justify-between gap-3 border-b border-[color:var(--era-line)] px-4 py-2">
+          <p className="text-xs text-[color:var(--era-ink-soft)]">Showing the top matches</p>
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="era-chip shrink-0 rounded-full px-3 py-1.5 text-xs font-medium"
+          >
+            Show all {totalMatches}
           </button>
         </div>
       )}

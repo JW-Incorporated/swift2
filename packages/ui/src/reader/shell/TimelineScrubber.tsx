@@ -19,6 +19,7 @@ import {
   roundRailPct,
   scrubberAnchorPaddingTop,
   scrubberPillTransform,
+  scrubberVerticalPillTransform,
   scrubberRailMaxHeight,
   scrubberTooltipTransform,
   snapNow,
@@ -37,6 +38,16 @@ const RAIL_RIGHT = 16;
 const RIDGE_WIDTH = 28;
 /** Density curve resolution. */
 const SAMPLES = 72;
+/** How long (ms) the labels and the wide pill stay up after the fan lets go. */
+const LABEL_LINGER_MS = 1200;
+
+function isKeyboardFocus(el: HTMLElement): boolean {
+  try {
+    return el.matches(':focus-visible');
+  } catch {
+    return true;
+  }
+}
 
 type Anchor = ScrubberAnchor;
 
@@ -153,6 +164,11 @@ export function TimelineScrubber() {
   // from hoverDate via pctForDate.
   const [hoverPct, setHoverPct] = useState<number | null>(null);
   const [active, setActive] = useState(false); // hovering or dragging
+  const [focused, setFocused] = useState(false); // keyboard focus on the rail
+  const [linger, setLinger] = useState(false); // shortly after release
+  // The idle vertical pill's height as a fraction of the rail's, measured (never
+  // in the scroll path) so it can be kept fully inside the rail at both ends.
+  const [pillRatio, setPillRatio] = useState(0.15);
   const [nowPct, setNowPct] = useState<number | null>(null);
   // Bumped after every measure() so date->position lookups (ticks, milestones,
   // ridge, ...) — which read the anchors ref directly during render — repaint
@@ -169,6 +185,10 @@ export function TimelineScrubber() {
   // CSS cap's baked-in assumption — see scrubberRailMaxHeight's doc comment
   // (re-review finding #2, 2026-08-14 round 2).
   const [railMaxHeight, setRailMaxHeight] = useState<number | undefined>(undefined);
+  // Server HTML and the first client render lack the measured top offset and
+  // height cap, so painting the rail then would make it jump on hydration (a
+  // layout shift on every era deep link). Stay hidden until the first measure.
+  const [ready, setReady] = useState(false);
 
   // Calendar-linear fallback, used only before the DOM has been measured
   // (first paint) so ticks/milestones have *something* sane to render.
@@ -375,6 +395,7 @@ export function TimelineScrubber() {
       setRailMaxHeight(scrubberRailMaxHeight({ paddingTop, viewportHeight: window.innerHeight }));
     };
     recomputeAnchorPadding();
+    setReady(true);
 
     // Before the filter bar sticks, its (and therefore the rail's clamp's)
     // live position changes on every scroll frame — not just on resize/layout
@@ -528,7 +549,32 @@ export function TimelineScrubber() {
     [fromPointer, setScrubbing],
   );
 
+  useEffect(() => {
+    if (active || focused) {
+      setLinger(true);
+      return;
+    }
+    const t = window.setTimeout(() => setLinger(false), LABEL_LINGER_MS);
+    return () => window.clearTimeout(t);
+  }, [active, focused]);
+  // The milestone/year labels and the wide pill sit over the feed, so they only
+  // show while the fan is using the rail; idle, the pill is a slim vertical one
+  // inside the reserved gutter.
+  const showLabels = active || focused || linger;
+
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
+  const pillMounted = currentPct != null && pillDate != null;
+  // Month-granular on purpose: the pill's text (so its height) only changes then.
+  const pillMonth = pillDate != null ? new Date(pillDate).getUTCFullYear() * 12 + new Date(pillDate).getUTCMonth() : -1;
+  useEffect(() => {
+    const pill = pillRef.current;
+    const rail = railRef.current;
+    if (!pill || !rail || showLabels) return;
+    const railHeight = rail.offsetHeight;
+    if (!railHeight) return;
+    const ratio = pill.offsetHeight / railHeight;
+    setPillRatio((prev) => (Math.abs(prev - ratio) < 0.005 ? prev : ratio));
+  }, [pillMonth, pillMounted, showLabels, railMaxHeight, anchorPaddingTop]);
   const nearestItem = useMemo(() => {
     if (hoverDate == null || !items.length) return null;
     let best = items[0];
@@ -549,7 +595,7 @@ export function TimelineScrubber() {
   void anchorsVersion;
 
   return (
-    <div className={SCRUBBER_SHELL_CLASS}>
+    <div className={SCRUBBER_SHELL_CLASS} style={ready ? undefined : { visibility: 'hidden' }}>
       {/* Legibility scrim — lives on the dynamic-viewport shell, not the
           svh anchor, so the gradient covers the whole visible height even
           while the mobile URL bar is collapsed. */}
@@ -592,6 +638,8 @@ export function TimelineScrubber() {
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
+          onFocus={(e) => setFocused(isKeyboardFocus(e.currentTarget))}
+          onBlur={() => setFocused(false)}
           onPointerEnter={() => setActive(true)}
           onPointerLeave={() => {
             if (!draggingRef.current) setActive(false);
@@ -606,6 +654,7 @@ export function TimelineScrubber() {
             const d = scrubberKeyTarget(e.key, currentDate, start, end);
             if (d == null) return;
             e.preventDefault();
+            setFocused(true);
             setCurrentDate(d);
             setCurrentPct(pctForDate(d));
             scrollToDate(d);
@@ -647,8 +696,8 @@ export function TimelineScrubber() {
           {/* Era start / end year labels */}
           <span
             className={cn(
-              'pointer-events-none absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-              active ? 'opacity-100' : 'opacity-0',
+              'pointer-events-none absolute -top-1 text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity motion-reduce:transition-none',
+              showLabels ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
           >
@@ -656,8 +705,8 @@ export function TimelineScrubber() {
           </span>
           <span
             className={cn(
-              'pointer-events-none absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity',
-              active ? 'opacity-100' : 'opacity-0',
+              'pointer-events-none absolute text-[10px] font-medium leading-none uppercase tracking-wider text-[color:var(--era-ink-soft)] transition-opacity motion-reduce:transition-none',
+              showLabels ? 'opacity-100' : 'opacity-0',
             )}
             style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
           >
@@ -705,8 +754,8 @@ export function TimelineScrubber() {
                 />
                 <span
                   className={cn(
-                    'pointer-events-none absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity',
-                    active ? 'opacity-100' : 'opacity-0',
+                    'pointer-events-none absolute max-w-28 text-right text-[10px] leading-tight text-[color:var(--era-ink-soft)] transition-opacity motion-reduce:transition-none',
+                    showLabels ? 'opacity-100' : 'opacity-0',
                   )}
                   style={{ right: RAIL_RIGHT + 14, top: `${pct}%`, transform: 'translateY(-50%)' }}
                 >
@@ -747,13 +796,17 @@ export function TimelineScrubber() {
                 <span
                   ref={pillRef}
                   className={cn(
-                    'pointer-events-none absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity',
-                    active ? 'opacity-100' : 'opacity-90',
+                    'pointer-events-none absolute whitespace-nowrap rounded-full border text-[11px] font-semibold leading-none tabular-nums shadow-sm transition-opacity motion-reduce:transition-none',
+                    showLabels
+                      ? 'px-2.5 py-1 opacity-100'
+                      : 'pb-1.5 pl-[3px] pr-[3px] pt-1.5 opacity-90 [writing-mode:vertical-rl]',
                   )}
                   style={{
-                    right: RAIL_RIGHT + 16,
+                    right: RAIL_RIGHT + (showLabels ? 16 : 12),
                     top: `${currentPct}%`,
-                    transform: scrubberPillTransform(currentPct),
+                    transform: showLabels
+                      ? scrubberPillTransform(currentPct)
+                      : scrubberVerticalPillTransform(currentPct, pillRatio),
                     background: 'var(--era-surface)',
                     borderColor: 'var(--era-line)',
                     color: 'var(--era-ink)',

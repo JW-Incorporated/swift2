@@ -1,0 +1,48 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "media": [
+    "/social/library/photos/reddit-taylorswiftpictures-1tl4pqb-ig45.jpg"
+  ],
+  "mediaKind": "photo",
+  "photoId": "reddit-taylorswiftpictures-1tl4pqb-ig45",
+  "mediaSource": "https://www.reddit.com/r/TaylorSwiftPictures/comments/1tl4pqb/she_knows_exactly_how_good_she_looks_in_this/",
+  "scheduledAt": "2026-11-17T23:00:00Z",
+  "altText": [
+    "Fan photo from the Eras Tour, shared on r/TaylorSwiftPictures: She knows exactly how good she looks in this outfit."
+  ],
+  "campaign": "thread:love-story:single-best-item:2026-11-hero",
+  "body": "november 25, 2020, and my hand still flies to my mouth every time 😭\n\nfor months there was this mystery name in the folklore credits on \"exile\" and \"betty\", William Bowery, and i was SO sure who it was. then Long Pond Studio Sessions came out on Disney+ and Taylor just said it on camera: it was Joe, and he'd written that entire \"exile\" piano part.\n\nand the name itself undoes me. William for his composer great-grandfather William Alwyn, Bowery for the New York neighborhood he spent so much time in when he first moved to the city.\n\nout of everything in our Blank Spaces lens, this is the one i'd show a friend first. send it to whoever cried through \"exile\" with you.\n\nhttps://www.longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=thread\n\n#taylorswift #folklore #exile #swifties #longlive",
+  "why": "Nov 17 Blank Spaces thread hero, angle single-best-item: the William Bowery reveal (Vault folklore `william-bowery-is-joe`, E! News; Long Pond Studio Sessions, Disney+, 2020-11-25). One item, one reaction, first beat back after 8 dark days. Share hook grounded in \"exile\" itself.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Executes the single-best-item slot with one Blank Spaces entry: the Long Pond reveal that William Bowery was Joe, plus where the name came from. Feeling first and first person throughout; the photo is a real Eras Tour shot of Taylor but loosely related.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-16T21:03:12.384Z",
+    "pr": 6915,
+    "message": "social-tree-approve run 43955813810",
+    "contentHash": "sha256:e65208df1594c9589d1159c36d7c3cab88e0f703b663ad7c493626378a2cc536",
+    "mediaDigest": "sha256:9c66da0d457ca0e56c3a428b18ddf6da7e672f229b47c68c9c6a6ca5eef89acf",
+    "sig": "hmac-sha256:8be7daf675757758e43c2476a3d064b30d00481c41cf9d656bea5d7cb1ec2560"
+  },
+  "postedAt": "2026-11-17T23:27:11.253Z",
+  "platformPostId": "17919869163264223",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

@@ -16,6 +16,82 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Authored 2026-11-17 (Vault Run, Content Shift lane) from intake #6921.
+      // Read directly this run: Grammy.com Song of the Year nominee page (the
+      // five-nomination count, the ninth SOTY nod, the Antonoff notes), ABC
+      // News full list (AOTY, SOTY, Visual Media, Pop Duo/Group, and Best Pop
+      // Vocal Album without Showgirl), Stereogum (eighth AOTY nod), Deseret
+      // (Record of the Year for "The Fate of Ophelia"). Cut: the ticket's
+      // "ties Kendrick Lamar" framing (no readable source supported it) and
+      // the broadcast cameo / necklace aside (Elle and People unreadable).
+      slug: 'showgirl-2027-grammy-nominations',
+      year: 2026,
+      month: 11,
+      day: 16,
+      category: 'music',
+      title: 'Five nods for the 2027 Grammys, and a fifth straight album up for Album of the Year',
+      snippet:
+        'The Life of a Showgirl is up for Album of the Year, "The Fate of Ophelia" for Record of the Year, and the Toy Story 5 song "I Knew It, I Knew You" for Song of the Year, her ninth nomination in that category.',
+      sourceUrl: 'https://www.grammy.com/news/grammy-awards-for-song-of-the-year-meet-the-2027-nominees/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-awards-for-song-of-the-year-meet-the-2027-nominees/',
+            source_title: 'Grammy Awards for Song of the Year: Meet the 2027 Nominees',
+            publisher: 'Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-11-17',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/grammy-nominations-2027-full-list/story?id=138113372',
+            source_title: 'Grammy Awards 2027: See the full list of nominees',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+            source_title: 'Album Of The Year Grammy Nominees 2027 Include Rosalía, Phoebe Bridgers, Taylor Swift',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deseret News',
+            url: 'https://www.deseret.com/entertainment/2026/11/16/grammy-award-nominations-2027/',
+            source_title: 'Grammy awards 2027: The full list of nominees',
+            publisher: 'Deseret News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-17',
+            reliability_score: 5,
+            notes: 'oEmbed-verified this run: author_name "Taylor Swift". The Song of the Year nominee itself.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-31 (Vault Run, Content Shift lane) from intake #6483.
       // Read directly this run: Yahoo Entertainment (Mandatory syndication,
       // Nikita Nath, Oct. 29, 2026 09:19 UTC) for the on-screen question and
@@ -677,6 +753,14 @@ export default {
             kind: 'primary',
             focalPoint: '55% 32%',
           },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/dakota-johnson-taylor-swift-snl-2026-billboard-1800.jpg?w=1024',
+            focalPoint: '50% 28%',
+            credit: 'NBC, via Billboard',
+            caption:
+              'A wider view of the same Oct. 3 Saturday Night Live moment: Johnson in red latex and Taylor in a plaid off-the-shoulder dress on the Studio 8H stage.',
+            kind: 'primary',
+          },
         ],
         sources: [
           {
@@ -1060,7 +1144,7 @@ export default {
       thumbnailUrl: "https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-instagram-story-01.jpg",
       moment: {
         context:
-          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.',
+          'On Sept. 10, 2026, Taylor posted to her Instagram Story, "LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18" — confirming she will attend the 60th annual CMA Awards at Bridgestone Arena in Nashville. It is her first appearance at country music\'s marquee ceremony since 2016, when she presented Garth Brooks with Entertainer of the Year.\n\nThe return follows her nomination for Single of the Year for "I Knew It, I Knew You," the song that carried her back onto country radio in 2026. The 60th CMA Awards, hosted by Lainey Wilson, air live from Nashville on Nov. 18, 2026.\n\nOne question about the night was settled a week out. The show is set to honor Dolly Parton, who died in August, and Taylor had already made her own tributes public: a statement after Parton\'s death ("A world without Dolly doesn\'t feel possible, real, or right") and a September VMAs Video of the Year win dedicated to "the ultimate showgirl, Dolly Parton." On Nov. 11, a CMA source told E! News that Taylor will not perform in the Parton tribute. The CMA had not named the tribute\'s performers at that point, and the report addressed only the stage, not her attendance.\n\nTwo days later the night grew bigger. On Nov. 13, the CMA and ABC announced Taylor as a performer at the 60th CMA Awards, her first performance on the show in 13 years. The last one was 2013, when she sang "Red" with Vince Gill and Alison Krauss and received the CMA Pinnacle Award. "I Knew It, I Knew You," written for the Toy Story 5 soundtrack and produced by Jack Antonoff, is her 26th career CMA nomination; it is up for Single of the Year against Ella Langley, Lainey Wilson and Cody Johnson.',
         sources: [
           {
             outlet: 'Variety',
@@ -1089,6 +1173,47 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-15',
             reliability_score: 3,
+          },
+          // Content Shift (Vault Run 2026-11-12, intake #6813): CMA source on
+          // the record to E! News that Taylor is not in the Parton tribute.
+          // Page fetched and read this run; attendance not addressed by it.
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026',
+            source_title: 'Taylor Swift Is Not Performing in Dolly Parton Tribute at CMA Awards 2026',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-12',
+            reliability_score: 4,
+          },
+          // Content Shift (Vault Run 2026-11-13, intake #6840): performance
+          // announcement. People article read this run via its Yahoo
+          // syndication (byline Ilana Kaplan, updated Nov. 13).
+          {
+            outlet: 'People',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-perform-2026-cma-152528933.html',
+            source_title: 'Taylor Swift to Perform at the 2026 CMA Awards for the First Time in 13 Years',
+            publisher: 'People (via Yahoo Entertainment)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+          },
+          {
+            // Added to the existing moment, not authored as a duplicate,
+            // per the YouTube-appearance "enrich, don't create" rule.
+            // oEmbed-verified this run: title "Taylor Swift to perform at
+            // CMAs for first time in 13 years", author_name "Good Morning
+            // America". Not a videos-row candidate: it is news coverage,
+            // not a performance.
+            outlet: 'Good Morning America',
+            url: 'https://www.youtube.com/watch?v=03lWt4T_2go',
+            source_title: 'Taylor Swift to perform at CMAs for first time in 13 years',
+            publisher: 'Good Morning America (ABC)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+            notes:
+              'Official GMA YouTube upload, published Nov. 13, 2026; the announcement segment. oEmbed-verified (author_name "Good Morning America").',
           },
         ],
         photos: [
@@ -4249,7 +4374,7 @@ export default {
       thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
-          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Taylor\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Taylor coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Taylor in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.\n\nOne aside from the night outlived the game. ESPN analyst Monica McNutt, working the Knicks radio broadcast, was caught on a hot mic before her segment was live: "She\'s not a Knicks fan. Get out of here, girl." The clip went viral and Swifties let her hear about it. In October, on The Pivot podcast, McNutt said she was still "mystified" about how the audio "got to the masses" and called it "a throwaway comment," explaining she had last seen Taylor at a Knicks game "with your man in no Knicks gear."',
+          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Taylor\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.\n\nThe wordplay was a collaboration: Taylor coined "Stevie Knicks" and asked Alana to make it ("She said, \'I want to wear this shirt to the game. Can you make it for me?\'"), the two riffing the rest between them before Alana screen-printed all three. Courtside put Taylor in a packed MSG celebrity row — Jerry Seinfeld, Jimmy Fallon, Timothée Chalamet and Ben Stiller among them, with Mariska Hargitay in a matching "Stevie Knicks" tee — though which organization hosted her seats went unreported. It was not her first Knicks game, but it was unusual footing for her: her public sports attendance skews overwhelmingly to the NFL, and this was only her second NBA game of the 2026 postseason, after she sat the Eastern Conference finals alongside Kelce three weeks earlier. Travis, held at minicamp, liked the courtside posts from afar and left camp early on June 11 to meet her at her Songwriters Hall of Fame induction — but never commented publicly on the game or the shirt.\n\nOne aside from the night outlived the game. ESPN analyst Monica McNutt, working the Knicks radio broadcast, was caught on a hot mic before her segment was live: "She\'s not a Knicks fan. Get out of here, girl." The clip went viral and Swifties let her hear about it. In October, on The Pivot podcast, McNutt said she was still "mystified" about how the audio "got to the masses" and called it "a throwaway comment," explaining she had last seen Taylor at a Knicks game "with your man in no Knicks gear."\n\nIn November the doubt came from inside the locker room, and the team itself answered it. On an NBA 2K livestream posted by Deflected on Nov. 5, guards Tyler Kolek and Miles "Deuce" McBride were asked to name the fakest celebrity Knicks fan. "Maybe Taylor Swift," Kolek said, and McBride agreed. "I don\'t know if I\'ve seen her at any other games. I\'m gonna get some hate from the Swifties," Kolek added. "I guess she\'s got a lot going on, so she can\'t come all the time. But it\'s a little performative." The two singled out Ben Stiller and Tracy Morgan as the regulars. The Knicks did not let it stand: a team spokesperson told Billboard that "Taylor Swift has been a Knicks fan for many years, has a long history with Madison Square Garden, and we are incredibly appreciative of her support of the organization."\n\nTwo days later Kolek changed his tune. After the Knicks beat Cleveland 109-97 on Saturday, Nov. 7, teammate Jordan Clarkson posted locker-room footage of him singing "Blank Space" ("He\'s a Swiftie"), with the players playing her songs after the game. Kolek told The New York Times that people had been sending him old photos of her at Knicks games and that he "wasn\'t up to date on my Taylor Swift Knicks fandom, so that\'s on me." As for the clip: "For me, it\'s just a question that was asked to me that maybe I answered in the wrong way. I take that on the chin. But I love her music. We were just playing it five minutes ago and I\'m singing every word to every song. Nothing against her at all."',
         sources: [
           {
             outlet: 'Billboard',
@@ -4354,6 +4479,41 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-11-04',
             reliability_score: 3,
+          },
+          // Intake #6670 (Vault Run 2026-11-06): Kolek/McBride on the Deflected
+          // NBA 2K stream and the Knicks' statement to Billboard. Billboard and
+          // SI both loaded directly and carry the same quotes. People 403'd and
+          // is not cited.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-fakest-ny-knicks-fan-tyler-kolek-miles-mcbride-1236375916/',
+            source_title: "Taylor Swift Called the 'Fakest' New York Knicks Fan by 2 of Team's Players: 'It's a Little Performative'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/knicks-star-takes-serious-issue-with-taylor-swifts-courtside-behavior',
+            source_title: "Knicks Star Takes Serious Issue With Taylor Swift's Courtside Behavior",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+          },
+          // Intake #6755 (Vault Run 2026-11-10): Kolek's walk-back. Billboard
+          // read in full; it carries Clarkson's Nov. 7 clip and Kolek's quotes
+          // to the NYT (paywalled, not cited). The filed Variety link does not
+          // mention Kolek and People 403'd, so neither is cited.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-fakest-fan-diss-knicks-kolek-apology-blank-space-1236377879/',
+            source_title: "After Taylor Swift 'Fakest' Fan Diss, Knicks Point Guard Singing a Different Tune With 'Blank Space' Cover: 'Nothing Against Her At All'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-10',
+            reliability_score: 4,
           },
         ],
         // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
@@ -6009,7 +6169,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.\n\nA later interview added a complementary detail: there was a no-gifts rule. Asked whether he had brought the newlyweds a present, Gronkowski told NBC Sports, "Didn\'t get him anything. You weren\'t supposed to get them gifts, so it\'s a good thing I didn\'t." It fit the reception\'s whole logic — nothing was expected at the door, and the prizes worth taking home were the ones guests played for.',
+          'The July 3 reception ran a raffle, and it had a catch: you couldn\'t just collect a ticket, you had to earn one. Retired NFL tight end Rob Gronkowski, a guest, laid out the mechanics in a People exclusive at the end of July — attendees played games through the celebration to win tickets. "You had to play the games in order to get the raffle tickets," he said, and "It wasn\'t no hand-me-outs, you had to earn the raffle tickets, and that\'s what made it so much fun." Gronkowski said he threw himself in hoping to win something for his longtime girlfriend, Camille Kostek.\n\nThe prizes ran from the wearable to the drivable: designer handbags and watches on one end, a 1970 Chevrolet Chevelle on the other. One winning ticket surfaced in public: Jackie Tranquill, married to Chiefs linebacker Drue Tranquill, shared a photo of a Chanel handbag — reported around $6,700 — beside her winning ticket, which carried the couple\'s "T&T" wedding logo and the word "winner." It was a small, telling detail about the day\'s tone: even the giveaways were built to be played for rather than handed out.\n\nA later interview added a complementary detail: there was a no-gifts rule. Asked whether he had brought the newlyweds a present, Gronkowski told NBC Sports, "Didn\'t get him anything. You weren\'t supposed to get them gifts, so it\'s a good thing I didn\'t." It fit the reception\'s whole logic — nothing was expected at the door, and the prizes worth taking home were the ones guests played for.\n\nThe rule had a second half, and it surfaced in November. The couple had asked guests to give to charity in lieu of gifts, and on Nov. 11 the Hancock County Humane Foundation, a small cat rescue in New Cumberland, West Virginia, thanked one of them: Mike Simon, Travis\'s agent since the 2013 NFL Draft, and his wife Lisa had chosen the foundation for their wedding-gift donation. "The amazing bride and groom asked for donations to charities in lieu of gifts and Mike and Lisa chose us!!" the rescue wrote, posting a photo of the four of them. The foundation has spent more than 30 years finding homes for stray and unwanted cats and kittens.',
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -6061,6 +6221,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-26',
             reliability_score: 4,
+          },
+          // Content Shift (Vault Run 2026-11-13, intake #6830): the
+          // charity-in-lieu-of-gifts half of the rule. Both pages read in full
+          // this run; they agree on the donors, the charity and its caption.
+          {
+            outlet: 'WV News',
+            url: 'https://www.wvnews.com/news/wvnews/taylor-swift-travis-kelce-wedding-gift-benefits-west-virginia-cat-rescue/article_c46ebd3c-d535-440d-aa62-fcdea55839fd.html',
+            source_title: 'Taylor Swift, Travis Kelce wedding gift benefits West Virginia cat rescue',
+            publisher: 'WV News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Us Weekly',
+            url: 'https://www.usmagazine.com/celebrity-news/news/taylor-swift-travis-kelce-asked-wedding-guests-for-donations/',
+            source_title: 'Taylor Swift and Travis Kelce Asked Wedding Guests to Donate to Charity in Lieu of Gifts',
+            publisher: 'Us Weekly',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
           },
         ],
         // Photo pass #762 (2026-08-14): the raffle itself has no dedicated
@@ -13047,11 +13228,17 @@ export default {
               'A year after she addressed it on Fallon, the halftime question came back for Super Bowl LXI in February 2027. Puck\'s Dave Brooks reported on Oct. 20, 2026, citing multiple sources, that Jay-Z, who picks the halftime act, had chosen himself, which entertainment coverage read as ruling out a Taylor halftime show for another year. The NFL had not announced the headliner.',
             reportedBy: 'Heavy (via Yahoo Entertainment), citing Puck',
             reportedOn: '2026-10-21',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/nfl-taylor-swift-decision-leaked-213302955.html',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-24',
-            note: 'Read directly 2026-10-24 (Heavy, Oct. 21, 2026, quoting Puck\'s Oct. 20 story "Jay-Z Picks Jay-Z for Super Bowl LXI"). Resolves when the NFL announces the Super Bowl LXI halftime headliner: confirmed if it is Jay-Z with no Taylor set, debunked if Taylor headlines. A separate anonymous-insider read on why she would pass was left out as a non-claim about her private plans. No location.',
+            lastCheckedOn: '2026-11-12',
+            note: 'Read directly 2026-10-24 (Heavy, Oct. 21, 2026, quoting Puck\'s Oct. 20 story "Jay-Z Picks Jay-Z for Super Bowl LXI"). Confirmed 2026-11-12: Apple Music named Jay-Z the LXI headliner on Oct. 26, 2026, with no Taylor set announced. Guests are not yet named, so this settles the headliner report only. An anonymous-insider read on why she would pass was left out. No location.',
+            resolution: {
+              on: '2026-10-26',
+              url: 'https://www.fox5ny.com/news/jay-z-confirmed-perform-super-bowl-lxi-halftime-show',
+              outlet: 'FOX 5 New York',
+              note: 'Jay-Z confirmed as the Super Bowl LXI halftime headliner (Feb. 14, 2027, SoFi Stadium), announced by Apple Music in a video. Taylor is not named.',
+            },
           },
         ],
         // Photo pass #762 (2026-08-14): the YouTube thumbnail above is a
@@ -14382,12 +14569,12 @@ export default {
               "In the days after Dolly Parton's death, heavy.com reported that Taylor was among the music stars said to be \"lining up\" to perform at a possible Dolly Parton tribute concert — coverage floated it as potentially one of the biggest memorial concerts in music history. As of late August 2026 no such concert has been scheduled and no performer lineup has been officially confirmed.",
             reportedBy: 'heavy.com',
             reportedOn: '2026-08-26',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-dolly-parton-tribute-travis-kelce/',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-10-22',
-            note: 'Re-checked 2026-10-22: the CMA\'s ABC/Disney+ Dolly special aired live Oct. 21. Taylor was not on its announced lineup (Deseret News, Oct. 5), but surprise tributes were billed and no recap yet says whether she appeared. Next run: settle it from a recap. Confirms if she performed or a concert with her is announced; fades if neither.',
+            lastCheckedOn: '2026-11-06',
+            note: 'The CMA\'s Oct. 21 Dolly special had no Taylor on its lineup (Deseret News, Oct. 5). Faded 2026-11-06: Deseret News\' recap of the night does not mention her, and no other tribute concert with her has been announced. Reported in late August, never confirmed or denied. Not debunked: a recap that leaves her out does not prove she was never asked.',
           },
         ],
       },
@@ -16084,9 +16271,9 @@ export default {
             reportedOn: '2026-10-05',
             status: 'unconfirmed',
             url: 'https://www.ibtimes.co.uk/taylor-swift-fans-phrase-next-song-theory-1823795',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real, observable pattern of public posts rather than an anonymous blind item — carried at tabloid tier. Corroborated by Bustle (Oct 2026). Resolves if a matching song or collaboration surfaces; fades if the phrase pattern leads nowhere. No location.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real pattern of public posts, not a blind item — tabloid tier. Corroborated by Bustle (Oct 2026). Resolves if a matching song or collaboration surfaces; fades if it leads nowhere. No location. Re-checked 2026-11-06: still live, nothing announced.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-10',
+            lastCheckedOn: '2026-11-06',
           },
         ],
       },
@@ -17299,6 +17486,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-i-knew-it-i-knew-you-tops-pop-airplay-a-record-extending-16t',
+        'moment:vault-tloas-a-record-16th-no-1-i-knew-it-i-knew-you-tops-adult-pop-airpl',
       ],
       year: 2026,
       month: 11,
@@ -17427,7 +17615,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.',
+          'The first Christmas of the marriage got its first on-record preview on Nov. 5, 2026. Tommy Hilfiger launched its winter "perfect holiday" campaign that day, with Travis Kelce back in the cast alongside JISOO, Josh Hart and others, each asked how they celebrate. His answer, to WWD: "I\'m excited for my first holiday as a married man. I love all the old traditions and can\'t wait to start some new ones. I start celebrating as soon as that tree goes up."\n\nIt is a small quote, but it is the first time either of them has spoken about the holidays since the summer wedding at Madison Square Garden, and E! News and others picked it up within hours. The campaign itself rolls out as weekly videos through the season. It is also Travis\'s second Hilfiger campaign of the fall, after the September one that gave the couple\'s Samoyed, Wendy, her first turn on camera.\n\nBoth campaigns sit inside a larger deal. On Mar. 30, 2026, Tommy Hilfiger named Travis its global brand ambassador, a partnership that runs from fall 2026 into spring 2027 and pairs a campaign with a design collaboration on reworked Tommy classics. Kelce joined a roster that has included Rafael Nadal, Gigi Hadid, Lewis Hamilton and Zendaya.',
         sources: [
           {
             outlet: 'WWD',
@@ -17449,6 +17637,17 @@ export default {
             accessed_at: '2026-11-07',
             reliability_score: 3,
             notes: 'Nov. 5, 2026; independent pickup carrying the same quotes, attributed to WWD.',
+          },
+          {
+            outlet: 'Daily Front Row',
+            url: 'https://fashionweekdaily.com/travis-kelce-tommy-hilfiger/',
+            source_title: 'Travis Kelce Signs Multi-Season Partnership With Tommy Hilfiger',
+            publisher: 'Daily Front Row',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes:
+              'By Charles Manning, Mar. 30, 2026; read in full. Primary for the global brand ambassador role, the fall 2026 to spring 2027 span, the campaign-plus-design-collaboration scope and the past-ambassador roster. Does not mention the holiday campaign.',
           },
         ],
         // Official campaign image published by WWD ("Courtesy of Tommy
@@ -17477,7 +17676,10 @@ export default {
       // Photo: Just Jared's wide frame (pagesix.com is not an allowlisted photo
       // host); see the note on the photo for why this frame.
       slug: 'showgirl-arrowhead-karlie-kloss-jets-2026',
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-red-a-california-road-trip-with-new-best-friend-karlie-kloss',
+      ],
       year: 2026,
       month: 11,
       day: 8,
@@ -17490,7 +17692,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.',
+          'Taylor was back at Arrowhead Stadium on Sunday, Nov. 8, 2026, for the Chiefs\' home game against the New York Jets, and the guest who got everyone talking was Karlie Kloss. The two watched the first half together from the suite, with Taylor\'s mom Andrea and Donna Kelce there too. Taylor wore a red-and-pink striped Tommy Hilfiger sweater polo. Just Jared noted the game was also a milestone for Travis: his 200th NFL appearance.\n\nThe reason it landed the way it did is the history. Taylor and Karlie were inseparable from 2013 on, from a joint Vogue cover in 2015 to the years of the famous "squad". In later years they were rarely seen together, and fans read that as a falling-out. Neither has ever said what happened, and Karlie told The New York Times in 2018, "Don\'t believe everything you read." The thaw went public this summer, when Karlie and her husband Joshua Kushner were among the guests at Taylor and Travis\'s July wedding at Madison Square Garden, and Sunday put the two of them in the same suite.\n\nWTVC (NewsChannel 9) notes the pair had last been photographed together in 2018, at the Reputation Stadium Tour stop in Nashville. Kloss has said little about the reunion. Weeks after her own wedding she told NBC\'s Today, "Listen, I try to protect the privacy of my friends\' personal lives," and called Taylor and Travis "an amazing couple." Neither Taylor nor her representatives commented on the Chiefs game.',
         photos: [
           {
             url: 'https://www.justjared.com/wp-content/uploads/2026/11/karlie-kloss-taylor-swift-chiefs-788x525.jpg',
@@ -17531,6 +17733,280 @@ export default {
             reliability_score: 3,
             notes:
               'By Bradley Stern, Nov. 8, 2026; read in full. Independent confirmation of Kloss in the private suite at Arrowhead vs. the Jets and the red sweater. Primary for Kelce\'s 200th NFL appearance and Kloss\'s 2018 New York Times quote.',
+          },
+          {
+            outlet: 'WTVC NewsChannel 9',
+            url: 'https://newschannel9.com/news/entertainment/taylor-swift-and-karlie-kloss-reunite-at-chiefs-game-years-after-rumored-rift',
+            source_title: 'Taylor Swift and Karlie Kloss reunite at Chiefs game years after rumored rift',
+            publisher: 'WTVC (Sinclair)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 4,
+            notes:
+              'By Elizabeth Stanton, Nov. 9, 2026; read in full. Third independent confirmation of Kloss in the suite with Andrea Swift and Donna Kelce. Primary for the 2018 Nashville Reputation Stadium Tour as the last time the two were photographed together and for Kloss\'s Today quote. Reports no score and no statement from Taylor or her reps.',
+          },
+        ],
+        // Rumor Desk 2026-11-14 (Vault Run lane 4), intake #6871. The suite
+        // sighting above is documented fact; only the reconciliation is
+        // unsettled, so it lives here and not in the narrative. No location
+        // in the claim.
+        rumors: [
+          {
+            claim:
+              'Taylor and Karlie Kloss patched up their years-long rift "a few years ago" and have since "gotten a lot closer," according to an unnamed source in Page Six on Nov. 9, 2026.',
+            reportedBy: 'Page Six (via OK! / Yahoo Style Canada)',
+            reportedOn: '2026-11-09',
+            status: 'unconfirmed',
+            url: 'https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html',
+            note: 'A single anonymous source; neither Taylor nor Kloss has addressed it, and neither has ever said publicly what caused the falling-out. Adjudicable: either one confirming or denying a reconciliation settles it. Read in full via the OK! syndication (Taylor Camp, Nov. 12, 2026), which links the Page Six original.',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-11-14',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-06 (Vault Run, Content Shift lane) from intake #6649.
+      // Rolling Stone and NBC Chicago both loaded directly and carry the same
+      // Boy Problems quotes. Family references from the podcast are left out
+      // on purpose (privacy-redlines.md §5).
+      slug: 'showgirl-abdul-el-sayed-swiftie-senator-elect',
+      year: 2026,
+      month: 11,
+      day: 3,
+      category: 'music',
+      title: 'A Swiftie wins Michigan\'s Senate seat, and reviews Showgirl on the way',
+      snippet:
+        'Abdul El-Sayed soundtracked one of his most-watched campaign videos with "You Belong With Me (Taylor\'s Version)," won Michigan\'s open Senate seat, and gave a podcast a careful verdict on The Life of a Showgirl.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Abdul El-Sayed won Michigan\'s open U.S. Senate seat on Nov. 3, 2026, and Swifties had a reason to notice. Over the summer his campaign posted a TikTok of him dancing on a balcony in a flag-print cowboy hat to "You Belong With Me (Taylor\'s Version)," with the lyrics rewritten to jab at his opponent, Mike Rogers, and a caption that read "Happy Taylor wedding… err, July 4th weekend." It reached 5.7 million views, one of his most-watched clips, and self-described Swifties in the comments promised him their votes.\n\nTaylor never endorsed him, and the video also never came down. Asked by a constituent how she had responded, El-Sayed said: "Here\'s the interesting thing — they never forced us to take it down." That stands out next to the Trump and White House videos that tried to use her songs and had the audio muted, a contrast drawn in Rolling Stone\'s write-up.\n\nA few days before the election, El-Sayed went on Liz Plank\'s Boy Problems podcast and got the hard question: was The Life of a Showgirl actually good? His answer was a fan\'s answer. "She is one of the most self-understanding artists of our time," he said. "Is it as good relative to Taylor doing what Taylor does the most naturally? Of course not. But is it an artist reflecting a different or flexing a different muscle and taking a risk? Yes. And I think we need to empower artists when they do that because they\'re pushing the frame of themselves in their own art."',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/abdul-el-sayed-taylor-swift-1235652663/',
+            source_title: 'Abdul El-Sayed, a Taylor Swift Fan, Won the Michigan U.S. Senate Seat',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+            notes:
+              'Nov. 4, 2026. Primary for the TikTok (song, rewritten lyrics, caption, 5.7M views), the "never forced us to take it down" quote, the muted White House videos contrast, and the Boy Problems quotes.',
+          },
+          {
+            outlet: 'NBC Chicago',
+            url: 'https://www.nbcchicago.com/entertainment/entertainment-news/abdul-el-sayed-says-life-of-a-showgirl-isnt-taylor-swifts-best-album/4012899/',
+            source_title: "Abdul El-Sayed says 'Life of a Showgirl' isn't Taylor Swift's best album",
+            publisher: 'NBC Chicago',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-06',
+            reliability_score: 4,
+            notes: 'Nov. 5, 2026; independent confirmation of the Senate win, the Boy Problems quotes and the TikTok caption.',
+          },
+        ],
+        // Downloaded and viewed 2026-11-06: HTTP 200, image/jpeg, 685x881,
+        // El-Sayed meeting voters at Michigan Tech, Oct. 22, 2025. CC BY-SA 4.0.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Abdul_El-Sayed_meet-and-greet_by_Conlan_Houston_5_%28cropped%29.jpg',
+            credit: 'Conlan Houston, CC BY-SA 4.0, via Wikimedia Commons',
+            caption: 'Abdul El-Sayed meeting voters at Michigan Technological University during the campaign, Oct. 22, 2025.',
+            kind: 'reference',
+            focalPoint: '50% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-11 (Vault Run, Content Shift lane) from intake #6814.
+      // Billboard (Gil Kaufman, Nov. 11) loaded directly and read in full; it
+      // reports THR's own announcement, with quotes from Maer Roshan and Sherry
+      // Lansing. The gala date is not announced ("typically early December"),
+      // so none is given here. Redlines: clean — a public industry honor.
+      slug: 'showgirl-sherry-lansing-leadership-award',
+      significance: 'notable',
+      year: 2026,
+      month: 11,
+      day: 11,
+      category: 'business',
+      relatedIds: ['moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame'],
+      title: 'Taylor gets the 2026 Sherry Lansing Leadership Award, with Greta Gerwig presenting',
+      snippet:
+        'The Hollywood Reporter announced on Nov. 11, 2026 that Taylor will receive the Sherry Lansing Leadership Award at its Women in Entertainment gala in Los Angeles, with Greta Gerwig presenting.',
+      sourceUrl:
+        'https://www.billboard.com/culture/events/taylor-swift-2026-sherry-lansing-leadership-award-greta-gerwig-1236379462/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Wednesday, Nov. 11, 2026, The Hollywood Reporter announced that Taylor is this year\'s recipient of the Sherry Lansing Leadership Award, to be handed over at its annual Women in Entertainment breakfast gala in Los Angeles. The gala usually lands in early December, and Greta Gerwig will present the award. The two are friends; on Late Night with Seth Meyers in October 2025, while promoting The Life of a Showgirl, Taylor told a story about Travis Kelce mixing up Gerwig and Hugh Grant\'s wife at an Eras Tour show.\n\nThe award is named for Lansing, the former Paramount Pictures chief and the first woman to run a Hollywood studio. It goes to trailblazers and philanthropists in entertainment and media, and past honorees include Adele, Gwyneth Paltrow, Charlize Theron, Reese Witherspoon, Barbra Streisand and Meryl Streep.\n\nTHR editor-in-chief Maer Roshan made ownership the headline: "Taylor Swift took on an industry that has long underestimated women and won on every front: artistically, commercially and on the question of who owns her work." Lansing said much the same. "She has paved the way for women in music, demonstrating what is possible when a woman takes ownership of her work, her career and her future," she told THR, and added a word for "her generosity and commitment to giving back."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/events/taylor-swift-2026-sherry-lansing-leadership-award-greta-gerwig-1236379462/',
+            source_title: 'Taylor Swift to Receive 2026 Sherry Lansing Leadership Award From Greta Gerwig at Women in Entertainment Gala',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-11',
+            reliability_score: 4,
+            notes:
+              'By Gil Kaufman, Nov. 11, 2026; read in full. Primary for the award, Gerwig presenting, the early-December LA breakfast gala, past honorees, and the Roshan and Lansing quotes.',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-the-hollywood-reporter-women-in-entertainment-1236751852/',
+            source_title:
+              "Taylor Swift Will Be Honored With The Hollywood Reporter's Sherry Lansing Leadership Award at Women in Entertainment Gala",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-11',
+            reliability_score: 4,
+            notes:
+              'By THR Staff, Nov. 11, 2026; loaded directly. The host publication\'s own announcement: the award, Gerwig presenting, the Women in Entertainment breakfast gala in Los Angeles.',
+          },
+        ],
+        // Downloaded and viewed 2026-11-11: HTTP 200, image/jpeg, 1024px wide.
+        // Billboard's featured image for its report: Taylor at the Academy
+        // Museum Gala in Los Angeles, Oct. 17, 2026. Caption says so plainly.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/10/P108QRF2-e1792406932507.jpg?w=1024',
+            credit: 'Gilbert Flores/Variety, via Billboard',
+            caption:
+              'Taylor at the Academy Museum Gala in Los Angeles, Oct. 17, 2026, the photo Billboard ran with its report on the Sherry Lansing award.',
+            kind: 'reference',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      // Content Shift (Vault Run 2026-11-13, intake #6832). Exchange read in
+      // full in Complex (Jason's lines and Travis's reply) and ClutchPoints
+      // via Yahoo (Travis's line, crediting People). Episode oEmbed-verified:
+      // author_name "New Heights" (allowlisted channel), watch page reads
+      // "Premiered Nov 11, 2026" and its description names the Philadelphia
+      // tailgate. Written as the joke it was: nothing here says Taylor has
+      // agreed to design anything. Redlines: clean; no venue detail beyond
+      // the city of a public fan event.
+      slug: 'showgirl-new-heights-tailgate-stage-joke',
+      year: 2026,
+      month: 11,
+      day: 11,
+      category: 'relationship',
+      title: '"I\'ll see what my wife can cook up": Travis volunteers Taylor for the next New Heights stage',
+      snippet:
+        'On the Nov. 11 New Heights episode, Jason Kelce asked whether anyone knew "anything about stages" for their next fan tailgate. Travis did: "I\'ll see what my wife can cook up."',
+      sourceUrl: 'https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Kelce brothers opened the Nov. 11, 2026 episode of New Heights by looking back at their fan tailgate in Philadelphia ahead of the Eagles-Giants game, which Jason called the best one they had done. What made it work, he said, was the stage: it gave the crowd a clear view of the sumo wrestling and hobby-horse events that earlier tailgates in Philadelphia and Kansas City had struggled to show. "The problem is most tailgates don\'t have a stage," he said, floating the idea of building their own, then asked, "Do you know anybody who knows anything about stages?"\n\n"Yeah, I actually do," Travis said. "I\'ll see what my wife can cook up." Married to the woman behind the Eras Tour, he had an obvious answer, but it was a joke on a podcast, not an announcement. Neither brother described an actual plan, and Taylor has said nothing about it.',
+        video: {
+          youtubeId: '59cfTptr3k8',
+          title: 'Josh Downs is a Chief, Cousins Traded, Super Bowl Bears & Did We Just Become Best Friends?? | 211',
+        },
+        sources: [
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/pop-culture/a/anne-erickson/travis-kelce-taylor-swift-magic',
+            source_title: "Travis Kelce Wants Taylor Swift to Work Her Magic for Next 'New Heights' Event",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes: 'By Anne Erickson, Nov. 11, 2026; read in full. Carries the full exchange and the tailgate context.',
+          },
+          {
+            outlet: 'ClutchPoints',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-pumped-see-wife-012104265.html',
+            source_title: 'Travis Kelce pumped to see what his wife Taylor Swift has in store for special New Heights event',
+            publisher: 'ClutchPoints (via Yahoo Entertainment)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-13',
+            reliability_score: 3,
+            notes: 'By Burtland Dixon; read in full. Confirms Travis\'s line and the Nov. 11 episode, crediting People for the original report.',
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/travis-kelce-hints--taylor-swift-help-new-heights-podcast-next-live-event',
+            source_title: "Travis Kelce Hints That Taylor Swift Can Help Out The 'New Heights' Podcast's Next Live Event",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Autumn Hawkins, Nov. 12, 2026. Same exchange and Philadelphia tailgate context; presents it as a hint, and cites no confirmation from Taylor, the Kelces or the show.',
+          },
+          {
+            outlet: 'New Heights',
+            url: 'https://www.youtube.com/watch?v=59cfTptr3k8',
+            source_title: 'Josh Downs is a Chief, Cousins Traded, Super Bowl Bears & Did We Just Become Best Friends?? | 211',
+            publisher: 'New Heights (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-13',
+            reliability_score: 5,
+            notes: 'The episode itself, premiered Nov. 11, 2026. oEmbed-verified (author_name "New Heights").',
+          },
+        ],
+      },
+    },
+    {
+      // Content Shift 2026-11-14, intake #6870. Dated to Nov. 13, when the
+      // remarks were first published; neither outlet dates the press
+      // conference itself. Vulture (cited on the ticket) could not be loaded
+      // from this environment, so the album praise is paraphrased from Kiss
+      // FM's agency report rather than quoted in English. Redlines: the
+      // iPad remark is about friends' children and the film, never framed as
+      // anything about Taylor's own family.
+      slug: 'showgirl-toy-story-5-awards-press-human-albums',
+      year: 2026,
+      month: 11,
+      day: 13,
+      category: 'music',
+      title: 'Campaigning for "I Knew It, I Knew You," Taylor names her two albums of the year',
+      snippet:
+        'At a Toy Story 5 press conference for Golden Globe voters, Taylor singled out Rosalía\'s LUX and Olivia Dean\'s The Art of Loving as records that prove music made by people still lands, and called the film\'s take on kids and screens "a parent-to-parent decision."',
+      sourceUrl: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Awards season for "I Knew It, I Knew You," her original song for Toy Story 5, brought Taylor to a press conference held for Golden Globe voters, and her remarks surfaced on Nov. 13 and 14, 2026. Asked about technology in music and what makes a song move people, she held up two records: Rosalía\'s LUX, which she called conceptual, ambitious, expansive and perfect, and Olivia Dean\'s The Art of Loving, which she likened to a warm hug. Her point was that both connect because they were made by people.\n\nShe also spoke about the film itself. "I have so many friends who\'ve gone to see this film because they have a young child," she told HELLO!, and "they don\'t really know what to do about the whole iPad thing." She praised the movie for not preaching: "there\'s no bad guy," it "really does emphasize trying to elongate childhoods, trying to make space and room for imagination," and "they\'re not heavy-handed about it." On screen time, "it\'s really a parent-to-parent decision." Of the song, she said, "I feel like I relate to this song even more every time I hear it and every time I sing it."',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+            source_title: 'Taylor Swift makes very rare comment on raising children, 4 months after wedding to Travis Kelce',
+            publisher: 'HELLO! Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Gill Pringle, Nov. 13, 2026; read in full. Primary for every English quote here (Toy Story 5 press conference, song promotion). The headline frames the remarks as about her own children; the quotes are about friends and the film, and are used only that way.',
+          },
+          {
+            outlet: 'Kiss FM (Spain)',
+            url: 'https://kissfm.es/2026/11/14/taylor-swift-se-rinde-ante-rosalia-y-su-disco-lux',
+            source_title: 'Taylor Swift se rinde ante Rosalía y su disco \'LUX\'',
+            publisher: 'Kiss FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Adrián Martín (agency copy), Nov. 14, 2026; read in full. Places the remarks at a press conference for Golden Globe voters and carries her descriptions of LUX and The Art of Loving (in Spanish; paraphrased here).',
+          },
+          {
+            outlet: 'Taylor Swift',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-14',
+            reliability_score: 5,
+            notes: 'The song being campaigned. oEmbed-verified 2026-11-14 (author_name "Taylor Swift").',
           },
         ],
       },

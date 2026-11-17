@@ -65,8 +65,14 @@ export function ReaderShell({ slots }: { slots: ReaderSlots }) {
       style={inThreads ? vaultStyle() : inMerch ? merchStyle() : eraStyle(era)}
     >
       {themeHost ? <ThemeEmitter color={themeColor} emit={themeHost} /> : null}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded-md focus:bg-[color:var(--era-ink)] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[color:var(--era-bg)]"
+      >
+        Skip to content
+      </a>
       <TopBar />
-      <main>{Surface ? <Surface key={restoreSeq} /> : <Fallback mode={mode} />}</main>
+      <main id="main-content" tabIndex={-1} className="focus:outline-none">{Surface ? <Surface key={restoreSeq} /> : <Fallback mode={mode} />}</main>
       {Footer ? <Footer /> : null}
       {/* Clearance for the fixed BottomNav. It cannot push content itself, so
           without this the last card of every surface — and the footer — sit

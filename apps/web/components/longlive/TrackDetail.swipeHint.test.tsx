@@ -44,8 +44,13 @@ function hintWrites(spy: { mock: { calls: unknown[][] } }) {
 }
 
 describe('TrackDetail swipe hint — tri-state host storage', () => {
-  beforeEach(() => window.localStorage.clear());
+  const realMatchMedia = window.matchMedia;
+  beforeEach(() => {
+    window.localStorage.clear();
+    window.matchMedia = ((q: string) => ({ matches: q.includes('pointer') })) as unknown as typeof window.matchMedia;
+  });
   afterEach(() => {
+    window.matchMedia = realMatchMedia;
     cleanup();
     vi.restoreAllMocks();
   });
@@ -66,6 +71,28 @@ describe('TrackDetail swipe hint — tri-state host storage', () => {
     act(() => actions.openTrack(KEY2));
     act(() => actions.openTrack(KEY));
     expect(hintWrites(set)).toHaveLength(1);
+  });
+
+  it('sits in the hero (absolute), never a fixed layer over the song rows', () => {
+    mount();
+    const wrap = screen.getByText(HINT).parentElement!;
+    expect(wrap.className).toContain('absolute');
+    expect(wrap.className).not.toContain('fixed');
+    expect(wrap.closest('[role="dialog"] > .relative')).not.toBeNull();
+  });
+
+  it('non-touch (pointer: fine): no hint and the one-time flag is not consumed', () => {
+    window.matchMedia = (() => ({ matches: false })) as unknown as typeof window.matchMedia;
+    mount();
+    expect(screen.queryByText(HINT)).toBeNull();
+    expect(window.localStorage.getItem(HINT_KEY)).toBeNull();
+  });
+
+  it('coarse pointer at lg+ widths (hint is CSS-hidden): no hint and the flag is not consumed', () => {
+    window.matchMedia = (() => ({ matches: true })) as unknown as typeof window.matchMedia;
+    mount();
+    expect(screen.queryByText(HINT)).toBeNull();
+    expect(window.localStorage.getItem(HINT_KEY)).toBeNull();
   });
 
   it('blocked storage (get -> undefined): no hint, zero hint writes', () => {

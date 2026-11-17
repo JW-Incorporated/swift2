@@ -54,3 +54,9 @@ export async function registerNotificationChannels(): Promise<void> {
     ),
   );
 }
+
+/** App-start call: channels exist before the first permission grant. Android only, never awaited, errors swallowed. */
+export function registerNotificationChannelsAtStartup(): void {
+  if (Platform.OS !== 'android') return;
+  registerNotificationChannels().catch(() => {});
+}

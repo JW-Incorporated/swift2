@@ -1,9 +1,10 @@
 // @vitest-environment jsdom
 import type {} from '@testing-library/jest-dom/vitest';
 import { useRef } from 'react';
-import { describe, expect, it } from 'vitest';
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import { act, render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import { ClownChat } from './ClownChat';
+import { CLOWN_STARTERS } from '@swift2/ui/reader/clown/lib/clown-starters';
 import { LORE } from '@/lib/longlive/clownbot-lore';
 import { renderWithReader } from '@/lib/longlive/render-with-reader';
 import { AppProvider } from '@/lib/longlive/store';
@@ -35,21 +36,75 @@ describe('ClownChat empty state', () => {
     expect(screen.getByText('Try our chat bot — ask a question below.')).toBeInTheDocument();
   });
 
-  it('shows plain-language jargon definitions and prefill starters', () => {
-    renderClownChat();
-    // The empty state's starter buttons live in their own labeled group
-    // (ClownEmptyState.tsx) and prefill the composer on tap — never send.
-    const starterGroup = screen.getByRole('group', { name: /clownbot starter questions/i });
-    const starterButtons = within(starterGroup).getAllByRole('button');
-    expect(starterButtons.length).toBeGreaterThan(0);
+  it('sends a starter question immediately when its chip is tapped', async () => {
+    const fetchMock = vi.fn(() => new Promise<Response>(() => {}));
+    vi.stubGlobal('fetch', fetchMock);
+    try {
+      renderClownChat();
+      // The empty state's starter buttons live in their own labeled group
+      // (ClownEmptyState.tsx); a tap submits the question like a typed send.
+      const starterGroup = screen.getByRole('group', { name: /clownbot starter questions/i });
+      const starterButtons = within(starterGroup).getAllByRole('button');
+      expect(starterButtons.length).toBeGreaterThan(0);
 
-    const textarea = screen.getByLabelText(/ask the clown/i) as HTMLTextAreaElement;
-    expect(textarea.value).toBe('');
-    fireEvent.click(starterButtons[0]);
-    // Selecting a starter prefills the composer textarea with its prompt —
-    // and must NOT submit (no fetch is triggered / busy state entered).
-    expect(textarea.value.length).toBeGreaterThan(0);
-    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+      fireEvent.click(starterButtons[0]);
+      const clownCalls = () =>
+        (fetchMock.mock.calls as unknown as [string, RequestInit][]).filter(([p]) => p === '/api/clown');
+      await waitFor(() => expect(clownCalls()).toHaveLength(1));
+      const [path, init] = clownCalls()[0];
+      expect(path).toBe('/api/clown');
+      const body = JSON.parse(String(init.body));
+      expect(body.text).toBe(CLOWN_STARTERS[0].prompt);
+      expect(body.chip).toBeUndefined();
+      expect((screen.getByLabelText(/ask the clown/i) as HTMLTextAreaElement).value).toBe('');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+});
+
+describe('ClownChat starter chips: drafts and double taps', () => {
+  const starterChip = () =>
+    within(screen.getByRole('group', { name: /clownbot starter questions/i })).getAllByRole('button')[0]!;
+  const clownCalls = (m: ReturnType<typeof vi.fn>) =>
+    (m.mock.calls as unknown as [string, RequestInit][]).filter(([p]) => p === '/api/clown');
+
+  it('does not wipe a typed draft when a chip is tapped and answered', async () => {
+    const fetchMock = vi.fn(async () => new Response('{"kind":"fallback","theoryName":null,"segments":[{"role":"stance","text":"ok"}],"delulu":null,"sources":[],"investigation":[]}\n'));
+    vi.stubGlobal('fetch', fetchMock);
+    try {
+      renderClownChat();
+      const textarea = screen.getByLabelText(/ask the clown/i) as HTMLTextAreaElement;
+      fireEvent.change(textarea, { target: { value: 'my own question' } });
+      fireEvent.click(starterChip());
+      await waitFor(() => expect(clownCalls(fetchMock)).toHaveLength(1));
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 80));
+      });
+      expect(textarea.value).toBe('my own question');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it('two synchronous chip taps issue exactly one request', async () => {
+    const fetchMock = vi.fn(() => new Promise<Response>(() => {}));
+    vi.stubGlobal('fetch', fetchMock);
+    try {
+      renderClownChat();
+      const chip = starterChip();
+      act(() => {
+        chip.click();
+        chip.click();
+      });
+      await waitFor(() => expect(clownCalls(fetchMock)).toHaveLength(1));
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 30));
+      });
+      expect(clownCalls(fetchMock)).toHaveLength(1);
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
 

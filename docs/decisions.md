@@ -7,6 +7,75 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-11 — YouTube feed fetches fall back to the uploads-playlist feed; appearance-discovery stops failing on a YouTube outage
+
+**Decision (Claude, reversible):** after a YouTube channel feed's retries end in
+a 404/5xx, both pipelines try `videos.xml?playlist_id=UU…` once (same id with
+`UC` -> `UU`; same entries and Atom shape, keyless). The worker does it in
+`rss.ts` `parseFeed`, appearance-discovery in `feed-retry.mjs` `fetchAllFeeds`.
+A failed fallback reports the original error. appearance-discovery no longer
+exits 1 for channels that end in 404/5xx (including all 14): it prints a
+`::warning::` and exits 0; parse errors, DNS/timeouts, 403 and 429 still exit 1.
+
+**Why.** Issue #6773 and run 42939092805 (`0/14 channels ok`, red): YouTube
+rejects runner IPs for hours; a red run nobody can act on is noise. The
+playlist feed is a separate backend path, but it has not been observed during
+an outage, so it may fail the same way; the exit change covers that case.
+
+**Alternatives.** YouTube Data API (needs a key; owner rule is keyless). HTML
+scraping (rejected). A persisted last-ok gate for appearance-discovery (the
+workflow keeps no state between runs). Reverse by removing `fallbackOne` and
+`splitFailures`.
+
+## 2026-11-10 — A YouTube feed never fails the news cycle on its failure counter (amends the 3-consecutive escalation)
+
+**Decision (Claude, reversible):** in `ingest-stage.ts` the "N consecutive
+failures + no success in 3h" escalation is skipped for a source whose URL is a
+YouTube `/feeds/videos.xml` feed and whose error is upstream (404/5xx/network;
+a 403 is a block and still escalates). The 48h "no success" rule and
+non-upstream errors still fail the run; the
+counter is still written. One flag, one helper (`isYouTubeFeedUrl`, already in
+`retry.ts`), three tests.
+
+**Why.** YouTube's feed server answers 404 (sometimes 500) to every feed for
+hours at a stretch — recurring since late 2025, no status page, and the feeds
+themselves are fine afterwards. `retry.ts` already waits 20s/40s inside a cycle
+for exactly this. On 2026-11-10 the stretch outlasted the 3-cycle escalation:
+runs 02:40Z and 03:28Z exited 1 on `realErrors: 1` with every other stage green
+(30 GNews items resolved), which is enough to file a "failed its last 2 runs"
+alert for a condition nobody can act on. Measured from a home IP at 03:45Z: 7 of
+8 sequential fetches 404/500, header `server: YouTube RSS Feeds server`; other
+RSS sources 200 with the same UA. A red run must mean something to fix.
+
+**Alternatives.** Disable the source row (loses the official channel entirely
+and needs a DB write per flap). Raise the threshold globally (hides a real
+outage on every other source). A `flaky: true` source config flag (needs a
+migration to reach the live row; the URL test needs nothing). Reverse by
+deleting the `knownFlaky` term.
+
+## 2026-11-09 — Sub-confirmed stamp is a chip + footer note on every detail (amends 2026-07-19's "unmissable banner")
+
+**Decision (Joey, 2026-11-09, in chat):** a reported/rumored item is stamped the
+same way everywhere — a small dashed `role="note"` chip under the title and a
+one-line explainer in the footer above the sources — on both the live news
+detail (`CurrentItemDetail`, #6748) and the Vault moment detail
+(`MomentDetail`'s `ConfidenceBanner` + new `ConfidenceNote`). The full-width
+dashed box introduced 2026-07-19 ("UNMISSABLE … a rumor can never visually
+pass as fact") is retired on both.
+
+**Why:** Joey, reviewing the app: confirmed posts "looked excellent" and the
+not-confirmed ones "still have the bad format … I want them both to look the
+same." The box sat between the headline and the story and pushed the lead
+below the fold on a phone; the honesty requirement is met by the chip (still
+the accessible name screen readers and the parity harness key on) plus the
+footer line, which together say the same words the box did.
+
+**Alternatives considered:** keep the box on moments only (rejected — the
+inconsistency is the complaint); drop the stamp below the fold entirely
+(rejected — a rumor must still read as a rumor at a glance, so the chip stays
+under the title). The "What's rumored" `RumorSection` and the era-card
+"Unconfirmed" chip are untouched.
+
 ## 2026-11-08 — Video-first slice 3: `current_item.embed` + `media_kind` (architect call)
 
 **Decision.** `current_item` gains a nullable `embed` jsonb (`{provider:'youtube', videoId, title?, channelId?, verifiedAt?}`) and `media_kind` text (`video`|`image`|`text`, check-constrained, default `text`, backfilled to `image` where `image_url` is set). A trigger derives `video` from a non-null embed and `image` from a set `image_url`, so existing writers need no change. No unified feed-item table; no automatic `video_work` rows. Readers expose both fields unchanged (no view exists; the row-level public-read policy covers all columns). `check-media-mix` counts `media_kind='video'` live items as video. Worker fill is slice 4, rendering slice 5. Reverse: drop the trigger, constraints and the two columns.
@@ -9485,3 +9554,7 @@ task or reverting this change restores the RSS-only system.
 ## 2026-10-23 — Jev no longer decides privacy_redline
 
 **Decision.** Any Jev answer indicating personal subject or speculation escalates to Haiku, which is the sole model-side privacy authority; the action layer holds on blocklist, Haiku privacy, or a Jev-decided item that should have escalated (invariant). Model-decided privacy on a primary-source item is held for the verifier, not dropped (follow-up). Full Haiku-primary remains pre-authorised, re-evaluated per source family when a Tier A miss is a confident Jev decision. Reverse by restoring the privacy branch in classFromAnswers. (Architect #17.) The earlier Jev-answer net on Haiku-decided rows (speculativePersonal) was removed deliberately: Haiku's label is final for escalated items; stored pre-change Jev-decided rows with high personal answers will plan as hold_invariant (safe direction).
+
+## 2026-11-11 — Vault Run PRs open as drafts; the publish job marks them ready
+
+**Decision.** `auto-merge-content.yml` arms `vault/*` PRs on `opened`/`synchronize`, so the first green `build` merged the day's PR while later lanes were still pushing and their commits landed on a deleted branch (11-06 and 11-08; issue #6757). The run procedure now opens the PR as a draft (`gh pr create --draft`), STEP 0 adoption returns an adopted PR to draft (`gh pr ready --undo`), and the publish job's "Open or update the PR" step runs `gh pr ready` after every lane has pushed. `auto-merge-content.yml` is unchanged: its `check-drafts`, `guard-code` and `enable` jobs already skip `draft == true` and already trigger on `ready_for_review`, so every gate (branch/author, allowlist, freeze, hold labels) runs exactly as before once the PR is ready. `gh pr ready` runs under `SOCIAL_POSTER_PAT`, so the event is not suppressed the way a `GITHUB_TOKEN` event would be. A run that dies before publish leaves a draft, which is never armed (safe direction). Reverse by dropping `--draft` and the `gh pr ready` step.

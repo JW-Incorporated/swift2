@@ -37,6 +37,22 @@ full gate — the publish job does that once, after both agent jobs.
    items authored, `edited` = existing items changed, `skipped` = candidates
    examined and deliberately not used, `failed` = candidates that errored.
 
+## Self-check before every push
+
+The publish gate rejected a run on 2026-11-05 for a duplicate `photos` key and
+a "Variety reported" sentence (issue #6653). Before each `git push`, run these
+CI checks on your own change, fix every finding in your own commit, then push.
+They are scoped to changed files and cheap; this is not the full gate, which
+still belongs to the publish job (token-metered run: never lint the whole repo).
+
+1. `npx eslint <each changed supabase/seed/content file>` (no-dupe-keys and
+   friends).
+2. `npm run check:voice -- --base-ref origin/main` (wire-attribution: rewrite
+   "Variety reported" as plain statement plus the citation).
+3. `npm run validate:content` and
+   `npx vitest run scripts/check-content-inert.test.ts` (seed files are inert
+   data: no object spread around helper calls).
+
 ## Budget
 
 You have 100 turns for two lanes, on the stronger model, because these two

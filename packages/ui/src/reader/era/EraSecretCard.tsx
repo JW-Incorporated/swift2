@@ -6,6 +6,7 @@ import { useAppActions } from '../store';
 import { useReader } from '../../snapshot/context';
 import { trackKey } from '@swift2/experience';
 import { epochDay, type EraId } from '@swift2/experience';
+import { SCRUBBER_GUTTER_CLASS } from '../shell/timelineScrubberLayout';
 
 /** The viewer's local calendar day as `YYYY-MM-DD`. Client-only (see below). */
 function todayKey(): string {
@@ -54,7 +55,7 @@ export function EraSecretCard({ eraId }: { eraId: EraId }) {
   return (
     <section
       aria-label={`Era secret — ${secret.title}`}
-      className="mx-auto max-w-4xl px-4 pt-6 md:pr-8"
+      className={`mx-auto max-w-4xl pl-4 pt-6 ${SCRUBBER_GUTTER_CLASS}`}
     >
       <div className="era-card rounded-2xl border p-5 sm:p-6">
         <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
