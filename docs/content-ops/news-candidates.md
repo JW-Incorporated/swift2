@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 87
+
+## Analysis Reveals Patterns in Taylor Swift's 123,553 Lyrics
+
+- first seen: 2026-11-17 06:42 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A study has been conducted on Taylor Swift's extensive collection of lyrics, which totals 123,553, revealing hidden patterns within her songwriting. This analysis provides insight into her lyrical themes and styles.
+- sources:
+  - [unverified] The Conversation — https://theconversation.com/taylor-swift-my-database-of-her-123-553-lyrics-reveals-hidden-patterns-293046
 
 ## Kathy Griffin Critiques Taylor Swift's Music and Fanbase
 
