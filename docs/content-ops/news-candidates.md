@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 85
+Stories: 83
 
 ## Fans See Taylor Swift's Grammys Necklaces as Easter Eggs
 
@@ -707,19 +707,3 @@ Stories: 85
 - summary: Taylor Swift reportedly paid Nelly $50,000, delivered in a McDonald's bag, for his surprise appearance at a recent concert. This unusual payment method has caught attention online.
 - sources:
   - [unverified] IMDb — https://www.imdb.com/news/ni66110648/?ref_=nmnw_art_perm
-
-## Taylor Swift Hesitant to Share Wedding Photos Following Design Leak
-
-- first seen: 2026-11-14 01:23 UTC | category: release | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is reportedly hesitant to release her wedding photos, despite encouragement from friends, after some designs were leaked. This has raised discussions about her privacy and the impact of design leaks on personal moments.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-reportedly-reluctant-release-233051049.html
-
-## Taylor Swift to Perform at 60th Annual CMA Awards Honoring Dolly Parton
-
-- first seen: 2026-11-14 01:23 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the 60th Annual CMA Awards, where Dolly Parton will be honored for her contributions to country music.
-- sources:
-  - [unverified] WKRN News 2 — https://www.wkrn.com/news/local-news/nashville/dolly-parton-to-be-honored-at-the-60th-annual-cma-awards-taylor-swift-to-perform/
