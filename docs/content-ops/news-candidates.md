@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 87
+Stories: 89
+
+## Kathy Griffin Critiques Swifties and Taylor Swift
+
+- first seen: 2026-11-17 08:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Kathy Griffin has made controversial remarks comparing Taylor Swift's fanbase, the Swifties, to MAGA supporters and labeled Taylor Swift as 'mediocre'.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/kathy-griffin-compares-swifties-maga-074652976.html
+
+## Jason Kelce Surprises NFL Fans During an Appearance
+
+- first seen: 2026-11-17 08:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: NFL fans expressed their disbelief after a surprise appearance by Jason Kelce, which has drawn a connection to Taylor Swift. The unexpected moment sparked discussions among fans about their relationship.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/nfl-fans-taylor-swift-point-074406966.html
 
 ## Analysis Reveals Patterns in Taylor Swift's 123,553 Lyrics
 
