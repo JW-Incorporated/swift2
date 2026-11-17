@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 89
+Stories: 90
+
+## Taylor Swift Surprises Fans Post Chiefs-Falcons Game
+
+- first seen: 2026-11-17 14:19 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: After the Chiefs-Falcons game, Taylor Swift revealed a hidden surprise for her fans. Details about the surprise are not specified in the report.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-hidden-surprise-fans-080856721.html
 
 ## Ranking the 25 Best Songs by Taylor Swift
 
