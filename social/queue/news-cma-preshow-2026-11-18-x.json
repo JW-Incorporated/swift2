@@ -13,7 +13,7 @@
   ],
   "scheduledAt": "2026-11-18T23:00:00Z",
   "campaign": "news:cma-awards-2026-preshow:2026-11-18",
-  "body": "she's singing at the CMAs TONIGHT and my hands are literally shaking 😭 her first time on that stage since 2013, when she slowed \"Red\" down with Alison Krauss. 8pm ET on ABC and i will be screaming at my tv https://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=x&utm_medium=social&utm_campaign=news",
+  "body": "she's singing at the CMAs TONIGHT and my hands are literally shaking 😭 my brain went straight to 2013, when she slowed \"Red\" down with Alison Krauss on that stage. 8pm ET on ABC and i will be screaming at my tv https://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=x&utm_medium=social&utm_campaign=news",
   "why": "Nov 18 CMA pre-show beat, X half written first as its own post: the nerves first, then the one anchoring fact (first CMA performance since 2013's acoustic \"Red\"). Sourced: GMA (2026-11-13) and Showbiz Junkies report Taylor performing at the 60th CMA Awards, Wed Nov 18, 8pm ET on ABC and Disney+ from Bridgestone Arena; last CMA performance 2013 (\"Red\" with Alison Krauss, Vince Gill et al.); nominated Single of the Year for \"I Knew It, I Knew You\". Intake #6840 was the lead only. No CMA moment in the Vault yet (#6891), so the era link. Pre-show only: no setlist, no performance described.",
   "critique": {
     "v": 1,
@@ -30,6 +30,23 @@
       "L003",
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "rewrite": {
+      "model": "claude-opus-5-5",
+      "at": "2026-11-17T19:53:08.900Z",
+      "fromBodyHash": "sha256:b1b207cb2e28bac912bae812ac371423b237163a3786d98e69149d26bb36269f",
+      "changes": "I fixed the claim the judge flagged and kept the link exactly as it was.\n\n- **Wrong fact removed:** I cut \"first time on that stage since 2013,\" because she performed \"Lover\" at the 2019 CMAs. I didn't add a different claim in its place.\n- **2013 detail kept as a memory:** The caption now says \"my brain went straight to 2013,\" followed by the slowed-down \"Red\" with Alison Krauss. The checkable detail stays, but it's no longer presented as a \"since then\" fact.\n- **Voice and formula unchanged:** The lowercase gush, the \"8pm ET on ABC\" detail and the single emoji are all still there. I added no new facts and no new stock phrases.\n- **Link not touched:** The judge called the raw UTM-tagged link clunky on X, but the rules don't let me change or drop links, so it stays exactly as given. X counts any link as 23 characters, so the caption is well under the 280 limit. If clunkiness still costs points, the fix is a shorter link on your side, not an edit to the caption."
+    },
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 4,
+        "formula": 4,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-17T19:53:25.830Z",
+      "bodyHash": "sha256:e088f0ca0dfe79e8eea119b92860d257fbf70e9963b56ac6bdcc6ea276154f03"
+    }
   }
 }

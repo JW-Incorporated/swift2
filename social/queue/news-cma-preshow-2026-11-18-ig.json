@@ -13,7 +13,7 @@
   ],
   "scheduledAt": "2026-11-18T23:00:00Z",
   "campaign": "news:cma-awards-2026-preshow:2026-11-18",
-  "body": "she's performing at the CMAs tonight and i genuinely cannot sit still 😭\n\nthe last time she sang on that stage was 2013, a stripped-down \"Red\" with Alison Krauss, Vince Gill, Sam Bush, Edgar Meyer and Eric Darken. i have rewatched it more times than i will admit.\n\nand \"I Knew It, I Knew You\" is up for Single of the Year, so i'm holding my breath for that one too 🥹\n\n8pm ET on ABC and Disney+, live from Nashville. see you on the couch.\n\n📷 jurvetson (CC BY 2.0), via Openverse\n\nlonglivets.com/?era=the-life-of-a-showgirl&utm_source=instagram&utm_medium=social&utm_campaign=news",
+  "body": "she's performing at the CMAs tonight and i genuinely cannot sit still 😭\n\nthe last time she sang on that stage was 2013, a stripped-down \"Red\" with Alison Krauss, Vince Gill, Sam Bush, Edgar Meyer and Eric Darken. i have rewatched it more times than i will admit, and some tiny part of me is hoping tonight feels like that again 🥹\n\n8pm ET on ABC and Disney+, live from Nashville. see you on the couch.\n\n📷 jurvetson (CC BY 2.0), via Openverse\n\nlonglivets.com/?era=the-life-of-a-showgirl&utm_source=instagram&utm_medium=social&utm_campaign=news",
   "why": "Nov 18 CMA pre-show beat, IG half: feeling first, then the 2013 \"Red\" callback and the Single of the Year nomination, then when to watch. Sourced: GMA (2026-11-13) and Showbiz Junkies report Taylor performing at the 60th CMA Awards, Wed Nov 18, 8pm ET on ABC and Disney+ from Bridgestone Arena; last CMA performance 2013 (\"Red\" with Alison Krauss, Vince Gill et al.); nominated Single of the Year for \"I Knew It, I Knew You\". Intake #6840 was the lead only. No CMA moment in the Vault yet (#6891), so the era link. Pre-show only: no setlist, no performance described.",
   "critique": {
     "v": 1,
@@ -30,6 +30,23 @@
       "L003",
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "rewrite": {
+      "model": "claude-opus-5-5",
+      "at": "2026-11-17T19:52:59.719Z",
+      "fromBodyHash": "sha256:45a0b4138d304e3310967b9b72f23d6aa6dde0dba11c8c50dc0258968787d892",
+      "changes": "I removed the line saying \"I Knew It, I Knew You\" is up for Single of the Year. The judge flagged both the song title and the nomination as unsupported, and I can't confirm either one, so I cut the whole line instead of trying to reword it. That leaves the 2013 \"Red\" performance and its checkable lineup to carry the post. I moved the 🥹 to a new line that links the 2013 performance to tonight's show. The new line only says what the fan is hoping for, so it doesn't add any facts. Everything else is the same as before: the voice, the airtime and channels, the photo credit and the link. The caption has 2 emoji and no em dashes or stock frames."
+    },
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 5,
+        "formula": 4,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-17T19:53:16.757Z",
+      "bodyHash": "sha256:d98d80726907f14afb423064f3fe8c1f8ffb72fa99e22018947028af68b369b0"
+    }
   }
 }
