@@ -3200,6 +3200,20 @@
       "sha256": "0aac7345a517619c1a0ab9a50bcc7ec2e40ad65430fcbb3564d872843f4475ef"
     },
     {
+      "id": "openverse-f6a09613-48d2-4498-87f6-be5915ddf294",
+      "mediaPath": "/social/library/photos/openverse-f6a09613-48d2-4498-87f6-be5915ddf294.jpg",
+      "credit": "jurvetson (CC BY 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/44124348109@N01/53079631118",
+      "alt": "Taylor Swift photo: Taylor Swift Eras Tour",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 1024,
+      "height": 771,
+      "bytes": 54187,
+      "sha256": "84dc0b7a72ee194ff3f818468b8d3be84a8a362776ca6c86a52019ef306037f6"
+    },
+    {
       "id": "openverse-f6b43b1c-07ca-44ea-b79d-d125af2c20f7",
       "mediaPath": "/social/library/photos/openverse-f6b43b1c-07ca-44ea-b79d-d125af2c20f7.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
@@ -3284,6 +3298,20 @@
       "sha256": "02186e822ce42664560b14ce74ef62e073d97080edb4f602739670df7185a4cd"
     },
     {
+      "id": "press-3614962b3be7",
+      "mediaPath": "/social/library/photos/press-3614962b3be7.jpg",
+      "source": "https://www.deccanchronicle.com/entertainment/hollywood/taylor-swift-set-to-return-to-cma-awards-stage-as-performer-after-13-years-2004293",
+      "alt": "Taylor Swift in the news: Taylor Swift Set To Return To CMA Awards Stage As Performer After 13 Years",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Deccan Chronicle",
+      "width": 1500,
+      "height": 900,
+      "bytes": 135350,
+      "sha256": "5a10e037de8e5357ff846c31ac23c1342c122bf3e9360fff9bb63e22f279f150"
+    },
+    {
       "id": "press-3b61c165db4d",
       "mediaPath": "/social/library/photos/press-3b61c165db4d.jpg",
       "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-oscar-voters-travis-kelce/",
@@ -3354,6 +3382,20 @@
       "sha256": "f061feab4ba1b50a621461cfb7591b378c36b5548ce23b6390abaa4e609d6877"
     },
     {
+      "id": "press-72cad8830189",
+      "mediaPath": "/social/library/photos/press-72cad8830189.jpg",
+      "source": "https://www.cinemablend.com/television/taylor-swift-performing-cma-awards-2-wild-theories-what-might-happen",
+      "alt": "Taylor Swift in the news: Taylor Swift Is Performing At The CMA Awards, And I Have 2 Wild Theories About What Might Happen During It",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via CinemaBlend",
+      "width": 2000,
+      "height": 1125,
+      "bytes": 104144,
+      "sha256": "be5b0a58635eb2db3caf68845cbea53a0be94d21efa632c56dea855ff1b02ea4"
+    },
+    {
       "id": "press-874fcba42ef6",
       "mediaPath": "/social/library/photos/press-874fcba42ef6.webp",
       "source": "https://www.cheatsheet.com/news/music/furious-taylor-swift-considers-hiring-private-investigators-after-wedding-photo-leaks.html/",
@@ -3366,6 +3408,34 @@
       "height": 675,
       "bytes": 29360,
       "sha256": "1ac7e09681d2f709bce267306dc3b6f2b831baceacdaec7aa38d33a01196ffad"
+    },
+    {
+      "id": "press-88a065f1e736",
+      "mediaPath": "/social/library/photos/press-88a065f1e736.jpg",
+      "source": "https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-kansas-city-chiefs-atlanta-falcons-game/",
+      "alt": "Taylor Swift in the news: Is Taylor Swift at the Kansas City Chiefs-Atlanta Falcons Game?",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Us Weekly",
+      "width": 1334,
+      "height": 702,
+      "bytes": 91545,
+      "sha256": "f2b9af4f7ab2d19eeaa00acca85b8694452e8512fba37d71790dd527c85a509e"
+    },
+    {
+      "id": "press-8da242d3fd5e",
+      "mediaPath": "/social/library/photos/press-8da242d3fd5e.jpg",
+      "source": "https://www.vulture.com/article/taylor-swift-is-campaigning-correctly-in-2027-oscars-run.html",
+      "alt": "Taylor Swift in the news: Taylor Swift Is Campaigning Correctly",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Vulture",
+      "width": 1200,
+      "height": 632,
+      "bytes": 101140,
+      "sha256": "dbe1e0780594636db2dc7ee858b5192ccce72b1f8b94811f29ca3bef20f0ccf3"
     },
     {
       "id": "press-92b5be0f5252",
@@ -3410,6 +3480,20 @@
       "sha256": "7add819ba71c484d7cb5831fd3cd49f5a87666f3504ed3b9679a624e9c5bf91a"
     },
     {
+      "id": "press-c52ab1258aa2",
+      "mediaPath": "/social/library/photos/press-c52ab1258aa2.jpg",
+      "source": "https://www.usmagazine.com/entertainment/news/taylor-swifts-quotes-about-returning-to-country-roots/",
+      "alt": "Taylor Swift in the news: Taylor Swift's Quotes About Returning to Country Roots",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Us Weekly",
+      "width": 1432,
+      "height": 752,
+      "bytes": 104649,
+      "sha256": "394ac3ea9a77c27ce4e4a699333fdb325384c57eeb7705573789cba59aa14ac7"
+    },
+    {
       "id": "press-cb56c13b2f20",
       "mediaPath": "/social/library/photos/press-cb56c13b2f20.jpg",
       "source": "https://www.essentiallysports.com/nba-basketball-news-tyler-koleks-girlfriend-forced-to-damage-control-after-knicks-stars-taylor-swift-apology-falls-to-deaf-ears-lexi-sousa/",
@@ -3424,6 +3508,20 @@
       "sha256": "714b244b09846cb72be3301904cb853735e53e02ccd553ece8c496442d712101"
     },
     {
+      "id": "press-cbc7a19ca84e",
+      "mediaPath": "/social/library/photos/press-cbc7a19ca84e.jpg",
+      "source": "https://www.usatoday.com/story/entertainment/movies/2026/11/13/taylor-swift-toy-story-5-song-oscars/92766305007/",
+      "alt": "Taylor Swift in the news: Taylor Swift discusses 'Toy Story 5' song amid Oscars buzz",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via USA TODAY",
+      "width": 2048,
+      "height": 1153,
+      "bytes": 190615,
+      "sha256": "aa71fd141fc6944e6d85fafc684eb1772b93c694fdb489f4d3887d6ef06b6bd5"
+    },
+    {
       "id": "press-e18000b9120e",
       "mediaPath": "/social/library/photos/press-e18000b9120e.webp",
       "source": "https://www.cheatsheet.com/news/taylor-swift-surprises-fans-again-unexpected-choice-made-wedding-day.html/",
@@ -3436,6 +3534,20 @@
       "height": 675,
       "bytes": 330454,
       "sha256": "5bff8147f85e4d8cd23dcaec8a305b6449b606fd49bbedba36abe75764fcdd99"
+    },
+    {
+      "id": "press-e4dc8082e137",
+      "mediaPath": "/social/library/photos/press-e4dc8082e137.jpg",
+      "source": "https://www.rte.ie/entertainment/2026/1113/1599173-taylor-swift-to-play-cma-awards-first-time-in-13-years/",
+      "alt": "Taylor Swift in the news: Taylor Swift to play CMA Awards, first time in 13 years",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via RTE.ie",
+      "width": 1600,
+      "height": 900,
+      "bytes": 122413,
+      "sha256": "a1caddcdd052d7d545a5b9bf83064f573d0866bdb6722b3363de9a6e374ea6fe"
     },
     {
       "id": "press-f2a339aeeea0",

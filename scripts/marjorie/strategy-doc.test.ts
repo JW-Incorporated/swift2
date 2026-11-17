@@ -3,7 +3,22 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { HEADINGS, MAX_DIRECTION_CHARS, STRATEGY_FILE, addOwnerDirection, rebaseOntoMain, validateStrategy } from './lib/strategy-doc.mjs';
+import {
+  CHANGELOG_ARCHIVE_FILE,
+  CHANGELOG_KEEP_WEEKS,
+  HEADINGS,
+  MAX_CHARS,
+  MAX_DIRECTION_CHARS,
+  STRATEGY_FILE,
+  addOwnerDirection,
+  archiveLines,
+  proseLength,
+  rebaseOntoMain,
+  renderArchive,
+  rotateChangelog,
+  validateArchive,
+  validateStrategy,
+} from './lib/strategy-doc.mjs';
 // @ts-expect-error — plain .mjs module, no type declarations
 import { judgeDirectionPr, main, newChangelogLines } from './strategy-doc.mjs';
 
@@ -49,6 +64,14 @@ const doc = (over: Record<string, string> = {}) =>
     '',
   ].join('\n');
 
+// A changelog section of `n` dated lines, one a week backwards from `from`, each ~`size` chars.
+const weeks = (n: number, { from = '2026-11-16', size = 1000 } = {}) =>
+  Array.from({ length: n }, (_, i) => {
+    const d = new Date(`${from}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() - (n - 1 - i) * 7);
+    return `- ${d.toISOString().slice(0, 10)} — ${'x'.repeat(size)}`;
+  });
+
 describe('docs/strategy/growth-strategy.md (the file on main)', () => {
   it('is well-formed: the seven headings in order, a Summary of at most six bullets, dated changelog', () => {
     expect(validateStrategy(real)).toEqual([]);
@@ -58,8 +81,20 @@ describe('docs/strategy/growth-strategy.md (the file on main)', () => {
     expect(real).toMatch(/I still have no idea what Marjorie's strategy is/);
     expect(real).not.toMatch(/TODO|TBD|lorem/i);
   });
-  it('is on the content auto-merge allowlist as exactly this one file', () => {
-    expect(read('.github/content-automerge-allowlist.txt')).toMatch(/^docs\/strategy\/growth-strategy\.md$/m);
+  it('is on the content auto-merge allowlist, with its changelog archive', () => {
+    const allowlist = read('.github/content-automerge-allowlist.txt');
+    expect(allowlist).toMatch(/^docs\/strategy\/growth-strategy\.md$/m);
+    expect(allowlist).toMatch(/^docs\/strategy\/growth-strategy-changelog\.md$/m);
+  });
+  it('fits the cap on its prose alone, and its changelog archive exists and is well-formed', () => {
+    expect(proseLength(real)).toBeLessThanOrEqual(MAX_CHARS);
+    expect(existsSync(CHANGELOG_ARCHIVE_FILE)).toBe(true);
+    expect(validateArchive(read(CHANGELOG_ARCHIVE_FILE))).toEqual([]);
+  });
+  it('still passes the check once the Changelog alone pushes it over the old whole-file cap (#6893)', () => {
+    const grown = `${real.replace(/\s*$/, '')}\n${weeks(12).join('\n')}\n`;
+    expect(grown.length).toBeGreaterThan(MAX_CHARS);
+    expect(validateStrategy(grown, real)).toEqual([]);
   });
 });
 
@@ -97,11 +132,76 @@ describe('validateStrategy', () => {
     expect(validateStrategy(doc({ changelog: '- 2026-10-02 — new only' }), prev).join()).toMatch(/Changelog lost a line/);
     expect(validateStrategy(doc({ changelog: '- 2026-10-01 — first\n- 2026-10-02 — second' }), prev)).toEqual([]);
   });
+  it('counts a rotated Changelog line as kept while it is in the archive, and lost when it is in neither (#6893)', () => {
+    const prev = doc({ changelog: '- 2026-01-01 — ancient\n- 2026-10-01 — first' });
+    const next = doc({ changelog: '- 2026-10-01 — first' });
+    expect(validateStrategy(next, prev, { archive: renderArchive(['- 2026-01-01 — ancient']) })).toEqual([]);
+    expect(validateStrategy(next, prev).join()).toMatch(/Changelog lost a line.*growth-strategy-changelog\.md/);
+    expect(validateStrategy(next, prev, { archive: renderArchive(['- 2026-01-01 — a DIFFERENT line']) }).join()).toMatch(/Changelog lost a line/);
+  });
+  it('budgets only the prose: a huge Changelog passes, the same characters elsewhere do not', () => {
+    const big = weeks(40, { size: 900 }).join('\n');
+    expect(validateStrategy(doc({ changelog: big }))).toEqual([]);
+    expect(validateStrategy(doc({ bets: big })).join()).toMatch(/characters outside the Changelog; the cap is 30000/);
+  });
+  it('never lets the archive stand in for an Owner direction line', () => {
+    const prev = doc();
+    const dropped = doc({ owner: '*Steer in the channel.*' });
+    expect(validateStrategy(dropped, prev, { archive: renderArchive([OWNER_LINE]) }).join()).toMatch(/Owner direction \(standing\) lost a line it had \(append-only\)/);
+  });
   it('ignores `## ` lines inside code fences', () => {
     expect(validateStrategy(doc({ summary: '- ok\n```\n## fake\n```' }))[0]).toMatch(/only bullets/);
   });
   it('names every required heading', () => {
     expect(HEADINGS).toHaveLength(7);
+  });
+});
+
+describe('rotateChangelog (the append-only Changelog stays bounded, #6893)', () => {
+  const TODAY = '2026-11-16';
+  it('moves lines older than the retention window into the archive and leaves the rest in place', () => {
+    const log = weeks(20, { from: TODAY, size: 20 });
+    const { text, archive, moved } = rotateChangelog(doc({ changelog: log.join('\n') }), '', { today: TODAY });
+    expect(moved).toEqual(log.slice(0, 20 - CHANGELOG_KEEP_WEEKS - 1));
+    expect(archiveLines(archive)).toEqual(moved);
+    for (const line of moved) expect(text).not.toContain(line);
+    for (const line of log.slice(moved.length)) expect(text).toContain(line);
+    expect(validateStrategy(text, doc({ changelog: log.join('\n') }), { archive })).toEqual([]);
+  });
+  it('is a no-op when nothing has aged out, and leaves the archive byte-identical', () => {
+    const before = renderArchive(['- 2026-01-01 — old']);
+    const src = doc({ changelog: weeks(3, { from: TODAY, size: 20 }).join('\n') });
+    expect(rotateChangelog(src, before, { today: TODAY })).toEqual({ text: src, archive: before, moved: [] });
+  });
+  it('appends to an existing archive without duplicating or reordering what is already there', () => {
+    const old = ['- 2026-01-01 — ancient'];
+    const log = ['- 2026-01-01 — ancient', '- 2026-02-01 — older', '- 2026-11-10 — recent'];
+    const { archive, moved } = rotateChangelog(doc({ changelog: log.join('\n') }), renderArchive(old), { today: TODAY });
+    expect(moved).toEqual(['- 2026-01-01 — ancient', '- 2026-02-01 — older']);
+    expect(archiveLines(archive)).toEqual(['- 2026-01-01 — ancient', '- 2026-02-01 — older']);
+  });
+  it('always keeps the newest dated line live, so the file still has the dated line the check requires', () => {
+    const log = weeks(4, { from: '2026-01-01', size: 20 });
+    const { text, moved } = rotateChangelog(doc({ changelog: log.join('\n') }), '', { today: TODAY });
+    expect(moved).toEqual(log.slice(0, 3));
+    expect(text).toContain(log[3]);
+    expect(validateStrategy(text)).toEqual([]);
+  });
+  it('leaves non-bullet Changelog text and a file without the section alone, and refuses a bad date', () => {
+    const withProse = doc({ changelog: `*notes*\n\n${weeks(20, { from: TODAY, size: 20 }).join('\n')}` });
+    expect(rotateChangelog(withProse, '', { today: TODAY }).text).toContain('*notes*');
+    const headless = '# T\n\n## Summary\n- a\n';
+    expect(rotateChangelog(headless, '', { today: TODAY })).toEqual({ text: headless, archive: '', moved: [] });
+    expect(() => rotateChangelog(doc(), '', { today: 'tomorrow' })).toThrow(/YYYY-MM-DD/);
+  });
+});
+
+describe('validateArchive', () => {
+  it('accepts an empty or grown archive and refuses a lost line or a missing title', () => {
+    expect(validateArchive('', '')).toEqual([]);
+    expect(validateArchive(renderArchive(['- 2026-01-01 — a', '- 2026-02-01 — b']), renderArchive(['- 2026-01-01 — a']))).toEqual([]);
+    expect(validateArchive(renderArchive([]), renderArchive(['- 2026-01-01 — a'])).join()).toMatch(/lost a line it had \(append-only\)/);
+    expect(validateArchive('- 2026-01-01 — a\n', '').join()).toMatch(/must start with/);
   });
 });
 
@@ -301,6 +401,35 @@ describe('strategy-doc CLI (main() executed with a mocked gh/git)', () => {
       expect(await main(args, { exec, env: {}, root })).toBe(1);
       expect(exec).not.toHaveBeenCalled();
       expect(read(path.join(root, STRATEGY_FILE))).toBe(before);
+    });
+    it('rotates aged-out Changelog lines into the archive, stages both files, and loses none (#6893)', async () => {
+      quiet();
+      const aged = ['- 2026-01-01 — ancient', '- 2026-02-01 — older'];
+      const root = tmp();
+      mkdirSync(path.join(root, 'docs', 'strategy'), { recursive: true });
+      const changelog = [...aged, '- 2026-10-01 — first', '- 2026-10-02 — Owner direction added'].join('\n');
+      writeFileSync(path.join(root, STRATEGY_FILE), doc({ owner: `${OWNER_LINE}\n${NEWER}`, changelog }));
+      writeFileSync(path.join(root, 'proposal.md'), doc({ owner: `${OWNER_LINE}\n${NEWER}`, bets: '1. rewritten bet', changelog: `${changelog}\n- 2026-11-16 — rewrote` }));
+      const exec = vi.fn((cmd: string, args: string[]) => (cmd === 'gh' && args[0] === 'pr' && args[1] === 'create' ? 'https://github.com/o/r/pull/9' : ''));
+      expect(await main(['open-pr', '--file', path.join(root, 'proposal.md'), '--kind', 'weekly'], { exec, env: {}, root })).toBe(0);
+      const written = read(path.join(root, STRATEGY_FILE));
+      const archive = read(path.join(root, CHANGELOG_ARCHIVE_FILE));
+      for (const line of aged) {
+        expect(written).not.toContain(line);
+        expect(archiveLines(archive)).toContain(line);
+      }
+      expect(written).toContain('- 2026-11-16 — rewrote');
+      expect(validateArchive(archive)).toEqual([]);
+      expect(exec).toHaveBeenCalledWith('git', ['add', STRATEGY_FILE, CHANGELOG_ARCHIVE_FILE]);
+      const body = exec.mock.calls.find(([c, a]: [string, string[]]) => c === 'gh' && a[1] === 'create')?.[1] ?? [];
+      expect(body.join('\n')).toContain('rotated to `docs/strategy/growth-strategy-changelog.md`');
+    });
+    it('stages only the strategy file when nothing has aged out', async () => {
+      quiet();
+      const { root, exec, args } = setup(doc({ owner: `${OWNER_LINE}\n${NEWER}`, bets: '1. rewritten bet', changelog: '- 2026-10-01 — first\n- 2026-10-02 — Owner direction added' }));
+      expect(await main(args, { exec, env: {}, root })).toBe(0);
+      expect(exec).toHaveBeenCalledWith('git', ['add', STRATEGY_FILE]);
+      expect(existsSync(path.join(root, CHANGELOG_ARCHIVE_FILE))).toBe(false);
     });
     it('fails (exit 1) on a missing proposal or a malformed one', async () => {
       quiet();
