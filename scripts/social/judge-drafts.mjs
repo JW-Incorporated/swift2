@@ -6,7 +6,12 @@
 // writes nothing else, never `approval`, and never posts. check-drafts.mjs
 // (inside social-tree-approve) deterministically requires every score >= 4.
 //
-// Needs CLAUDE_CODE_OAUTH_TOKEN (never read or printed here).
+// Needs CLAUDE_CODE_OAUTH_TOKEN (never read or printed here). That makes this a
+// WORKFLOW-ONLY entrypoint: .github/workflows/social-draft-judge.yml is the only
+// caller. A routine agent shell cannot run it — routine-template.yml passes the
+// token to claude-code-action as an input and never into the agent's environment
+// (issue #6933), so a drafting run that shells out to it only ever errors. Tree's
+// pre-flight is a hand score against lib/judge-rubric.mjs's anchors (lessons L003).
 //
 // Usage:
 //   node scripts/social/judge-drafts.mjs --dir <queue-dir> [--summary <out.md>] [--model <id>]
@@ -49,6 +54,10 @@ import {
 } from './lib/judge-rubric.mjs';
 
 const MODEL_PATTERN = /^[a-z0-9.-]+$/;
+
+/** The judge is a workflow-only entrypoint (#6933): name its one caller so an agent shell that tries it gets routed, not just an opaque env error. */
+export const MISSING_TOKEN =
+  'CLAUDE_CODE_OAUTH_TOKEN is not set. judge-drafts.mjs only runs inside .github/workflows/social-draft-judge.yml, which judges every tree/draft PR and rewrites a caption under 4 on its own. A routine agent shell never has this token: routine-template.yml passes it to claude-code-action as an input, not into the environment. Do not call this from a drafting run - score by hand against the anchors in scripts/social/lib/judge-rubric.mjs instead (social/lessons.md L003).';
 
 /** One caption through the judge. `claude` is injectable for tests. Returns `{ status: 'ok', scores, reasons } | { status, reason }`. */
 export async function judgeCaption({ platform, body }, { claude = callClaude, model = JUDGE_MODEL } = {}) {
@@ -145,7 +154,7 @@ async function main() {
   if (args.includes('--sign')) return signMode(args);
   const model = flag(args, '--model') ?? JUDGE_MODEL;
   if (!MODEL_PATTERN.test(model)) throw new Error('--model must match ^[a-z0-9.-]+$');
-  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) throw new Error('CLAUDE_CODE_OAUTH_TOKEN is not set');
+  if (!process.env.CLAUDE_CODE_OAUTH_TOKEN) throw new Error(MISSING_TOKEN);
   const files = targetsFrom(args);
   if (files.length === 0) {
     console.log('judge-drafts: no draft files to judge.');
