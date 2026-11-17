@@ -27,6 +27,14 @@ so far".
 
 Stories: 89
 
+## How to Watch Taylor Swift's Performance at the 2026 CMA Awards
+
+- first seen: 2026-11-17 11:32 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Details on how to watch Taylor Swift's upcoming performance at the 2026 CMA Awards, including start time and nominees, have been released. Fans can look forward to her participation in this major country music event.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/article/2026-cma-awards-how-to-watch-taylor-swifts-performance-live-start-time-nominees-and-more-112500231.html
+
 ## Kathy Griffin Critiques Swifties and Taylor Swift
 
 - first seen: 2026-11-17 08:42 UTC | category: music | importance: 5
@@ -746,11 +754,3 @@ Stories: 89
 - summary: A timeline showcasing Taylor Swift's Met Gala fashion evolution, featuring her style choices from Louis Vuitton to her platinum blonde look.
 - sources:
   - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swifts-met-gala-fashion-113900384.html
-
-## Taylor Swift Announces News Ahead of Chiefs-Falcons Game
-
-- first seen: 2026-11-14 11:12 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has shared exciting news just days before the upcoming game between the Chiefs and Falcons. Details of the announcement were not specified.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-exciting-news-before-falcons-game/
