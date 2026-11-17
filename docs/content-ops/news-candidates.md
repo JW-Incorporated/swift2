@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 105
+
+## Taylor Swift-Inspired Christmas Ornament Available at Target
+
+- first seen: 2026-11-17 22:12 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Target.com is selling a $30 Christmas ornament inspired by Taylor Swift. Fans are encouraged to purchase it before it sells out.
+- sources:
+  - [unverified] Yahoo — https://shopping.yahoo.com/gift-ideas/articles/30-taylor-swift-inspired-christmas-184351818.html
+
+## Museum of Fine Arts Boston to Launch Taylor Swift Exhibition
+
+- first seen: 2026-11-17 22:12 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The Museum of Fine Arts in Boston is set to open an exhibition showcasing iconic costumes and instruments associated with Taylor Swift. This event highlights the intersection of her music and fashion.
+- sources:
+  - [unverified] WHDH — https://whdh.com/entertainment/museum-of-fine-arts-boston-opening-taylor-swift-exhibition-featuring-iconic-costumes-instruments/
+
+## Taylor Swift Exhibit to Open at Museum Of Fine Arts
+
+- first seen: 2026-11-17 22:12 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The Museum Of Fine Arts will host an exclusive exhibit dedicated to Taylor Swift, showcasing her impact in the art world and beyond. The event aims to celebrate her cultural influence through various artistic mediums.
+- sources:
+  - [unverified] WBZ NewsRadio 1030 — https://wbznewsradio.iheart.com/content/museum-of-fine-arts-to-host-exclusive-taylor-swift-exhibit/
+
+## Taylor Swift Changes Lipstick Style to 'Cinnamon Latte Lips'
+
+- first seen: 2026-11-17 22:12 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is seen changing her makeup look from her iconic red lipstick to a new shade called 'Cinnamon Latte Lips,' as featured in Harper's BAZAAR.
+- sources:
+  - [established] Harper's Bazaar — https://www.harpersbazaar.com/beauty/makeup/a74455988/taylor-swift-cinnamon-latte-lips/
 
 ## Taylor Swift Museum Exhibit Set to Open in Boston
 
