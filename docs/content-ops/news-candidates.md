@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 100
+Stories: 101
+
+## Taylor Swift Museum Exhibit Set to Open in Boston
+
+- first seen: 2026-11-17 21:11 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: A museum exhibit dedicated to Taylor Swift is scheduled to open in Boston, showcasing her career and contributions to music. The exhibit aims to engage fans and provide insights into her life and work.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/17/taylor-swift-boston-museum-tickets/92829798007/
 
 ## Teresa Giudice Supports Taylor Swift's 'Life of a Showgirl'
 
