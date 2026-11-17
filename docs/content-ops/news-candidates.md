@@ -27,6 +27,14 @@ so far".
 
 Stories: 89
 
+## Ranking the 25 Best Songs by Taylor Swift
+
+- first seen: 2026-11-17 13:32 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A new list has been published ranking the 25 best songs by Taylor Swift. This compilation provides insight into her most impactful tracks as recognized by fans and critics.
+- sources:
+  - [unverified] Still Listening — https://www.stilllisteningmagazine.com/features/the-25-best-songs-by-taylor-swift-ranked
+
 ## How to Watch Taylor Swift's Performance at the 2026 CMA Awards
 
 - first seen: 2026-11-17 11:32 UTC | category: music | importance: 7
@@ -746,11 +754,3 @@ Stories: 89
 - summary: Taylor Swift has released a significant update regarding the holidays just days before the Kansas City Chiefs face the Atlanta Falcons. The news connects her to the ongoing NFL events drawing fan attention.
 - sources:
   - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-drops-big-holiday-update-days-before-kansas-city-chiefs-atlanta-falcons-game-12326557
-
-## Taylor Swift's Met Gala Fashion Journey: A Glamorous Overview
-
-- first seen: 2026-11-14 13:06 UTC | category: fashion | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A timeline showcasing Taylor Swift's Met Gala fashion evolution, featuring her style choices from Louis Vuitton to her platinum blonde look.
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/taylor-swifts-met-gala-fashion-113900384.html
