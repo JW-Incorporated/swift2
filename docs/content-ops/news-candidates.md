@@ -86,9 +86,10 @@ Stories: 105
 ## MFA Boston to Open Taylor Swift Exhibit in 2027
 
 - first seen: 2026-11-17 20:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The Museum of Fine Arts in Boston has announced plans to launch an exhibit dedicated to Taylor Swift, set to open in 2027. This exhibit will highlight Swift's influence and contributions to the arts.
 - sources:
+  - [unverified] ARTnews.com — https://www.artnews.com/art-news/news/taylor-swifts-costumes-collection-new-exhibition-1234806510/
   - [unverified] Axios — https://amp.axios.com/mfa-boston-taylor-swift-eras-collection-2027-0cb83363-6b4e-4133-9770-45d1a36a5e21.html
 
 ## MFA Boston Introduces Exclusive Taylor Swift 'Eras Collection'
@@ -202,9 +203,10 @@ Stories: 105
 ## How to Watch Taylor Swift's Performance at the 2026 CMA Awards
 
 - first seen: 2026-11-17 11:32 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Details on how to watch Taylor Swift's upcoming performance at the 2026 CMA Awards, including start time and nominees, have been released. Fans can look forward to her participation in this major country music event.
 - sources:
+  - [unverified] Business Insider — https://www.businessinsider.com/most-popular-taylor-swift-songs-spotify-2026-11
   - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74429045/how-to-watch-2026-cma-awards/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/article/2026-cma-awards-how-to-watch-taylor-swifts-performance-live-start-time-nominees-and-more-112500231.html
 
