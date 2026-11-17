@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 98
+
+## MFA Boston Introduces Exclusive Taylor Swift 'Eras Collection'
+
+- first seen: 2026-11-17 19:13 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The Museum of Fine Arts (MFA) Boston is set to debut an exclusive 'Eras Collection' featuring Taylor Swift, marking a historic milestone for the institution. This collection is a first for the 156-year-old museum.
+- sources:
+  - [unverified] Parade Magazine — https://parade.com/news/mfa-boston-debuting-exclusive-taylor-swift-eras-collection-a-historic-first-for-156-year-old-institution
+
+## Taylor Swift Exhibit to Showcase Career Memorabilia
+
+- first seen: 2026-11-17 19:13 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An upcoming exhibit will allow Taylor Swift fans to view costumes, instruments, and memorabilia spanning her two-decade career. This immersive experience is expected to be a significant attraction for her fans.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/are-you-ready-for-it-taylor-swift-fans-will-soon-be-able-to-get-an-up-close-look/1640166504811676/
+
+## Eras Tour Costume Exhibit to Open at Boston's MFA
+
+- first seen: 2026-11-17 19:13 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: An exhibit showcasing costumes from Taylor Swift's Eras Tour is set to open at Boston's Museum of Fine Arts. This event highlights the artistic and cultural impact of Swift's tour through its visual elements.
+- sources:
+  - [unverified] Boston 25 News — https://www.boston25news.com/news/local/taylor-swift-exhibit-featuring-eras-tour-costumes-coming-bostons-mfa/NYDOZNW24NBLFOQZNVAHYPTZGI/
 
 ## Sugarland Releases Cover Video of Taylor Swift's 'Patient Zero'
 
@@ -63,9 +87,11 @@ Stories: 96
 ## Taylor Swift Exhibition to Open at Boston's Museum of Fine Arts Next Year
 
 - first seen: 2026-11-17 17:12 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 3
 - summary: A new exhibition featuring Taylor Swift is set to debut at the Museum of Fine Arts in Boston next year, showcasing her impact on music and culture.
 - sources:
+  - [unverified] CBS News — https://www.cbsnews.com/boston/news/taylor-swift-eras-collection-mfa-boston/
+  - [unverified] The Business Journals — https://www.bizjournals.com/boston/news/2026/11/17/taylor-swift-museum-of-fine-arts.html
   - [unverified] WCVB — https://www.wcvb.com/article/taylor-swift-exhibition-coming-to-museum-of-fine-arts-in-boston-in-april-2027/74452371
 
 ## Taylor Swift's Grammy Quip May Have Been Intentional
@@ -111,9 +137,10 @@ Stories: 96
 ## How to Watch Taylor Swift's Performance at the 2026 CMA Awards
 
 - first seen: 2026-11-17 11:32 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Details on how to watch Taylor Swift's upcoming performance at the 2026 CMA Awards, including start time and nominees, have been released. Fans can look forward to her participation in this major country music event.
 - sources:
+  - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74429045/how-to-watch-2026-cma-awards/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/article/2026-cma-awards-how-to-watch-taylor-swifts-performance-live-start-time-nominees-and-more-112500231.html
 
 ## Kathy Griffin Critiques Swifties and Taylor Swift
@@ -803,11 +830,3 @@ Stories: 96
 - summary: In a recent interview with Vulture, Taylor Swift shared her thoughts on the art of love as it pertains to her connections with Lux and Olivia Dean.
 - sources:
   - [unverified] Vulture — https://www.vulture.com/article/taylor-swift-rosalia-olivia-dean-praise.html
-
-## Taylor Swift Scheduled to Perform at the CMA Awards
-
-- first seen: 2026-11-14 18:44 UTC | category: tour | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the upcoming CMA Awards, sparking speculation among fans about potential surprises during her appearance. Two theories regarding her performance have been shared in anticipation of the event.
-- sources:
-  - [unverified] Cinemablend — https://www.cinemablend.com/television/taylor-swift-performing-cma-awards-2-wild-theories-what-might-happen
