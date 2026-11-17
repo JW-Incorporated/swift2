@@ -2851,6 +2851,7 @@ export default {
           {
             // Photo pass (issue #1721, 2026-08-25): the song's named co-writer/producer.
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            focalPoint: '56% 18%',
             credit: 'Wikimedia Commons / Kim Metso (CC BY-SA 4.0)',
             caption: 'Aaron Dessner, "loml"\'s co-writer and producer, performing at Way Out West festival, Gothenburg, 2014.',
             kind: 'reference',
@@ -2990,6 +2991,7 @@ export default {
             // Photo pass (issue #1721, 2026-08-25): the song's producer, at
             // one of the same studios cited in this item's own context.
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
+            focalPoint: '50% 22%',
             credit: 'Wikimedia Commons / Alex Lockett (CC BY-SA 4.0)',
             caption: 'Jack Antonoff, the song\'s producer, at Electric Lady Studios, 2023.',
             kind: 'reference',
@@ -3447,6 +3449,7 @@ export default {
             // from the official lyric-video still above. The prior note's
             // "no creditable still" finding no longer holds after this pass.
             url: 'https://i.ytimg.com/vi/tGHlsfhIq4Q/maxresdefault.jpg',
+            focalPoint: '38% 28%',
             credit: 'YouTube (fan recording)',
             caption: 'Taylor Swift performing the live "thanK you aIMee"/"Mean" mashup at Wembley Stadium, June 22, 2024.',
             kind: 'archival',
