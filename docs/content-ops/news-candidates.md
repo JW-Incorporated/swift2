@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 84
+
+## Ice Spice Discusses Connection with Star at Taylor Swift's Wedding
+
+- first seen: 2026-11-17 02:22 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Ice Spice shared details about her instant connection with a star during Taylor Swift's wedding, which she described as 'magical.' The revelation highlights the personal interactions that took place at the event.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ice-spice-reveals-star-she-014948276.html
 
 ## Fans See Taylor Swift's Grammys Necklaces as Easter Eggs
 
@@ -203,14 +211,6 @@ Stories: 83
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-return-cma-stage-153731696.html
 
-## Taylor Swift Nominated for 2027 Grammy Awards
-
-- first seen: 2026-11-16 17:43 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: The 2027 Grammy nominations have been announced, with Taylor Swift among the leading nominees alongside Raye, Ella Langley, and Olivia Rodrigo. The nominations reflect the talent and impact of these artists in the music industry.
-- sources:
-  - [unverified] WLOS — https://wlos.com/news/entertainment/gallery/2027-grammy-nominations-raye-ella-langley-olivia-rodrgio-taylor-swift-lead-the-pack
-
 ## Taylor Swift's Absence at Travis Kelce's Game Amid Divorce Rumors
 
 - first seen: 2026-11-16 17:43 UTC | category: relationship | importance: 7
@@ -218,6 +218,14 @@ Stories: 83
 - summary: Taylor Swift's decision to miss Travis Kelce's game has sparked discussions regarding ongoing divorce rumors. The situation has prompted mixed reactions from fans and analysts alike.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/real-reason-taylor-swift-skipped-170621678.html
+
+## Taylor Swift Nominated for 2027 Grammy Awards
+
+- first seen: 2026-11-16 17:43 UTC | category: music | importance: 8
+- verification_status: rumor | source_count: 1
+- summary: The 2027 Grammy nominations have been announced, with Taylor Swift among the leading nominees alongside Raye, Ella Langley, and Olivia Rodrigo. The nominations reflect the talent and impact of these artists in the music industry.
+- sources:
+  - [unverified] WLOS — https://wlos.com/news/entertainment/gallery/2027-grammy-nominations-raye-ella-langley-olivia-rodrgio-taylor-swift-lead-the-pack
 
 ## Taylor Swift's Grammys Nomination Reveal Included Easter Eggs
 
