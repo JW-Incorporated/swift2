@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 104
 
 ## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
 
@@ -285,9 +285,10 @@ Stories: 105
 ## Taylor Swift Nominated for Grammy Award Alongside Beyoncé
 
 - first seen: 2026-11-17 03:22 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 0
+- verification_status: single_source | source_count: 1
 - summary: The Grammy Award nominations include notable music stars such as Taylor Swift and Beyoncé. These nominations highlight the achievements of women in the music industry.
 - sources:
+  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article318117311.html
   - [unverified] unknown — https://wsvn.com/entertainment/deco-drive/women-dominate-grammy-nominations/
 
 ## Ice Spice Discusses Connection with Star at Taylor Swift's Wedding
@@ -882,11 +883,3 @@ Stories: 105
 - summary: In new comments following Travis Kelce's wedding, Taylor Swift discussed her views on raising children. The remarks come amid her ongoing relationship with Kelce.
 - sources:
   - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-reveals-what-she-thinks-about-raising-kids-in-new-comments-after-travis-kelce-wedding-12328257
-
-## Joe Jonas' Dating History Includes Taylor Swift and Sophie Turner
-
-- first seen: 2026-11-15 02:53 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: AOL.com reviews the dating history of Joe Jonas, highlighting relationships with notable figures such as Taylor Swift and Sophie Turner.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/joe-jonas-dating-history-years-215548000.html
