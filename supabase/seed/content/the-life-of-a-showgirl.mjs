@@ -97,7 +97,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.',
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.\n\nThe Encore isn\'t on the ballot, and that is the calendar again. The four new songs ("Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!") came out Sept. 25, 2026, about four weeks after this cycle\'s window closed on Aug. 28. The deluxe edition is unlikely to get its own Album of the Year shot next year either. The Recording Academy requires new recordings to make up at least 66 percent of an album, down from 75 percent, and four songs added to a finished record fall well short of that. The new tracks will be eligible individually at the 2028 Grammys in the song-level categories.',
         video: {
           youtubeId: 'hDU4GB1PTxc',
           title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -138,6 +138,16 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-11-17',
             reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated',
+            source_title: "Why Taylor Swift's The Life of a Showgirl: The Encore Isn't Eligible for Grammys 2027",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-18',
+            reliability_score: 4,
+            notes: 'Read in full this run (intake #6984): Aug. 31, 2025 to Aug. 28, 2026 window, Sept. 25 Encore release, 66 percent new-recordings rule, 2028 song-level eligibility.',
           },
           {
             outlet: 'YouTube',
@@ -4142,9 +4152,9 @@ export default {
             status: "unconfirmed",
             url: "https://www.deuxmoi.world/news/taylor-swift-stuns-super-bowl-2026-2027-tour",
             sourceTier: "social",
-            lastCheckedOn: "2026-10-24",
+            lastCheckedOn: "2026-11-18",
             note:
-              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent. Re-checked 2026-10-24: no tour announced for 2026 or 2027 yet. Still live while 2027 is ahead.",
+              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent. Re-checked 2026-10-24: no tour announced for 2026 or 2027 yet. Still live while 2027 is ahead. Re-checked 2026-11-18: still no tour announced.",
           },
           {
             // Rumor Desk 2026-08-25: a fresh data point on the same "when does
@@ -11108,8 +11118,8 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-26',
-            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location. Rechecked 2026-10-26: still open. The Encore was a deluxe of the pop album, not a new project, and Business Insider (Oct. 24) still calls a country-leaning debut re-release possible.',
+            lastCheckedOn: '2026-11-18',
+            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location. Rechecked 2026-10-26: the Encore was a deluxe of the pop album. Rechecked 2026-11-18: she performs at the Nov. 18 CMA Awards (Variety), but no country album is announced.',
           },
           {
             // Added 2026-08-31 (Rumor Desk, news digest + web search): the
@@ -11127,9 +11137,9 @@ export default {
             reportedOn: '2026-08-27',
             status: 'unconfirmed',
             url: 'https://www.justjared.com/2026/08/27/taylor-swift-is-reportedly-working-on-new-music/',
-            note: 'Unnamed-insider report, not an announcement; outlets all trace to the same Page Six sourcing, so it stays a rumor until she says so. Resolves if she announces new original music; fades if the reports go nowhere. No location. Rechecked 2026-10-26: the Encore does not settle it, since she said those songs were written in 2025, before the wedding (Business Insider). No new album announced.',
+            note: 'Unnamed-insider report, not an announcement; outlets all trace to the same Page Six sourcing. Resolves if she announces new original music; fades if the reports go nowhere. No location. Rechecked 2026-10-26: the Encore does not settle it, since those songs were written in 2025, before the wedding (Business Insider). Rechecked 2026-11-18: no new album announced.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-26',
+            lastCheckedOn: '2026-11-18',
           },
         ],
       },
@@ -11455,9 +11465,9 @@ export default {
             reportedOn: '2026-06-29',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/taylor-swift-make-country-music-again-signs-1235586149/',
-            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan. Re-checked 2026-10-22: still no announcement; check again after the debut\'s 20th anniversary (Oct. 24). Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
+            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan. Resolves if a country album is announced; fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" rumor. Re-checked 2026-10-22 and 2026-11-18: no announcement; her Nov. 18 CMA Awards performance (Variety) does not settle it.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-22',
+            lastCheckedOn: '2026-11-18',
           },
         ],
       },
