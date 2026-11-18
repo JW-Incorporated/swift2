@@ -132,7 +132,7 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
             <Text style={[styles.fact, styles.drill]}>{TEST_PAGE_LABEL}</Text>
             <Switch
               accessibilityLabel={TEST_PAGE_LABEL}
-              value={testPage || pending?.kind === 'test'}
+              value={testPage}
               onValueChange={toggleTestPage}
             />
           </View>
