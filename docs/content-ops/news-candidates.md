@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 104
 
 ## Maine Considers Luxury Home Tax Inspired by Taylor Swift
 
@@ -702,10 +702,11 @@ Stories: 105
 ## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
 
 - first seen: 2026-11-16 03:39 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
 - sources:
   - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/taylor-swift-dancer-travis-kelce-jason-kelce-dwts
+  - [unverified] InStyle — https://www.instyle.com/ice-spice-friendship-with-millie-bobby-brown-after-taylor-swift-travis-kelce-wedding-12259302
   - [unverified] unknown — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdXpzY3BGakRyZGxHR3lROFNRdk5tUkQwOEIyM0NqN2c5czU5Y0ZrZXJUdkY2X0NIbWpuV2xDVl9kSDFGelhKeTZJemtySC1JbFhLRDRqbmU2NlpiUDhBTFV4S3VmMWtEOXV3UDc4RVpMRzBHRnhEYVN6alRTN3gtdnVFV1F2MTQxVUNj?oc=5
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
 
@@ -881,11 +882,3 @@ Stories: 105
 - summary: AOL.com reviews the dating history of Joe Jonas, highlighting relationships with notable figures such as Taylor Swift and Sophie Turner.
 - sources:
   - [unverified] AOL.com — https://www.aol.com/articles/joe-jonas-dating-history-years-215548000.html
-
-## Taylor Swift Discusses Human Impact on Music Creation
-
-- first seen: 2026-11-15 00:28 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent statement, Taylor Swift expressed her belief that humans are still excelling in the art of music creation. She highlighted the ongoing importance of human involvement in the music industry.
-- sources:
-  - [unverified] TheWrap — https://www.thewrap.com/creative-content/music/taylor-swift-human-beings-winning-technology-music/
