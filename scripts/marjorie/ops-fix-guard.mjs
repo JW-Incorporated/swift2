@@ -32,6 +32,7 @@ const SELF = [
   /^docs\/agents\/runner-prompts\/marjorie-ops\.md$/,
   /^\.github\/workflows\/bot-failure-triage\.yml$/,
   /^scripts\/marjorie\/routine-failure-triage(?:\.test)?\.(?:mjs|ts)$/,
+  /^scripts\/marjorie\/(?:routine-failure-lifecycle|lib\/routine-failure-(?:keys|recovery))(?:\.test)?\.(?:mjs|ts)$/,
   /^\.github\/workflows\/ci\.yml$/,
   /^\.github\/workflows\/parity\.yml$/,
   /^docs\/agents\/runner-prompts\/ops-fix\.md$/,

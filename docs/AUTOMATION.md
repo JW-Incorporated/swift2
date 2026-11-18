@@ -98,6 +98,8 @@ why desk routines can open a PR and exit instead of babysitting it (which was
 
 Logic in `scripts/marjorie/routine-failure-triage.mjs`. Skipped, no issue: a cancelled run that is not a timeout, and a failed run in which EVERY failed job's annotation says the Claude plan usage limit is exhausted, and only while the parsed reset time is still ahead or within 15 minutes behind (a passed reset, no parseable reset, an unreadable annotation or any other failed job files as normal) (transient; the next scheduled run recovers; `reason: 'usage-limit'`, a `::warning::` names the run URL and reset time). The escalation prompt format for founder-only items in `scripts/marjorie/escalate.mjs`.
 
+**Recovery auto-close** (`scripts/marjorie/lib/routine-failure-recovery.mjs`, run at the end of every `--sweep`): an open issue this script filed — `routine-failure` label AND its `<!-- routine-failure: <workflow> <day> -->` marker AND the exact `routine failure: <workflow> <day>` title (keys spelled once, in `lib/routine-failure-keys.mjs`) — is closed with a one-line comment naming the green run(s) once it has recovered **per trigger**: every failing run the issue records (body + triage's repeat-failure comments) is looked up for its event, and for each such event the newest completed `main` run of that same event (skipped/neutral ignored; a cancelled run blocks) must be a `success` newer than that event's last failure. A green manual dispatch therefore never closes a failing schedule, and an unreadable failing run keeps the issue open. Adopted Tree receipts and every other issue are never touched. Preview with `node scripts/marjorie/routine-failure-triage.mjs --recover --dry-run`. A failure that finishes after the day's latest issue was closed (by recovery or a human) files the next sequence — `routine failure: <workflow> <day> (2)`, marker `<day>#2`, linking the closed one — through the normal filing + dispatch path, so Marjorie is notified once per new failure. A failure that finished before the close only comments, as before.
+
 ### Watchdogs and freshness (5)
 
 | Workflow | Trigger | LLM | Mutates | Docs |
@@ -204,7 +206,7 @@ intentional cap overage.
 | Workflow | Trigger | Docs |
 |---|---|---|
 | [`dependabot-alerts-snapshot.yml`](../.github/workflows/dependabot-alerts-snapshot.yml) | Mon 21:00 (one hour before Paul Blart's patrol) | header — exists because the routine's own token 403s on the alerts API |
-| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue; Joey's Windows task performs the deterministic export at Sun 23:00 local (`docs/decisions.md`, 2026-09-30) |
+| [`fb-export-reminder.yml`](../.github/workflows/fb-export-reminder.yml) | Sun 16:00 | files the weekly status issue, then closes earlier weeks' still-open reminders it filed as "not planned" (watchdog's freshness check counts only COMPLETED closes, so a missed week still alarms); Joey's Windows task performs the deterministic export at Sun 23:00 local (`docs/decisions.md`, 2026-09-30) |
 | [`fleet-telemetry-snapshot.yml`](../.github/workflows/fleet-telemetry-snapshot.yml) | monthly, 1st 08:17 | header — T-17 (`TIER2-OPTIMIZATION.md`); zero-LLM Actions-workflow half of monthly fleet telemetry. The retired Routine Auditor's invariant work is now covered by CI's `npm run check:routines`. |
 
 ### Community engine (Phase 0–2 fully landed; Phase 3 hardening/docs, P3-1 landed)
