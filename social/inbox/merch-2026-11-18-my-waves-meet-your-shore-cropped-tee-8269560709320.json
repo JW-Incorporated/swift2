@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-18-my-waves-meet-your-shore-cropped-tee-8269560709320",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-18T02:31:22.718Z",
+  "deadline": "2026-11-21T02:31:22.718Z",
+  "status": "open",
+  "facts": {
+    "name": "My Waves Meet Your Shore Cropped Tee",
+    "price": "40.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/my-waves-meet-your-shore-cropped-tee",
+    "firstSeenAt": "2026-11-18T02:29:30.532Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44223339571.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/my-waves-meet-your-shore-cropped-tee",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Marvelous Time Ruining Everything Tote\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

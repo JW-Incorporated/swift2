@@ -1,5 +1,10 @@
 import { securityHeaders } from './lib/security-headers.mjs';
 
+// Kept in sync with PHOTO_MEDIA_BASE_URL in scripts/social/lib/queue.mjs by
+// scripts/social/lfs-media.test.ts (the app must not import from scripts/).
+export const PHOTO_MEDIA_BASE_URL =
+  'https://media.githubusercontent.com/media/JW-Incorporated/swift2/main/apps/web/public';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -16,6 +21,26 @@ const nextConfig = {
     // YouTube poster thumbnails for the click-to-play music-video facade.
     remotePatterns: [{ protocol: 'https', hostname: 'i.ytimg.com' }],
   },
+  // The social photo library lives in Git LFS (docs/decisions.md 2026-10-07):
+  // the real bytes are served by GitHub's LFS media endpoint, never by this
+  // site. Checkouts hold 131-byte pointers (.lfsconfig fetchexclude, no
+  // workflow uses `lfs: true`), and apps/web/.vercelignore does NOT keep them
+  // out of a Git-integration deployment — it only filters a CLI upload — so
+  // the pointer files ship in public/ and were served as 131-byte
+  // `image/jpeg` bodies (#6964). redirects() is evaluated before the
+  // filesystem, so this sends those paths to the real bytes instead.
+  // Temporary (307), not permanent: the media host is a deploy detail and a
+  // 308 would be cached hard by every client that ever hit it.
+  async redirects() {
+    return [
+      {
+        source: '/social/library/photos/:path*',
+        destination: `${PHOTO_MEDIA_BASE_URL}/social/library/photos/:path*`,
+        permanent: false,
+      },
+    ];
+  },
+
   // Static security response headers. The dynamic nonce-based CSP is set by
   // proxy.ts before the App Router renders each page.
   async headers() {

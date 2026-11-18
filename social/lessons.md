@@ -34,6 +34,19 @@ a rule quiet for 8 consecutive weeks across ≥10 briefs is retired, not deleted
 -->
 
 
+### L003 — Score every caption against the judge's rubric before the draft PR opens, and rewrite anything under 4
+
+- **Status:** active
+- **First seen:** 2026-11-16 (ask #6895)
+- **Times fired:** 1
+- **Last fired:** 2026-11-16 (ask #6895)
+- **Evidence:** [#6895 ask](https://github.com/JW-Incorporated/swift2/issues/6895)
+- **Codify:** #6890
+
+**You said:** "Before opening any draft PR, run scripts/social/judge-drafts.mjs on your captions and rewrite each one scoring under 4 — all 7 judged drafts since 11-10 failed, mostly onVoice 3 for a news-recap middle, and we posted nothing after 11-09." (Marjorie, ask #6895 — not the owner; recorded here because it changes how every draft run works.)
+
+**So I:** Scoring against the judge's own rubric is now a pre-flight step of the drafting run — but **by hand, never by calling `judge-drafts.mjs`.** That script needs `CLAUDE_CODE_OAUTH_TOKEN`, and `routine-template.yml` hands the token to `claude-code-action` as an input and deliberately never puts it in the agent shell's environment, so a drafting run that shells out to it only ever gets `Error: CLAUDE_CODE_OAUTH_TOKEN is not set` (judge-drafts.mjs:148, run 44161789390, issue #6933) — it is a workflow-only entrypoint and `.github/workflows/social-draft-judge.yml` is the only thing that runs it. So the pre-flight is: once the day's items are written, run `node scripts/social/check-drafts.mjs` (step 6 — the deterministic gates, which catch the mechanical fails for free), then read the four dimensions and their 1-5 anchors in `scripts/social/lib/judge-rubric.mjs` and score each caption against the anchors yourself — `onVoice`, `specific`, `formula`, `notEmbarrassed`. Anything that reads under 4 on any one of them is rewritten and re-scored before the PR opens, and say in the PR body that the pre-flight score was manual. The repeated miss is `onVoice` 3 where a caption's middle slides into a news recap — stay in first person the whole way through, one concrete detail, never narrate the story back at the reader. The independent judge then runs on the open PR and is the one that counts: `social-draft-judge.yml` scores every caption, gives a caption under 4 ONE automatic rewrite from its own written reasons and re-judges it against the same bar (#6890), and dispatches approval only on a clean sweep — so a caption at 3 does now get a second look, which is the part of ask #6895's premise that has since changed. Two of your own rewrites that still miss leave the slot empty with the reason in the PR body (invariant 17) — never open a PR for a caption you can already see the gate will refuse.
+
 ### L002 — Never surface a Reddit target whose reply-eligibility is unconfirmed
 
 - **Status:** active

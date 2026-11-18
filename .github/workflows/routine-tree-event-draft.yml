@@ -11,8 +11,8 @@
 # It opens an ordinary social-draft PR: the founder's own ✅ in #longlive-tree is
 # still the only approval (RULINGS-SOCIAL-2 B1) and this workflow never stamps,
 # merges or posts anything. Same three-job shape as routine-tree-daily-draft.yml:
-# `prepare` (read-only pre-compute + the issue text), `run` (the agent, a tight
-# 30-turn cap), `receipt` (a failed run leaves a summary and one deduped issue).
+# `prepare` (read-only pre-compute + the issue text), `run` (the agent),
+# `receipt` (a failed run leaves a summary and one deduped issue).
 name: routine-tree-event-draft
 run-name: "Tree event draft · intake #${{ inputs.issue }}"
 
@@ -81,11 +81,19 @@ jobs:
       prompt_file: docs/agents/runner-prompts/tree-event-draft.md
       model: claude-opus-5-5
       allowed_tools: "Bash,Read,Grep,Glob,Write,WebSearch,WebFetch"
-      timeout_minutes: 20
-      max_turns: 30
+      timeout_minutes: 30
+      # Was 30 — sized for the cheap decline path (a decline is 3 steps and
+      # exits). A run that actually DRAFTS does everything the daily drafter
+      # does, which is measured at 50-59 turns (docs/decisions.md 2026-10-21,
+      # why that routine's cap is 75), plus up to 4 verification searches in
+      # step 2 and the step-5 displacement decision. So every drafting run
+      # overran: intake #6840 died at 31/30 with no PR (issue #6849). Matched
+      # to the sibling drafter rather than set lower again.
+      max_turns: 75
       checkout_token_secret: SOCIAL_POSTER_PAT
       pre_run_artifact: tree-event-inputs
       concurrency_key: issue-${{ inputs.issue }}
+      expose_dispatch_token: true # #4223/#5520: step 6's `gh workflow run social-tree-approve.yml` 403s on claude-code-action's installation token (intake #6713, #6814 both drafted a clean pair, then reported `tree: blocked`)
       allowed_bots: github-actions # social-event-dispatch dispatches on GITHUB_TOKEN; claude-code-action refuses bot-started runs otherwise
     secrets:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

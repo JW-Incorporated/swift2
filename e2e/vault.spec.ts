@@ -37,6 +37,32 @@ function realMomentItems(scope: Page | Locator): Locator {
   });
 }
 
+// The card's STORY button — the one <button> per card that opens the moment
+// detail sheet. `data-ll-item` sits on the <li> WRAPPER, not on that button,
+// and when the moment carries footage the wrapper also holds the play poster
+// as a SIBLING of the button (MomentCard.tsx, #2057). So clicking the wrapper
+// clicks its centre point, which on a desktop viewport lands inside the
+// poster and starts inline playback instead of opening the sheet — no dialog
+// ever appears. Mobile's taller single-column card happened to centre on the
+// button, which is why #6955 failed desktop-only for four runs straight.
+// Every card component (MomentCard, ClusterCard, VideoMomentCard,
+// CurrentItemCard) puts the title heading INSIDE that one button and nothing
+// interactive inside it, so "the button containing a heading" names it across
+// every tier without adding markup to production.
+function cardBody(page: Page, item: Locator): Locator {
+  return item.getByRole('button').filter({ has: page.getByRole('heading') }).first();
+}
+
+// Real moment cards that also carry the inline play poster. This is the exact
+// card shape that broke the moment-sheet test (#6955), and which card sorts
+// first changes with content, so the test pins one of these deliberately
+// instead of hoping feed order hands it one.
+function videoMomentItems(page: Page): Locator {
+  return realMomentItems(page).filter({
+    has: page.getByRole('button', { name: /^Play .+:/ }),
+  });
+}
+
 // The reader is a client component that hydrates and then auto-scrolls to the
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
@@ -214,31 +240,55 @@ test.describe('Vault smoke', () => {
     await gotoVault(page);
     await enterEra(page);
 
+    // Open-and-close the sheet for one card, asserting it is labelled by that
+    // card's own title. Clicks the card's STORY BUTTON, never the
+    // `[data-ll-item]` wrapper — see cardBody() for why the wrapper is the
+    // wrong target on a card that carries footage.
+    const openAndClose = async (item: Locator) => {
+      await item.scrollIntoViewIfNeeded();
+      const body = cardBody(page, item);
+      // The card's TITLE, via its heading. This used to read `span` #1, which
+      // is the DATE ("December 25") — MomentMeta renders the date label first.
+      // So the test then waited 15s for a dialog named after a date and timed
+      // out on every run, while the sheet itself opened correctly. Every card
+      // tier (event / compact / default) puts the title in a heading inside
+      // the story button, so this holds across the tier-driven grid rather
+      // than depending on span order within it.
+      const itemTitle = (await body.getByRole('heading').first().innerText()).trim();
+
+      await body.click();
+
+      // The moment sheet is a modal dialog labelled by the item's title. Even
+      // a "no extra detail yet" response still opens the sheet.
+      const dialog = page.getByRole('dialog', { name: itemTitle });
+      await expect(dialog).toBeVisible();
+      await expect(dialog.getByRole('heading', { name: itemTitle })).toBeVisible();
+
+      await dialog.getByRole('button', { name: 'Close' }).click();
+      await expect(dialog).toBeHidden();
+    };
+
     // `.first()` on ALL `data-ll-item` cards is content-order-dependent: an
     // egg/thread doorway card can sort first, and clicking one opens
     // TheoryGuide (or switches to Threads mode) instead of a MomentDetail
     // sheet named after itself — that mismatch, not a broken sheet, is what
     // made this locator time out. realMomentItems excludes those doorways.
-    const item = realMomentItems(page).first();
-    await item.scrollIntoViewIfNeeded();
-    // The card's TITLE, via its heading. This used to read `span` #1, which is
-    // the DATE ("December 25") — MomentMeta renders the date label first. So
-    // the test then waited 15s for a dialog named after a date and timed out on
-    // every run, while the sheet itself opened correctly. Every card tier
-    // (event / compact / default) puts the title in an h3, so this holds across
-    // the tier-driven grid rather than depending on span order within it.
-    const itemTitle = (await item.getByRole('heading').first().innerText()).trim();
+    await openAndClose(realMomentItems(page).first());
 
-    await item.click();
-
-    // The moment sheet is a modal dialog labelled by the item's title. Even a
-    // "no extra detail yet" response still opens the sheet.
-    const dialog = page.getByRole('dialog', { name: itemTitle });
-    await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('heading', { name: itemTitle })).toBeVisible();
-
-    await dialog.getByRole('button', { name: 'Close' }).click();
-    await expect(dialog).toBeHidden();
+    // Regression guard for #6955: a card carrying footage puts the play poster
+    // beside the story button inside the same wrapper, and that is the card
+    // this test clicked through the wrapper's centre — starting playback, so
+    // no sheet ever opened. Whether such a card sorts first is pure content
+    // luck, so pin one explicitly when the era has one. Opening the sheet must
+    // still work on a card whose middle is a video.
+    const videoItem = videoMomentItems(page).first();
+    if (await videoItem.count()) {
+      await openAndClose(videoItem);
+      // And the poster must still be its own, separate play gesture (#2051):
+      // the sheet opening is not allowed to come at the cost of the card's
+      // inline playback.
+      await expect(videoItem.getByRole('button', { name: /^Play .+:/ })).toBeVisible();
+    }
   });
 
   test('track guide sheet opens for an album', async ({ page }) => {

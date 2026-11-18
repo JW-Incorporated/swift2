@@ -16,6 +16,143 @@ export default {
   eraSlug: 'the-life-of-a-showgirl',
   items: [
     {
+      // Content Shift (Vault Run 2026-11-17, second run), intake #6938. WBUR
+      // (Andrea Shea) and CBS Boston (Neal Riley) both loaded and read in
+      // full; every date, object and quote below is from those two. The
+      // photo is the MFA's own press still from the Ophelia video. WBUR names
+      // a red Ferretti gown among the objects, so the caption does not claim
+      // the white gown pictured is on display. Redlines: clean; a publicly
+      // announced exhibition at a named museum.
+      slug: 'showgirl-mfa-boston-eras-collection-announced',
+      significance: 'notable',
+      year: 2026,
+      month: 11,
+      day: 17,
+      category: 'business',
+      title: 'The MFA Boston announces "Taylor Swift: The Eras Collection," its first show for a musician',
+      snippet:
+        'On Nov. 17, 2026, the Museum of Fine Arts, Boston announced an exhibition of more than 50 costumes, instruments and objects from Taylor\'s archive, opening April 10, 2027. It is the first show in the museum\'s history devoted to a single musician.',
+      sourceUrl: 'https://www.wbur.org/news/2026/11/17/taylor-swift-eras-archive-mfa',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Museum of Fine Arts, Boston announced on Tuesday, Nov. 17, 2026 that "Taylor Swift: The Eras Collection" opens there on April 10, 2027 and runs through Aug. 15. The museum describes it as "more than 50 iconic costumes, instruments and objects from the musician\'s archive." It is the first exhibition in the MFA\'s history dedicated solely to a musician, and Boston is the collection\'s only stop.\n\nLike the Eras Tour, the show covers her whole career, with vignettes built around "Tim McGraw" from 2006 at one end and "The Fate of Ophelia" from 2025 at the other. The objects named so far include a blood-red Alberta Ferretti gown, the green Gibson J-180 acoustic guitar, the midnight-blue crystal Zuhair Murad bodysuit, the Deering banjo from the Speak Now tour, the mandolin from the 2020 "willow" video and the typewriter from the 2024 "Fortnight" video.\n\nKristen Hoskins, the MFA\'s director of public programs, co-curated it with Jared Katz, its curator of musical instruments. Hoskins said she was excited to welcome "especially Swifties, whose passion and community building are an essential part of Taylor\'s story." Katz called the pieces "instruments and costumes from all of Taylor\'s eras, which represent a remarkable musical journey across genres over the last 20 years." Timed tickets cost $40 and go on public sale at 6 p.m. on Dec. 13, her 37th birthday. The museum will stay open until 10 p.m. on Saturdays while the show is up.',
+        sources: [
+          {
+            outlet: 'WBUR',
+            url: 'https://www.wbur.org/news/2026/11/17/taylor-swift-eras-archive-mfa',
+            source_title: "Ready for it? Taylor Swift's Eras archive is coming to the MFA",
+            publisher: 'WBUR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+            notes:
+              'By Andrea Shea, Nov. 17, 2026; read in full. Primary for the dates, the named objects, the bookend vignettes, first-for-a-musician and only-stop, the Hoskins and Katz quotes, and ticket price and on-sale time.',
+          },
+          {
+            outlet: 'CBS Boston',
+            url: 'https://www.cbsnews.com/boston/news/taylor-swift-eras-collection-mfa-boston/',
+            source_title: 'Taylor Swift "Eras Collection" coming to Museum of Fine Arts in Boston. What to know about tickets.',
+            publisher: 'CBS News Boston',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+            notes:
+              'By Neal Riley, Nov. 17, 2026; read in full. Independently confirms the title, the April 10 to Aug. 15 run and the museum\'s "more than 50" objects line.',
+          },
+        ],
+        // Downloaded and viewed 2026-11-17: HTTP 200, image/jpeg, 1200x630.
+        // CBS Boston's lead image, captioned as the Alberta Ferretti gown in
+        // "The Fate of Ophelia" video (WBUR credits it "Courtesy Taylor Swift").
+        photos: [
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/11/17/21d2da74-3720-4de4-8c73-bcc20ba2ad89/thumbnail/1200x630/453e348295241212cf549ce56236055e/03-taylor-swift-the-fate-of-ophelia-1.jpg',
+            credit: 'Courtesy Taylor Swift, via CBS Boston',
+            caption:
+              'Taylor in a custom Alberta Ferretti gown in "The Fate of Ophelia" video, the image that ran with the announcement. The song\'s vignette closes the exhibition.',
+            kind: 'reference',
+            focalPoint: '30% 45%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-17 (Vault Run, Content Shift lane) from intake #6921.
+      // Read directly this run: Grammy.com Song of the Year nominee page (the
+      // five-nomination count, the ninth SOTY nod, the Antonoff notes), ABC
+      // News full list (AOTY, SOTY, Visual Media, Pop Duo/Group, and Best Pop
+      // Vocal Album without Showgirl), Stereogum (eighth AOTY nod), Deseret
+      // (Record of the Year for "The Fate of Ophelia"). Cut: the ticket's
+      // "ties Kendrick Lamar" framing (no readable source supported it) and
+      // the broadcast cameo / necklace aside (Elle and People unreadable).
+      slug: 'showgirl-2027-grammy-nominations',
+      year: 2026,
+      month: 11,
+      day: 16,
+      category: 'music',
+      title: 'Five nods for the 2027 Grammys, and a fifth straight album up for Album of the Year',
+      snippet:
+        'The Life of a Showgirl is up for Album of the Year, "The Fate of Ophelia" for Record of the Year, and the Toy Story 5 song "I Knew It, I Knew You" for Song of the Year, her ninth nomination in that category.',
+      sourceUrl: 'https://www.grammy.com/news/grammy-awards-for-song-of-the-year-meet-the-2027-nominees/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/grammy-awards-for-song-of-the-year-meet-the-2027-nominees/',
+            source_title: 'Grammy Awards for Song of the Year: Meet the 2027 Nominees',
+            publisher: 'Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-11-17',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/grammy-nominations-2027-full-list/story?id=138113372',
+            source_title: 'Grammy Awards 2027: See the full list of nominees',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+            source_title: 'Album Of The Year Grammy Nominees 2027 Include Rosalía, Phoebe Bridgers, Taylor Swift',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deseret News',
+            url: 'https://www.deseret.com/entertainment/2026/11/16/grammy-award-nominations-2027/',
+            source_title: 'Grammy awards 2027: The full list of nominees',
+            publisher: 'Deseret News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-17',
+            reliability_score: 5,
+            notes: 'oEmbed-verified this run: author_name "Taylor Swift". The Song of the Year nominee itself.',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-31 (Vault Run, Content Shift lane) from intake #6483.
       // Read directly this run: Yahoo Entertainment (Mandatory syndication,
       // Nikita Nath, Oct. 29, 2026 09:19 UTC) for the on-screen question and
@@ -971,6 +1108,8 @@ export default {
       // 'showgirl-colts-game-sighting') — that was the prior season's Week 12
       // game; this is the 2026 Week 2 Sunday-nighter.
       slug: 'chiefs-colts-2026-husband-touchdown',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 20,
@@ -4034,6 +4173,8 @@ export default {
     // Slugs added; content and sources unchanged from the approved corpus.
     {
       slug: 'arrowhead-caitlin-clark-october',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 10,
       day: 12,
@@ -6000,6 +6141,8 @@ export default {
       // The adjacent flower-girls/minors detail was deliberately NOT authored
       // (privacy redline #5); Donna's line is a public remark at a public event.
       slug: 'showgirl-kelces-welcome-taylor-family',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 23,
@@ -6240,12 +6383,12 @@ export default {
               "Instagram removed a guest's post of the wedding invitation after a copyright-infringement complaint that named Taylor as the rights owner.",
             reportedBy: "In Touch Weekly (via Yahoo Entertainment), citing journalist Rob Shuter",
             reportedOn: "2026-08-01",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html",
             sourceTier: "tabloid",
             note:
-              "Rests on a takedown notice Shuter shared with In Touch. Instagram, Taylor and the couple have not commented, and the removal itself (the post was deleted) is reported without a stated reason elsewhere.",
-            lastCheckedOn: "2026-10-21",
+              "Rests on a takedown notice Shuter shared with In Touch; Instagram, Taylor and the couple never commented. Re-checked 2026-11-18, 109 days on: no confirmation or denial and no new reporting since the August recaps. Faded: reported in August 2026, never confirmed or denied.",
+            lastCheckedOn: "2026-11-18",
           },
         ],
         sources: [
@@ -6281,6 +6424,8 @@ export default {
     },
     {
       slug: 'showgirl-wedding-bands-first-look',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 20,
@@ -7244,6 +7389,8 @@ export default {
     },
     {
       slug: 'showgirl-selena-gomez-texans-coats',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1052): the coordinated-outfit game-day sighting.
       relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       year: 2025,
@@ -7512,22 +7659,28 @@ export default {
               'Forbes laid out a path for Taylor to be the most-nominated act at the 2027 Grammys — potentially double-digit nominations spanning Album of the Year and Best Pop Vocal Album for The Life of a Showgirl, Record/Song of the Year for its singles, Best Pop Duo/Group for the Sabrina Carpenter title track, and country and visual-media nods for "I Knew It, I Knew You."',
             reportedBy: 'Forbes (Hugh McIntyre)',
             reportedOn: '2026-07-22',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live. Re-checked 2026-11-02: still pending (noms Nov. 16).',
+            note: 'A best-case projection, not a nomination. Resolved 2026-11-18 against the Nov. 16 nominations (ABC News full list): partly right. Five nods landed on the path (AOTY, Record and Song of the Year, Visual Media, Pop Duo/Group), but no Pop Vocal Album or country nods, not double digits, and Raye led the field with 11.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
               'Billboard\'s Paul Grein, in a July 2026 awards forecast, projected that a 2027 Album of the Year nomination for The Life of a Showgirl would be Taylor\'s eighth nod in that category — which Billboard framed as the most of any solo artist in Grammy history. Nominations post Nov. 16, 2026.',
             reportedBy: 'Billboard (Paul Grein)',
             reportedOn: '2026-07-17',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-10-18 and 2026-11-02: not yet announced, still live.',
+            note: 'A prediction about the Album of the Year category becoming a record eighth nod for a solo artist. No location. Re-checked 2026-10-18 and 2026-11-02: still live. Resolved 2026-11-18: confirmed by the Nov. 16 nominations.',
+            resolution: {
+              on: '2026-11-16',
+              url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+              outlet: 'Stereogum',
+              note: 'The Life of a Showgirl was nominated for Album of the Year on Nov. 16, 2026, her eighth nomination in the category.',
+            },
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
           // the October pre-nomination prediction pieces. Award chances are
@@ -7538,28 +7691,30 @@ export default {
               'The Life of a Showgirl made the projected Album of the Year field and "The Fate of Ophelia" the projected Song of the Year field in Rolling Stone\'s 2027 Grammy predictions — though the picks to win were Olivia Rodrigo and Olivia Dean\'s "Man I Need".',
             reportedBy: 'Rolling Stone (Maya Georgi; Jonathan Bernstein)',
             reportedOn: '2026-10-13',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
-            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
+            note: 'Two pundit pieces (AOTY Oct. 13 at this url; Song of the Year Oct. 14). Resolved 2026-11-18 against the Nov. 16 nominations (ABC News full list): half right. Showgirl made AOTY, but "The Fate of Ophelia" went to Record, not Song, of the Year. The picks to win resolve Feb. 7, 2027.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
               'Variety\'s Chris Willman listed "The Fate of Ophelia" among the leading Record of the Year contenders and named Taylor, Olivia Dean and Olivia Rodrigo the best bets to win, noting that for all her Album of the Year wins Taylor has never won Record or Song of the Year.',
             reportedBy: 'Variety (Chris Willman)',
             reportedOn: '2026-10-12',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
-            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
+            note: 'A critic\'s forecast. No location. Resolved 2026-11-18: the contender half is confirmed, as "The Fate of Ophelia" was nominated for Record of the Year on Nov. 16 (ABC News full list). Whether Taylor wins it resolves at the Feb. 7, 2027 ceremony.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
         ],
       },
     },
     {
       slug: 'showgirl-broncos-christmas-game',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1123): the Colts-game low-key look — the same
       // recurring game-day-styling beat of the engagement/wedding season.
       // (Stage 3, 2026-08-10): + the previous year's Santa-costumed
@@ -8129,6 +8284,8 @@ export default {
     },
     {
       slug: 'showgirl-colts-game-sighting',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 11,
       day: 23,
@@ -9367,6 +9524,8 @@ export default {
     },
     {
       slug: 'kelce-new-heights-proposal-story',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1114): the New Heights announcement this returns to.
       // Cross-link (candidate #1294): Jason Kelce on the fanbase shift — same
       // Kelce-family-media throughline.
@@ -9726,6 +9885,8 @@ export default {
     },
     {
       slug: 'first-newlywed-appearance-juju-wedding',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 10,
@@ -10172,9 +10333,9 @@ export default {
             reportedOn: '2026-10-15',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
-            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location. Re-checked 2026-11-02: still pending.',
+            note: 'A forecast about the win. Re-checked 2026-11-18: the song was nominated on Nov. 16 (ABC News full list) alongside House, Need Someone, No Place Like Home and Runway; none of the rivals in Billboard\'s forecast (Along the Way, When I\'m Home, By Any Means) made the field. Still live until the Feb. 7, 2027 ceremony.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
@@ -13315,6 +13476,8 @@ export default {
       // cleanly licensable image of the presser was found — ships text-first
       // and photo-sparsity can route it to Photo Enrichment.
       slug: 'kelce-first-wedding-comments-training-camp',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-links: the wedding this recounts, and the July 8 New Heights
       // episode where he first told the proposal story.
       relatedIds: [
@@ -14864,6 +15027,8 @@ export default {
     // corpus notes kept the wedding off the table). Authored as a new moment.
     {
       slug: 'kelce-new-heights-wedding-recap',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 2,
@@ -15250,6 +15415,8 @@ export default {
     },
     {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
       year: 2026,
       month: 9,
@@ -16295,6 +16462,8 @@ export default {
     },
     {
       slug: 'cleveland-lyric-video-kelce-road-trip',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 25,
@@ -17523,6 +17692,8 @@ export default {
       // independent outlets, on-record words from one of the principals; no
       // location or private detail beyond "the holidays".
       slug: 'showgirl-travis-kelce-first-holiday-married-tommy-hilfiger',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
       ],
@@ -17670,6 +17841,24 @@ export default {
               'By Elizabeth Stanton, Nov. 9, 2026; read in full. Third independent confirmation of Kloss in the suite with Andrea Swift and Donna Kelce. Primary for the 2018 Nashville Reputation Stadium Tour as the last time the two were photographed together and for Kloss\'s Today quote. Reports no score and no statement from Taylor or her reps.',
           },
         ],
+        // Rumor Desk 2026-11-14 (Vault Run lane 4), intake #6871. The suite
+        // sighting above is documented fact; only the reconciliation is
+        // unsettled, so it lives here and not in the narrative. No location
+        // in the claim.
+        rumors: [
+          {
+            claim:
+              'Taylor and Karlie Kloss patched up their years-long rift "a few years ago" and have since "gotten a lot closer," according to an unnamed source in Page Six on Nov. 9, 2026.',
+            reportedBy: 'Page Six (via OK! / Yahoo Style Canada)',
+            reportedOn: '2026-11-09',
+            status: 'unconfirmed',
+            url: 'https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html',
+            note: 'A single anonymous source; neither Taylor nor Kloss has addressed it, and neither has ever said publicly what caused the falling-out. Adjudicable: either one confirming or denying a reconciliation settles it. Read in full via the OK! syndication (Taylor Camp, Nov. 12, 2026), which links the Page Six original.',
+            sourceTier: 'tabloid',
+            locationSpecificity: 'region',
+            lastCheckedOn: '2026-11-14',
+          },
+        ],
       },
     },
     {
@@ -17798,6 +17987,8 @@ export default {
       // agreed to design anything. Redlines: clean; no venue detail beyond
       // the city of a public fan event.
       slug: 'showgirl-new-heights-tailgate-stage-joke',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 11,
       day: 11,
@@ -17836,6 +18027,16 @@ export default {
             notes: 'By Burtland Dixon; read in full. Confirms Travis\'s line and the Nov. 11 episode, crediting People for the original report.',
           },
           {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/travis-kelce-hints--taylor-swift-help-new-heights-podcast-next-live-event',
+            source_title: "Travis Kelce Hints That Taylor Swift Can Help Out The 'New Heights' Podcast's Next Live Event",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Autumn Hawkins, Nov. 12, 2026. Same exchange and Philadelphia tailgate context; presents it as a hint, and cites no confirmation from Taylor, the Kelces or the show.',
+          },
+          {
             outlet: 'New Heights',
             url: 'https://www.youtube.com/watch?v=59cfTptr3k8',
             source_title: 'Josh Downs is a Chief, Cousins Traded, Super Bowl Bears & Did We Just Become Best Friends?? | 211',
@@ -17844,6 +18045,65 @@ export default {
             accessed_at: '2026-11-13',
             reliability_score: 5,
             notes: 'The episode itself, premiered Nov. 11, 2026. oEmbed-verified (author_name "New Heights").',
+          },
+        ],
+      },
+    },
+    {
+      // Content Shift 2026-11-14, intake #6870. Dated to Nov. 13, when the
+      // remarks were first published; neither outlet dates the press
+      // conference itself. Vulture (cited on the ticket) could not be loaded
+      // from this environment, so the album praise is paraphrased from Kiss
+      // FM's agency report rather than quoted in English. Redlines: the
+      // iPad remark is about friends' children and the film, never framed as
+      // anything about Taylor's own family.
+      slug: 'showgirl-toy-story-5-awards-press-human-albums',
+      year: 2026,
+      month: 11,
+      day: 13,
+      category: 'music',
+      title: 'Campaigning for "I Knew It, I Knew You," Taylor names her two albums of the year',
+      snippet:
+        'At a Toy Story 5 press conference for Golden Globe voters, Taylor singled out Rosalía\'s LUX and Olivia Dean\'s The Art of Loving as records that prove music made by people still lands, and called the film\'s take on kids and screens "a parent-to-parent decision."',
+      sourceUrl: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Awards season for "I Knew It, I Knew You," her original song for Toy Story 5, brought Taylor to a press conference held for Golden Globe voters, and her remarks surfaced on Nov. 13 and 14, 2026. Asked about technology in music and what makes a song move people, she held up two records: Rosalía\'s LUX, which she called conceptual, ambitious, expansive and perfect, and Olivia Dean\'s The Art of Loving, which she likened to a warm hug. Her point was that both connect because they were made by people.\n\nShe also spoke about the film itself. "I have so many friends who\'ve gone to see this film because they have a young child," she told HELLO!, and "they don\'t really know what to do about the whole iPad thing." She praised the movie for not preaching: "there\'s no bad guy," it "really does emphasize trying to elongate childhoods, trying to make space and room for imagination," and "they\'re not heavy-handed about it." On screen time, "it\'s really a parent-to-parent decision." Of the song, she said, "I feel like I relate to this song even more every time I hear it and every time I sing it."',
+        video: {
+          youtubeId: 'hDU4GB1PTxc',
+          title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+        },
+        sources: [
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+            source_title: 'Taylor Swift makes very rare comment on raising children, 4 months after wedding to Travis Kelce',
+            publisher: 'HELLO! Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Gill Pringle, Nov. 13, 2026; read in full. Primary for every English quote here (Toy Story 5 press conference, song promotion). The headline frames the remarks as about her own children; the quotes are about friends and the film, and are used only that way.',
+          },
+          {
+            outlet: 'Kiss FM (Spain)',
+            url: 'https://kissfm.es/2026/11/14/taylor-swift-se-rinde-ante-rosalia-y-su-disco-lux',
+            source_title: 'Taylor Swift se rinde ante Rosalía y su disco \'LUX\'',
+            publisher: 'Kiss FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-14',
+            reliability_score: 3,
+            notes: 'By Adrián Martín (agency copy), Nov. 14, 2026; read in full. Places the remarks at a press conference for Golden Globe voters and carries her descriptions of LUX and The Art of Loving (in Spanish; paraphrased here).',
+          },
+          {
+            outlet: 'Taylor Swift',
+            url: 'https://www.youtube.com/watch?v=hDU4GB1PTxc',
+            source_title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-14',
+            reliability_score: 5,
+            notes: 'The song being campaigned. oEmbed-verified 2026-11-14 (author_name "Taylor Swift").',
           },
         ],
       },

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   cronsInHeader,
@@ -193,5 +194,18 @@ describe('allowed_tools entries must be space-free (the template passes them unq
   it('passes the space-free scoped form and bare tool names', () => {
     expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash(gh:*),Bash(node:*),Read,Write') }).problems).toEqual([]);
     expect(checkRoutineWorkflows({ '.github/workflows/routine-a.yml': withTools('Bash,Read') }).problems).toEqual([]);
+  });
+});
+
+describe("the Tree ask-response routine can run the repo's test runner (#6901)", () => {
+  it('allowlists npm and npx in a space-free scoped form', () => {
+    const text = readFileSync('.github/workflows/routine-tree-ask-response.yml', 'utf8');
+    const tools = extractAllowedTools(text);
+    // The routine must be able to verify a change before it opens a PR: without these
+    // rules `npm test` / `npx vitest` are denied and a format regression in a parsed
+    // file (social/lessons.md) reaches main unseen.
+    expect(tools).toContain('Bash(npm:*)');
+    expect(tools).toContain('Bash(npx:*)');
+    expect(tools.some((t: string) => t.includes(' '))).toBe(false);
   });
 });
