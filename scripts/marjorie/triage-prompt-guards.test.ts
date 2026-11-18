@@ -20,7 +20,8 @@ describe('marjorie triage truncation guards (#4230, #4232, #4239)', () => {
   it('reads comment threads through the one-turn helper, never a per-issue loop', () => {
     expect(triage.match(/node scripts\/marjorie\/lib\/fetch-issue-comments\.mjs/g)?.length).toBe(2);
     expect(triage).not.toMatch(/gh\s+issue\s+view\s+<n>[^\n]*comments/i);
-    expect(triage.match(/hit exactly 200/g)?.length).toBe(2);
+    expect(triage).not.toMatch(/hit exactly 200/);
+    expect(triage.match(/newest\s+1000 per label; past that it prints a truncation\s+notice/g)?.length).toBe(2);
   });
 
   it('paginates the deliver candidate fetch without a --limit cap', () => {

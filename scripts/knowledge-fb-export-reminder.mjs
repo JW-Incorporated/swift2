@@ -11,7 +11,8 @@
 // issue is the natural unit of "did this week's task happen," and Joey
 // the local collector closes each one when done. Idempotent within the same week: re-running
 // (e.g. a manual dispatch) finds the existing open issue for this week by
-// exact title match and comments instead of filing a duplicate.
+// exact title match and comments instead of filing a duplicate. Earlier weeks'
+// still-open reminders are then closed as "not planned" (closeSuperseded).
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { writeFileSync, unlinkSync } from 'node:fs';
@@ -80,6 +81,36 @@ export function issueBody(groups) {
   return lines.join('\n');
 }
 
+export const FILED_BY_MARKER = '_Filed by fb-export-reminder;';
+const TITLE_RE = /^FB group export due — week of (\d{4}-\d{2}-\d{2})$/;
+
+/** Open reminders from an EARLIER week that this script filed (exact title + footer). */
+export function supersededReminders(issues, weekLabel) {
+  return (issues || []).filter((i) => {
+    const week = TITLE_RE.exec(String(i.title ?? ''))?.[1];
+    return Boolean(week) && week < weekLabel && String(i.body ?? '').includes(FILED_BY_MARKER);
+  });
+}
+
+/**
+ * Closes last week's still-open reminders once this week's is filed, as "not planned" so
+ * watchdog.yml's freshness check (which counts COMPLETED closes only) still sees a missed export.
+ */
+export async function closeSuperseded({ weekLabel, current, dryRun = false, ghImpl = gh, log = console.log }) {
+  const { stdout } = await ghImpl(['issue', 'list', '--search', '"FB group export due" in:title', '--state', 'open', '--json', 'number,title,body', '--limit', '100']);
+  const stale = supersededReminders(JSON.parse(stdout), weekLabel);
+  for (const issue of stale) {
+    if (dryRun) {
+      log(`DRY RUN — would close superseded #${issue.number} (${issue.title})`);
+      continue;
+    }
+    const comment = `Superseded by this week's reminder (${current}); that week's export was never completed. Closed as not planned by fb-export-reminder.`;
+    await ghImpl(['issue', 'close', String(issue.number), '--reason', 'not planned', '--comment', comment]);
+    log(`fb-export-reminder: closed superseded #${issue.number}`);
+  }
+  return stale.map((i) => i.number);
+}
+
 async function findOpenIssue(title) {
   const { stdout } = await gh([
     'issue',
@@ -122,11 +153,14 @@ async function main() {
 
   if (DRY_RUN) {
     console.log(`DRY RUN — would file/update: "${title}"\n\n${body}`);
+    await closeSuperseded({ weekLabel, current: title, dryRun: true });
     return;
   }
 
   const result = await createOrCommentIssue(title, body);
-  console.log(`fb-export-reminder: ${result.action} — ${result.url ?? `#${result.number}`}`);
+  const ref = result.url ?? `#${result.number}`;
+  console.log(`fb-export-reminder: ${result.action} — ${ref}`);
+  await closeSuperseded({ weekLabel, current: ref });
 }
 
 const invokedDirectly =

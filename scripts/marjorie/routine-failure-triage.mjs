@@ -7,6 +7,8 @@
 // team handles it before a founder ever sees it.
 //
 //   node scripts/marjorie/routine-failure-triage.mjs --workflow <routine-x> --run-id <id> --run-url <url> --conclusion <failure|timed_out|cancelled>
+//   node scripts/marjorie/routine-failure-triage.mjs --sweep              (also closes recovered issues, lib/routine-failure-recovery.mjs)
+//   node scripts/marjorie/routine-failure-triage.mjs --recover --dry-run  (recovery only; lists what it would close)
 //
 // One mechanism: Tree's draft receipts (`desk:tree`, scripts/social/draft-receipt.mjs)
 // are ADOPTED rather than duplicated — the receipt issue gets the markers and
@@ -18,6 +20,7 @@ import { gh as ghRun } from '../lib/gh.mjs';
 import { REPO, renderMarker } from './lib/loop-asks.mjs';
 import { dispatchResponse } from './lib/loop-dispatch.mjs';
 import { apiFor, listIssuesByLabels } from './lib/issues-rest.mjs';
+import { recover } from './lib/routine-failure-recovery.mjs';
 import { parseArgs } from './loop-asks.mjs';
 
 export const FAILURE_LABELS = ['desk:ops', 'marjorie-filed', 'routine-failure'];
@@ -268,8 +271,16 @@ export async function sweep({ repo = REPO, gh = ghRun, now = Date.now(), log = c
 }
 
 async function main() {
+  const dryRun = process.argv.includes('--dry-run');
+  if (process.argv.includes('--recover')) {
+    const results = await recover({ repo: REPO, gh: ghRun, dryRun, warn });
+    console.log(`bot-failure-triage: recovery ${dryRun ? 'dry run' : 'pass'} — ${results.filter((r) => r.action !== 'kept').length} to close, ${results.filter((r) => r.action === 'kept').length} kept.`);
+    for (const r of results.filter((x) => x.action === 'kept')) console.log(`  kept #${r.number} (${r.workflow}): ${r.reason}`);
+    return 0;
+  }
   if (process.argv.includes('--sweep')) {
-    await sweep();
+    if (!dryRun) await sweep();
+    await recover({ repo: REPO, gh: ghRun, dryRun, warn });
     return 0;
   }
   const { flags } = parseArgs(['triage', ...process.argv.slice(2)]);
