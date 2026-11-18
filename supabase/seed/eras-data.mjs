@@ -1,4 +1,5 @@
 // Vault seed content — ERAS + MILESTONES.
+// (probe for #6865 — never merged)
 //
 // Era themes are ported faithfully from the sibling Orbit project
 // (apps/web/lib/era-themes.ts). Era windows and milestone dates are public
