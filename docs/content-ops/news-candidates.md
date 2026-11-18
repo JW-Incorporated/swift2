@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 113
+Stories: 114
+
+## 16 Artists Considered for Next Bond Theme Including Taylor Swift
+
+- first seen: 2026-11-18 23:57 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A list of 16 singers who could potentially perform the next James Bond theme includes Taylor Swift, showcasing the tradition of iconic artists lending their voices to the franchise. The article highlights the ongoing significance of dramatic theme songs in the Bond films.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/lists/bond-theme-contenders-robert-pattinson/
+
+## Review of Taylor Swift's 'Cleveland!' Explores Audience Perspective
+
+- first seen: 2026-11-18 23:57 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Annenberg Media reviews Taylor Swift's performance in 'Cleveland!', focusing on the challenges of performing under the constant gaze of the audience. The analysis highlights the complexities of connecting with fans while maintaining artistic integrity.
+- sources:
+  - [unverified] Annenberg Media — https://www.uscannenbergmedia.com/2026/11/18/review-taylor-swifts-cleveland-shows-the-problem-with-living-through-the-audiences-gaze/
 
 ## Taylor Swift Faces Online Backlash for Grammy Nominee Introduction Comment
 
@@ -199,7 +215,7 @@ Stories: 113
 ## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 13
+- verification_status: corroborated | source_count: 15
 - summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
 - sources:
   - [unverified] Axios — https://www.axios.com/local/nashville/2026/11/18/cma-awards-2026-taylor-swift-lainey-wilson-copy
@@ -207,11 +223,13 @@ Stories: 113
   - [unverified] Forbes — https://www.forbes.com/sites/matthewleimkuehler/2026/11/18/cma-awards-2026-whos-performing-taylor-swift-ella-langley-and-more/
   - [unverified] KRDO — https://krdo.com/news/entertainment-news/2026/11/18/cma-awards-celebrate-60-years-taylor-swift-makes-long-awaited-return/
   - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
+  - [unverified] News Channel 5 Nashville — https://www.newschannel5.com/news/taylor-swift-returns-to-cma-awards-as-ella-langley-leads-nominations
   - [unverified] Page Six — https://pagesix.com/2026/11/18/entertainment/how-to-watch-taylor-swift-perform-at-cma-awards-2026-for-free/
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/watch-cma-awards-taylor-swift-free-stream-online-2026-1235659931/
   - [unverified] Syracuse.com — https://www.syracuse.com/tv/2026/11/is-taylor-swift-performing-at-the-2026-cma-awards-what-time-and-how-to-watch-for-free.html
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/tv/tv-news/watch-cma-awards-2026-free-stream-taylor-swift-performance-1236758756/
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
+  - [established] The Tennessean — https://www.tennessean.com/videos/entertainment/music/award-shows/cma/2026/11/18/kelly-sutton-hopes-for-taylor-swift-announcement-at-cma-awards/92850436007/
   - [unverified] USA Today — https://www.usatoday.com/videos/entertainment/music/2026/11/18/taylor-swift-vlog-2008-cma-nashville/92848676007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/how-to-watch-cmas-taylor-swift-performance-live-online-1236952238/
   - [unverified] Yahoo — https://shopping.yahoo.com/health/sleep/articles/coops-black-friday-sale-60-204437664.html
@@ -962,11 +980,3 @@ Stories: 113
 - summary: Leaked private emails have unveiled the extent of the ongoing feud between Taylor Swift and a rival in Vegas. The situation seems to highlight a bitter spat that has garnered media attention.
 - sources:
   - [unverified] Daily Mail — https://www.dailymail.com/tvshowbiz/article-16285001/taylor-swift-las-vegas-showgirl-lawsuit.html
-
-## Taylor Swift and Dakota Johnson Sport Autumn's Mouse Haircut Trend
-
-- first seen: 2026-11-15 23:43 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Both Taylor Swift and Dakota Johnson have embraced the 'Mouse Haircut,' which is expected to be a popular hairstyle for Autumn 2026, according to Paris Select Book.
-- sources:
-  - [unverified] Paris Select Book — https://www.parisselectbook.com/en/2026/11/15/dakota-johnson-and-taylor-swift-wear-the-mouse-haircut-the-hair-trend-of-autumn-2026/
