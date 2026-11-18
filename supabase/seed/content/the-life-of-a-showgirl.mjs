@@ -4152,9 +4152,9 @@ export default {
             status: "unconfirmed",
             url: "https://www.deuxmoi.world/news/taylor-swift-stuns-super-bowl-2026-2027-tour",
             sourceTier: "social",
-            lastCheckedOn: "2026-10-24",
+            lastCheckedOn: "2026-11-18",
             note:
-              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent. Re-checked 2026-10-24: no tour announced for 2026 or 2027 yet. Still live while 2027 is ahead.",
+              "A Deuxmoi blind item — lowest source tier — self-flagged as unconfirmed. Kept as an earlier data point on the same 'when is the next tour' question. No location. Resolves on an official tour announcement; fades if it stays silent. Re-checked 2026-10-24: no tour announced for 2026 or 2027 yet. Still live while 2027 is ahead. Re-checked 2026-11-18: still no tour announced.",
           },
           {
             // Rumor Desk 2026-08-25: a fresh data point on the same "when does
@@ -11118,8 +11118,8 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-honor-country-roots-tim-mcgraw-1235614372/',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-26',
-            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location. Rechecked 2026-10-26: still open. The Encore was a deluxe of the pop album, not a new project, and Business Insider (Oct. 24) still calls a country-leaning debut re-release possible.',
+            lastCheckedOn: '2026-11-18',
+            note: 'Her own on-record quote (Always-OK); the adjudicable part is the read that her next work leans country. Resolves against the genre of her next release; fades if the read goes nowhere. No location. Rechecked 2026-10-26: the Encore was a deluxe of the pop album. Rechecked 2026-11-18: she performs at the Nov. 18 CMA Awards (Variety), but no country album is announced.',
           },
           {
             // Added 2026-08-31 (Rumor Desk, news digest + web search): the
@@ -11137,9 +11137,9 @@ export default {
             reportedOn: '2026-08-27',
             status: 'unconfirmed',
             url: 'https://www.justjared.com/2026/08/27/taylor-swift-is-reportedly-working-on-new-music/',
-            note: 'Unnamed-insider report, not an announcement; outlets all trace to the same Page Six sourcing, so it stays a rumor until she says so. Resolves if she announces new original music; fades if the reports go nowhere. No location. Rechecked 2026-10-26: the Encore does not settle it, since she said those songs were written in 2025, before the wedding (Business Insider). No new album announced.',
+            note: 'Unnamed-insider report, not an announcement; outlets all trace to the same Page Six sourcing. Resolves if she announces new original music; fades if the reports go nowhere. No location. Rechecked 2026-10-26: the Encore does not settle it, since those songs were written in 2025, before the wedding (Business Insider). Rechecked 2026-11-18: no new album announced.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-10-26',
+            lastCheckedOn: '2026-11-18',
           },
         ],
       },
@@ -11465,9 +11465,9 @@ export default {
             reportedOn: '2026-06-29',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-features/taylor-swift-make-country-music-again-signs-1235586149/',
-            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan. Re-checked 2026-10-22: still no announcement; check again after the debut\'s 20th anniversary (Oct. 24). Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page.',
+            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan. Resolves if a country album is announced; fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" rumor. Re-checked 2026-10-22 and 2026-11-18: no announcement; her Nov. 18 CMA Awards performance (Variety) does not settle it.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-22',
+            lastCheckedOn: '2026-11-18',
           },
         ],
       },

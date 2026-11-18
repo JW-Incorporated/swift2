@@ -48,7 +48,7 @@ export default {
       lastCheckedOn: '2026-11-18',
       headline: 'Five 2027 Grammy nods, and an eighth Album of the Year nomination',
       detail:
-        'At the 69th Grammy nominations on 16 November 2026, Taylor earned five nods: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia", Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You", and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter. It is her eighth Album of the Year nomination. Showgirl missed Best Pop Vocal Album, and Raye led the field with 11. The ceremony is 7 February 2027.',
+        'At the 69th Grammy nominations on 16 November 2026, Taylor earned five nods: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia", Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You", and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter. It is her eighth Album of the Year nomination. Showgirl missed Best Pop Vocal Album, and Raye led the field with 11. The ceremony is 7 February 2027. The four new Encore songs are not in this race: they came out on 25 September 2026, after the window closed on 28 August, and become eligible as individual songs at the 2028 Grammys.',
       sources: [
         {
           name: 'ABC News',
@@ -57,6 +57,10 @@ export default {
         {
           name: 'Stereogum',
           url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+        },
+        {
+          name: 'E! News',
+          url: 'https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated',
         },
       ],
       prompts: [
