@@ -183,9 +183,10 @@ export type BackHost = {
 
 /**
  * Hardware-back listener body. Returns true when the press is consumed.
- * Before ready: false (native default). After ready: consumed; only an
- * explicit `exit` (the UI is at its root) calls `exitApp`. A timeout, error or
- * rejection swallows the press, so a slow render never backgrounds the app.
+ * Before ready: false (native default). After ready: consumed; `exit` (the UI
+ * is at its root) or `unsupported` (no responder: nothing open to close) calls
+ * `exitApp`. A timeout, error or rejection swallows the press, so a slow render
+ * never backgrounds the app.
  */
 export function createBackHandler(host: BackHost, exitApp: () => void, timeoutMs = DEFAULT_BACK_TIMEOUT_MS) {
   return function onHardwareBack(): boolean {
@@ -193,7 +194,7 @@ export function createBackHandler(host: BackHost, exitApp: () => void, timeoutMs
     host
       .request('back', {}, { timeoutMs })
       .then((r) => {
-        if (r.ok && r.value === 'exit') exitApp();
+        if (r.ok ? r.value === 'exit' : r.error.code === 'unsupported') exitApp();
       })
       .catch(() => undefined);
     return true;

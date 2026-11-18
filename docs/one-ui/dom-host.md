@@ -164,8 +164,9 @@ and a flipped default cannot be killed remotely.
   `--safe-*` from the `insets` event (the `insets` prop is web/dev only).
   Hardware back: `createBackHandler` sends a `back` command (1000 ms; the DOM answers from one ordered stack of overlays and nav entries, see `app-architecture.md`); before
   `ready` the press falls through to native, after it the DOM answers `handled`
-  (the reader closed an open item) or `exit` (at the root: `exitApp`). A timeout,
-  error or `unsupported` answer swallows the press: a slow render never backgrounds the app.
+  (the reader closed an open item) or `exit` (at the root: `exitApp`; `unsupported`,
+  no responder registered, exits too). A timeout or error swallows the press: a slow
+  render never backgrounds the app.
   The `backTick` counter is deleted. The reader Shell registers the responder and
   `useExpoBridge(props, hooks, setup)` subscribes `insets`, `contentVersion` and
   `back` before the inbox is consumed. `withFocusRestore(fn)`

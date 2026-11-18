@@ -175,8 +175,11 @@ describe('createBackHandler', () => {
     expect(h.request).toHaveBeenCalledWith('back', {}, { timeoutMs: 1000 });
     expect(exit).not.toHaveBeenCalled();
   });
-  it('exits on an explicit exit answer (UI at its root)', async () => {
-    const h = host(true, { ok: true, value: 'exit' });
+  it.each([
+    ['an explicit exit answer (UI at its root)', { ok: true, value: 'exit' }],
+    ['unsupported (no responder registered: nothing open)', { ok: false, error: { code: 'unsupported', message: '' } }],
+  ])('exits on %s', async (_n, result) => {
+    const h = host(true, result);
     const exit = vi.fn();
     expect(createBackHandler(h, exit)()).toBe(true);
     await flush();
@@ -185,7 +188,6 @@ describe('createBackHandler', () => {
   it.each([
     ['timeout', { ok: false, error: { code: 'timeout', message: '' } }],
     ['error', { ok: false, error: { code: 'failed', message: '' } }],
-    ['unsupported', { ok: false, error: { code: 'unsupported', message: '' } }],
   ])('swallows the press on %s (consumed, no exit)', async (_n, result) => {
     const h = host(true, result);
     const exit = vi.fn();
