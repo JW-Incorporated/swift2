@@ -436,6 +436,18 @@ active set, which is exactly why `check:filter-coverage` (below) exists.
    NYU commencement speech, a Sundance Q&A) are ones whose own text was
    genuinely too thin to support a topic honestly; they remain reachable
    under Videos.
+3. A live news item (`current`) gets its topics from `chipTagsForCurrentItem`
+   (`packages/shared/src/current-item-chips.ts`): a deterministic rule over
+   the row's `category`, its free-form `tags` and its `headline` (no LLM
+   call). The worker stores the result in `current_item.tags` when it writes
+   the row; the reader re-applies the same function so rows written before
+   that still land under their chips. Tour means a tour, as for moments: a
+   one-off gala or awards performance is not Tour unless the extractor
+   filed it as `tour`. A person's name is never a topic: a Travis Kelce tag
+   alone is not Relationship without a wedding/engagement/couple signal. An
+   item that names no chip (a TV cameo, a game-day sighting) shows under All
+   only. Videos stays structural (a playable
+   embed).
 
 **Anchor dating** (`anchor-date.ts`): every entry in the merged feed carries
 an `anchor` — `{ sortDate, displayDate, via }`. `sortDate` is always present

@@ -99,6 +99,7 @@ describe('writeCurrentItem', () => {
     expect(result.holdReason).toBe('missing_image');
     expect(insertedRow?.redline_ok).toBe(false);
     expect(insertedRow?.quality_hold_reason).toBe('missing_image');
+    expect(insertedRow?.tags).toEqual(['music', 'Music']);
     expect(db.from).toHaveBeenCalledTimes(1);
     expect(db.from).toHaveBeenCalledWith('current_item');
   });

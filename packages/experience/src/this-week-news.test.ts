@@ -136,4 +136,27 @@ describe('week news under an active filter (strip hidden)', () => {
     expect(isWeekNewsPinned(new Set<FilterId>(['Lore']))).toBe(false);
     expect(ids(new Set<FilterId>(['Lore']))).toEqual(['new', 'older']);
   });
+
+  it('streams an in-window story under the chip the shared rule derives from its free-form tags', () => {
+    const awards = currentFeedEntries(
+      [
+        currentItem({
+          id: 'cma',
+          observedOn: '2026-11-02',
+          category: 'award',
+          tags: ['CMA Awards', 'awards season', 'nominations'],
+          headline: "Taylor lands on the 2026 CMA Awards nominee list and confirms she'll attend the ceremony",
+        }),
+      ],
+      '2026-01-01',
+      '2026-12-31',
+    );
+    const streamed = (filters: ReadonlySet<FilterId>) =>
+      visibleFeed(
+        mergeEraStreamFeed({ era: { start: '2026-01-01', end: '2026-12-31' }, items: [], videoFeed: [], liveEntries: awards, nowMs: NOW, filters }),
+        filters,
+      ).map((e) => (e.kind === 'current' ? e.item.id : ''));
+    expect(streamed(new Set<FilterId>(['Music']))).toEqual(['cma']);
+    expect(streamed(new Set<FilterId>(['Fashion']))).toEqual([]);
+  });
 });

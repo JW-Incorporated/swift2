@@ -8,6 +8,7 @@ export * from './moment-load';
 export * from './youtube';
 export * from './current-types';
 export * from './current-item-quality';
+export * from './current-item-chips';
 export * from './outlet-label';
 export * from './current-item-writing';
 export * from './current-item-attribution';
