@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "openverse-f6a09613-48d2-4498-87f6-be5915ddf294",
+  "media": [
+    "/social/library/photos/openverse-f6a09613-48d2-4498-87f6-be5915ddf294.jpg"
+  ],
+  "mediaCredit": "jurvetson (CC BY 2.0), via Openverse",
+  "mediaSource": "https://www.flickr.com/photos/44124348109@N01/53079631118",
+  "altText": [
+    "Taylor Swift photo: Taylor Swift Eras Tour"
+  ],
+  "scheduledAt": "2026-11-18T23:00:00Z",
+  "campaign": "news:cma-awards-2026-preshow:2026-11-18",
+  "body": "she's back on the CMA stage tonight and i'm already shaking!!\n\nTaylor is performing at the 60th CMA Awards, her first CMA performance in 13 years. the last one was 2013, when she sang \"Red\" with Vince Gill and Alison Krauss.\n\nshe's also nominated for Single of the Year with \"I Knew It, I Knew You\" from the Toy Story 5 soundtrack 💛\n\nwho's staying up to watch it live with us?\n\n📷 jurvetson (CC BY 2.0), via Openverse\n\nhttps://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=instagram&utm_medium=social&utm_campaign=news\n\n#TaylorSwift #CMAawards #Swifties",
+  "why": "Instagram sibling of the CMA pre-show pair (covers Facebook). Booking and the Single of the Year nomination for \"I Knew It, I Knew You\" (Toy Story 5) verified 2026-11-18 via GMA/ABC News and KCTV5 coverage of the Nov 13 announcement. Pre-show only: no setlist, no outcome claimed.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "Opens on the thrill of tonight, then the sourced facts: first CMA performance in 13 years, the 2013 \"Red\" moment, and the Single of the Year nod. Nothing about a show that has not happened yet.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}

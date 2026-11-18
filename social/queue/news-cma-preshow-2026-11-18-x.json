@@ -1,0 +1,35 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "openverse-f6a09613-48d2-4498-87f6-be5915ddf294",
+  "media": [
+    "/social/library/photos/openverse-f6a09613-48d2-4498-87f6-be5915ddf294.jpg"
+  ],
+  "mediaCredit": "jurvetson (CC BY 2.0), via Openverse",
+  "mediaSource": "https://www.flickr.com/photos/44124348109@N01/53079631118",
+  "altText": [
+    "Taylor Swift photo: Taylor Swift Eras Tour"
+  ],
+  "scheduledAt": "2026-11-18T23:00:00Z",
+  "campaign": "news:cma-awards-2026-preshow:2026-11-18",
+  "body": "i'm so nervous i could cry. 13 years since Taylor last performed at the CMAs and tonight she walks back onto that stage 🥹 plus \"I Knew It, I Knew You\" is up for Single of the Year https://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=x&utm_medium=social&utm_campaign=news",
+  "why": "Calendar 11-18 23:00Z CMA pre-show beat, X half written first. Booking verified 2026-11-18: 60th CMA Awards live Nov 18, her first CMA performance since \"Red\" with Vince Gill and Alison Krauss in 2013 (GMA/ABC News, KCTV5, Whiskey Riff, Nov 13). Lead #6840. No performance described; it has not happened yet.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "Leads with the nerves of a fan before tonight, then two checkable facts: her first CMA performance in 13 years and the Single of the Year nod for \"I Knew It, I Knew You\". The photo of her at a mic is the anticipation itself.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
