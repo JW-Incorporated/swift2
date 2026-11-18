@@ -97,7 +97,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.',
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.\n\nThe Encore isn\'t on the ballot, and that is the calendar again. The four new songs ("Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!") came out Sept. 25, 2026, about four weeks after this cycle\'s window closed on Aug. 28. The deluxe edition is unlikely to get its own Album of the Year shot next year either. The Recording Academy requires new recordings to make up at least 66 percent of an album, down from 75 percent, and four songs added to a finished record fall well short of that. The new tracks will be eligible individually at the 2028 Grammys in the song-level categories.',
         video: {
           youtubeId: 'hDU4GB1PTxc',
           title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -138,6 +138,16 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-11-17',
             reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated',
+            source_title: "Why Taylor Swift's The Life of a Showgirl: The Encore Isn't Eligible for Grammys 2027",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-18',
+            reliability_score: 4,
+            notes: 'Read in full this run (intake #6984): Aug. 31, 2025 to Aug. 28, 2026 window, Sept. 25 Encore release, 66 percent new-recordings rule, 2028 song-level eligibility.',
           },
           {
             outlet: 'YouTube',
