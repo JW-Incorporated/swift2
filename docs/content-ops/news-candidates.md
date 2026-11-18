@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 110
+Stories: 114
+
+## Travis Kelce's Notable Performances at Arrowhead Stadium Featured
+
+- first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A highlight reel of Travis Kelce's significant moments while playing at Arrowhead Stadium has been compiled by ESPN, showcasing his achievements as a tight end for the Kansas City Chiefs.
+- sources:
+  - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50513358/chiefs-travis-kelce-100-games-arrowhead-taylor-swift
+
+## Grand Theft Auto Returns After 13-Year Hiatus
+
+- first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Grand Theft Auto makes its return after a 13-year wait, drawing parallels to Taylor Swift's impact in her field. This significant comeback was highlighted in a recent article by France 24.
+- sources:
+  - [unverified] France 24 — https://www.france24.com/en/culture/20261118-taylor-swift-of-games-grand-theft-auto-is-back-after-13-year-wait
+
+## Taylor Swift Returns to CMA Awards After 13 Years
+
+- first seen: 2026-11-18 11:27 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made her return to the CMA Awards after a 13-year absence, prompting discussions among fans and media. Her appearance marks a significant moment in her career within the country music scene.
+- sources:
+  - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/11/18/taylor-swift-2026-cmas-country-music/92263579007/
+
+## Taylor Swift's Grammy Joke Leads to Controversial Reactions
+
+- first seen: 2026-11-18 11:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a joke regarding her Grammy losing streak, which has resulted in backlash from some fans and critics. The reaction has been described as 'icky' by various commentators.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-grammy-losing-streak-103508772.html
 
 ## Yamaha to Acquire UK Tech Firm for Concert Productions
 
