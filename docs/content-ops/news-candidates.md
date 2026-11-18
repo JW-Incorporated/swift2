@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 114
+Stories: 113
 
 ## Taylor Swift Faces Online Backlash for Grammy Nominee Introduction Comment
 
@@ -199,7 +199,7 @@ Stories: 114
 ## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 11
+- verification_status: corroborated | source_count: 13
 - summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
 - sources:
   - [unverified] Axios — https://www.axios.com/local/nashville/2026/11/18/cma-awards-2026-taylor-swift-lainey-wilson-copy
@@ -208,7 +208,9 @@ Stories: 114
   - [unverified] KRDO — https://krdo.com/news/entertainment-news/2026/11/18/cma-awards-celebrate-60-years-taylor-swift-makes-long-awaited-return/
   - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
   - [unverified] Page Six — https://pagesix.com/2026/11/18/entertainment/how-to-watch-taylor-swift-perform-at-cma-awards-2026-for-free/
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/tv-movies/tv-movie-news/watch-cma-awards-taylor-swift-free-stream-online-2026-1235659931/
   - [unverified] Syracuse.com — https://www.syracuse.com/tv/2026/11/is-taylor-swift-performing-at-the-2026-cma-awards-what-time-and-how-to-watch-for-free.html
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/tv/tv-news/watch-cma-awards-2026-free-stream-taylor-swift-performance-1236758756/
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
   - [unverified] USA Today — https://www.usatoday.com/videos/entertainment/music/2026/11/18/taylor-swift-vlog-2008-cma-nashville/92848676007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/how-to-watch-cmas-taylor-swift-performance-live-online-1236952238/
@@ -400,13 +402,15 @@ Stories: 114
 ## Taylor Swift Exhibition to Open at Boston's Museum of Fine Arts Next Year
 
 - first seen: 2026-11-17 17:12 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 6
 - summary: A new exhibition featuring Taylor Swift is set to debut at the Museum of Fine Arts in Boston next year, showcasing her impact on music and culture.
 - sources:
   - [unverified] CBS News — https://www.cbsnews.com/boston/news/taylor-swift-eras-collection-mfa-boston/
   - [unverified] NBC Boston — https://www.nbcboston.com/entertainment/entertainment-news/exclusive-taylor-swift-show-boston-eras/4050810/
   - [unverified] The Business Journals — https://www.bizjournals.com/boston/news/2026/11/17/taylor-swift-museum-of-fine-arts.html
+  - [unverified] Time Out Worldwide — https://www.timeout.com/boston/news/a-giant-taylor-swift-exhibition-is-taking-over-bostons-museum-of-fine-arts-next-year-111826
   - [unverified] WCVB — https://www.wcvb.com/article/taylor-swift-exhibition-coming-to-museum-of-fine-arts-in-boston-in-april-2027/74452371
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/boston-museum-fine-arts-announces-142003570.html
 
 ## Taylor Swift's Grammy Quip May Have Been Intentional
 
@@ -966,11 +970,3 @@ Stories: 114
 - summary: Both Taylor Swift and Dakota Johnson have embraced the 'Mouse Haircut,' which is expected to be a popular hairstyle for Autumn 2026, according to Paris Select Book.
 - sources:
   - [unverified] Paris Select Book — https://www.parisselectbook.com/en/2026/11/15/dakota-johnson-and-taylor-swift-wear-the-mouse-haircut-the-hair-trend-of-autumn-2026/
-
-## Taylor Swift Scheduled to Perform at CMA Awards 2026
-
-- first seen: 2026-11-15 22:43 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the 2026 CMA Awards, with details on the date and her nomination available. Viewers can find information on how to watch the event.
-- sources:
-  - [unverified] stupidDOPE — https://stupiddope.com/2026/11/taylor-swift-returns-to-the-cma-awards-stage-after-13-years-the-no-1-song-that-brought-her-back/
