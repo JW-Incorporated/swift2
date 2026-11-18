@@ -1,3 +1,18 @@
+// Generates docs/ops/AFFILIATE-COVERAGE.md — a COMMITTED generated artifact
+// derived from the shipped merch catalogue (supabase/seed/merch/** ->
+// merch.generated.ts -> MERCH_CATALOGUE) and the checked-in Awin directory.
+//
+// It runs LAST in `sync:content` (package.json) on purpose: it reads
+// apps/web/lib/longlive/merch.ts, so every vault generator it depends on must
+// have run first. Being in that chain is what keeps the report from going
+// stale — any lane, bot or human that changes merch seed data and runs
+// `sync:content` before committing regenerates this report in the same
+// commit. It was NOT in the chain until 2026-11-18, and the 2026-11-17 Vault
+// Run proved the gap: a lane dropped one delisted official-store product
+// (catalogue 584 -> 583) and left the committed 584-row report behind, which
+// CI's content-only path filter let through (`build-full`, and with it
+// `check:affiliate-coverage`, is skipped for seed/docs-only PRs) until
+// `main`'s own vitest run went red. See issue #6946.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
