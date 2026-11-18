@@ -17,7 +17,7 @@ export interface OgCardCopy {
   subtitle: string;
 }
 
-export function renderOgCard({ kicker, title, subtitle }: OgCardCopy): ImageResponse {
+export function renderOgCard({ kicker, title, subtitle }: OgCardCopy, headers?: Record<string, string>): ImageResponse {
   return new ImageResponse(
     <div
       style={{
@@ -69,7 +69,7 @@ export function renderOgCard({ kicker, title, subtitle }: OgCardCopy): ImageResp
         {subtitle}
       </div>
     </div>,
-    { ...OG_IMAGE_SIZE },
+    { ...OG_IMAGE_SIZE, headers },
   );
 }
 

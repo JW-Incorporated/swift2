@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getEra } from '@swift2/experience';
+import { ERAS, getEra } from '@swift2/experience';
 
 import keys from './lyric-track-keys.json';
 import { CONTENT } from './content';
@@ -16,13 +16,27 @@ describe('resolveShareTarget', () => {
     expect(resolveShareTarget({ item: item.slug })).toEqual(byId);
   });
 
-  it('resolves an era to its name and tagline', () => {
+  it('resolves an era to its name, with years, tagline and intro as the description', () => {
     const era = getEra('fearless');
     expect(resolveShareTarget({ era: 'fearless' })).toMatchObject({
       param: 'era=fearless',
       title: era.name,
-      description: clampOnWord(era.tagline, 160),
+      description: clampOnWord(`${era.yearLabel}: ${era.tagline} ${era.intro}`, 155),
+      card: { kicker: era.yearLabel, title: era.name, subtitle: era.tagline },
+      path: '/?era=fearless',
+      imageAlt: `Long Live card: ${era.name} (${era.yearLabel})`,
     });
+  });
+
+  it('gives every era a share description of 120 to 156 characters', () => {
+    expect(ERAS.length).toBeGreaterThan(0);
+    for (const { id } of ERAS) {
+      const t = resolveShareTarget({ era: id });
+      expect(t?.param, id).toBe(`era=${encodeURIComponent(id)}`);
+      if (!t) continue;
+      expect(t.description.length, id).toBeGreaterThanOrEqual(120);
+      expect(t.description.length, id).toBeLessThanOrEqual(156);
+    }
   });
 
   it('resolves a lens to its thread title and blurb', () => {
