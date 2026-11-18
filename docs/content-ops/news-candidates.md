@@ -25,15 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 114
+Stories: 116
 
-## Taylor Swift's CMA Appearance Boosts Disney Ad Sales
+## Taylor Swift's Influence on U.S. Economy Highlighted Alongside GTA VI Launch
 
-- first seen: 2026-11-18 14:22 UTC | category: business | importance: 7
+- first seen: 2026-11-18 15:17 UTC | category: business | importance: 6
 - verification_status: single_source | source_count: 1
-- summary: Taylor Swift's recent return to the CMA has had a positive impact on Disney's advertising revenue, according to reports. The news highlights the influence of Swift's appearances on major networks and their commercial benefits.
+- summary: The recent success of Taylor Swift and AI investments is credited with significantly boosting the U.S. economy. This comes as 'Grand Theft Auto VI' prepares for its record-breaking launch, which may have further economic implications.
 - sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-cma-return-disney-sell-commericals-1236951795/
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/gta-6-launch-biggest-ever-video-game-1237218665/
+
+## Taylor Swift's Blind Devotion Era Concludes, Reports CNN
+
+- first seen: 2026-11-18 15:17 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: CNN reports that the 'Blind Devotion Era' for Taylor Swift fans has ended, marking a significant shift in the fan experience.
+- sources:
+  - [unverified] CNN — https://www.cnn.com/2026/11/18/entertainment/taylor-swift-swiftologist-zachary-hourihane
 
 ## Fans React to Taylor Swift's 2027 Grammy Nominations and Snub
 
@@ -42,6 +50,14 @@ Stories: 114
 - summary: Taylor Swift has received five nominations for the 2027 Grammy Awards, leading to strong reactions from her fanbase regarding a perceived snub. Fans expressed their frustration over the nominations and the lack of recognition for certain works.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-fans-furious-over-072135732.html
+
+## Taylor Swift's CMA Appearance Boosts Disney Ad Sales
+
+- first seen: 2026-11-18 14:22 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's recent return to the CMA has had a positive impact on Disney's advertising revenue, according to reports. The news highlights the influence of Swift's appearances on major networks and their commercial benefits.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-cma-return-disney-sell-commericals-1236951795/
 
 ## Taylor Swift 'Eras' Exhibition Set to Open at MFA Boston
 
@@ -115,14 +131,6 @@ Stories: 114
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-announcement-turns-heads-083353938.html
 
-## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
-
-- first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
-- sources:
-  - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
-
 ## Taylor Swift to Appear at CMAs This Wednesday
 
 - first seen: 2026-11-18 09:27 UTC | category: music | importance: 5
@@ -130,6 +138,15 @@ Stories: 114
 - summary: Taylor Swift is set to return to the Country Music Association Awards, alongside other featured content. The announcement includes a mention of the Madden movie and additional show highlights.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/articles/watch-wednesday-taylor-swift-returns-080000254.html
+
+## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
+
+- first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
+- sources:
+  - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
+  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
 
 ## Taylor Swift Comments on Future with Travis Kelce Amid Frustration Reports
 
@@ -150,9 +167,10 @@ Stories: 114
 ## Taylor Swift to Perform at 2026 Country Music Association Awards
 
 - first seen: 2026-11-18 05:42 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift is set to perform at the 2026 Country Music Association Awards. Details on how to watch the event have been provided by KTVN.
 - sources:
+  - [unverified] Chicago Tribune — https://www.chicagotribune.com/2026/11/18/2026-country-music-association-awards/
   - [unverified] WRAL — https://www.wral.com/news/ap/0ddc8-the-2026-country-music-association-awards-are-here-with-taylor-swift-performing-how-to-watch/
 
 ## Upcoming Taylor Swift Exhibit at MFA Boston Details Revealed
