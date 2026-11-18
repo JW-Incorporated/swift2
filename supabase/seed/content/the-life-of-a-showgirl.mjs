@@ -1108,6 +1108,8 @@ export default {
       // 'showgirl-colts-game-sighting') — that was the prior season's Week 12
       // game; this is the 2026 Week 2 Sunday-nighter.
       slug: 'chiefs-colts-2026-husband-touchdown',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 20,
@@ -4171,6 +4173,8 @@ export default {
     // Slugs added; content and sources unchanged from the approved corpus.
     {
       slug: 'arrowhead-caitlin-clark-october',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 10,
       day: 12,
@@ -6137,6 +6141,8 @@ export default {
       // The adjacent flower-girls/minors detail was deliberately NOT authored
       // (privacy redline #5); Donna's line is a public remark at a public event.
       slug: 'showgirl-kelces-welcome-taylor-family',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 23,
@@ -6418,6 +6424,8 @@ export default {
     },
     {
       slug: 'showgirl-wedding-bands-first-look',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 20,
@@ -7381,6 +7389,8 @@ export default {
     },
     {
       slug: 'showgirl-selena-gomez-texans-coats',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1052): the coordinated-outfit game-day sighting.
       relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       year: 2025,
@@ -7697,6 +7707,8 @@ export default {
     },
     {
       slug: 'showgirl-broncos-christmas-game',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1123): the Colts-game low-key look — the same
       // recurring game-day-styling beat of the engagement/wedding season.
       // (Stage 3, 2026-08-10): + the previous year's Santa-costumed
@@ -8266,6 +8278,8 @@ export default {
     },
     {
       slug: 'showgirl-colts-game-sighting',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 11,
       day: 23,
@@ -9504,6 +9518,8 @@ export default {
     },
     {
       slug: 'kelce-new-heights-proposal-story',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1114): the New Heights announcement this returns to.
       // Cross-link (candidate #1294): Jason Kelce on the fanbase shift — same
       // Kelce-family-media throughline.
@@ -9863,6 +9879,8 @@ export default {
     },
     {
       slug: 'first-newlywed-appearance-juju-wedding',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 10,
@@ -13452,6 +13470,8 @@ export default {
       // cleanly licensable image of the presser was found — ships text-first
       // and photo-sparsity can route it to Photo Enrichment.
       slug: 'kelce-first-wedding-comments-training-camp',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-links: the wedding this recounts, and the July 8 New Heights
       // episode where he first told the proposal story.
       relatedIds: [
@@ -15001,6 +15021,8 @@ export default {
     // corpus notes kept the wedding off the table). Authored as a new moment.
     {
       slug: 'kelce-new-heights-wedding-recap',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 2,
@@ -15387,6 +15409,8 @@ export default {
     },
     {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
       year: 2026,
       month: 9,
@@ -16432,6 +16456,8 @@ export default {
     },
     {
       slug: 'cleveland-lyric-video-kelce-road-trip',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 25,
@@ -17660,6 +17686,8 @@ export default {
       // independent outlets, on-record words from one of the principals; no
       // location or private detail beyond "the holidays".
       slug: 'showgirl-travis-kelce-first-holiday-married-tommy-hilfiger',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
       ],
@@ -17953,6 +17981,8 @@ export default {
       // agreed to design anything. Redlines: clean; no venue detail beyond
       // the city of a public fan event.
       slug: 'showgirl-new-heights-tailgate-stage-joke',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 11,
       day: 11,
