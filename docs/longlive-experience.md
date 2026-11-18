@@ -67,7 +67,9 @@ with **two modes**:
   section — it scrolls away as the reader goes back in time and collapses
   into the sticky `TopBar` above it. There is no separate landing page or
   `landing` mode; deep links (`?item=`/`?lens=`/`?era=`, routed by
-  `lib/longlive/deepLink.ts`) retarget the stream, and `goHome` (the wordmark)
+  `lib/longlive/deepLink.ts`) retarget the stream (a lone `?era=` link keeps
+  the feed hidden until the jump lands, #6807 — `lib/longlive/era-jump-gate.ts`),
+  and `goHome` (the wordmark)
   returns to the current era at the top, not a separate home screen.
 - **Threads mode** (`mode: 'threads'`) — a cross-era "vault" that reads one
   narrative *through-line* across her whole career (love story, fashion,

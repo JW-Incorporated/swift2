@@ -47,10 +47,12 @@ describe('no user/content HTML sink (issue #1975)', () => {
   }
 
   it('has only the reviewed JSON-LD sinks', () => {
-    expect(hits).toHaveLength(2);
+    expect(hits).toHaveLength(3);
     expect(hits.map((hit) => hit.file.replace(/\\/g, '/'))).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/\/app\/layout\.tsx$/),
+        // #6807 era-jump gate: a fixed script built from constants, no request input.
+        expect.stringMatching(/\/app\/page\.tsx$/),
         expect.stringMatching(/\/reader\/merch\/MerchCard\.tsx$/),
       ]),
     );

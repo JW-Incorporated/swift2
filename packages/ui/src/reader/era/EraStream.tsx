@@ -15,7 +15,7 @@ import { LandingMasthead } from './LandingMasthead';
 import { CountdownBanner } from './CountdownBanner';
 import { filterChangeScrollDelta } from '../lib/era-stream-pin';
 import { measureChromeHeight } from '../lib/chrome-offset';
-import { jumpLandingScrollTop, shouldRunEraJump } from '../lib/era-jump-landing';
+import { clearEraJumpGate, jumpLandingScrollTop, shouldRunEraJump } from '../lib/era-jump-landing';
 import { useCurrentItems } from '../lib/use-current-items';
 
 /**
@@ -186,6 +186,10 @@ export function EraStream() {
       window.removeEventListener('wheel', onUserScroll);
       window.removeEventListener('touchstart', onUserScroll);
     };
+    const finish = () => {
+      stop();
+      clearEraJumpGate();
+    };
 
     const correct = () => {
       if (cancelled) return;
@@ -193,7 +197,7 @@ export function EraStream() {
       // Target not rendered yet — WAIT. (Previously this fell back to top: 0,
       // which yanked the reader to the top of the page instead.)
       if (!el) {
-        if (Date.now() > deadline) stop();
+        if (Date.now() > deadline) finish();
         return;
       }
       // Compensate for the sticky chrome (TopBar + FilterBar) pinned over
@@ -211,11 +215,11 @@ export function EraStream() {
       });
       if (!landedAt) landedAt = Date.now();
       // Settle window starts at the FIRST landing, not at the jump.
-      if (Date.now() - landedAt > JUMP_SCROLL_SETTLE_MS || Date.now() > deadline) stop();
+      if (Date.now() - landedAt > JUMP_SCROLL_SETTLE_MS || Date.now() > deadline) finish();
     };
 
     // A user gesture always wins — never fight someone who has taken over.
-    const onUserScroll = () => stop();
+    const onUserScroll = () => finish();
 
     correct(); // immediate attempt: needs no frame at all
     requestAnimationFrame(() => requestAnimationFrame(correct));

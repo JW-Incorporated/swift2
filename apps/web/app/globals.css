@@ -344,6 +344,13 @@ body {
   background: transparent;
 }
 
+/* #6807: a lone ?era= deep link hides the feed (keeping its space) until
+   EraStream lands the jump, so the current era is never shown first. */
+html[data-ll-era-jump] #main-content,
+html[data-ll-era-jump] .era-shell > footer {
+  visibility: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

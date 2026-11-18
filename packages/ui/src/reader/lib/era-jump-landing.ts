@@ -41,6 +41,17 @@ export function shouldRunEraJump(input: {
   return true;
 }
 
+/**
+ * #6807: set on <html> by the web host's server render for a lone `?era=`
+ * deep link, so the current era's feed is never painted before the jump.
+ * EraStream clears it once the jump's scroll correction stops.
+ */
+export const ERA_JUMP_GATE_ATTR = 'data-ll-era-jump';
+
+export function clearEraJumpGate(): void {
+  if (typeof document !== 'undefined') document.documentElement.removeAttribute(ERA_JUMP_GATE_ATTR);
+}
+
 export function jumpLandingScrollTop(input: {
   /** The target section's current top, in viewport coordinates
    * (`getBoundingClientRect().top`), before this correction. */

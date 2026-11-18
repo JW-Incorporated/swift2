@@ -1,7 +1,9 @@
 import type { Metadata, ResolvingMetadata } from 'next';
+import { headers } from 'next/headers';
 
 import { LongLive } from '@/components/longlive/LongLive';
 import { resolveShareTarget, type ShareParams } from '@/lib/longlive/share-target';
+import { eraJumpGateScript, eraJumpGateTarget } from '@/lib/longlive/era-jump-gate';
 
 // The "cool feature only" fix (social-strategy.md §2, PR #3922 2026-09-06):
 // a shared deep link must unfurl showing that target, not the generic brand
@@ -41,6 +43,13 @@ export async function generateMetadata(
   };
 }
 
-export default function Page() {
-  return <LongLive />;
+export default async function Page({ searchParams }: { searchParams: Promise<PageSearchParams> }) {
+  const gated = eraJumpGateTarget(await searchParams) !== null;
+  const nonce = gated ? ((await headers()).get('x-nonce') ?? undefined) : undefined;
+  return (
+    <>
+      {gated ? <script nonce={nonce} dangerouslySetInnerHTML={{ __html: eraJumpGateScript() }} /> : null}
+      <LongLive />
+    </>
+  );
 }
