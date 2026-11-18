@@ -89,7 +89,7 @@ export async function fetchAllFeeds({
   };
 }
 
-/** YouTube-side outage: the feed endpoint answered 404 or 5xx. */
+/** Upstream feed outage (YouTube, Reddit RSS): the feed endpoint answered 404 or 5xx. */
 export function isOutageError(error) {
   return typeof error?.status === 'number' && (error.status === 404 || error.status >= 500);
 }
