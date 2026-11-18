@@ -3284,6 +3284,20 @@
       "sha256": "534c8ccbcdbb04c66ff8fc87d9baa9c21021b89e76e007b4e290e2b04b5f7244"
     },
     {
+      "id": "press-1aeebb7d0d41",
+      "mediaPath": "/social/library/photos/press-1aeebb7d0d41.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-fans-furious-grammy-snub/",
+      "alt": "Taylor Swift in the news: Taylor Swift Makes Grammy History but Fans Are Furious Over 1 Major Snub",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 129316,
+      "sha256": "c7164d25343e5424c02cefb373638d0067ffbda4ad1a43bba948384cfacb9d77"
+    },
+    {
       "id": "press-2aed23b54ae7",
       "mediaPath": "/social/library/photos/press-2aed23b54ae7.jpg",
       "source": "https://www.cinemablend.com/streaming-news/swifties-known-wild-theories-buying-into-taylor-swift-debut",
@@ -3380,6 +3394,20 @@
       "height": 900,
       "bytes": 128011,
       "sha256": "604e039e695316d78b058f884ae46ac37737011c3e5e895b0acf4e627bb8e882"
+    },
+    {
+      "id": "press-67c28d554411",
+      "mediaPath": "/social/library/photos/press-67c28d554411.jpg",
+      "source": "https://www.cincinnati.com/story/entertainment/2026/11/18/taylor-swift-returns-to-cmas-date-time-channel-how-to-watch/92809904007/",
+      "alt": "Taylor Swift in the news: Taylor Swift returns to CMAs. Date, time, channel, how to watch",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Cincinnati Cincinnati Enquirer",
+      "width": 2048,
+      "height": 1153,
+      "bytes": 229055,
+      "sha256": "405ba1af5cda3c8be42e1734ff81d1da12813d6dba9ecf6c760f10a03296e19f"
     },
     {
       "id": "press-6a7543bd5c98",
