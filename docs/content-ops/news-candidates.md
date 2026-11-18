@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 105
+
+## Upcoming Taylor Swift Exhibit at MFA Boston Details Revealed
+
+- first seen: 2026-11-18 04:42 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Boston's Museum of Fine Arts will host a Taylor Swift exhibit, showcasing various aspects of her career. More details about the event have been released, promising an engaging experience for fans.
+- sources:
+  - [unverified] Boston.com — https://www.boston.com/community/arts/2026/11/17/what-to-know-about-the-taylor-swift-exhibit-coming-to-the-mfa/
 
 ## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
 
