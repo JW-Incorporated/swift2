@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 117
+Stories: 115
 
 ## Travis Kelce Shares Thoughts on Taylor Swift's First Game Appearance
 
@@ -115,14 +115,6 @@ Stories: 117
 - sources:
   - [unverified] The Times of India — https://timesofindia.indiatimes.com/real-estate/news/taylor-swift-and-dolly-parton-recorded-music-at-a-tennessee-retreat-built-in-1998-after-more-than-65-gold-and-platinum-albums-were-made-there-the-10-acre-studio-estate-is-now-listed-for-19-5-million/articleshow/135933523.cms
 
-## Travis Kelce's Notable Performances at Arrowhead Stadium Featured
-
-- first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A highlight reel of Travis Kelce's significant moments while playing at Arrowhead Stadium has been compiled by ESPN, showcasing his achievements as a tight end for the Kansas City Chiefs.
-- sources:
-  - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50513358/chiefs-travis-kelce-100-games-arrowhead-taylor-swift
-
 ## Grand Theft Auto Returns After 13-Year Hiatus
 
 - first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
@@ -130,6 +122,15 @@ Stories: 117
 - summary: Grand Theft Auto makes its return after a 13-year wait, drawing parallels to Taylor Swift's impact in her field. This significant comeback was highlighted in a recent article by France 24.
 - sources:
   - [unverified] France 24 — https://www.france24.com/en/culture/20261118-taylor-swift-of-games-grand-theft-auto-is-back-after-13-year-wait
+
+## Travis Kelce's Notable Performances at Arrowhead Stadium Featured
+
+- first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: A highlight reel of Travis Kelce's significant moments while playing at Arrowhead Stadium has been compiled by ESPN, showcasing his achievements as a tight end for the Kansas City Chiefs.
+- sources:
+  - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50513358/chiefs-travis-kelce-100-games-arrowhead-taylor-swift
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/chiefs-te-travis-kelce-lucky-175509835.html
 
 ## Taylor Swift Returns to CMA Awards After 13 Years
 
@@ -973,19 +974,3 @@ Stories: 117
 - summary: Taylor Swift was reportedly absent from the Chiefs versus Falcons game after the announcement of the CMA Awards. The timing of her absence has drawn attention from fans and media alike.
 - sources:
   - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-kansas-city-chiefs-atlanta-falcons-game/
-
-## Taylor Swift Discusses Lessons Learned from Past Friendships
-
-- first seen: 2026-11-15 18:12 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In a recent InStyle interview, Taylor Swift shares insights into the lessons she's gained from distancing herself from friends she considers the 'wrong' ones. Her reflections highlight personal growth and changing relationships.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-growing-apart-from-wrong-friends-past-friendships-toy-story-5-song-12256039
-
-## Taylor Swift Discusses Parenting Dilemma in InStyle Interview
-
-- first seen: 2026-11-15 18:12 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: In a recent InStyle interview, Taylor Swift shares her thoughts on a relatable parenting dilemma, providing a rare glimpse into her insights on parenting. The discussion highlights her perspective and experiences with challenges faced by parents.
-- sources:
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-rare-thoughts-relatable-parenting-dilemma-12256259
