@@ -19,7 +19,7 @@ import { mergeEraFeed, visibleFeed, inlineVideoMomentIds } from './era-feed';
 import { spaceDoorways } from './space-doorways';
 import { clusterSameDayMoments, type RenderFeedEntry } from './era-feed-clusters';
 import { interleaveRecentVideo } from './media-interleave';
-import { streamExtraEntries } from './this-week-news';
+import { isWeekNewsPinned, streamExtraEntries } from './this-week-news';
 import { assignFeedTiers, withInlineVideoTiers, type CardTier } from './feed-tiers';
 
 /**
@@ -70,12 +70,12 @@ export interface EraStreamViewModel<V extends VideoNote> {
 export function mergeEraStreamFeed<V extends VideoNote>(
   inputs: Pick<EraStreamInputs<V>, 'items' | 'videoFeed' | 'doorwayEntries' | 'liveEntries' | 'nowMs'> & {
     era: Pick<Era, 'start' | 'end'>;
+    filters?: ReadonlySet<FilterId>;
   },
 ): EraFeedEntry<V>[] {
   const { era, items, videoFeed, doorwayEntries = [], liveEntries = [], nowMs = Date.now() } = inputs;
-  return spaceDoorways(
-    mergeEraFeed(items, videoFeed, era.start, era.end, streamExtraEntries(doorwayEntries, liveEntries, nowMs)),
-  );
+  const extras = streamExtraEntries(doorwayEntries, liveEntries, nowMs, isWeekNewsPinned(inputs.filters));
+  return spaceDoorways(mergeEraFeed(items, videoFeed, era.start, era.end, extras));
 }
 
 /**

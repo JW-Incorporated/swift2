@@ -4,8 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { Search, X } from 'lucide-react';
-import { flattenGroups, searchDocs, type SearchTarget } from '@swift2/experience';
+import { CURRENT_ERA_ID, flattenGroups, getEra, searchDocs, type SearchTarget } from '@swift2/experience';
 import { useReader } from '../../snapshot/context';
+import { CurrentItemDetail } from '../era/CurrentItemDetail';
+import { useLiveSearch } from './use-live-search';
 import { useAppActions, useAppState } from '../store';
 import { useBackDismiss } from '../lib/useBackDismiss';
 import { optionId } from './SearchResultRow';
@@ -38,7 +40,8 @@ const DEBOUNCE_MS = 120;
 export function SearchOverlay() {
   const { searchOpen } = useAppState();
   const actions = useAppActions();
-  const { searchIndex } = useReader();
+  const { searchIndex: bakedIndex } = useReader();
+  const { docs: searchIndex, openLiveItem, openLive, closeLive } = useLiveSearch(bakedIndex);
   const { setSearchOpen } = actions;
 
   const [query, setQuery] = useState('');
@@ -171,12 +174,19 @@ export function SearchOverlay() {
         case 'video':
           actions.openVideo(target.eraId, target.videoId);
           break;
+        case 'current':
+          openLive(target.itemId);
+          break;
       }
     },
-    [actions, setSearchOpen],
+    [actions, setSearchOpen, openLive],
   );
 
-  if (!searchOpen) return null;
+  if (!searchOpen) {
+    return openLiveItem ? (
+      <CurrentItemDetail item={openLiveItem} era={getEra(CURRENT_ERA_ID)} onClose={closeLive} />
+    ) : null;
+  }
 
   function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
