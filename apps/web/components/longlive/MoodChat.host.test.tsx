@@ -31,12 +31,15 @@ describe('MoodChat goes through the host apiFetch', () => {
     render(createElement(HostProvider, { adapter }, createElement(MoodChat)));
     send();
     await waitFor(() => expect(apiFetch).toHaveBeenCalledTimes(1));
-    expect(apiFetch).toHaveBeenCalledWith({
-      path: '/api/mood',
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: BODY,
-    });
+    expect(apiFetch).toHaveBeenCalledWith(
+      {
+        path: '/api/mood',
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: BODY,
+      },
+      { signal: expect.any(AbortSignal) },
+    );
     await screen.findByText('say more');
   });
 
@@ -50,6 +53,7 @@ describe('MoodChat goes through the host apiFetch', () => {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: BODY,
+      signal: expect.any(AbortSignal),
     });
   });
 
@@ -58,5 +62,39 @@ describe('MoodChat goes through the host apiFetch', () => {
     render(createElement(TestHostProvider, null, createElement(MoodChat)));
     send();
     await screen.findByText("That didn't go through. Try again in a moment?");
+  });
+
+  it('a 429 gets its own wording and keeps what the reader typed', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 429 })));
+    render(createElement(TestHostProvider, null, createElement(MoodChat)));
+    send();
+    await screen.findByText('Too many requests, try again in a moment.');
+    expect(screen.getByLabelText('How are you feeling?')).toHaveValue('happy');
+  });
+
+  it('a request that never answers ends in the error line with the input kept', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        (_url: string, init?: { signal?: AbortSignal }) =>
+          new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+          }),
+      ),
+    );
+    const realSetTimeout = globalThis.setTimeout;
+    const timeouts: number[] = [];
+    vi.stubGlobal('setTimeout', ((fn: () => void, ms?: number, ...rest: unknown[]) => {
+      if (ms === 8000) {
+        timeouts.push(ms);
+        return realSetTimeout(fn, 20);
+      }
+      return realSetTimeout(fn, ms, ...rest);
+    }) as typeof setTimeout);
+    render(createElement(TestHostProvider, null, createElement(MoodChat)));
+    send();
+    await screen.findByText("That didn't go through. Try again in a moment?");
+    expect(timeouts).toEqual([8000]);
+    expect(screen.getByLabelText('How are you feeling?')).toHaveValue('happy');
   });
 });

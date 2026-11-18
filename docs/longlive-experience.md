@@ -523,6 +523,36 @@ about a bridge` starter remains pinned to the cathartic bridge set led by All
 Too Well (10 Minute Version), and energetic starter vectors do not receive the
 heavy-heartbreak intro.
 
+**Failure containment (2026-11-18):** four rules keep one failure from
+blanking the reader.
+
+- **Live rows are normalised once, at the fetch.** `fetchLiveData`
+  (`reader/lib/use-live-data.ts`) passes `items` through
+  `normaliseCurrentItems` (`reader/lib/normalise-live-items.ts`): a row with
+  no id, headline, date or known status is dropped, everything else is
+  defaulted (`sources` → `[]`). Components may therefore dereference
+  `item.sources[0]`, `item.tags` and friends without guards; a new field the
+  UI dereferences gets a default there, not a guard in each component. The
+  fetch also gives up after 10 s and resolves to the empty payload.
+- **A code-split surface carries its own boundary.** `MerchSection` is loaded
+  with `lazyWithRetry` (`components/longlive/lazy-with-retry.tsx`), not
+  `next/dynamic`. If the chunk cannot load (offline after first paint), that
+  surface shows "You're offline" with a Try again button that re-attempts the
+  import; every other tab keeps working, and leaving and re-entering the tab
+  retries too. Any new lazily loaded surface uses the same wrapper. There is
+  deliberately no boundary inside the shared `ReaderShell`.
+- **Chat requests time out.** Mood (8 s) and Clownbot (60 s without a stream
+  event) run under `withTimeout` (`reader/clown/lib/chat-request.ts`), with
+  the same values the app's bridge enforces (`bridge/api-timeout.ts`). A
+  timeout lands in the existing error line and the composer keeps its text. A
+  429 reads "Too many requests, try again in a moment."; every other failure
+  keeps the generic line. Neither surface has a retry button: the reader
+  sends again.
+- **Everything else lands on `app/error.tsx`** ("Something went wrong", Try
+  again, Reload), with `app/global-error.tsx` behind it for a root-layout
+  failure. Both render `components/ErrorFallback.tsx`, which uses no era
+  tokens and no stylesheet.
+
 ---
 
 ### 7a. Share cards (W9, Bots v2)

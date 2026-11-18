@@ -8,8 +8,8 @@ import { readClownStream } from './clown-stream';
 import { useAppActions, useAppState } from '../../store';
 import { useHost } from '../../../host/context';
 import { bufferedFrom } from '../../../host/buffered-from';
-
-const NETWORK_ERROR = "That didn't go through. Try again in a moment?";
+import { apiTimeoutFor } from '../../../bridge/api-timeout';
+import { chatErrorMessage, withTimeout } from './chat-request';
 
 /**
  * The ClownChat ask loop, split out of ClownChat.tsx (300-line cap): the
@@ -81,16 +81,22 @@ export function useClownAsk(setText: (text: string) => void) {
         // under this same reader, so this replaces the old `res.json()` for
         // every path, not just the loop's.
         let answer: ClownAnswer | null = null;
-        await readClownStream(chunks, (event) => {
-          if (controller.signal.aborted) throw new DOMException('aborted', 'AbortError');
-          if (event.type === 'investigation') setInvestigating(event.step);
-          else answer = event.answer;
-        });
+        await withTimeout(
+          apiTimeoutFor('POST', '/api/clown'),
+          (signal, keepAlive) =>
+            readClownStream(chunks, (event) => {
+              if (signal.aborted) throw new DOMException('aborted', 'AbortError');
+              keepAlive();
+              if (event.type === 'investigation') setInvestigating(event.step);
+              else answer = event.answer;
+            }),
+          controller,
+        );
         if (!answer) throw new Error('no answer event in stream');
         addClownMessage(question, answer);
         if (inflightRef.current === controller && !options.keepDraft) setText('');
-      } catch {
-        if (inflightRef.current === controller) setError(NETWORK_ERROR);
+      } catch (err) {
+        if (inflightRef.current === controller) setError(chatErrorMessage(err));
       } finally {
         if (inflightRef.current === controller) {
           inflightRef.current = null;
