@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 110
+
+## Taylor Swift Makes Announcement Prior to CMA Performance
+
+- first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has made an announcement that garnered attention just before her performance at the CMA event. Details regarding the announcement have not been specified in the report.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-announcement-turns-heads-083353938.html
+
+## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
+
+- first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
+- sources:
+  - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
+
+## Taylor Swift to Appear at CMAs This Wednesday
+
+- first seen: 2026-11-18 09:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to return to the Country Music Association Awards, alongside other featured content. The announcement includes a mention of the Madden movie and additional show highlights.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/articles/watch-wednesday-taylor-swift-returns-080000254.html
 
 ## Taylor Swift Comments on Future with Travis Kelce Amid Frustration Reports
 
