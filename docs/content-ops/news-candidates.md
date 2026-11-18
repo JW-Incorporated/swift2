@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 117
+Stories: 114
 
 ## Taylor Swift Superfan Concludes 'Blind Love Era'
 
@@ -150,10 +150,11 @@ Stories: 117
 ## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
 - sources:
   - [unverified] Axios — https://www.axios.com/local/nashville/2026/11/18/cma-awards-2026-taylor-swift-lainey-wilson-copy
+  - [unverified] Forbes — https://www.forbes.com/sites/matthewleimkuehler/2026/11/18/cma-awards-2026-whos-performing-taylor-swift-ella-langley-and-more/
   - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
 
@@ -964,32 +965,3 @@ Stories: 117
 - summary: In a recent InStyle interview, Taylor Swift shares her thoughts on a relatable parenting dilemma, providing a rare glimpse into her insights on parenting. The discussion highlights her perspective and experiences with challenges faced by parents.
 - sources:
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-rare-thoughts-relatable-parenting-dilemma-12256259
-
-## Animal Rescue in West Virginia Receives Donation Linked to Swift-Kelce Wedding
-
-- first seen: 2026-11-15 17:17 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: A West Virginia animal rescue has received a donation associated with the wedding of Taylor Swift and Travis Kelce. The donation highlights the charitable contributions tied to high-profile events.
-- sources:
-  - [unverified] Lootpress — https://www.lootpress.com/west-virginia-animal-rescue-receives-donation-connected-to-taylor-swift-and-travis-kelce-wedding/
-
-## Update on Taylor Swift's Attendance at Chiefs Game Today
-
-- first seen: 2026-11-15 17:17 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: An update has been provided regarding Taylor Swift's potential attendance at today's Chiefs game. Fans are eager to know if she will be present at the event.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66112359/?ref_=nmnw_art_perm
-
-## Taylor Swift's Possible Appearance at Chiefs vs Falcons Game
-
-- first seen: 2026-11-15 16:19 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: Reports discuss the potential for Taylor Swift to attend the upcoming Chiefs vs Falcons game, with speculation surrounding her attendance and its implications. Details on her plans remain unconfirmed.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74426037/taylor-swift-travis-kelce-chiefs-falcons-game-attendance/
-  - [unverified] Fox News — https://www.foxnews.com/outkick-sports/taylor-swift-husband-travis-kelce-injures-ankle-falcons-questionable-return
-  - [unverified] HITC — https://www.hitc.com/taylor-swift-and-travis-kelce-pregnant-online-rumours-debunked-after-brittany-mahomes-liked-post/
-  - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/statistically-speaking-taylor-swift-travis-170438313.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-husband-travis-kelce-191429600.html
