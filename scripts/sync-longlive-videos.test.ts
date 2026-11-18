@@ -149,7 +149,7 @@ describe('normalizeVideo', () => {
       youtubeId: 'b1kbLwvqugk',
       watchUrl: null,
       platform: null,
-      sources: [{ name: 'Example', url: 'https://en.wikipedia.org/wiki/Example' }],
+      sources: [{ name: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Example' }],
       tags: [],
     });
   });

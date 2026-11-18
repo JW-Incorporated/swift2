@@ -38,16 +38,65 @@ const KNOWN_HOSTS: Record<string, string> = {
   'youtube.com': 'YouTube',
   'youtu.be': 'YouTube',
   'taylorswift.com': 'taylorswift.com',
+  'bostonglobe.com': 'The Boston Globe',
+  'wbur.org': 'WBUR',
+  'stereogum.com': 'Stereogum',
+  'wwd.com': 'WWD',
+  'tennessean.com': 'The Tennessean',
+  'pollstar.com': 'Pollstar',
+  'graziamagazine.com': 'Grazia',
+  'gofugyourself.com': 'Go Fug Yourself',
+  'instyle.com': 'InStyle',
+  'harpersbazaar.com': "Harper's Bazaar",
+  'thezoereport.com': 'The Zoe Report',
+  'nbcnewyork.com': 'NBC New York',
+  'iheart.com': 'iHeartRadio',
+  'news.google.com': 'Google News',
+  'ew.com': 'Entertainment Weekly',
+  'pagesix.com': 'Page Six',
+  'glamour.com': 'Glamour',
+  'teenvogue.com': 'Teen Vogue',
+  'harpersbazaar.co.uk': "Harper's Bazaar",
+  'nme.com': 'NME',
+  'pitchfork.com': 'Pitchfork',
+  'consequence.net': 'Consequence',
+  'vulture.com': 'Vulture',
+  'forbes.com': 'Forbes',
+  'time.com': 'TIME',
+  'newsweek.com': 'Newsweek',
+  'washingtonpost.com': 'The Washington Post',
+  'latimes.com': 'Los Angeles Times',
+  'wsj.com': 'The Wall Street Journal',
+  'abcnews.go.com': 'ABC News',
+  'cbsnews.com': 'CBS News',
+  'today.com': 'TODAY',
+  'hellomagazine.com': 'HELLO!',
+  'independent.co.uk': 'The Independent',
+  'dailymail.co.uk': 'Daily Mail',
+  'mirror.co.uk': 'The Mirror',
+  'thesun.co.uk': 'The Sun',
+  'buzzfeed.com': 'BuzzFeed',
+  'huffpost.com': 'HuffPost',
+  'espn.com': 'ESPN',
+  'nfl.com': 'NFL',
+  'kansascity.com': 'The Kansas City Star',
+  'instagram.com': 'Instagram',
+  'x.com': 'X',
+  'twitter.com': 'X',
+  'tiktok.com': 'TikTok',
+  'reddit.com': 'Reddit',
+  'facebook.com': 'Facebook',
 };
 
-function titleCase(s: string): string {
-  return s
-    .replace(/(^|[a-z])([A-Z])/g, '$1 $2')
-    .replace(/[-._]+/g, ' ')
-    .trim()
-    .split(' ')
-    .map(w => (w ? w[0]!.toUpperCase() + w.slice(1) : w))
-    .join(' ');
+/** Exact host first, then each parent domain, so `news.pollstar.com` and a
+ * station subdomain on `iheart.com` resolve to their outlet. */
+function knownLabel(host: string): string | undefined {
+  const parts = host.split('.');
+  for (let i = 0; i < parts.length - 1; i++) {
+    const known = KNOWN_HOSTS[parts.slice(i).join('.')];
+    if (known) return known;
+  }
+  return undefined;
 }
 
 /**
@@ -70,28 +119,22 @@ function registrableHost(hostname: string): string {
  * Derive a human-readable outlet label from a source.
  * - If `name` is non-empty after trim, returns it.
  * - Otherwise derives from the URL host: strips www./m./amp. prefixes,
- *   checks KNOWN_HOSTS, falls back to title-cased registrable name.
+ *   checks KNOWN_HOSTS (and its parent domains), falls back to the bare host.
  * - Never returns "". Unparseable URL -> "Source".
  */
-export function outletLabel(source: { name?: string; url: string }): string {
+export function outletLabel(source: { name?: string | null; url: string }): string {
   const trimmedName = source.name?.trim();
   if (trimmedName) return trimmedName;
 
   let host: string;
   try {
-    host = new URL(source.url).hostname;
+    host = new URL(source.url).hostname.toLowerCase();
   } catch {
     return 'Source';
   }
 
   const regHost = registrableHost(host);
-  const known = KNOWN_HOSTS[regHost];
-  if (known) return known;
-
-  // Fall back to title-cased host, stripping the TLD for readability
-  const withoutTld = regHost.replace(/\.[^.]+$/, '');
-  const label = titleCase(withoutTld);
-  return label || 'Source';
+  return knownLabel(regHost) ?? (regHost || 'Source');
 }
 
 /**

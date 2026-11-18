@@ -1,6 +1,7 @@
 import { MomentVideo } from '../era/MomentVideo';
 import { footnoteVideoSources } from '../lib/video-affordance';
 import type { ContentItem } from '@swift2/experience';
+import { outletLabel } from '@swift2/shared';
 
 export function MomentSources({ item }: { item: ContentItem }) {
   // The citations that still embed in the footnote — see lib/longlive/video-affordance.ts.
@@ -28,7 +29,7 @@ export function MomentSources({ item }: { item: ContentItem }) {
       ))}
       {/* Footnote-scale, academic-text style — citations belong here on
           the expanded page, small, not competing with the article. */}
-      <p className="text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+      <p className="text-xs leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
         {item.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
         {item.sources.map((s, i) => (
           <span key={`${s.url}-${i}`}>
@@ -39,7 +40,7 @@ export function MomentSources({ item }: { item: ContentItem }) {
               rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
             >
-              {s.name}
+              {outletLabel(s)}
             </a>
           </span>
         ))}

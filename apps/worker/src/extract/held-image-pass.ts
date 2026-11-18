@@ -5,7 +5,7 @@
 // publish gate so the backlog clears without a manual backfill. No LLM calls.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { evaluateCurrentItemQuality } from '@swift2/shared';
+import { evaluateCurrentItemQuality, outletLabel } from '@swift2/shared';
 import { screenTopic } from '@swift2/shared/redline';
 import type { SourceTier } from '@swift2/shared/news';
 import { resolveSourceUrls } from '../sources/resolve-google-news';
@@ -80,7 +80,7 @@ export async function reresolveHeldImages(
         image_attempts: (row.image_attempts ?? 0) + 1,
         last_image_attempt_at: now.toISOString(),
         image_url: image ?? null,
-        sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+        sources: sources.map((s) => ({ name: outletLabel({ name: s.outletName, url: s.url }), url: s.url, tier: s.tier })),
       };
       const { error: factsError } = await db
         .from('current_item')

@@ -353,6 +353,20 @@ describe('mergeNewFactsIntoOriginal', () => {
     expect(row?.detail).toBe(mergedDetail);
     expect(row?.quality_hold_reason).toBeNull();
   });
+
+  it('writes an outlet name for a merged-in source whose outletName is empty', async () => {
+    const { db, updatedRow } = fakeMergeDb();
+    await mergeNewFactsIntoOriginal(db, 'item-orig', GOOD_ORIGINAL, {
+      mergedSummary: 'Short.',
+      mergedDetail: 'Too thin.',
+      duplicateSources: [
+        { outletName: '', url: 'https://www.bostonglobe.com/2026/11/17/arts/x/', tier: 'unverified' },
+      ],
+      duplicateImageUrl: null,
+    });
+    const names = (updatedRow()?.sources as { name: string }[]).map((s) => s.name);
+    expect(names).toEqual(['Billboard', 'The Boston Globe']);
+  });
 });
 
 describe('writeFanSignal', () => {

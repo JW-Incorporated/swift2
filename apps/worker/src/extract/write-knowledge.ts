@@ -246,7 +246,7 @@ export async function writeCurrentItem(
     confidence: CONFIDENCE_BY_STATUS[item.statusHint],
     source_tier: bestSourceTier(sources.map((s) => s.tier)),
     sources: sources.map((s) => ({
-      name: s.outletName?.trim() ? s.outletName : outletLabel({ name: s.outletName, url: s.url }),
+      name: outletLabel({ name: s.outletName, url: s.url }),
       url: s.url,
       tier: s.tier,
     })),
@@ -374,7 +374,7 @@ export async function mergeNewFactsIntoOriginal(
   const facts: Record<string, unknown> = {
     summary,
     detail,
-    sources: sources.map((s) => ({ name: s.outletName, url: s.url, tier: s.tier })),
+    sources: sources.map((s) => ({ name: outletLabel({ name: s.outletName, url: s.url }), url: s.url, tier: s.tier })),
     source_tier: bestSourceTier(sources.map((s) => s.tier)),
     heat: sources.length,
     image_url: imageUrl,

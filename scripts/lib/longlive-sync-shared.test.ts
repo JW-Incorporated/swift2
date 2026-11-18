@@ -74,11 +74,27 @@ describe('sourcesFrom', () => {
 
   it('leaves the bare top-level sourceUrl unscored — a url carries no judgment', () => {
     expect(sourcesFrom([], 'https://www.vogue.com/a')).toEqual([
-      { name: 'vogue.com', url: 'https://www.vogue.com/a' },
+      { name: 'Vogue', url: 'https://www.vogue.com/a' },
     ]);
   });
 
-  it('still de-dupes by url and still falls back to the hostname for a nameless entry', () => {
+  it('labels a citation by its outlet, never by the article headline', () => {
+    const [withPublisher, titleOnly] = sourcesFrom(
+      [
+        {
+          url: 'https://www.billboard.com/culture/events/x-1236379462/',
+          source_title: 'Taylor Swift to Receive 2026 Sherry Lansing Leadership Award',
+          publisher: 'Billboard',
+        },
+        { url: 'https://www.bostonglobe.com/2026/11/17/arts/x/', source_title: 'A long headline' },
+      ],
+      null,
+    );
+    expect(withPublisher!.name).toBe('Billboard');
+    expect(titleOnly!.name).toBe('The Boston Globe');
+  });
+
+  it('still de-dupes by url and labels a nameless entry from its host', () => {
     expect(
       sourcesFrom(
         [
@@ -87,7 +103,7 @@ describe('sourcesFrom', () => {
         ],
         'https://www.npr.org/a',
       ),
-    ).toEqual([{ name: 'npr.org', url: 'https://www.npr.org/a', reliability: 4 }]);
+    ).toEqual([{ name: 'NPR', url: 'https://www.npr.org/a', reliability: 4 }]);
   });
 });
 
