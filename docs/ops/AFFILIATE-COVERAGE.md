@@ -167,7 +167,6 @@ The explanation column is required for every uncovered row. It reports only the 
 | From The Vault 1989 (Taylor's Version) White T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | From The Vault Green 1989 (Taylor's Version) Photo Long Sleeve | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | From The Vault Light Yellow 1989 (Taylor's Version) Photo Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| From The Vault Photo 1989 (Taylor's Version) Gray Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Garden Gate Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Getaway Car Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Girls Midnight Sparkle Bodysuit &#124; Kids Dark Blue Rhinestone Print Leotard &#124; Pop Star Inspired | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
@@ -598,9 +597,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 584 |
+| total | 583 |
 | wrapped | 0 |
 | awin-apply | 7 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 471 |
+| direct-by-policy | 470 |
