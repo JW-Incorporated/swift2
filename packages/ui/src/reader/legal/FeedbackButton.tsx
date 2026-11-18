@@ -10,7 +10,6 @@ import { useBackDismiss } from '../lib/useBackDismiss';
 import { describeView } from './lib/feedback-location';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 import { useOverlayOpen } from './lib/useOverlayOpen';
-import { useCompactOnPhone } from './lib/useCompactOnPhone';
 import { OPEN_FEEDBACK_EVENT } from './lib/feedback-open-event';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
@@ -61,8 +60,6 @@ export function FeedbackButton() {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const textareaId = useId();
   const overlayOpen = useOverlayOpen(state);
-  const phone = useCompactOnPhone();
-  const compact = phone;
 
   // Hydrate before paint, never during render — reading sessionStorage
   // during render would break SSR (no `window`), but a plain post-paint
@@ -110,7 +107,11 @@ export function FeedbackButton() {
   // order while it's invisible. Checked after every hook above so hook order
   // stays identical across renders.
   if (dismissed && !open) return null;
-  const hidePill = dismissed || (!open && (overlayOpen || (phone && state.mode === 'clownbot')));
+  const hidePill = dismissed || (!open && overlayOpen);
+  // Phone layout (< md, 767px) is CSS only so the first paint and the
+  // server HTML are already right: an icon circle, no floating X (the
+  // session hide lives in the panel), hidden on the Clownbot tab.
+  const phoneHidden = !open && state.mode === 'clownbot' ? 'max-md:hidden' : '';
 
   return (
     <>
@@ -185,15 +186,13 @@ export function FeedbackButton() {
                 <p className="mt-2 text-[11px] text-ink-soft">
                   Posted publicly on GitHub — please don't include personal details.
                 </p>
-                {phone && (
-                  <button
-                    type="button"
-                    onClick={dismissForSession}
-                    className="inline-flex min-h-11 items-center text-[11px] text-ink-soft underline underline-offset-2"
-                  >
-                    Hide this button for this session
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={dismissForSession}
+                  className="inline-flex min-h-11 items-center text-[11px] text-ink-soft underline underline-offset-2 md:hidden"
+                >
+                  Hide this button for this session
+                </button>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-[11px] text-ink-soft">
                     Reporting from: {describeView(state)}
@@ -226,7 +225,7 @@ export function FeedbackButton() {
       <div
         data-social-hide="feedback-button"
         data-ll-safe="feedback-button"
-        className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex max-w-[calc(100vw-2rem)] items-center gap-2 md:bottom-4"
+        className={`fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[71] flex max-w-[calc(100vw-2rem)] items-center gap-2 md:bottom-4 ${phoneHidden}`}
       >
         {/* Dismisses the whole widget for the rest of the session (Joey: "it
             shouldn't keep coming back and annoying them"), distinct from just
@@ -245,15 +244,18 @@ export function FeedbackButton() {
             there's an invisible pop up that I need to clear"). The `bg-*`
             utility that used to sit here was inert — globals.css is ordered
             after Tailwind's utilities, so `.era-icon-btn` won regardless. */}
-        {!open && !compact && (
-          <button
-            type="button"
-            onClick={dismissForSession}
-            aria-label="Dismiss the feedback button for this session"
-            className="era-icon-btn era-icon-btn--quiet rounded-full shadow backdrop-blur-md"
-          >
-            <X size={16} />
-          </button>
+        {/* `max-md:hidden` on a wrapper: `.era-icon-btn` sets its own display. */}
+        {!open && (
+          <span className="max-md:hidden">
+            <button
+              type="button"
+              onClick={dismissForSession}
+              aria-label="Dismiss the feedback button for this session"
+              className="era-icon-btn era-icon-btn--quiet rounded-full shadow backdrop-blur-md"
+            >
+              <X size={16} />
+            </button>
+          </span>
         )}
         <button
           ref={toggleRef}
@@ -262,7 +264,7 @@ export function FeedbackButton() {
           aria-label={open ? 'Close feedback' : 'Send feedback'}
           aria-expanded={open}
           className={`inline-flex min-w-0 items-center rounded-full border border-line bg-surface/90 py-3 text-sm font-medium text-ink shadow-2xl backdrop-blur-md transition-[transform,padding,gap] motion-reduce:transition-none hover:scale-105 active:scale-95 ${
-            compact && !open ? 'gap-0 px-3' : 'gap-2 px-4'
+            open ? 'gap-2 px-4' : 'gap-2 px-4 max-md:gap-0 max-md:px-3'
           }`}
         >
           {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
@@ -270,9 +272,8 @@ export function FeedbackButton() {
               it there (it moved into the panel), so the old "stray close X for
               a missing pop-up" misreading of an unlabelled corner can't recur. */}
           <span
-            aria-hidden={compact && !open ? true : undefined}
             className={`truncate transition-[max-width,opacity] motion-reduce:transition-none ${
-              compact && !open ? 'max-w-0 opacity-0' : 'max-w-[8rem] opacity-100'
+              open ? 'max-w-[8rem] opacity-100' : 'max-w-[8rem] opacity-100 max-md:max-w-0 max-md:opacity-0'
             }`}
           >
             Feedback

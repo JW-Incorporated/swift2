@@ -46,18 +46,18 @@ const store = (m: Map<string, string>) => ({
   remove: (k: string) => void m.delete(k),
 });
 
-function makeHost(local: Map<string, string>, apiFetch: ReturnType<typeof vi.fn>) {
+function makeHost(local: Map<string, string>, apiFetch: ReturnType<typeof vi.fn>, session = new Map<string, string>()) {
   return {
     apiFetch,
-    storage: { local: store(local), session: store(new Map()) },
+    storage: { local: store(local), session: store(session) },
   } as unknown as HostAdapter;
 }
 
 const ok = { status: 200, body: '{}' };
 
-function mount(local: Map<string, string>, apiFetch: ReturnType<typeof vi.fn>) {
+function mount(local: Map<string, string>, apiFetch: ReturnType<typeof vi.fn>, session?: Map<string, string>) {
   return render(
-    <HostProvider adapter={makeHost(local, apiFetch)}>
+    <HostProvider adapter={makeHost(local, apiFetch, session)}>
       <FeedbackButton />
     </HostProvider>,
   );
@@ -82,19 +82,14 @@ describe('FeedbackButton placement', () => {
   const dismiss = () =>
     screen.queryByRole('button', { name: 'Dismiss the feedback button for this session' });
   const realMatchMedia = window.matchMedia;
-  const phone = { matches: true, addEventListener: () => {}, removeEventListener: () => {} };
-  const scrollTo = (y: number) =>
-    act(() => {
-      Object.defineProperty(window, 'scrollY', { configurable: true, value: y });
-      window.dispatchEvent(new Event('scroll'));
-    });
+  const hideInPanel = () =>
+    screen.queryByRole('button', { name: 'Hide this button for this session' });
 
   afterEach(() => {
     cleanup();
     appState = baseState;
     document.body.style.overflow = '';
     window.matchMedia = realMatchMedia;
-    Object.defineProperty(window, 'scrollY', { configurable: true, value: 0 });
   });
 
   it.each([
@@ -124,63 +119,48 @@ describe('FeedbackButton placement', () => {
     await waitFor(() => expect(trigger()).not.toBeNull());
   });
 
-  it('on a phone, is the icon circle at every scroll position, including the top', () => {
-    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
-    mount(new Map(), vi.fn());
-    const label = () => trigger()!.querySelector('span')!;
-    for (const y of [0, 300, window.innerHeight + 200, 0]) {
-      scrollTo(y);
-      expect(label().className).toContain('opacity-0');
-      expect(label().getAttribute('aria-hidden')).toBe('true');
-      expect(trigger()!.getAttribute('aria-label')).toBe('Send feedback');
-      expect(trigger()!.className).toContain('px-3');
-    }
+  it('renders identical markup with or without matchMedia (the phone layout never waits for JS)', () => {
+    const { container } = mount(new Map(), vi.fn());
+    const withMq = container.innerHTML;
+    cleanup();
+    window.matchMedia = undefined as unknown as typeof window.matchMedia;
+    const { container: noMq } = mount(new Map(), vi.fn());
+    expect(noMq.innerHTML).toBe(withMq);
   });
 
-  it('never collapses on wider viewports', () => {
-    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+  // jsdom applies no CSS, so the < md rules themselves are browser-verified;
+  // this only pins which element each phone rule hangs on.
+  it('keys the phone-only and desktop-only parts to the md breakpoint', () => {
     mount(new Map(), vi.fn());
-    scrollTo(window.innerHeight * 3);
-    expect(trigger()!.querySelector('span')!.className).toContain('opacity-100');
-  });
-
-  it('on phones the Clownbot tab hides the pill and its X; the in-chat report control opens the panel', async () => {
-    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
-    appState = { ...baseState, mode: 'clownbot' };
-    mount(new Map(), vi.fn());
-    expect(trigger()).toBeNull();
-    expect(dismiss()).toBeNull();
-    act(() => requestOpenFeedback());
-    expect(await screen.findByRole('dialog', { name: 'Send feedback' })).toBeTruthy();
-  });
-
-  it('keeps the pill on the Clownbot tab at desktop widths', () => {
-    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
-    appState = { ...baseState, mode: 'clownbot' };
-    mount(new Map(), vi.fn());
-    expect(trigger()).not.toBeNull();
-    expect(dismiss()).not.toBeNull();
-  });
-
-  it('on a phone, never floats the dismiss X; the open panel offers the session hide instead', async () => {
-    window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
-    mount(new Map(), vi.fn());
-    scrollTo(0);
-    expect(dismiss()).toBeNull();
+    expect(dismiss()!.closest('.max-md\\:hidden')).not.toBeNull();
+    expect(trigger()!.querySelector('.max-md\\:opacity-0')).not.toBeNull();
     fireEvent.click(trigger()!);
-    const hide = await screen.findByRole('button', { name: 'Hide this button for this session' });
-    fireEvent.click(hide);
+    expect(hideInPanel()!.classList.contains('md:hidden')).toBe(true);
+  });
+
+  it('the in-panel hide dismisses the widget for the session', async () => {
+    const session = new Map<string, string>();
+    mount(new Map(), vi.fn(), session);
+    fireEvent.click(trigger()!);
+    fireEvent.click(await screen.findByRole('button', { name: 'Hide this button for this session' }));
     expect(screen.queryByRole('dialog', { name: 'Send feedback' })).toBeNull();
     expect(trigger()).toBeNull();
+    expect(dismiss()).toBeNull();
+    expect(session.get('ll-feedback-dismissed-v1')).toBe('1');
   });
 
-  it('keeps the floating dismiss X (and no in-panel hide) at desktop widths', async () => {
-    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+  it('the floating X dismisses the widget for the session', () => {
     mount(new Map(), vi.fn());
-    expect(dismiss()).not.toBeNull();
-    fireEvent.click(trigger()!);
-    await screen.findByRole('dialog', { name: 'Send feedback' });
-    expect(screen.queryByRole('button', { name: 'Hide this button for this session' })).toBeNull();
+    fireEvent.click(dismiss()!);
+    expect(trigger()).toBeNull();
+  });
+
+  it('on the Clownbot tab the pill is phone-hidden, and the in-chat report control still opens the panel', async () => {
+    appState = { ...baseState, mode: 'clownbot' };
+    mount(new Map(), vi.fn());
+    expect(trigger()!.closest('[data-ll-safe="feedback-button"]')!.classList.contains('max-md:hidden')).toBe(true);
+    act(() => requestOpenFeedback());
+    expect(await screen.findByRole('dialog', { name: 'Send feedback' })).toBeTruthy();
   });
 });
 
