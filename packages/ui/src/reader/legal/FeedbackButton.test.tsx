@@ -124,19 +124,17 @@ describe('FeedbackButton placement', () => {
     await waitFor(() => expect(trigger()).not.toBeNull());
   });
 
-  it('on a phone, collapses to the icon circle past one viewport and expands back at the top', () => {
+  it('on a phone, is the icon circle at every scroll position, including the top', () => {
     window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
     mount(new Map(), vi.fn());
     const label = () => trigger()!.querySelector('span')!;
-    expect(label().className).toContain('opacity-100');
-    scrollTo(window.innerHeight + 200);
-    expect(label().className).toContain('opacity-0');
-    expect(label().getAttribute('aria-hidden')).toBe('true');
-    expect(trigger()!.getAttribute('aria-label')).toBe('Send feedback');
-    scrollTo(300);
-    expect(label().className).toContain('opacity-0');
-    scrollTo(0);
-    expect(label().className).toContain('opacity-100');
+    for (const y of [0, 300, window.innerHeight + 200, 0]) {
+      scrollTo(y);
+      expect(label().className).toContain('opacity-0');
+      expect(label().getAttribute('aria-hidden')).toBe('true');
+      expect(trigger()!.getAttribute('aria-label')).toBe('Send feedback');
+      expect(trigger()!.className).toContain('px-3');
+    }
   });
 
   it('never collapses on wider viewports', () => {
@@ -164,15 +162,25 @@ describe('FeedbackButton placement', () => {
     expect(dismiss()).not.toBeNull();
   });
 
-  it('drops the dismiss X while compact, and brings it back at the top', () => {
+  it('on a phone, never floats the dismiss X; the open panel offers the session hide instead', async () => {
     window.matchMedia = (() => phone) as unknown as typeof window.matchMedia;
     mount(new Map(), vi.fn());
-    expect(dismiss()).not.toBeNull();
-    scrollTo(window.innerHeight + 200);
-    expect(dismiss()).toBeNull();
-    expect(trigger()).not.toBeNull();
     scrollTo(0);
+    expect(dismiss()).toBeNull();
+    fireEvent.click(trigger()!);
+    const hide = await screen.findByRole('button', { name: 'Hide this button for this session' });
+    fireEvent.click(hide);
+    expect(screen.queryByRole('dialog', { name: 'Send feedback' })).toBeNull();
+    expect(trigger()).toBeNull();
+  });
+
+  it('keeps the floating dismiss X (and no in-panel hide) at desktop widths', async () => {
+    window.matchMedia = (() => ({ ...phone, matches: false })) as unknown as typeof window.matchMedia;
+    mount(new Map(), vi.fn());
     expect(dismiss()).not.toBeNull();
+    fireEvent.click(trigger()!);
+    await screen.findByRole('dialog', { name: 'Send feedback' });
+    expect(screen.queryByRole('button', { name: 'Hide this button for this session' })).toBeNull();
   });
 });
 

@@ -10,7 +10,7 @@ import { useBackDismiss } from '../lib/useBackDismiss';
 import { describeView } from './lib/feedback-location';
 import { useFeedbackSubmit } from './lib/useFeedbackSubmit';
 import { useOverlayOpen } from './lib/useOverlayOpen';
-import { useCompactOnScroll } from './lib/useCompactOnScroll';
+import { useCompactOnPhone } from './lib/useCompactOnPhone';
 import { OPEN_FEEDBACK_EVENT } from './lib/feedback-open-event';
 
 // A floating "report an issue" button, fixed to the bottom-right so it follows
@@ -61,7 +61,8 @@ export function FeedbackButton() {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const textareaId = useId();
   const overlayOpen = useOverlayOpen(state);
-  const { compact, phone } = useCompactOnScroll();
+  const phone = useCompactOnPhone();
+  const compact = phone;
 
   // Hydrate before paint, never during render — reading sessionStorage
   // during render would break SSR (no `window`), but a plain post-paint
@@ -184,6 +185,15 @@ export function FeedbackButton() {
                 <p className="mt-2 text-[11px] text-ink-soft">
                   Posted publicly on GitHub — please don't include personal details.
                 </p>
+                {phone && (
+                  <button
+                    type="button"
+                    onClick={dismissForSession}
+                    className="inline-flex min-h-11 items-center text-[11px] text-ink-soft underline underline-offset-2"
+                  >
+                    Hide this button for this session
+                  </button>
+                )}
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-[11px] text-ink-soft">
                     Reporting from: {describeView(state)}
@@ -256,13 +266,9 @@ export function FeedbackButton() {
           }`}
         >
           {open ? <X size={18} /> : <MessageSquarePlus size={18} />}
-          {/* The label is what makes the whole bottom-right cluster
-              self-describing, so it is NOT hidden on small screens. It used to
-              be `hidden sm:inline`: under 640px the trigger collapsed to a dim,
-              unlabelled icon and the only legible thing left in the corner was
-              the dismiss X — which is why this looked like a stray close button
-              for a missing pop-up on a phone and looked completely fine on a
-              desktop viewport, where the label was showing all along. */}
+          {/* Phones show the icon circle alone: the dismiss X is never beside
+              it there (it moved into the panel), so the old "stray close X for
+              a missing pop-up" misreading of an unlabelled corner can't recur. */}
           <span
             aria-hidden={compact && !open ? true : undefined}
             className={`truncate transition-[max-width,opacity] motion-reduce:transition-none ${
