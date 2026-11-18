@@ -13,7 +13,7 @@
   ],
   "scheduledAt": "2026-11-18T23:00:00Z",
   "campaign": "news:cma-awards-2026-preshow:2026-11-18",
-  "body": "i'm so nervous i could cry. 13 years since Taylor last performed at the CMAs and tonight she walks back onto that stage 🥹 plus \"I Knew It, I Knew You\" is up for Single of the Year https://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=x&utm_medium=social&utm_campaign=news",
+  "body": "i'm so nervous i could cry. 13 years since Taylor last performed at the CMAs and tonight she walks back onto that stage 🥹 i will be screaming at my tv the entire time https://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=x&utm_medium=social&utm_campaign=news",
   "why": "Calendar 11-18 23:00Z CMA pre-show beat, X half written first. Booking verified 2026-11-18: 60th CMA Awards live Nov 18, her first CMA performance since \"Red\" with Vince Gill and Alison Krauss in 2013 (GMA/ABC News, KCTV5, Whiskey Riff, Nov 13). Lead #6840. No performance described; it has not happened yet.",
   "critique": {
     "v": 1,
@@ -30,6 +30,23 @@
       "L003",
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "rewrite": {
+      "model": "claude-opus-5-5",
+      "at": "2026-11-18T19:29:03.072Z",
+      "fromBodyHash": "sha256:77c33853309a5036e2486204dca1ee5fe017e48c017c7dec53bc82b485d6534a",
+      "changes": "I took out the line saying \"I Knew It, I Knew You\" is up for Single of the Year. The judge found no song by that name on the Life of a Showgirl tracklist, so the claim had nothing behind it. I didn't swap in another nomination or song title, because that would just be a new claim with no source.\n\nTo fill the space, I added a feeling line (\"i will be screaming at my tv the entire time\"). It keeps the first-person gush that scored well on voice, and it doesn't add any facts, so it doesn't hurt the formula score either.\n\nThe 13-years-since-the-CMAs detail is unchanged. It checked out and now carries the post on its own, which is what should lift the specific score.\n\nThe link is exactly as you gave it. The judge marked down the UTM tags as unpolished, but the rules say I can't change or drop links, so if you want a cleaner URL you'll need to change it yourself. Without the made-up title, which was the bigger problem for the embarrassment score, it should do better there too.\n\nX counts any link as 23 characters, so the caption is about 170 of the 280 allowed."
+    },
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 4,
+        "formula": 4,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-18T19:29:20.925Z",
+      "bodyHash": "sha256:8aefb8dfa90963388d8482ded8503a9eeeffa86e181f066f8fe5af8dc83b6bf5"
+    }
   }
 }

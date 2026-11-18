@@ -13,7 +13,7 @@
   ],
   "scheduledAt": "2026-11-18T23:00:00Z",
   "campaign": "news:cma-awards-2026-preshow:2026-11-18",
-  "body": "she's back on the CMA stage tonight and i'm already shaking!!\n\nTaylor is performing at the 60th CMA Awards, her first CMA performance in 13 years. the last one was 2013, when she sang \"Red\" with Vince Gill and Alison Krauss.\n\nshe's also nominated for Single of the Year with \"I Knew It, I Knew You\" from the Toy Story 5 soundtrack 💛\n\nwho's staying up to watch it live with us?\n\n📷 jurvetson (CC BY 2.0), via Openverse\n\nhttps://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=instagram&utm_medium=social&utm_campaign=news\n\n#TaylorSwift #CMAawards #Swifties",
+  "body": "she's back on the CMA stage tonight and i'm already shaking!!\n\nthirteen years since taylor last performed at the CMAs. the last time was 2013, when she sang \"Red\" with Vince Gill and Alison Krauss, and i still rewatch it way more than i'd admit. and now she's performing at the 60th CMA Awards?? my heart is not ready.\n\nshe's also up for Single of the Year with \"I Knew It, I Knew You\" from the Toy Story 5 soundtrack, which i have played an honestly embarrassing number of times 💛\n\n📷 jurvetson (CC BY 2.0), via Openverse\n\nhttps://www.longlivets.com/?era=the-life-of-a-showgirl&utm_source=instagram&utm_medium=social&utm_campaign=news\n\n#TaylorSwift #CMAawards #Swifties",
   "why": "Instagram sibling of the CMA pre-show pair (covers Facebook). Booking and the Single of the Year nomination for \"I Knew It, I Knew You\" (Toy Story 5) verified 2026-11-18 via GMA/ABC News and KCTV5 coverage of the Nov 13 announcement. Pre-show only: no setlist, no outcome claimed.",
   "critique": {
     "v": 1,
@@ -30,6 +30,23 @@
       "L003",
       "L002"
     ],
-    "revision": 1
+    "revision": 1,
+    "rewrite": {
+      "model": "claude-opus-5-5",
+      "at": "2026-11-18T19:28:54.322Z",
+      "fromBodyHash": "sha256:9e133c4f8d6ad74b72f9049af80fbd595ca7662f2896229322bbeb384f893dde",
+      "changes": "The middle used to read like third-person news copy. Now it's in my own voice (\"i still rewatch it way more than i'd admit\", \"my heart is not ready\", \"played an honestly embarrassing number of times\"), so the post sounds like one fan the whole way through. That should help onVoice and notEmbarrassed.\n\nI cut the closing question (\"who's staying up to watch it live with us?\"), which was the one stock frame the judge flagged. I didn't add a new call to action or a summing-up last line in its place, and the caption has no em dashes.\n\nAll the facts are the same as before: the 60th CMA Awards, 13 years since her last CMA performance, \"Red\" in 2013 with Vince Gill and Alison Krauss, and the Single of the Year nomination for \"I Knew It, I Knew You\" from the Toy Story 5 soundtrack. The photo credit, link and hashtags haven't changed either, so the specific score (4) should hold.\n\nOne risk is still there. The judge worried the nomination could turn out to be wrong, and I kept it as a plain statement because the rules don't let me drop factual claims or add a source. If it's not confirmed, check it before posting."
+    },
+    "judge": {
+      "model": "claude-opus-5-5",
+      "scores": {
+        "onVoice": 4,
+        "specific": 4,
+        "formula": 4,
+        "notEmbarrassed": 4
+      },
+      "at": "2026-11-18T19:29:13.136Z",
+      "bodyHash": "sha256:eecfc66558e6f2ba613fa81ed043eac0dde45e6faee3ddf192e7b9b2fccdab26"
+    }
   }
 }
