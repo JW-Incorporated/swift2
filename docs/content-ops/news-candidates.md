@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 107
+
+## Taylor Swift Comments on Future with Travis Kelce Amid Frustration Reports
+
+- first seen: 2026-11-18 06:37 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has addressed the next steps in her relationship with Travis Kelce, responding to recent reports of her frustration. She expressed uncertainty in her comments, highlighting the complexities of their relationship.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-finally-comments-next-170647146.html
 
 ## Taylor Swift to Perform at 2026 Country Music Association Awards
 
