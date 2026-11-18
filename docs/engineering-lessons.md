@@ -597,3 +597,14 @@ engaged, never in a process cold-launched from a link, and re-check pending
 links immediately before the reload. PR #5318: the first live link of a
 normally launched process takes the `cold:` id, so "retain live links" keyed on
 the `link:` prefix missed the main case. Rule: test the plainest path first.
+
+### `cd` into a worktree does not persist between shell calls
+
+2026-11-18. Ten agents were told to `cd` into their worktree under
+`~/.codex/worktrees/` once and stay there. A `cd` outside the session's working
+directories resets on the next Bash call, so several ran `npm ci` in the shared
+main checkout at once and left its `node_modules` nearly empty. Rule: prefix
+every shell call with `cd <worktree> && <command>` (or use `git -C <worktree>` /
+`npm --prefix <worktree>`), confirm `git rev-parse --show-toplevel` before any
+install, test, build or commit, and never run `npm ci`/`npm install` in the main
+checkout. A test result is evidence only if it ran in the worktree.

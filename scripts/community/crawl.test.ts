@@ -161,6 +161,30 @@ function postEntry(id: string, rank: number) {
 }
 
 describe('crawlSubreddit', () => {
+  it('skips a subreddit with a warning when its RSS feed 404s (upstream outage)', async () => {
+    const fetchImpl = vi.fn(async () => new Response('', { status: 404 }));
+    const warn = vi.fn();
+
+    const result = await crawlSubreddit(
+      { id: 'reddit:SwiftlyNeutral', name: 'SwiftlyNeutral' },
+      { relayReachable: false, relayUrl: '', budgetRemaining: 10, fetchImpl, warn },
+    );
+
+    expect(result).toEqual({ subreddit: 'reddit:SwiftlyNeutral', posts: [], relayUsed: 0 });
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('r/SwiftlyNeutral RSS returned 404'));
+  });
+
+  it('still throws on a non-outage RSS error', async () => {
+    const fetchImpl = vi.fn(async () => new Response('', { status: 400 }));
+
+    await expect(
+      crawlSubreddit(
+        { id: 'reddit:SwiftlyNeutral', name: 'SwiftlyNeutral' },
+        { relayReachable: false, relayUrl: '', budgetRemaining: 10, fetchImpl, warn: vi.fn() },
+      ),
+    ).rejects.toMatchObject({ status: 400 });
+  });
+
   it('marks every post depth=partial when the relay is unreachable', async () => {
     const postFeed = atomFeed([postEntry('p1', 1), postEntry('p2', 2)]);
     const commentFeed = atomFeed([]); // no comments needed for this assertion

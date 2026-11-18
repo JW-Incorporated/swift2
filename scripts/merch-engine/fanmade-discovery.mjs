@@ -7,6 +7,7 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { httpsRequest } from '../lib/gh.mjs';
 import { fetchSubredditPosts } from '../lib/reddit-rss.mjs';
+import { isOutageError } from '../appearance-discovery/lib/feed-retry.mjs';
 import { serviceClient } from '../lib/supabase.mjs';
 import {
   ETSY_FAILURE_ISSUE_PREFIX,
@@ -289,6 +290,7 @@ async function discoverReddit({ fetchImpl, subreddits = REDDIT_SUBREDDITS, warn 
   const candidates = [];
   const counts = { fetched: 0, rejected: {} };
   let forbiddenCount = 0;
+  let outageCount = 0;
   for (const subreddit of subreddits) {
     let result;
     try {
@@ -296,6 +298,10 @@ async function discoverReddit({ fetchImpl, subreddits = REDDIT_SUBREDDITS, warn 
     } catch (error) {
       if (error?.status === 403) {
         forbiddenCount += 1;
+        continue;
+      }
+      if (isOutageError(error)) {
+        outageCount += 1;
         continue;
       }
       throw error;
@@ -309,6 +315,9 @@ async function discoverReddit({ fetchImpl, subreddits = REDDIT_SUBREDDITS, warn 
   }
   if (forbiddenCount > 0) {
     warn(`fanmade-discovery: Reddit RSS returned 403 for ${forbiddenCount}/${subreddits.length} subreddit(s) this run`);
+  }
+  if (outageCount > 0) {
+    warn(`::warning::fanmade-discovery: Reddit RSS returned 404/5xx for ${outageCount}/${subreddits.length} subreddit(s) this run (upstream outage, not failing the run)`);
   }
   return { candidates, counts };
 }

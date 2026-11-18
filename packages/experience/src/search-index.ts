@@ -34,9 +34,10 @@ export type SearchTarget =
   | { kind: 'theory-guide'; eraId: EraId; slug?: string }
   | { kind: 'trail'; motifId: MotifId }
   | { kind: 'thread'; lensId: LensId }
-  | { kind: 'video'; eraId: EraId; videoId: string };
+  | { kind: 'video'; eraId: EraId; videoId: string }
+  | { kind: 'current'; itemId: string };
 
-export type SearchDocType = 'moment' | 'era' | 'track' | 'theory' | 'video' | 'egg' | 'thread';
+export type SearchDocType = 'moment' | 'era' | 'track' | 'theory' | 'video' | 'egg' | 'thread' | 'news';
 
 export interface SearchDoc {
   /** Unique across the whole index (`<type>:<id>`). */
@@ -322,6 +323,7 @@ export const MAX_RESULTS_PER_TYPE = 5;
 const GROUP_META: { type: SearchDocType; label: string }[] = [
   { type: 'era', label: 'Eras' },
   { type: 'thread', label: 'Threads' },
+  { type: 'news', label: 'News' },
   { type: 'moment', label: 'Moments' },
   { type: 'egg', label: 'Clue Web' },
   { type: 'theory', label: 'Theories & eggs' },

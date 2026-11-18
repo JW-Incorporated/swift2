@@ -351,6 +351,26 @@ describe('fan-made discovery', () => {
     await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toMatchObject({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
   });
 
+  it('treats a Reddit RSS 404/5xx as an upstream outage, not a failed run', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('openapi.etsy.com')) return new Response(JSON.stringify({ results: [] }), { status: 200 });
+      if (url.includes('reddit.com')) return new Response('', { status: url.includes('TaylorSwift/') ? 404 : 503 });
+      throw new Error(`unexpected URL: ${url}`);
+    });
+
+    await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).resolves.toMatchObject({ candidates: [], etsyQueryErrors: [], etsyTotalFailure: false });
+  });
+
+  it('still fails the run on a non-outage Reddit RSS error', async () => {
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes('openapi.etsy.com')) return new Response(JSON.stringify({ results: [] }), { status: 200 });
+      if (url.includes('reddit.com')) return new Response('', { status: 400 });
+      throw new Error(`unexpected URL: ${url}`);
+    });
+
+    await expect(discoverCandidates({ etsyApiKey: 'test-key', fetchImpl })).rejects.toMatchObject({ status: 400 });
+  });
+
   it('normalizes public Reddit and form intake without treating either as verified product facts', () => {
     expect(normalizeRedditPost({
       id: 'abc', title: 'A shop find', url: 'https://www.etsy.com/listing/7', permalink: 'https://www.reddit.com/r/TaylorSwiftMerch/comments/abc', createdAt: '2026-08-30T00:00:00.000Z', rank: 3,
