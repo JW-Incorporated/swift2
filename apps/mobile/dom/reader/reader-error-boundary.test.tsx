@@ -76,12 +76,23 @@ describe('ReaderErrorBoundary', () => {
     const alert = screen.getByRole('alert');
     expect(alert.textContent).toContain('Something went wrong');
     expect(onError).toHaveBeenCalledTimes(MAX_AUTO_RETRIES + 1);
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Reload' }));
     act(() => void (clock += RAPID_WINDOW_MS * 2));
     expect(onError).toHaveBeenCalledTimes(MAX_AUTO_RETRIES + 1);
     ctl.broken = false;
     fireEvent.click(screen.getByRole('button', { name: 'Reload' }));
     expect(screen.getByText('reader')).toBeTruthy();
     expect(screen.queryByRole('alert')).toBeNull();
+  });
+
+  it('the fallback moves focus to Reload for keyboard and screen-reader users', () => {
+    const before = document.createElement('button');
+    document.body.appendChild(before);
+    before.focus();
+    ctl.broken = true;
+    mount();
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Reload' }));
+    before.remove();
   });
 
   it('Reload resets the guard, so a reader still broken comes back to the fallback, never a loop', () => {

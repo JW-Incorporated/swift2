@@ -44,13 +44,32 @@ let launchOverrides: Promise<LaunchOverrides> | null = null;
 /**
  * The drills are one-launch-only: read once per JS runtime (every caller this launch sees the same answer), and an
  * armed one is wiped from storage as soon as it is read, so the next launch is normal whatever happens to this one.
+ * A read that throws counts as "off" for this launch but still wipes, and a failed wipe is retried once (never awaited).
  */
 export function takeLaunchOverrides(): Promise<LaunchOverrides> {
-  launchOverrides ??= Promise.all([getForceDomFailure(), getUseTestPage()]).then(([failure, testPage]) => {
-    if (failure !== 'off' || testPage) void clearDiagOverrides().catch(() => undefined);
+  launchOverrides ??= Promise.all([readRaw(FORCE_DOM_FAILURE_KEY), readRaw(USE_TEST_PAGE_KEY)]).then(([f, t]) => {
+    const failure = parseDomFailureMode(f.value);
+    const testPage = t.value === 'true';
+    if (failure !== 'off' || testPage || f.failed || t.failed) void clearWithRetry();
     return { failure, testPage };
   });
   return launchOverrides;
+}
+
+async function readRaw(key: string): Promise<{ value: string | null; failed: boolean }> {
+  try {
+    return { value: await SecureStore.getItemAsync(key), failed: false };
+  } catch {
+    return { value: null, failed: true };
+  }
+}
+
+async function clearWithRetry(): Promise<void> {
+  try {
+    await clearDiagOverrides();
+  } catch {
+    await clearDiagOverrides().catch(() => undefined);
+  }
 }
 
 /** Removes both drills from storage (Recovery Retry, and the consume step above). */

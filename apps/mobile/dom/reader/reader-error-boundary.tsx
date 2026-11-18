@@ -44,6 +44,9 @@ export class ReaderErrorBoundary extends Component<Props, State> {
     this.setState((s) => ({ failed: false, generation: s.generation + 1 }));
   }
 
+  // Stable callback ref: runs once when the fallback mounts, so screen-reader and keyboard focus lands on Reload.
+  private focusReload = (el: HTMLButtonElement | null): void => el?.focus();
+
   private reload = (): void => {
     this.recent = [];
     this.remount();
@@ -54,7 +57,7 @@ export class ReaderErrorBoundary extends Component<Props, State> {
     return (
       <div role="alert" data-reader-fallback="" style={fallbackStyle}>
         <p style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Something went wrong</p>
-        <button type="button" onClick={this.reload} style={buttonStyle}>
+        <button type="button" ref={this.focusReload} onClick={this.reload} style={buttonStyle}>
           Reload
         </button>
       </div>
