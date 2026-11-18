@@ -32,6 +32,10 @@ describe('verificationLine', () => {
     expect(verificationLine('third-party-cited', '2026-08-14', day('2026-08-15')).icon).toBe('◇');
   });
 
+  it('never claims live before the client knows the date (server render)', () => {
+    expect(verificationLine('verified-live', '2026-08-14', null)).toEqual({ icon: '◇', label: 'Checked', date: 'Aug 2026' });
+  });
+
   it('falls back to the raw string for a malformed date instead of crashing', () => {
     expect(verificationLine('verified-live', 'soon', day('2026-08-15')).date).toBe('soon');
   });

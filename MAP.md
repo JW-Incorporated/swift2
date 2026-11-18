@@ -355,7 +355,7 @@ or exclude only the hand-checked issue examples. General axis scoring and the
 
 ## Community research (2026-08-14, PR #2110)
 
-- `data/communities.json` — 30 verified Swiftie communities, 8 platforms, each with verification provenance. NOT wired into the app.
+- `data/communities.json` — 30 verified Swiftie communities, 8 platforms, each with verification provenance. Source of truth for the app's typed copy in `packages/experience/src/communities-data-{a,b,c}.ts` (keep both in sync by hand).
 - `data/communities-report.md` — landscape narrative, top 10, niches, and what is deliberately absent.
 - `sources.md` — every directory/thread/article mined, plus the platform blockers, so this is re-runnable.
 

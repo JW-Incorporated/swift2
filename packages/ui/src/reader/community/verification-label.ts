@@ -34,13 +34,15 @@ function parseIso(iso: string): { y: number; m: number; d: number } | null {
  * The card footer's verification line. A "Verified live" claim is only made
  * while the check is recent; once it ages past LIVE_CLAIM_MAX_AGE_DAYS the
  * footer drops the claim and shows a neutral "Checked Mon YYYY" instead.
+ * `today: null` (server render, before mount) never makes the live claim, so
+ * cached HTML cannot carry a stale "Verified live".
  */
-export function verificationLine(status: VerificationStatus, checkedAt: string, today: Date): VerificationLine {
+export function verificationLine(status: VerificationStatus, checkedAt: string, today: Date | null): VerificationLine {
   const parsed = parseIso(checkedAt);
   if (!parsed) return { icon: '◇', label: 'Checked', date: checkedAt };
   const monthYear = `${MONTHS[parsed.m - 1]} ${parsed.y}`;
   const checkedUtc = Date.UTC(parsed.y, parsed.m - 1, parsed.d);
-  const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+  const todayUtc = today ? Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) : Infinity;
   const ageDays = Math.floor((todayUtc - checkedUtc) / 86_400_000);
 
   if (status === 'verified-live') {

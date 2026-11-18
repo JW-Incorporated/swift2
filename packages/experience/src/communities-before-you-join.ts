@@ -42,7 +42,7 @@ export const BEFORE_YOU_JOIN: Readonly<Record<string, readonly string[]>> = {
   ],
   Swifties: [],
   'Taylor Swift Fan Club (Steam)': [
-    "Most of the chat happens in the group's live chat room. You need a Steam account.",
+    'The live chat room is the busiest part of this group. You need a Steam account.',
   ],
   'Taylor Swift Friendship Bracelet Making and Trading (NO SALES)': ['Trading only. Selling is not allowed.'],
   'Taylor Swift Store Updates': ['A merch alert server, not a place to hang out and chat.'],

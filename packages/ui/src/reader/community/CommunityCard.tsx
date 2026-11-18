@@ -20,7 +20,7 @@
  * number would occupy) so the card doesn't read as broken.
  */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AlertTriangle, ExternalLink } from 'lucide-react';
 import type { Community, CommunityPlatform } from '@swift2/experience';
 import { verificationLine } from './verification-label';
@@ -38,9 +38,11 @@ const MONOGRAM: Record<CommunityPlatform, string> = {
 
 export function CommunityCard({ community, featured }: { community: Community; featured: boolean }) {
   const [expanded, setExpanded] = useState(false);
+  const [today, setToday] = useState<Date | null>(null);
+  useEffect(() => setToday(new Date()), []);
   const hasCount = community.memberCount != null;
   const monogram = MONOGRAM[community.platform];
-  const verif = verificationLine(community.verification.status, community.verification.checkedAt, new Date());
+  const verif = verificationLine(community.verification.status, community.verification.checkedAt, today);
   const flags = community.beforeYouJoin;
   const bigStatSize = featured ? 'text-[38px]' : 'text-[30px]';
 
