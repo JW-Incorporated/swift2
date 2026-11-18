@@ -1108,6 +1108,8 @@ export default {
       // 'showgirl-colts-game-sighting') — that was the prior season's Week 12
       // game; this is the 2026 Week 2 Sunday-nighter.
       slug: 'chiefs-colts-2026-husband-touchdown',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 20,
@@ -4171,6 +4173,8 @@ export default {
     // Slugs added; content and sources unchanged from the approved corpus.
     {
       slug: 'arrowhead-caitlin-clark-october',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 10,
       day: 12,
@@ -6137,6 +6141,8 @@ export default {
       // The adjacent flower-girls/minors detail was deliberately NOT authored
       // (privacy redline #5); Donna's line is a public remark at a public event.
       slug: 'showgirl-kelces-welcome-taylor-family',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 23,
@@ -6377,12 +6383,12 @@ export default {
               "Instagram removed a guest's post of the wedding invitation after a copyright-infringement complaint that named Taylor as the rights owner.",
             reportedBy: "In Touch Weekly (via Yahoo Entertainment), citing journalist Rob Shuter",
             reportedOn: "2026-08-01",
-            status: "unconfirmed",
+            status: "faded",
             url: "https://www.yahoo.com/entertainment/videos/taylor-swift-wedding-invitation-removed-123225164.html",
             sourceTier: "tabloid",
             note:
-              "Rests on a takedown notice Shuter shared with In Touch. Instagram, Taylor and the couple have not commented, and the removal itself (the post was deleted) is reported without a stated reason elsewhere.",
-            lastCheckedOn: "2026-10-21",
+              "Rests on a takedown notice Shuter shared with In Touch; Instagram, Taylor and the couple never commented. Re-checked 2026-11-18, 109 days on: no confirmation or denial and no new reporting since the August recaps. Faded: reported in August 2026, never confirmed or denied.",
+            lastCheckedOn: "2026-11-18",
           },
         ],
         sources: [
@@ -6418,6 +6424,8 @@ export default {
     },
     {
       slug: 'showgirl-wedding-bands-first-look',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 20,
@@ -7381,6 +7389,8 @@ export default {
     },
     {
       slug: 'showgirl-selena-gomez-texans-coats',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1052): the coordinated-outfit game-day sighting.
       relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       year: 2025,
@@ -7649,22 +7659,28 @@ export default {
               'Forbes laid out a path for Taylor to be the most-nominated act at the 2027 Grammys — potentially double-digit nominations spanning Album of the Year and Best Pop Vocal Album for The Life of a Showgirl, Record/Song of the Year for its singles, Best Pop Duo/Group for the Sabrina Carpenter title track, and country and visual-media nods for "I Knew It, I Knew You."',
             reportedBy: 'Forbes (Hugh McIntyre)',
             reportedOn: '2026-07-22',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
-            note: 'A best-case projection, not a nomination — Gold Derby\'s July 8 tracker had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record/Song. Resolves when the 69th Grammy nominations land (Nov. 16, 2026). Re-checked 2026-10-18: not out yet; October pundit forecasts below keep it live. Re-checked 2026-11-02: still pending (noms Nov. 16).',
+            note: 'A best-case projection, not a nomination. Resolved 2026-11-18 against the Nov. 16 nominations (ABC News full list): partly right. Five nods landed on the path (AOTY, Record and Song of the Year, Visual Media, Pop Duo/Group), but no Pop Vocal Album or country nods, not double digits, and Raye led the field with 11.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
               'Billboard\'s Paul Grein, in a July 2026 awards forecast, projected that a 2027 Album of the Year nomination for The Life of a Showgirl would be Taylor\'s eighth nod in that category — which Billboard framed as the most of any solo artist in Grammy history. Nominations post Nov. 16, 2026.',
             reportedBy: 'Billboard (Paul Grein)',
             reportedOn: '2026-07-17',
-            status: 'unconfirmed',
+            status: 'confirmed',
             url: 'https://www.billboard.com/music/awards/grammy-predictions-2027-general-field-categories-1236295942/',
-            note: 'A prediction, not a nomination, and a different cut from the Forbes projection above: this one is specifically about the Album of the Year category becoming a record eighth nod for a solo artist. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-10-18 and 2026-11-02: not yet announced, still live.',
+            note: 'A prediction about the Album of the Year category becoming a record eighth nod for a solo artist. No location. Re-checked 2026-10-18 and 2026-11-02: still live. Resolved 2026-11-18: confirmed by the Nov. 16 nominations.',
+            resolution: {
+              on: '2026-11-16',
+              url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+              outlet: 'Stereogum',
+              note: 'The Life of a Showgirl was nominated for Album of the Year on Nov. 16, 2026, her eighth nomination in the category.',
+            },
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           // Added 2026-10-15 (Vault Run, Content Shift lane, intake #5915):
           // the October pre-nomination prediction pieces. Award chances are
@@ -7675,28 +7691,30 @@ export default {
               'The Life of a Showgirl made the projected Album of the Year field and "The Fate of Ophelia" the projected Song of the Year field in Rolling Stone\'s 2027 Grammy predictions — though the picks to win were Olivia Rodrigo and Olivia Dean\'s "Man I Need".',
             reportedBy: 'Rolling Stone (Maya Georgi; Jonathan Bernstein)',
             reportedOn: '2026-10-13',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-album-of-the-year-predictions-nominees-1235641231/',
-            note: 'Two pundit pieces, not nominations: Album of the Year (Oct. 13) at this url, and Song of the Year (Oct. 14) at rollingstone.com/music/music-features/grammys-2027-song-of-the-year-predictions-nominees-1235639803/. Resolves at the 69th Grammy nominations (~Nov 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
+            note: 'Two pundit pieces (AOTY Oct. 13 at this url; Song of the Year Oct. 14). Resolved 2026-11-18 against the Nov. 16 nominations (ABC News full list): half right. Showgirl made AOTY, but "The Fate of Ophelia" went to Record, not Song, of the Year. The picks to win resolve Feb. 7, 2027.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
               'Variety\'s Chris Willman listed "The Fate of Ophelia" among the leading Record of the Year contenders and named Taylor, Olivia Dean and Olivia Rodrigo the best bets to win, noting that for all her Album of the Year wins Taylor has never won Record or Song of the Year.',
             reportedBy: 'Variety (Chris Willman)',
             reportedOn: '2026-10-12',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://variety.com/2026/music/news/grammy-record-of-year-predictions-2027-ella-taylor-olivia-1236909331/',
-            note: 'A critic\'s forecast, not a nomination. Resolves at the 69th Grammy nominations (~Nov 2026) and, for the win, at the ceremony. No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
+            note: 'A critic\'s forecast. No location. Resolved 2026-11-18: the contender half is confirmed, as "The Fate of Ophelia" was nominated for Record of the Year on Nov. 16 (ABC News full list). Whether Taylor wins it resolves at the Feb. 7, 2027 ceremony.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
         ],
       },
     },
     {
       slug: 'showgirl-broncos-christmas-game',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1123): the Colts-game low-key look — the same
       // recurring game-day-styling beat of the engagement/wedding season.
       // (Stage 3, 2026-08-10): + the previous year's Santa-costumed
@@ -8266,6 +8284,8 @@ export default {
     },
     {
       slug: 'showgirl-colts-game-sighting',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2025,
       month: 11,
       day: 23,
@@ -9504,6 +9524,8 @@ export default {
     },
     {
       slug: 'kelce-new-heights-proposal-story',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-link (candidate #1114): the New Heights announcement this returns to.
       // Cross-link (candidate #1294): Jason Kelce on the fanbase shift — same
       // Kelce-family-media throughline.
@@ -9863,6 +9885,8 @@ export default {
     },
     {
       slug: 'first-newlywed-appearance-juju-wedding',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 7,
       day: 10,
@@ -10309,9 +10333,9 @@ export default {
             reportedOn: '2026-10-15',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
-            note: 'A forecast, not a nomination. Others named in the running include Lin-Manuel Miranda\'s "Along the Way" (Moana), Ludwig Göransson\'s "When I\'m Home" (The Odyssey) and Diane Warren\'s "By Any Means." Resolves at the 69th Grammy nominations (Nov. 16, 2026) and, for the win, at the Feb. 7, 2027 ceremony. No location. Re-checked 2026-11-02: still pending.',
+            note: 'A forecast about the win. Re-checked 2026-11-18: the song was nominated on Nov. 16 (ABC News full list) alongside House, Need Someone, No Place Like Home and Runway; none of the rivals in Billboard\'s forecast (Along the Way, When I\'m Home, By Any Means) made the field. Still live until the Feb. 7, 2027 ceremony.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
@@ -13452,6 +13476,8 @@ export default {
       // cleanly licensable image of the presser was found — ships text-first
       // and photo-sparsity can route it to Photo Enrichment.
       slug: 'kelce-first-wedding-comments-training-camp',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       // Cross-links: the wedding this recounts, and the July 8 New Heights
       // episode where he first told the proposal story.
       relatedIds: [
@@ -15001,6 +15027,8 @@ export default {
     // corpus notes kept the wedding off the table). Authored as a new moment.
     {
       slug: 'kelce-new-heights-wedding-recap',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 2,
@@ -15387,6 +15415,8 @@ export default {
     },
     {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
       year: 2026,
       month: 9,
@@ -16432,6 +16462,8 @@ export default {
     },
     {
       slug: 'cleveland-lyric-video-kelce-road-trip',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 9,
       day: 25,
@@ -17660,6 +17692,8 @@ export default {
       // independent outlets, on-record words from one of the principals; no
       // location or private detail beyond "the holidays".
       slug: 'showgirl-travis-kelce-first-holiday-married-tommy-hilfiger',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       relatedIds: [
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
       ],
@@ -17953,6 +17987,8 @@ export default {
       // agreed to design anything. Redlines: clean; no venue detail beyond
       // the city of a public fan event.
       slug: 'showgirl-new-heights-tailgate-stage-joke',
+      // End Game thread opt-in (#6842, Vault Run 2026-11-18).
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 11,
       day: 11,
