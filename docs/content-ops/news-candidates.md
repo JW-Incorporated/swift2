@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 115
+Stories: 114
+
+## Taylor Swift's CMA Appearance Boosts Disney Ad Sales
+
+- first seen: 2026-11-18 14:22 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's recent return to the CMA has had a positive impact on Disney's advertising revenue, according to reports. The news highlights the influence of Swift's appearances on major networks and their commercial benefits.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-cma-return-disney-sell-commericals-1236951795/
+
+## Fans React to Taylor Swift's 2027 Grammy Nominations and Snub
+
+- first seen: 2026-11-18 14:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has received five nominations for the 2027 Grammy Awards, leading to strong reactions from her fanbase regarding a perceived snub. Fans expressed their frustration over the nominations and the lack of recognition for certain works.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-fans-furious-over-072135732.html
 
 ## Taylor Swift 'Eras' Exhibition Set to Open at MFA Boston
 
@@ -150,11 +166,12 @@ Stories: 115
 ## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
 
 - first seen: 2026-11-18 02:42 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: The Museum of Fine Arts in Boston has officially announced the Taylor Swift: The Eras Collection. This new exhibition is set to showcase various aspects of the artist's career.
 - sources:
   - [unverified] ArtDependence — https://artdependence.com/articles/museum-of-fine-arts-boston-announces-taylor-swift-the-eras-collection/
   - [unverified] Artsy — https://www.artsy.net/article/artsy-editorial-taylor-swift-eras-collection-exhibition-open-museum-fine-arts-boston-202
+  - [established] Billboard — https://www.billboard.com/music/pop/taylor-swift-eras-collection-boston-museum-fine-arts-details-1236384740/
 
 ## Maine Considers Luxury Home Tax Inspired by Taylor Swift
 
@@ -948,27 +965,3 @@ Stories: 115
   - [unverified] MARCA — https://www.marca.com/en/nfl/kansas-city-chiefs/2026/11/15/will-taylor-swift-be-at-the-chiefs-vs-falcons-game-everything-we-know-about-the-singer-s-possible-appearance.html
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/statistically-speaking-taylor-swift-travis-170438313.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-husband-travis-kelce-191429600.html
-
-## Taylor Swift shares brief insights on parenting in new comments
-
-- first seen: 2026-11-15 13:37 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has made rare comments regarding parenting, stating, 'We don’t have all the information yet.' The remarks were noted during a recent media interaction.
-- sources:
-  - [unverified] The Comeback — https://thecomeback.com/nfl/we-dont-have-all-the-information-yet-taylor-swift-gives-rare-comments-on-parenting.html
-
-## Inside Taylor Swift's Real Estate Portfolio
-
-- first seen: 2026-11-15 13:37 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A look at Taylor Swift's impressive real estate holdings, showcasing her high-end properties and lucrative investments. The article highlights her ventures in the real estate market and the various homes she owns.
-- sources:
-  - [unverified] Realtor.com — https://www.realtor.com/news/celebrity-real-estate/taylor-swift-real-estate-portfolio-truly-golden/
-
-## Taylor Swift Voices Support for Human-Made Music
-
-- first seen: 2026-11-15 13:37 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift expresses her support for music created by human beings, emphasizing its ongoing importance in the industry. This statement underscores her stance on the value of artistic authenticity.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/human-beings-still-winning-taylor-125025897.html
