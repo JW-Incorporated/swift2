@@ -88,7 +88,7 @@ const base = {
   facts: FACTS,
 };
 const TOUR_ITEM = { ...base, category: 'tour', headline: 'Taylor announces a new tour date in Toronto' };
-const SIGHTING_ITEM = { ...base, category: 'sighting', headline: 'Taylor spotted outside a Nashville studio' };
+const SIGHTING_ITEM = { ...base, category: 'sighting', headline: 'Taylor spotted outside a Toronto studio' };
 
 const LEAD =
   'Taylor added a Toronto stop to the schedule this week, and fans have been trading ticket plans ever since the date went public, with group chats filling up fast. The announcement came with very little warning, and the on-sale day is now the only thing anyone is talking about.';

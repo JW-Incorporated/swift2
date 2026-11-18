@@ -15,6 +15,7 @@
  *   npx tsx scripts/news/eval-writing.mjs                  markdown report
  *   npx tsx scripts/news/eval-writing.mjs --json           JSON report
  *   npx tsx scripts/news/eval-writing.mjs --file <path>    saved {items:[...]} instead of fetching
+ *   npx tsx scripts/news/eval-writing.mjs --lead-style     also apply the lead "state the news" checks
  *
  * Exit 1 only when the fetch or file read fails (runMain).
  */
@@ -31,9 +32,10 @@ export const LIVE_URL = 'https://www.longlivets.com/vault/live/tloas';
  * Score each live item against the writing evaluator.
  *
  * @param {Array<{ id?: string, headline?: string, summary?: string, detail?: string, sources?: unknown }>} items
+ * @param {{ leadStyle?: boolean }} [options] leadStyle: also apply the lead "state the news" checks the worker runs on new drafts
  * @returns {Array<{ id: string | null, headline: string, ok: boolean, reasons: string[] }>}
  */
-export function scoreItems(items) {
+export function scoreItems(items, options = {}) {
   return items.map((item) => {
     const headline = item.headline ?? '';
     const result = evaluateCurrentItemWriting({
@@ -43,7 +45,7 @@ export function scoreItems(items) {
       sources: Array.isArray(item.sources) ? item.sources : [],
       ...(Array.isArray(item.citations) ? { citations: item.citations } : {}),
       ...factGrounding(item.facts),
-    }, { legacy: !Array.isArray(item.citations) });
+    }, { legacy: !Array.isArray(item.citations), ...(options.leadStyle ? { leadStyle: true } : {}) });
     return { id: item.id ?? null, headline, ok: result.ok, reasons: result.ok ? [] : result.reasons };
   });
 }
@@ -103,7 +105,7 @@ function cell(text) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const results = scoreItems(await loadItems(args));
+  const results = scoreItems(await loadItems(args), { leadStyle: args.includes('--lead-style') });
   const { total, passed, passRate, reasons, worst } = summarize(results);
 
   if (args.includes('--json')) {
