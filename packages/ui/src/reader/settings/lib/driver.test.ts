@@ -55,13 +55,13 @@ describe('fromNotifications', () => {
     expect(fromWebPush(webPush(), null).deniedHint).toBeUndefined();
   });
 
-  it('openSettings: only when the host offers it, and a host failure never rejects', async () => {
+  it('openSettings: only when the host offers it; true when it opened, false (never a rejection) when it could not', async () => {
     expect(fromWebPush(webPush(), null).openSettings).toBeUndefined();
     expect(fromNotifications(notif()).openSettings).toBeUndefined();
     const ok = vi.fn().mockResolvedValue(undefined);
-    await fromNotifications(notif({ openSettings: ok })).openSettings!();
+    await expect(fromNotifications(notif({ openSettings: ok })).openSettings!()).resolves.toBe(true);
     expect(ok).toHaveBeenCalledTimes(1);
-    await expect(fromNotifications(notif({ openSettings: vi.fn().mockRejectedValue(new Error('x')) })).openSettings!()).resolves.toBeUndefined();
+    await expect(fromNotifications(notif({ openSettings: vi.fn().mockRejectedValue(new Error('x')) })).openSettings!()).resolves.toBe(false);
   });
 });
 

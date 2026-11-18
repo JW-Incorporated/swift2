@@ -24,6 +24,7 @@ const NATIVE_SAMPLES: { [T in Exclude<NativeEventType, 'readyAck'>]: EventPayloa
   contentVersion: { token: 'abc' },
   navigate: { path: toWebPath('/')!, source: 'deeplink', id: 't1' },
   restore: { snap: { v: 1, mode: 'era', eraId: 'folklore', scrollY: 120 } },
+  foreground: {},
 };
 
 function rig() {

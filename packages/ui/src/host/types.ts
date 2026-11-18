@@ -175,6 +175,8 @@ export interface HostAdapter {
    * back). The handler returns true when it consumed the event. Returns an unsubscribe.
    */
   onBack(handler: () => boolean): Unsubscribe;
+  /** The app: fires when the app returns to the foreground (the WebView may not see visibilitychange). Web omits it. */
+  onForeground?(handler: () => void): Unsubscribe;
   /** Transport for `/api/*` (X1). Same shape as WP0.3b's `ApiFetch`. */
   apiFetch: ApiFetch;
   /**

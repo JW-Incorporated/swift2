@@ -3,6 +3,7 @@ import type { HandlerContext } from '@swift2/ui';
 import {
   createBackHandler,
   createContentVersionEmitter,
+  createForegroundEmitter,
   createHandlers,
   createInsetsEmitter,
   type UiHandlerDeps,
@@ -231,5 +232,16 @@ describe('emitters', () => {
     u('a');
     u('b');
     expect(emit.mock.calls).toEqual([[{ token: 'a' }], [{ token: 'b' }]]);
+  });
+  it('emits foreground once per return to active, never for the starting state or repeats', () => {
+    const emit = vi.fn();
+    const u = createForegroundEmitter('active', emit);
+    u('active');
+    u('background');
+    u('active');
+    u('active');
+    u('inactive');
+    u('active');
+    expect(emit).toHaveBeenCalledTimes(2);
   });
 });

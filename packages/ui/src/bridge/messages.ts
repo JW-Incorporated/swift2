@@ -103,6 +103,8 @@ export type NativeEventSpec = {
   navigate: { path: WebPath; source: 'notification' | 'deeplink'; id?: string };
   /** Replay the reader state the previous epoch last reported (#5114): sent once, after the new epoch navigated. Add-only. */
   restore: { snap: ReaderSnap };
+  /** The app returned to the foreground (AppState -> active), e.g. back from the phone's Settings. A DOM that does not know it ignores it. Add-only. */
+  foreground: Record<string, never>;
 };
 
 export type EventSpec = DomEventSpec & NativeEventSpec;
@@ -183,6 +185,7 @@ const NATIVE_EVENTS: Record<NativeEventType, true> = {
   readyAck: true,
   navigate: true,
   restore: true,
+  foreground: true,
 };
 
 export const DOM_COMMAND_TYPES = Object.keys(DOM_COMMANDS) as readonly DomCommandType[];

@@ -166,7 +166,8 @@ and a flipped default cannot be killed remotely.
   `ready` the press falls through to native, after it the DOM answers `handled`
   (the reader closed an open item) or `exit` (at the root: `exitApp`; `unsupported`,
   no responder registered, exits too). A timeout or error swallows the press: a slow
-  render never backgrounds the app.
+  render never backgrounds the app. A second press within 2 s of an unanswered one
+  exits, so a hung or crashed DOM can never trap Back.
   The `backTick` counter is deleted. The reader Shell registers the responder and
   `useExpoBridge(props, hooks, setup)` subscribes `insets`, `contentVersion` and
   `back` before the inbox is consumed. `withFocusRestore(fn)`

@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HostProvider, type HostNotifications, type HostWebPush, type NotificationStatus } from '@swift2/ui';
 import { WebNotificationSettings } from '@swift2/ui/reader/settings/WebNotificationSettings';
-import { APP_DENIED_HINT } from '@swift2/ui/reader/settings/lib/driver';
+import { APP_DENIED_HINT, SETTINGS_OPEN_FAILED } from '@swift2/ui/reader/settings/lib/driver';
 import { createWebAdapter } from '@/lib/host-adapter';
 
 const base = createWebAdapter({ push() {}, replace() {} });
@@ -93,12 +93,44 @@ describe('WebNotificationSettings: web driver vs app driver (same markup per sta
     expect(openSettings).toHaveBeenCalledTimes(1);
   });
 
-  it('a failed settings open never throws into the page', async () => {
-    const openSettings = vi.fn().mockRejectedValue(new Error('no settings'));
+  it('a failed or unsupported settings open shows the inline help instead of silence, and Open Settings stays available', async () => {
+    const openSettings = vi.fn().mockRejectedValue(new Error('unsupported'));
+    render(<HostProvider adapter={{ ...base, notifications: { ...appHost('denied'), openSettings } }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    expect(screen.queryByRole('alert')).toBeNull();
+    fireEvent.click(await screen.findByRole('button', { name: 'Open Settings' }));
+    expect((await screen.findByRole('alert')).textContent).toBe(SETTINGS_OPEN_FAILED);
+    expect(screen.getByRole('button', { name: 'Open Settings' })).toBeTruthy();
+  });
+
+  it('a successful settings open shows no help text', async () => {
+    const openSettings = vi.fn().mockResolvedValue(undefined);
     render(<HostProvider adapter={{ ...base, notifications: { ...appHost('denied'), openSettings } }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
     fireEvent.click(await screen.findByRole('button', { name: 'Open Settings' }));
     await waitFor(() => expect(openSettings).toHaveBeenCalledTimes(1));
-    expect(screen.getByRole('button', { name: 'Open Settings' })).toBeTruthy();
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
+
+  it('the host foreground signal re-reads permission: allowed in Settings -> subscribed on return', async () => {
+    let fireForeground: () => void = () => {};
+    const status = vi.fn().mockResolvedValue('denied');
+    const onForeground = vi.fn((fn: () => void) => {
+      fireForeground = fn;
+      return () => {};
+    });
+    render(<HostProvider adapter={{ ...base, onForeground, notifications: { ...appHost('denied'), status, openSettings: vi.fn() } }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    await screen.findByRole('button', { name: 'Open Settings' });
+    expect(onForeground).toHaveBeenCalledTimes(1);
+    status.mockResolvedValue('granted');
+    fireForeground();
+    await screen.findByRole('switch');
+  });
+
+  it('the web page never subscribes to a host foreground signal', async () => {
+    vi.stubGlobal('Notification', { permission: 'default' });
+    const onForeground = vi.fn(() => () => {});
+    render(<HostProvider adapter={{ ...base, onForeground, webPush: webHost() }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    await screen.findByRole('button', { name: /enable notifications/i });
+    expect(onForeground).not.toHaveBeenCalled();
   });
 
   it('app "can ask again" (undetermined) keeps the enable button live', async () => {

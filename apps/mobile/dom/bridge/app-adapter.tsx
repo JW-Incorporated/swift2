@@ -17,7 +17,7 @@ import { responsiveAttrs } from './responsive-image';
 export const APP_ORIGIN = 'https://www.longlivets.com';
 
 export interface AppAdapterDeps {
-  client: Pick<BridgeClient, 'call'> & Partial<Pick<BridgeClient, 'sendEvent'>>;
+  client: Pick<BridgeClient, 'call'> & Partial<Pick<BridgeClient, 'sendEvent' | 'on'>>;
   /** Canonical site origin; defaults to APP_ORIGIN. */
   origin?: string;
   insets: Insets;
@@ -159,6 +159,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     resolveUrl: (path) => resolveAppUrl(path, origin),
     embedOrigin: origin,
     onBack: deps.onBack,
+    onForeground: deps.client.on ? (fn) => deps.client.on!('foreground', () => fn()) : undefined,
     apiFetch: deps.apiFetch,
     storage: deps.storage ?? { local: webStorage('localStorage'), session: webStorage('sessionStorage') },
     env: { turnstileSiteKey: null, origin },

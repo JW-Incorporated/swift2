@@ -1,4 +1,7 @@
 // The not-subscribed face of notification settings: the pending-opt-out notice, permission/error hints and the enable button.
+import { useState } from 'react';
+import { SETTINGS_OPEN_FAILED } from './driver';
+
 export type PromptKind = 'not_subscribed' | 'subscribing' | 'denied' | 'error';
 
 export function SubscribePrompt({
@@ -14,10 +17,12 @@ export function SubscribePrompt({
   deniedHint?: string;
   optOutPending: boolean;
   onSubscribe: () => void;
-  /** App only: a real OS denial offers "Open Settings" in place of the disabled enable button. */
-  onOpenSettings?: () => void;
+  /** App only: a real OS denial offers "Open Settings" in place of the disabled enable button; resolves false when it could not open. */
+  onOpenSettings?: () => Promise<boolean>;
 }) {
+  const [settingsFailed, setSettingsFailed] = useState(false);
   const settingsAction = kind === 'denied' && onOpenSettings;
+  const openSettings = () => void onOpenSettings?.().then((opened) => setSettingsFailed(!opened));
   return (
     <div className="flex flex-col items-center gap-4">
       {optOutPending && (
@@ -32,9 +37,14 @@ export function SubscribePrompt({
         </p>
       )}
       {kind === 'error' && <p className="max-w-md text-center text-sm text-ink-soft">{message}</p>}
+      {settingsAction && settingsFailed && (
+        <p role="alert" className="max-w-md text-center text-sm text-ink-soft">
+          {SETTINGS_OPEN_FAILED}
+        </p>
+      )}
       <button
         type="button"
-        onClick={settingsAction ? onOpenSettings : onSubscribe}
+        onClick={settingsAction ? openSettings : onSubscribe}
         disabled={kind === 'subscribing' || (kind === 'denied' && !settingsAction)}
         className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[color:var(--era-accent-fg)] transition-opacity hover:opacity-90 disabled:bg-surface disabled:text-ink-soft disabled:hover:opacity-100"
       >

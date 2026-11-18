@@ -34,6 +34,7 @@ describe('notification host deps', () => {
     [{ status: 'denied', canAskAgain: false }, 'denied'],
     [{ status: 'denied' }, 'denied'],
     [{ status: 'undetermined', canAskAgain: true }, 'undetermined'],
+    [{ status: 'undetermined', canAskAgain: false }, 'undetermined'],
   ] as const)('toPermission maps %o to %s', (r, want) => {
     expect(toPermission(r)).toBe(want);
   });

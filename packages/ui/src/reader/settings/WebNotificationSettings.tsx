@@ -100,12 +100,14 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
     const onForeground = () => {
       if (document.visibilityState === 'visible') read();
     };
+    const offHost = driver.refreshOnForeground ? host.onForeground?.(read) : undefined;
     if (driver.refreshOnForeground) {
       document.addEventListener('visibilitychange', onForeground);
       window.addEventListener('focus', onForeground);
     }
     return () => {
       live = false;
+      offHost?.();
       document.removeEventListener('visibilitychange', onForeground);
       window.removeEventListener('focus', onForeground);
     };
@@ -198,7 +200,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
         deniedHint={driver?.deniedHint}
         optOutPending={optOutPending}
         onSubscribe={handleSubscribe}
-        onOpenSettings={driver?.openSettings && (() => void driver.openSettings!())}
+        onOpenSettings={driver?.openSettings}
       />
     );
   }

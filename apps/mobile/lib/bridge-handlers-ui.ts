@@ -183,20 +183,35 @@ export type BackHost = {
 
 /**
  * Hardware-back listener body. Returns true when the press is consumed.
+/** A press this soon after an earlier press went unanswered exits: a hung or crashed DOM can never trap Back. */
+export const BACK_ESCAPE_WINDOW_MS = 2000;
+
+/**
+ * Hardware-back listener body. Returns true when the press is consumed.
  * Before ready: false (native default). After ready: consumed; `exit` (the UI
  * is at its root) or `unsupported` (no responder: nothing open to close) calls
  * `exitApp`. A timeout, error or rejection swallows the press, so a slow render
- * never backgrounds the app.
+ * never backgrounds the app, but the next press within BACK_ESCAPE_WINDOW_MS of
+ * it exits. Any answered press clears that.
  */
-export function createBackHandler(host: BackHost, exitApp: () => void, timeoutMs = DEFAULT_BACK_TIMEOUT_MS) {
+export function createBackHandler(host: BackHost, exitApp: () => void, timeoutMs = DEFAULT_BACK_TIMEOUT_MS, now: () => number = Date.now) {
+  let unansweredAt: number | null = null;
+  const unanswered = () => void (unansweredAt = now());
   return function onHardwareBack(): boolean {
     if (!host.isReady()) return false;
+    if (unansweredAt !== null && now() - unansweredAt <= BACK_ESCAPE_WINDOW_MS) {
+      unansweredAt = null;
+      exitApp();
+      return true;
+    }
     host
       .request('back', {}, { timeoutMs })
       .then((r) => {
-        if (r.ok ? r.value === 'exit' : r.error.code === 'unsupported') exitApp();
+        if (!r.ok && r.error.code !== 'unsupported') return unanswered();
+        unansweredAt = null;
+        if (!r.ok || r.value === 'exit') exitApp();
       })
-      .catch(() => undefined);
+      .catch(unanswered);
     return true;
   };
 }
@@ -213,6 +228,16 @@ export function createInsetsEmitter(emit: (insets: Insets) => void) {
     if (last && sameInsets(last, next) && (last.keyboard ?? 0) === (next.keyboard ?? 0)) return;
     last = { top: next.top, right: next.right, bottom: next.bottom, left: next.left, ...(next.keyboard ? { keyboard: next.keyboard } : {}) };
     emit(last);
+  };
+}
+
+/** Emits `foreground` on each transition into AppState `active` (not on repeats, not for the starting state). */
+export function createForegroundEmitter(initial: string, emit: () => void) {
+  let last = initial;
+  return function update(next: string): void {
+    const was = last;
+    last = next;
+    if (next === 'active' && was !== 'active') emit();
   };
 }
 

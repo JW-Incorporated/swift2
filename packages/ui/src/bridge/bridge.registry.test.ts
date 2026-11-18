@@ -14,7 +14,7 @@ describe('runtime registries', () => {
         'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.optOutPending', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'notifications.openSettings', 'openExternal', 'share', 'storage.load', 'storage.write',
       ].sort(),
     );
-    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'restore', 'route', 'theme']);
+    expect([...EVENT_TYPES].sort()).toEqual(['ack', 'contentVersion', 'diag', 'foreground', 'insets', 'navReady', 'navigate', 'navigated', 'ready', 'readyAck', 'restore', 'route', 'theme']);
   });
 });
 
@@ -58,6 +58,7 @@ describe('JSON round-trip, one sample per type', () => {
     theme: { statusBarStyle: 'light', background: '#0c0c0c' },
     route: { path: '/privacy?x=1', busy: true, engaged: true, snap: { v: 1, mode: 'era', eraId: 'x', scrollY: 0 } },
     restore: { snap: { v: 1, mode: 'era', eraId: 'x', anchorId: 'y', count: 2, scrollY: 10 } },
+    foreground: {},
   };
   it.each([...Object.entries(commandSamples), ...Object.entries(eventSamples)])('%s', (_t, payload) => {
     expect(JSON.parse(JSON.stringify(payload))).toEqual(payload);
