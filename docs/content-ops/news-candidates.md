@@ -35,14 +35,6 @@ Stories: 107
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-finally-comments-next-170647146.html
 
-## Taylor Swift to Perform at 2026 Country Music Association Awards
-
-- first seen: 2026-11-18 05:42 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the 2026 Country Music Association Awards. Details on how to watch the event have been provided by KTVN.
-- sources:
-  - [unverified] WRAL — https://www.wral.com/news/ap/0ddc8-the-2026-country-music-association-awards-are-here-with-taylor-swift-performing-how-to-watch/
-
 ## Details on Taylor Swift's Performance Time at the CMAs
 
 - first seen: 2026-11-18 05:42 UTC | category: tour | importance: 5
@@ -50,6 +42,14 @@ Stories: 107
 - summary: This article provides information about the timing of the CMAs and when Taylor Swift is scheduled to perform. It includes key details relevant to fans and attendees.
 - sources:
   - [unverified] Cincinnati Enquirer — https://www.cincinnati.com/story/entertainment/2026/11/18/taylor-swift-returns-to-cmas-date-time-channel-how-to-watch/92809904007/
+
+## Taylor Swift to Perform at 2026 Country Music Association Awards
+
+- first seen: 2026-11-18 05:42 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the 2026 Country Music Association Awards. Details on how to watch the event have been provided by KTVN.
+- sources:
+  - [unverified] WRAL — https://www.wral.com/news/ap/0ddc8-the-2026-country-music-association-awards-are-here-with-taylor-swift-performing-how-to-watch/
 
 ## Upcoming Taylor Swift Exhibit at MFA Boston Details Revealed
 
