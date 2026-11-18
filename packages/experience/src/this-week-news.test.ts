@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import type { CurrentItem } from '@swift2/shared';
 import { currentFeedEntries } from './current-feed';
-import { isThisWeekNews, streamExtraEntries, thisWeekNewsItems } from './this-week-news';
+import { isThisWeekNews, isWeekNewsPinned, streamExtraEntries, thisWeekNewsItems } from './this-week-news';
+import { mergeEraStreamFeed } from './era-stream';
+import { visibleFeed } from './era-feed';
+import type { FilterId } from './filters';
 
 const NOW = Date.parse('2026-11-03T12:00:00Z');
 
@@ -109,5 +112,28 @@ describe('streamExtraEntries', () => {
   it('drops live items inside the week window and keeps older ones in the stream', () => {
     const kept = streamExtraEntries([], live, NOW);
     expect(kept.map((e) => (e.kind === 'current' ? e.item.id : ''))).toEqual(['older']);
+  });
+});
+
+describe('week news under an active filter (strip hidden)', () => {
+  const live = currentFeedEntries(
+    [currentItem({ id: 'new', observedOn: '2026-11-02' }), currentItem({ id: 'older', observedOn: '2026-10-01' })],
+    '2026-01-01',
+    '2026-12-31',
+  );
+  const ids = (filters?: ReadonlySet<FilterId>) =>
+    visibleFeed(
+      mergeEraStreamFeed({ era: { start: '2026-01-01', end: '2026-12-31' }, items: [], videoFeed: [], liveEntries: live, nowMs: NOW, filters }),
+      filters ?? new Set(),
+    ).map((e) => (e.kind === 'current' ? e.item.id : ''));
+
+  it('keeps an in-window story out of the "All" stream, where the strip shows it', () => {
+    expect(isWeekNewsPinned(new Set())).toBe(true);
+    expect(ids(new Set())).toEqual(['older']);
+  });
+
+  it('streams an in-window story as a card when a chip hides the strip', () => {
+    expect(isWeekNewsPinned(new Set<FilterId>(['Lore']))).toBe(false);
+    expect(ids(new Set<FilterId>(['Lore']))).toEqual(['new', 'older']);
   });
 });
