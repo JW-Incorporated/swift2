@@ -57,6 +57,7 @@ import { dirname } from 'node:path';
 import { makeClient } from '../lib/pg.mjs';
 import { runMain } from '../lib/cli.mjs';
 import { topPosts, postComments, parseShredditComments } from '../lib/reddit-rss.mjs';
+import { isOutageError } from '../appearance-discovery/lib/feed-retry.mjs';
 
 /* global AbortSignal */ // Node 18+ global, same pragma as scripts/lib/gh.mjs
 
@@ -199,7 +200,17 @@ export async function crawlSubreddit(
   },
 ) {
   const sub = subredditName(watchlistEntry.id);
-  const { posts, status } = await topPosts(sub, { time: 'year', limit: YEAR_LIMIT, fetchImpl });
+  let feed;
+  try {
+    feed = await topPosts(sub, { time: 'year', limit: YEAR_LIMIT, fetchImpl });
+  } catch (error) {
+    if (!isOutageError(error)) throw error;
+    warn(
+      `::warning::community-crawl: r/${sub} RSS returned ${error.status} (upstream Reddit outage, not failing the run) — skipping this subreddit this run.`,
+    );
+    return { subreddit: watchlistEntry.id, posts: [], relayUsed: 0 };
+  }
+  const { posts, status } = feed;
   if (status === 429) {
     warn(`community-crawl: r/${sub} RSS returned 429 — skipping this subreddit this run.`);
     return { subreddit: watchlistEntry.id, posts: [], relayUsed: 0 };
