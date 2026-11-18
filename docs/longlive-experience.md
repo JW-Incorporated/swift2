@@ -443,8 +443,10 @@ active set, which is exactly why `check:filter-coverage` (below) exists.
    the row; the reader re-applies the same function so rows written before
    that still land under their chips. Tour means a tour, as for moments: a
    one-off gala or awards performance is not Tour unless the extractor
-   filed it as `tour`. An item that names no chip (a TV cameo, a game-day
-   sighting) shows under All only. Videos stays structural (a playable
+   filed it as `tour`. A person's name is never a topic: a Travis Kelce tag
+   alone is not Relationship without a wedding/engagement/couple signal. An
+   item that names no chip (a TV cameo, a game-day sighting) shows under All
+   only. Videos stays structural (a playable
    embed).
 
 **Anchor dating** (`anchor-date.ts`): every entry in the merged feed carries

@@ -89,6 +89,41 @@ describe('chipTagsForCurrentItem (real live items)', () => {
   });
 });
 
+describe('chipTagsForCurrentItem (headline false positives)', () => {
+  const headlineOnly = (headline: string) => chipTagsForCurrentItem({ category: 'statement', tags: [], headline });
+
+  it('does not read "Wed." or "engaged with fans" as Relationship', () => {
+    expect(headlineOnly('Taylor spotted Wed. night in NYC')).toEqual([]);
+    expect(headlineOnly('Taylor engaged with fans at the show')).toEqual([]);
+  });
+
+  it('does not read a one-off concert as Tour', () => {
+    expect(headlineOnly('Taylor attends a concert for charity')).toEqual([]);
+  });
+
+  it('reads "single" as Music only in its music sense', () => {
+    expect(headlineOnly('Taylor surprises guests at the single mom gala')).toEqual([]);
+    expect(headlineOnly('Taylor single-handedly saves the night')).toEqual([]);
+    expect(headlineOnly('Taylor announces a new single')).toEqual(['Music']);
+    expect(headlineOnly("Taylor's single 'Opalite' charts in the UK")).toEqual(['Music']);
+  });
+
+  it('still reads engagement and fiancé news as Relationship', () => {
+    expect(headlineOnly('Taylor shows off her engagement ring')).toEqual(['Relationship']);
+    expect(headlineOnly('Taylor cheers on her fiancé at Arrowhead')).toEqual(['Relationship']);
+  });
+
+  it('keeps a Travis-only work story (real live item) under "All" only', () => {
+    expect(
+      chipTagsForCurrentItem({
+        category: 'statement',
+        tags: ['new-heights', 'podcast', 'travis-kelce'],
+        headline: 'Travis Kelce says he wants to see what Taylor Swift could come up with for a New Heights podcast event',
+      }),
+    ).toEqual([]);
+  });
+});
+
 describe('chipTagsForCurrentItem (rules)', () => {
   it('keeps a chip id already present and never invents Videos', () => {
     expect(chipTagsForCurrentItem({ category: 'statement', tags: ['Lore', 'Videos'] })).toEqual(['Lore']);

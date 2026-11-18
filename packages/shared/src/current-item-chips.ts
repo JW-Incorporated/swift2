@@ -29,18 +29,20 @@ const BY_TAG: Record<CurrentItemChipTag, readonly string[]> = {
   Fashion: ['fashion', 'outfit', 'red carpet', 'style', 'jewelry', 'gown', 'dress', 'look'],
   Tour: ['tour', 'tour dates', 'concert', 'concerts', 'setlist'],
   Relationship: [
-    'relationship', 'wedding', 'marriage', 'engagement', 'travis kelce', 'celebrity couple',
-    'celebrity wedding', 'relationship milestone', 'public relationship',
+    'relationship', 'wedding', 'marriage', 'engagement', 'fiance', 'fiancé', 'couple', 'date night',
+    'celebrity couple', 'celebrity wedding', 'relationship milestone', 'public relationship',
   ],
   Lore: ['lore', 'easter egg', 'easter eggs', 'theory', 'theories', 'clue', 'clues'],
 };
 
-/** Headline words that name a chip on their own. */
+/** Headline words that name a chip on their own. `single` counts only in its
+ * music sense, and a person's name (e.g. Travis Kelce) is never a topic. */
 const BY_HEADLINE: Record<CurrentItemChipTag, RegExp> = {
-  Music: /\b(album|single|song|music video|hot 100|billboard 200|grammys?|vinyl)\b/i,
+  Music:
+    /\b(album|song|music video|hot 100|billboard 200|grammys?|vinyl)\b|\b(new|lead|debut|surprise) single\b|\bsingle (['"‘“]|(debuts|charts)\b)/i,
   Fashion: /\b(wore|wears|wearing|gown|dress|outfit|red carpet)\b/i,
-  Tour: /\b(tour|tour dates|concerts?|setlist)\b/i,
-  Relationship: /\b(wedding|wed|marry|married|engaged|engagement)\b/i,
+  Tour: /\b(tour|tour dates|setlist)\b/i,
+  Relationship: /\b(wedding|engagement|marry|married|date night)\b|\bfianc(e|é|ee|ée)(?![a-z])/i,
   Lore: /\b(easter eggs?|fan theory|theories)\b/i,
 };
 
