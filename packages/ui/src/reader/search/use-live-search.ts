@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { CurrentItem } from '@swift2/shared';
 import { CURRENT_ERA_ID, currentItemSearchDocs, type SearchDoc } from '@swift2/experience';
 import { useCurrentItems } from '../lib/use-current-items';
@@ -27,5 +27,6 @@ export function useLiveSearch(searchIndex: SearchDoc[]): {
     () => (openId ? (currentItems.find((i) => i.id === openId) ?? null) : null),
     [openId, currentItems],
   );
-  return { docs, openLiveItem, openLive: setOpenId, closeLive: () => setOpenId(null) };
+  const closeLive = useCallback(() => setOpenId(null), []);
+  return { docs, openLiveItem, openLive: setOpenId, closeLive };
 }

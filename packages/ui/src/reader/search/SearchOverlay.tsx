@@ -93,12 +93,13 @@ export function SearchOverlay() {
   // Reset per-open state so search always starts fresh.
   useEffect(() => {
     if (!searchOpen) return;
+    closeLive();
     setQuery('');
     setDebounced('');
     setActiveIndex(0);
     setPickedSuggestion(false);
     setShowAll(false);
-  }, [searchOpen]);
+  }, [searchOpen, closeLive]);
 
   // Debounce keystrokes → query. Cheap anyway (in-memory index), but this
   // keeps the results list from churning under fast typing.
@@ -125,6 +126,16 @@ export function SearchOverlay() {
   );
   const totalMatches = useMemo(() => groups.reduce((n, g) => n + g.totalMatches, 0), [groups]);
   const flat = useMemo(() => flattenGroups(groups), [groups]);
+
+  // Live rows can land mid-query and shift every row below them; drop the
+  // highlight and any pick so Enter never opens a row the reader did not choose.
+  // Reset during render (not in an effect) so no frame shows the stale row.
+  const [indexSeen, setIndexSeen] = useState(searchIndex);
+  if (indexSeen !== searchIndex) {
+    setIndexSeen(searchIndex);
+    setActiveIndex(0);
+    setPickedSuggestion(false);
+  }
 
   // Clamp the active row whenever the result set changes.
   useEffect(() => {

@@ -48,29 +48,65 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
+const liveResponse = () => new Response(JSON.stringify({ items: [LIVE_ITEM], theories: [], signals: [] }), { status: 200 });
+
+function mount() {
+  renderWithReader(
+    <TestHostProvider>
+      <AppProvider>
+        <Capture />
+        <SearchOverlay />
+      </AppProvider>
+    </TestHostProvider>,
+  );
+}
+
+const flush = () =>
+  act(async () => {
+    await new Promise((r) => setTimeout(r, 0));
+  });
+
+async function openLiveStory() {
+  vi.stubGlobal('fetch', vi.fn(async () => liveResponse()));
+  mount();
+  await flush();
+  act(() => actions.setSearchOpen(true));
+  fireEvent.change(screen.getByRole('combobox'), { target: { value: 'CMA Awards' } });
+  const option = await screen.findByRole('option', { name: new RegExp(HEADLINE) }, { timeout: 2000 });
+  expect(screen.getByText('News')).toBeInTheDocument();
+  fireEvent.click(option);
+}
+
 describe('search finds live news', () => {
   it('lists a live story under News and opens its detail when picked', async () => {
-    vi.stubGlobal(
-      'fetch',
-      vi.fn(async () => new Response(JSON.stringify({ items: [LIVE_ITEM], theories: [], signals: [] }), { status: 200 })),
-    );
-    renderWithReader(
-      <TestHostProvider>
-        <AppProvider>
-          <Capture />
-          <SearchOverlay />
-        </AppProvider>
-      </TestHostProvider>,
-    );
-    await act(async () => {
-      await new Promise((r) => setTimeout(r, 0));
-    });
-    act(() => actions.setSearchOpen(true));
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'CMA Awards' } });
-    const option = await screen.findByRole('option', { name: new RegExp(HEADLINE) }, { timeout: 2000 });
-    expect(screen.getByText('News')).toBeInTheDocument();
-    fireEvent.click(option);
+    await openLiveStory();
     expect(screen.queryByRole('combobox')).toBeNull();
     expect(screen.getByRole('dialog')).toHaveTextContent(HEADLINE);
+  });
+
+  it('forgets the open story when search reopens, so closing search does not bring it back', async () => {
+    await openLiveStory();
+    act(() => actions.setSearchOpen(true));
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
+    act(() => actions.setSearchOpen(false));
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('resets the highlight when live rows land mid-query, so Enter never opens a shifted row', async () => {
+    let land: (r: Response) => void = () => {};
+    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>((resolve) => (land = resolve))));
+    mount();
+    act(() => actions.setSearchOpen(true));
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'CMA Awards' } });
+    await screen.findAllByRole('option', {}, { timeout: 2000 });
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(screen.getAllByRole('option')[1]).toHaveAttribute('aria-selected', 'true');
+    land(liveResponse());
+    await screen.findByRole('option', { name: new RegExp(HEADLINE) }, { timeout: 2000 });
+    const first = screen.getAllByRole('option')[0]!;
+    expect(first).toHaveAttribute('aria-selected', 'true');
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
 });
