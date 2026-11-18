@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 114
+Stories: 117
+
+## Travis Kelce Shares Thoughts on Taylor Swift's First Game Appearance
+
+- first seen: 2026-11-18 17:59 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce discussed the significance of Taylor Swift's first visit to a Chiefs game, expressing his feelings of being fortunate. The comments highlight their relationship amidst public interest.
+- sources:
+  - [established] People — https://people.com/travis-kelce-reflects-on-first-time-taylor-swift-came-to-chiefs-game-12262563
+
+## Taylor Swift's friend shares concern about her future with Travis Kelce
+
+- first seen: 2026-11-18 17:59 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A friend of Taylor Swift has expressed a concern regarding her relationship with Travis Kelce amid ongoing speculation about marriage and potential divorce.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-friend-reveals-1-170347400.html
+
+## Negative report emerges on Taylor Swift's marriage plans with Travis Kelce
+
+- first seen: 2026-11-18 17:59 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: A recent report has surfaced discussing Taylor Swift's next steps in her relationship with Travis Kelce, leading to negative reactions from the public. The report describes the situation as being viewed by some as 'downright insufferable.'
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-faces-negative-news-172355675.html
 
 ## Taylor Swift Superfan Concludes 'Blind Love Era'
 
