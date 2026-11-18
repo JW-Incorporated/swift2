@@ -27,6 +27,22 @@ so far".
 
 Stories: 114
 
+## Taylor Swift Faces Online Backlash for Grammy Nominee Introduction Comment
+
+- first seen: 2026-11-18 21:57 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is receiving negative reactions online after a comment she made while introducing nominees for Album and Song of the Year at the Grammys. The reaction has led some fans to express their disappointment on social media.
+- sources:
+  - [unverified] BuzzFeed — https://www.buzzfeed.com/zoerobotin/taylor-swift-backlash-over-grammys-comment
+
+## Posture-Correcting Bra Worn by Taylor Swift on Sale for Black Friday
+
+- first seen: 2026-11-18 21:57 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A posture-correcting bra that Taylor Swift wore during the Eras Tour is now available for purchase during Black Friday sales.
+- sources:
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/style-beauty/fashion/a74466022/taylor-swift-forme-bra-black-friday-sale-2026/
+
 ## Taylor Swift Shares Favorite Chicken Recipe from Nigella Lawson
 
 - first seen: 2026-11-18 20:57 UTC | category: business | importance: 5
@@ -183,13 +199,16 @@ Stories: 114
 ## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 8
+- verification_status: corroborated | source_count: 11
 - summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
 - sources:
   - [unverified] Axios — https://www.axios.com/local/nashville/2026/11/18/cma-awards-2026-taylor-swift-lainey-wilson-copy
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74467541/cma-awards-seating-chart-taylor-swift/
   - [unverified] Forbes — https://www.forbes.com/sites/matthewleimkuehler/2026/11/18/cma-awards-2026-whos-performing-taylor-swift-ella-langley-and-more/
   - [unverified] KRDO — https://krdo.com/news/entertainment-news/2026/11/18/cma-awards-celebrate-60-years-taylor-swift-makes-long-awaited-return/
   - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
+  - [unverified] Page Six — https://pagesix.com/2026/11/18/entertainment/how-to-watch-taylor-swift-perform-at-cma-awards-2026-for-free/
+  - [unverified] Syracuse.com — https://www.syracuse.com/tv/2026/11/is-taylor-swift-performing-at-the-2026-cma-awards-what-time-and-how-to-watch-for-free.html
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
   - [unverified] USA Today — https://www.usatoday.com/videos/entertainment/music/2026/11/18/taylor-swift-vlog-2008-cma-nashville/92848676007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/how-to-watch-cmas-taylor-swift-performance-live-online-1236952238/
@@ -231,13 +250,14 @@ Stories: 114
 ## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
 
 - first seen: 2026-11-18 02:42 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 5
 - summary: The Museum of Fine Arts in Boston has officially announced the Taylor Swift: The Eras Collection. This new exhibition is set to showcase various aspects of the artist's career.
 - sources:
   - [unverified] ArtDependence — https://artdependence.com/articles/museum-of-fine-arts-boston-announces-taylor-swift-the-eras-collection/
   - [unverified] Artsy — https://www.artsy.net/article/artsy-editorial-taylor-swift-eras-collection-exhibition-open-museum-fine-arts-boston-202
   - [established] Billboard — https://www.billboard.com/music/pop/taylor-swift-eras-collection-boston-museum-fine-arts-details-1236384740/
   - [unverified] MassLive — https://www.masslive.com/ne-where/2026/11/taylor-swift-eras-exhibit-at-museum-of-fine-arts-boston-is-first-of-its-kind.html
+  - [established] Rolling Stone — https://www.rollingstone.com/culture/culture-news/taylor-swift-exhibit-museum-of-fine-arts-boston-music-1235660439/
 
 ## Maine Considers Luxury Home Tax Inspired by Taylor Swift
 
@@ -954,19 +974,3 @@ Stories: 114
 - summary: Taylor Swift is set to perform at the 2026 CMA Awards, with details on the date and her nomination available. Viewers can find information on how to watch the event.
 - sources:
   - [unverified] stupidDOPE — https://stupiddope.com/2026/11/taylor-swift-returns-to-the-cma-awards-stage-after-13-years-the-no-1-song-that-brought-her-back/
-
-## Taylor Swift's Cozy Christmas Living Room Design Highlighted
-
-- first seen: 2026-11-15 21:08 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A feature in Homes and Gardens showcases Taylor Swift's Christmas living room, highlighting its anti-minimalist style and cozy atmosphere.
-- sources:
-  - [unverified] Homes and Gardens — https://www.homesandgardens.com/celebrity-homes/taylor-swifts-anti-minimalist-2014-christmas-living-room-is-a-masterclass-in-old-world-charm-its-nostalgic-and-cozy
-
-## Taylor Swift's Attendance at Chiefs vs Falcons Game Questioned
-
-- first seen: 2026-11-15 21:08 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A report addresses the speculation regarding Taylor Swift's presence at the Chiefs vs Falcons game. Discussion continues about her possible attendance.
-- sources:
-  - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-the-chiefs-vs-falcons-game-today
