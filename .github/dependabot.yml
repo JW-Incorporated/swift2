@@ -14,45 +14,83 @@ updates:
     versioning-strategy: increase
     labels:
       - "dependencies"
+    # Expo / React Native / React (and babel-preset-expo, which is locked to the
+    # Expo SDK) change apps/mobile's native fingerprint (EAS `fingerprint:generate`,
+    # scripts/release/train-lib.mjs), so any bump forces an app-store build, which
+    # is the owner's call. Dependabot never opens version-update PRs for them,
+    # grouped or individual; they are bumped by hand as one Expo SDK move.
+    # react/react-dom are here because react-native requires an exact react match
+    # (#6818 broke typecheck/build); this also stops web's react version bumps.
+    # Group order alone did NOT keep them out: #6788/#6818 put react-native-* in
+    # production-dependencies with mobile-native listed first, and majors
+    # (#6789 expo 58, #6790 gesture-handler 3) came as individual PRs.
+    ignore:
+      - dependency-name: "expo"
+      - dependency-name: "expo-*"
+      - dependency-name: "@expo/*"
+      - dependency-name: "babel-preset-expo"
+      - dependency-name: "react-native"
+      - dependency-name: "react-native-*"
+      - dependency-name: "@react-native/*"
+      - dependency-name: "@react-native-*/*"
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
     groups:
-      # Expo / React Native / React move together and usually need a store
-      # build (Joey's call), so they get their own PR. Listed first: Dependabot
-      # assigns each dependency to the first matching group, which keeps these
-      # out of production-dependencies so routine bumps aren't blocked (#5315, #5425).
-      mobile-native:
-        patterns:
-          - "expo"
-          - "expo-*"
-          - "@expo/*"
-          - "react-native"
-          - "react-native-*"
-          - "@react-native/*"
-          - "react"
-          - "react-dom"
-        update-types:
-          - "minor"
-          - "patch"
       # Playwright is pinned to the parity container image and version guard in
       # .github/workflows/parity.yml (image tag + `npx playwright --version` check,
       # two jobs). Bump all three together, deliberately, with baselines regenerated.
+      # Its own group is not enough on its own: #6787 still carried @playwright/test
+      # in dev-dependencies, so the groups below also exclude it explicitly.
       playwright:
         patterns:
           - "@playwright/*"
           - "playwright"
           - "playwright-core"
       # One PR for all low-risk dev-dependency patch/minor bumps.
+      # exclude-patterns (not group order) is what keeps a package out of a group.
       dev-dependencies:
         dependency-type: "development"
+        exclude-patterns:
+          - "@playwright/*"
+          - "playwright"
+          - "playwright-core"
+          - "expo"
+          - "expo-*"
+          - "@expo/*"
+          - "babel-preset-expo"
+          - "react-native"
+          - "react-native-*"
+          - "@react-native/*"
+          - "@react-native-*/*"
+          - "react"
+          - "react-dom"
         update-types:
           - "minor"
           - "patch"
       # One PR for production patch/minor bumps; majors stay separate for human review.
       production-dependencies:
         dependency-type: "production"
+        exclude-patterns:
+          - "@playwright/*"
+          - "playwright"
+          - "playwright-core"
+          - "expo"
+          - "expo-*"
+          - "@expo/*"
+          - "babel-preset-expo"
+          - "react-native"
+          - "react-native-*"
+          - "@react-native/*"
+          - "@react-native-*/*"
+          - "react"
+          - "react-dom"
         update-types:
           - "minor"
           - "patch"
     # Security updates are NOT batched here — GitHub opens them immediately on their own.
+    # GitHub's docs do not say whether `ignore` also suppresses security PRs for the
+    # native packages above; their Dependabot alerts still open either way (Paul Blart
+    # triages alerts first), and a native fix needs a store build regardless.
 
   # GitHub Actions — keep CI/security workflows current.
   - package-ecosystem: "github-actions"
