@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 106
+
+## Taylor Swift to Perform at 2026 Country Music Association Awards
+
+- first seen: 2026-11-18 05:42 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is set to perform at the 2026 Country Music Association Awards. Details on how to watch the event have been provided by KTVN.
+- sources:
+  - [unverified] WRAL — https://www.wral.com/news/ap/0ddc8-the-2026-country-music-association-awards-are-here-with-taylor-swift-performing-how-to-watch/
+
+## Details on Taylor Swift's Performance Time at the CMAs
+
+- first seen: 2026-11-18 05:42 UTC | category: tour | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: This article provides information about the timing of the CMAs and when Taylor Swift is scheduled to perform. It includes key details relevant to fans and attendees.
+- sources:
+  - [unverified] Cincinnati Enquirer — https://www.cincinnati.com/story/entertainment/2026/11/18/taylor-swift-returns-to-cmas-date-time-channel-how-to-watch/92809904007/
 
 ## Upcoming Taylor Swift Exhibit at MFA Boston Details Revealed
 
@@ -883,11 +899,3 @@ Stories: 105
 - summary: Taylor Swift has shared personal news prior to the Chiefs-Falcons game. The details of the news are not specified in the snippet provided.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-personal-news-before-falcons-game/
-
-## Taylor Swift Shares Thoughts on Parenting After Kelce Wedding
-
-- first seen: 2026-11-15 04:53 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: In new comments following Travis Kelce's wedding, Taylor Swift discussed her views on raising children. The remarks come amid her ongoing relationship with Kelce.
-- sources:
-  - [unverified] NDTV Sports — https://sports.ndtv.com/us/nfl/taylor-swift-reveals-what-she-thinks-about-raising-kids-in-new-comments-after-travis-kelce-wedding-12328257
