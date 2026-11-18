@@ -27,6 +27,14 @@ so far".
 
 Stories: 114
 
+## Taylor Swift and Dolly Parton Collaborate on Music in Tennessee
+
+- first seen: 2026-11-18 12:27 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Dolly Parton have recorded music together at a retreat in Tennessee. The location was established in 1998.
+- sources:
+  - [unverified] The Times of India — https://timesofindia.indiatimes.com/real-estate/news/taylor-swift-and-dolly-parton-recorded-music-at-a-tennessee-retreat-built-in-1998-after-more-than-65-gold-and-platinum-albums-were-made-there-the-10-acre-studio-estate-is-now-listed-for-19-5-million/articleshow/135933523.cms
+
 ## Travis Kelce's Notable Performances at Arrowhead Stadium Featured
 
 - first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
@@ -97,7 +105,7 @@ Stories: 114
 - verification_status: rumor | source_count: 1
 - summary: Taylor Swift has addressed the next steps in her relationship with Travis Kelce, responding to recent reports of her frustration. She expressed uncertainty in her comments, highlighting the complexities of their relationship.
 - sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-finally-comments-next-170647146.html
+  - [unverified] StyleCaster — https://stylecaster.com/entertainment/celebrity-news/1234973345/taylor-swift-travis-kelce-kids-marriage/
 
 ## Details on Taylor Swift's Performance Time at the CMAs
 
@@ -956,11 +964,3 @@ Stories: 114
 - summary: Taylor Swift is set to perform at the CMA Awards for the first time in 13 years, marking her return to the event. This performance is highly anticipated by fans and signifies a noteworthy moment in her career.
 - sources:
   - [unverified] Williamson Source — https://williamsonsource.com/taylor-swift-to-perform-at-cma-awards-for-the-first-time-in-13-years/
-
-## University Professors Adapt Lectures into Songs Featuring Taylor Swift
-
-- first seen: 2026-11-15 11:37 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Professors from Western University are creatively transforming their lectures into songs, including references to artists like Taylor Swift and Queen. This innovative approach aims to engage students in learning through music.
-- sources:
-  - [unverified] CBC — https://www.cbc.ca/news/canada/london/western-university-singing-professors-9.7420015
