@@ -282,6 +282,32 @@ describe('createAppAdapter', () => {
       onBack: () => () => {},
     });
     await expect(a.share?.({ text: 'x' })).rejects.toThrow('share failed');
+    await expect(a.share?.({ text: 'x' })).rejects.not.toMatchObject({ name: 'AbortError' });
+  });
+  const failing = (code: string) =>
+    createAppAdapter({
+      client: { call: vi.fn(async () => ({ ok: false as const, error: { code, message: 'x' } })) } as never,
+      insets: { top: 0, right: 0, bottom: 0, left: 0 },
+      isNativeRoute: () => false,
+      navigateDom: vi.fn(),
+      getPath: () => '/',
+      apiFetch: vi.fn() as never,
+      onBack: () => () => {},
+    });
+  it('a superseded share (cancelled) rejects as an AbortError, the reader’s quiet cancel', async () => {
+    await expect(failing('cancelled').share?.({ text: 'x' })).rejects.toMatchObject({ name: 'AbortError' });
+  });
+  it('openExternal resolves true on success, false on a failed open or a refused url', async () => {
+    const { adapter } = setup();
+    await expect(adapter.openExternal?.('https://example.com')).resolves.toBe(true);
+    await expect(adapter.openExternal?.('javascript:alert(1)')).resolves.toBe(false);
+    await expect(failing('failed').openExternal?.('https://example.com')).resolves.toBe(false);
+  });
+  it('notifications.openSettings goes over the bridge and rejects on failure', async () => {
+    const { adapter, call } = setup();
+    await adapter.notifications?.openSettings?.();
+    expect(call).toHaveBeenCalledWith('notifications.openSettings', {});
+    await expect(failing('failed').notifications?.openSettings?.()).rejects.toThrow('notification request failed');
   });
   it('Link renders an anchor; external adds target and rel', () => {
     const { adapter } = setup();

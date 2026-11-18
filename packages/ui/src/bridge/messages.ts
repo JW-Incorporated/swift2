@@ -45,6 +45,8 @@ export type DomCommandSpec = {
   /** Add-only (W6): the native one-time push-offer flag, shared with the native OnboardingScreen's SecureStore key. */
   'notifications.onboardingOffered': Spec<Record<string, never>, { offered: boolean }>;
   'notifications.markOnboardingOffered': Spec<Record<string, never>, null>;
+  /** Add-only: opens this app's page in the phone's Settings (RN `Linking.openSettings`), the way back from a real OS denial. */
+  'notifications.openSettings': Spec<Record<string, never>, null>;
   /**
    * `stream: true` (ClownChat only) answers at headers with an `ApiStreamHead`; the DOM then pulls the body
    * with `apiRead`. A non-2xx answers the buffered `ApiResponse` shape (no streamId). Add-only (W6-stream).
@@ -166,6 +168,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.optOutPending': true,
   'notifications.onboardingOffered': true,
   'notifications.markOnboardingOffered': true,
+  'notifications.openSettings': true,
   api: true,
   apiRead: true,
   cancel: true,

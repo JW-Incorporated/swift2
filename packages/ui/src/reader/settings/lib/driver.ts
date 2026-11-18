@@ -22,6 +22,8 @@ export type SettingsDriver = {
   savePrefs(body: { settings?: object; prefs?: object[] }): Promise<unknown>;
   /** Shown instead of the web "blocked in your browser" copy; the web driver omits it. */
   deniedHint?: string;
+  /** App only: opens the phone's Settings for this app after a real denial. Absent (the web) = no settings action. */
+  openSettings?(): Promise<void>;
   /** Re-read the permission when the page returns to the foreground (the app: the user may have changed it in phone Settings). */
   refreshOnForeground?: boolean;
 };
@@ -105,6 +107,7 @@ export function fromNotifications(n: HostNotifications): SettingsDriver {
       }
     },
     deniedHint: APP_DENIED_HINT,
+    openSettings: n.openSettings ? async () => void (await n.openSettings!().catch(() => undefined)) : undefined,
     refreshOnForeground: true,
   };
 }

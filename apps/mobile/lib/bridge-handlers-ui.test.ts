@@ -175,23 +175,30 @@ describe('createBackHandler', () => {
     expect(h.request).toHaveBeenCalledWith('back', {}, { timeoutMs: 1000 });
     expect(exit).not.toHaveBeenCalled();
   });
-  it.each([
-    ['exit', { ok: true, value: 'exit' }],
-    ['timeout', { ok: false, error: { code: 'timeout', message: '' } }],
-    ['error', { ok: false, error: { code: 'failed', message: '' } }],
-  ])('exits on %s', async (_n, result) => {
-    const h = host(true, result);
+  it('exits on an explicit exit answer (UI at its root)', async () => {
+    const h = host(true, { ok: true, value: 'exit' });
     const exit = vi.fn();
     expect(createBackHandler(h, exit)()).toBe(true);
     await flush();
     expect(exit).toHaveBeenCalledTimes(1);
   });
-  it('exits when request rejects', async () => {
+  it.each([
+    ['timeout', { ok: false, error: { code: 'timeout', message: '' } }],
+    ['error', { ok: false, error: { code: 'failed', message: '' } }],
+    ['unsupported', { ok: false, error: { code: 'unsupported', message: '' } }],
+  ])('swallows the press on %s (consumed, no exit)', async (_n, result) => {
+    const h = host(true, result);
+    const exit = vi.fn();
+    expect(createBackHandler(h, exit)()).toBe(true);
+    await flush();
+    expect(exit).not.toHaveBeenCalled();
+  });
+  it('swallows the press when request rejects', async () => {
     const exit = vi.fn();
     const h = { isReady: () => true, request: vi.fn(async () => { throw new Error('x'); }) };
     expect(createBackHandler(h as never, exit)()).toBe(true);
     await flush();
-    expect(exit).toHaveBeenCalledTimes(1);
+    expect(exit).not.toHaveBeenCalled();
   });
 });
 

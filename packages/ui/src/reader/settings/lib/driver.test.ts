@@ -54,6 +54,15 @@ describe('fromNotifications', () => {
     expect(fromNotifications(notif()).deniedHint).toBe(APP_DENIED_HINT);
     expect(fromWebPush(webPush(), null).deniedHint).toBeUndefined();
   });
+
+  it('openSettings: only when the host offers it, and a host failure never rejects', async () => {
+    expect(fromWebPush(webPush(), null).openSettings).toBeUndefined();
+    expect(fromNotifications(notif()).openSettings).toBeUndefined();
+    const ok = vi.fn().mockResolvedValue(undefined);
+    await fromNotifications(notif({ openSettings: ok })).openSettings!();
+    expect(ok).toHaveBeenCalledTimes(1);
+    await expect(fromNotifications(notif({ openSettings: vi.fn().mockRejectedValue(new Error('x')) })).openSettings!()).resolves.toBeUndefined();
+  });
 });
 
 describe('fromWebPush keeps the device id in its closure', () => {

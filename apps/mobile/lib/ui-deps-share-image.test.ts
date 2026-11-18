@@ -165,7 +165,7 @@ describe('superseded shares', () => {
     const b = h.share(payload({ url: CARD }), ctx);
     expect(await b).toEqual({ ok: true, value: { imageCopied: false } });
     first({ uri: 'file:///cache/share/first.png', base64: () => 'OLD' });
-    expect(await a).toEqual({ ok: true, value: null });
+    expect(await a).toEqual({ ok: false, error: { code: 'cancelled', message: 'share superseded' } });
     const urls = (env.share.share as ReturnType<typeof vi.fn>).mock.calls.map((c) => (c[0] as { url: string }).url);
     expect(urls).toEqual(['file:///cache/share/second.png']);
   });

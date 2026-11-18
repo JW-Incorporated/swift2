@@ -7,13 +7,17 @@ export function SubscribePrompt({
   deniedHint,
   optOutPending,
   onSubscribe,
+  onOpenSettings,
 }: {
   kind: PromptKind;
   message?: string;
   deniedHint?: string;
   optOutPending: boolean;
   onSubscribe: () => void;
+  /** App only: a real OS denial offers "Open Settings" in place of the disabled enable button. */
+  onOpenSettings?: () => void;
 }) {
+  const settingsAction = kind === 'denied' && onOpenSettings;
   return (
     <div className="flex flex-col items-center gap-4">
       {optOutPending && (
@@ -30,11 +34,11 @@ export function SubscribePrompt({
       {kind === 'error' && <p className="max-w-md text-center text-sm text-ink-soft">{message}</p>}
       <button
         type="button"
-        onClick={onSubscribe}
-        disabled={kind === 'subscribing' || kind === 'denied'}
+        onClick={settingsAction ? onOpenSettings : onSubscribe}
+        disabled={kind === 'subscribing' || (kind === 'denied' && !settingsAction)}
         className="inline-flex items-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[color:var(--era-accent-fg)] transition-opacity hover:opacity-90 disabled:bg-surface disabled:text-ink-soft disabled:hover:opacity-100"
       >
-        {kind === 'subscribing' ? 'Enabling\u2026' : 'Enable notifications'}
+        {settingsAction ? 'Open Settings' : kind === 'subscribing' ? 'Enabling\u2026' : 'Enable notifications'}
       </button>
     </div>
   );

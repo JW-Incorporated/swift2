@@ -94,6 +94,7 @@ export function createUnwiredHandlers(log: (stage: string, detail: string) => vo
     'notifications.optOutPending': unwired('notifications.optOutPending'),
     'notifications.onboardingOffered': unwired('notifications.onboardingOffered'),
     'notifications.markOnboardingOffered': unwired('notifications.markOnboardingOffered'),
+    'notifications.openSettings': unwired('notifications.openSettings'),
   };
 }
 

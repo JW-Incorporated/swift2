@@ -23,6 +23,8 @@ type NotificationHost = {
   optOutPending?(): Promise<boolean>;
   onboardingOffered?(): Promise<boolean>;
   markOnboardingOffered?(): Promise<void>;
+  /** RN `Linking.openSettings`; absent = the command answers `failed`. */
+  openSettings?(): Promise<void>;
 };
 
 export type NotificationHandlerDeps = NotificationHost;
@@ -31,6 +33,7 @@ export type NotificationHandlers = Pick<
   'notifications.status' | 'notifications.request' | 'notifications.register' | 'notifications.updatePrefs'
   | 'notifications.getPrefs' | 'notifications.savePrefs' | 'notifications.unregister' | 'notifications.registration'
   | 'notifications.optOutPending' | 'notifications.onboardingOffered' | 'notifications.markOnboardingOffered'
+  | 'notifications.openSettings'
 >;
 
 const OP_TIMEOUT_MS = 15_000;
@@ -136,6 +139,12 @@ export function createHandlers(deps: NotificationHandlerDeps, opts: { opTimeoutM
       guardedT(ctx, async () => {
         if (!deps.markOnboardingOffered) throw new Error('unavailable');
         await deps.markOnboardingOffered();
+        return null;
+      }),
+    'notifications.openSettings': (_p, ctx) =>
+      guardedT(ctx, async () => {
+        if (!deps.openSettings) throw new Error('unavailable');
+        await deps.openSettings();
         return null;
       }),
     'notifications.savePrefs': (payload, ctx) => {

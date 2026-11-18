@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HostProvider, type HostNotifications, type HostWebPush, type NotificationStatus } from '@swift2/ui';
 import { WebNotificationSettings } from '@swift2/ui/reader/settings/WebNotificationSettings';
 import { APP_DENIED_HINT } from '@swift2/ui/reader/settings/lib/driver';
@@ -73,6 +73,40 @@ describe('WebNotificationSettings: web driver vs app driver (same markup per sta
     const web = await html({ ...base, webPush: webHost() }, () => screen.getByText(WEB_DENIED));
     const app = await html({ ...base, notifications: appHost('denied') }, () => screen.getByText(APP_DENIED_HINT));
     expect(app.replace(APP_DENIED_HINT, 'HINT')).toBe(web.replace(/Notifications are blocked[^<]*/, 'HINT'));
+  });
+
+  it('denied on the web: the enable button stays disabled and no settings action appears', async () => {
+    vi.stubGlobal('Notification', { permission: 'denied' });
+    render(<HostProvider adapter={{ ...base, webPush: webHost() }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    const btn = await screen.findByRole('button', { name: /enable notifications/i });
+    expect((btn as HTMLButtonElement).disabled).toBe(true);
+    expect(screen.queryByRole('button', { name: 'Open Settings' })).toBeNull();
+  });
+
+  it('denied in the app with a settings port: an enabled "Open Settings" opens the phone Settings', async () => {
+    const openSettings = vi.fn().mockResolvedValue(undefined);
+    render(<HostProvider adapter={{ ...base, notifications: { ...appHost('denied'), openSettings } }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    const btn = await screen.findByRole('button', { name: 'Open Settings' });
+    expect((btn as HTMLButtonElement).disabled).toBe(false);
+    expect(screen.queryByRole('button', { name: /enable notifications/i })).toBeNull();
+    fireEvent.click(btn);
+    expect(openSettings).toHaveBeenCalledTimes(1);
+  });
+
+  it('a failed settings open never throws into the page', async () => {
+    const openSettings = vi.fn().mockRejectedValue(new Error('no settings'));
+    render(<HostProvider adapter={{ ...base, notifications: { ...appHost('denied'), openSettings } }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    fireEvent.click(await screen.findByRole('button', { name: 'Open Settings' }));
+    await waitFor(() => expect(openSettings).toHaveBeenCalledTimes(1));
+    expect(screen.getByRole('button', { name: 'Open Settings' })).toBeTruthy();
+  });
+
+  it('app "can ask again" (undetermined) keeps the enable button live', async () => {
+    const openSettings = vi.fn();
+    render(<HostProvider adapter={{ ...base, notifications: { ...appHost('undetermined'), openSettings } }}><WebNotificationSettings vapidPublicKey={null} /></HostProvider>);
+    const btn = await screen.findByRole('button', { name: /enable notifications/i });
+    expect((btn as HTMLButtonElement).disabled).toBe(false);
+    expect(screen.queryByRole('button', { name: 'Open Settings' })).toBeNull();
   });
 
   it('unsupported: browser keeps website copy; app shows device copy and no app-download nudge', async () => {

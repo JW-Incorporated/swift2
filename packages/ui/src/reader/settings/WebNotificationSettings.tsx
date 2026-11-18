@@ -198,6 +198,7 @@ export function WebNotificationSettings({ vapidPublicKey }: { vapidPublicKey: st
         deniedHint={driver?.deniedHint}
         optOutPending={optOutPending}
         onSubscribe={handleSubscribe}
+        onOpenSettings={driver?.openSettings && (() => void driver.openSettings!())}
       />
     );
   }

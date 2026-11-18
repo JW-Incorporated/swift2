@@ -113,9 +113,10 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     return r.value;
   };
 
-  const openExternal = (url: string) => {
+  const openExternal = async (url: string): Promise<boolean> => {
     const ext = toExternalUrl(url) ?? (isAllowedMailto(url) ? (toMailtoUrl(url) ?? toComposeMailtoUrl(url)) : null);
-    if (ext) void deps.client.call('openExternal', { url: ext });
+    if (!ext) return false;
+    return (await deps.client.call('openExternal', { url: ext })).ok;
   };
 
   const navigate: HostAdapter['navigate'] = (path, opts) => {
@@ -173,8 +174,11 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
     },
     share: async (payload) => {
       const r = await withFocusRestore(() => deps.client.call('share', payload));
-      if (!r.ok) throw new Error(`share ${r.error.code}`);
-      return r.value;
+      if (r.ok) return r.value;
+      // A share superseded by a newer one is not a failure: the reader treats an AbortError as a quiet cancel.
+      const err = new Error(`share ${r.error.code}`);
+      if (r.error.code === 'cancelled') err.name = 'AbortError';
+      throw err;
     },
     haptic: (kind) => {
       void deps.client.call('haptic', { kind });
@@ -194,6 +198,7 @@ export function createAppAdapter(deps: AppAdapterDeps): HostAdapter {
       optOutPending: async () => (await notif(deps.client.call('notifications.optOutPending', {}))).pending,
       onboardingOffered: async () => (await notif(deps.client.call('notifications.onboardingOffered', {}))).offered,
       markOnboardingOffered: async () => void (await notif(deps.client.call('notifications.markOnboardingOffered', {}))),
+      openSettings: async () => void (await notif(deps.client.call('notifications.openSettings', {}))),
     },
   };
 }

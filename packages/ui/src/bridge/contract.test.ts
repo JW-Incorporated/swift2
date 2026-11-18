@@ -74,6 +74,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
       'notifications.optOutPending': H<Empty, { pending: boolean }>;
       'notifications.onboardingOffered': H<Empty, { offered: boolean }>;
       'notifications.markOnboardingOffered': H<Empty, null>;
+      'notifications.openSettings': H<Empty, null>;
       api: H<{ req: BridgeApiRequest; stream?: true }, ApiResponse | ApiStreamHead>;
       apiRead: H<{ streamId: string }, ApiStreamChunk>;
       cancel: H<{ targetId: string }, null>;
@@ -87,7 +88,7 @@ describe('leg 1 + 2: client <-> HandlerMap', () => {
 
   it('runtime: the client posts exactly the registered DOM commands, and the lists are pinned', async () => {
     expect([...DOM_COMMAND_TYPES].sort()).toEqual(
-      ['api', 'apiRead', 'cancel', 'clipboard.write', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.optOutPending', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'openExternal', 'share', 'storage.load', 'storage.write'].sort(),
+      ['api', 'apiRead', 'cancel', 'clipboard.write', 'haptic', 'navigate', 'notifications.register', 'notifications.request', 'notifications.status', 'notifications.updatePrefs', 'notifications.getPrefs', 'notifications.savePrefs', 'notifications.unregister', 'notifications.registration', 'notifications.optOutPending', 'notifications.onboardingOffered', 'notifications.markOnboardingOffered', 'notifications.openSettings', 'openExternal', 'share', 'storage.load', 'storage.write'].sort(),
     );
     expect([...NATIVE_COMMAND_TYPES]).toEqual(['back']);
     expect([...COMMAND_TYPES].sort()).toEqual([...DOM_COMMAND_TYPES, 'back'].sort());
@@ -134,7 +135,9 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     expectTypeOf<ExternalUrl>().toExtend<Parameters<Open>[0]>();
     expectTypeOf<MailtoUrl>().toExtend<Parameters<Open>[0]>();
     expectTypeOf<PayloadOf<'openExternal'>['url']>().toEqualTypeOf<ExternalUrl | MailtoUrl>();
-    expectTypeOf<VoidToNull<ReturnType<Open>>>().toEqualTypeOf<ResultOf<'openExternal'>>();
+    // The bridge answers null on success; the app host resolves that as true and any error as false (web: void, no host call).
+    expectTypeOf<ResultOf<'openExternal'>>().toEqualTypeOf<null>();
+    expectTypeOf<ReturnType<Open>>().toEqualTypeOf<void | Promise<boolean>>();
   });
 
   it('notifications.*', () => {
@@ -149,6 +152,7 @@ describe('leg 3: HostAdapter <-> PayloadOf/ResultOf (void <-> null)', () => {
     expectTypeOf<Awaited<ReturnType<Notif['savePrefs']>>>().toEqualTypeOf<ResultOf<'notifications.savePrefs'>>();
     expectTypeOf<Parameters<Notif['savePrefs']>[0]>().toEqualTypeOf<PayloadOf<'notifications.savePrefs'>>();
     expectTypeOf<VoidToNull<Awaited<ReturnType<Notif['unregister']>>>>().toEqualTypeOf<ResultOf<'notifications.unregister'>>();
+    expectTypeOf<VoidToNull<Awaited<ReturnType<NonNullable<Notif['openSettings']>>>>>().toEqualTypeOf<ResultOf<'notifications.openSettings'>>();
   });
 
   it('apiFetch and insets', () => {

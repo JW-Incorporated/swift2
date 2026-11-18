@@ -55,6 +55,7 @@ export function setup(over: Partial<Record<keyof HandlerMap, HandlerMap[keyof Ha
     'notifications.optOutPending': async () => resOk({ pending: false }),
     'notifications.onboardingOffered': async () => resOk({ offered: false }),
     'notifications.markOnboardingOffered': ok,
+    'notifications.openSettings': ok,
     api: async () => resOk({ status: 200, headers: {}, body: '' }),
   };
   const handlers = { ...base, ...over } as unknown as Omit<HandlerMap, 'cancel'>;
