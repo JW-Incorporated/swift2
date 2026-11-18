@@ -1,5 +1,8 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { alreadyJudged, judgeCaption, judgeItem, signItem } from './judge-drafts.mjs';
+import { ROOT } from '../lib/generated-content.mjs';
+import { MISSING_TOKEN, alreadyJudged, judgeCaption, judgeItem, signItem } from './judge-drafts.mjs';
 import { JUDGE_MODEL, bodyHash, checkJudge } from './lib/judge-rubric.mjs';
 
 const ok = { onVoice: 4, specific: 5, formula: 4, notEmbarrassed: 4, onVoice_reason: 'warm', specific_reason: 'dated', formula_reason: 'clean', notEmbarrassed_reason: 'proud' };
@@ -99,5 +102,61 @@ describe('forged judge records', () => {
     expect(signItem(draft, 'd-x.json', 'k')).toBeNull();
     expect(signItem(withForged, 'd-x.json', '')).toBeNull();
     expect(signItem(withForged, 'd-x.json', 'k')?.critique.judge.sig).toMatch(/^[0-9a-f]{64}$/);
+  });
+});
+
+// Issue #6933: Tree's daily draft run died on `Error: CLAUDE_CODE_OAUTH_TOKEN
+// is not set` because lesson L003 told it to run this script as a pre-flight,
+// and routine-template.yml gives the token to claude-code-action as an input,
+// never to the agent's shell. The script is a workflow-only entrypoint; these
+// pin that no prose an agent run follows sends it here again.
+describe('the judge is a workflow-only entrypoint (#6933)', () => {
+  const read = (rel: string) => readFileSync(join(ROOT, ...rel.split('/')), 'utf8');
+  // Every prose file a drafting run reads: the ledger, its prompt, the social
+  // register and the calendar section it is handed verbatim.
+  const agentProse = [
+    'social/lessons.md',
+    'social/calendar.md',
+    'docs/agents/runner-prompts/tree-daily-draft.md',
+    'docs/content-ops/voice/register-social.md',
+  ];
+
+  it('names its one caller and the hand-score alternative instead of only the missing variable', () => {
+    expect(MISSING_TOKEN).toContain('CLAUDE_CODE_OAUTH_TOKEN is not set');
+    expect(MISSING_TOKEN).toContain('social-draft-judge.yml');
+    expect(MISSING_TOKEN).toContain('judge-rubric.mjs');
+    expect(MISSING_TOKEN).toMatch(/not call this from a drafting run/i);
+  });
+
+  // A `**You said:**` line is a verbatim record and is never paraphrased (the
+  // ledger header); ask #6895's own words name the script, and the `**So I:**`
+  // operative rule below it is what a drafter acts on. So the invariant is about
+  // operative prose only.
+  it('no operative prose a drafting run follows tells it to invoke judge-drafts.mjs', () => {
+    for (const rel of agentProse) {
+      for (const line of read(rel).split('\n')) {
+        if (!line.includes('judge-drafts.mjs')) continue;
+        if (line.startsWith('**You said:**')) continue;
+        expect(line, `${rel}: ${line.slice(0, 140)}`).not.toMatch(
+          /(node|npx)\s[^`]{0,30}judge-drafts\.mjs/i,
+        );
+      }
+    }
+  });
+
+  it("lessons L003 keeps the rule but points the pre-flight at the rubric's own anchors", () => {
+    const lessons = read('social/lessons.md');
+    const start = lessons.indexOf('### L003');
+    expect(start).toBeGreaterThan(-1);
+    const next = lessons.indexOf('\n### ', start + 1);
+    const l003 = lessons.slice(start, next === -1 ? undefined : next);
+    expect(l003).toContain('- **Status:** active');
+    expect(l003).toContain('judge-rubric.mjs');
+    expect(l003).toContain('check-drafts.mjs');
+    expect(l003).toMatch(/under 4/);
+    expect(l003).toContain('social-draft-judge.yml');
+    const soI = l003.split('\n').find((l) => l.startsWith('**So I:**')) ?? '';
+    expect(soI).toMatch(/never by calling `judge-drafts\.mjs`/);
+    expect(soI).toContain('CLAUDE_CODE_OAUTH_TOKEN');
   });
 });

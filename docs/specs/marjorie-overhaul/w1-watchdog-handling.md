@@ -178,6 +178,26 @@ definition of "stuck".
 capped separately: **one per workflow per sweep, two per day.** Beyond that it
 is a defect, not a blip.
 
+### The exact re-dispatch command (issue #6875, 2026-11-15)
+
+Every "re-dispatch" cell in the handler table above is run as:
+
+```
+node scripts/ops/dispatch-workflow.mjs <workflow>.yml [-f key=value ...]
+```
+
+**Not** `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run <wf> --ref main`, which
+this spec and the charter originally assumed. That form is refused by the agent
+session's pre-execution Bash check ("A variable in this command can't be
+checked before it runs") before a shell ever exists, for every variant tried,
+because the gate is a textual check on the command string. The 2026-11-15 sweep
+hit it on `vault-run-cadence` (#6866) and `knowledge-stale` (#6827) and
+downgraded both to comment-only. `scripts/ops/dispatch-workflow.mjs` reads
+`GH_DISPATCH_TOKEN` from `process.env` and passes it to `gh` as `GH_TOKEN` in
+the child environment only, so the command text stays literal, the dispatch
+carries the job's `actions: write` (#4223), and every other `gh` call still
+authors as `claude[bot]`. The token is never printed and never in argv.
+
 ### Will the new routine itself be watched?
 
 **Yes, automatically, with one condition.** `watchdog.yml:274-289` globs

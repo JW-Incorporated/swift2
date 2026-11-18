@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-18-folklore-album-ear-muffs-8234070081736",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-18T02:31:22.718Z",
+  "deadline": "2026-11-21T02:31:22.718Z",
+  "status": "open",
+  "facts": {
+    "name": "Folklore Album Ear Muffs",
+    "price": "35.00",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/folklore-album-ear-muffs",
+    "firstSeenAt": "2026-11-18T02:29:30.532Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44223339571.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/folklore-album-ear-muffs",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Marvelous Time Ruining Everything Tote\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

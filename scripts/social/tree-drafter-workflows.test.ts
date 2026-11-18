@@ -94,12 +94,50 @@ describe('Tree clears its own drafts (#5520)', () => {
 describe('routine-tree-event-draft.yml', () => {
   const wf = read('.github/workflows/routine-tree-event-draft.yml');
 
-  it('is dispatch-only (no schedule), takes a numeric issue, and is capped at 30 turns', () => {
+  it('is dispatch-only (no schedule), takes a numeric issue, and is deduped per issue', () => {
     expect(wf).not.toMatch(/^\s+schedule:/m);
     expect(wf).toMatch(/dispatch-only/);
     expect(wf).toMatch(/case "\$ISSUE" in ''\|\*\[!0-9\]\*\)/);
-    expect(wf).toMatch(/max_turns: 30\b/);
     expect(wf).toMatch(/concurrency_key: issue-\$\{\{ inputs\.issue \}\}/);
+  });
+
+  // #6849: the cap was 30, sized for the cheap decline path. A run that
+  // actually drafts does everything the daily drafter does (50-59 turns,
+  // decisions.md 2026-10-21) plus step 2's verification searches, so intake
+  // #6840 died at 31/30 with no PR. The event cap may never sit below the
+  // daily one again, and the prompt must state the same budget it is given.
+  it('gives a drafting run at least as many turns as the daily drafter, and says so in the prompt', () => {
+    const turns = Number(/max_turns: (\d+)\b/.exec(wf)?.[1]);
+    const daily = Number(
+      /max_turns: (\d+)\b/.exec(read('.github/workflows/routine-tree-daily-draft.yml'))?.[1],
+    );
+    expect(daily).toBeGreaterThanOrEqual(75);
+    expect(turns).toBeGreaterThanOrEqual(daily);
+    expect(read('docs/agents/runner-prompts/tree-event-draft.md')).toContain(
+      `You have **${turns} turns**`,
+    );
+    // The agent job must outlast its own turn budget.
+    expect(wf).toMatch(/timeout_minutes: 30\b/);
+  });
+
+  // #4223/#5520, same failure the daily drafter already fixed: step 6's
+  // `gh workflow run social-tree-approve.yml` 403s on claude-code-action's
+  // installation token unless the template hands the PAT over AND the prompt
+  // prefixes that one command with it. Intake #6713 and #6814 both drafted a
+  // clean pair and then reported `tree: blocked` on the dispatch.
+  it('hands the agent GH_DISPATCH_TOKEN and prefixes exactly the approve dispatch with it', () => {
+    const run = jobBlock(wf, 'run');
+    expect(run).toMatch(/expose_dispatch_token: true/);
+    expect(run).toMatch(/checkout_token_secret: SOCIAL_POSTER_PAT/);
+    expect(wf).toMatch(/SOCIAL_POSTER_PAT: \$\{\{ secrets\.SOCIAL_POSTER_PAT \}\}/);
+    const prompt = read('docs/agents/runner-prompts/tree-event-draft.md');
+    expect(prompt).toMatch(
+      /GH_TOKEN="\$GH_DISPATCH_TOKEN" gh workflow run social-tree-approve\.yml --ref main -f pr=/,
+    );
+    // Scoped to that one command, so comments stay claude[bot].
+    const prefixed = prompt.match(/GH_TOKEN="\$GH_DISPATCH_TOKEN"[^`\n]*/g) ?? [];
+    expect(prefixed).toHaveLength(1);
+    expect(prefixed[0]).toContain('social-tree-approve.yml');
   });
 
   it('feeds the agent the issue text and the pre-compute, and files a receipt on failure', () => {
