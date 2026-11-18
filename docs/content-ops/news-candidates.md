@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 115
+Stories: 114
+
+## Taylor Swift Shares Favorite Chicken Recipe from Nigella Lawson
+
+- first seen: 2026-11-18 20:57 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has expressed her fondness for a chicken recipe created by Nigella Lawson, which has now gained attention from her fans. The recipe is highlighted in an article on Allrecipes.
+- sources:
+  - [unverified] Allrecipes — https://www.allrecipes.com/taylor-swift-favorite-chicken-recipe-nigella-lawson-12260879
 
 ## Travis Kelce Shares Thoughts on Taylor Swift's First Game Appearance
 
@@ -175,13 +183,17 @@ Stories: 115
 ## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 8
 - summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
 - sources:
   - [unverified] Axios — https://www.axios.com/local/nashville/2026/11/18/cma-awards-2026-taylor-swift-lainey-wilson-copy
   - [unverified] Forbes — https://www.forbes.com/sites/matthewleimkuehler/2026/11/18/cma-awards-2026-whos-performing-taylor-swift-ella-langley-and-more/
+  - [unverified] KRDO — https://krdo.com/news/entertainment-news/2026/11/18/cma-awards-celebrate-60-years-taylor-swift-makes-long-awaited-return/
   - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
+  - [unverified] USA Today — https://www.usatoday.com/videos/entertainment/music/2026/11/18/taylor-swift-vlog-2008-cma-nashville/92848676007/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/how-to-watch-cmas-taylor-swift-performance-live-online-1236952238/
+  - [unverified] Yahoo — https://shopping.yahoo.com/health/sleep/articles/coops-black-friday-sale-60-204437664.html
 
 ## Taylor Swift Comments on Future with Travis Kelce Amid Frustration Reports
 
@@ -316,14 +328,6 @@ Stories: 115
 - sources:
   - [unverified] Parade Magazine — https://parade.com/news/mfa-boston-debuting-exclusive-taylor-swift-eras-collection-a-historic-first-for-156-year-old-institution
 
-## Taylor Swift Exhibit to Showcase Career Memorabilia
-
-- first seen: 2026-11-17 19:13 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: An upcoming exhibit will allow Taylor Swift fans to view costumes, instruments, and memorabilia spanning her two-decade career. This immersive experience is expected to be a significant attraction for her fans.
-- sources:
-  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/are-you-ready-for-it-taylor-swift-fans-will-soon-be-able-to-get-an-up-close-look/1640166504811676/
-
 ## Eras Tour Costume Exhibit to Open at Boston's MFA
 
 - first seen: 2026-11-17 19:13 UTC | category: business | importance: 6
@@ -331,6 +335,14 @@ Stories: 115
 - summary: An exhibit showcasing costumes from Taylor Swift's Eras Tour is set to open at Boston's Museum of Fine Arts. This event highlights the artistic and cultural impact of Swift's tour through its visual elements.
 - sources:
   - [unverified] Boston 25 News — https://www.boston25news.com/news/local/taylor-swift-exhibit-featuring-eras-tour-costumes-coming-bostons-mfa/NYDOZNW24NBLFOQZNVAHYPTZGI/
+
+## Taylor Swift Exhibit to Showcase Career Memorabilia
+
+- first seen: 2026-11-17 19:13 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An upcoming exhibit will allow Taylor Swift fans to view costumes, instruments, and memorabilia spanning her two-decade career. This immersive experience is expected to be a significant attraction for her fans.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/are-you-ready-for-it-taylor-swift-fans-will-soon-be-able-to-get-an-up-close-look/1640166504811676/
 
 ## Sugarland Releases Cover Video of Taylor Swift's 'Patient Zero'
 
@@ -958,19 +970,3 @@ Stories: 115
 - summary: A report addresses the speculation regarding Taylor Swift's presence at the Chiefs vs Falcons game. Discussion continues about her possible attendance.
 - sources:
   - [unverified] Athlon Sports — https://athlonsports.com/nfl/trending/is-taylor-swift-at-the-chiefs-vs-falcons-game-today
-
-## Travis Kelce Leaves Chiefs Game with Injury
-
-- first seen: 2026-11-15 20:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce, known for his relationship with Taylor Swift, exited the Kansas City Chiefs game due to an ankle injury. The incident has drawn attention from fans and media alike.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1438137/travis-kelce-injured-in-first-quarter-chiefs-game-return-questionable
-
-## Taylor Swift Not Seen at Chiefs vs. Falcons Game Following CMA Awards News
-
-- first seen: 2026-11-15 20:12 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was reportedly absent from the Chiefs versus Falcons game after the announcement of the CMA Awards. The timing of her absence has drawn attention from fans and media alike.
-- sources:
-  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-kansas-city-chiefs-atlanta-falcons-game/
