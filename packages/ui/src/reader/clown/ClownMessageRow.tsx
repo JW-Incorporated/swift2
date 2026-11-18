@@ -159,7 +159,7 @@ export function ClownMessageRow({ message }: { message: ClownMessage }) {
           {(message.answer.theoryName || message.answer.delulu !== null) && (
             <div className="mb-3 flex flex-wrap gap-1.5">
               {message.answer.theoryName && (
-                <span className="rounded-full bg-[color:var(--era-accent)]/15 px-2.5 py-0.5 text-xs font-semibold text-[color:var(--era-accent)]">
+                <span className="rounded-full bg-[color:var(--era-accent)]/15 px-2.5 py-0.5 text-xs font-semibold text-[color:var(--era-accent-text)]">
                   {message.answer.theoryName}
                 </span>
               )}
