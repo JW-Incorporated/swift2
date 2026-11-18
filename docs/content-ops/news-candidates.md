@@ -27,6 +27,14 @@ so far".
 
 Stories: 110
 
+## Yamaha to Acquire UK Tech Firm for Concert Productions
+
+- first seen: 2026-11-18 10:27 UTC | category: business | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Yamaha has announced plans to acquire a UK tech firm known for providing technology for tours by artists including Taylor Swift and Beyonce. This acquisition aims to enhance Yamaha's capabilities in the live concert production industry.
+- sources:
+  - [unverified] Nikkei Asia — https://asia.nikkei.com/business/business-deals/yamaha-to-acquire-uk-tech-firm-behind-taylor-swift-beyonce-tours2
+
 ## Taylor Swift Makes Announcement Prior to CMA Performance
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
@@ -86,10 +94,11 @@ Stories: 110
 ## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
 
 - first seen: 2026-11-18 02:42 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: The Museum of Fine Arts in Boston has officially announced the Taylor Swift: The Eras Collection. This new exhibition is set to showcase various aspects of the artist's career.
 - sources:
   - [unverified] ArtDependence — https://artdependence.com/articles/museum-of-fine-arts-boston-announces-taylor-swift-the-eras-collection/
+  - [unverified] Artsy — https://www.artsy.net/article/artsy-editorial-taylor-swift-eras-collection-exhibition-open-museum-fine-arts-boston-202
 
 ## Maine Considers Luxury Home Tax Inspired by Taylor Swift
 
@@ -923,11 +932,3 @@ Stories: 110
 - summary: Professors from Western University are creatively transforming their lectures into songs, including references to artists like Taylor Swift and Queen. This innovative approach aims to engage students in learning through music.
 - sources:
   - [unverified] CBC — https://www.cbc.ca/news/canada/london/western-university-singing-professors-9.7420015
-
-## Taylor Swift Shares Personal Update Before Chiefs-Falcons Game
-
-- first seen: 2026-11-15 09:42 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has shared personal news prior to the Chiefs-Falcons game. The details of the news are not specified in the snippet provided.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-shares-personal-news-before-falcons-game/
