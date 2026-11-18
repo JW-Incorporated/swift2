@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 114
+Stories: 115
+
+## Taylor Swift 'Eras' Exhibition Set to Open at MFA Boston
+
+- first seen: 2026-11-18 13:27 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: An exhibition titled the 'Eras' featuring Taylor Swift will be launching at the Museum of Fine Arts in Boston. This showcase aims to celebrate her musical career and influence through various themed displays.
+- sources:
+  - [unverified] Blooloop — https://blooloop.com/news/taylor-swift-exhibition-mfa-boston
+
+## Caitlin Clark discusses Taylor Swift's nervous moments at Chiefs game
+
+- first seen: 2026-11-18 13:27 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Caitlin Clark shared insights about what caused Taylor Swift to feel nervous during a recent Kansas City Chiefs game. The incident highlights Swift's presence at the event as a notable moment.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/caitlin-clark-reveals-made-taylor-125358949.html
 
 ## Taylor Swift and Dolly Parton Collaborate on Music in Tennessee
 
@@ -956,11 +972,3 @@ Stories: 114
 - summary: Taylor Swift expresses her support for music created by human beings, emphasizing its ongoing importance in the industry. This statement underscores her stance on the value of artistic authenticity.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/human-beings-still-winning-taylor-125025897.html
-
-## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
-
-- first seen: 2026-11-15 12:37 UTC | category: tour | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to perform at the CMA Awards for the first time in 13 years, marking her return to the event. This performance is highly anticipated by fans and signifies a noteworthy moment in her career.
-- sources:
-  - [unverified] Williamson Source — https://williamsonsource.com/taylor-swift-to-perform-at-cma-awards-for-the-first-time-in-13-years/
