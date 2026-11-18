@@ -4,8 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useScrollLock } from '../lib/useScrollLock';
 import { useFocusTrap } from '../moment/lib/useFocusTrap';
 import { Search, X } from 'lucide-react';
-import { flattenGroups, searchDocs, type SearchTarget } from '@swift2/experience';
+import { CURRENT_ERA_ID, flattenGroups, getEra, searchDocs, type SearchTarget } from '@swift2/experience';
 import { useReader } from '../../snapshot/context';
+import { CurrentItemDetail } from '../era/CurrentItemDetail';
+import { useLiveSearch } from './use-live-search';
 import { useAppActions, useAppState } from '../store';
 import { useBackDismiss } from '../lib/useBackDismiss';
 import { optionId } from './SearchResultRow';
@@ -38,7 +40,8 @@ const DEBOUNCE_MS = 120;
 export function SearchOverlay() {
   const { searchOpen } = useAppState();
   const actions = useAppActions();
-  const { searchIndex } = useReader();
+  const { searchIndex: bakedIndex } = useReader();
+  const { docs: searchIndex, openLiveItem, openLive, closeLive } = useLiveSearch(bakedIndex);
   const { setSearchOpen } = actions;
 
   const [query, setQuery] = useState('');
@@ -90,12 +93,13 @@ export function SearchOverlay() {
   // Reset per-open state so search always starts fresh.
   useEffect(() => {
     if (!searchOpen) return;
+    closeLive();
     setQuery('');
     setDebounced('');
     setActiveIndex(0);
     setPickedSuggestion(false);
     setShowAll(false);
-  }, [searchOpen]);
+  }, [searchOpen, closeLive]);
 
   // Debounce keystrokes → query. Cheap anyway (in-memory index), but this
   // keeps the results list from churning under fast typing.
@@ -122,6 +126,16 @@ export function SearchOverlay() {
   );
   const totalMatches = useMemo(() => groups.reduce((n, g) => n + g.totalMatches, 0), [groups]);
   const flat = useMemo(() => flattenGroups(groups), [groups]);
+
+  // Live rows can land mid-query and shift every row below them; drop the
+  // highlight and any pick so Enter never opens a row the reader did not choose.
+  // Reset during render (not in an effect) so no frame shows the stale row.
+  const [indexSeen, setIndexSeen] = useState(searchIndex);
+  if (indexSeen !== searchIndex) {
+    setIndexSeen(searchIndex);
+    setActiveIndex(0);
+    setPickedSuggestion(false);
+  }
 
   // Clamp the active row whenever the result set changes.
   useEffect(() => {
@@ -171,12 +185,19 @@ export function SearchOverlay() {
         case 'video':
           actions.openVideo(target.eraId, target.videoId);
           break;
+        case 'current':
+          openLive(target.itemId);
+          break;
       }
     },
-    [actions, setSearchOpen],
+    [actions, setSearchOpen, openLive],
   );
 
-  if (!searchOpen) return null;
+  if (!searchOpen) {
+    return openLiveItem ? (
+      <CurrentItemDetail item={openLiveItem} era={getEra(CURRENT_ERA_ID)} onClose={closeLive} />
+    ) : null;
+  }
 
   function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
