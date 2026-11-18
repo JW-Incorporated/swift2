@@ -28,7 +28,7 @@ export function ClownEmptyState({ intro, onSelect, onFanTheoryChip }: ClownEmpty
             key={starter.prompt}
             type="button"
             onClick={() => onSelect(starter.prompt)}
-            className="min-h-[44px] rounded-full border border-[color:var(--clown-line)] px-3 py-2 text-xs transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent)]"
+            className="min-h-[44px] rounded-full border border-[color:var(--clown-line)] px-3 py-2 text-xs transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent-text)]"
           >
             {starter.label}
           </button>
@@ -37,7 +37,7 @@ export function ClownEmptyState({ intro, onSelect, onFanTheoryChip }: ClownEmpty
           <button
             type="button"
             onClick={onFanTheoryChip}
-            className="min-h-[44px] rounded-full border border-[color:var(--era-accent)] px-3 py-2 text-xs font-medium text-[color:var(--era-accent)] transition hover:opacity-80"
+            className="min-h-[44px] rounded-full border border-[color:var(--era-accent)] px-3 py-2 text-xs font-medium text-[color:var(--era-accent-text)] transition hover:opacity-80"
           >
             {FAN_THEORY_CHIP_LABEL}
           </button>

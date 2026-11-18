@@ -112,8 +112,8 @@ export function EraSection({
   // era-stream.ts) — the native renderer calls the same function.
   const mergedFeed = useMemo(
     () =>
-      mergeEraStreamFeed({ era: { start: era.start, end: era.end }, items, videoFeed, doorwayEntries, liveEntries, nowMs }),
-    [era.start, era.end, items, videoFeed, doorwayEntries, liveEntries, nowMs],
+      mergeEraStreamFeed({ era: { start: era.start, end: era.end }, items, videoFeed, doorwayEntries, liveEntries, nowMs, filters }),
+    [era.start, era.end, items, videoFeed, doorwayEntries, liveEntries, nowMs, filters],
   );
   const feedEntries = useMemo(() => visibleFeed(mergedFeed, filters), [mergedFeed, filters]);
   // The filtered feed's moment items — everything downstream that reasons

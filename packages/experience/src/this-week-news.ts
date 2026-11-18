@@ -30,20 +30,29 @@ export function thisWeekNewsItems(items: readonly CurrentItem[], nowMs: number):
     });
 }
 
+/** Whether the pinned section is on screen: `ThisWeekNews` renders only under
+ * the "All" filter, so any active chip hides it. */
+export function isWeekNewsPinned(filters: ReadonlySet<string> | undefined): boolean {
+  return !filters || filters.size === 0;
+}
+
 /**
  * The doorway + live entries that still merge into the era stream: egg
- * doorways are dropped (they live in Threads' "Theories & eggs" lens) and live
- * items inside the "This week's news" window are dropped (pinned section).
- * Both merge sites (EraSection.tsx, era-stream.ts) call this so they stay in
- * lockstep.
+ * doorways are dropped (they live in Threads' "Theories & eggs" lens) and,
+ * while the pinned section is showing, live items inside the "This week's
+ * news" window are dropped (they are in the pinned section). When a filter
+ * hides that section they stay in the stream, so a story is never reachable
+ * from neither. Both merge sites (EraSection.tsx, era-stream.ts) call this so
+ * they stay in lockstep.
  */
 export function streamExtraEntries<V extends VideoNote>(
   doorwayEntries: readonly EraFeedEntry<V>[],
   liveEntries: readonly EraFeedEntry<V>[],
   nowMs: number,
+  weekNewsPinned = true,
 ): EraFeedEntry<V>[] {
   return [
     ...doorwayEntries.filter((e) => e.kind !== 'egg'),
-    ...liveEntries.filter((e) => !(e.kind === 'current' && isThisWeekNews(e.item, nowMs))),
+    ...liveEntries.filter((e) => !(weekNewsPinned && e.kind === 'current' && isThisWeekNews(e.item, nowMs))),
   ];
 }

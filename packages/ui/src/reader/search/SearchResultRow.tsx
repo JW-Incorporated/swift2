@@ -6,6 +6,7 @@ import {
   Layers,
   Lightbulb,
   Music2,
+  Radio,
   Search,
   Sparkles,
   Waypoints,
@@ -30,6 +31,7 @@ const TYPE_ICON: Record<SearchDocType, typeof Search> = {
   theory: Lightbulb,
   track: Music2,
   video: Clapperboard,
+  news: Radio,
 };
 
 export function optionId(key: string): string {
