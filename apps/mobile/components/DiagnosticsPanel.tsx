@@ -21,6 +21,11 @@ import type { DomFailureMode, WatchdogRecord } from '../lib/watchdog';
 import { mountLine, watchdogLines } from '../lib/watchdog-policy';
 import { clearWatchdogRecord, loadWatchdogRecord } from '../lib/watchdog-store';
 
+type PendingDrill = { kind: 'fail'; mode: 'throw' | 'hang' } | { kind: 'test' };
+
+const TEST_PAGE_LABEL = 'TEST ONLY: show the WP0.4 test page instead of the reader (next launch only)';
+const FAIL_LABEL = 'TEST ONLY: Force DOM failure (breaks the next launch only, then clears itself)';
+
 export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const [testPage, setTestPage] = useState(false);
   const [failMode, setFailMode] = useState<DomFailureMode>('off');
@@ -30,8 +35,10 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [error, setError] = useState('');
   const [writeError, setWriteError] = useState<string | null>(null);
+  const [pending, setPending] = useState<PendingDrill | null>(null);
 
   useEffect(() => {
+    setPending(null);
     if (!visible) return;
     void getUseTestPage().then(setTestPage);
     void getForceDomFailure().then(setFailMode);
@@ -55,16 +62,36 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
     setError(result.error ?? '');
   }
 
-  async function pickFailMode(mode: DomFailureMode) {
+  async function applyFailMode(mode: DomFailureMode) {
     const r = await persistAndReread(() => setForceDomFailure(mode), getForceDomFailure);
     setFailMode(r.value);
     setWriteError(r.error && `Force DOM failure not saved: ${r.error}`);
   }
 
-  async function toggleTestPage(on: boolean) {
+  async function applyTestPage(on: boolean) {
     const r = await persistAndReread(() => setUseTestPage(on), getUseTestPage);
     setTestPage(r.value);
     setWriteError(r.error && `Test page not saved: ${r.error}`);
+  }
+
+  // Arming a drill breaks the next launch on purpose, so it always takes a second, explicit tap here.
+  function pickFailMode(mode: DomFailureMode) {
+    setPending(null);
+    if (mode === 'off') void applyFailMode('off');
+    else setPending({ kind: 'fail', mode });
+  }
+
+  function toggleTestPage(on: boolean) {
+    setPending(null);
+    if (on) setPending({ kind: 'test' });
+    else void applyTestPage(false);
+  }
+
+  function confirmPending() {
+    if (!pending) return;
+    setPending(null);
+    if (pending.kind === 'fail') void applyFailMode(pending.mode);
+    else void applyTestPage(true);
   }
 
   async function toggleSpeed(on: boolean) {
@@ -102,11 +129,11 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
           ))}
           {writeError && <Text style={styles.err} accessibilityLiveRegion="polite">{writeError}</Text>}
           <View style={styles.switchRow}>
-            <Text style={styles.fact}>Use WP0.4 test page, not ReaderSpike (next launch)</Text>
+            <Text style={[styles.fact, styles.drill]}>{TEST_PAGE_LABEL}</Text>
             <Switch
-              accessibilityLabel="Use WP0.4 test page, not ReaderSpike (next launch)"
-              value={testPage}
-              onValueChange={(on) => void toggleTestPage(on)}
+              accessibilityLabel={TEST_PAGE_LABEL}
+              value={testPage || pending?.kind === 'test'}
+              onValueChange={toggleTestPage}
             />
           </View>
           <View style={styles.switchRow}>
@@ -122,13 +149,14 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               {line}
             </Text>
           ))}
-          <Text style={styles.fact}>Force DOM failure (applies next launch)</Text>
+          <Text style={[styles.fact, styles.drill]}>{FAIL_LABEL}</Text>
           <View style={styles.modeRow}>
             {(['off', 'throw', 'hang'] as const).map((mode) => (
               <Pressable
                 key={mode}
-                onPress={() => void pickFailMode(mode)}
+                onPress={() => pickFailMode(mode)}
                 accessibilityRole="button"
+                accessibilityLabel={`Force DOM failure ${mode}`}
                 accessibilityState={{ selected: failMode === mode }}
                 style={[styles.modeBtn, failMode === mode && styles.modeBtnOn]}
               >
@@ -136,6 +164,24 @@ export function DiagnosticsPanel({ visible, onClose }: { visible: boolean; onClo
               </Pressable>
             ))}
           </View>
+          {pending && (
+            <View style={styles.confirm} accessibilityLiveRegion="polite">
+              <Text style={styles.drill}>
+                {pending.kind === 'fail'
+                  ? `Arm "${pending.mode}"? The next launch will fail on purpose and show the Recovery screen.`
+                  : 'Arm the test page? The next launch will show the test page instead of Long Live.'}{' '}
+                It applies to one launch only.
+              </Text>
+              <View style={styles.modeRow}>
+                <Pressable onPress={confirmPending} accessibilityRole="button" style={styles.modeBtn} testID="diag-confirm-arm">
+                  <Text style={styles.modeText}>Arm for next launch</Text>
+                </Pressable>
+                <Pressable onPress={() => setPending(null)} accessibilityRole="button" style={styles.modeBtn} testID="diag-confirm-cancel">
+                  <Text style={styles.modeText}>Cancel</Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
           <Text style={styles.section}>Watchdog</Text>
           <Text style={styles.fact}>
             {mountLine(getMountInfo().mount, getMountInfo().reason, getMountInfo().source)}
@@ -198,6 +244,8 @@ const styles = StyleSheet.create({
   section: { color: '#f2c744', fontSize: 12, fontWeight: '800', paddingTop: 16, paddingBottom: 6 },
   fact: { color: '#ddd', fontSize: 13, lineHeight: 20 },
   err: { color: '#ff7b7b', fontSize: 13, paddingTop: 8 },
+  drill: { color: '#ff9f6b', fontSize: 13, fontWeight: '700', lineHeight: 20, flexShrink: 1 },
+  confirm: { borderColor: '#ff9f6b', borderWidth: 1, borderRadius: 8, padding: 12, marginVertical: 8 },
   switchRow: {
     alignItems: 'center',
     flexDirection: 'row',

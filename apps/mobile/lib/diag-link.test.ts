@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createTapGate } from './notification-tap-gate';
 import { closeDiagPanel, isDiagLink, isDiagPanelOpen } from './diag-link';
@@ -50,6 +52,18 @@ describe('diagnostics deep link', () => {
     await flush();
     expect(isDiagPanelOpen()).toBe(false);
     expect(s.opened).toEqual([`${SITE}/support`]);
+  });
+
+  it('a link only opens the panel: it carries no settings and the link path never writes a drill', async () => {
+    const s = setup(null);
+    s.emit('longlive://diag?force=throw');
+    s.emit('longlive://diag/testpage');
+    await flush();
+    expect(isDiagPanelOpen()).toBe(false);
+    for (const file of ['diag-link.ts', 'use-deep-links.ts']) {
+      const src = readFileSync(join(process.cwd(), 'apps/mobile/lib', file), 'utf8');
+      expect(src).not.toMatch(/diagnostics-override|setForceDomFailure|setUseTestPage|SecureStore/);
+    }
   });
 
   it('the DOM bridge cannot trigger it (openExternal and navigate refuse the link, panel stays closed)', async () => {

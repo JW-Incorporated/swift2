@@ -185,13 +185,17 @@ mode (`hang`, `throw`, `terminated`, `render-gone`, `protocol`, `abandon`)
 through the real rules and prints the launch table (`runDrill`/`drillTable` in
 `lib/watchdog-drill.ts`). On device, offline, shared UI on via the remote flag:
 
-1. Diagnostics > Force DOM failure `hang`, airplane mode, relaunch: neutral
+1. Diagnostics > Force DOM failure `hang` > **Arm for next launch**, airplane mode, relaunch: neutral
    background within 1.5 s, the DOM attempt, native after the ready timeout
-   (Recovery; no strike). Relaunch: the DOM is attempted again, every time, and never
-   quarantines. Fallback and quarantine come only from launches killed before ready
-   (force-quit or crash in the foreground twice in a row).
-2. Failure `off`, Reset watchdog, relaunch: the shared UI returns (default-on, via the flag). `throw`
+   (Recovery; no strike). Relaunch: the drill was consumed, so the DOM loads normally; to repeat
+   it, arm it again before each relaunch. Fallback and quarantine come only from launches killed
+   before ready (force-quit or crash in the foreground twice in a row).
+2. Reset watchdog, relaunch: the shared UI returns (default-on, via the flag). `throw`
    repeats step 1 faster.
+
+**Drills are one-launch-only (fix for the diagnostics trap).** Diagnostics stays reachable in production (7 taps or `longlive://diag`) because the owner reads `[diag]` reports from real devices (#4791). Its two destructive switches, Force DOM failure (`throw`/`hang`) and the WP0.4 test page, are labelled TEST ONLY and arm only after a second, inline **Arm for next launch** tap (no link or web page can set them; `longlive://diag` only opens the panel). `takeLaunchOverrides()` (`lib/diagnostics-override.ts`) reads both once per JS runtime and wipes any armed one from SecureStore as soon as it is read, so they apply to exactly one launch. Recovery's Retry (`lib/recovery-retry.ts`) also clears both before it reloads, even when its record save fails.
+
+**Reader error boundary.** `AppReader` wraps the reader in `ReaderErrorBoundary` (`dom/reader/reader-error-boundary.tsx`). A render throw is reported as `reader-render: <message>` through `reportError` (the same path as other DOM errors: a `dom-error` signal, and a watchdog strike only before ready); the reader remounts by itself up to 2 times within 10 s, after which a plain, era-neutral "Something went wrong" + **Reload** fallback (`role="alert"`, 44 px button) waits for a tap. The bridge mount sits outside the boundary and keeps running. App only: the web reader has no boundary (none existed before either); a web one belongs in a Next `error.tsx`, not the shared `ReaderShell`, so first-render HTML is untouched.
 3. With `watchdogReports:true` cached and back online: one `[watchdog]` comment per (build, category) per day on #4791.
 4. A notification tap while quarantined/fallback shows the Recovery screen and the tap stays held in the in-memory tap gate until a DOM host binds and acks (PR3 deleted the native navigator and the legacy native screens it opened).
 
@@ -211,7 +215,7 @@ through the real rules and prints the launch table (`runDrill`/`drillTable` in
   19.2.3 for mobile; same split as `react`, handled by the Metro singleton
   pins) and patch-level SDK drift on pre-existing packages (deliberately not
   bumped: this batch adds only the signed list).
-- **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) keeps the next launch native too (the C4 override no longer exists). A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Diagnostics "Reset watchdog" clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies next launch); state is shown in the panel only (the `[diag]` schema is not extended).
+- **WP0.4b watchdog (this note is now satisfied on builds that include `lib/watchdog*.ts`):** a ready-timeout (10 s, paused while backgrounded), a DOM error before ready, or a webview terminate/render-gone is a strike. Strike 1 mounts native for that launch; strike 2 (consecutive) keeps the next launch native too (the C4 override no longer exists). A launch that died in the foreground before ready counts as a strike at the next launch (`abandoned-before-ready`); one backgrounded before ready is abandoned, but 2 consecutive abandons are a strike (`abandoned-repeated`), so a stale or lost background marker cannot pin the DOM host. Bound: at most 4 launches before the native fallback (2 abandoned = strike 1, 2 more = strike 2); a double-failed ready save costs at most one false strike, cleared by the next ready launch. Diagnostics "Reset watchdog" clears the record; a new build/update id resets it. Drill with Diagnostics > Force DOM failure (off/throw/hang; applies to the next launch only, after a confirm tap); state is shown in the panel only (the `[diag]` schema is not extended).
 - **App links declared but unverified: URL intake shipped (#5069, `longlive://` + www links), the `.well-known` association files are still pending (#4988 after HA #99); risk accepted (Codex vs Fable disagreement recorded in PROGRESS).** Without the files Android 12+ opens these links in the browser by default; only test devices exist (C5).
 
 ## Speed test mode (#4896) — the S2/S4 device procedure

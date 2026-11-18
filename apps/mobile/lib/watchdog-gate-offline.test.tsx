@@ -49,8 +49,7 @@ vi.mock('./watchdog', async (orig) => {
   };
 });
 vi.mock('./diagnostics-override', () => ({
-  getForceDomFailure: async () => 'off',
-  setForceSharedUi: async () => undefined,
+  takeLaunchOverrides: async () => ({ failure: 'off', testPage: false }),
 }));
 vi.mock('./diagnostics-send', () => ({ sendDiagReport: async () => ({ ok: true }) }));
 vi.mock('./dom-reader-config', () => ({ lastGoodSource: () => null }));

@@ -26,6 +26,7 @@ import { snapshotFromEnvelope } from './reader/snapshot';
 import { fill } from './reader/shims/fill';
 import { installStorageShim } from './reader/storage-shim';
 import { loadReader, type ReaderProps } from './reader/reader-modules';
+import { ReaderErrorBoundary } from './reader/reader-error-boundary';
 import { loadStorageSeed } from './reader/storage-sync';
 import { applyKeyboardInset } from './keyboard-inset';
 import { loadArtMap } from './reader/art-map';
@@ -213,7 +214,9 @@ export default function AppReader(props: AppReaderProps) {
   ) : !Reader || !client ? (
     <div data-swift2-ui={UI_PACKAGE_VERSION} style={{ minHeight: '100vh', background: 'var(--era-bg)' }} />
   ) : (
-    <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} platform={props.platform} />
+    <ReaderErrorBoundary onError={(m) => void native.reportError(m)}>
+      <Reader client={client} insets={insets ?? ZERO_INSETS} controls={controls} navigateDom={navigateDom} getPath={getPath} platform={props.platform} />
+    </ReaderErrorBoundary>
   );
   return (
     <>

@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { loadContentBundle } from './content-bundle';
 import { lastGoodSource } from './dom-reader-config';
 import { createContentWaiter, type ContentFailureKind } from './watchdog-await-content';
-import { getForceDomFailure } from './diagnostics-override';
+import { takeLaunchOverrides } from './diagnostics-override';
 import { beginAttempt, startAttempt, type DomFailureMode, type MountDecision, type WatchdogRecord } from './watchdog';
 
 /** A slow (not failed) attempt write must not hold the launch or become Recovery: after this the DOM mounts on the in-memory attempt. */
@@ -43,7 +43,8 @@ export async function boundedForceFailure(scheduler: BoundScheduler): Promise<Do
   const slow = new Promise<DomFailureMode>((resolve) => {
     timer = scheduler.setTimeout(() => resolve('off'), FORCE_FAILURE_MAX_MS);
   });
-  const mode = await Promise.race([getForceDomFailure().catch((): DomFailureMode => 'off'), slow]);
+  const taken = takeLaunchOverrides().then((o) => o.failure);
+  const mode = await Promise.race([taken.catch((): DomFailureMode => 'off'), slow]);
   scheduler.clearTimeout(timer);
   return mode;
 }

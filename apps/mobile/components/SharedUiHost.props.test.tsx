@@ -35,7 +35,7 @@ vi.mock('../dom/AppReader', () => ({
   },
 }));
 vi.mock('../dom/SharedUiTest', () => ({ default: () => null }));
-vi.mock('../lib/diagnostics-override', () => ({ getUseTestPage: async () => false }));
+vi.mock('../lib/diagnostics-override', () => ({ takeLaunchOverrides: async () => ({ failure: 'off', testPage: false }) }));
 vi.mock('../lib/art-cache-fs', () => ({ noteArtEra: () => undefined }));
 vi.mock('../lib/use-deferred-bundle-refresh', () => ({
   useDeferredBundleRefresh: (

@@ -1,4 +1,4 @@
-// Diagnostics-only persisted switches (watchdog failure drill, test page). Internal only.
+// Diagnostics-only persisted switches (watchdog failure drill, test page). Internal only. Each applies to one launch.
 import * as SecureStore from 'expo-secure-store';
 import { parseDomFailureMode, type DomFailureMode } from './watchdog';
 
@@ -32,6 +32,30 @@ export async function getUseTestPage(): Promise<boolean> {
 export async function setUseTestPage(on: boolean): Promise<void> {
   if (on) await SecureStore.setItemAsync(USE_TEST_PAGE_KEY, 'true');
   else await SecureStore.deleteItemAsync(USE_TEST_PAGE_KEY);
+}
+
+export interface LaunchOverrides {
+  failure: DomFailureMode;
+  testPage: boolean;
+}
+
+let launchOverrides: Promise<LaunchOverrides> | null = null;
+
+/**
+ * The drills are one-launch-only: read once per JS runtime (every caller this launch sees the same answer), and an
+ * armed one is wiped from storage as soon as it is read, so the next launch is normal whatever happens to this one.
+ */
+export function takeLaunchOverrides(): Promise<LaunchOverrides> {
+  launchOverrides ??= Promise.all([getForceDomFailure(), getUseTestPage()]).then(([failure, testPage]) => {
+    if (failure !== 'off' || testPage) void clearDiagOverrides().catch(() => undefined);
+    return { failure, testPage };
+  });
+  return launchOverrides;
+}
+
+/** Removes both drills from storage (Recovery Retry, and the consume step above). */
+export async function clearDiagOverrides(): Promise<void> {
+  await Promise.all([setForceDomFailure('off'), setUseTestPage(false)]);
 }
 
 export interface PersistResult<T> {
