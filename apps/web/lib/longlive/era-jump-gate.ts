@@ -30,6 +30,8 @@ export function eraJumpGateTarget(params: SearchParams): string | null {
 export function eraJumpGateScript(): string {
   return (
     `document.documentElement.setAttribute('${ERA_JUMP_GATE_ATTR}','');` +
-    `window['${ERA_JUMP_GATE_TIMER}']=setTimeout(function(){document.documentElement.removeAttribute('${ERA_JUMP_GATE_ATTR}')},${ERA_JUMP_GATE_MAX_MS});`
+    `window['${ERA_JUMP_GATE_TIMER}']=setTimeout(function(){document.documentElement.removeAttribute('${ERA_JUMP_GATE_ATTR}');var m=document.getElementById('main-content');if(m)m.removeAttribute('aria-busy')},${ERA_JUMP_GATE_MAX_MS});` +
+    // <main> is not parsed yet when this runs; mark it busy once it is, if still gated.
+    `document.addEventListener('DOMContentLoaded',function(){var m=document.getElementById('main-content');if(m&&document.documentElement.hasAttribute('${ERA_JUMP_GATE_ATTR}'))m.setAttribute('aria-busy','true')});`
   );
 }

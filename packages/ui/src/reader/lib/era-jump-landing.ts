@@ -52,7 +52,24 @@ export const ERA_JUMP_GATE_ATTR = 'data-ll-era-jump';
 export const ERA_JUMP_GATE_TIMER = '__llEraJumpGateTimer';
 
 export function clearEraJumpGate(): void {
-  if (typeof document !== 'undefined') document.documentElement.removeAttribute(ERA_JUMP_GATE_ATTR);
+  if (typeof document === 'undefined') return;
+  document.documentElement.removeAttribute(ERA_JUMP_GATE_ATTR);
+  document.getElementById('main-content')?.removeAttribute('aria-busy');
+}
+
+/**
+ * Runs the deep link's open action; for an era jump, hands the gate to
+ * EraStream only once the action has dispatched. A throw releases the gate
+ * (nothing else would, with the fallback timer already gone) and rethrows.
+ */
+export function openWithEraJumpGate(action: () => void, isEraJump: boolean): void {
+  try {
+    action();
+  } catch (err) {
+    clearEraJumpGate();
+    throw err;
+  }
+  if (isEraJump) takeOverEraJumpGate();
 }
 
 /**

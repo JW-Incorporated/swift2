@@ -16,7 +16,7 @@ import { useHost } from '../../host/context';
 import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import { createLocalStorageAdapter } from '../lib/local-storage-adapter';
-import { clearEraJumpGate, takeOverEraJumpGate } from '../lib/era-jump-landing';
+import { clearEraJumpGate, openWithEraJumpGate } from '../lib/era-jump-landing';
 import {
   emptyProgress,
   readStoredProgress,
@@ -345,9 +345,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // A deep link is the visitor's FIRST state, not a navigation away from
     // one — pushing a back-entry here would trap the first back gesture.
     const open = () => {
-      if (target.kind === 'era') takeOverEraJumpGate();
       nav.suppressNavPushRef.current = true;
-      action();
+      openWithEraJumpGate(action, target.kind === 'era');
       nav.suppressNavPushRef.current = false;
     };
     // Nothing to strip (the app, or a host with no query): open synchronously.
