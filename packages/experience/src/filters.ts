@@ -1,5 +1,6 @@
 import type { ContentTag, LensId } from './types';
 import type { EraFeedEntry } from './feed-types';
+import { chipTagsForCurrentItem } from '@swift2/shared';
 import { isPlayableVideoItem } from './current-feed';
 
 /** R2: exactly six, forever. Videos is a peer chip, not a separate axis. */
@@ -74,11 +75,11 @@ export function filterForThread(id: LensId): FilterId {
  * `filterForThread`; an egg doorway is always Lore (theories & eggs are lore,
  * full stop — no per-theory topic exists to read one from).
  *
- * `current` (PLAN.md Stage 5): a live `current_item` row carries its own
- * `tags` (the migration's own comment: "the 5 ContentTags; drives
- * FilterBar") — filtered against `ALL_FILTERS` defensively, since that
- * column is DB-sourced (worker-written, not authored here) rather than
- * typed as `ContentTag[]` at the source.
+ * `current` (PLAN.md Stage 5): a live `current_item` row's topic chips come
+ * from `chipTagsForCurrentItem` (@swift2/shared) — the same rule the worker
+ * applies when it writes `tags`, re-applied here so rows written before the
+ * worker stored chip ids still land under their chips. It keeps any chip id
+ * already in `tags` and ignores every other free-form tag.
  *
  * `EraFeedEntry` is the five-kind union (`moment` | `video` | `thread` |
  * `egg` | `current`). The `never` check below is the safety net step 13
@@ -105,8 +106,7 @@ export function filtersForEntry(
     case 'egg':
       return ['Lore'];
     case 'current': {
-      const known = new Set<FilterId>(ALL_FILTERS);
-      const tags = entry.item.tags.filter((t): t is FilterId => known.has(t as FilterId));
+      const tags: FilterId[] = chipTagsForCurrentItem(entry.item);
       return isPlayableVideoItem(entry.item) && !tags.includes('Videos') ? [...tags, 'Videos'] : tags;
     }
     default: {

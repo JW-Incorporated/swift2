@@ -9,7 +9,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { screenTopic } from '@swift2/shared/redline';
 import { SOURCE_TIERS, type SourceTier } from '@swift2/shared/news';
 import type { CurrentItemCategory, CurrentItemEmbed, CurrentItemStatus, TheoryConfidence } from '@swift2/shared';
-import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, outletLabel, type QualityHoldReason } from '@swift2/shared';
+import { frontDoorLink, theoriesBoardLink, evaluateCurrentItemQuality, outletLabel, withChipTags, type QualityHoldReason } from '@swift2/shared';
 import { insertEvent } from '@swift2/core';
 import type { ExtractedCurrentItem, ExtractedFact, ExtractedFanSignal, ExtractedTheory } from './types';
 import {
@@ -238,7 +238,7 @@ export async function writeCurrentItem(
     observed_on: item.observedOn,
     era_id: eraId,
     category: item.category,
-    tags: item.tags,
+    tags: withChipTags(item),
     headline: item.headline,
     summary: item.summary,
     detail: item.detail,

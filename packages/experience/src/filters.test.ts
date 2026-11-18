@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ALL_FILTERS, filterForThread, filterMatches, filtersForEntry, type FilterId } from './filters';
 import type { EraFeedEntry, Anchored } from './feed-types';
 import type { ContentItem, ContentTag, LensId, VideoNote } from './types';
-import type { CurrentItem } from '@swift2/shared';
+import { CURRENT_ITEM_CHIP_TAGS, type CurrentItem } from '@swift2/shared';
 
 // filtersForEntry doesn't read the anchor — these tests only exercise
 // filter categorisation, so every entry gets the same stub anchor.
@@ -166,6 +166,24 @@ describe('filtersForEntry', () => {
       anchor: ANCHOR,
     };
     expect(filtersForEntry(entry, noOwners)).toEqual(['Lore']);
+  });
+
+  it('a published current item with only free-form tags still lands under its chip (read-time fallback)', () => {
+    const entry: EraFeedEntry = {
+      kind: 'current',
+      item: {
+        category: 'award',
+        tags: ['grammys', 'awards', 'record'],
+        headline: "Taylor jokes she's 0 for 8 in one Grammy category as she ties a record",
+      } as unknown as CurrentItem,
+      anchor: ANCHOR,
+    };
+    expect(filtersForEntry(entry, noOwners)).toEqual(['Music']);
+    expect(filterMatches(filtersForEntry(entry, noOwners), new Set<FilterId>(['Music']))).toBe(true);
+  });
+
+  it("every chip the shared live-item mapping can emit is one of the six filters", () => {
+    for (const chip of CURRENT_ITEM_CHIP_TAGS) expect(ALL_FILTERS).toContain(chip);
   });
 
   it('a current video item with an embed also matches Videos, once', () => {
