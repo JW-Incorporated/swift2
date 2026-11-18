@@ -10333,7 +10333,7 @@ export default {
             reportedOn: '2026-10-15',
             status: 'unconfirmed',
             url: 'https://www.billboard.com/music/awards/grammys-2027-best-song-visual-media-likely-nominees-1236361207/',
-            note: 'A forecast about the win. Re-checked 2026-11-18: the song was nominated on Nov. 16 (ABC News full list) alongside House, Need Someone, No Place Like Home and Runway; none of the rivals Billboard named (Along the Way, When I\'m Home, By Any Means) made the field. Still live until the Feb. 7, 2027 ceremony.',
+            note: 'A forecast about the win. Re-checked 2026-11-18: the song was nominated on Nov. 16 (ABC News full list) alongside House, Need Someone, No Place Like Home and Runway; none of the rivals in Billboard\'s forecast (Along the Way, When I\'m Home, By Any Means) made the field. Still live until the Feb. 7, 2027 ceremony.',
             sourceTier: 'established',
             lastCheckedOn: '2026-11-18',
           },
