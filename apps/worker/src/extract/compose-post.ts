@@ -1,9 +1,11 @@
 // Two-pass writer orchestration for one published candidate (docs/decisions.md
 // 2026-11-03): writer -> deterministic writing gate -> judge, with exactly one
-// rewrite across all three steps. Any deferral or second failure is a hold; the
-// pass-A summary/detail text is never a fallback.
+// rewrite across all three steps. Any deferral or second failure is a hold, except
+// that lead-style gate reasons (current-item-lead.ts) left after the rewrite are
+// recorded in `trace.leadFlags` and the draft still goes to the judge; the pass-A
+// summary/detail text is never a fallback.
 
-import { evaluateCurrentItemWriting, factGrounding } from '@swift2/shared';
+import { evaluateCurrentItemWriting, factGrounding, isLeadStyleReason } from '@swift2/shared';
 import type { ContextPack } from './context-pack';
 import { JUDGE_DIMENSIONS, JUDGE_MIN_SCORES, type JudgeDimension } from './judge-prompt';
 import { judgeWriting } from './judge-client';
@@ -30,6 +32,8 @@ export interface ComposeTrace {
   citations?: WriterCitation[];
   paragraphs?: WriterParagraph[];
   gateReasons?: string[];
+  /** Lead-style gate reasons that remained after the rewrite; the draft went on to the judge instead of holding. */
+  leadFlags?: string[];
   judgeScores?: Record<JudgeDimension, number>;
   judgeReasons?: Record<JudgeDimension, string>;
   rewrites: number;
@@ -108,7 +112,7 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
       failure = { hold: 'writing_quality:invalid_draft', reasons: written.reasons };
     } else {
       const { lead, body, citations, paragraphs } = written.draft;
-      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, judgeScores: undefined, judgeReasons: undefined, unjudgeable: undefined });
+      Object.assign(trace, { lead, body, citations, paragraphs, gateReasons: undefined, leadFlags: undefined, judgeScores: undefined, judgeReasons: undefined, unjudgeable: undefined });
       const gate = evaluateCurrentItemWriting({
         headline: input.headline,
         lead,
@@ -118,7 +122,13 @@ export async function composePost(deps: ComposeDeps, input: ComposeInput): Promi
         factClaims,
         sentenceRefs: paragraphs.flatMap((p) => p.sentences.map((sentence) => sentence.refs)),
       });
-      if (!gate.ok) {
+      // Lead-style reasons are soft on the rewrite: if only they remain, the draft goes on to the judge and they are recorded.
+      const softOnly = !gate.ok && rewriteReasons !== undefined && gate.reasons.every(isLeadStyleReason);
+      if (softOnly) {
+        trace.leadFlags = gate.reasons;
+        console.warn(`news-worker: lead-style flags kept after rewrite: ${gate.reasons.join(', ')}`);
+      }
+      if (!gate.ok && !softOnly) {
         trace.gateReasons = gate.reasons;
         if (deps.judgeAll) await scoreAnyway(lead, body, paragraphs.flatMap((p) => p.sentences));
         failure = { hold: `writing_quality:${gate.reasons[0]}`, reasons: gate.reasons };

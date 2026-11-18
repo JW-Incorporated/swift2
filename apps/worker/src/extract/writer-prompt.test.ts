@@ -18,5 +18,6 @@ describe('LEAD_EXAMPLES', () => {
   it('renders every example into the prompt and drops the teaser rule', () => {
     for (const { good } of LEAD_EXAMPLES) expect(WRITER_SYSTEM_PROMPT).toContain(good);
     expect(WRITER_SYSTEM_PROMPT).not.toMatch(/lead is a teaser|names NO specifics/);
+    expect(WRITER_SYSTEM_PROMPT).not.toContain('—');
   });
 });

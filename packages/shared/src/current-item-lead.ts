@@ -18,12 +18,48 @@ export const LEAD_GUSH_PATTERNS: readonly { phrase: string; re: RegExp }[] = [
   { phrase: 'worth knowing', re: /\bworth (?:knowing|clearing)\b/i },
 ];
 
+/** The lead-style reason codes. `lead_length` and `lead_body_overlap` are older hard rules, not part of this set. */
+export const LEAD_STYLE_CODES = [
+  'lead_withholds_headline_news',
+  'lead_for_fans_who_opener',
+  'lead_em_dash',
+  'lead_question_opener',
+] as const;
+
+export function isLeadStyleReason(reason: string): boolean {
+  return (LEAD_STYLE_CODES as readonly string[]).includes(reason) || reason.startsWith('lead_gush:');
+}
+
+/** Words that never make a headline's news on their own: stopwords, her name, and generic story nouns. */
 const GENERIC = new Set([
-  'taylor', 'swift', 'swifts', 'swiftie', 'swifties', 'no', 'the', 'a', 'an', 'and', 'or', 'of',
-  'to', 'in', 'on', 'at', 'for', 'with', 'as', 'by', 'from', 'is', 'are', 'her', 'his', 'she', 'he',
+  'a', 'an', 'the', 'and', 'or', 'but', 'of', 'to', 'in', 'on', 'at', 'for', 'with', 'as', 'by', 'from',
+  'is', 'are', 'was', 'be', 'her', 'his', 'she', 'he', 'they', 'it', 'its', 'this', 'that', 'who', 'us',
+  'taylor', 'swift', 'swiftie', 'swifties', 'fan', 'fans', 'new', 'women', 'men', 'music', 'pop', 'country',
+  'award', 'awards', 'gala', 'night', 'show', 'album', 'albums', 'song', 'songs', 'single', 'video',
+  'chart', 'charts', 'week', 'weeks', 'year', 'years', 'record', 'records', 'top', 'no', 'official',
+  'report', 'reports', 'reported', 'reportedly', 'says', 'said', 'per', 'according', 'time', 'big', 'live',
 ]);
 
-function tokens(text: string): string[] {
+const NUMBER_WORDS: Record<string, string> = {
+  two: '2', three: '3', four: '4', five: '5', six: '6', seven: '7', eight: '8', nine: '9', ten: '10',
+  eleven: '11', twelve: '12', thirteen: '13', fourteen: '14', fifteen: '15', sixteen: '16',
+  seventeen: '17', eighteen: '18', nineteen: '19', twenty: '20', thirty: '30', forty: '40', fifty: '50',
+  sixty: '60', seventy: '70', eighty: '80', ninety: '90', hundred: '100',
+  second: '2', third: '3', fourth: '4', fifth: '5', sixth: '6', seventh: '7', eighth: '8', ninth: '9',
+  tenth: '10', eleventh: '11', twelfth: '12', thirteenth: '13', fourteenth: '14', fifteenth: '15',
+  sixteenth: '16', seventeenth: '17', eighteenth: '18', nineteenth: '19', twentieth: '20',
+  thirtieth: '30', fortieth: '40', fiftieth: '50', hundredth: '100',
+};
+
+/** Same place, different spelling: folded to one token before matching. */
+const ALIASES: readonly [RegExp, string][] = [
+  [/\bUnited Kingdom\b|\bBritain\b|\bU\.K\.?(?![\p{L}])|\bUK\b/gu, ' UK '],
+  [/\bLos Angeles\b|\bL\.A\.?(?![\p{L}])|\bLA\b/gu, ' LosAngeles '],
+  [/\bNew York City\b|\bNew York\b|\bNYC\b/gu, ' NewYork '],
+  [/\bUnited States\b|\bAmerica\b|\bU\.S\.(?:A\.?)?(?![\p{L}])|\bUSA\b|\bUS\b/gu, ' USA '],
+];
+
+function rawTokens(text: string): string[] {
   return text
     .replace(/[’‘]/g, "'")
     .split(/[\s/–—-]+/)
@@ -31,29 +67,59 @@ function tokens(text: string): string[] {
     .filter(Boolean);
 }
 
-function key(word: string): string {
-  return word.length > 3 && /[^sS]s$/.test(word) ? word.slice(0, -1) : word;
+function canonicalTokens(text: string): string[] {
+  return rawTokens(ALIASES.reduce((out, [re, to]) => out.replace(re, to), text));
 }
 
-/** The headline's concrete anchors: numbers, and capitalized words that are not "Taylor"/"Swift" or a stopword. The first word is capitalized by sentence case alone, so only its numbers count. */
+/** Number, or a non-generic word that is capitalized (or opens the headline). */
+function anchorKey(token: string, index: number): string | undefined {
+  if (/\d/.test(token)) return token.match(/\d+/)?.[0];
+  const lower = token.toLowerCase();
+  if (NUMBER_WORDS[lower]) return NUMBER_WORDS[lower];
+  if (lower.length < 2 || GENERIC.has(lower)) return undefined;
+  return index === 0 || /^\p{Lu}/u.test(token) ? lower : undefined;
+}
+
+/** The headline's concrete anchors as lowercase keys: numbers (digits or spelled out) and names. */
 export function headlineAnchors(headline: string): Set<string> {
   const out = new Set<string>();
-  for (const [index, token] of tokens(headline).entries()) {
-    for (const digits of token.match(/\d+/g) ?? []) out.add(digits);
-    if (index > 0 && /^\p{Lu}/u.test(token) && token.length >= 2 && !/\d/.test(token) && !GENERIC.has(token.toLowerCase())) {
-      out.add(key(token));
-    }
+  for (const [index, token] of canonicalTokens(headline).entries()) {
+    for (const digits of /\d/.test(token) ? token.match(/\d+/g) ?? [] : []) out.add(digits);
+    const key = anchorKey(token, index);
+    if (key) out.add(key);
   }
   return out;
 }
 
-/** True when the headline has anchors and the lead's first sentence names none of them (a teaser that withholds the news). Names match case-sensitively, so "pop radio" does not count for "Pop Airplay". */
+/** The headline's names and numbers as readers see them ("Patient Zero", "Rihanna", "10"), for the rewrite instruction. */
+export function headlineAnchorPhrases(headline: string): string[] {
+  const phrases: string[] = [];
+  let run: string[] = [];
+  for (const [index, token] of rawTokens(headline).entries()) {
+    const key = anchorKey(token, index);
+    if (key && !/^\d+$/.test(key)) {
+      run.push(token);
+      continue;
+    }
+    if (run.length) phrases.push(run.join(' '));
+    run = [];
+    if (key) phrases.push(/\d/.test(token) ? key : token);
+  }
+  if (run.length) phrases.push(run.join(' '));
+  return [...new Set(phrases)];
+}
+
+/** True when the headline has anchors and the lead's first sentence names none of them (a teaser that withholds the news). */
 export function leadWithholdsHeadline(headline: string, firstSentence: string): boolean {
   const anchors = headlineAnchors(headline);
   if (anchors.size === 0) return false;
-  for (const token of tokens(firstSentence)) {
-    for (const digits of token.match(/\d+/g) ?? []) if (anchors.has(digits)) return false;
-    if (anchors.has(key(token))) return false;
+  for (const token of canonicalTokens(firstSentence)) {
+    const lower = token.toLowerCase();
+    const digits = /\d/.test(token) ? token.match(/\d+/g) ?? [] : [];
+    const candidates = [...digits, NUMBER_WORDS[lower], GENERIC.has(lower) ? undefined : lower];
+    if (!GENERIC.has(lower) && lower.endsWith('s')) candidates.push(lower.slice(0, -1));
+    if (!GENERIC.has(lower)) candidates.push(`${lower}s`);
+    if (candidates.some((c) => c && anchors.has(c))) return false;
   }
   return true;
 }
@@ -77,4 +143,21 @@ export function leadStyleReasons(headline: string, sentences: readonly string[])
   if (/—|\s–\s/.test(lead)) reasons.push('lead_em_dash');
   if (first.trim().endsWith('?')) reasons.push('lead_question_opener');
   return reasons;
+}
+
+/** A plain instruction for the one rewrite, per lead-style reason; undefined for any other reason. */
+export function leadRewriteInstruction(reason: string, headline: string): string | undefined {
+  if (reason === 'lead_withholds_headline_news') {
+    const names = headlineAnchorPhrases(headline);
+    return `The lead's first sentence hid the news the headline gives. State it plainly in sentence 1 and name at least one of: ${names.join(', ')}.`;
+  }
+  if (reason === 'lead_for_fans_who_opener') {
+    return 'A lead sentence opened with "For fans who..." (or another "For <fans>..." address). Rewrite it as one piece of context or why it matters, built another way.';
+  }
+  if (reason.startsWith('lead_gush:')) {
+    return `The lead used the gushing phrase "${reason.slice('lead_gush:'.length)}". End on a fact or a plain point instead.`;
+  }
+  if (reason === 'lead_em_dash') return 'The lead contains an em dash. Use a comma, a colon or a new sentence instead.';
+  if (reason === 'lead_question_opener') return 'The lead opens with a question. Open with a plain statement of the news.';
+  return undefined;
 }
