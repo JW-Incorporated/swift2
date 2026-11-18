@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 116
+Stories: 117
+
+## Taylor Swift Superfan Concludes 'Blind Love Era'
+
+- first seen: 2026-11-18 16:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A devoted fan of Taylor Swift reflects on their experiences as they announce an end to their 'blind love era'.
+- sources:
+  - [unverified] KVIA — https://kvia.com/entertainment/cnn-entertainment/2026/11/18/for-this-taylor-swift-superfan-the-blind-love-era-is-over/
 
 ## Taylor Swift's Influence on U.S. Economy Highlighted Alongside GTA VI Launch
 
@@ -142,9 +150,10 @@ Stories: 116
 ## 2026 CMA Awards Viewing Guide Featuring Taylor Swift
 
 - first seen: 2026-11-18 09:27 UTC | category: tour | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: The 2026 CMA Awards will include performances from Taylor Swift, Ella Langley, Kacey Musgraves, and more. Information on how to watch the event live is provided.
 - sources:
+  - [unverified] Axios — https://www.axios.com/local/nashville/2026/11/18/cma-awards-2026-taylor-swift-lainey-wilson-copy
   - [unverified] Mashable — https://mashable.com/entertainment/how-to-watch-cma-awards-taylor-swift
   - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/cma-awards-watch-taylor-swift-live-b3087126.html
 
@@ -184,12 +193,13 @@ Stories: 116
 ## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
 
 - first seen: 2026-11-18 02:42 UTC | category: business | importance: 7
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: The Museum of Fine Arts in Boston has officially announced the Taylor Swift: The Eras Collection. This new exhibition is set to showcase various aspects of the artist's career.
 - sources:
   - [unverified] ArtDependence — https://artdependence.com/articles/museum-of-fine-arts-boston-announces-taylor-swift-the-eras-collection/
   - [unverified] Artsy — https://www.artsy.net/article/artsy-editorial-taylor-swift-eras-collection-exhibition-open-museum-fine-arts-boston-202
   - [established] Billboard — https://www.billboard.com/music/pop/taylor-swift-eras-collection-boston-museum-fine-arts-details-1236384740/
+  - [unverified] MassLive — https://www.masslive.com/ne-where/2026/11/taylor-swift-eras-exhibit-at-museum-of-fine-arts-boston-is-first-of-its-kind.html
 
 ## Maine Considers Luxury Home Tax Inspired by Taylor Swift
 
