@@ -144,7 +144,9 @@ to the next free one — the one narrow exception permitting this run to
 edit `social/calendar.md` (mechanics in
 `docs/agents/runner-prompts/tree-daily-draft.md`). Expired and declined
 intents move to `social/inbox/closed/` and are reported as counts, not
-failures.
+failures. Every inbox/calendar change rides a separate `tree/inbox/<date>`
+PR, never the `tree/draft/<date>` PR: `social-tree-approve.yml` refuses a
+draft PR holding anything but `social/queue/*.json` and its images.
 
 ## Weekly report format (added 2026-08-23; tightened 2026-08-24)
 
@@ -369,7 +371,7 @@ so the digest and Marjorie can audit it in seconds.
   fast lane's slot-displacement step (T6, see Daily draft above).
 - `social/inbox/**` (T6) — the daily run's fast-lane bookkeeping: moving an
   intent to `drafted`/`declined`/`expired`, and to `social/inbox/closed/`
-  on the latter two.
+  on the latter two — always on a `tree/inbox/<date>` PR, never the draft PR.
 - `social/lessons.md` (T5) — the distilled founder-feedback ledger, written
   every Monday run through `scripts/social/lib/lessons.mjs` so the format
   cannot drift; hand-editable by a founder too.
@@ -387,8 +389,9 @@ so the digest and Marjorie can audit it in seconds.
   `docs/specs/marjorie-overhaul/l1-loop.md`). Tree's own asks of Marjorie go
   in `social/calendar.brief.json`'s `needsFromMarjorie`, and `send-brief`
   files them, never Tree.
-- Its own PRs: branch `tree/plan/<date>` (weekly) or `tree/draft/<date>`
-  (daily), label `tree`.
+- Its own PRs: branch `tree/plan/<date>` (weekly), `tree/draft/<date>`
+  (daily, queue files and their images only) or `tree/inbox/<date>` (daily
+  fast-lane inbox/calendar housekeeping), label `tree`.
 - From chat (`routine-tree-chat.yml`, M5): a numbered proposal comment on the
   latest weekly plan PR, and comments on `tree-filed` issues. Nothing else.
   The chat reply itself is posted by the workflow, never by Tree.
