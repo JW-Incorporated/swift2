@@ -3961,6 +3961,18 @@
       "sha256": "3bbd7f004cc670d67ddee8f05577303706c078e574e081d41959baa54c09ec77",
       "reason": "Two people; the man is dominant, not a single prominent subject",
       "date": "2026-11-17"
+    },
+    {
+      "id": "press-066f7bb942fa",
+      "sha256": "7890a1d9a47826b648b00f2198625ce300e305cc6ddc7828424743b390fddc3a",
+      "reason": "Two people; the man is dominant, so no single prominent subject.",
+      "date": "2026-11-18"
+    },
+    {
+      "id": "press-69c148a19ad4",
+      "sha256": "59ec03c61dafe9546e0de439ff7355c4d5bda63acc75c9663f7cb1300d9ee20f",
+      "reason": "Two-person side-by-side collage; second person is dominant, not a single subject",
+      "date": "2026-11-18"
     }
   ]
 }
