@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 105
+
+## Museum of Fine Arts in Boston Unveils Taylor Swift: The Eras Collection
+
+- first seen: 2026-11-18 02:42 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The Museum of Fine Arts in Boston has officially announced the Taylor Swift: The Eras Collection. This new exhibition is set to showcase various aspects of the artist's career.
+- sources:
+  - [unverified] ArtDependence — https://artdependence.com/articles/museum-of-fine-arts-boston-announces-taylor-swift-the-eras-collection/
 
 ## Maine Considers Luxury Home Tax Inspired by Taylor Swift
 
