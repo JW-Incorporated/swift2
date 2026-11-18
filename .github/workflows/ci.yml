@@ -43,6 +43,7 @@ jobs:
       pull-requests: read
     outputs:
       non_content: ${{ steps.filter.outputs.non_content }}
+      corpus: ${{ steps.filter.outputs.corpus }}
     steps:
       - uses: actions/checkout@v7
       - uses: dorny/paths-filter@v4
@@ -56,6 +57,8 @@ jobs:
               - '!social/**'
               - '!docs/**'
               - '!**/*.generated.ts'
+            corpus:
+              - 'supabase/seed/**'
 
   # Full suite: runs on every push to main (the deploy gate), and on any PR
   # that touches code outside supabase/seed/**, social/**, docs/**, and
@@ -231,6 +234,14 @@ jobs:
           git fetch --no-tags --depth=1 origin main
           npm run check:voice -- --base-ref FETCH_HEAD
       - run: npm run content:coverage
+      # Corpus-dependent tests (#6865): a seed change can break a vitest test
+      # that reads the real corpus, and this job skips the full suite, so
+      # #6850 merged green and turned main red. Runs only the tests that can
+      # see the corpus (scripts/test-corpus.mjs discovers them each run), and
+      # only when the PR touches supabase/seed/** — docs/social-only PRs skip.
+      - name: Corpus-dependent tests
+        if: needs.changes.outputs.corpus == 'true'
+        run: npm run test:corpus
       # Seed changes regenerate lenses.generated.ts into the Hermes bundle, so
       # content-only PRs get the OTA size budget too (see build-full).
       - name: Expo export (iOS, size budget)
