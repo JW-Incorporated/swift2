@@ -7,6 +7,8 @@
 // team handles it before a founder ever sees it.
 //
 //   node scripts/marjorie/routine-failure-triage.mjs --workflow <routine-x> --run-id <id> --run-url <url> --conclusion <failure|timed_out|cancelled>
+//   node scripts/marjorie/routine-failure-triage.mjs --sweep              (also closes recovered issues, lib/routine-failure-recovery.mjs)
+//   node scripts/marjorie/routine-failure-triage.mjs --recover --dry-run  (recovery only; lists what it would close)
 //
 // One mechanism: Tree's draft receipts (`desk:tree`, scripts/social/draft-receipt.mjs)
 // are ADOPTED rather than duplicated — the receipt issue gets the markers and
@@ -18,16 +20,16 @@ import { gh as ghRun } from '../lib/gh.mjs';
 import { REPO, renderMarker } from './lib/loop-asks.mjs';
 import { dispatchResponse } from './lib/loop-dispatch.mjs';
 import { apiFor, listIssuesByLabels } from './lib/issues-rest.mjs';
+import { recover } from './lib/routine-failure-recovery.mjs';
+import { COMMENT_MARKER, TITLE_PREFIX, askKey, failureMarker, failureTitle, mentionsUrl, seqFor, shouldComment } from './lib/routine-failure-keys.mjs';
 import { parseArgs } from './loop-asks.mjs';
 
+export { COMMENT_MARKER, COMMENT_MAX, COMMENT_MIN_GAP_MS, TITLE_PREFIX, failureMarker, mentionsUrl, shouldComment } from './lib/routine-failure-keys.mjs';
 export const FAILURE_LABELS = ['desk:ops', 'marjorie-filed', 'routine-failure'];
 export const FAILED_CONCLUSIONS = new Set(['failure', 'timed_out']);
 export const OPS_FIX_WORKFLOW = 'routine-ops-fix';
 export const OPS_FIX_LABEL = 'ops-fix:stuck';
 // The repo is public: the issue carries names and the run URL only, never log text. Marjorie reads the logs herself.
-export const COMMENT_MARKER = '<!-- routine-failure-comment -->';
-export const COMMENT_MIN_GAP_MS = 3_600_000;
-export const COMMENT_MAX = 5;
 export const FAILURE_DAILY_CAP = 6;
 // Tree's draft receipts (scripts/social/draft-receipt.mjs) title themselves by run kind and day.
 export const RECEIPT_TITLES = {
@@ -40,8 +42,6 @@ const TIMEOUT_RE = /exceeded the maximum execution time/i;
 const USAGE_LIMIT_GRACE_MS = 15 * 60_000;
 // scripts/routines/session-outcome.mjs failureHint writes this into the failed job's annotation when the plan's usage limit is hit.
 const USAGE_LIMIT_RE = /plan usage for this account is exhausted/i;
-// The exact title prefix this script writes; its daily dispatch cap counts only issues carrying it.
-export const TITLE_PREFIX = 'routine failure:';
 
 const warn = (message) => console.log(`::warning::bot-failure-triage: ${message}`);
 const utcDay = (ms) => new Date(ms).toISOString().slice(0, 10);
@@ -57,18 +57,17 @@ export function failingJobStep(jobsJson) {
   return { job: null, step: null };
 }
 
-export const failureMarker = (workflow, day) => `<!-- routine-failure: ${workflow} ${day} -->`;
-export const askMarker = (workflow, day) => renderMarker(`routine-failure-${workflow}-${day}`, null);
+export const askMarker = (workflow, day, seq = 1) => renderMarker(askKey(workflow, day, seq), null);
 
-export function buildFailureIssue({ workflow, runUrl, conclusion, job, step, day }) {
+export function buildFailureIssue({ workflow, runUrl, conclusion, job, step, day, seq = 1, previous = null }) {
   const body = [
-    `**Routine failure:** \`${workflow}\` ended \`${conclusion}\` on ${day} (UTC). Run: ${runUrl}`,
+    `**Routine failure:** \`${workflow}\` ended \`${conclusion}\` on ${day} (UTC). Run: ${runUrl}${previous ? ` (failed again after #${previous} was closed)` : ''}`,
     `**Failing job / step:** ${job ? `\`${job}\`${step ? ` / \`${step}\`` : ''}` : 'not reported (setup, auth or timeout — open the run)'}`,
     `**Marjorie:** read the logs via the run URL — \`gh run view <id> --log-failed\`, filtered with \`tail\`/\`grep\` — and never paste raw log lines into an issue or comment (this repo is public). Diagnose, then REROUTE to the build desk with a concrete fix brief (or to \`HUMAN-ACTIONS.md\` only if the fix needs a founder: a login, payment, secret value or approval — built with \`node scripts/marjorie/escalate.mjs\`, so it names the session and carries a copy-paste prompt). One failure issue per workflow per day: later failures today arrive as comments here.`,
-    failureMarker(workflow, day),
-    askMarker(workflow, day),
+    failureMarker(workflow, day, seq),
+    askMarker(workflow, day, seq),
   ].join('\n\n');
-  return { title: `${TITLE_PREFIX} ${workflow} ${day}`, body, labels: FAILURE_LABELS };
+  return { title: failureTitle(workflow, day, seq), body, labels: FAILURE_LABELS };
 }
 
 /** The same markers on an existing issue, so Marjorie's queue and the dedupe both find it. */
@@ -135,25 +134,11 @@ async function blockedByUsageLimit(gh, repo, jobs, runUrl, now) {
   return now <= reset + USAGE_LIMIT_GRACE_MS ? { resets: new Date(reset).toISOString() } : null;
 }
 
-/** Whole-URL match (run 111 is not run 1111) without a substring test on a URL. */
-export function mentionsUrl(text, url) {
-  const escaped = String(url).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return new RegExp(escaped + '(?![0-9A-Za-z/_-])').test(String(text ?? ''));
-}
-
-/** One comment per repeat failure, but never within an hour of the last triage comment or past five. */
-export function shouldComment(comments, now) {
-  const mine = (comments || []).filter((c) => String(c.body ?? '').includes(COMMENT_MARKER));
-  if (mine.length >= COMMENT_MAX) return false;
-  const latest = Math.max(0, ...mine.map((c) => Date.parse(c.created_at ?? c.createdAt) || 0));
-  return !(latest && now - latest < COMMENT_MIN_GAP_MS);
-}
-
 /**
  * Files, comments on or adopts the failure issue, then starts Marjorie.
  * Returns `{ action: 'skipped' | 'commented' | 'adopted' | 'filed', number? }`; never throws.
  */
-export async function triage({ workflow, runId, runUrl, conclusion, day: dayOverride }, { repo = REPO, gh = ghRun, now = Date.now(), log = console.log } = {}) {
+export async function triage({ workflow, runId, runUrl, conclusion, day: dayOverride, updatedAt }, { repo = REPO, gh = ghRun, now = Date.now(), log = console.log } = {}) {
   try {
     if (!workflow || !runId) return { action: 'skipped', reason: 'missing workflow or run id' };
     if (workflow === 'bot-failure-triage') return { action: 'skipped', reason: 'never triages itself' };
@@ -172,24 +157,36 @@ export async function triage({ workflow, runId, runUrl, conclusion, day: dayOver
       return { action: 'skipped', reason: 'usage-limit' };
     }
     const day = dayOverride ?? utcDay(now);
-    const marker = failureMarker(workflow, day);
     const api = apiFor(gh);
 
-    // state:all — a closed issue for today is commented on, never duplicated and never reopened.
-    const existing = (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' })).find((i) => String(i.body).includes(marker));
-    if (existing) {
+    // state:all — today's open issue (or a closed one, for a failure that finished before it was closed) gets a
+    // comment. A failure that finished AFTER today's latest issue was closed (recovery auto-close, or a human)
+    // files the next sequence (lib/routine-failure-keys.mjs) so it is visible and dispatched, never reopened.
+    const sameDay = (await listIssuesByLabels(api, { repo, labels: ['routine-failure'], state: 'all' }))
+      .map((issue) => ({ issue, seq: seqFor(issue.body, workflow, day) })).filter((x) => x.seq > 0).sort((a, b) => b.seq - a.seq);
+    let seq = 1;
+    let previous = null;
+    if (sameDay.length > 0) {
+      const latest = sameDay.find((x) => x.issue.state !== 'CLOSED') ?? sameDay[0];
+      const existing = latest.issue;
       const comments = (await api(`/repos/${repo}/issues/${existing.number}/comments?per_page=100`)) || [];
-      const seen = [existing.body, ...comments.map((c) => c.body)].some((text) => mentionsUrl(text, runUrl));
-      if (!seen && shouldComment(comments, now)) {
-        await gh(['issue', 'comment', String(existing.number), '--repo', repo, '--body', `Another failure today: \`${conclusion}\` — ${runUrl}\n\n${COMMENT_MARKER}`]);
+      const seen = [...sameDay.map((x) => x.issue.body), ...comments.map((c) => c.body)].some((text) => mentionsUrl(text, runUrl));
+      const closedAt = existing.state === 'CLOSED' ? Date.parse(existing.closedAt ?? '') : NaN;
+      const failedAt = Date.parse(updatedAt ?? '') || now;
+      if (seen || !(failedAt > closedAt)) {
+        if (!seen && shouldComment(comments, now)) {
+          await gh(['issue', 'comment', String(existing.number), '--repo', repo, '--body', `Another failure today: \`${conclusion}\` — ${runUrl}\n\n${COMMENT_MARKER}`]);
+        }
+        log(`bot-failure-triage: #${existing.number} already filed for ${workflow} ${day}.`);
+        return { action: 'commented', number: existing.number };
       }
-      log(`bot-failure-triage: #${existing.number} already filed for ${workflow} ${day}.`);
-      return { action: 'commented', number: existing.number };
+      seq = latest.seq + 1;
+      previous = existing.number;
     }
 
     const isOpsFix = workflow === OPS_FIX_WORKFLOW;
     await ensureLabels(gh, repo, isOpsFix ? ['routine-failure', OPS_FIX_LABEL] : ['routine-failure']);
-    const receiptTitle = RECEIPT_TITLES[workflow]?.(day);
+    const receiptTitle = seq === 1 ? RECEIPT_TITLES[workflow]?.(day) : null;
     const receipt = receiptTitle ? (await listIssuesByLabels(api, { repo, labels: ['desk:tree'], state: 'open' })).find((i) => i.title === receiptTitle) : null;
     const labels = isOpsFix ? [...FAILURE_LABELS, OPS_FIX_LABEL] : FAILURE_LABELS;
     let number;
@@ -203,7 +200,7 @@ export async function triage({ workflow, runId, runUrl, conclusion, day: dayOver
       number = receipt.number;
       action = 'adopted';
     } else {
-      const issue = buildFailureIssue({ workflow, runUrl, conclusion, job, step, day });
+      const issue = buildFailureIssue({ workflow, runUrl, conclusion, job, step, day, seq, previous });
       const args = ['issue', 'create', '--repo', repo, '--title', issue.title, '--body', issue.body];
       for (const label of labels) args.push('--label', label);
       number = issueNumber((await gh(args)).stdout);
@@ -261,21 +258,29 @@ export async function sweep({ repo = REPO, gh = ghRun, now = Date.now(), log = c
     if (!workflow || run.head_branch !== 'main' || !['failure', 'timed_out', 'cancelled'].includes(run.conclusion)) continue;
     if (Date.parse(run.updated_at) < now - SWEEP_WINDOW_MS) continue;
     const day = dayOf(run.updated_at, now);
-    results.push(await triage({ workflow, runId: String(run.id), runUrl: run.html_url, conclusion: run.conclusion, day }, { repo, gh, now, log }));
+    results.push(await triage({ workflow, runId: String(run.id), runUrl: run.html_url, conclusion: run.conclusion, day, updatedAt: run.updated_at }, { repo, gh, now, log }));
   }
   log(`bot-failure-triage: swept ${results.length} failed routine run(s).`);
   return results;
 }
 
 async function main() {
+  const dryRun = process.argv.includes('--dry-run');
+  if (process.argv.includes('--recover')) {
+    const results = await recover({ repo: REPO, gh: ghRun, dryRun, warn });
+    console.log(`bot-failure-triage: recovery ${dryRun ? 'dry run' : 'pass'} — ${results.filter((r) => r.action !== 'kept').length} to close, ${results.filter((r) => r.action === 'kept').length} kept.`);
+    for (const r of results.filter((x) => x.action === 'kept')) console.log(`  kept #${r.number} (${r.workflow}): ${r.reason}`);
+    return 0;
+  }
   if (process.argv.includes('--sweep')) {
-    await sweep();
+    if (!dryRun) await sweep();
+    await recover({ repo: REPO, gh: ghRun, dryRun, warn });
     return 0;
   }
   const { flags } = parseArgs(['triage', ...process.argv.slice(2)]);
   const missing = ['workflow', 'run-id', 'run-url', 'conclusion'].filter((n) => typeof flags[n] !== 'string');
   if (missing.length > 0) throw new Error(`missing --${missing.join(', --')}`);
-  await triage({ workflow: flags.workflow, runId: flags['run-id'], runUrl: flags['run-url'], conclusion: flags.conclusion, day: typeof flags['updated-at'] === 'string' ? dayOf(flags['updated-at'], Date.now()) : undefined });
+  await triage({ workflow: flags.workflow, runId: flags['run-id'], runUrl: flags['run-url'], conclusion: flags.conclusion, day: typeof flags['updated-at'] === 'string' ? dayOf(flags['updated-at'], Date.now()) : undefined, updatedAt: typeof flags['updated-at'] === 'string' ? flags['updated-at'] : undefined });
   return 0;
 }
 

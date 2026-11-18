@@ -28,6 +28,11 @@ export const revalidate = 86_400;
 const RENDER_LIMIT_PER_MIN = 120;
 const limiter = makeRateLimiter({ windowMs: 60_000, max: RENDER_LIMIT_PER_MIN, sweepIntervalMs: 60_000 });
 
+// The route reads req.url, so it is dynamic and `revalidate` alone never
+// reaches the CDN (production served `max-age=0, must-revalidate`). Cards only
+// change on deploy, so let browsers hold them an hour and the edge a day.
+export const OG_CACHE_CONTROL = 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800';
+
 export function ogCopyForRequest(url: URL): OgCardCopy {
   const get = (key: keyof ShareParams) => url.searchParams.get(key) ?? undefined;
   const target = resolveShareTarget({
@@ -47,5 +52,5 @@ export function GET(req: NextRequest): Response {
     return new Response('Too many requests', { status: 429, headers: { 'Retry-After': '60', 'Cache-Control': 'no-store' } });
   }
   const copy = ogCopyForRequest(new URL(req.url));
-  return renderOgCard(copy);
+  return renderOgCard(copy, { 'Cache-Control': OG_CACHE_CONTROL });
 }

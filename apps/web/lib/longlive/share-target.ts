@@ -10,6 +10,10 @@ export interface ShareTarget {
   card: OgCardCopy;
   title: string;
   description: string;
+  /** Site-relative URL of the shared target (`/?<param>`), used as og:url. */
+  path: string;
+  /** Alt text for the og image, read from the same card copy it renders. */
+  imageAlt: string;
 }
 
 export type ShareParams = Partial<Record<'item' | 'song' | 'guide' | 'theories' | 'lens' | 'mode' | 'era', string>>;
@@ -34,6 +38,7 @@ const MODE_COPY = new Map<string, OgCardCopy>([
 ]);
 
 const MAX_DESCRIPTION = 160;
+const MAX_ERA_DESCRIPTION = 155;
 const MAX_TITLE = 100;
 
 function eraForId(id: string | undefined) {
@@ -57,6 +62,8 @@ function target(param: string, card: OgCardCopy, description = card.subtitle, ti
     card,
     title: clampOnWord(title, MAX_TITLE),
     description: clampOnWord(description, MAX_DESCRIPTION),
+    path: `/?${param}`,
+    imageAlt: card.kicker === 'Long Live' ? `Long Live card: ${card.title}` : `Long Live card: ${card.title} (${card.kicker})`,
   };
 }
 
@@ -110,7 +117,10 @@ export function resolveShareTarget(params: ShareParams): ShareTarget | null {
   if (mode && modeCopy) return target(`mode=${enc(mode)}`, modeCopy);
 
   const era = eraForId(eraParam);
-  if (eraParam && era) return target(`era=${enc(eraParam)}`, { kicker: era.yearLabel, title: era.name, subtitle: era.tagline });
+  if (eraParam && era) {
+    const description = clampOnWord(`${era.yearLabel}: ${era.tagline} ${era.intro}`, MAX_ERA_DESCRIPTION);
+    return target(`era=${enc(eraParam)}`, { kicker: era.yearLabel, title: era.name, subtitle: era.tagline }, description);
+  }
 
   return null;
 }

@@ -300,28 +300,23 @@ describe('assignFeedTiers over REAL vault content', () => {
     expect(it.significance).toBeUndefined();
     expect(substanceScore(it)).toBeGreaterThan(HERO_SCORE_THRESHOLD);
     expect(baseTierFor(it)).toBe('hero');
-    // In the live TTPD feed it sits close behind another hero, so hero
-    // spacing steps it to media — the ONE demotion pacing is still allowed.
-    expect(realTier(id)).toBe('media');
+    // Hero spacing may step it to media (the ONE demotion pacing allows),
+    // depending on its neighbours, which content PRs change.
+    expect(['hero', 'media']).toContain(realTier(id));
   });
 
-  it('renders unsigned but substantial real items as hero where spacing allows', () => {
-    // Example item, repointed 2026-08-05: this is a spacing-dependent assertion,
-    // so the specific id rotates as the TLOAS feed's substance/pacing shifts (a
-    // depth pass enriching neighbours can demote any single example — see the
-    // "ONE demotion pacing is still allowed" note above). The prior example
-    // (shania-twain-scheduling-conflict) stepped to media after the 2026-08-05
-    // vault run added two substantial TLOAS moments (the country Hot 100 sweep
-    // and the Gracie Abrams quote) that shifted its cluster's hero spacing.
-    // Repointed again (issue #616 dedup): removing the duplicate Rock Hall
-    // item and enriching the surviving one shifted TLOAS hero spacing and
-    // stepped the Eras Tour docuseries example to media; repointed to a
-    // currently-hero unsigned item (the album release page). The
-    // population-level guarantee is covered by the next test.
-    const id = 'vault-tloas-the-life-of-a-showgirl-released';
-    const it = ALL_VAULT_ITEMS.find((c) => c.id === id)!;
-    expect(it.significance).toBeUndefined();
-    expect(realTier(id)).toBe('hero');
+  it('across the real corpus, spacing only ever steps hero to media; every other tier stays at its base', () => {
+    // Replaces per-item spacing pins (#6865): which example sits where moves
+    // with every vault run, but this rule cannot. Image-suppressed cards are
+    // excluded: their tier follows the missing photo, not spacing.
+    const suppressed = new Set(ERAS.flatMap((era) => [...realSuppressedIds(contentForEra(era.id), era.id)]));
+    for (const it of ALL_VAULT_ITEMS) {
+      if (suppressed.has(it.id)) continue;
+      const base = baseTierFor(it);
+      const final = realTier(it.id);
+      if (base === 'hero') expect(['hero', 'media']).toContain(final);
+      else expect(final).toBe(base);
+    }
   });
 
   it('promotes a real, unsigned population to hero — heroes are not just the authored ones', () => {
@@ -332,20 +327,6 @@ describe('assignFeedTiers over REAL vault content', () => {
     // isHeroWorthy heuristic plus a 1-in-10 throttle. Substance scoring must
     // surface a real number of them.
     expect(unsignedHeroes.length).toBeGreaterThan(15);
-  });
-
-  it('gives a bare one-line single announcement the compact chip tier', () => {
-    // Fixtures rotate as depth passes enrich the example items (see the
-    // spacing/pacing note on the hero test above). Repointed 2026-07-25
-    // (ledger #1370): the Answerer gave showgirl-released — previously the last
-    // remaining tloas chip — its sourcing + cross-link consolidation treatment,
-    // promoting it out of chip tier, so a still-bare debut single now carries
-    // the bare case on its own (no tloas item sits in chip tier anymore).
-    expect(realTier('vault-debut-our-song-hits-number-one')).toBe('chip');
-  });
-
-  it('gives a mid-weight sourced item the media tier', () => {
-    expect(realTier('vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own')).toBe('media');
   });
 
   it('gives every authored defining item hero, across the entire real corpus', () => {

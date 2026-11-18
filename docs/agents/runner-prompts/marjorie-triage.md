@@ -233,9 +233,11 @@ node scripts/marjorie/lib/fetch-issue-comments.mjs --label marjorie-filed --stat
 
 This is ONE command (one turn): it reads every issue per-issue internally (the
 bulk list truncates comments at 100) and prints one JSON array of
-`{number, stateReason, body, comments}`, at most 200 issues. If it exits
-non-zero (a list hit exactly 200 and may hide more), abort the pass and say so
-in your run summary rather than reconciling a partial set. Never loop `gh issue
+`{number, stateReason, body, comments}`, paging through every issue (newest
+1000 per label; past that it prints a truncation notice — a `TRUNCATED` line on
+stderr naming the label — and the set is partial: reconcile it, but name the
+truncated label in your run summary). If it exits non-zero, abort the pass and say so in your run
+summary rather than reconciling a partial set. Never loop `gh issue
 view` yourself. Note the issue count in your run summary.
 
 For each filed issue in the array:
@@ -283,8 +285,11 @@ node scripts/marjorie/lib/fetch-issue-comments.mjs --label marjorie-triaged --la
 
 ONE command, one turn: it reads each issue per-issue internally (a bulk
 `--json comments` list truncates comments at 100, which can hide an override)
-and prints one JSON array of `{number, stateReason, body, comments}`, at most
-200 issues per label. If it exits non-zero (a list hit exactly 200), abort the
+and prints one JSON array of `{number, stateReason, body, comments}`, paging
+through every issue (newest 1000 per label; past that it prints a truncation
+notice — a `TRUNCATED` line on stderr naming the label — and the set is
+partial: older overrides may be missed, so name the truncated label in your run
+summary). If it exits non-zero, abort the
 discovery pass and say so in your run summary; a silently truncated set hides
 overrides. Never loop `gh issue view` yourself. Note the issue count in your run
 summary.

@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import type { LoreItem, TheoryNote } from '@swift2/experience';
+
 import { confirmedEggs, currentTheories, relativeDate } from './clown-board';
 import { LORE } from './clownbot-lore';
 import { THEORIES_RAW } from './theories.generated';
@@ -8,15 +10,46 @@ const forEra = (eraId: string) => THEORIES_RAW[eraId as keyof typeof THEORIES_RA
 
 const NOW = new Date('2026-11-02T12:00:00Z');
 
+const note = (slug: string, kind: string, outcome: string) =>
+  ({ slug, kind, outcome, title: `Title ${slug}`, claim: `Claim ${slug}` }) as unknown as TheoryNote;
+const lore = (id: string, status: string, date: string) =>
+  ({ id, status, date, headline: `Headline ${id}`, detail: `Detail ${id}` }) as unknown as LoreItem;
+const FIXTURE_THEORIES: Record<string, TheoryNote[]> = {
+  debut: [
+    note('old-pending', 'theory', 'pending'),
+    note('old-confirmed', 'theory', 'confirmed'),
+    note('old-egg', 'easter_egg', 'pending'),
+    note('old-decoded', 'easter_egg', 'confirmed'),
+  ],
+};
+const fixtureForEra = (eraId: string) => FIXTURE_THEORIES[eraId] ?? [];
+const FIXTURE_LORE = [
+  lore('reported-2020', 'reported', '2020-01-01'),
+  lore('confirmed-2026', 'confirmed', '2026-10-02'),
+  lore('rumor-2026', 'rumor', '2026-10-01'),
+];
+
 describe('currentTheories — column 1', () => {
-  it('never pads: fewer than 10 in the corpus means fewer than 10 returned', () => {
-    const items = currentTheories(NOW, forEra, LORE);
-    // Real corpus, real count — asserted exactly so a future change to the
-    // corpus fails this test loudly instead of silently padding.
-    // 9 -> 10 (#3153): admits the ESB green/"TS"-logo new-era theory
-    // (showgirl-esb-green-ts-debut-era), a pending theory-track entry.
-    expect(items.length).toBe(10);
-    expect(items.length).toBeLessThanOrEqual(10);
+  it('never pads: returns exactly the open items, newest first (fixture)', () => {
+    expect(currentTheories(NOW, fixtureForEra, FIXTURE_LORE).map((i) => i.id)).toEqual([
+      'lore:rumor-2026',
+      'lore:reported-2020',
+      'theory:debut:old-pending',
+    ]);
+  });
+
+  it('caps at 10 when more than 10 items are open (fixture)', () => {
+    const many = Array.from({ length: 12 }, (_, i) => lore(`r${i}`, 'rumor', `2026-01-${String(i + 10)}`));
+    const items = currentTheories(NOW, fixtureForEra, many);
+    expect(items.map((i) => i.id)).toEqual([11, 10, 9, 8, 7, 6, 5, 4, 3, 2].map((n) => `lore:r${n}`));
+  });
+
+  it('against the real corpus, returns min(10, open theories + open rumors)', () => {
+    const openTheories = Object.values(THEORIES_RAW)
+      .flatMap((notes) => notes ?? [])
+      .filter((n) => n.kind === 'theory' && n.outcome === 'pending').length;
+    const openLore = LORE.filter((l) => l.status === 'rumor' || l.status === 'reported').length;
+    expect(currentTheories(NOW, forEra, LORE).length).toBe(Math.min(10, openTheories + openLore));
   });
 
   it('caps at 10 even if the corpus were to grow past it', () => {
@@ -90,21 +123,6 @@ describe('currentTheories — column 1', () => {
     expect(items.every((i) => i.id.startsWith('theory:'))).toBe(true);
   });
 
-  it('injected baked LORE yields exactly the ids origin/main produced before the change', () => {
-    expect(currentTheories(NOW, forEra, LORE).map((i) => i.id)).toEqual([
-      'theory:tloas:showgirl-esb-green-ts-debut-era',
-      'theory:tloas:showgirl-spotify-canvas-color-swap',
-      'lore:iki-oscar-campaign',
-      'lore:writing-new-music-post-wedding',
-      'lore:ts13-lilac-cipher',
-      'lore:green-ts-next-era',
-      'lore:swifties-against-ai',
-      'theory:ttpd:cassandra-reputation-callback',
-      'theory:ttpd:ttpd-quill-fountain-pen-era',
-      'lore:rep-tv-debut-tv',
-    ]);
-  });
-
   it('omitting lore behaves as an empty lore', () => {
     expect(currentTheories(NOW, forEra)).toEqual(currentTheories(NOW, forEra, []));
   });
@@ -113,7 +131,11 @@ describe('currentTheories — column 1', () => {
 describe('confirmedEggs — column 2', () => {
   it('contains only confirmed planted-and-decoded easter eggs', () => {
     const items = confirmedEggs(forEra);
-    expect(items.length).toBe(37);
+    const decoded = Object.values(THEORIES_RAW)
+      .flatMap((notes) => notes ?? [])
+      .filter((n) => n.kind === 'easter_egg' && n.outcome === 'confirmed').length;
+    expect(items.length).toBe(decoded);
+    expect(confirmedEggs(fixtureForEra).map((i) => i.id)).toEqual(['theory:debut:old-decoded']);
 
     for (const [eraId, notes] of Object.entries(THEORIES_RAW)) {
       for (const note of notes ?? []) {
@@ -177,15 +199,17 @@ describe('confirmedEggs — column 2', () => {
   });
 
   it('omitting limit stays unlimited', () => {
-    expect(confirmedEggs(forEra).length).toBe(37);
+    const all = confirmedEggs(forEra);
+    expect(all.length).toBeGreaterThan(5);
+    expect(confirmedEggs(forEra, { limit: all.length + 10 })).toEqual(all);
   });
 
-  it('resolves every confirmed egg to a real era, grouped into the corpus\'s 11 era buckets', () => {
+  it('resolves every confirmed egg to a real era, grouped into more than one era bucket', () => {
     const items = confirmedEggs(forEra);
     const unresolved = items.filter((i) => i.era === undefined);
     expect(unresolved.length).toBe(0);
     const eraNames = new Set(items.map((i) => i.era));
-    expect(eraNames.size).toBe(11);
+    expect(eraNames.size).toBeGreaterThan(1);
   });
 });
 
