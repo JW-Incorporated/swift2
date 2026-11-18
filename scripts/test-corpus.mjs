@@ -18,7 +18,8 @@
 //   node scripts/test-corpus.mjs           run the tests
 //   node scripts/test-corpus.mjs --roots   print the discovered roots only
 //   node scripts/test-corpus.mjs -- <args> extra vitest args (e.g. --reporter)
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, relative, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -93,12 +94,37 @@ function main(argv) {
   }
   console.log(`test-corpus: ${roots.length} corpus roots → vitest related`);
   const vitest = join(ROOT, 'node_modules', 'vitest', 'vitest.mjs');
-  const res = spawnSync(
-    process.execPath,
-    [vitest, 'related', '--run', '--passWithNoTests', ...extra, ...roots],
-    { cwd: ROOT, stdio: 'inherit' },
-  );
-  return res.status ?? 1;
+  const reportFile = join(mkdtempSync(join(tmpdir(), 'test-corpus-')), 'report.json');
+  const res = spawnSync(process.execPath, [vitest, ...vitestArgs(roots, extra, reportFile)], {
+    cwd: ROOT,
+    stdio: 'inherit',
+  });
+  if (res.status !== 0) return res.status ?? 1;
+  const problem = checkReport(existsSync(reportFile) ? JSON.parse(readFileSync(reportFile, 'utf8')) : null);
+  if (problem) {
+    console.error(problem);
+    return 1;
+  }
+  return 0;
+}
+
+export function vitestArgs(roots, extra, reportFile) {
+  return [
+    'related',
+    '--run',
+    '--reporter=default',
+    '--reporter=json',
+    `--outputFile.json=${reportFile}`,
+    ...extra,
+    ...roots,
+  ];
+}
+
+/** A run that resolved zero test files proves nothing: fail it loudly. */
+export function checkReport(report) {
+  const files = Array.isArray(report?.testResults) ? report.testResults.length : 0;
+  if (files > 0) return null;
+  return 'test-corpus: vitest related resolved zero test files from the corpus roots; discovery is broken, so this gate would pass vacuously. Fix scripts/test-corpus.mjs.';
 }
 
 if (process.argv[1] && resolve(fileURLToPath(import.meta.url)) === resolve(process.argv[1])) {

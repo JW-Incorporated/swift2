@@ -172,10 +172,16 @@ settings change.
 every valid corpus satisfies (sorted, unique, capped, derived counts, "hero
 only ever steps to media"), never a count, an absence, or which item sits
 first. Pin exact behaviour on a fixture (`clown-retrieve.test.ts` #6864,
-`clown-board.test.ts`, `feed-tiers.test.ts`). The deliberate exceptions are
-the sync gates, which compare a committed artifact to the corpus
-(`lyric-track-key.test.ts`, `affiliate-coverage.test.ts`): those should fail
-the content PR that forgot to regenerate.
+`clown-board.test.ts`, `feed-tiers.test.ts`). The deliberate exception is a
+sync gate that compares a committed artifact to the corpus, which should fail
+the content PR that forgot to regenerate. `lyric-track-key.test.ts` is one:
+`lyric-track-keys.json` is regenerated only by
+`node scripts/sync-lyric-track-keys.mjs`, never by `sync:content`. A test is
+no gate for an artifact the runner regenerates first: `sync:content` rewrites
+`docs/ops/AFFILIATE-COVERAGE.md` before the tests run, so
+`affiliate-coverage.test.ts` cannot see a stale committed report. That gate is
+`npm run check:affiliate-coverage` (it reads `git show HEAD:`), which
+`build-content` runs on the same seed-changed condition (#6953).
 
 ---
 

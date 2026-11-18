@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 // @ts-expect-error -- plain .mjs CLI module, no type declarations
-import { discoverRoots } from './test-corpus.mjs';
+import { checkReport, discoverRoots, vitestArgs } from './test-corpus.mjs';
 
 const root = mkdtempSync(join(tmpdir(), 'test-corpus-'));
 function put(rel: string, text: string) {
@@ -23,6 +23,23 @@ put('scripts/parity/fixture/web/content-vault.generated.ts', 'export const X = 0
 put('apps/web/node_modules/pkg/a.generated.ts', '');
 
 afterAll(() => rmSync(root, { recursive: true, force: true }));
+
+describe('test-corpus zero-file guard', () => {
+  it('never lets vitest pass with no tests', () => {
+    expect(vitestArgs(['a.generated.ts'], [], 'r.json')).not.toContain('--passWithNoTests');
+    expect(vitestArgs(['a.generated.ts'], [], 'r.json')).toContain('--outputFile.json=r.json');
+  });
+
+  it('fails a run that resolved zero test files, or left no report', () => {
+    expect(checkReport({ testResults: [] })).toMatch(/zero test files/);
+    expect(checkReport(null)).toMatch(/zero test files/);
+    expect(checkReport({})).toMatch(/zero test files/);
+  });
+
+  it('accepts a run that executed at least one test file', () => {
+    expect(checkReport({ testResults: [{ name: 'x.test.ts' }] })).toBeNull();
+  });
+});
 
 describe('test-corpus discoverRoots', () => {
   const roots: string[] = discoverRoots(root);

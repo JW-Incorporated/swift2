@@ -241,7 +241,14 @@ jobs:
       # only when the PR touches supabase/seed/** — docs/social-only PRs skip.
       - name: Corpus-dependent tests
         if: needs.changes.outputs.corpus == 'true'
+        timeout-minutes: 10
         run: npm run test:corpus
+      # sync:content regenerates docs/ops/AFFILIATE-COVERAGE.md in the runner,
+      # so the corpus tests cannot see a stale committed report; this gate
+      # compares against git HEAD (#6953).
+      - name: Affiliate coverage report matches the committed one
+        if: needs.changes.outputs.corpus == 'true'
+        run: npm run check:affiliate-coverage
       # Seed changes regenerate lenses.generated.ts into the Hermes bundle, so
       # content-only PRs get the OTA size budget too (see build-full).
       - name: Expo export (iOS, size budget)
