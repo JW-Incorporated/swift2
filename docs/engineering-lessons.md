@@ -150,6 +150,39 @@ ships today and no disclosure is required today.
 a compliance problem. It is a one-file change that silently carries an
 obligation.
 
+### A content-only PR can break a code test; its own CI now runs those tests
+
+We believed content PRs could only break content validators, so `ci.yml`'s
+`build-content` job skips vitest. #6850 (2026-11-13) added a vault moment,
+passed every check it ran, and turned `main` red for ~21 hours: a test
+asserted that a query matched nothing in the real corpus (#6865).
+
+**Decision (2026-11-18, #6865):** when a PR touches `supabase/seed/**`,
+`build-content` runs `npm run test:corpus` (`scripts/test-corpus.mjs`): every
+generated content module, every source module that reads the seed or the
+content bundle through fs, and every test that names those paths are fed to
+`vitest related`, which adds every test that imports them. The set is
+discovered on each run (about a third of the suite), so a new
+corpus-reading test is covered without anyone updating a list. Docs-only and
+social-only PRs skip the step. It sits inside `build-content`, so the
+required `build` check carries it, and auto-merge-content waits on it with no
+settings change.
+
+**The check for test authors:** a test over the real corpus asserts a rule
+every valid corpus satisfies (sorted, unique, capped, derived counts, "hero
+only ever steps to media"), never a count, an absence, or which item sits
+first. Pin exact behaviour on a fixture (`clown-retrieve.test.ts` #6864,
+`clown-board.test.ts`, `feed-tiers.test.ts`). The deliberate exception is a
+sync gate that compares a committed artifact to the corpus, which should fail
+the content PR that forgot to regenerate. `lyric-track-key.test.ts` is one:
+`lyric-track-keys.json` is regenerated only by
+`node scripts/sync-lyric-track-keys.mjs`, never by `sync:content`. A test is
+no gate for an artifact the runner regenerates first: `sync:content` rewrites
+`docs/ops/AFFILIATE-COVERAGE.md` before the tests run, so
+`affiliate-coverage.test.ts` cannot see a stale committed report. That gate is
+`npm run check:affiliate-coverage` (it reads `git show HEAD:`), which
+`build-content` runs on the same seed-changed condition (#6953).
+
 ---
 
 ## Safety gates
