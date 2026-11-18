@@ -256,7 +256,7 @@ export function MoodChat() {
               type="button"
               onClick={() => tapStarter(s)}
               disabled={busy}
-              className="rounded-full border border-[color:var(--era-line)] px-3.5 py-2 text-sm text-[color:var(--era-ink)] transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent)] disabled:opacity-50"
+              className="rounded-full border border-[color:var(--era-line)] px-3.5 py-2 text-sm text-[color:var(--era-ink)] transition hover:border-[color:var(--era-accent)] hover:text-[color:var(--era-accent-text)] disabled:opacity-50"
             >
               {s.label}
             </button>

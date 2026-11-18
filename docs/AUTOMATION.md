@@ -347,7 +347,7 @@ workflow files.
 
 | Schedule | Cadence | Docs |
 |---|---|---|
-| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; security updates ride their own immediate lane |
+| [`.github/dependabot.yml`](../.github/dependabot.yml) → **npm** | weekly Mon 05:00 America/Los_Angeles | [`agents/paul-blart.md`](agents/paul-blart.md) — grouped dev + production patch/minor bumps, max 5 open PRs; Playwright bumps arrive alone (pinned to the parity container); Expo / React Native / React / native modules are `ignore`d for version updates (they change the mobile native fingerprint, so bumps are a by-hand, owner-approved store build); security updates ride their own immediate lane |
 | [`.github/dependabot.yml`](../.github/dependabot.yml) → **github-actions** | weekly Mon (no explicit time) | [`agents/paul-blart.md`](agents/paul-blart.md) — one grouped PR for all Action version bumps |
 
 ---

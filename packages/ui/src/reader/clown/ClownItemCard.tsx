@@ -73,7 +73,7 @@ export function ClownItemCard(props: ClownItemCardProps) {
             </span>
           </span>
           <span className="mt-1 block text-sm font-medium text-[color:var(--era-ink)]">{item.title}</span>
-          <span className="mt-1.5 flex items-center gap-1 text-xs font-semibold text-[color:var(--era-accent)] opacity-0 transition duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
+          <span className="mt-1.5 flex items-center gap-1 text-xs font-semibold text-[color:var(--era-accent-text)] opacity-0 transition duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
             Ask clown bot <span aria-hidden="true">→</span>
           </span>
         </button>
@@ -124,7 +124,7 @@ export function ClownItemCard(props: ClownItemCardProps) {
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block py-1.5 text-xs text-[color:var(--era-accent)] underline underline-offset-2"
+              className="inline-block py-1.5 text-xs text-[color:var(--era-accent-text)] underline underline-offset-2"
             >
               {s.name}
             </a>

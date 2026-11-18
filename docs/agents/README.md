@@ -57,6 +57,12 @@ git worktree add "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-nam
 - **`<branch-name>`** should match the branch you're about to create (`git
   worktree add` can create the branch for you with `-b`, as above, or check
   out an existing one by dropping `-b`).
+- **`cd` does not stick.** A `cd` into the worktree resets on the next shell
+  call, so "cd there once" is not enough: prefix every call with
+  `cd <worktree> && <command>` (or `git -C <worktree>` / `npm --prefix <worktree>`),
+  confirm `git rev-parse --show-toplevel` before any install, test, build or
+  commit, and never run `npm ci`/`npm install` in the main checkout
+  (`docs/engineering-lessons.md`, 2026-11-18).
 - **Cleanup when done:** from the main repo directory,
   `git worktree remove "C:\Users\<you>\AppData\Local\Temp\claude-worktrees\<branch-name>"`
   (add `--force` only if you're certain nothing there is uncommitted and
