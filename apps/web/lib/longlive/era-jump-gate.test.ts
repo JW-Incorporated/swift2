@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CURRENT_ERA_ID } from '@swift2/experience';
-import { ERA_JUMP_GATE_ATTR } from '@swift2/ui/reader/lib/era-jump-landing';
+import { ERA_JUMP_GATE_ATTR, ERA_JUMP_GATE_TIMER } from '@swift2/ui/reader/lib/era-jump-landing';
 import { ERA_JUMP_GATE_MAX_MS, eraJumpGateScript, eraJumpGateTarget } from './era-jump-gate';
 
 describe('eraJumpGateTarget (#6807)', () => {
@@ -31,19 +31,26 @@ describe('eraJumpGateScript', () => {
     expect(script).toContain(`removeAttribute('${ERA_JUMP_GATE_ATTR}')},${ERA_JUMP_GATE_MAX_MS})`);
   });
 
-  it('runs: flags <html>, then clears it after the fallback delay', () => {
+  it('keeps the fallback near EraStream’s own 8 s jump deadline', () => {
+    expect(ERA_JUMP_GATE_MAX_MS).toBeLessThanOrEqual(12000);
+  });
+
+  it('runs: flags <html>, parks the timer on window, clears after the fallback delay', () => {
     const attrs = new Set<string>();
     let timer: (() => void) | undefined;
+    const win: Record<string, unknown> = {};
     const doc = {
       documentElement: {
         setAttribute: (name: string) => attrs.add(name),
         removeAttribute: (name: string) => attrs.delete(name),
       },
     };
-    new Function('document', 'setTimeout', eraJumpGateScript())(doc, (fn: () => void) => {
+    new Function('document', 'window', 'setTimeout', eraJumpGateScript())(doc, win, (fn: () => void) => {
       timer = fn;
+      return 42;
     });
     expect(attrs.has(ERA_JUMP_GATE_ATTR)).toBe(true);
+    expect(win[ERA_JUMP_GATE_TIMER]).toBe(42);
     timer?.();
     expect(attrs.has(ERA_JUMP_GATE_ATTR)).toBe(false);
   });

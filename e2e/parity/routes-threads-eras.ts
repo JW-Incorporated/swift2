@@ -55,7 +55,8 @@ export const ERA_LANDING_ROUTES: readonly AOnlyRoute[] = ERA_IDS.map((id) => ({
   sides: 'both',
   clip: CLIP,
   prepare: async (page: Page) => {
-    await expect(page.locator(`[data-ll-section="${id}"]`)).toBeVisible();
+    // #6807: the feed stays hidden until the jump settles (hydration + jump + 1.5 s).
+    await expect(page.locator(`[data-ll-section="${id}"]`)).toBeVisible({ timeout: 20_000 });
     await reveal(page, `[data-ll-section="${id}"] > div:first-child`);
   },
 }));

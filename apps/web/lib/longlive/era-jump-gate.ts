@@ -1,5 +1,5 @@
 import { CURRENT_ERA_ID, ERAS } from '@swift2/experience';
-import { ERA_JUMP_GATE_ATTR } from '@swift2/ui/reader/lib/era-jump-landing';
+import { ERA_JUMP_GATE_ATTR, ERA_JUMP_GATE_TIMER } from '@swift2/ui/reader/lib/era-jump-landing';
 
 /**
  * #6807: a `?era=` deep link first paints the current era, then the store
@@ -10,8 +10,11 @@ import { ERA_JUMP_GATE_ATTR } from '@swift2/ui/reader/lib/era-jump-landing';
  * EraStream's jump settles (`clearEraJumpGate`). Any other deep-link param
  * outranks `era` in `deepLinkTarget`, so those links are left untouched.
  */
-/** Fallback reveal if the jump never settles (script error, bad hydration). */
-export const ERA_JUMP_GATE_MAX_MS = 25000;
+/**
+ * Fallback reveal for JS that never hydrates. Once the store applies the jump
+ * it cancels this (`takeOverEraJumpGate`) and EraStream's 8 s deadline bounds it.
+ */
+export const ERA_JUMP_GATE_MAX_MS = 12000;
 
 const OUTRANKING_PARAMS = ['item', 'song', 'guide', 'theories', 'lens', 'mode'] as const;
 
@@ -27,6 +30,6 @@ export function eraJumpGateTarget(params: SearchParams): string | null {
 export function eraJumpGateScript(): string {
   return (
     `document.documentElement.setAttribute('${ERA_JUMP_GATE_ATTR}','');` +
-    `setTimeout(function(){document.documentElement.removeAttribute('${ERA_JUMP_GATE_ATTR}')},${ERA_JUMP_GATE_MAX_MS});`
+    `window['${ERA_JUMP_GATE_TIMER}']=setTimeout(function(){document.documentElement.removeAttribute('${ERA_JUMP_GATE_ATTR}')},${ERA_JUMP_GATE_MAX_MS});`
   );
 }

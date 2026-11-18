@@ -16,6 +16,7 @@ import { useHost } from '../../host/context';
 import { THREADS } from '@swift2/experience';
 import { resolveTrackKey } from '@swift2/experience';
 import { createLocalStorageAdapter } from '../lib/local-storage-adapter';
+import { clearEraJumpGate, takeOverEraJumpGate } from '../lib/era-jump-landing';
 import {
   emptyProgress,
   readStoredProgress,
@@ -282,7 +283,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       search,
       THREADS.map((t) => t.id),
     );
-    if (!target) return;
+    if (!target) {
+      clearEraJumpGate();
+      return;
+    }
     // Resolve to a concrete action first; only a link that actually opens
     // something is consumed (stripped from the address bar).
     let run: (() => void) | null = null;
@@ -334,11 +338,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     } else if (getEra(target.id).id === target.id) {
       run = () => nav.setEra(target.id as EraId);
     }
+    // #6807: only an era jump releases the server-set gate itself (EraStream).
+    if (!run || target.kind !== 'era') clearEraJumpGate();
     if (!run) return;
     const action = run;
     // A deep link is the visitor's FIRST state, not a navigation away from
     // one — pushing a back-entry here would trap the first back gesture.
     const open = () => {
+      if (target.kind === 'era') takeOverEraJumpGate();
       nav.suppressNavPushRef.current = true;
       action();
       nav.suppressNavPushRef.current = false;

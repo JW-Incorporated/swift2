@@ -351,6 +351,37 @@ html[data-ll-era-jump] .era-shell > footer {
   visibility: hidden;
 }
 
+/* Quiet "on its way" ring while gated. Fixed, so it never takes layout space
+   and its removal cannot shift anything; it inherits the era's ink colour. */
+html[data-ll-era-jump] #main-content::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: -1.125rem 0 0 -1.125rem;
+  border-radius: 9999px;
+  border: 2px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-top-color: color-mix(in srgb, currentColor 70%, transparent);
+  visibility: visible;
+  pointer-events: none;
+  animation: ll-era-jump-spin 0.9s linear infinite;
+}
+
+@keyframes ll-era-jump-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-ll-era-jump] #main-content::before {
+    animation: none;
+    border-top-color: color-mix(in srgb, currentColor 20%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

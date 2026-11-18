@@ -48,8 +48,24 @@ export function shouldRunEraJump(input: {
  */
 export const ERA_JUMP_GATE_ATTR = 'data-ll-era-jump';
 
+/** `window` key holding the inline script's pre-hydration fallback timer. */
+export const ERA_JUMP_GATE_TIMER = '__llEraJumpGateTimer';
+
 export function clearEraJumpGate(): void {
   if (typeof document !== 'undefined') document.documentElement.removeAttribute(ERA_JUMP_GATE_ATTR);
+}
+
+/**
+ * The hydrated store is applying the `?era=` jump, so EraStream's own bounds
+ * (settle, 8 s deadline, gesture, unmount) now own the reveal: cancel the
+ * inline fallback that only exists for JS that never hydrates.
+ */
+export function takeOverEraJumpGate(): void {
+  if (typeof window === 'undefined') return;
+  const timers = window as unknown as Record<string, number | undefined>;
+  const id = timers[ERA_JUMP_GATE_TIMER];
+  if (id !== undefined) window.clearTimeout(id);
+  timers[ERA_JUMP_GATE_TIMER] = undefined;
 }
 
 export function jumpLandingScrollTop(input: {
