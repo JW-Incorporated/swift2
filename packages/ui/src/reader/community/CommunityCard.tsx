@@ -22,7 +22,8 @@
 
 import { useState } from 'react';
 import { AlertTriangle, ExternalLink } from 'lucide-react';
-import type { Community, CommunityPlatform, VerificationStatus } from '@swift2/experience';
+import type { Community, CommunityPlatform } from '@swift2/experience';
+import { verificationLine } from './verification-label';
 
 const MONOGRAM: Record<CommunityPlatform, string> = {
   Discord: 'D',
@@ -35,32 +36,12 @@ const MONOGRAM: Record<CommunityPlatform, string> = {
   Wattpad: 'Wp',
 };
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-/** ISO `YYYY-MM-DD` → "14 Aug", parsed manually rather than via `Date` so a
- *  reader's negative-UTC-offset timezone never rolls the date back a day. */
-function formatCheckedDate(iso: string): string {
-  const parts = iso.split('-').map(Number);
-  const month = parts[1];
-  const day = parts[2];
-  if (!month || !day || !MONTHS[month - 1]) return iso;
-  return `${day} ${MONTHS[month - 1]}`;
-}
-
-const VERIFICATION_COPY: Record<VerificationStatus, { icon: string; label: string }> = {
-  'verified-live': { icon: '✓', label: 'Verified live' },
-  'third-party-cited': { icon: '◇', label: 'Reported by a third party' },
-  'listed-only': { icon: '◇', label: 'Listed only' },
-  'blocked-unverified': { icon: '◇', label: 'Unconfirmed — platform blocks verification' },
-};
-
 export function CommunityCard({ community, featured }: { community: Community; featured: boolean }) {
   const [expanded, setExpanded] = useState(false);
   const hasCount = community.memberCount != null;
   const monogram = MONOGRAM[community.platform];
-  const verif = VERIFICATION_COPY[community.verification.status];
-  const checkedLabel = formatCheckedDate(community.verification.checkedAt);
-  const flags = community.flags ?? [];
+  const verif = verificationLine(community.verification.status, community.verification.checkedAt, new Date());
+  const flags = community.beforeYouJoin;
   const bigStatSize = featured ? 'text-[38px]' : 'text-[30px]';
 
   return (
@@ -155,11 +136,6 @@ export function CommunityCard({ community, featured }: { community: Community; f
         <p className={`text-sm leading-relaxed text-[color:var(--era-ink-soft)] ${expanded ? '' : 'line-clamp-2'}`}>
           {community.description}
         </p>
-        {expanded && (
-          <p className="mt-2 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
-            <span className="text-[color:var(--era-ink)]">Activity —</span> {community.activityEvidence}
-          </p>
-        )}
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
@@ -203,7 +179,9 @@ export function CommunityCard({ community, featured }: { community: Community; f
           <span aria-hidden className="text-xs text-[color:var(--era-ink)]">
             {verif.icon}
           </span>
-          {verif.label} · checked {checkedLabel}
+          <span>
+            {verif.label} <span className="whitespace-nowrap">{verif.date}</span>
+          </span>
         </span>
         <a
           href={community.url}

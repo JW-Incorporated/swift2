@@ -29,7 +29,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://discord.com/invite/taylorswift",
         "https://disboard.org/servers/tag/taylor-swift"
@@ -59,7 +59,7 @@
         ],
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Reported member counts vary wildly by source and date (200k, 460k, 1.8M and 3.8M all appeared across different secondary sites during this research); none recorded as fact.",
         "Reportedly bans pro-Gaylor and sexuality-discussion posts per Rolling Stone AU."
       ],
@@ -88,7 +88,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "ATRL is a general pop-culture forum, not Swift-exclusive, this is one very large thread within it, and forum-wide tone is blunter and snarkier than fan-only spaces"
       ],
       "recommended_in": []
@@ -102,7 +102,7 @@
       "online_count": 15867,
       "activity_level": "High",
       "activity_evidence": "approximate_presence_count 15867 of 144217 members (11.0%) via invite API",
-      "description": "The single biggest Taylor Swift server we could verify, and it is upfront that it is fan-run, not official. High raw numbers and a healthy presence ratio, so this is not just a dead number farm.",
+      "description": "The single biggest Taylor Swift server we could verify, and it is upfront that it is fan-run, not official. Lots of members, and a healthy share of them online at any time, so it is not just a big number.",
       "backstory": "Guild description literally reads 'WE ARE NOT AFFILIATED WITH TAYLOR SWIFT' -- a good sign of an honest, non-scammy fan operation rather than an impersonation server. Its long-form vanity URL confirms an active, stable community rather than a throwaway.",
       "niche": "general",
       "join_requirements": "Unknown (not visible via invite API without joining)",
@@ -113,7 +113,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "Invite code found in search (qfxP85uSYb) is a random, non-vanity code and could be rotated or revoked -- use the vanity URL above instead, which we confirmed is stable."
       ],
       "recommended_in": [
@@ -139,7 +139,7 @@
         "evidence_url": "https://www.bustle.com/entertainment/taylor-swift-eras-tour-helped-us-heal",
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "A second group calling itself Taylor Swifts Vault 2.0 also exists on Facebook (facebook.com/groups/taylorswiftsvault2/); a post in the original group titled a lot of confusion over whose verified and whose not suggests fans have had trouble telling legitimate admins/spinoffs from impersonators. Unconfirmed beyond that snippet -- flagging so fans double-check they have joined the group they intend to."
       ],
       "recommended_in": [
@@ -166,7 +166,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "HTTP 406 (bot-block signature, not 404) — exists but could not be independently re-confirmed 2026-08-14"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://forums.feedspot.com/taylor_swift_forums/"
       ]
@@ -194,7 +194,7 @@
         ],
         "checked_at": "2026-08-14"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://gummysearch.com/r/SwiftlyNeutral/",
         "https://theneedledrop.com/opinion/miniseries-review-taylor-swifts-the-end-of-an-era/"
@@ -220,7 +220,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "High verification_level (4) on the guild suggests phone-verification is required to join -- worth knowing before recommending to a casual fan."
       ],
       "recommended_in": [
@@ -236,7 +236,7 @@
       "online_count": 4201,
       "activity_level": "High",
       "activity_evidence": "approximate_presence_count 4201 of 37792 members (11.1%) via invite API",
-      "description": "A general-purpose Taylor Swift fan hub that punches above its member count on activity -- one of the highest presence ratios of any server we verified. Good middle-ground pick if the biggest servers feel too chaotic.",
+      "description": "A general-purpose Taylor Swift fan hub that punches above its member count on activity -- one of the highest shares of members online of any server we checked. Good middle-ground pick if the biggest servers feel too chaotic.",
       "backstory": "Holds the short, one-word vanity 'taylor' -- Discord only grants that to servers with sustained boost levels, so this has been actively maintained and funded by its community for a while. No specific founding date could be verified.",
       "niche": "general",
       "join_requirements": "Unknown (not visible via invite API without joining)",
@@ -247,7 +247,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://discord.com/invite/taylor",
         "https://disboard.org/servers/tag/taylor"
@@ -272,7 +272,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://forums.feedspot.com/taylor_swift_forums/"
       ]
@@ -296,7 +296,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Gaylor and Kaylor content speculates about Taylor Swifts real-life sexuality without her confirmation, some fans find this genre invasive, flag before recommending"
       ],
       "recommended_in": []
@@ -320,7 +320,7 @@
         "evidence_url": "https://fanlore.org/wiki/Taylor_Swift",
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Work count (8,000-plus) is from March 2025 per the citing source, not independently re-verified live"
       ],
       "recommended_in": []
@@ -344,7 +344,7 @@
         "evidence_url": "https://www.philstar.com/the-freeman/cebu-entertainment/2023/04/28/2262265/how-pinoy-swiftie-lobbied-ph-stop-taylor-swifts-eras-tour",
         "checked_at": "2026-08-14"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://www.philstar.com/the-freeman/cebu-entertainment/2023/04/28/2262265/how-pinoy-swiftie-lobbied-ph-stop-taylor-swifts-eras-tour"
       ]
@@ -372,7 +372,7 @@
         ],
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Reported to have gone private in Aug 2025 per Wikipedia; could not confirm current open/closed status. Do not present as guaranteed-joinable without re-checking."
       ],
       "recommended_in": [
@@ -389,7 +389,7 @@
       "online_count": 1115,
       "activity_level": "Medium",
       "activity_evidence": "approximate_presence_count 1115 of 16565 members (6.7%) via invite API",
-      "description": "A solid mid-size general Swiftie hangout holding the short 'swifties' vanity. Good option for fans who want something smaller than the mega-servers but still consistently active.",
+      "description": "A solid mid-size general Swiftie hangout with the short 'swifties' invite link. Good option for fans who want something smaller than the mega-servers but still consistently active.",
       "backstory": "No public founding story surfaced in search results -- we could not verify when it started or any notable moments, only that it is live, moderately active, and has held its vanity long enough to keep it.",
       "niche": "general",
       "join_requirements": "Unknown (not visible via invite API without joining)",
@@ -400,7 +400,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "Name is generic -- easy to confuse with the separate server Swifties Heart also in this list; these are two different guilds."
       ],
       "recommended_in": [
@@ -426,7 +426,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Formal announcement posts are dated (Nov 2025); ongoing life of the group is mainly visible through its live chat room and online member count rather than fresh discussion posts"
       ],
       "recommended_in": []
@@ -450,7 +450,7 @@
         "evidence_url": "https://www.facebook.com/groups/959997728506267/",
         "checked_at": "2026-08-14"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": []
     },
     {
@@ -473,7 +473,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "Utility/alert server, not really a discussion community -- flag this distinction to users expecting a hangout."
       ],
       "recommended_in": [
@@ -499,7 +499,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Some stories contain mature and adult themes and warnings; not curated or age-gated by fandom moderators"
       ],
       "recommended_in": []
@@ -513,7 +513,7 @@
       "online_count": 341,
       "activity_level": "High",
       "activity_evidence": "approximate_presence_count 341 of 2706 members (12.6%) via invite API",
-      "description": "A smaller, tight-knit server built around collectible era and aesthetic tags and Easter-egg theorizing -- its own description name-checks both lyric theories and era obsession. The guild's self-description is in Portuguese, so it leans toward a Brazilian and Portuguese-speaking crowd, though it welcomes English speakers.",
+      "description": "A smaller, tight-knit server built around collectible era and aesthetic tags and Easter-egg theorizing -- its own description name-checks both lyric theories and era obsession. The server's own description is in Portuguese, so it leans toward a Brazilian and Portuguese-speaking crowd, though it welcomes English speakers.",
       "backstory": "Holds the short, highly-contested 'swiftie' vanity, which takes sustained community investment to keep -- a decent signal of an actively engaged, not-dormant server despite its smaller size.",
       "niche": "theories",
       "join_requirements": "High verification_level (4) on the guild -- likely phone-verification required",
@@ -524,7 +524,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "Primary language in the server's own description is Portuguese -- flag for English-only users."
       ],
       "recommended_in": [
@@ -551,7 +551,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://discord.com/invite/swiftcord"
       ]
@@ -575,7 +575,7 @@
         "evidence_url": "https://www.facebook.com/groups/1404884973507150/",
         "checked_at": "2026-08-14"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": []
     },
     {
@@ -598,7 +598,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "Invite code originally found in search (nVmJbsFEsn) is a random, non-vanity code -- use the vanity URL above, which we confirmed is stable."
       ],
       "recommended_in": [
@@ -624,7 +624,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Exact posting recency could not be pinned down precisely, treat activity_level here as a lower-confidence estimate"
       ],
       "recommended_in": []
@@ -649,7 +649,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [],
+      "curation_notes": [],
       "recommended_in": [
         "https://discord.com/invite/xfw4mAJR6j",
         "https://discord.com/invite/tsnotifs"
@@ -674,7 +674,7 @@
         "evidence_url": "https://kaylorfanfiction.tumblr.com/timeline",
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Same real-person-shipping sensitivity as the Kaylor and Gaylor theory community above",
         "Could not confirm current (last-60-day) posting activity on the AO3 tag itself"
       ],
@@ -699,7 +699,7 @@
         "evidence_url": null,
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Hosted on a general discussion and relationships site, not a Swift-specific platform, expect non-fandom content nearby"
       ],
       "recommended_in": []
@@ -723,7 +723,7 @@
         "evidence_url": "https://m.facebook.com/groups/1220925938596348/",
         "checked_at": "2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Weakest-evidence entry in this file -- could not confirm the group is live/active beyond its appearance in a search result listing"
       ],
       "recommended_in": []
@@ -748,7 +748,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "HTTP 406 (bot-block signature, not 404) — exists but could not be independently re-confirmed 2026-08-14"
       },
-      "flags": [
+      "curation_notes": [
         "Activity has visibly declined; admins have noted personal circumstances limiting updates, worth knowing before pointing fans somewhere quiet"
       ],
       "recommended_in": [
@@ -775,7 +775,7 @@
         "checked_at": "2026-08-14",
         "orchestrator_recheck": "invite API re-verified by orchestrator 2026-08-14, 0% count drift"
       },
-      "flags": [
+      "curation_notes": [
         "No vanity URL on this guild -- the invite code is a plain random string and carries real risk of expiring or being regenerated. Check before publishing and re-verify periodically.",
         "Lowest presence ratio of the verified set (3.7%) -- treat activity_level as a soft signal, not a guarantee."
       ],

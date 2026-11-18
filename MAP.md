@@ -392,8 +392,10 @@ that's gated behind Phase 2's pre-permission onboarding screen).
 
 ## Community + Merch (2026-08-14, PR pending)
 
-- `apps/web/lib/longlive/communities.ts` — types + `COMMUNITIES` + grouping helpers. Re-exports the three data files below.
-- `apps/web/lib/longlive/communities-data-{a,b,c}.ts` — the 30 entries, transcribed verbatim from `data/communities.json`. Split only for the 300-line cap; treat as one dataset. **15 of 30 have `memberCount: null` BY DESIGN** — Reddit blocks automated access. Never substitute 0.
+- `packages/experience/src/communities.ts` (re-exported by `apps/web/lib/longlive/communities.ts`) — types + `COMMUNITIES` + grouping helpers. Merges the three data files below with the fan copy.
+- `packages/experience/src/communities-data-{a,b,c}.ts` — the 30 entries, transcribed verbatim from `data/communities.json`. Split only for the 300-line cap; treat as one dataset. **15 of 30 have `memberCount: null` BY DESIGN** — Reddit blocks automated access. Never substitute 0. `curationNotes` (JSON `curation_notes`) and `activityEvidence` are INTERNAL research notes; the UI never renders them.
+- `packages/experience/src/communities-before-you-join.ts` (+ test) — the ONLY text the card's "Before you join" box renders, one explicit entry per community. The test fails on a missing entry, em dashes, or internal phrasing (snake_case field names, "re-verify", "before publishing", "flag this") in any fan-facing community copy.
+- `packages/ui/src/reader/community/verification-label.ts` (+ test) — card footer line. "Verified live" only while `checkedAt` is ≤30 days old, else a neutral "Checked Mon YYYY". `checkedAt` is hand-entered (2026-08-14); no job refreshes it.
 - `apps/web/lib/longlive/merch.ts` — merch catalogue. `shopTheLook` (151 items) is read LIVE off `CONTENT`, never re-authored. `officialStore`/`fanMade` are genuinely empty.
 - `apps/web/lib/longlive/submit-link.ts` — validation, domain/platform derivation, client-id hashing, and the three sinks. **Each sink is independently optional; a missing one must never fail a submission.** `neutralizeCell` here and `neutralizeCell_` in the Apps Script are the SAME rule deliberately duplicated — both sides of the sheet trust boundary. Change one, change both.
 - `apps/web/app/api/submit-link/route.ts` — the public endpoint. Honeypot + per-IP rate limit copied from `/api/feedback`. **Never fetches the submitted URL** (SSRF).

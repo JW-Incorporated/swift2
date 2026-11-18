@@ -14,6 +14,7 @@
  * transcribed verbatim, never re-derived at runtime.
  */
 
+import { BEFORE_YOU_JOIN } from './communities-before-you-join';
 import { COMMUNITIES_DATA_A } from './communities-data-a';
 import { COMMUNITIES_DATA_B } from './communities-data-b';
 import { COMMUNITIES_DATA_C } from './communities-data-c';
@@ -51,7 +52,8 @@ export type CommunityPlatform =
   | 'Steam'
   | 'Wattpad';
 
-export interface Community {
+/** One research-pass entry, exactly as transcribed from `data/communities.json`. */
+export interface CommunityRecord {
   name: string;
   platform: CommunityPlatform;
   url: string;
@@ -77,13 +79,18 @@ export interface Community {
   hypeBasis?: string;
   verification: CommunityVerification;
   /**
-   * Real warnings a fan should see before joining (impersonator spin-offs,
-   * reportedly-private access, sensitive content, etc). Never empty when a
-   * genuine warning exists — always carried through to the UI.
+   * INTERNAL. The research pass's caveats, written for editors (invite-code
+   * risk, source confidence, "re-verify" reminders). Never rendered: the
+   * fan-facing box reads `beforeYouJoin` only.
    */
-  flags: readonly string[];
+  curationNotes: readonly string[];
   /** Third-party pages that named/recommended this community — the citation trail. */
   recommendedIn: readonly string[];
+}
+
+export interface Community extends CommunityRecord {
+  /** Fan-facing "Before you join" copy, from `communities-before-you-join.ts`. */
+  beforeYouJoin: readonly string[];
 }
 
 /** All 30 curated communities, source order preserved (not yet sorted). */
@@ -91,7 +98,7 @@ export const COMMUNITIES: readonly Community[] = [
   ...COMMUNITIES_DATA_A,
   ...COMMUNITIES_DATA_B,
   ...COMMUNITIES_DATA_C,
-];
+].map((record) => ({ ...record, beforeYouJoin: BEFORE_YOU_JOIN[record.name] ?? [] }));
 
 function byHypeScoreDesc(a: Community, b: Community): number {
   return b.hypeScore - a.hypeScore || a.name.localeCompare(b.name);
