@@ -10,7 +10,9 @@
 // Each label's list pages through the REST issues API (lib/issues-rest.mjs) to
 // the end (#6944: a 200-item cap aborted every run once marjorie-filed passed
 // 200). A label with more than MAX_PER_LABEL issues keeps the newest
-// MAX_PER_LABEL and prints a truncation notice on stderr; stdout stays JSON.
+// MAX_PER_LABEL: the function returns { issues, truncated: [label...] } and the
+// CLI prints a `TRUNCATED` line on stderr. Stdout stays the bare JSON array
+// (pending-overrides.mjs parses it).
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { listIssuesByLabels } from './issues-rest.mjs';
@@ -32,7 +34,6 @@ export function fetchIssueComments({
   execImpl = execFileSync,
   sleepImpl = (ms) => new Promise((r) => setTimeout(r, ms)),
   paceMs = 100,
-  warn = (msg) => console.error(msg),
 } = {}) {
   if (!labels?.length) throw new Error('at least one --label is required');
   if (!repo) throw new Error('GITHUB_REPOSITORY is not set');
@@ -44,10 +45,11 @@ export function fetchIssueComments({
   };
   return (async () => {
     const seen = new Map();
+    const truncated = [];
     for (const label of labels) {
       const rows = await listIssuesByLabels(api, { repo, labels: [label], state, limit: maxPerLabel + 1 });
       if (rows.length > maxPerLabel) {
-        warn(`fetch-issue-comments: label ${label} has more than ${maxPerLabel} ${state} issues; reading the newest ${maxPerLabel} only.`);
+        truncated.push(label);
         rows.length = maxPerLabel;
       }
       for (const row of rows) if (!seen.has(row.number)) seen.set(row.number, reasons.get(row.number) ?? null);
@@ -58,7 +60,7 @@ export function fetchIssueComments({
       out.push({ number, stateReason, body: issue.body, comments: issue.comments });
       await sleepImpl(paceMs);
     }
-    return out;
+    return { issues: out, truncated };
   })();
 }
 
@@ -71,8 +73,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     else if (args[i] === '--state') state = args[i + 1];
   }
   try {
-    const result = await fetchIssueComments({ labels, state });
-    process.stdout.write(`${JSON.stringify(result)}\n`);
+    const { issues, truncated } = await fetchIssueComments({ labels, state });
+    for (const label of truncated) {
+      console.error(`fetch-issue-comments: TRUNCATED label ${label}: more than ${MAX_PER_LABEL} ${state} issues, only the newest ${MAX_PER_LABEL} were read; this set is partial.`);
+    }
+    process.stdout.write(`${JSON.stringify(issues)}\n`);
   } catch (err) {
     console.error(`fetch-issue-comments: ${err.message}`);
     process.exit(1);

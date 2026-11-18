@@ -1351,9 +1351,10 @@ jobs:
             exit 0
           fi
 
-          # COMPLETED only: fb-export-reminder closes a missed week's issue as NOT_PLANNED when the next is filed.
+          # NOT_PLANNED excluded: fb-export-reminder closes a missed week's issue that way when the next is filed.
+          # Anything else (COMPLETED, or a null/empty legacy reason) still counts as an export close.
           LATEST_CLOSED=$(gh issue list --repo "$REPO" --state closed --search "\"FB group export due\" in:title" \
-            --json title,closedAt,stateReason --jq 'map(select((.title | startswith("FB group export due")) and .stateReason == "COMPLETED")) | sort_by(.closedAt) | last // empty')
+            --json title,closedAt,stateReason --jq 'map(select((.title | startswith("FB group export due")) and .stateReason != "NOT_PLANNED")) | sort_by(.closedAt) | last // empty')
 
           if [ -z "$LATEST_CLOSED" ]; then
             echo "@sffan15-sys — no \"FB group export due\" issue has ever been closed. If fb-export-reminder.yml only started recently this is expected until the first one lands; if groups have been configured a while, the weekly export task (proposal §4.7) may have stalled." > /tmp/alert-body.md

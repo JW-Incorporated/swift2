@@ -17,7 +17,7 @@ import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { writeFileSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { gh } from './lib/gh.mjs';
+import { defaultRepo, gh } from './lib/gh.mjs';
 import { FB_GROUPS_CHECKLIST } from './knowledge/fb-groups-checklist.mjs';
 import { runMain } from './lib/cli.mjs';
 
@@ -96,8 +96,9 @@ export function supersededReminders(issues, weekLabel) {
  * Closes last week's still-open reminders once this week's is filed, as "not planned" so
  * watchdog.yml's freshness check (which counts COMPLETED closes only) still sees a missed export.
  */
-export async function closeSuperseded({ weekLabel, current, dryRun = false, ghImpl = gh, log = console.log }) {
-  const { stdout } = await ghImpl(['issue', 'list', '--search', '"FB group export due" in:title', '--state', 'open', '--json', 'number,title,body', '--limit', '100']);
+export async function closeSuperseded({ weekLabel, current, repo, dryRun = false, ghImpl = gh, log = console.log }) {
+  if (!repo) throw new Error('no repo to close superseded reminders in');
+  const { stdout } = await ghImpl(['issue', 'list', '--repo', repo, '--search', '"FB group export due" in:title', '--state', 'open', '--json', 'number,title,body', '--limit', '100']);
   const stale = supersededReminders(JSON.parse(stdout), weekLabel);
   for (const issue of stale) {
     if (dryRun) {
@@ -105,7 +106,7 @@ export async function closeSuperseded({ weekLabel, current, dryRun = false, ghIm
       continue;
     }
     const comment = `Superseded by this week's reminder (${current}); that week's export was never completed. Closed as not planned by fb-export-reminder.`;
-    await ghImpl(['issue', 'close', String(issue.number), '--reason', 'not planned', '--comment', comment]);
+    await ghImpl(['issue', 'close', String(issue.number), '--repo', repo, '--reason', 'not planned', '--comment', comment]);
     log(`fb-export-reminder: closed superseded #${issue.number}`);
   }
   return stale.map((i) => i.number);
@@ -153,14 +154,24 @@ async function main() {
 
   if (DRY_RUN) {
     console.log(`DRY RUN — would file/update: "${title}"\n\n${body}`);
-    await closeSuperseded({ weekLabel, current: title, dryRun: true });
+    await supersedeSafely({ weekLabel, current: title, dryRun: true });
     return;
   }
 
   const result = await createOrCommentIssue(title, body);
   const ref = result.url ?? `#${result.number}`;
   console.log(`fb-export-reminder: ${result.action} — ${ref}`);
-  await closeSuperseded({ weekLabel, current: ref });
+  await supersedeSafely({ weekLabel, current: ref });
+}
+
+/** This week's reminder is already filed: a cleanup failure warns, never fails the job. */
+export async function supersedeSafely(opts, { log = console.log } = {}) {
+  try {
+    return await closeSuperseded({ repo: process.env.GITHUB_REPOSITORY || defaultRepo(), ...opts });
+  } catch (err) {
+    log(`::warning::fb-export-reminder: could not close superseded reminders: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`);
+    return [];
+  }
 }
 
 const invokedDirectly =

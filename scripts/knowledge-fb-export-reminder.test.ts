@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { FILED_BY_MARKER, closeSuperseded, isoDate, issueTitle, issueBody, supersededReminders } from './knowledge-fb-export-reminder.mjs';
+import { FILED_BY_MARKER, closeSuperseded, isoDate, issueTitle, issueBody, supersedeSafely, supersededReminders } from './knowledge-fb-export-reminder.mjs';
 
 const reminder = (number: number, week: string, body = issueBody([])) => ({ number, title: issueTitle(week), body });
 
@@ -34,20 +34,30 @@ describe('closeSuperseded', () => {
 
   it('closes earlier reminders as not planned, naming the new one', async () => {
     const { ghImpl, calls } = fakeGh(issues);
-    const closed = await closeSuperseded({ weekLabel: '2026-11-15', current: '#12', ghImpl, log: () => {} });
+    const closed = await closeSuperseded({ weekLabel: '2026-11-15', current: '#12', repo: 'o/r', ghImpl, log: () => {} });
     expect(closed).toEqual([10, 11]);
+    expect(calls[0]!.slice(0, 4)).toEqual(['issue', 'list', '--repo', 'o/r']);
     const closes = calls.filter((c) => c[1] === 'close');
     expect(closes.map((c) => c[2])).toEqual(['10', '11']);
-    expect(closes[0]!.slice(3, 5)).toEqual(['--reason', 'not planned']);
+    expect(closes[0]!.slice(3, 7)).toEqual(['--repo', 'o/r', '--reason', 'not planned']);
     expect(closes[0]![closes[0]!.indexOf('--comment') + 1]).toMatch(/^Superseded by this week's reminder \(#12\)/);
   });
 
   it('dry run lists but never closes', async () => {
     const { ghImpl, calls } = fakeGh(issues);
     const logs: string[] = [];
-    expect(await closeSuperseded({ weekLabel: '2026-11-15', current: 'x', dryRun: true, ghImpl, log: (m: string) => logs.push(m) })).toEqual([10, 11]);
+    expect(await closeSuperseded({ weekLabel: '2026-11-15', current: 'x', repo: 'o/r', dryRun: true, ghImpl, log: (m: string) => logs.push(m) })).toEqual([10, 11]);
     expect(calls.filter((c) => c[1] === 'close')).toHaveLength(0);
     expect(logs).toHaveLength(2);
+  });
+
+  it('a gh failure after filing only warns, never throws', async () => {
+    const ghImpl = async () => {
+      throw new Error('HTTP 502\nmore');
+    };
+    const logs: string[] = [];
+    expect(await supersedeSafely({ weekLabel: '2026-11-15', current: '#12', repo: 'o/r', ghImpl }, { log: (m: string) => logs.push(m) })).toEqual([]);
+    expect(logs).toEqual(['::warning::fb-export-reminder: could not close superseded reminders: HTTP 502']);
   });
 });
 
