@@ -98,9 +98,13 @@ over `docs/`, `gh issue list/view`, `gh pr list/view`, `gh run list`.
   `reporterSaid`. Run `find`, `size`, `render`, then `check` exactly as the
   triage prompt does; only `ready` permits `gh issue create`. A `large` result
   becomes one deduplicated `founder-decision,marjorie-filed` bank item.
-- A routine run: `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run <routine-name>.yml --repo "$GITHUB_REPOSITORY" --ref main`.
-  `GH_DISPATCH_TOKEN` is for `gh workflow run` only; every other `gh` call
-  keeps your default identity.
+- A routine run: `node scripts/ops/dispatch-workflow.mjs <routine-name>.yml`.
+  It reads `GH_DISPATCH_TOKEN` from its own environment and passes it to `gh`
+  as `GH_TOKEN` for that one dispatch; every other `gh` call keeps your
+  default identity. Do **not** write the old
+  `GH_TOKEN="$GH_DISPATCH_TOKEN" gh workflow run ...` form — a `$VARIABLE` in a
+  Bash command string is refused before it runs ("A variable in this command
+  can't be checked before it runs", issue #6875).
 
 **d) A founder approval or chase choice.** The context job already verified
 this exact Discord message's founder author. Never copy its words to GitHub.
@@ -228,8 +232,9 @@ weekly plan is its week. Ask yourself what the message is:
 
 `gh issue create/comment/close/edit`, label edits, `gh pr create` for doc-only
 changes under `docs/` and `HUMAN-ACTIONS.md` (the growth strategy file only through
-`strategy-doc.mjs add-direction`, per (h)), `GH_TOKEN="$GH_DISPATCH_TOKEN" gh
-workflow run` for any routine in `scripts/marjorie/runner-cadence.json`. Never:
+`strategy-doc.mjs add-direction`, per (h)), `node
+scripts/ops/dispatch-workflow.mjs <wf>.yml` for any routine in
+`scripts/marjorie/runner-cadence.json`. Never:
 `social/queue/`, `scripts/social/post-queue.mjs`, secrets, force pushes,
 product code. Closing a human action = a PR that removes the entry (v2 format,
 the `human-actions` skill), which auto-merges on green.

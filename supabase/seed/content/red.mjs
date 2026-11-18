@@ -1333,6 +1333,7 @@ export default {
       },
     },
     {
+      relatedIds: ['moment:vault-tloas-karlie-kloss-back-beside-taylor-this-time-in-the-arrowhead-s'],
       significance: 'notable', // the friendship the era's whole "squad" phase and imagery grew out of (docs/decisions.md, 2026-07-19)
       year: 2014,
       month: 3,

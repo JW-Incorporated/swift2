@@ -11,11 +11,42 @@ export function isCoverageInSync(committed, generated) {
   return committed.replace(/\r/g, '') === generated.replace(/\r/g, '');
 }
 
+/**
+ * The baseline comes from git, NOT from the working copy — issue #6950.
+ *
+ * #6948 fixed the staleness of this report by making its generator the last
+ * step of `sync:content`. That also silently neutered this gate: ci.yml's
+ * `build-full` runs `sync:content` (:85) long before `check:affiliate-coverage`
+ * (:135), and routine-vault-run.yml's publish job syncs before its gate too,
+ * so by the time this script ran the "committed" file it read off disk had
+ * ALREADY been regenerated. It diffed the fresh report against itself and
+ * could never fail, however stale the commit was. Read what is actually
+ * committed instead — the same `git show HEAD:` idiom check:generated uses,
+ * which is immune to any earlier in-place regeneration.
+ */
+export function readCommittedCoverage(show = gitShow) {
+  try {
+    return show(`HEAD:${COVERAGE_FILE}`);
+  } catch (error) {
+    throw new Error(
+      `${COVERAGE_FILE} is missing from HEAD — commit it (${String(error?.message ?? error).slice(0, 120)})`,
+      { cause: error },
+    );
+  }
+}
+
+function gitShow(ref) {
+  return execFileSync('git', ['show', ref], {
+    cwd: ROOT,
+    encoding: 'utf8',
+    maxBuffer: 64 * 1024 * 1024,
+  });
+}
+
 function main() {
-  const output = resolve(ROOT, COVERAGE_FILE);
-  const committed = readFileSync(output, 'utf8');
+  const committed = readCommittedCoverage();
   execFileSync('npm', ['run', 'merch:coverage', '--silent'], { cwd: ROOT, stdio: 'inherit' });
-  const generated = readFileSync(output, 'utf8');
+  const generated = readFileSync(resolve(ROOT, COVERAGE_FILE), 'utf8');
   if (!isCoverageInSync(committed, generated)) {
     console.error(`✖ ${COVERAGE_FILE} is out of sync with the merchandise catalogue.`);
     console.error('Fix: run `npm run merch:coverage` and commit the regenerated report.');

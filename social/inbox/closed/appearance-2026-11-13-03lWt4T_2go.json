@@ -1,0 +1,22 @@
+{
+  "v": 1,
+  "id": "appearance-2026-11-13-03lWt4T_2go",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-11-13T20:39:01.610Z",
+  "deadline": "2026-11-15T20:39:01.610Z",
+  "status": "declined",
+  "facts": {
+    "channelName": "Good Morning America",
+    "videoTitle": "Taylor Swift to perform at CMAs for first time in 13 years",
+    "publishedAt": "2026-11-13T17:27:09+00:00",
+    "videoId": "03lWt4T_2go",
+    "url": "https://www.youtube.com/watch?v=03lWt4T_2go"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 6840
+  },
+  "declinedReason": "Already covered: the CMA Awards 2026 performance pair (heartbeat:event-news:cma-awards-2026-performance-2026-11-14) is queued in PR #6848 for 2026-11-14, so a second post on the same news would duplicate it."
+}
