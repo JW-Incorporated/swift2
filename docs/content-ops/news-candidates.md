@@ -27,6 +27,22 @@ so far".
 
 Stories: 120
 
+## Taylor Swift to Have Her Own Exhibit
+
+- first seen: 2026-11-19 02:31 UTC | category: business | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift will have an exhibit dedicated to her career. Details about the location and opening date have not been specified in the announcement.
+- sources:
+  - [unverified] ABC News - Breaking News, Latest News and Videos — https://abcnews.com/video/138270140/
+
+## Taylor Swift Performs at 2026 CMAs After 13 Years
+
+- first seen: 2026-11-19 02:31 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made a notable return to the CMAs stage after 13 years, performing 'I Knew It, I Knew You' with Keith Urban and a snippet of her 2006 hit 'Our Song.'
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
+
 ## Taylor Swift Stuns in Yellow Gown at CMA Awards
 
 - first seen: 2026-11-19 01:57 UTC | category: fashion | importance: 7
@@ -43,14 +59,6 @@ Stories: 120
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438190/cma-awards-2026-taylor-swift-makes-first-appearance-in-10-years
 
-## Ella Langley's 'Choosin' Texas' Wins Single of the Year at CMAs
-
-- first seen: 2026-11-19 01:57 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: At the CMAs, Ella Langley's song 'Choosin' Texas' won Single of the Year, surpassing Taylor Swift's 'I Knew It, I Knew You.' Alabama country star reflects on the collaborative process behind their award-winning work.
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/ella-langley-choosin-texas-single-of-the-year-cmas-1235658140/
-
 ## Taylor Swift Wears Striking Yellow Gown at CMA Awards Red Carpet
 
 - first seen: 2026-11-19 01:57 UTC | category: fashion | importance: 7
@@ -58,6 +66,14 @@ Stories: 120
 - summary: Taylor Swift made a stunning appearance at the CMA Awards, showcasing a striking yellow gown on the red carpet. Her fashion choice has garnered attention at the event.
 - sources:
   - [unverified] TODAY.com — https://www.today.com/popculture/taylor-swift-cma-awards-red-carpet-2026-rcna610126
+
+## Ella Langley's 'Choosin' Texas' Wins Single of the Year at CMAs
+
+- first seen: 2026-11-19 01:57 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: At the CMAs, Ella Langley's song 'Choosin' Texas' won Single of the Year, surpassing Taylor Swift's 'I Knew It, I Knew You.' Alabama country star reflects on the collaborative process behind their award-winning work.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/ella-langley-choosin-texas-single-of-the-year-cmas-1235658140/
 
 ## Taylor Swift Attends 2026 CMAs in Neon Yellow Gown
 
@@ -110,13 +126,19 @@ Stories: 120
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 5
+- verification_status: corroborated | source_count: 10
 - summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
 - sources:
   - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
   - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
+  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
   - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
   - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
   - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
 
 ## 16 Artists Considered for Next Bond Theme Including Taylor Swift
@@ -1010,20 +1032,3 @@ Stories: 120
   - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/nov/16/grammy-nominations-2027-female-artists
   - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2027-grammys-nominees-list-1236755720/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-nominations-2027-complete-list-2-1236948743/
-
-## Taylor Swift Earns 2027 Grammy Nominations
-
-- first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is among the artists nominated for the 2027 Grammy Awards. A full list of nominees has been published by The Boston Globe.
-- sources:
-  - [unverified] The Boston Globe — https://www.bostonglobe.com/2026/11/16/arts/2027-grammy-nominees/
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/16/grammys-2027-nominations-list/92733138007/
-
-## Taylor Swift Joins 2026 CMA Awards Performer Lineup
-
-- first seen: 2026-11-16 13:22 UTC | category: music | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is among several artists, including Luke Combs and Chris Stapleton, added to the performer lineup for the 2026 CMA Awards.
-- sources:
-  - [unverified] CelebrityAccess — https://celebrityaccess.com/2026/11/16/taylor-swift-luke-combs-chris-stapleton-and-more-added-to-2026-cma-awards-performer-lineup/
