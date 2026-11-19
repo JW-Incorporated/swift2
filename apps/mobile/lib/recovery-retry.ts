@@ -1,13 +1,14 @@
 // Recovery screen Retry: one human tap = one fresh DOM attempt. Writes an `idle` watchdog
 // record (strikes and fallbackCycles kept but never above their bound minus one,
 // so the next fallback cycle still escalates to quarantine instead of overflowing the strict
-// parse and resetting) and reloads the JS bundle once. Never called automatically.
+// parse and resetting), clears any Diagnostics drill, and reloads the JS bundle once. Never called automatically.
 import * as Updates from 'expo-updates';
 import { STRIKES_TO_FALLBACK, freshRecord, type WatchdogRecord } from './watchdog';
 import { QUARANTINE_AFTER_FALLBACK_CYCLES } from './watchdog-policy';
 import { currentBuildKey, loadWatchdogRecord } from './watchdog-store';
 import { currentWatchdogWriter } from './watchdog-writer';
 import { discardRetainedLink, persistRetainedLink } from './retained-link';
+import { clearDiagOverrides } from './diagnostics-override';
 
 export type RetryOutcome = 'reload-requested' | 'save-failed' | 'reload-failed';
 
@@ -70,6 +71,7 @@ async function fetchPendingUpdate(onPhase?: (phase: RetryPhase) => void): Promis
 }
 
 export async function retryDomAttempt(now: () => number = Date.now, onPhase?: (phase: RetryPhase) => void): Promise<RetryOutcome> {
+  await raceTimeout(clearDiagOverrides().catch(() => undefined), RETAINED_PERSIST_TIMEOUT_MS);
   try {
     const writer = currentWatchdogWriter();
     await writer.settled();

@@ -11,6 +11,8 @@ vi.mock('expo-updates', () => ({
 }));
 const r = vi.hoisted(() => ({ persist: vi.fn(async () => {}), discard: vi.fn(async () => {}) }));
 vi.mock('./retained-link', () => ({ persistRetainedLink: () => r.persist(), discardRetainedLink: () => r.discard() }));
+const d = vi.hoisted(() => ({ clear: vi.fn(async () => {}) }));
+vi.mock('./diagnostics-override', () => ({ clearDiagOverrides: () => d.clear() }));
 vi.mock('./watchdog-store', () => ({
   currentBuildKey: () => '7:u1',
   loadWatchdogRecord: async () => h.rec,
@@ -104,6 +106,26 @@ describe('retryDomAttempt', () => {
     h.reload.mockRejectedValue(new Error('x'));
     expect(await retryDomAttempt()).toBe('reload-failed');
     expect(h.saved.at(-1)).toMatchObject({ state: 'idle' });
+  });
+
+  it('always clears the Diagnostics drills, before the reload and even when the save fails', async () => {
+    d.clear.mockReset().mockImplementation(async () => void h.calls.push('clear-drills'));
+    expect(await retryDomAttempt()).toBe('reload-requested');
+    expect(h.calls.indexOf('clear-drills')).toBeLessThan(h.calls.indexOf('reload'));
+    h.saveOk = false;
+    expect(await retryDomAttempt()).toBe('save-failed');
+    expect(d.clear).toHaveBeenCalledTimes(2);
+  });
+
+  it('a failing or never-settling drill clear cannot block Retry', async () => {
+    d.clear.mockReset().mockRejectedValueOnce(new Error('store'));
+    expect(await retryDomAttempt()).toBe('reload-requested');
+    vi.useFakeTimers();
+    d.clear.mockImplementationOnce(() => new Promise(() => {}));
+    const run = retryDomAttempt();
+    await vi.advanceTimersByTimeAsync(RETAINED_PERSIST_TIMEOUT_MS);
+    expect(await run).toBe('reload-requested');
+    d.clear.mockReset().mockResolvedValue(undefined);
   });
 });
 

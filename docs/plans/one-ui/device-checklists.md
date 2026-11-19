@@ -82,11 +82,11 @@ owner's own).
    *Pass:* both play inside the app.
 7. **Offline, then the safety net.** With Wi-Fi on, first open Long Live, wait 30 seconds, then force-quit and reopen it twice (it saves era pictures for offline use, #5074). Then turn on **Airplane Mode** (Wi-Fi off),
    force-quit, reopen: posts and era pictures should show. Still offline, open
-   Diagnostics, set **Force DOM failure** to **throw**, **Done**, force-quit,
+   Diagnostics, set **Force DOM failure** to **throw**, tap **Arm for next launch**, **Done**, force-quit,
    reopen.
-   *Pass:* first launch shows content; second launch shows the older app screens
-   (not a blank page). Then put it back: Diagnostics > Force DOM failure
-   **off** > **Reset watchdog** > Done, Airplane
+   *Pass:* first launch shows content; second launch shows the Recovery screen
+   (not a blank page). The drill clears itself after that one launch. Then put it back: Diagnostics >
+   **Reset watchdog** > Done, Airplane
    Mode off, force-quit, reopen.
 8. **Speed test.** Same as iPhone step 7 (Speed test mode on; 5 force-quit
    relaunches; 5 quick go-home-and-back relaunches).
