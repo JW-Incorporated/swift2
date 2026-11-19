@@ -1,0 +1,46 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "wikimedia-10747743",
+  "media": [
+    "/social/library/photos/wikimedia-10747743.jpg"
+  ],
+  "mediaCredit": "Swift,_Taylor_(2007).jpg: minds-eye\nderivative work: Sehome Bay (talk) (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007)_cropped_2.JPG",
+  "altText": [
+    "American country musician Taylor Swift performing live."
+  ],
+  "scheduledAt": "2026-11-20T23:00:00Z",
+  "campaign": "timeline:love-story:jake-gyllenhaal:2026-11-20",
+  "body": "three months!! that's the entire Jake Gyllenhaal chapter in our Blank Spaces timeline, october 2010 to early january 2011, and it starts the same month Speak Now came out. the timing makes my heart ache a little every time i open it 🧣 https://www.longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=timeline",
+  "why": "Nov 20 Blank Spaces timeline beat, chapter: Jake Gyllenhaal (next after John Mayer, shipped 11-04). The 11-14 attempt died at onVoice 2 / specific 2, so this one is all reaction plus two checkable dates: the lens's Oct 2010 to early Jan 2011 window (supabase/seed/lenses/relationships.mjs, rel-gyllenhaal) and Speak Now's Oct 25 2010 release. Confirmed public history only, no song attribution asserted.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Leads with the fan's reaction to how short the chapter is, then the lens's own dates and the overlap with the Speak Now release. Keeps to confirmed history and never claims what a song is about; the 2007 live photo is real and credited but loosely related.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-19T19:34:54.277Z",
+    "pr": 7010,
+    "message": "social-tree-approve run 44599559989",
+    "contentHash": "sha256:270c2d7ef43183c0dda6f98b65fb95a3be8e83d1012e55dfcfb571037fe5a677",
+    "mediaDigest": "sha256:140738eeba608018548b1817c40bdc27a9c9fd81069564c57dbaa117c16a8180",
+    "sig": "hmac-sha256:1fc36971302227d63e3254c2fa9a0cbdee5304c5e324e43fee9da2c633ad1853"
+  }
+}
