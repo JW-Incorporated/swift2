@@ -32,5 +32,16 @@
       "L002"
     ],
     "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-19T19:34:54.277Z",
+    "pr": 7010,
+    "message": "social-tree-approve run 44599559989",
+    "contentHash": "sha256:1063702663b5548f9f59be35ee4cca20f50f9dfbda5ab57b4a30aaf3a6ca28f9",
+    "mediaDigest": "sha256:4178521f3f8120964069b4511a2b7cb80974c93b228c804f908242935ab07d6a",
+    "sig": "hmac-sha256:7ca0d2d93bdfe20cd6fbf744bfe1352fa33c82bd12d695ab9bcf24daf227c4aa"
   }
 }
