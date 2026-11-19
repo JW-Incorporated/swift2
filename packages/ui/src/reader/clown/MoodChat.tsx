@@ -29,6 +29,8 @@ import { MOOD_STARTERS, visibleStarters, type MoodStarter } from './lib/mood-sta
 import { getEra } from '@swift2/experience';
 import { MoodSongCard } from './MoodSongCard';
 import { useHost } from '../../host/context';
+import { WEB_MOOD_TIMEOUT_MS } from '../../bridge/api-timeout';
+import { chatErrorMessage, withTimeout } from './lib/chat-request';
 
 /** The approved disclaimer (Block 3). Deliberately mentions neither therapy nor
  *  crisis: naming those before the reader has typed anything primes distress
@@ -63,12 +65,17 @@ export function MoodChat() {
     setBusy(true);
     setError(null);
     try {
-      const res = await apiFetch({
-        path: '/api/mood',
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(body),
-      });
+      const res = await withTimeout(WEB_MOOD_TIMEOUT_MS, (signal) =>
+        apiFetch(
+          {
+            path: '/api/mood',
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(body),
+          },
+          { signal },
+        ),
+      );
       if (res.status < 200 || res.status >= 300) throw new Error(String(res.status));
       const data = JSON.parse(res.body);
       setResult(data);
@@ -90,8 +97,8 @@ export function MoodChat() {
       requestAnimationFrame(() =>
         formRef.current?.scrollIntoView({ behavior: smoothScrollBehavior(), block: 'nearest' }),
       );
-    } catch {
-      setError("That didn't go through. Try again in a moment?");
+    } catch (err) {
+      setError(chatErrorMessage(err));
     } finally {
       setBusy(false);
     }

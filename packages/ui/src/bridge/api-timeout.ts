@@ -4,6 +4,9 @@
 export const API_TIMEOUT_MS = 8000;
 // ClownChat streams a model answer; OS-036 gives clown endpoints 60 s.
 export const CLOWN_TIMEOUT_MS = 60_000;
+// Web-only bound for Mood (`MoodChat` over the web host's plain fetch). A Mood answer was measured at ~15 s in
+// production (2026-11-18), so the web gets 30 s. The app's bridge still applies API_TIMEOUT_MS to /api/mood.
+export const WEB_MOOD_TIMEOUT_MS = 30_000;
 // Streamed `api` (pull-based, W6-stream). One `apiRead` long-polls at most this long, then answers an empty
 // not-done chunk (hedge: may drop to 250 ms if native actions turn out serialized). Chunks stay well inside
 // MAX_PAYLOAD_SIZE after JSON escaping (32 KB of control chars escapes to 192 KB); unread bytes stop the native reader at the buffer cap.
