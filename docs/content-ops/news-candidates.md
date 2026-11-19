@@ -27,6 +27,46 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Amused by CMAs Joke on Travis Kelce Wedding
+
+- first seen: 2026-11-19 03:27 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: At the recent CMAs, Taylor Swift was seen laughing at a joke pertaining to the wedding of Travis Kelce during an event held at Madison Square Garden.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438173/cma-awards-2026-taylor-swift-reacts-to-travis-kelce-wedding-joke
+
+## Taylor Swift Shines in Minidress and Cowboy Boots at CMA Awards
+
+- first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift dazzled in a minidress and cowboy boots during her performance at the 2026 CMA Awards, showcasing her unique style. The appearance highlights her continued presence in the country music scene.
+- sources:
+  - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
+
+## Travis Kelce Sends Message to Taylor Swift Ahead of CMA Awards
+
+- first seen: 2026-11-19 03:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared a message directed at Taylor Swift before the upcoming CMA Awards. The communication highlights their connection as the awards ceremony approaches.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-shares-message-taylor-015222079.html
+
+## CMA Single of the Year Winner Announced for 2026
+
+- first seen: 2026-11-19 03:27 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: USA Today reports on the winner of the CMA Single of the Year award for 2026, which was awarded to an artist over Taylor Swift. Further details about the winner are not specified in the source.
+- sources:
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/awards/2026/11/18/taylor-swift-lost-cma-awards-ella-langley/92854547007/
+
+## Top Looks from the CMA Awards Red Carpet Revealed
+
+- first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: The Country Music Association Awards showcased a variety of stylish outfits, featuring rhinestones and cowboy hats, along with several tributes to Dolly Parton.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/18/style/cma-country-music-association-awards-red-carpet.html
+
 ## Taylor Swift to Have Her Own Exhibit
 
 - first seen: 2026-11-19 02:31 UTC | category: business | importance: 7
@@ -107,14 +147,6 @@ Stories: 120
 - sources:
   - [established] Billboard — https://www.billboard.com/photos/cma-red-carpet-photos-2026-1236385148/
 
-## Taylor Swift Attends 2026 CMAs
-
-- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
-- sources:
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
-
 ## Taylor Swift Wears Oscar de la Renta Gown at 2026 CMA Awards
 
 - first seen: 2026-11-19 00:57 UTC | category: fashion | importance: 5
@@ -123,19 +155,34 @@ Stories: 120
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
+## Taylor Swift Attends 2026 CMAs
+
+- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
+
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 10
+- verification_status: corroborated | source_count: 14
 - summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
 - sources:
   - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
   - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
   - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
   - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
   - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
   - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
   - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
   - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
@@ -988,47 +1035,3 @@ Stories: 120
 - summary: Taylor Swift has tied the record for Album of the Year nominations at the Grammys, according to TheWrap. Raye is also recognized for leading the Grammy nominations this year.
 - sources:
   - [unverified] TheWrap — https://www.thewrap.com/creative-content/music/grammy-nominations-2026-list/
-
-## Taylor Swift Nominated for Five Grammys for 2027 Awards
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 9
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has received five Grammy nominations, highlighting her album 'The Life of a Showgirl' and her track for 'Toy Story 5'. The awards ceremony is scheduled for February 2027.
-- sources:
-  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-grammy-nominations-2027-1236755878/
-
-## Beyoncé and Taylor Swift Highlight Grammys 2027 History
-
-- first seen: 2026-11-16 15:32 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Beyoncé, Taylor Swift, and others are making notable contributions to the history of the Grammys for 2027. This event reflects their impact on the music industry as they prepare for future nominations and achievements.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1437974/grammys-2027-nominations-beyonce-taylor-swift-more-make-history
-
-## Kathy Griffin Critiques Taylor Swift's Fanbase and Calls Star Mediocre
-
-- first seen: 2026-11-16 13:43 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kathy Griffin has publicly criticized Taylor Swift's fanbase, comparing them negatively and calling the star mediocre. The comments have sparked discussions among fans and media outlets.
-- sources:
-  - [unverified] BuzzFeed — https://www.buzzfeed.com/stephaniesoteriou/kathy-griffin-says-taylor-swift-fans-worse-than-maga
-
-## Live Broadcast for 2027 Grammy Nominations Set
-
-- first seen: 2026-11-16 13:22 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: The nominations for the 69th Grammy Awards will be announced live from Times Square, New York City. The event starts at 4:45 am PT and can be followed on Grammy.com.
-- sources:
-  - [established] Deadline — Taylor Swift tag — https://deadline.com/lists/grammy-nominations-2027/
-
-## 2027 Grammy Nominations Announced Live
-
-- first seen: 2026-11-16 13:22 UTC | category: music | importance: 8
-- verification_status: corroborated | source_count: 5
-- summary: The Recording Academy is announcing nominees for the 2027 Grammy Awards live on Monday morning. The reveal includes all 100 categories and is hosted by CEO Harvey Mason Jr. with celebrity guests.
-- sources:
-  - [unverified] Haute Living — https://hauteliving.com/2026/11/2027-grammy-nominations/802693/
-  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2518235/9-thoughts-on-the-2027-grammy-nominations/columns/sounding-board/
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/nov/16/grammy-nominations-2027-female-artists
-  - [established] The Hollywood Reporter — Taylor Swift tag — https://www.hollywoodreporter.com/music/music-news/2027-grammys-nominees-list-1236755720/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/grammy-nominations-2027-complete-list-2-1236948743/
