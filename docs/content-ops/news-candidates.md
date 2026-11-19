@@ -27,6 +27,14 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Reacts to Travis Kelce Wedding Joke at CMAs
+
+- first seen: 2026-11-19 07:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At the CMAs, Taylor Swift had a notable reaction to a wedding joke made about Travis Kelce. The moment drew attention and highlights the playful banter surrounding their relationship.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-loses-over-cheeky-065143856.html
+
 ## Brittany Mahomes Shows Baby Bump at CMA Awards with Taylor Swift
 
 - first seen: 2026-11-19 06:22 UTC | category: fashion | importance: 5
@@ -94,14 +102,6 @@ Stories: 120
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438173/cma-awards-2026-taylor-swift-reacts-to-travis-kelce-wedding-joke
 
-## Travis Kelce Sends Message to Taylor Swift Ahead of CMA Awards
-
-- first seen: 2026-11-19 03:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce has shared a message directed at Taylor Swift before the upcoming CMA Awards. The communication highlights their connection as the awards ceremony approaches.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-shares-message-taylor-015222079.html
-
 ## CMA Single of the Year Winner Announced for 2026
 
 - first seen: 2026-11-19 03:27 UTC | category: music | importance: 5
@@ -126,6 +126,14 @@ Stories: 120
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a73904128/taylor-swift-easter-eggs-cma-awards-2026-performance-explained/
   - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
+
+## Travis Kelce Sends Message to Taylor Swift Ahead of CMA Awards
+
+- first seen: 2026-11-19 03:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce has shared a message directed at Taylor Swift before the upcoming CMA Awards. The communication highlights their connection as the awards ceremony approaches.
+- sources:
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-shares-message-taylor-015222079.html
 
 ## Taylor Swift to Have Her Own Exhibit
 
@@ -241,12 +249,13 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 11
+- verification_status: corroborated | source_count: 12
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
   - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
   - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
   - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
@@ -1039,11 +1048,3 @@ Stories: 120
 - summary: Taylor Swift has not received a nomination for Best Pop Vocal Album at the 2027 Grammy Awards. The nominations were led by Raye, with Beyoncé Knowles-Carter achieving 100 career nominations and newcomer Ella Langley recognized in all four major categories.
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/2027-grammy-nominations-taylor-swift-raye-beyonce-1239418518/
-
-## Ice Spice and Millie Bobby Brown Form Close Bond at Taylor Swift’s Wedding
-
-- first seen: 2026-11-16 15:42 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Ice Spice revealed that she and Millie Bobby Brown became very close after meeting at Taylor Swift's wedding, describing their bond as 'like sisters.'
-- sources:
-  - [established] People — https://people.com/ice-spice-and-millie-bobby-brown-became-sisters-after-meeting-at-taylor-swifts-wedding-12257917
