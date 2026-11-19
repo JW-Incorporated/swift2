@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Showcases Three Hairstyles at CMA Awards
+
+- first seen: 2026-11-19 17:22 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made a stylistic return to the CMAs by debuting three different hairstyles during the Nashville event. The singer's long bob was notably changed multiple times throughout the evening.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cmas-return-three-different-hairstyles-1239427233/
+
+## Travis Kelce Shows Support for Taylor Swift at CMA Awards
+
+- first seen: 2026-11-19 17:22 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce expressed his support for Taylor Swift's performance at the CMA Awards from a distance. The event highlighted Swift's continued presence in the music scene and her ongoing relationship with Kelce.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/travis-kelce-supports-taylor-swifts-151530654.html
+
+## Taylor Swift's CMA Performance Features Early Career Easter Eggs
+
+- first seen: 2026-11-19 17:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's recent performance at the CMA showcased various elements reminiscent of her early career, including specific song choices and backstage dresses. These details have sparked speculation about a potential re-recording of her earlier work.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-cma-performance-easter-eggs-explained-1235660977/
+
+## Travis Kelce Shows Support for Taylor Swift at CMA Awards Performance
+
+- first seen: 2026-11-19 17:22 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: E! News reports on Travis Kelce's admiration for Taylor Swift during her CMA Awards performance. The article highlights his evident enthusiasm and support for Swift's musical talents.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438245/travis-kelce-supports-taylor-swifts-2026-cma-awards-performance
+
 ## Taylor Swift Delivers Low-Key CMA Performance After 13 Years
 
 - first seen: 2026-11-19 16:22 UTC | category: music | importance: 6
@@ -332,7 +364,7 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 23
+- verification_status: official | source_count: 24
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -345,6 +377,7 @@ Stories: 120
   - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
   - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
+  - [unverified] FOX4KC.com — https://fox4kc.com/news/brittany-mahomes-joins-taylor-swift-at-cma-awards/
   - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
   - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
   - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
@@ -359,14 +392,6 @@ Stories: 120
   - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
 
-## 16 Artists Considered for Next Bond Theme Including Taylor Swift
-
-- first seen: 2026-11-18 23:57 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: A list of 16 singers who could potentially perform the next James Bond theme includes Taylor Swift, showcasing the tradition of iconic artists lending their voices to the franchise. The article highlights the ongoing significance of dramatic theme songs in the Bond films.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/lists/bond-theme-contenders-robert-pattinson/
-
 ## Review of Taylor Swift's 'Cleveland!' Explores Audience Perspective
 
 - first seen: 2026-11-18 23:57 UTC | category: music | importance: 5
@@ -374,6 +399,14 @@ Stories: 120
 - summary: Annenberg Media reviews Taylor Swift's performance in 'Cleveland!', focusing on the challenges of performing under the constant gaze of the audience. The analysis highlights the complexities of connecting with fans while maintaining artistic integrity.
 - sources:
   - [unverified] Annenberg Media — https://www.uscannenbergmedia.com/2026/11/18/review-taylor-swifts-cleveland-shows-the-problem-with-living-through-the-audiences-gaze/
+
+## 16 Artists Considered for Next Bond Theme Including Taylor Swift
+
+- first seen: 2026-11-18 23:57 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A list of 16 singers who could potentially perform the next James Bond theme includes Taylor Swift, showcasing the tradition of iconic artists lending their voices to the franchise. The article highlights the ongoing significance of dramatic theme songs in the Bond films.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/lists/bond-theme-contenders-robert-pattinson/
 
 ## Taylor Swift Faces Online Backlash for Grammy Nominee Introduction Comment
 
@@ -1030,35 +1063,3 @@ Stories: 120
 - summary: Taylor Swift was seen wearing her ‘I Knew It, I Knew You’ good luck charm while celebrating her Grammy nominations. The charm is a personal item that she associates with good luck during awards season.
 - sources:
   - [unverified] Page Six — https://pagesix.com/2026/11/16/style/taylor-swift-wears-i-knew-it-i-knew-you-horseshoe-necklace-for-grammys-2027-nominations/
-
-## Taylor Swift Comments on Grammy Nominations Record
-
-- first seen: 2026-11-16 18:38 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift humorously noted her record tie in a particular Grammy category, mentioning that she remains '0 for 8' in wins. This remark highlights her ongoing presence in the awards conversation.
-- sources:
-  - [established] People — https://people.com/taylor-swift-appears-during-2027-grammys-nominations-ties-album-of-the-year-record-12258272
-
-## Taylor Swift and Travis Kelce Receive Support Over Ohio Home Backlash
-
-- first seen: 2026-11-16 18:38 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce have reportedly found support from neighbors as they face backlash regarding their Ohio home. The couple has been under public scrutiny, but reports indicate local residents are standing by them.
-- sources:
-  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/taylor-swift-travis-kelce-find-neighborly-support-amid-backlash-over-ohio-home
-
-## Taylor Swift Announces CMA Stage Return After 13 Years
-
-- first seen: 2026-11-16 18:38 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has confirmed her return to the CMA stage after a 13-year absence. This appearance marks her much-anticipated comeback to the iconic country music event.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/taylor-swift-return-cma-stage-153731696.html
-
-## Taylor Swift's Absence at Travis Kelce's Game Amid Divorce Rumors
-
-- first seen: 2026-11-16 17:43 UTC | category: relationship | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's decision to miss Travis Kelce's game has sparked discussions regarding ongoing divorce rumors. The situation has prompted mixed reactions from fans and analysts alike.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/real-reason-taylor-swift-skipped-170621678.html
