@@ -188,21 +188,6 @@ Stories: 120
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
-## Taylor Swift Attends 2026 CMAs
-
-- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 8
-- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
-- sources:
-  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
-  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
-  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
-
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
@@ -225,6 +210,23 @@ Stories: 120
   - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
   - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
+
+## Taylor Swift Attends 2026 CMAs
+
+- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 10
+- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
+- sources:
+  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
+  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
 
 ## 16 Artists Considered for Next Bond Theme Including Taylor Swift
 
