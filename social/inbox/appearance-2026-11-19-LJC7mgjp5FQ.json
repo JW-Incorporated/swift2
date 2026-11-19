@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-11-19-LJC7mgjp5FQ",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-11-19T21:46:49.048Z",
+  "deadline": "2026-11-21T21:46:49.048Z",
+  "status": "open",
+  "facts": {
+    "channelName": "Taylor Swift",
+    "videoTitle": "Taylor Swift - I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)",
+    "publishedAt": "2026-11-19T11:00:19+00:00",
+    "videoId": "LJC7mgjp5FQ",
+    "url": "https://www.youtube.com/watch?v=LJC7mgjp5FQ"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 7013
+  }
+}
