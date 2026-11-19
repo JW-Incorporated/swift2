@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Delivers Low-Key CMA Performance After 13 Years
+
+- first seen: 2026-11-19 16:22 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made her first performance at the CMA Awards in 13 years, which some fans found surprisingly low-key. Reactions to her performance have been mixed.
+- sources:
+  - [unverified] PureWow — https://www.purewow.com/entertainment/taylor-swift-cma-performance-2026
+
+## Taylor Swift's CMA Awards Performance Reveals Easter Eggs
+
+- first seen: 2026-11-19 16:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: E! News highlights Taylor Swift's performance at the CMA Awards, focusing on the hidden Easter eggs interwoven throughout her set. The fans are eager to decode the various clues she incorporated into her show.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438244/taylor-swift-cma-awards-performance-debut-easter-eggs
+
+## Taylor Swift Performs at CMA Awards in Notable Dresses
+
+- first seen: 2026-11-19 16:22 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made her return to the CMA stage after 13 years, showcasing familiar dresses backstage. Her performance highlighted a revival of her country music roots.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-2026-cma-awards-looks-country-era-easter-eggs-1239427206/
+
+## Taylor Swift's Emmys Crime Scene Evidence Board Displayed at Paley Center
+
+- first seen: 2026-11-19 16:22 UTC | category: business | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: A crime scene evidence board featuring Taylor Swift and Mariska Hargitay is set to be displayed at the Paley Center for Media. This board was part of their pre-taped parody for the 'Law & Order: SVU' segment during the Primetime Emmys.
+- sources:
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-svu-crime-evidence-board-emmys-paley-center-1236952681/
+
 ## Taylor Swift Attends CMAs as Ella Langley Sets Record
 
 - first seen: 2026-11-19 15:22 UTC | category: music | importance: 6
@@ -275,7 +307,7 @@ Stories: 120
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 16
+- verification_status: corroborated | source_count: 17
 - summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
 - sources:
   - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -290,6 +322,7 @@ Stories: 120
   - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
   - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
+  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-cmas-wedding-joke-b3087867.html
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
   - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
@@ -1029,35 +1062,3 @@ Stories: 120
 - summary: Taylor Swift's decision to miss Travis Kelce's game has sparked discussions regarding ongoing divorce rumors. The situation has prompted mixed reactions from fans and analysts alike.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/real-reason-taylor-swift-skipped-170621678.html
-
-## Taylor Swift Nominated for 2027 Grammy Awards
-
-- first seen: 2026-11-16 17:43 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: The 2027 Grammy nominations have been announced, with Taylor Swift among the leading nominees alongside Raye, Ella Langley, and Olivia Rodrigo. The nominations reflect the talent and impact of these artists in the music industry.
-- sources:
-  - [unverified] WLOS — https://wlos.com/news/entertainment/gallery/2027-grammy-nominations-raye-ella-langley-olivia-rodrgio-taylor-swift-lead-the-pack
-
-## Taylor Swift's Grammys Nomination Reveal Included Easter Eggs
-
-- first seen: 2026-11-16 17:43 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift made a surprise appearance during the Grammys nomination announcement, which featured several Easter eggs for fans to discover. The reveal has sparked interest and excitement among her supporters.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74440428/taylor-swift-surprise-grammys-2027-nomination-appearance-easter-eggs-explained/
-
-## Taylor Swift Achieves 5 Consecutive Years of Major-Category Grammy Nominations
-
-- first seen: 2026-11-16 17:43 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has made history by securing five consecutive years of nominations in major categories at the Grammy Awards, marking a significant milestone in her career.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-grammy-record-2027-nominations-major-categories-1236382987/
-
-## Yamaha Acquires Disguise for $285M, Powers Major Tours
-
-- first seen: 2026-11-16 16:43 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Yamaha has acquired Disguise for $285 million. Disguise's visual technology has been utilized in tours by major artists, including Taylor Swift.
-- sources:
-  - [unverified] Music Business Worldwide — https://www.musicbusinessworldwide.com/yamaha-strikes-285m-deal-to-acquire-disguise-whose-visual-tech-has-powered-tours-by-bad-bunny-beyonce-and-taylor-swift/
