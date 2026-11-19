@@ -257,10 +257,11 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 17
+- verification_status: official | source_count: 18
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] BBC News — https://www.bbc.com/news/articles/cw1md5m39n35o
   - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
   - [unverified] CNN — https://www.cnn.com/2026/11/19/entertainment/video/taylor-swift-returns-to-the-cma-awards-vrtc
