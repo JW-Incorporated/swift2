@@ -348,9 +348,9 @@ then work; checkpoint reports in a few lines; PR bodies lead with the TL;DR.
 `.claude/hooks/guard.sh` is the deterministic backstop for Decision
 Authority's "may not" list. Denies: recursive/forced `rm`, force push,
 `git reset --hard`/`clean`/`restore`/`checkout --`, `--no-verify`, real `.env`
-files, `chmod 777`, `gh secret` mutation, `gh variable delete`, raw `gh
-variable set` (use `node scripts/ops/set-switch.mjs <NAME> <VALUE> --reason
-"..."` — allowlisted non-secret switches only, freezes and code scanning on-only; flag-first CLI forms and REST writes to the Actions variables/secrets API are denied too), and any invocation of the
+files, `chmod 777` (`gh secret`/`gh variable` mutation and Actions variables/secrets REST writes
+are no longer denied, owner decision 2026-11-19; `scripts/ops/set-switch.mjs`
+remains usable), and any invocation of the
 social poster's real-send paths (`scripts/social/post-queue.mjs`,
 `delete-media.mjs` — live, no dry-run, issue #2031). It resolves what a
 command actually executes, not text-matches the path, so `cd scripts/social
