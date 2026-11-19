@@ -41,11 +41,26 @@ describe('FeedbackButton — "an X in a circle... as if there\'s an invisible po
     // thing in the corner. The label is what ties the X to a "Feedback"
     // control instead of to an imaginary dialog.
     expect(idleCluster).toMatch(/<span[^>]*>\s*Feedback\s*<\/span>/);
-    // Scoped to real class attributes — the prose above this assertion's
-    // subject in the component names the old `hidden sm:inline` too.
-    for (const [, classes] of idleCluster.matchAll(/className="([^"]*)"/g)) {
-      expect(classes).not.toMatch(/\bhidden\b/);
-    }
+    // Scoped to real class attributes (plain and template-literal) — the
+    // prose above this assertion's subject names the old `hidden sm:inline` too.
+    const tokens = [...idleCluster.matchAll(/className=(?:"([^"]*)"|\{`([^`]*)`\})/g)].flatMap(
+      ([, plain, tpl]) => (plain ?? tpl ?? '').split(/\s+/),
+    );
+    expect(tokens).not.toContain('hidden');
+    expect(tokens.filter((t) => /^(sm|md|lg|xl):inline/.test(t))).toEqual([]);
+  });
+
+  it('collapses the label on phones only together with the X, so a lone X never shows', () => {
+    // Phones (< md) show the icon circle alone: the label collapses AND the
+    // floating X is display:none at the same breakpoint (its session hide
+    // moves into the panel). The only breakpoint `hidden` is on the X's wrapper.
+    const labelAt = idleCluster.search(/<span\s+className=\{`[^`]*`\}\s*>\s*Feedback/);
+    expect(labelAt).toBeGreaterThan(-1);
+    const labelClasses = idleCluster.slice(labelAt, idleCluster.indexOf('Feedback', labelAt));
+    expect(labelClasses).toContain('max-md:opacity-0');
+    expect(labelClasses).not.toMatch(/(^|\s|')(max-)?(sm|md|lg):hidden\b/);
+    const xWrapper = idleCluster.match(/<span className="([^"]*)">\s*<button[\s\S]{0,200}Dismiss the feedback button/);
+    expect(xWrapper?.[1].split(/\s+/)).toEqual(['max-md:hidden']);
   });
 
   it('renders the session-dismiss X in the quiet icon-button variant, not the loud one', () => {
