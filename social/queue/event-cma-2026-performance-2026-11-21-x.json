@@ -1,0 +1,46 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "jurvetson (CC BY 2.0), via Openverse",
+  "mediaSource": "https://www.flickr.com/photos/44124348109@N01/53079631118",
+  "altText": [
+    "Taylor Swift photo: Taylor Swift Eras Tour"
+  ],
+  "scheduledAt": "2026-11-21T15:00:00Z",
+  "campaign": "heartbeat:event-news:cma-2026-performance-2026-11-18",
+  "photoId": "openverse-f6a09613-48d2-4498-87f6-be5915ddf294",
+  "media": [
+    "/social/library/photos/openverse-f6a09613-48d2-4498-87f6-be5915ddf294.jpg"
+  ],
+  "body": "i've rewatched Taylor sliding from I Knew It, I Knew You straight into Our Song at the CMAs so many times and i'm still not okay!! her first CMA performance since 2013, and she brought a debut-era song back to Nashville 🥹 https://www.longlivets.com/?utm_source=x&utm_medium=social&utm_campaign=news",
+  "why": "Event: Taylor's I Knew It, I Knew You x Our Song performance at the 60th CMA Awards, Nashville, 2026-11-18 (intake #7013). Setlist from her own YouTube upload title (oEmbed, channel Taylor Swift); 'first since 2013' from GMA/WSMV/Whiskey Riff. Free day: 11-19 23:00Z is under 3h out and 11-20 is a timeline beat (never displaced), so 11-21 15:00Z, no displacement. X written first.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Feel first (rewatching it and still not okay), then the checkable details: the exact mashup from her own upload and her first CMA performance since 2013. The photo is a real credited Taylor shot from the Eras Tour, related but not the CMA night itself.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-19T22:35:38.116Z",
+    "pr": 7016,
+    "message": "social-tree-approve run 44629839385",
+    "contentHash": "sha256:17eae45503ee425699702135a95f8fff8ed63d7dac05b4e5a41318a545b35955",
+    "mediaDigest": "sha256:cfa98497716e2680065dc856ef50acfb0018b0128e778b255b62138fa37da5d4",
+    "sig": "hmac-sha256:59987eab4c77939912f8fce12c5ff7c7dfbcf216cc830c81db0d809950bb93e0"
+  }
+}
