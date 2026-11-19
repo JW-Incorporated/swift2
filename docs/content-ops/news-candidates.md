@@ -249,7 +249,7 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 15
+- verification_status: official | source_count: 17
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -264,7 +264,9 @@ Stories: 120
   - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
   - [unverified] Something About Rocks — https://somethingaboutrocks.com/taylor-swift-lorraine-schwartz-diamonds-cma-awards-2026/
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=LJC7mgjp5FQ
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
+  - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
 
