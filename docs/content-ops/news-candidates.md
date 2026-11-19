@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Attends CMAs as Ella Langley Sets Record
+
+- first seen: 2026-11-19 15:22 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made an appearance at the Country Music Association Awards, where Ella Langley broke the record for the most wins in a single night. The event highlighted notable achievements in country music.
+- sources:
+  - [established] Stereogum — Taylor Swift tag — https://stereogum.com/2518630/taylor-swift-returns-to-cmas-ella-langley-breaks-record-for-most-wins-in-one-night/news/
+
+## Taylor Swift Offers No Announcements at the CMAs, Fans React
+
+- first seen: 2026-11-19 15:22 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: At the CMAs, Taylor Swift made no announcements, yet there is a particular detail that has fans buzzing. Swifties are showing excitement over this specific aspect, although the nature of the detail is not specified.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/fashion/articles/taylor-swift-didn-t-announce-145131630.html
+
+## Taylor Swift Returns to Country Music as Women Lead Revival
+
+- first seen: 2026-11-19 15:22 UTC | category: music | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Women in country music, including Taylor Swift, are gaining recognition with major Grammy nominations and significant hits from artists like Ella Langley and Stella Lefty, signaling a revival in the genre.
+- sources:
+  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-stella-lefty-country-women.html
+
+## Taylor Swift Stuns in Bejeweled Minidress at CMA Awards
+
+- first seen: 2026-11-19 15:22 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: At the CMA Awards, Taylor Swift showcased her fashion sense in a dazzling bejeweled minidress adorned with fringe. This outfit marked her third look of the evening, emphasizing her bold style choices.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-sequin-minidress-fringe-sleeves-cma-awards-2026-12264512
+
 ## Lainey Wilson References Taylor Swift in CMAs Opening Monologue
 
 - first seen: 2026-11-19 13:42 UTC | category: music | importance: 4
@@ -267,7 +299,7 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 21
+- verification_status: official | source_count: 23
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -275,6 +307,7 @@ Stories: 120
   - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cw1md5m39n35o?at_medium=RSS&at_campaign=rss
   - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [unverified] CBS News — https://www.cbsnews.com/video/taylor-swift-makes-cma-awards-return-ella-langleys-choosin-texas-wins-big/
   - [unverified] CNN — https://www.cnn.com/2026/11/19/entertainment/video/taylor-swift-returns-to-the-cma-awards-vrtc
   - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
@@ -288,6 +321,7 @@ Stories: 120
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
   - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
   - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/cma-awards-photos-taylor-swift-ella-langley-kacey-musgraves-1236952762/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
   - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
@@ -1027,35 +1061,3 @@ Stories: 120
 - summary: Yamaha has acquired Disguise for $285 million. Disguise's visual technology has been utilized in tours by major artists, including Taylor Swift.
 - sources:
   - [unverified] Music Business Worldwide — https://www.musicbusinessworldwide.com/yamaha-strikes-285m-deal-to-acquire-disguise-whose-visual-tech-has-powered-tours-by-bad-bunny-beyonce-and-taylor-swift/
-
-## Pharrell and Taylor Swift Confirm Grammy Nominations
-
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Pharrell Williams and Taylor Swift have announced their nominations for the upcoming Grammy Awards. The specifics of the nominations have not been detailed in the announcement.
-- sources:
-  - [unverified] Audacy — https://www.audacy.com/national/video/pharrell-and-taylor-swift-announce-grammy-nominations-xbx7jke
-
-## Taylor Swift to Perform at CMA Awards After 13-Year Hiatus
-
-- first seen: 2026-11-16 16:43 UTC | category: tour | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift is set to make her return to the CMA stage after a 13-year absence, marking a significant moment for both the artist and the awards show. The performance is highly anticipated by fans and industry professionals alike.
-- sources:
-  - [unverified] FOX4KC.com — https://fox4kc.com/news/taylor-swift-to-return-to-the-cma-stage-after-13-years/
-
-## Taylor Swift Wears Antique Diamond Horseshoe Necklace Again During Livestream
-
-- first seen: 2026-11-16 16:43 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: During the Grammy nominations livestream, Taylor Swift was spotted wearing her antique diamond horseshoe necklace once more. The piece has become a notable accessory in her appearances.
-- sources:
-  - [unverified] Town & Country Magazine — https://www.townandcountrymag.com/leisure/arts-and-culture/a74441070/taylor-swift-horseshoe-grammy-nominations-2026/
-
-## Taylor Swift Surprises Fans at 2027 Grammys Nominations Announcement
-
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift made a surprise appearance during the announcement of the 2027 Grammy nominations, delighting fans and attendees. Her presence added excitement to the event, drawing significant attention from the media.
-- sources:
-  - [unverified] E! News — https://www.eonline.com/news/1438148/taylor-swifts-surprise-appearance-during-grammys-2027-nominations
