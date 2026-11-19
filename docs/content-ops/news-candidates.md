@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 120
+Stories: 118
 
 ## Taylor Swift Shares Hiding Easter Eggs Technique for Fans in Inc.com
 
@@ -373,7 +373,7 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 24
+- verification_status: official | source_count: 25
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -388,6 +388,7 @@ Stories: 120
   - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
   - [unverified] FOX4KC.com — https://fox4kc.com/news/brittany-mahomes-joins-taylor-swift-at-cma-awards/
   - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
+  - [unverified] Page Six — https://pagesix.com/2026/11/19/style/taylor-swifts-third-cma-awards-2026-outfit-features-sequin-and-fringe-to-round/
   - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
   - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
@@ -1048,19 +1049,3 @@ Stories: 120
 - summary: In an exclusive interview, Alex Warren shared his thoughts on various topics including Taylor Swift during the Kids' Choice Awards.
 - sources:
   - [unverified] extratv.com — https://extratv.com/2026/11/16/alex-warren-talks-slime-taylor-swift-and-what-he-s-thankful-for-at-kids-choice-exclusive/
-
-## Details on the 2026 CMAs including performances and viewing options
-
-- first seen: 2026-11-16 18:38 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The article provides comprehensive information on the upcoming 2026 Country Music Awards, highlighting the performers and how audiences can watch the event. It serves as a guide for fans of country music and the CMAs.
-- sources:
-  - [unverified] ABC7 New York — https://abc7ny.com/story/everything-know-2026-cmas-performing-how-watch/20045058/
-
-## Taylor Swift Jokes About Grammy Nominations While Presenting 2027 Nods
-
-- first seen: 2026-11-16 18:38 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift humorously addresses her past Song of the Year losing streak during the presentation of the 2027 Grammy nominations.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-grammy-nominations-reveal-jokes-losing-streak-1236383098/
