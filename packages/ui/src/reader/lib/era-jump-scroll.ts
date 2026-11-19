@@ -27,6 +27,10 @@ export function useEraJumpGateRelease(hasRestore: boolean): void {
 export const JUMP_SCROLL_SETTLE_MS = 1500;
 export const JUMP_SCROLL_MAX_MS = 8000;
 
+// Monotonic, and immune to a frozen wall clock (the parity harness pins Date.now()),
+// so the settle window and deadline always elapse and the #6807 gate always lifts.
+const now = () => performance.now();
+
 /**
  * EraStream's jump-correction loop, moved out of the component so every way
  * it ends is testable (#6807). Returns `finish`, which EraStream uses as the
@@ -60,8 +64,8 @@ export const JUMP_SCROLL_MAX_MS = 8000;
 export function startEraJumpScroll(targetId: string, onFinish: () => void): () => void {
   let cancelled = false;
   let finished = false;
-  let landedAt = 0;
-  const deadline = Date.now() + JUMP_SCROLL_MAX_MS;
+  let landedAt: number | null = null;
+  const deadline = now() + JUMP_SCROLL_MAX_MS;
   // Declared before stop() so it can never hit a temporal-dead-zone
   // ReferenceError if a correction ever stops on its very first pass.
   let poll: number | undefined;
@@ -87,7 +91,7 @@ export function startEraJumpScroll(targetId: string, onFinish: () => void): () =
     // Target not rendered yet — WAIT. (Previously this fell back to top: 0,
     // which yanked the reader to the top of the page instead.)
     if (!el) {
-      if (Date.now() > deadline) finish();
+      if (now() > deadline) finish();
       return;
     }
     // Compensate for the sticky chrome (TopBar + FilterBar) pinned over
@@ -103,9 +107,9 @@ export function startEraJumpScroll(targetId: string, onFinish: () => void): () =
       }),
       behavior: 'auto',
     });
-    if (!landedAt) landedAt = Date.now();
+    if (landedAt === null) landedAt = now();
     // Settle window starts at the FIRST landing, not at the jump.
-    if (Date.now() - landedAt > JUMP_SCROLL_SETTLE_MS || Date.now() > deadline) finish();
+    if (now() - landedAt > JUMP_SCROLL_SETTLE_MS || now() > deadline) finish();
   };
 
   // A user gesture always wins — never fight someone who has taken over.

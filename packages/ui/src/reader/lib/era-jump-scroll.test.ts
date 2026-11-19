@@ -55,6 +55,21 @@ describe('startEraJumpScroll ends (#6807)', () => {
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
+  it('still settles and hits the deadline under a frozen wall clock (parity pins Date.now)', () => {
+    vi.spyOn(Date, 'now').mockReturnValue(1_700_000_000_000);
+    addSection('debut');
+    const settled = vi.fn();
+    startEraJumpScroll('debut', settled);
+    vi.advanceTimersByTime(JUMP_SCROLL_SETTLE_MS + 400);
+    expect(settled).toHaveBeenCalledTimes(1);
+    document.body.innerHTML = '';
+    const timedOut = vi.fn();
+    startEraJumpScroll('debut', timedOut);
+    vi.advanceTimersByTime(JUMP_SCROLL_MAX_MS + 400);
+    expect(timedOut).toHaveBeenCalledTimes(1);
+    vi.mocked(Date.now).mockRestore();
+  });
+
   it.each(['wheel', 'touchstart'])('finishes immediately on a user %s', (type) => {
     const onFinish = vi.fn();
     startEraJumpScroll('debut', onFinish);
