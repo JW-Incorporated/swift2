@@ -3973,6 +3973,30 @@
       "sha256": "59ec03c61dafe9546e0de439ff7355c4d5bda63acc75c9663f7cb1300d9ee20f",
       "reason": "Two-person side-by-side collage; second person is dominant, not a single subject",
       "date": "2026-11-18"
+    },
+    {
+      "id": "wikimedia-137560606",
+      "sha256": "6673d245e1f31e93182ff0db67fdd4789ae8d0c09bc2e4f7ccdd130db8290b26",
+      "reason": "Stadium panorama; several small performers, crowd heads in foreground, dark",
+      "date": "2026-11-19"
+    },
+    {
+      "id": "wikimedia-137560625",
+      "sha256": "dfc1d42d0bb9d5277f4d768f47fd50a92e94b8c9e9b48b75f9dc9b491288c301",
+      "reason": "Stadium panorama; several performers small, crowd heads in foreground",
+      "date": "2026-11-19"
+    },
+    {
+      "id": "wikimedia-137560634",
+      "sha256": "05dbfe2a765c18dca4ac09ba61333d44ed5a2b4073caec44f9d78794cd6a1015",
+      "reason": "Stadium panorama; three small performers, blurry crowd heads in foreground",
+      "date": "2026-11-19"
+    },
+    {
+      "id": "wikimedia-137560636",
+      "sha256": "82446e4eb21d6a70e03ca8bb6494dca3c3360604fe8023f4ab2ae1d7f68b4349",
+      "reason": "Wide stadium shot; performers small, crowd heads dominate foreground",
+      "date": "2026-11-19"
     }
   ]
 }
