@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 117
+Stories: 115
+
+## Travis Kelce Praises Taylor Swift's CMA Performance
+
+- first seen: 2026-11-19 21:17 UTC | category: relationship | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Travis Kelce expressed his admiration for Taylor Swift following her performance at the CMA Awards, where she embraced her country roots.
+- sources:
+  - [established] People — https://people.com/travis-kelce-sends-wife-taylor-swift-love-after-cma-performance-12265231
 
 ## Taylor Swift's Country-Inspired Outfits at CMA Awards
 
@@ -353,6 +361,32 @@ Stories: 117
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
+## Taylor Swift Appears at 2026 CMA Awards Before Performance
+
+- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 18
+- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
+- sources:
+  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
+  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
+  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
+  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
+  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
+  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-cmas-wedding-joke-b3087867.html
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
+  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-personal-decision-wife-193005416.html
+
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
@@ -384,32 +418,6 @@ Stories: 117
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
   - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
-
-## Taylor Swift Appears at 2026 CMA Awards Before Performance
-
-- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 18
-- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
-- sources:
-  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
-  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
-  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
-  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
-  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
-  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
-  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
-  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-cmas-wedding-joke-b3087867.html
-  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
-  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-personal-decision-wife-193005416.html
 
 ## Review of Taylor Swift's 'Cleveland!' Explores Audience Perspective
 
@@ -1018,27 +1026,3 @@ Stories: 117
 - summary: Taylor Swift showcased a notable look for her Grammy nomination, featuring distinctive elements that caught the attention of fashion enthusiasts. InStyle highlights the significant details present in her appearance.
 - sources:
   - [unverified] unknown — https://www.instyle.com/taylor-swift-grammy-awards-nomination-horseshoe-necklaces-easter-eggs-12258942
-
-## Keltie Knight Reflects on Taylor Swift's Kind Gesture at 2009 VMAs
-
-- first seen: 2026-11-16 20:28 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Keltie Knight, who served as a backup dancer for Taylor Swift at the 2009 VMAs, recalls a touching moment that has remained with her since then.
-- sources:
-  - [established] People — https://people.com/keltie-knight-the-f-them-theory-excerpt-exclusive-12258100
-
-## Rhode Island Affirms Legislative Authority on 'Taylor Swift Tax'
-
-- first seen: 2026-11-16 20:28 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Rhode Island officials state that the 'Taylor Swift Tax' is within their legislative powers, confirming its status. This tax is linked to the impact of Taylor Swift's activities in the state.
-- sources:
-  - [unverified] Bloomberg Tax — https://news.bloombergtax.com/financial-accounting/rhode-island-says-taylor-swift-tax-is-within-legislative-power
-
-## Kathy Griffin Critiques Taylor Swift and Her Fans
-
-- first seen: 2026-11-16 20:28 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kathy Griffin publicly critiques Taylor Swift and her fans, comparing them to MAGA supporters in a recent statement. Her comments have sparked discussions among the online community.
-- sources:
-  - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/kathy-griffin-taylor-swift-mediocrity
