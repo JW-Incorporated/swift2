@@ -240,33 +240,6 @@ Stories: 120
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
-## Taylor Swift Attends 2026 CMAs
-
-- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 20
-- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
-- sources:
-  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] BBC News — https://www.bbc.com/news/articles/cw1md5m39n35o
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
-  - [unverified] CNN — https://www.cnn.com/2026/11/19/entertainment/video/taylor-swift-returns-to-the-cma-awards-vrtc
-  - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
-  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
-  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
-  - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
-  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
-  - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
-  - [unverified] Something About Rocks — https://somethingaboutrocks.com/taylor-swift-lorraine-schwartz-diamonds-cma-awards-2026/
-  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=LJC7mgjp5FQ
-  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
-  - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
-  - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
-  - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
-
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
@@ -290,6 +263,34 @@ Stories: 120
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
   - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
+
+## Taylor Swift Attends 2026 CMAs
+
+- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
+- verification_status: official | source_count: 21
+- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
+- sources:
+  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] BBC News — https://www.bbc.com/news/articles/cw1md5m39n35o
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cw1md5m39n35o?at_medium=RSS&at_campaign=rss
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [unverified] CNN — https://www.cnn.com/2026/11/19/entertainment/video/taylor-swift-returns-to-the-cma-awards-vrtc
+  - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
+  - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
+  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
+  - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
+  - [unverified] Something About Rocks — https://somethingaboutrocks.com/taylor-swift-lorraine-schwartz-diamonds-cma-awards-2026/
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=LJC7mgjp5FQ
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
+  - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
+  - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
+  - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
 
 ## 16 Artists Considered for Next Bond Theme Including Taylor Swift
 
