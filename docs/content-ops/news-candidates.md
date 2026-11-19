@@ -27,6 +27,14 @@ so far".
 
 Stories: 120
 
+## Lainey Wilson References Taylor Swift in CMAs Opening Monologue
+
+- first seen: 2026-11-19 13:42 UTC | category: music | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: During the CMAs opening monologue, Lainey Wilson made a joke about Taylor Swift's wedding ceremony at Madison Square Garden. The humorous remark was featured in a recent video segment.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/lainey-wilson-jokes-taylor-swifts-125236106.html
+
 ## Taylor Swift Showcases Fall Nail Color with Matching Mani-Pedi
 
 - first seen: 2026-11-19 11:42 UTC | category: fashion | importance: 6
@@ -126,15 +134,6 @@ Stories: 120
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/18/style/cma-country-music-association-awards-red-carpet.html
 
-## Taylor Swift Shines in Minidress and Cowboy Boots at CMA Awards
-
-- first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift dazzled in a minidress and cowboy boots during her performance at the 2026 CMA Awards, showcasing her unique style. The appearance highlights her continued presence in the country music scene.
-- sources:
-  - [established] Elle — https://www.elle.com/culture/celebrities/a73904128/taylor-swift-easter-eggs-cma-awards-2026-performance-explained/
-  - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
-
 ## Travis Kelce Sends Message to Taylor Swift Ahead of CMA Awards
 
 - first seen: 2026-11-19 03:27 UTC | category: relationship | importance: 5
@@ -142,6 +141,16 @@ Stories: 120
 - summary: Travis Kelce has shared a message directed at Taylor Swift before the upcoming CMA Awards. The communication highlights their connection as the awards ceremony approaches.
 - sources:
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-shares-message-taylor-015222079.html
+
+## Taylor Swift Shines in Minidress and Cowboy Boots at CMA Awards
+
+- first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 7
+- verification_status: corroborated | source_count: 3
+- summary: Taylor Swift dazzled in a minidress and cowboy boots during her performance at the 2026 CMA Awards, showcasing her unique style. The appearance highlights her continued presence in the country music scene.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a73904128/taylor-swift-easter-eggs-cma-awards-2026-performance-explained/
+  - [unverified] Holler Country — https://holler.country/news/breaking/all-the-easter-eggs-in-taylor-swifts-2026-cma-awards-performance/
+  - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
 
 ## Taylor Swift to Have Her Own Exhibit
 
@@ -231,33 +240,10 @@ Stories: 120
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
-## Taylor Swift Appears at 2026 CMA Awards Before Performance
-
-- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 15
-- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
-- sources:
-  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
-  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
-  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
-  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
-  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
-  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
-  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
-  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
-  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
-
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 18
+- verification_status: official | source_count: 20
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -276,8 +262,34 @@ Stories: 120
   - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=LJC7mgjp5FQ
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
   - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
+  - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
+  - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
+
+## Taylor Swift Appears at 2026 CMA Awards Before Performance
+
+- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 16
+- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
+- sources:
+  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
+  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
+  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
+  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
+  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
+  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
 
 ## 16 Artists Considered for Next Bond Theme Including Taylor Swift
 
@@ -1046,11 +1058,3 @@ Stories: 120
 - summary: Taylor Swift made a surprise appearance during the announcement of the 2027 Grammy nominations, delighting fans and attendees. Her presence added excitement to the event, drawing significant attention from the media.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438148/taylor-swifts-surprise-appearance-during-grammys-2027-nominations
-
-## Taylor Swift Receives 5 Grammy Nominations This Year
-
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has been nominated for five Grammy Awards, although she did not receive a nomination in a key category. Details on the nominations can be found in the full article.
-- sources:
-  - [unverified] Gold Derby — https://www.goldderby.com/music/2026/taylor-swift-grammys-2027-nominations-analysis/
