@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { outletLabel } from '@swift2/shared';
 import type { ExtractedCurrentItem } from './types';
 import { projectKnowledgeDoc, type ClusterSource, type WriteCurrentItemResult } from './write-knowledge';
 
@@ -22,7 +23,7 @@ export function projectCurrentItemDoc(
     status: item.statusHint,
     sourceTier: sources[0]?.tier ?? 'unverified',
     sources: sources.map((source) => ({
-      name: source.outletName,
+      name: outletLabel({ name: source.outletName, url: source.url }),
       url: source.url,
       tier: source.tier,
     })),

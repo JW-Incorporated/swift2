@@ -32,7 +32,7 @@ describe('normalizeTheory', () => {
       evidence: 'Built from 2016-era teasers.',
       confidence: 'strong_fan_consensus',
       outcome: 'pending',
-      sources: [{ name: 'Example', url: 'https://en.wikipedia.org/wiki/Example' }],
+      sources: [{ name: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Example' }],
     });
   });
 

@@ -5,6 +5,7 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, URL } from 'node:url';
+import { outletLabel } from '../../packages/shared/src/outlet-label.ts';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const WEB_ENV_FILE = path.join(ROOT, 'apps', 'web', '.env.local');
@@ -136,21 +137,23 @@ export function sourcesFrom(rawSources, sourceUrl) {
   const push = (name, url, reliability, type) => {
     if (!url || typeof url !== 'string' || seen.has(url)) return;
     seen.add(url);
-    const entry = { name: (name && String(name).trim()) || hostOf(url), url };
+    const entry = { name: outletLabel({ name: name == null ? '' : String(name), url }), url };
     if (isReliabilityScore(reliability)) entry.reliability = reliability;
     if (typeof type === 'string' && type.trim()) entry.type = type.trim();
     out.push(entry);
   };
   for (const s of Array.isArray(rawSources) ? rawSources : []) {
     if (!s || typeof s !== 'object') continue;
+    // The link text is the outlet, never `source_title` (the article's own
+    // headline), which used to win here and put headlines in "Sources:".
     push(
-      s.name ?? s.source_title ?? s.publisher ?? s.outlet,
+      s.name ?? s.publisher ?? s.outlet,
       s.url ?? s.source_url ?? s.sourceUrl,
       s.reliability_score,
       s.source_type,
     );
   }
-  push(sourceUrl ? hostOf(sourceUrl) : null, sourceUrl);
+  push(null, sourceUrl);
   return out;
 }
 
