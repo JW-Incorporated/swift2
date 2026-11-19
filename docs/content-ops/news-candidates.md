@@ -27,6 +27,33 @@ so far".
 
 Stories: 120
 
+## Brittany Mahomes Shows Baby Bump at CMA Awards with Taylor Swift
+
+- first seen: 2026-11-19 06:22 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brittany Mahomes made an appearance on the red carpet at the CMA Awards alongside Taylor Swift, showcasing her baby bump. The event highlighted their friendship as well as Mahomes' pregnancy journey.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438239/cma-awards-2026-pregnant-brittany-mahomes-debuts-baby-bump-on-red-carpet
+
+## Langley Bests Taylor Swift at Country Music Awards
+
+- first seen: 2026-11-19 06:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Singer Langley surpasses Taylor Swift in a noteworthy performance at the Country Music Awards, marking a significant achievement in his career. This win highlights the competitive nature of the country music scene.
+- sources:
+  - [unverified] Reuters — https://www.reuters.com/business/media-telecom/choosin-texas-singer-langley-beats-taylor-swift-way-country-music-awards-sweep-2026-11-19/
+
+## Taylor Swift Wins at Hollywood Music in Media Awards
+
+- first seen: 2026-11-19 06:22 UTC | category: music | importance: 7
+- verification_status: corroborated | source_count: 4
+- summary: Taylor Swift and Jack Antonoff were honored for their animated song 'I Knew It, I Knew You' from 'Toy' at the 2026 Hollywood Music in Media Awards. The event recognized outstanding achievements in film and television music.
+- sources:
+  - [established] Billboard — https://www.billboard.com/lists/2026-hollywood-music-in-media-awards-full-winners-list/
+  - [established] Deadline — Taylor Swift tag — https://deadline.com/2026/11/hollywood-music-in-media-awards-2026-winners-list-1237227122/
+  - [unverified] TheWrap — https://www.thewrap.com/industry-news/awards/taylor-swift-diane-warren-win-hollywood-music-in-media-awards/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/hollywood-music-in-media-awards-taylor-swift-1236952423/
+
 ## CMA Single of the Year Winner Announced for 2026
 
 - first seen: 2026-11-19 04:27 UTC | category: music | importance: 5
@@ -214,7 +241,7 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 10
+- verification_status: corroborated | source_count: 11
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -223,6 +250,7 @@ Stories: 120
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
   - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
   - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
+  - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
   - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
@@ -1019,27 +1047,3 @@ Stories: 120
 - summary: Ice Spice revealed that she and Millie Bobby Brown became very close after meeting at Taylor Swift's wedding, describing their bond as 'like sisters.'
 - sources:
   - [established] People — https://people.com/ice-spice-and-millie-bobby-brown-became-sisters-after-meeting-at-taylor-swifts-wedding-12257917
-
-## Raye, Rosalia, and Dolly Parton Nominated for Grammy Awards
-
-- first seen: 2026-11-16 15:42 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: British artist Raye has received 11 Grammy nominations. The nominations also recognize Dolly Parton two months after her passing, showcasing her legacy in the music industry.
-- sources:
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cq9vwkggpx73o?at_medium=RSS&at_campaign=rss
-
-## Taylor Swift Invites Olivia Rodrigo for a Collaboration
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has invited fellow artist Olivia Rodrigo to collaborate on a project, as reported by The Onion.
-- sources:
-  - [unverified] The Onion — https://theonion.com/taylor-swift-invites-olivia-rodrigo-to-collab-under-box-propped-up-by-stick/
-
-## 2027 Grammy Nominees for Album Of The Year Announced
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: The nominees for Album Of The Year at the 2027 Grammy Awards include Rosalía, Phoebe Bridgers, and Taylor Swift, highlighting a diverse array of talent in the music industry.
-- sources:
-  - [established] Stereogum — https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news
