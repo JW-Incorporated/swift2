@@ -1,0 +1,36 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoEra": "1989",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
+  "altText": [
+    "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage."
+  ],
+  "scheduledAt": "2026-11-19T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:f1-2016-only-concert:2026-11-19",
+  "photoId": "1989-inglewood-2023-2",
+  "media": [
+    "/social/library/photos/taylor-1989-inglewood-2023-2.jpg"
+  ],
+  "body": "one show. that's all we got from Taylor in the whole of 2016, and she played it at the Formula 1 U.S. Grand Prix in Austin on october 22. a year of missing her and then a racetrack?? i'd have bought the ticket and never watched a single lap 🏎️ https://www.longlivets.com/?item=vault-1989-her-only-concert-of-2016-at-the-formula-1-u-s-grand-prix&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "why": "Nov 19 news reserve: no confirmed, sourced event in events.uncovered[] (the three intake items are a 2009 anecdote, a tax lawsuit and a celebrity insult), so this is the calendar's named fallback. Source: new-on-site moment vault-1989-her-only-concert-of-2016-at-the-formula-1-u-s-grand-prix (2016-10-22). X written first, as its own post.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Runs the reserve's named fallback with its own feel-first line: one show in a whole year, then the dated fact (F1 U.S. Grand Prix, Austin, Oct 22 2016). The 1989-set photo is a real credited Eras shot, matched to the era but not to the night.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
