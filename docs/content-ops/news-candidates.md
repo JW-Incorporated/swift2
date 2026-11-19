@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 115
+Stories: 117
+
+## Taylor Swift's CMA Awards Performance Features Friends from Country Days
+
+- first seen: 2026-11-19 23:17 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: During her performance at the CMA Awards, Taylor Swift was joined on stage by friends from her country music past, highlighting her roots in the genre. The event showcased her enduring connections within the country music community.
+- sources:
+  - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74472019/taylor-swift-cma-awards-country-stars/
+
+## Travis Kelce Supports Taylor Swift During Her CMAs Performance
+
+- first seen: 2026-11-19 23:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce was not present at Taylor Swift's performance at the CMAs, yet he found a way to show his support. The details of his support are not specified in the article.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-skipped-taylor-swifts-215839645.html
+
+## This Week's Notable Celebrity Cowboy Boot Moments
+
+- first seen: 2026-11-19 23:17 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was among notable celebrities wearing standout cowboy boots, highlighted in recent appearances including the CMAs. The feature also mentions other celebrities from various events.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/celebrity-cowboy-boot-moments-taylor-swift-diplo-1239428500/
+
+## Taylor Swift: The Eras Collection Scheduled for April to August 2024
+
+- first seen: 2026-11-19 23:17 UTC | category: tour | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: The Eras Collection featuring Taylor Swift is set to take place next year from April 10 to August 15. This exhibition will showcase various aspects of the artist's career.
+- sources:
+  - [unverified] Facebook — https://www.facebook.com/Boston25News/photos/taylor-swift-the-eras-collection-will-run-next-year-from-april-10-through-aug-15/1642543181240675/
 
 ## Report: GTA VI May Outsell Taylor Swift's Eras Tour in Opening Week
 
@@ -369,38 +401,6 @@ Stories: 115
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
-## Taylor Swift Attends 2026 CMAs
-
-- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 25
-- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
-- sources:
-  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] BBC News — https://www.bbc.com/news/articles/cw1md5m39n35o
-  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cw1md5m39n35o?at_medium=RSS&at_campaign=rss
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
-  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
-  - [unverified] CBS News — https://www.cbsnews.com/video/taylor-swift-makes-cma-awards-return-ella-langleys-choosin-texas-wins-big/
-  - [unverified] CNN — https://www.cnn.com/2026/11/19/entertainment/video/taylor-swift-returns-to-the-cma-awards-vrtc
-  - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
-  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
-  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
-  - [unverified] FOX4KC.com — https://fox4kc.com/news/brittany-mahomes-joins-taylor-swift-at-cma-awards/
-  - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
-  - [unverified] Page Six — https://pagesix.com/2026/11/19/style/taylor-swifts-third-cma-awards-2026-outfit-features-sequin-and-fringe-to-round/
-  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
-  - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
-  - [unverified] Something About Rocks — https://somethingaboutrocks.com/taylor-swift-lorraine-schwartz-diamonds-cma-awards-2026/
-  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=LJC7mgjp5FQ
-  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
-  - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
-  - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/cma-awards-photos-taylor-swift-ella-langley-kacey-musgraves-1236952762/
-  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
-  - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
-
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
@@ -426,6 +426,39 @@ Stories: 115
   - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-personal-decision-wife-193005416.html
+
+## Taylor Swift Attends 2026 CMAs
+
+- first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
+- verification_status: official | source_count: 26
+- summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
+- sources:
+  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] BBC News — https://www.bbc.com/news/articles/cw1md5m39n35o
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/news/articles/cw1md5m39n35o?at_medium=RSS&at_campaign=rss
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
+  - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [unverified] Business Insider — https://www.businessinsider.com/taylor-swift-cma-awards-outfits-ranked-2026-11
+  - [unverified] CBS News — https://www.cbsnews.com/video/taylor-swift-makes-cma-awards-return-ella-langleys-choosin-texas-wins-big/
+  - [unverified] CNN — https://www.cnn.com/2026/11/19/entertainment/video/taylor-swift-returns-to-the-cma-awards-vrtc
+  - [unverified] E! News — https://www.eonline.com/news/1438228/cma-awards-2026-taylor-swift-performs-our-song-with-keith-urban
+  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
+  - [unverified] FOX4KC.com — https://fox4kc.com/news/brittany-mahomes-joins-taylor-swift-at-cma-awards/
+  - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
+  - [unverified] Page Six — https://pagesix.com/2026/11/19/style/taylor-swifts-third-cma-awards-2026-outfit-features-sequin-and-fringe-to-round/
+  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
+  - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
+  - [unverified] Something About Rocks — https://somethingaboutrocks.com/taylor-swift-lorraine-schwartz-diamonds-cma-awards-2026/
+  - [official] Taylor Swift — official YouTube channel — https://www.youtube.com/watch?v=LJC7mgjp5FQ
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
+  - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
+  - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/cma-awards-photos-taylor-swift-ella-langley-kacey-musgraves-1236952762/
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
+  - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
 
 ## Review of Taylor Swift's 'Cleveland!' Explores Audience Perspective
 
@@ -1010,19 +1043,3 @@ Stories: 115
 - summary: Taylor Swift was present at a recent Chiefs game, leading fans to engage in discussions about the details of her appearance. The event has generated various opinions among her followers.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-chiefs-game-reunion/
-
-## Taylor Swift Returns to the CMAs Among Other Entertainment News
-
-- first seen: 2026-11-16 22:27 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift's return to the CMAs is highlighted in a report on recent entertainment news, alongside Robert Pattinson becoming the new James Bond.
-- sources:
-  - [unverified] unknown — https://www.dcnewsnow.com/living-local-dmv/robert-pattinson-becomes-the-new-james-bond-taylor-swift-returns-to-the-cmas-and-more-entertainment-news/
-
-## Taylor Swift Discusses Friendship Dynamics After Blake Lively Fallout
-
-- first seen: 2026-11-16 22:27 UTC | category: relationship | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: In a recent interview, Taylor Swift reflected on her experiences with friendship, specifically mentioning her interactions with certain friends after her fallout with Blake Lively.
-- sources:
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMipAFBVV95cUxNVkdqZjhQaVM3aWRDQ2hUNWxfa2xMX2JuVF9PNlJRRm5UR2JJT3NycENEcmxKbFlLckZLVi1UcnBiYTI4NDl0NHk5dk5MRG9EaGl4ME92WnZtU3dWSUowZ21WVWRrdXFac0VCN0trMl9NdDZQejV1R09KVlAydGhkRlRFYU5pWHJZZk9DaHJHR2RfU0NxOXRxclNtdUhsQzM1QjlEdw?oc=5
