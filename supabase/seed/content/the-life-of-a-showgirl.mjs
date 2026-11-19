@@ -15113,6 +15113,7 @@ export default {
       month: 9,
       day: 2,
       category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       title: 'Travis finally recounts the wedding, on the New Heights season-five premiere',
       snippet:
         'For two months the most public couple alive had told no one the story of their own wedding. On the Sept. 2 season-five premiere of New Heights, Travis finally walked through it — building the whole account around Adam Sandler, who got ordained in New York State to officiate "in the very Sandman style."',
