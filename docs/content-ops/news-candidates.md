@@ -27,6 +27,14 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Shares Hiding Easter Eggs Technique for Fans in Inc.com
+
+- first seen: 2026-11-19 18:22 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift is recognized for her skill in hiding Easter eggs for her fans, as noted in an article on Inc.com. The piece discusses how this technique can also be beneficial for entrepreneurs.
+- sources:
+  - [unverified] Inc.com — https://www.inc.com/alicia-teltz/taylor-swift-easter-egg-marketing-content-strategy/91439783
+
 ## Taylor Swift Showcases Three Hairstyles at CMA Awards
 
 - first seen: 2026-11-19 17:22 UTC | category: fashion | importance: 7
@@ -241,12 +249,13 @@ Stories: 120
 ## Taylor Swift Shines in Minidress and Cowboy Boots at CMA Awards
 
 - first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 7
-- verification_status: corroborated | source_count: 3
+- verification_status: corroborated | source_count: 4
 - summary: Taylor Swift dazzled in a minidress and cowboy boots during her performance at the 2026 CMA Awards, showcasing her unique style. The appearance highlights her continued presence in the country music scene.
 - sources:
   - [established] Elle — https://www.elle.com/culture/celebrities/a73904128/taylor-swift-easter-eggs-cma-awards-2026-performance-explained/
   - [unverified] Holler Country — https://holler.country/news/breaking/all-the-easter-eggs-in-taylor-swifts-2026-cma-awards-performance/
   - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-all-the-country-stars-1235660996/
 
 ## Taylor Swift to Have Her Own Exhibit
 
@@ -1055,11 +1064,3 @@ Stories: 120
 - summary: Taylor Swift humorously addresses her past Song of the Year losing streak during the presentation of the 2027 Grammy nominations.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-grammy-nominations-reveal-jokes-losing-streak-1236383098/
-
-## Taylor Swift Sports Good Luck Charm for Grammy Nominations
-
-- first seen: 2026-11-16 18:38 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was seen wearing her ‘I Knew It, I Knew You’ good luck charm while celebrating her Grammy nominations. The charm is a personal item that she associates with good luck during awards season.
-- sources:
-  - [unverified] Page Six — https://pagesix.com/2026/11/16/style/taylor-swift-wears-i-knew-it-i-knew-you-horseshoe-necklace-for-grammys-2027-nominations/
