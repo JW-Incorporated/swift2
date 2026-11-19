@@ -27,6 +27,14 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Showcases Fall Nail Color with Matching Mani-Pedi
+
+- first seen: 2026-11-19 11:42 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift is featured in Vogue for her stylish matching mani-pedi that highlights a popular fall nail color. The article emphasizes the trendiness of her seasonal choice.
+- sources:
+  - [established] Vogue — https://www.vogue.com/article/taylor-swift-matching-mani-pedi-cma-awards-2026-11-19
+
 ## Taylor Swift Reacts to Travis Kelce Wedding Joke at CMAs
 
 - first seen: 2026-11-19 07:22 UTC | category: relationship | importance: 5
@@ -1045,11 +1053,3 @@ Stories: 120
 - summary: Taylor Swift has been nominated for five Grammy Awards, although she did not receive a nomination in a key category. Details on the nominations can be found in the full article.
 - sources:
   - [unverified] Gold Derby — https://www.goldderby.com/music/2026/taylor-swift-grammys-2027-nominations-analysis/
-
-## Taylor Swift Not Nominated for Best Pop Vocal Album at 2027 Grammys
-
-- first seen: 2026-11-16 16:43 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has not received a nomination for Best Pop Vocal Album at the 2027 Grammy Awards. The nominations were led by Raye, with Beyoncé Knowles-Carter achieving 100 career nominations and newcomer Ella Langley recognized in all four major categories.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/2027-grammy-nominations-taylor-swift-raye-beyonce-1239418518/
