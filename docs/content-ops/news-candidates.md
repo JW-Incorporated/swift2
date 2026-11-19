@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## CMA Single of the Year Winner Announced for 2026
+
+- first seen: 2026-11-19 04:27 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: The Tennessean reports on the winner of the CMA Single of the Year, which was awarded over Taylor Swift in 2026.
+- sources:
+  - [established] The Tennessean — https://www.tennessean.com/story/entertainment/music/taylor-swift/2026/11/18/taylor-swift-lost-cma-awards-ella-langley/92564031007/
+
+## Taylor Swift's Appearances at the CMAs Highlighted
+
+- first seen: 2026-11-19 04:27 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The article discusses Taylor Swift's appearances at the CMAs, noting eight country cameos that fans might have overlooked. It highlights her involvement in the event and the connections to various country artists.
+- sources:
+  - [unverified] Taste of Country — https://tasteofcountry.com/taylor-swift-cma-awards-performance-guests/
+
+## Taylor Swift Presents Brooks & Dunn with Award at 2026 CMAs
+
+- first seen: 2026-11-19 04:27 UTC | category: business | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: At the 2026 Country Music Association Awards, Taylor Swift presented Brooks & Dunn with the Willie Nelson Lifetime Achievement Award, honoring their contributions to country music.
+- sources:
+  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-brooks-dunn-cma-awards-1236385362/
+
+## Taylor Swift Rewears Iconic Cowboy Boots From Her Early Career
+
+- first seen: 2026-11-19 04:27 UTC | category: fashion | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was spotted in a replica of her famous cowboy boots, which symbolize her country roots, pleasing longtime fans. This look brings back nostalgic memories from her early career as she celebrates her 20-year journey in music.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/taylor-swift-cowboy-boots-cmas-now-and-then-comparison-1239426638/
+
 ## Taylor Swift Amused by CMAs Joke on Travis Kelce Wedding
 
 - first seen: 2026-11-19 03:27 UTC | category: relationship | importance: 6
@@ -34,14 +66,6 @@ Stories: 120
 - summary: At the recent CMAs, Taylor Swift was seen laughing at a joke pertaining to the wedding of Travis Kelce during an event held at Madison Square Garden.
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438173/cma-awards-2026-taylor-swift-reacts-to-travis-kelce-wedding-joke
-
-## Taylor Swift Shines in Minidress and Cowboy Boots at CMA Awards
-
-- first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift dazzled in a minidress and cowboy boots during her performance at the 2026 CMA Awards, showcasing her unique style. The appearance highlights her continued presence in the country music scene.
-- sources:
-  - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
 
 ## Travis Kelce Sends Message to Taylor Swift Ahead of CMA Awards
 
@@ -66,6 +90,15 @@ Stories: 120
 - summary: The Country Music Association Awards showcased a variety of stylish outfits, featuring rhinestones and cowboy hats, along with several tributes to Dolly Parton.
 - sources:
   - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/18/style/cma-country-music-association-awards-red-carpet.html
+
+## Taylor Swift Shines in Minidress and Cowboy Boots at CMA Awards
+
+- first seen: 2026-11-19 03:27 UTC | category: fashion | importance: 7
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift dazzled in a minidress and cowboy boots during her performance at the 2026 CMA Awards, showcasing her unique style. The appearance highlights her continued presence in the country music scene.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a73904128/taylor-swift-easter-eggs-cma-awards-2026-performance-explained/
+  - [established] People — https://people.com/taylor-swift-2026-cma-awards-performance-outfit-photos-12263823
 
 ## Taylor Swift to Have Her Own Exhibit
 
@@ -158,21 +191,26 @@ Stories: 120
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 4
+- verification_status: corroborated | source_count: 8
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
+  - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
   - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-i-knew-it-i-knew-you-cma-awards-2026-performance-1236385268/
   - [unverified] Bleacher Report — https://bleacherreport.com/articles/25535112-taylor-swift-performs-2026-cma-awards-video-patrick-mahomes-wife-brittany-attends
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
+  - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
 
 ## Taylor Swift Appears at 2026 CMA Awards Before Performance
 
 - first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 14
+- verification_status: corroborated | source_count: 15
 - summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
 - sources:
   - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
   - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
   - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
@@ -1003,35 +1041,3 @@ Stories: 120
 - summary: The nominees for Album Of The Year at the 2027 Grammy Awards include Rosalía, Phoebe Bridgers, and Taylor Swift, highlighting a diverse array of talent in the music industry.
 - sources:
   - [established] Stereogum — https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news
-
-## Taylor Swift Sets Record for Consecutive Album of the Year Nominations
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has achieved a significant milestone by tying the Grammy record for consecutive Album of the Year nominations. This accomplishment highlights her impact and consistent performance in the music industry.
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-ties-grammy-record-album-of-the-year-1236948334/
-
-## 2027 Grammy Award Nominees Announced
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A partial list of nominees for the 2027 Grammy Awards has been released, showcasing various artists and categories. The complete list and details are expected to follow soon.
-- sources:
-  - [unverified] WRAL — https://www.wral.com/news/ap/a481a-partial-list-of-2027-grammy-award-nominees/
-
-## Taylor Swift Nominated for 2027 Grammy Award
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift has received a nomination for Album of the Year at the 2027 Grammy Awards for her work titled 'The Fate of Ophelia'. The nominations also feature several other prominent artists including Raye, Rosalía, and Olivia Rodrigo.
-- sources:
-  - [established] The Guardian — Taylor Swift tag — https://www.theguardian.com/music/2026/nov/16/grammy-nominations-2027-album-of-the-year
-
-## Taylor Swift Ties Album of the Year Record at Grammy Nominations
-
-- first seen: 2026-11-16 15:32 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has tied the record for Album of the Year nominations at the Grammys, according to TheWrap. Raye is also recognized for leading the Grammy nominations this year.
-- sources:
-  - [unverified] TheWrap — https://www.thewrap.com/creative-content/music/grammy-nominations-2026-list/
