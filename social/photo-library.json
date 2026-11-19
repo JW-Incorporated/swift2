@@ -3284,6 +3284,20 @@
       "sha256": "534c8ccbcdbb04c66ff8fc87d9baa9c21021b89e76e007b4e290e2b04b5f7244"
     },
     {
+      "id": "press-1aeebb7d0d41",
+      "mediaPath": "/social/library/photos/press-1aeebb7d0d41.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-fans-furious-grammy-snub/",
+      "alt": "Taylor Swift in the news: Taylor Swift Makes Grammy History but Fans Are Furious Over 1 Major Snub",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 129316,
+      "sha256": "c7164d25343e5424c02cefb373638d0067ffbda4ad1a43bba948384cfacb9d77"
+    },
+    {
       "id": "press-2aed23b54ae7",
       "mediaPath": "/social/library/photos/press-2aed23b54ae7.jpg",
       "source": "https://www.cinemablend.com/streaming-news/swifties-known-wild-theories-buying-into-taylor-swift-debut",
@@ -3310,6 +3324,34 @@
       "height": 900,
       "bytes": 135350,
       "sha256": "5a10e037de8e5357ff846c31ac23c1342c122bf3e9360fff9bb63e22f279f150"
+    },
+    {
+      "id": "press-392396981441",
+      "mediaPath": "/social/library/photos/press-392396981441.jpg",
+      "source": "https://people.com/taylor-swift-sequin-fringe-minidress-2026-cma-awards-12264099",
+      "alt": "Taylor Swift in the news: Taylor Swift Wears $2,720 Sequin Minidress for Her Third Look at 2026 CMA Awards",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via People.com",
+      "width": 1500,
+      "height": 1000,
+      "bytes": 144432,
+      "sha256": "11f8b6392b4c93bcbbcbddf72a0b194c3853bab0c58d98f0f266d76d814df682"
+    },
+    {
+      "id": "press-39542fd033c9",
+      "mediaPath": "/social/library/photos/press-39542fd033c9.jpg",
+      "source": "https://www.rollingstone.com/music/music-country/taylor-swift-speech-cma-awards-brooks-and-dunn-1235660421/",
+      "alt": "Taylor Swift in the news: See Taylor Swift's Speech for Brooks and Dunn at CMA Awards 2026",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Rolling Stone",
+      "width": 1800,
+      "height": 1015,
+      "bytes": 151194,
+      "sha256": "f86697ca9b005471581aba87d0ee8d6924427298383fe2ce7bdde6a3c1135013"
     },
     {
       "id": "press-3b61c165db4d",
@@ -3380,6 +3422,20 @@
       "height": 900,
       "bytes": 128011,
       "sha256": "604e039e695316d78b058f884ae46ac37737011c3e5e895b0acf4e627bb8e882"
+    },
+    {
+      "id": "press-67c28d554411",
+      "mediaPath": "/social/library/photos/press-67c28d554411.jpg",
+      "source": "https://www.cincinnati.com/story/entertainment/2026/11/18/taylor-swift-returns-to-cmas-date-time-channel-how-to-watch/92809904007/",
+      "alt": "Taylor Swift in the news: Taylor Swift returns to CMAs. Date, time, channel, how to watch",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Cincinnati Cincinnati Enquirer",
+      "width": 2048,
+      "height": 1153,
+      "bytes": 229055,
+      "sha256": "405ba1af5cda3c8be42e1734ff81d1da12813d6dba9ecf6c760f10a03296e19f"
     },
     {
       "id": "press-6a7543bd5c98",
@@ -3508,6 +3564,20 @@
       "sha256": "7add819ba71c484d7cb5831fd3cd49f5a87666f3504ed3b9679a624e9c5bf91a"
     },
     {
+      "id": "press-bb4f2f51d7d5",
+      "mediaPath": "/social/library/photos/press-bb4f2f51d7d5.jpg",
+      "source": "https://www.nbcchicago.com/entertainment/entertainment-news/taylor-swift-performs-2026-cma-awards/4018711/",
+      "alt": "Taylor Swift in the news: Taylor Swift performs at CMA Awards for first time in 13 years",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via NBC 5 Chicago",
+      "width": 1200,
+      "height": 675,
+      "bytes": 119609,
+      "sha256": "59ccada55130c78faac539c973734d829450f3ea2973abb274e6ce14942a26b6"
+    },
+    {
       "id": "press-c52ab1258aa2",
       "mediaPath": "/social/library/photos/press-c52ab1258aa2.jpg",
       "source": "https://www.usmagazine.com/entertainment/news/taylor-swifts-quotes-about-returning-to-country-roots/",
@@ -3550,6 +3620,20 @@
       "sha256": "aa71fd141fc6944e6d85fafc684eb1772b93c694fdb489f4d3887d6ef06b6bd5"
     },
     {
+      "id": "press-cfa2fdab4d8b",
+      "mediaPath": "/social/library/photos/press-cfa2fdab4d8b.jpg",
+      "source": "https://www.al.com/life/2026/11/lainey-wilson-vince-gill-give-emotional-cmas-tribute-to-dolly-parton-as-taylor-swift-sings-along.html",
+      "alt": "Taylor Swift in the news: Lainey Wilson, Vince Gill give emotional CMAs tribute to Dolly Parton as Taylor Swift sings along",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via AL.com",
+      "width": 1280,
+      "height": 853,
+      "bytes": 147054,
+      "sha256": "c24a18a754e5d71e6f8dac165f4749307f479998919a7a27b934e62fe4698b3c"
+    },
+    {
       "id": "press-e18000b9120e",
       "mediaPath": "/social/library/photos/press-e18000b9120e.webp",
       "source": "https://www.cheatsheet.com/news/taylor-swift-surprises-fans-again-unexpected-choice-made-wedding-day.html/",
@@ -3576,6 +3660,20 @@
       "height": 900,
       "bytes": 122413,
       "sha256": "a1caddcdd052d7d545a5b9bf83064f573d0866bdb6722b3363de9a6e374ea6fe"
+    },
+    {
+      "id": "press-e50958f76646",
+      "mediaPath": "/social/library/photos/press-e50958f76646.jpg",
+      "source": "https://www.straitstimes.com/life/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big",
+      "alt": "Taylor Swift in the news: Taylor Swift returns to CMA Awards as Ella Langley wins big",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via The Straits Times",
+      "width": 1200,
+      "height": 630,
+      "bytes": 105816,
+      "sha256": "19195f97271a300d27ab77ff0cba163dcfb1855d512e01b706223bcedf9a0ee2"
     },
     {
       "id": "press-f2a339aeeea0",

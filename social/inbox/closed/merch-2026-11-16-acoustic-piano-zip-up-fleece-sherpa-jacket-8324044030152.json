@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-16-acoustic-piano-zip-up-fleece-sherpa-jacket-8324044030152",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-16T18:40:27.272Z",
+  "deadline": "2026-11-19T18:40:27.272Z",
+  "status": "expired",
+  "facts": {
+    "name": "Acoustic Piano Zip-Up Fleece Sherpa Jacket",
+    "price": "125.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/acoustic-piano-sherpa-jacket",
+    "firstSeenAt": "2026-11-16T18:39:02.202Z"
+  },
+  "media": [
+    "/social/library/merch-drop-43930615962.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/acoustic-piano-sherpa-jacket",
+  "altTextHint": "A Long Live store-drop card for 9 items newly available on the official store, led by \"Acoustic Piano Metallic Wrapping Paper\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

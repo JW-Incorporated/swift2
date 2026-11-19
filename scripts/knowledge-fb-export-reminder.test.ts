@@ -1,5 +1,65 @@
 import { describe, expect, it } from 'vitest';
-import { isoDate, issueTitle, issueBody } from './knowledge-fb-export-reminder.mjs';
+import { FILED_BY_MARKER, closeSuperseded, isoDate, issueTitle, issueBody, supersedeSafely, supersededReminders } from './knowledge-fb-export-reminder.mjs';
+
+const reminder = (number: number, week: string, body = issueBody([])) => ({ number, title: issueTitle(week), body });
+
+describe('supersededReminders', () => {
+  it('the filed body carries the marker it matches on', () => {
+    expect(issueBody([])).toContain(FILED_BY_MARKER);
+  });
+
+  it('picks only earlier weeks this script filed', () => {
+    const issues = [
+      reminder(1, '2026-11-08'),
+      reminder(2, '2026-11-15'),
+      reminder(3, '2026-11-22'),
+      reminder(4, '2026-11-01', 'hand-written, no footer'),
+      { number: 5, title: 'Watchdog: no FB group export closed in 9 days', body: FILED_BY_MARKER },
+      { number: 6, title: 'Re: FB group export due — week of 2026-11-01', body: FILED_BY_MARKER },
+    ];
+    expect(supersededReminders(issues, '2026-11-15').map((i) => i.number)).toEqual([1]);
+  });
+});
+
+describe('closeSuperseded', () => {
+  function fakeGh(issues: Array<Record<string, unknown>>) {
+    const calls: string[][] = [];
+    const ghImpl = async (args: string[]) => {
+      calls.push(args);
+      return { stdout: args[1] === 'list' ? JSON.stringify(issues) : '' };
+    };
+    return { ghImpl, calls };
+  }
+  const issues = [reminder(10, '2026-11-08'), reminder(11, '2026-11-01'), reminder(12, '2026-11-15')];
+
+  it('closes earlier reminders as not planned, naming the new one', async () => {
+    const { ghImpl, calls } = fakeGh(issues);
+    const closed = await closeSuperseded({ weekLabel: '2026-11-15', current: '#12', repo: 'o/r', ghImpl, log: () => {} });
+    expect(closed).toEqual([10, 11]);
+    expect(calls[0]!.slice(0, 4)).toEqual(['issue', 'list', '--repo', 'o/r']);
+    const closes = calls.filter((c) => c[1] === 'close');
+    expect(closes.map((c) => c[2])).toEqual(['10', '11']);
+    expect(closes[0]!.slice(3, 7)).toEqual(['--repo', 'o/r', '--reason', 'not planned']);
+    expect(closes[0]![closes[0]!.indexOf('--comment') + 1]).toMatch(/^Superseded by this week's reminder \(#12\)/);
+  });
+
+  it('dry run lists but never closes', async () => {
+    const { ghImpl, calls } = fakeGh(issues);
+    const logs: string[] = [];
+    expect(await closeSuperseded({ weekLabel: '2026-11-15', current: 'x', repo: 'o/r', dryRun: true, ghImpl, log: (m: string) => logs.push(m) })).toEqual([10, 11]);
+    expect(calls.filter((c) => c[1] === 'close')).toHaveLength(0);
+    expect(logs).toHaveLength(2);
+  });
+
+  it('a gh failure after filing only warns, never throws', async () => {
+    const ghImpl = async () => {
+      throw new Error('HTTP 502\nmore');
+    };
+    const logs: string[] = [];
+    expect(await supersedeSafely({ weekLabel: '2026-11-15', current: '#12', repo: 'o/r', ghImpl }, { log: (m: string) => logs.push(m) })).toEqual([]);
+    expect(logs).toEqual(['::warning::fb-export-reminder: could not close superseded reminders: HTTP 502']);
+  });
+});
 
 describe('isoDate', () => {
   it('formats as YYYY-MM-DD', () => {

@@ -104,7 +104,7 @@ apps/web/
     FilterBar.tsx                  the one global sticky six-chip filter row (§5.8)
     EraSection.tsx                 one era: hero + lyric + TrackGuideBar + moment grid + PIVOT strip
     EraSecretCard.tsx              the Era Secret card (#688): one sourced obscure fact per era entry
-    ThisWeekNews.tsx               pinned, expandable "This week's news" row under the current era's hero (owner 2026-11-03): the last 7 days of live items (`thisWeekNewsItems`), All filter only; rows open CurrentItemDetail. Those items and the egg doorway cards no longer merge into the stream (`streamExtraEntries`, both merge sites); eggs stay in Threads' "Theories & eggs" lens
+    ThisWeekNews.tsx               pinned, expandable "This week's news" row under the current era's hero (owner 2026-11-03): the last 7 days of live items (`thisWeekNewsItems`), All filter only; rows open CurrentItemDetail. Those items and the egg doorway cards no longer merge into the stream (`streamExtraEntries`, both merge sites); eggs stay in Threads' "Theories & eggs" lens. When a filter chip hides the strip (`isWeekNewsPinned`), its items stream as cards again. Search lists the current era's live items under "News" (`currentItemSearchDocs`, merged into the baked index at runtime by `search/use-live-search.ts`; picking one opens CurrentItemDetail from SearchOverlay)
     MomentDetail.tsx               immersive single-moment view (opened from a grid card)
     MomentVideo.tsx                click-to-play YouTube embed (per moment; also used by TrackGuide
                                    for paired track videos)
@@ -436,6 +436,18 @@ active set, which is exactly why `check:filter-coverage` (below) exists.
    NYU commencement speech, a Sundance Q&A) are ones whose own text was
    genuinely too thin to support a topic honestly; they remain reachable
    under Videos.
+3. A live news item (`current`) gets its topics from `chipTagsForCurrentItem`
+   (`packages/shared/src/current-item-chips.ts`): a deterministic rule over
+   the row's `category`, its free-form `tags` and its `headline` (no LLM
+   call). The worker stores the result in `current_item.tags` when it writes
+   the row; the reader re-applies the same function so rows written before
+   that still land under their chips. Tour means a tour, as for moments: a
+   one-off gala or awards performance is not Tour unless the extractor
+   filed it as `tour`. A person's name is never a topic: a Travis Kelce tag
+   alone is not Relationship without a wedding/engagement/couple signal. An
+   item that names no chip (a TV cameo, a game-day sighting) shows under All
+   only. Videos stays structural (a playable
+   embed).
 
 **Anchor dating** (`anchor-date.ts`): every entry in the merged feed carries
 an `anchor` — `{ sortDate, displayDate, via }`. `sortDate` is always present
@@ -522,6 +534,44 @@ signal before the final deterministic slug fallback. The hand-tuned `feral
 about a bridge` starter remains pinned to the cathartic bridge set led by All
 Too Well (10 Minute Version), and energetic starter vectors do not receive the
 heavy-heartbreak intro.
+
+**Failure containment (2026-11-18):** four rules keep one failure from
+blanking the reader.
+
+- **Live rows are normalised once, at the fetch.** `fetchLiveData`
+  (`reader/lib/use-live-data.ts`) passes `items` through
+  `normaliseCurrentItems` (`reader/lib/normalise-live-items.ts`): a row with
+  no id, headline or date is dropped, everything else is defaulted
+  (`sources` → `[]`). A `status` this build does not know keeps the row and
+  reads as `reported`, so a status added by a later migration cannot make
+  stories vanish. Components may therefore dereference `item.sources[0]`,
+  `item.tags` and friends without guards; a new field the UI dereferences
+  gets a default there, not a guard in each component. Each fetch attempt is
+  bounded at 20 s; a timeout (only a timeout, never a non-2xx) is retried
+  once, then resolves to the empty payload.
+- **A code-split surface carries its own boundary.** `MerchSection` is loaded
+  with `lazyWithRetry` (`components/longlive/lazy-with-retry.tsx`), not
+  `next/dynamic`. If the chunk cannot load (offline after first paint), that
+  surface shows "You're offline" with a Try again button that re-attempts the
+  import; every other tab keeps working, and leaving and re-entering the tab
+  retries too. Only a chunk or import failure is handled there
+  (`isLoadFailure`); a render error inside the loaded surface is rethrown to
+  `app/error.tsx`. Any new lazily loaded surface uses the same wrapper. There
+  is deliberately no boundary inside the shared `ReaderShell`.
+- **Chat requests time out.** Mood (30 s on the web, `WEB_MOOD_TIMEOUT_MS`;
+  a real answer has been measured at about 15 s) and Clownbot (60 s without
+  a stream event) run under `withTimeout`
+  (`reader/clown/lib/chat-request.ts`); the constants live in
+  `bridge/api-timeout.ts`. In the app the bridge applies its own 8 s to
+  `/api/mood` first. A
+  timeout lands in the existing error line and the composer keeps its text. A
+  429 reads "Too many requests, try again in a moment."; every other failure
+  keeps the generic line. Neither surface has a retry button: the reader
+  sends again.
+- **Everything else lands on `app/error.tsx`** ("Something went wrong", Try
+  again, Reload), with `app/global-error.tsx` behind it for a root-layout
+  failure. Both render `components/ErrorFallback.tsx`, which uses no era
+  tokens and no stylesheet.
 
 ---
 

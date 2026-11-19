@@ -63,6 +63,12 @@ and the baked `content-vault.generated.ts`, so moment bylines are covered. The f
 content, which keeps the baseline diff to bylines. `fixture-authors.test.ts` fails if a frozen item lacks one. A later
 `--regenerate` carries authors natively.
 
+Era token changes: `eras.ts` is baked, but `content/frozen/eras.json` is frozen, so a legitimate token change
+(e.g. `accentText`) makes `--apply` fail with "baked and bundle snapshots diverge: eras". Mirror the change by hand
+in the frozen `eras.json` (it must equal the freshly synced bundle's `eras.json`; diff them), run `--prune` to
+recompute `fixture.json`, confirm `--apply` exits 0, then regenerate baselines on the PR branch. `--regenerate` is only for
+a deliberate full re-freeze: it also pulls in every live content change since the freeze. First use: #6809.
+
 ## Determinism (one handler, `e2e/parity/helpers.ts`, both sides)
 
 The a-vs-b specs run each side in its own browser context (`pages.a` is the test's page, `pages.b` a second

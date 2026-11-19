@@ -5,8 +5,8 @@ JS-only (C3): no native change, native fingerprint hash `dcf1ea59` unchanged (a 
 ## What runs
 
 `apps/mobile/dom/ReaderSpike.tsx` (`'use dom'`), mounted by `SharedUiHost` under
-the C4 override. The WP0.4 test page stays reachable: Diagnostics > "Use WP0.4
-test page, not ReaderSpike" (next launch).
+the C4 override. The WP0.4 test page stays reachable: Diagnostics > "TEST ONLY: show
+the WP0.4 test page instead of the reader" > Arm for next launch (one launch only; see dom-host.md).
 
 1. Host passes only a cache-file `file://` URI + version token (config, not
    content; PLAN C6 amended). The URI is the loader's `last-good` record

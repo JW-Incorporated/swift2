@@ -1,6 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { lazyWithRetry } from './lazy-with-retry';
 import { ReaderRoot, type ReaderSlots } from '@swift2/ui/reader/shell/ReaderShell';
 import { WebReaderSnapshotProvider } from '@/lib/longlive/reader-snapshot-provider';
 import { EraStream } from './EraStream';
@@ -18,7 +18,7 @@ import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
 import { FeedbackButton } from './FeedbackButton';
 import { CommunitySection } from './CommunitySection';
-const MerchSection = dynamic(() => import('./MerchSection').then((module) => module.MerchSection));
+const MerchSection = lazyWithRetry(() => import('./MerchSection').then((module) => module.MerchSection));
 
 function WebClownChat() {
   return <ClownChatSection extensions={CLOWN_EXTENSIONS} />;

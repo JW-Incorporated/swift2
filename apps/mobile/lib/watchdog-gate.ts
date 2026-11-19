@@ -41,6 +41,7 @@ import {
   loadWatchdogRecord,
   saveReportsRaw,
 } from './watchdog-store';
+import { takeLaunchOverrides } from './diagnostics-override';
 import { DEFAULT_DEPS, boundedForceFailure, startAttemptBounded, useContentGate, type GateDeps } from './watchdog-gate-content';
 import type { ContentFailureKind } from './watchdog-await-content';
 import { createTelemetry } from './watchdog-telemetry';
@@ -92,6 +93,8 @@ export function useDomMount(inputs: LaunchInputs | null, deps: GateDeps = DEFAUL
   const [decision, setDecision] = useState<MountDecision | null>(null);
   const [mount, setMount] = useState<MountState>('pending');
   const [forceFailure, setForceFailure] = useState<DomFailureMode>('off');
+  // Consume armed drills on every launch, even one that never mounts the DOM, so none outlives its launch.
+  useEffect(() => void takeLaunchOverrides().catch(() => undefined), []);
   const recordRef = useRef<WatchdogRecord | null>(null);
   const monitorRef = useRef<AttemptMonitor | null>(null);
   const startedRef = useRef(false);

@@ -14,7 +14,7 @@ describe('normalizeSecret', () => {
     title: 'The national anthem was her way onto a stage',
     secret: 'A young Taylor worked out that singing the anthem got her in front of crowds.',
     deeperLink: 'song:tim-mcgraw',
-    sources: [{ source_title: 'NBC', source_url: 'https://example.com/a' }],
+    sources: [{ source_title: 'How a young Taylor got her start', publisher: 'NBC', source_url: 'https://example.com/a' }],
   };
 
   it('normalizes a well-formed secret and maps §5 source fields', () => {

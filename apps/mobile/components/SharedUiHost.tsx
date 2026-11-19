@@ -38,7 +38,7 @@ import { createHostUiDeps } from '../lib/host-ui-deps';
 import { notificationTapGate } from '../lib/use-notification-taps';
 import { noteArtEra } from '../lib/art-cache-fs';
 import type { LastGoodSource } from '../lib/dom-reader-config';
-import { getUseTestPage } from '../lib/diagnostics-override';
+import { takeLaunchOverrides } from '../lib/diagnostics-override';
 import type { DomFailureMode } from '../lib/watchdog';
 import type { DomWatch } from '../lib/watchdog-gate';
 
@@ -97,7 +97,7 @@ export function SharedUiHost({
   useEffect(() => {
     launchedAt.current = Date.now();
     onSignal('dom-launch-attempted');
-    void getUseTestPage().then(setTestPage);
+    void takeLaunchOverrides().then((o) => setTestPage(o.testPage), () => setTestPage(false));
   }, []);
 
   const domReady = useDeferredBundleRefresh(testPage, setSource, setContentToken);

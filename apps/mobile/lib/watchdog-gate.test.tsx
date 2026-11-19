@@ -26,8 +26,7 @@ vi.mock('./watchdog-store', () => ({
   saveReportsRaw: async (raw: string) => void (h.reportsRaw = raw),
 }));
 vi.mock('./diagnostics-override', () => ({
-  getForceDomFailure: async () => 'off',
-  setForceSharedUi: async () => undefined,
+  takeLaunchOverrides: async () => ({ failure: 'off', testPage: false }),
 }));
 vi.mock('./dom-reader-config', () => ({ lastGoodSource: () => ({ scriptUri: 'x', jsonUri: 'y' }) }));
 vi.mock('./content-bundle', () => ({ loadContentBundle: async () => ({}) }));

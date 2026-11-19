@@ -33,7 +33,7 @@ describe('normalizeTrack', () => {
       sources: [
         // Rich §5 shape maps to {name,url}; the top-level sourceUrl duplicate
         // is de-duped by url instead of appended twice.
-        { name: 'Anti-Hero — Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
+        { name: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
         { name: 'Rolling Stone', url: 'https://rollingstone.com/anti-hero' },
       ],
     });

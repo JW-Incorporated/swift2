@@ -213,15 +213,15 @@ describe('eraVideoFeed', () => {
     expect([...dated].sort((a, b) => b.localeCompare(a))).toEqual(dated);
   });
 
-  it('puts the newest-dated visualizer at the front of the tloas feed (#6082)', () => {
-    // The Opalite (BUNT. Remix) visualizer (2026-10-15) is the newest video
-    // in the Showgirl era; eraVideoFeed sorts newest-first so it must be the
-    // first entry.
+  it('puts the newest-dated video at the front of the tloas feed, visualizers included (#6082)', () => {
     const feed = eraVideoFeed('tloas');
-    expect(feed.length).toBeGreaterThan(0);
-    expect(feed[0].slug).toBe('opalite-bunt-remix-visualizer');
-    expect(feed[0].kind).toBe('visualizer');
-    expect(feed[0].releasedOn).toBe('2026-10-15');
+    const newest = feed
+      .map((v) => v.releasedOn)
+      .filter((d): d is string => d !== null)
+      .sort((a, b) => b.localeCompare(a))[0];
+    expect(feed[0].releasedOn).toBe(newest);
+    const visualizer = feed.find((v) => v.slug === 'opalite-bunt-remix-visualizer');
+    expect(visualizer?.kind).toBe('visualizer');
   });
 
   it('sorts undated records after dated ones rather than dropping them', () => {

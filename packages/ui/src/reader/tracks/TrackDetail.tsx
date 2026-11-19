@@ -377,7 +377,7 @@ export function TrackDetail() {
         <ConnectionsSection eraId={era.id} track={track} />
 
         {sources.length > 0 && (
-          <p className="mt-10 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+          <p className="mt-10 text-xs leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
             {sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
             {sources.map((s, i) => (
               <span key={`${s.url}-${i}`}>

@@ -1,0 +1,109 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-19",
+  "windowDays": 7,
+  "since": "2026-11-12T00:00:00.000Z",
+  "count": 7,
+  "media": [
+    "https://assets3.cbsnewsstatic.com/hub/i/r/2016/10/23/28677b5f-d5d1-4c16-bbe4-ca0bc470a1ec/thumbnail/1200x630g2/b1900452b531080bff12e9960f85fe17/ap-16297050306143.jpg",
+    "https://assets3.cbsnewsstatic.com/hub/i/r/2026/11/17/21d2da74-3720-4de4-8c73-bcc20ba2ad89/thumbnail/1200x630/453e348295241212cf549ce56236055e/03-taylor-swift-the-fate-of-ophelia-1.jpg",
+    "https://i.ytimg.com/vi/7F37r50VUTQ/maxresdefault.jpg",
+    "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2017/02/GettyImages-633866118-1486310246-scaled.jpg?w=1200",
+    "https://www.youtube.com/watch?v=59cfTptr3k8",
+    "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-the-mfa-boston-announces-taylor-swift-the-eras-collection-it",
+      "eraId": "tloas",
+      "title": "The MFA Boston announces \"Taylor Swift: The Eras Collection,\" its first show for a musician",
+      "year": 2026,
+      "month": 11,
+      "day": 17,
+      "category": "business",
+      "significance": "notable",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-the-mfa-boston-announces-taylor-swift-the-eras-collection-it",
+      "mediaKind": "photo",
+      "media": "https://assets3.cbsnewsstatic.com/hub/i/r/2026/11/17/21d2da74-3720-4de4-8c73-bcc20ba2ad89/thumbnail/1200x630/453e348295241212cf549ce56236055e/03-taylor-swift-the-fate-of-ophelia-1.jpg"
+    },
+    {
+      "id": "vault-1989-her-only-concert-of-2016-at-the-formula-1-u-s-grand-prix",
+      "eraId": "1989",
+      "title": "Her only concert of 2016, at the Formula 1 U.S. Grand Prix",
+      "year": 2016,
+      "month": 10,
+      "day": 22,
+      "category": "tour",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-1989-her-only-concert-of-2016-at-the-formula-1-u-s-grand-prix",
+      "mediaKind": "thumbnail",
+      "media": "https://assets3.cbsnewsstatic.com/hub/i/r/2016/10/23/28677b5f-d5d1-4c16-bbe4-ca0bc470a1ec/thumbnail/1200x630g2/b1900452b531080bff12e9960f85fe17/ap-16297050306143.jpg"
+    },
+    {
+      "id": "vault-1989-i-dont-wanna-live-forever-breaks-the-silence-with-zayn",
+      "eraId": "1989",
+      "title": "\"I Don't Wanna Live Forever\" breaks the silence with Zayn",
+      "year": 2016,
+      "month": 12,
+      "day": 9,
+      "category": "release",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-1989-i-dont-wanna-live-forever-breaks-the-silence-with-zayn",
+      "mediaKind": "thumbnail",
+      "media": "https://i.ytimg.com/vi/7F37r50VUTQ/maxresdefault.jpg"
+    },
+    {
+      "id": "vault-1989-one-show-in-2017-super-saturday-night-in-houston",
+      "eraId": "1989",
+      "title": "One show in 2017: Super Saturday Night in Houston",
+      "year": 2017,
+      "month": 2,
+      "day": 4,
+      "category": "tour",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-1989-one-show-in-2017-super-saturday-night-in-houston",
+      "mediaKind": "thumbnail",
+      "media": "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2017/02/GettyImages-633866118-1486310246-scaled.jpg?w=1200"
+    },
+    {
+      "id": "vault-tloas-campaigning-for-i-knew-it-i-knew-you-taylor-names-her-two-al",
+      "eraId": "tloas",
+      "title": "Campaigning for \"I Knew It, I Knew You,\" Taylor names her two albums of the year",
+      "year": 2026,
+      "month": 11,
+      "day": 13,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-campaigning-for-i-knew-it-i-knew-you-taylor-names-her-two-al",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+    },
+    {
+      "id": "vault-tloas-five-nods-for-the-2027-grammys-and-a-fifth-straight-album-up",
+      "eraId": "tloas",
+      "title": "Five nods for the 2027 Grammys, and a fifth straight album up for Album of the Year",
+      "year": 2026,
+      "month": 11,
+      "day": 16,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-five-nods-for-the-2027-grammys-and-a-fifth-straight-album-up",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+    },
+    {
+      "id": "vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo",
+      "eraId": "tloas",
+      "title": "\"I'll see what my wife can cook up\": Travis volunteers Taylor for the next New Heights stage",
+      "year": 2026,
+      "month": 11,
+      "day": 11,
+      "category": "relationship",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=59cfTptr3k8"
+    }
+  ]
+}

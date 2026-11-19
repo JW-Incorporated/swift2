@@ -40,6 +40,28 @@ describe('Git LFS workflow guard', () => {
   });
 });
 
+describe('the deployed site never serves a library photo', () => {
+  // apps/web/.vercelignore only filters a Vercel CLI upload, not a
+  // Git-integration deployment, so the 131-byte LFS pointers do ship in
+  // public/ and were served as `image/jpeg` bodies (#6964). next.config.mjs
+  // redirects the path to the real bytes; redirects() runs before the
+  // filesystem, so the pointer file can never win.
+  it('next.config.mjs redirects /social/library/photos/* to the LFS media endpoint', async () => {
+    const config = await import('../../apps/web/next.config.mjs');
+    const redirects = await config.default.redirects();
+    const rule = redirects.find((r) => r.source === '/social/library/photos/:path*');
+    expect(rule, 'no redirect for /social/library/photos/:path*').toBeTruthy();
+    expect(rule.destination).toBe(`${PHOTO_MEDIA_BASE_URL}/social/library/photos/:path*`);
+    // 307, not 308: a permanent redirect to a deploy detail is cached forever.
+    expect(rule.permanent).toBe(false);
+  });
+
+  it('next.config.mjs pins the same media base URL as the social poster', async () => {
+    const config = await import('../../apps/web/next.config.mjs');
+    expect(config.PHOTO_MEDIA_BASE_URL).toBe(PHOTO_MEDIA_BASE_URL);
+  });
+});
+
 describe('isLfsPointer', () => {
   it('detects pointer files and ignores real images and missing files', async () => {
     const dir = mkdtempSync(join(tmpdir(), 'lfs-pointer-'));

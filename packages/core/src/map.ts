@@ -12,6 +12,7 @@ import type {
   TrackNote,
   VaultCategory,
 } from '@swift2/shared';
+import { outletLabel } from '@swift2/shared';
 
 export interface EraRow {
   slug: string;
@@ -96,12 +97,14 @@ function asSources(value: unknown): MomentSource[] {
   if (!Array.isArray(value)) return [];
   return value
     .filter((s): s is Record<string, unknown> => Boolean(s) && typeof s === 'object')
-    .map((s) => ({
+    .map((s) => {
       // Accept both the legacy {outlet,url} shape and the rich §5 provenance
       // shape ({source_title,publisher,source_url,…}) the seed runners store.
-      outlet: String(s['outlet'] ?? s['source_title'] ?? s['publisher'] ?? ''),
-      url: asUrl(s['url'] ?? s['source_url']),
-    }))
+      // `source_title` is the article headline, never the outlet label.
+      const url = asUrl(s['url'] ?? s['source_url']);
+      const named = s['outlet'] ?? s['publisher'];
+      return { outlet: outletLabel({ name: typeof named === 'string' ? named : '', url }), url };
+    })
     .filter((s) => s.url !== '');
 }
 

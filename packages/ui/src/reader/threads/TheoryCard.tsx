@@ -114,7 +114,7 @@ export function TheoryCard({ theory, highlighted }: { theory: TheoryNote; highli
         </p>
       )}
 
-      <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+      <p className="mt-3 text-xs leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
         {theory.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
         {theory.sources.map((s, i) => (
           <span key={`${s.url}-${i}`}>

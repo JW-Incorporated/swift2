@@ -3,7 +3,7 @@
 import { useId, useState } from 'react';
 import { ChevronDown, Radio } from 'lucide-react';
 import type { CurrentItem } from '@swift2/shared';
-import { outletFor, type FilterId } from '@swift2/experience';
+import { isWeekNewsPinned, outletFor, type FilterId } from '@swift2/experience';
 import { useHost } from '../../host/context';
 import { cn } from '../lib/utils';
 import { SCRUBBER_GUTTER_SYMMETRIC_CLASS } from '../shell/timelineScrubberLayout';
@@ -67,7 +67,7 @@ export function ThisWeekNews({
 }) {
   const [expanded, setExpanded] = useState(false);
   const panelId = useId();
-  if (items.length === 0 || filters.size > 0) return null;
+  if (items.length === 0 || !isWeekNewsPinned(filters)) return null;
   const count = `${items.length} ${items.length === 1 ? 'story' : 'stories'}`;
   const toggle = () => setExpanded((v) => !v);
   const focusRing =

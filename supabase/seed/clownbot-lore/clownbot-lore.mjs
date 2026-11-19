@@ -36,8 +36,38 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-14',
+  updatedOn: '2026-11-18',
   items: [
+    {
+      // Added 2026-11-18 (Vault Run, Rumor Desk). Read directly: the ABC News
+      // full nominee list and Stereogum's Album of the Year piece. Mirrors the
+      // Vault moment showgirl-2027-grammy-nominations.
+      id: 'grammys-2027-nominations',
+      status: 'confirmed',
+      date: '2026-11-16',
+      lastCheckedOn: '2026-11-18',
+      headline: 'Five 2027 Grammy nods, and an eighth Album of the Year nomination',
+      detail:
+        'At the 69th Grammy nominations on 16 November 2026, Taylor earned five nods: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia", Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You", and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter. It is her eighth Album of the Year nomination. Showgirl missed Best Pop Vocal Album, and Raye led the field with 11. The ceremony is 7 February 2027. The four new Encore songs are not in this race: they came out on 25 September 2026, after the window closed on 28 August, and become eligible as individual songs at the 2028 Grammys.',
+      sources: [
+        {
+          name: 'ABC News',
+          url: 'https://abcnews.com/GMA/Culture/grammy-nominations-2027-full-list/story?id=138113372',
+        },
+        {
+          name: 'Stereogum',
+          url: 'https://stereogum.com/2518141/album-of-the-year-grammy-nominees-2027-include-rosalia-phoebe-bridgers-taylor-swift/news',
+        },
+        {
+          name: 'E! News',
+          url: 'https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated',
+        },
+      ],
+      prompts: [
+        'Eight Album of the Year nominations and zero Song of the Year wins. Is "I Knew It, I Knew You" the one that finally breaks the streak? Commit.',
+      ],
+      tags: ['tloas', 'awards', 'grammys'],
+    },
     {
       // Added 2026-11-02 (Vault Run, Rumor Desk). The campaign is documented
       // (The Ankler, Showbiz411); the nomination is the open question. It
@@ -49,10 +79,11 @@ export default {
       // Rechecked 2026-11-08 (Vault Run): still `reported`, no nomination yet; the Academy's Original Song shortlist is due Dec. 15.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-14 (Vault Run): campaign widened to Golden Globe voters (press conference reported Nov. 13-14, HELLO!); still no nomination, status unchanged.
-      lastCheckedOn: '2026-11-14',
+      // Rechecked 2026-11-18 (Vault Run): the song picked up Song of the Year and Best Song Written for Visual Media nominations at the Nov. 16 Grammy nominations; still no Oscar nomination, status unchanged.
+      lastCheckedOn: '2026-11-18',
       headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
       detail:
-        'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. In mid-November she took the campaign to Golden Globe voters as well, at a press conference where she called the film\'s take on kids and screens "a parent-to-parent decision." The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
+        'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. In mid-November she took the campaign to Golden Globe voters as well, at a press conference where she called the film\'s take on kids and screens "a parent-to-parent decision." On 16 November the song also earned Grammy nominations for Song of the Year and Best Song Written for Visual Media. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
       sources: [
         {
           name: 'The Ankler',
@@ -69,6 +100,10 @@ export default {
         {
           name: 'HELLO!',
           url: 'https://www.hellomagazine.com/us/934978/taylor-swift-rare-comment-on-children-wedding-to-travis-kelce/',
+        },
+        {
+          name: 'ABC News',
+          url: 'https://abcnews.com/GMA/Culture/grammy-nominations-2027-full-list/story?id=138113372',
         },
       ],
       prompts: [
@@ -159,7 +194,8 @@ export default {
       // frames fans as "clowning for Debut TV".
       // Rechecked 2026-11-08 (Vault Run): neither reputation TV nor debut TV has been announced or dated.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-12',
+      // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
+      lastCheckedOn: '2026-11-18',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -252,7 +288,8 @@ export default {
       // team has still neither confirmed nor denied it.
       // Rechecked 2026-11-08 (Vault Run): no new coverage found; her team still has not confirmed or denied it.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-10',
+      // Rechecked 2026-11-18 (Vault Run): her mid-November "human beings are still winning at this" remark to Golden Globe voters (The Comeback via Yahoo, Nov. 15) praised human-made records but did not address the promo videos; still neither confirmed nor denied.
+      lastCheckedOn: '2026-11-18',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -289,7 +326,8 @@ export default {
       // didn't happen. Still unconnected to anything official.
       // Rechecked 2026-11-08 (Vault Run): nothing official connects the green TS images to a release.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-12',
+      // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
+      lastCheckedOn: '2026-11-18',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -321,7 +359,8 @@ export default {
       // color system, or release plan has been confirmed.
       // Rechecked 2026-11-08 (Vault Run): no TS13 title, color system or release plan announced.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-12',
+      // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
+      lastCheckedOn: '2026-11-18',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -362,7 +401,8 @@ export default {
       date: '2026-08-27',
       // Rechecked 2026-11-08 (Vault Run): still no album announced; an early-Nov. Daily Mail insider report (via Yahoo) of two albums of unreleased music keeps it `reported`.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
-      lastCheckedOn: '2026-11-12',
+      // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
+      lastCheckedOn: '2026-11-18',
       headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. On 2 Nov 2026 a Daily Mail insider (via Cosmopolitan) went further, saying she has "enough material to fill her next two albums". That is another anonymous tip, not an announcement. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',
@@ -519,14 +559,19 @@ export default {
       id: 'cma-return-2026',
       status: 'confirmed',
       date: '2026-09-10',
-      lastCheckedOn: '2026-11-12',
+      // Rechecked 2026-11-18 (Vault Run): she was added to the performer lineup in mid-November (Yahoo; GMA); the show is tonight, so the detail stays pre-show.
+      lastCheckedOn: '2026-11-18',
       headline: 'Going back to the CMAs — "I haven\'t yee\'d my last haw"',
       detail:
-        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year. One thing is settled ahead of the night: on 11 November 2026 a CMA source told E! News that Taylor will not perform in the show\'s Dolly Parton tribute. The report covered only the tribute stage, not whether she attends.',
+        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year. One thing is settled ahead of the night: on 11 November 2026 a CMA source told E! News that Taylor will not perform in the show\'s Dolly Parton tribute. The report covered only the tribute stage. In mid-November the CMAs went further and added Taylor to the night\'s performer lineup, her first CMA Awards performance in 13 years.',
       sources: [
         {
           name: 'E! News',
           url: 'https://www.eonline.com/news/1438024/taylor-swift-is-not-performing-in-dolly-parton-tribute-at-cma-awards-2026',
+        },
+        {
+          name: 'Yahoo Entertainment',
+          url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-perform-2026-cma-152528933.html',
         },
         {
           name: 'Variety',

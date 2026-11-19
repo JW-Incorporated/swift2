@@ -1,0 +1,50 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoEra": "1989",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_1989_Era_Set_(53108980257).jpg",
+  "altText": [
+    "Taylor Swift in a sequined two-piece during the 1989 set of the Eras Tour, Inglewood 2023, shown close up on the stadium screen beside her on stage."
+  ],
+  "scheduledAt": "2026-11-19T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:f1-2016-only-concert:2026-11-19",
+  "photoId": "1989-inglewood-2023-2-ig191",
+  "media": [
+    "/social/library/photos/taylor-1989-inglewood-2023-2-ig191.jpg"
+  ],
+  "body": "a whole year, and exactly one concert 🥹\n\noctober 22, 2016 was Taylor's only show of the entire year, and she played it at the Formula 1 U.S. Grand Prix in Austin, Texas.\n\ni keep thinking about everyone who bought race tickets that weekend and walked into the only Taylor show on earth that year. the luck of it!!\n\nsend this to whoever you'd have driven to Austin with.\n\nphoto: Paolo Villanueva (CC BY 2.0), via Wikimedia Commons, 1989 set of the Eras Tour\n\nhttps://www.longlivets.com/?item=vault-1989-her-only-concert-of-2016-at-the-formula-1-u-s-grand-prix&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n#taylorswift #1989 #swifties #longlive",
+  "why": "Instagram sibling of the Nov 19 news-reserve fallback (no confirmed event in the last 48h). Same moment record (Oct 22 2016, F1 U.S. Grand Prix). Share hook grounded in the one-show-a-year fact: who you'd have gone with. Photo credit line says it is an Eras photo so nobody reads it as the 2016 show.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Feel first (one concert in a whole year), then the dated, checkable fact from the moment record, then the fan's reaction to the luck of being there. The photo is a credited 1989-set Eras shot, related by era and labelled honestly.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-19T19:34:54.277Z",
+    "pr": 7010,
+    "message": "social-tree-approve run 44599559989",
+    "contentHash": "sha256:1063702663b5548f9f59be35ee4cca20f50f9dfbda5ab57b4a30aaf3a6ca28f9",
+    "mediaDigest": "sha256:4178521f3f8120964069b4511a2b7cb80974c93b228c804f908242935ab07d6a",
+    "sig": "hmac-sha256:7ca0d2d93bdfe20cd6fbf744bfe1352fa33c82bd12d695ab9bcf24daf227c4aa"
+  },
+  "postedAt": "2026-11-19T23:10:31.278Z",
+  "platformPostId": "18121632647048775",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

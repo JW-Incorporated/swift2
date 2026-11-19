@@ -120,16 +120,27 @@ export function MomentHero({
         </div>
       ) : (
         <div className="relative h-[42vh] min-h-64 w-full">
-          <Image
-            src={heroUrl}
-            alt={hero?.caption ?? ''}
-            fill
-            priority
-            unoptimized={isRemoteUrl(heroUrl)}
-            className="object-cover"
-            style={{ objectPosition: focalPointOf(hero) }}
-            onLoad={autoFocalPoint(hero)}
-          />
+          {/* A stand-in is a publisher's ~1024px photo; full-bleed at desktop
+              width it is upscaled and cropped to a soft strip, so it is capped
+              at max-w-3xl and centered. The real photo still fills the band. */}
+          <div
+            className={
+              hero && hero.kind !== 'primary'
+                ? 'absolute inset-y-0 left-1/2 w-full max-w-3xl -translate-x-1/2'
+                : 'absolute inset-0'
+            }
+          >
+            <Image
+              src={heroUrl}
+              alt={hero?.caption ?? ''}
+              fill
+              priority
+              unoptimized={isRemoteUrl(heroUrl)}
+              className="object-cover"
+              style={{ objectPosition: focalPointOf(hero) }}
+              onLoad={autoFocalPoint(hero)}
+            />
+          </div>
           <div
             className="absolute inset-0"
             style={{

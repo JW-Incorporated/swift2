@@ -126,7 +126,7 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
             </p>
           )}
           {soloSources && soloSources.length > 0 && (
-            <p className="mt-3 text-[10px] leading-relaxed" style={{ color: 'var(--era-ink-soft)', opacity: 0.8 }}>
+            <p className="mt-3 text-xs leading-relaxed" style={{ color: 'var(--era-ink-soft)', opacity: 0.8 }}>
               {soloSources.length > 1 ? 'Sources:' : 'Source:'}{' '}
               {soloSources.map((source, index) => (
                 <span key={source.url}>

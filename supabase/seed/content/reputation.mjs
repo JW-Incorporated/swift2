@@ -109,11 +109,11 @@ export default {
             reportedOn: '2025-05-30',
             status: 'unconfirmed',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-taylors-version-not-releasing-1235351379/',
-            note: 'Forward-looking, unannounced-music speculation; distinct from the debut "Taylor\'s Version" rumor. Resolves on an official announcement of a reputation re-record or Vault release. Re-checked 2026-10-22: still none announced. Fan easter-egg reading continued through late September, so it has not gone quiet. Still live.',
+            note: 'Forward-looking, unannounced-music speculation; distinct from the debut "Taylor\'s Version" rumor. Resolves on an official announcement of a reputation re-record or Vault release. Re-checked 2026-10-22 and 2026-11-18: still none announced, and fan coverage asking when the vault tracks arrive ran into late September, so it has not gone quiet. Still live.',
             sourceTier: 'established',
             // Lifecycle re-checks: 2026-08-15 kept live (re-fueled by the Dec 2025
             // Dolby Atmos lyric edits); 2026-10-22 web search, still unannounced.
-            lastCheckedOn: '2026-10-22',
+            lastCheckedOn: '2026-11-18',
           },
           {
             claim:
@@ -122,10 +122,10 @@ export default {
             reportedOn: '2025-09-30',
             status: 'unconfirmed',
             url: 'https://www.capitalfm.com/artists/taylor-swift/reputation-taylors-version-vault-tracks/',
-            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs. Re-checked 2026-10-22: still no such release, so it can be neither confirmed nor excluded. It stays live alongside the parent reputation-re-record question.',
+            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital (lowest source tier). Resolves if a reputation Vault release confirms or excludes these songs. Re-checked 2026-10-22 and 2026-11-18: no such release, and fan wish-lists still name these songs, so it stays live alongside the parent re-record question.',
             sourceTier: 'social',
             // Lifecycle re-checks: 2026-08-15 and 2026-10-22, no Vault release.
-            lastCheckedOn: '2026-10-22',
+            lastCheckedOn: '2026-11-18',
           },
           {
             // Rumor Desk 2026-07-27: a third, later data point on the same

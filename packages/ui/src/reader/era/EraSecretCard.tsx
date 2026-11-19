@@ -80,7 +80,7 @@ export function EraSecretCard({ eraId }: { eraId: EraId }) {
         )}
 
         {secret.sources.length > 0 && (
-          <p className="mt-4 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+          <p className="mt-4 text-xs leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
             {secret.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
             {secret.sources.map((s, i) => (
               <span key={`${s.url}-${i}`}>

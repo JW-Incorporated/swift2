@@ -11,7 +11,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "4734125899861",
@@ -25,7 +25,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "4734125965397",
@@ -39,7 +39,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "4734125998165",
@@ -53,7 +53,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "4734127276117",
@@ -67,7 +67,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6121307766984",
@@ -81,7 +81,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6121307898056",
@@ -95,7 +95,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6240635879624",
@@ -109,7 +109,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6240636043464",
@@ -123,7 +123,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6240636109000",
@@ -137,7 +137,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6989217923272",
@@ -151,7 +151,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "6989217988808",
@@ -165,7 +165,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7009261420744",
@@ -179,7 +179,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7011967762632",
@@ -193,7 +193,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7143599309000",
@@ -207,7 +207,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318313861320",
@@ -221,7 +221,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318316024008",
@@ -235,7 +235,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318318121160",
@@ -249,7 +249,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318323003592",
@@ -263,7 +263,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318352560328",
@@ -277,7 +277,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318359572680",
@@ -291,7 +291,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7318363406536",
@@ -305,7 +305,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7422296424648",
@@ -319,7 +319,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7422296490184",
@@ -333,7 +333,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7422296588488",
@@ -347,7 +347,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7425769504968",
@@ -361,7 +361,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7425769570504",
@@ -375,7 +375,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7425769603272",
@@ -389,7 +389,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7425769636040",
@@ -403,7 +403,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7425769668808",
@@ -417,7 +417,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7425769701576",
@@ -431,7 +431,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7464445706440",
@@ -445,7 +445,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7465888776392",
@@ -459,7 +459,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7478354411720",
@@ -473,7 +473,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7480059232456",
@@ -487,7 +487,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7480059297992",
@@ -501,7 +501,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7480059330760",
@@ -515,7 +515,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7480059363528",
@@ -529,7 +529,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7505580622024",
@@ -543,7 +543,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7505604411592",
@@ -557,7 +557,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7513408405704",
@@ -571,7 +571,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7517066002632",
@@ -585,7 +585,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7546589708488",
@@ -599,7 +599,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7552665845960",
@@ -627,7 +627,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7570838126792",
@@ -641,7 +641,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7570838323400",
@@ -655,7 +655,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7570838388936",
@@ -669,7 +669,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7570988105928",
@@ -683,7 +683,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7572049592520",
@@ -697,7 +697,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7572049854664",
@@ -711,7 +711,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7573688058056",
@@ -725,7 +725,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7573688090824",
@@ -739,7 +739,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574741680328",
@@ -753,7 +753,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574937043144",
@@ -767,7 +767,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574937239752",
@@ -795,7 +795,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574938255560",
@@ -823,7 +823,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574941171912",
@@ -837,7 +837,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574941466824",
@@ -851,7 +851,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7574941565128",
@@ -865,7 +865,63 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "7590753829064",
+    "brand": "Taylor Swift Official",
+    "item": "1989 (Taylor's Version) Sunrise Boulevard Yellow Edition Deluxe CD",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/1989-taylors-version-sunrise-boulevard-yellow-edition-deluxe-cd",
+    "price": "$14.89",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/Tz6phztqiUgWOK4JtmqMN718XF2u8th5.png?v=1691644778",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "7590753894600",
+    "brand": "Taylor Swift Official",
+    "item": "1989 (Taylor's Version) Rose Garden Pink Edition Deluxe CD",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/1989-taylors-version-rose-garden-pink-edition-deluxe-cd",
+    "price": "$14.89",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/xLDBzCYufsoJyUrkrU3hZCB0KP11h14D.png?v=1691644771",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "7590753927368",
+    "brand": "Taylor Swift Official",
+    "item": "1989 (Taylor's Version) Aquamarine Green Edition Deluxe CD",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/1989-taylors-version-aquamarine-green-edition-deluxe-cd",
+    "price": "$14.89",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/co3H42Iv8k95tKnSLdhhxyKgUvBlTKNz.png?v=1691644726",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "7590753960136",
+    "brand": "Taylor Swift Official",
+    "item": "1989 (Taylor's Version) Crystal Skies Blue Edition Deluxe CD",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/1989-taylors-version-crystal-skies-blue-edition-deluxe-cd",
+    "price": "$14.89",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/MMDRPMsDZ5oiXY8sJ8LFF2WdJ7Nr4zJw.png?v=1691644757",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7590753992904",
@@ -879,7 +935,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7590754025672",
@@ -893,7 +949,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7598036484296",
@@ -907,7 +963,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7598036517064",
@@ -921,7 +977,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7598036582600",
@@ -935,7 +991,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7609636126920",
@@ -949,7 +1005,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7609656443080",
@@ -963,7 +1019,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7609675645128",
@@ -977,7 +1033,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7609701400776",
@@ -991,7 +1047,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656274120",
@@ -1005,7 +1061,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656339656",
@@ -1019,7 +1075,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656372424",
@@ -1033,7 +1089,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656437960",
@@ -1061,7 +1117,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656503496",
@@ -1089,7 +1145,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656634568",
@@ -1159,7 +1215,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7611656831176",
@@ -1187,7 +1243,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7622509396168",
@@ -1201,7 +1257,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7622509461704",
@@ -1215,7 +1271,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622299336",
@@ -1229,7 +1285,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622397640",
@@ -1257,7 +1313,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622594248",
@@ -1271,7 +1327,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622725320",
@@ -1285,7 +1341,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622758088",
@@ -1299,7 +1355,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622790856",
@@ -1313,7 +1369,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622823624",
@@ -1327,7 +1383,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622889160",
@@ -1341,7 +1397,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7628622921928",
@@ -1355,21 +1411,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
-  },
-  {
-    "sourceId": "7628622987464",
-    "brand": "Taylor Swift Official",
-    "item": "From The Vault Photo 1989 (Taylor's Version) Gray Hoodie",
-    "retailer": "store.taylorswift.com",
-    "url": "https://store.taylorswift.com/products/from-the-vault-photo-1989-taylors-version-gray-hoodie",
-    "price": "$64.89",
-    "inStock": false,
-    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/GCGBR6m1g3oBDrQ0lnqIJsZzOYGGs11B.png?v=1698344576",
-    "kind": "outerwear",
-    "discoveredVia": "shopify-sync",
-    "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-10-25T13:14:12.560Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7634797330632",
@@ -1383,7 +1425,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7642848755912",
@@ -1397,7 +1439,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7643885633736",
@@ -1411,7 +1453,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7644669640904",
@@ -1425,7 +1467,21 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "7645754327240",
+    "brand": "Taylor Swift Official",
+    "item": "Fearless (Taylor's Version) Bookends",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/fearless-taylors-version-bookends",
+    "price": "$55.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/UonvCLTtixcCs647xj9Cxf9ftMEmQBcS1.png?v=1794519556",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7655105069256",
@@ -1439,7 +1495,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7705952321736",
@@ -1453,7 +1509,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7705952354504",
@@ -1467,7 +1523,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734382657736",
@@ -1495,7 +1551,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734386294984",
@@ -1509,7 +1565,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734386491592",
@@ -1523,7 +1579,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734387278024",
@@ -1537,7 +1593,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734393897160",
@@ -1551,7 +1607,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734395142344",
@@ -1565,7 +1621,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734396190920",
@@ -1579,7 +1635,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734397862088",
@@ -1593,7 +1649,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734401106120",
@@ -1607,7 +1663,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734402646216",
@@ -1621,7 +1677,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7734404513992",
@@ -1635,7 +1691,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7742864752840",
@@ -1649,7 +1705,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7764540457160",
@@ -1663,7 +1719,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7767744676040",
@@ -1677,7 +1733,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7824827089096",
@@ -1705,7 +1761,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7877868323016",
@@ -1719,7 +1775,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7877869600968",
@@ -1733,7 +1789,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878086426824",
@@ -1747,7 +1803,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878096552136",
@@ -1761,7 +1817,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878111330504",
@@ -1775,7 +1831,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878113296584",
@@ -1789,7 +1845,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878119522504",
@@ -1803,7 +1859,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878127321288",
@@ -1817,7 +1873,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878130696392",
@@ -1831,7 +1887,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7878151274696",
@@ -1845,7 +1901,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7881461268680",
@@ -1859,7 +1915,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7881462382792",
@@ -1873,7 +1929,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7881463136456",
@@ -1887,7 +1943,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7893387935944",
@@ -1901,7 +1957,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7893390000328",
@@ -1915,7 +1971,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7893390753992",
@@ -1929,7 +1985,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7893396652232",
@@ -1943,7 +1999,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7899485667528",
@@ -1957,7 +2013,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7912347533512",
@@ -1971,7 +2027,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7912355463368",
@@ -1985,7 +2041,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7912359919816",
@@ -1999,7 +2055,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7915425890504",
@@ -2013,7 +2069,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "7947344609480",
@@ -2027,7 +2083,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8017900011720",
@@ -2041,7 +2097,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8017900699848",
@@ -2055,7 +2111,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8017901912264",
@@ -2072,6 +2128,20 @@ export const OFFICIAL = [
     "verifiedAt": "2026-11-17T17:40:53.846Z"
   },
   {
+    "sourceId": "8017902764232",
+    "brand": "Taylor Swift Official",
+    "item": "Folklore Album Cardigan Socks",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-socks",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/mn4cQNBkn7QAczz4WuJcOJvinIdNaKEJ-11.png?v=1794519050",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
     "sourceId": "8018105893064",
     "brand": "Taylor Swift Official",
     "item": "TTPD Black Embossed Hoodie",
@@ -2083,7 +2153,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8018106187976",
@@ -2097,7 +2167,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8018107007176",
@@ -2111,7 +2181,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8018107564232",
@@ -2125,7 +2195,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8018107990216",
@@ -2139,7 +2209,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8030082891976",
@@ -2153,7 +2223,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8030084497608",
@@ -2170,6 +2240,20 @@ export const OFFICIAL = [
     "verifiedAt": "2026-11-17T17:40:53.846Z"
   },
   {
+    "sourceId": "8030086070472",
+    "brand": "Taylor Swift Official",
+    "item": "Self-Titled Friday Night Beneath The Stars Keychain Pouch",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/self-titled-friday-night-beneath-the-stars-keychain-pouch",
+    "price": "$20.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/uyVUDQFyuF5VMS8fRrQDSXI1o7FfazfO-11.png?v=1794519840",
+    "kind": "collectible",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
     "sourceId": "8030090232008",
     "brand": "Taylor Swift Official",
     "item": "Cowboy Like Me Work Jacket",
@@ -2181,7 +2265,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8031735513288",
@@ -2209,7 +2293,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8037413060808",
@@ -2223,7 +2307,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8037416861896",
@@ -2237,7 +2321,21 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8037437505736",
+    "brand": "Taylor Swift Official",
+    "item": "Fearless (Taylor's Version) Head First, Fearless Journal",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/fearless-taylors-version-head-first-fearless-journal",
+    "price": "$30.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/xBK72fN660JcnnTRhKmeisuOVJyYkjOV-11.png?v=1794519719",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8038525796552",
@@ -2254,6 +2352,34 @@ export const OFFICIAL = [
     "verifiedAt": "2026-11-17T17:40:53.846Z"
   },
   {
+    "sourceId": "8038541852872",
+    "brand": "Taylor Swift Official",
+    "item": "I Almost Jumped In Pajama Set",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-almost-jumped-in-pajama-set",
+    "price": "$75.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/GVnDJ1VEE9HGZ1gLseRzgvONDVxLo4TQ-11.png?v=1794519106",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8038553977032",
+    "brand": "Taylor Swift Official",
+    "item": "You'll Always Know Me T-Shirt",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/youll-always-know-me-t-shirt",
+    "price": "$40.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/KIDi2Hbra7lTGao1aDu2Ive02Jr9uGEz-11.png?v=1794519394",
+    "kind": "top",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
     "sourceId": "8038587072712",
     "brand": "Taylor Swift Official",
     "item": "Sparking Up My Darkest Night Crewneck",
@@ -2265,7 +2391,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8038636585160",
@@ -2279,7 +2405,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8038640910536",
@@ -2307,7 +2433,35 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8038675939528",
+    "brand": "Taylor Swift Official",
+    "item": "Self-Titled Danced All Night Long Kanga Pocket Crewneck",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/self-titled-danced-all-night-long-kanga-pocket-crewneck",
+    "price": "$65.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/fDTn0mR1VpoOLC7NBXmGLrF3ePs42PcT-1.png?v=1731508181",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8039339131080",
+    "brand": "Taylor Swift Official",
+    "item": "Fancy Shit Table Runner",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/fancy-shit-table-runner",
+    "price": "$45.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/legGgVXHOgjRCaLCSNiJrH9ieeO0XVGZ-11.png?v=1794518986",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8039353974984",
@@ -2321,7 +2475,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8040221638856",
@@ -2335,7 +2489,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8045837353160",
@@ -2349,7 +2503,63 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8047046492360",
+    "brand": "Taylor Swift Official",
+    "item": "Fearless (Taylor's Version) Dance In a Storm Hoodie",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/fearless-taylors-version-dance-in-a-storm-hoodie",
+    "price": "$75.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/wNAnj5ivl37Kq65JfICVx3uOYT9tRkyt-1_1.png?v=1749665235",
+    "kind": "outerwear",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8047049212104",
+    "brand": "Taylor Swift Official",
+    "item": "Speak Now (Taylor's Version) Stars Align Longsleeve T-Shirt",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/speak-now-taylors-version-stars-align-longsleeve-t-shirt",
+    "price": "$50.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/gKysSjwsrbGZEuRm5iVcTB46TMtk2aPF-1.png?v=1731508384",
+    "kind": "top",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8051752075464",
+    "brand": "Taylor Swift Official",
+    "item": "Taylor's Version Phone Ring",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/taylors-version-phone-ring",
+    "price": "$15.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/J8VVGBGhFEthLWgk2n1QsdMr0j5MTa2n1.png?v=1794519299",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8051758366920",
+    "brand": "Taylor Swift Official",
+    "item": "Taylor's Version Tote Bag",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/taylors-version-tote-bag",
+    "price": "$35.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/GmBqVUV1Xer69qXxzXGurGwrgAAu3FnZ1.png?v=1794519347",
+    "kind": "bag",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8077649576136",
@@ -2363,7 +2573,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8159817662664",
@@ -2377,7 +2587,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8159859146952",
@@ -2391,7 +2601,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8159860392136",
@@ -2405,7 +2615,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8159860949192",
@@ -2419,7 +2629,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8159874941128",
@@ -2433,7 +2643,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8161331937480",
@@ -2447,7 +2657,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8168327119048",
@@ -2461,7 +2671,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8168328921288",
@@ -2475,7 +2685,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8168329707720",
@@ -2489,7 +2699,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176422781128",
@@ -2503,7 +2713,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176423403720",
@@ -2517,7 +2727,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176424157384",
@@ -2531,7 +2741,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176424288456",
@@ -2545,7 +2755,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176424943816",
@@ -2559,7 +2769,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176425828552",
@@ -2573,7 +2783,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176427303112",
@@ -2587,7 +2797,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176428155080",
@@ -2601,7 +2811,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176428679368",
@@ -2615,7 +2825,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176431268040",
@@ -2643,7 +2853,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176435790024",
@@ -2657,7 +2867,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8176439427272",
@@ -2685,7 +2895,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8192758448328",
@@ -2699,7 +2909,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8192760053960",
@@ -2713,7 +2923,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8192761495752",
@@ -2727,7 +2937,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8192761987272",
@@ -2755,7 +2965,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8196463362248",
@@ -2769,7 +2979,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8196463591624",
@@ -2783,7 +2993,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8232089747656",
@@ -2797,7 +3007,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8232089780424",
@@ -2811,7 +3021,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8232089813192",
@@ -2825,7 +3035,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8232908718280",
@@ -2839,7 +3049,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8232909177032",
@@ -2853,7 +3063,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8232910553288",
@@ -2867,7 +3077,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8233870000328",
@@ -2881,7 +3091,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8233870295240",
@@ -2895,7 +3105,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234052387016",
@@ -2909,7 +3119,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234052452552",
@@ -2937,7 +3147,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234052583624",
@@ -2951,7 +3161,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234052911304",
@@ -2965,7 +3175,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234063888584",
@@ -2979,7 +3189,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234064904392",
@@ -2993,7 +3203,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234065690824",
@@ -3007,7 +3217,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234066641096",
@@ -3021,7 +3231,21 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8234070081736",
+    "brand": "Taylor Swift Official",
+    "item": "Folklore Album Ear Muffs",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-ear-muffs",
+    "price": "$35.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-35WJLPYX.webp?v=1763046888",
+    "kind": "collectible",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8234070376648",
@@ -3049,7 +3273,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234078011592",
@@ -3063,7 +3287,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234084008136",
@@ -3077,7 +3301,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234085515464",
@@ -3091,7 +3315,21 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8234085875912",
+    "brand": "Taylor Swift Official",
+    "item": "Taylor Swift Album Mini Backpack Purse",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/taylor-swift-album-mini-backpack-purse",
+    "price": "$60.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-QFJ7V73L.webp?v=1763049792",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234086727880",
@@ -3105,7 +3343,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234089414856",
@@ -3119,7 +3357,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234090627272",
@@ -3133,7 +3371,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234092363976",
@@ -3147,7 +3385,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234092429512",
@@ -3161,7 +3399,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234092658888",
@@ -3170,12 +3408,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/we-are-never-ever-ever-getting-back-together-pajama-set",
     "price": "$75.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-BIMINE87.webp?v=1763050222",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8234237919432",
@@ -3184,12 +3422,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/a-lot-going-on-at-the-moment-sweater",
     "price": "$75.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-LELXON46.webp?v=1763046615",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234387898568",
@@ -3198,12 +3436,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/all-too-well-lurex-red-scarf",
     "price": "$40.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-X4OCY71G.webp?v=1763046653",
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8234390028488",
@@ -3217,7 +3455,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234397696200",
@@ -3231,7 +3469,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234404446408",
@@ -3245,7 +3483,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234405134536",
@@ -3259,7 +3497,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234405724360",
@@ -3273,7 +3511,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8234406052040",
@@ -3287,7 +3525,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8235113119944",
@@ -3301,7 +3539,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8235118723272",
@@ -3315,7 +3553,35 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8235154538696",
+    "brand": "Taylor Swift Official",
+    "item": "Speak Now (Taylor's Version) Sparks Fly Earrings",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/speak-now-taylors-version-sparks-fly-earrings",
+    "price": "$35.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-JV1E85EI.webp?v=1763049267",
+    "kind": "jewelry",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8235156701384",
+    "brand": "Taylor Swift Official",
+    "item": "How The Kingdom Lights Shined Just For Me And You Blanket",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/how-the-kingdom-lights-shined-just-for-me-and-you-blanket",
+    "price": "$75.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-R3KBCBY4.webp?v=1763047010",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8235160633544",
@@ -3329,7 +3595,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8236045402312",
@@ -3343,7 +3609,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8236052218056",
@@ -3357,7 +3623,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8236052480200",
@@ -3388,6 +3654,20 @@ export const OFFICIAL = [
     "verifiedAt": "2026-11-17T17:40:53.846Z"
   },
   {
+    "sourceId": "8236053332168",
+    "brand": "Taylor Swift Official",
+    "item": "Long Live All The Magic We Made Acoustic Piano Door Mat",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/long-live-all-the-magic-we-made-acoustic-piano-door-mat",
+    "price": "$55.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-aKEAWTJad4.webp?v=1763474263",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
     "sourceId": "8236053496008",
     "brand": "Taylor Swift Official",
     "item": "Taylor Swift | The Eras Tour Acoustic Piano Woven Blanket",
@@ -3414,6 +3694,104 @@ export const OFFICIAL = [
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
     "verifiedAt": "2026-11-17T17:40:53.846Z"
+  },
+  {
+    "sourceId": "8236055036104",
+    "brand": "Taylor Swift Official",
+    "item": "Midnights Album Cardigan Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/midnights-album-cardigan-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-N9YRU5LL.webp?v=1763048224",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236055429320",
+    "brand": "Taylor Swift Official",
+    "item": "My Tears Ricochet Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/my-tears-ricochet-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-S9KNZM4R.webp?v=1763048422",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236055527624",
+    "brand": "Taylor Swift Official",
+    "item": "The Afternoon Train Folklore Album Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/the-afternoon-train-folklore-album-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-R89317TA.webp?v=1763049815",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236055757000",
+    "brand": "Taylor Swift Official",
+    "item": "But You Tolerate It Table Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/but-you-tolerate-it-table-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-A3K0OQZW.webp?v=1763046749",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236057034952",
+    "brand": "Taylor Swift Official",
+    "item": "Lover Album Cardigan Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/lover-album-cardigan-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-GIXQRN2K.webp?v=1763048036",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236057624776",
+    "brand": "Taylor Swift Official",
+    "item": "Taylor Swift Album Boot Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/taylor-swift-album-boot-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-55IRWAZJ.webp?v=1763049719",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8236057788616",
+    "brand": "Taylor Swift Official",
+    "item": "Turn The Radio Down Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/turn-the-radio-down-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-4JTKYSIQ.webp?v=1763050191",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8236057985224",
@@ -3497,7 +3875,119 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8236254036168",
+    "brand": "Taylor Swift Official",
+    "item": "TTPD Cardigan Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/ttpd-cardigan-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-TNL8CO6S_37ac5139-6f7b-4f3d-b6db-7f0d077f5948.webp?v=1763050128",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236254298312",
+    "brand": "Taylor Swift Official",
+    "item": "It's Fearless Heart Hands Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/its-fearless-heart-hands-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-QEQ1S35U.webp?v=1763047363",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8236254396616",
+    "brand": "Taylor Swift Official",
+    "item": "Fearless (Taylor's Version) Cardigan Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/fearless-taylors-version-cardigan-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-8AB9RBVM.webp?v=1763046799",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236254691528",
+    "brand": "Taylor Swift Official",
+    "item": "It's Too Late For You and Your White Horse Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/its-too-late-for-you-and-your-white-horse-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-DIFZDF8A.webp?v=1763047377",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8236254757064",
+    "brand": "Taylor Swift Official",
+    "item": "I Was Enchanted To Meet You Dress Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-was-enchanted-to-meet-you-dress-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-BPX31428.webp?v=1763047249",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8236254888136",
+    "brand": "Taylor Swift Official",
+    "item": "Speak Now (Taylor's Version) 13 Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/speak-now-taylors-version-13-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-UU8VRLQH.webp?v=1763049158",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8236255314120",
+    "brand": "Taylor Swift Official",
+    "item": "In My Heart Is A Christmas Tree Farm Truck Ornament",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/in-my-heart-is-a-christmas-tree-farm-truck-ornament",
+    "price": "$25.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-CVJ3C5YT.webp?v=1763047318",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8236255412424",
+    "brand": "Taylor Swift Official",
+    "item": "Mini Cardigan Ornament Set",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/mini-cardigan-ornament-set",
+    "price": "$45.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1-BI2LSJKC.png?v=1763048305",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8238942912712",
@@ -3511,7 +4001,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238944485576",
@@ -3525,7 +4015,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238944911560",
@@ -3539,7 +4029,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238945403080",
@@ -3553,7 +4043,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238945927368",
@@ -3567,7 +4057,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238946222280",
@@ -3581,7 +4071,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238946451656",
@@ -3595,7 +4085,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238946943176",
@@ -3609,7 +4099,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238947467464",
@@ -3623,7 +4113,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238947926216",
@@ -3637,7 +4127,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238948221128",
@@ -3651,7 +4141,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238948614344",
@@ -3665,7 +4155,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238949040328",
@@ -3679,7 +4169,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238950285512",
@@ -3693,7 +4183,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238950547656",
@@ -3707,7 +4197,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238951203016",
@@ -3721,7 +4211,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238951301320",
@@ -3735,7 +4225,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238951563464",
@@ -3749,7 +4239,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238951661768",
@@ -3763,7 +4253,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238952218824",
@@ -3791,7 +4281,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8238952612040",
@@ -3818,7 +4308,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239061434568",
@@ -3831,7 +4321,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239062089928",
@@ -3845,7 +4335,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239062286536",
@@ -3859,7 +4349,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239062450376",
@@ -3873,7 +4363,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239062515912",
@@ -3887,7 +4377,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239062614216",
@@ -3901,7 +4391,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239063040200",
@@ -3915,7 +4405,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239063630024",
@@ -3943,7 +4433,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8239848653000",
@@ -3957,7 +4447,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8240029728968",
@@ -3971,7 +4461,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8240068427976",
@@ -3985,7 +4475,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8240068526280",
@@ -3999,7 +4489,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8240654319816",
@@ -4013,7 +4503,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8245200683208",
@@ -4027,7 +4517,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8245685059784",
@@ -4041,7 +4531,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269488357576",
@@ -4055,7 +4545,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269489733832",
@@ -4069,7 +4559,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269489799368",
@@ -4120,12 +4610,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/1989-pink-seagull-tank",
     "price": "$40.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/1PSTank1.webp?v=1781620435",
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-18T02:29:30.532Z"
   },
   {
     "sourceId": "8269558743240",
@@ -4139,7 +4629,21 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8269560709320",
+    "brand": "Taylor Swift Official",
+    "item": "My Waves Meet Your Shore Cropped Tee",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/my-waves-meet-your-shore-cropped-tee",
+    "price": "$40.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/MWMYSTee1.webp?v=1781620479",
+    "kind": "top",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8269561921736",
@@ -4153,7 +4657,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269562118344",
@@ -4167,7 +4671,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269562380488",
@@ -4181,7 +4685,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269562642632",
@@ -4195,7 +4699,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269563461832",
@@ -4209,7 +4713,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269590397128",
@@ -4223,7 +4727,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269590888648",
@@ -4237,7 +4741,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269591314632",
@@ -4251,7 +4755,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269592559816",
@@ -4279,7 +4783,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269593215176",
@@ -4293,7 +4797,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269593346248",
@@ -4307,7 +4811,21 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8269593411784",
+    "brand": "Taylor Swift Official",
+    "item": "Taylor Swift Hair Tie Set",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/taylor-swift-hair-tie-set",
+    "price": "$20.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/TSHTSet1.webp?v=1781621245",
+    "kind": "collectible",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269593608392",
@@ -4321,7 +4839,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269593641160",
@@ -4335,7 +4853,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269593706696",
@@ -4363,7 +4881,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269593837768",
@@ -4377,7 +4895,21 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8269593936072",
+    "brand": "Taylor Swift Official",
+    "item": "Marvelous Time Ruining Everything Tote",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/marvelous-time-ruining-everything-tote",
+    "price": "$55.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/MTRETote1.webp?v=1781620502",
+    "kind": "bag",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   },
   {
     "sourceId": "8269593968840",
@@ -4405,7 +4937,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269594198216",
@@ -4419,7 +4951,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269594263752",
@@ -4447,7 +4979,7 @@ export const OFFICIAL = [
     "kind": "shoes",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269594689736",
@@ -4461,7 +4993,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269594919112",
@@ -4475,7 +5007,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269595082952",
@@ -4489,7 +5021,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269595246792",
@@ -4503,7 +5035,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8269595312328",
@@ -4517,7 +5049,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8272252960968",
@@ -4531,7 +5063,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317864673480",
@@ -4545,7 +5077,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317864804552",
@@ -4559,7 +5091,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317864968392",
@@ -4573,7 +5105,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317865165000",
@@ -4587,7 +5119,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317865394376",
@@ -4601,7 +5133,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317865558216",
@@ -4615,7 +5147,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317865754824",
@@ -4629,7 +5161,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317867720904",
@@ -4643,7 +5175,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317873422536",
@@ -4657,7 +5189,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317874995400",
@@ -4671,7 +5203,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317877354696",
@@ -4685,7 +5217,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317879091400",
@@ -4699,7 +5231,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317880041672",
@@ -4713,7 +5245,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8317881843912",
@@ -4727,7 +5259,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318246191304",
@@ -4741,7 +5273,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318246289608",
@@ -4755,7 +5287,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318246387912",
@@ -4769,7 +5301,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318246584520",
@@ -4783,7 +5315,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318246650056",
@@ -4797,7 +5329,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318247010504",
@@ -4811,7 +5343,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318250418376",
@@ -4825,7 +5357,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318251598024",
@@ -4839,7 +5371,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318255431880",
@@ -4853,7 +5385,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318255661256",
@@ -4867,7 +5399,7 @@ export const OFFICIAL = [
     "kind": "dress",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318368973000",
@@ -4881,7 +5413,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318369366216",
@@ -4895,7 +5427,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318369595592",
@@ -4909,7 +5441,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318369693896",
@@ -4923,7 +5455,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318369857736",
@@ -4937,7 +5469,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370185416",
@@ -4951,7 +5483,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370316488",
@@ -4965,7 +5497,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370349256",
@@ -4979,7 +5511,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370480328",
@@ -4993,7 +5525,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370742472",
@@ -5007,7 +5539,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370808008",
@@ -5021,7 +5553,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370873544",
@@ -5035,7 +5567,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318370939080",
@@ -5044,12 +5576,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/the-fate-of-ophelia-vinyl-record-case",
     "price": "$95.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_LOAS_8385312400_LAYFLAT_001_R1.webp?v=1794583403",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371102920",
@@ -5063,7 +5595,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371135688",
@@ -5077,7 +5609,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371233992",
@@ -5091,7 +5623,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371332296",
@@ -5105,7 +5637,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371430600",
@@ -5114,12 +5646,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/cruel-summer-fleece-onesie",
     "price": "$85.00",
-    "inStock": false,
+    "inStock": true,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_LOVER_8385312423_LAYFLAT_001_alt_R2.webp?v=1794583550",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371594440",
@@ -5133,7 +5665,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371823816",
@@ -5147,7 +5679,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318371889352",
@@ -5161,7 +5693,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318372020424",
@@ -5175,7 +5707,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8318372053192",
@@ -5189,7 +5721,49 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8319278547144",
+    "brand": "Taylor Swift Official",
+    "item": "“I Knew It, I Knew You” CD Single with Double-Sided Cover",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-knew-it-i-knew-you-cd-single-with-double-sided-cover",
+    "price": "$3.99",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/CD1_S.png?v=1780333239",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8319278645448",
+    "brand": "Taylor Swift Official",
+    "item": "“I Knew It, I Knew You (Acoustic Version)” CD Single with Double-Sided Cover",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-knew-it-i-knew-you-acoustic-version-cd-single-with-double-sided-cover",
+    "price": "$3.99",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/CD2_A.png?v=1780333296",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8319278678216",
+    "brand": "Taylor Swift Official",
+    "item": "“I Knew It, I Knew You (Piano Version)” CD Single with Double-Sided Cover",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-knew-it-i-knew-you-piano-version-cd-single-with-double-sided-cover",
+    "price": "$3.99",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/CD3_P.png?v=1780333387",
+    "kind": "music",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319710167240",
@@ -5203,7 +5777,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319710265544",
@@ -5217,7 +5791,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319710593224",
@@ -5231,7 +5805,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319710855368",
@@ -5245,7 +5819,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319710920904",
@@ -5259,7 +5833,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319710953672",
@@ -5273,7 +5847,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319715311816",
@@ -5287,7 +5861,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319715410120",
@@ -5301,7 +5875,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319715442888",
@@ -5315,7 +5889,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319916081352",
@@ -5329,7 +5903,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319971721416",
@@ -5343,7 +5917,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319972049096",
@@ -5357,7 +5931,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319972114632",
@@ -5371,7 +5945,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319972409544",
@@ -5385,7 +5959,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319972638920",
@@ -5399,7 +5973,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8319972769992",
@@ -5413,7 +5987,35 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8320263389384",
+    "brand": "Taylor Swift Official",
+    "item": "“I Knew It, I Knew You” 10” Vinyl (Jessie’s Sheriff Badge)",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-knew-it-i-knew-you-10-vinyl-jessie-s-sheriff-badge",
+    "price": "$24.99",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/STAR1.png?v=1780595199",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8320263553224",
+    "brand": "Taylor Swift Official",
+    "item": "“I Knew It, I Knew You” 10” Vinyl (Jessie’s Hat)",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/i-knew-it-i-knew-you-10-vinyl-jessie-s-hat",
+    "price": "$24.99",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/001DBB6D-4B00-4DEA-8164-2B4318F50908.png?v=1780595260",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8320746029256",
@@ -5427,7 +6029,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8320746062024",
@@ -5441,7 +6043,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322196537544",
@@ -5455,7 +6057,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322197061832",
@@ -5469,7 +6071,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322197618888",
@@ -5483,7 +6085,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322198733000",
@@ -5497,7 +6099,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322199322824",
@@ -5511,7 +6113,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322199847112",
@@ -5525,7 +6127,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322200076488",
@@ -5534,12 +6136,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/capture-it-remember-it-velvet-pillow",
     "price": "$50.00",
-    "inStock": false,
+    "inStock": true,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_Fearless_8385312671_LAYFLAT_001_R2.webp?v=1794584176",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322200338632",
@@ -5553,7 +6155,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322200862920",
@@ -5567,7 +6169,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322201485512",
@@ -5581,7 +6183,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322202468552",
@@ -5595,7 +6197,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322202894536",
@@ -5609,7 +6211,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322203386056",
@@ -5623,7 +6225,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-16T18:39:02.202Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322203549896",
@@ -5637,7 +6239,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322204270792",
@@ -5651,7 +6253,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322204500168",
@@ -5665,7 +6267,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8322204893384",
@@ -5679,7 +6281,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323479568584",
@@ -5693,7 +6295,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323479634120",
@@ -5707,7 +6309,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323479797960",
@@ -5721,7 +6323,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323479896264",
@@ -5735,7 +6337,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323479994568",
@@ -5749,7 +6351,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323480092872",
@@ -5763,7 +6365,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323480355016",
@@ -5777,7 +6379,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323480453320",
@@ -5791,7 +6393,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323480617160",
@@ -5805,7 +6407,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323480879304",
@@ -5819,7 +6421,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323480977608",
@@ -5833,7 +6435,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481075912",
@@ -5847,7 +6449,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481174216",
@@ -5861,7 +6463,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481305288",
@@ -5875,7 +6477,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481403592",
@@ -5889,7 +6491,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481501896",
@@ -5903,7 +6505,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481632968",
@@ -5917,7 +6519,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323481993416",
@@ -5931,7 +6533,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323482091720",
@@ -5945,7 +6547,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323482321096",
@@ -5954,12 +6556,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/old-pickup-truck-glass-ornament",
     "price": "$25.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_Debut_8385312841_LAYFLAT_002_R4.webp?v=1794587476",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323482517704",
@@ -5973,7 +6575,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323482779848",
@@ -5987,7 +6589,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323482910920",
@@ -6001,7 +6603,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323483173064",
@@ -6015,7 +6617,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323483238600",
@@ -6029,7 +6631,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323483893960",
@@ -6043,7 +6645,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323484025032",
@@ -6057,7 +6659,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323484221640",
@@ -6071,7 +6673,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323484680392",
@@ -6085,7 +6687,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323484844232",
@@ -6099,7 +6701,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323484942536",
@@ -6113,7 +6715,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323485204680",
@@ -6127,7 +6729,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323485434056",
@@ -6141,7 +6743,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323485532360",
@@ -6155,7 +6757,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323485696200",
@@ -6169,7 +6771,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323500245192",
@@ -6183,7 +6785,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323945201864",
@@ -6197,7 +6799,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323945496776",
@@ -6211,7 +6813,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8323945693384",
@@ -6225,7 +6827,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8324044030152",
@@ -6332,12 +6934,292 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/acoustic-piano-metallic-wrapping-paper",
     "price": "$20.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_PianoCollection_8385313461_LAYFLAT_004_R1.webp?v=1794848034",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-16T18:39:02.202Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-18T02:29:30.532Z"
+  },
+  {
+    "sourceId": "8324047536328",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Zip-Up Hooded Sweater",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-zip-up-hooded-sweater",
+    "price": "$85.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313012_LAYFLAT_001_R1.webp?v=1794935767",
+    "kind": "knitwear",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8324047569096",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Pants",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-pants",
+    "price": "$85.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313022_LAYFLAT_001__9687_R4.webp?v=1794935717",
+    "kind": "bottom",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324047831240",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Robe",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-robe",
+    "price": "$95.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313033_LAYFLAT_001__9721_R3.webp?v=1794935665",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324048355528",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Shorts",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-shorts",
+    "price": "$65.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313062_LAYFLAT_001_R2.webp?v=1794935620",
+    "kind": "bottom",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324049305800",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Keychain",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-keychain",
+    "price": "$35.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313070_LAYFLAT_001_R2.webp?v=1794935574",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8324053795016",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Mug",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-mug",
+    "price": "$35.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313071_LAYFLAT_001_R2.webp?v=1794935527",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8324053860552",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Blanket",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-blanket",
+    "price": "$85.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313080_LAYFLAT_001_5507_R1.webp?v=1794935469",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324054188232",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Slipper Socks",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-slipper-socks",
+    "price": "$40.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313081_LAYFLAT_001_R4.webp?v=1794935422",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324054319304",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Bucket Hat",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-bucket-hat",
+    "price": "$40.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313090_LAYFLAT_001_R3.webp?v=1794935371",
+    "kind": "hat",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324054417608",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Mittens",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-mittens",
+    "price": "$40.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_Fearless_8385312670_LAYFLAT_001_1273_R1.webp?v=1794935212",
+    "kind": "collectible",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-19T01:55:35.560Z"
+  },
+  {
+    "sourceId": "8324054483144",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Pet Sweater",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-pet-sweater",
+    "price": "$45.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313432_LAYFLAT_001_180_R4.webp?v=1794935151",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
+  },
+  {
+    "sourceId": "8324054876360",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Sweater",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-sweater",
+    "price": "$80.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313102_LAYFLAT_001_R2.webp?v=1795021614",
+    "kind": "knitwear",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324064018632",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Hoodie",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-hoodie",
+    "price": "$75.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313113_LAYFLAT_001_R3.webp?v=1795021620",
+    "kind": "outerwear",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324064575688",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat T-Shirt",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-t-shirt",
+    "price": "$45.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313133_LAYFLAT_001_R2.webp?v=1795021626",
+    "kind": "top",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324065099976",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Pajama Set",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-pajama-set",
+    "price": "$85.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313152_LAYFLAT_001_R1.webp?v=1795021635",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324065165512",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Knit Beanie",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-knit-beanie",
+    "price": "$35.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollective_8385313160_LAYFLAT_001_R1.webp?v=1795021638",
+    "kind": "hat",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324065427656",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Pillow",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-pillow",
+    "price": "$55.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313161_LAYFLAT_001_R2.webp?v=1795022121",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324065853640",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Blanket",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-blanket",
+    "price": "$85.00",
+    "inStock": true,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313170_LAYFLAT_001_R2.webp?v=1795021643",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324066115784",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Bag Charm",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-bag-charm",
+    "price": "$35.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313171_LAYFLAT_001_focus_R1.webp?v=1795021649",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8324066279624",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cat Ceramic Mug",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cat-ceramic-mug",
+    "price": "$35.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCatCollection_8385313180_LAYFLAT_001_R2.webp?v=1795021654",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-19T01:55:35.560Z",
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8336058548424",
@@ -6351,7 +7233,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8336058581192",
@@ -6365,7 +7247,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8336058613960",
@@ -6379,7 +7261,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8336058646728",
@@ -6393,7 +7275,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8343682744520",
@@ -6407,7 +7289,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8344180719816",
@@ -6421,7 +7303,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-06T01:21:06.994Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8344195399880",
@@ -6435,7 +7317,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-06T01:21:06.994Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8346225639624",
@@ -6449,7 +7331,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8346225770696",
@@ -6463,7 +7345,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8346225803464",
@@ -6477,7 +7359,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8346356777160",
@@ -6491,7 +7373,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-10T00:05:55.086Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8346356842696",
@@ -6505,7 +7387,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-10T00:05:55.086Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8348189130952",
@@ -6519,7 +7401,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8348821684424",
@@ -6533,7 +7415,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8349705896136",
@@ -6547,7 +7429,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8350698275016",
@@ -6561,7 +7443,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8350698537160",
@@ -6575,7 +7457,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
   },
   {
     "sourceId": "8350698733768",
@@ -6589,7 +7471,21 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-17T17:40:53.846Z"
+    "verifiedAt": "2026-11-19T17:26:29.925Z"
+  },
+  {
+    "sourceId": "8350710366408",
+    "brand": "Taylor Swift Official",
+    "item": "folklore Album Cardigan Cable Knit Sweater Skirt",
+    "retailer": "store.taylorswift.com",
+    "url": "https://store.taylorswift.com/products/folklore-album-cardigan-cable-knit-sweater-skirt",
+    "price": "$65.00",
+    "inStock": false,
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_CardiganCollection_8385313052_LAYFLAT_001_209_R4.webp?v=1794935091",
+    "kind": "other",
+    "discoveredVia": "shopify-sync",
+    "discoveredAt": "2026-11-18T02:29:30.532Z",
+    "verifiedAt": "2026-11-18T17:20:01.355Z"
   }
 ];
 

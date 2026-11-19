@@ -7,7 +7,7 @@ export const IMAGE_KIND_BADGE: Record<Exclude<ImageKind, 'primary'>, string> = {
   archival: 'Archival',
 };
 export const IMAGE_KIND_NOTE: Record<Exclude<ImageKind, 'primary'>, string> = {
-  reference: 'For reference — the real photo hasn’t surfaced yet.',
+  reference: 'The real photo hasn’t surfaced yet.',
   archival: 'Archival.',
 };
 
