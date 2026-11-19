@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Stuns in Yellow Gown at CMA Awards
+
+- first seen: 2026-11-19 01:57 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made a statement at the CMA Awards with her striking yellow gown featuring a dramatic high-low hem and ruffles. The gown captured attention for its bold design and elegant styling.
+- sources:
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74426453/taylor-swift-red-carpet-photos-cma-awards-2026/
+
+## Taylor Swift's Glamorous Return to CMA Awards After 10 Years
+
+- first seen: 2026-11-19 01:57 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a stunning appearance at the CMA Awards, her first in a decade. She dazzled attendees with her fashionable outfit, drawing attention for her 'daydream' look.
+- sources:
+  - [unverified] E! News — https://www.eonline.com/news/1438190/cma-awards-2026-taylor-swift-makes-first-appearance-in-10-years
+
+## Ella Langley's 'Choosin' Texas' Wins Single of the Year at CMAs
+
+- first seen: 2026-11-19 01:57 UTC | category: music | importance: 6
+- verification_status: single_source | source_count: 1
+- summary: At the CMAs, Ella Langley's song 'Choosin' Texas' won Single of the Year, surpassing Taylor Swift's 'I Knew It, I Knew You.' Alabama country star reflects on the collaborative process behind their award-winning work.
+- sources:
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/ella-langley-choosin-texas-single-of-the-year-cmas-1235658140/
+
+## Taylor Swift Wears Striking Yellow Gown at CMA Awards Red Carpet
+
+- first seen: 2026-11-19 01:57 UTC | category: fashion | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift made a stunning appearance at the CMA Awards, showcasing a striking yellow gown on the red carpet. Her fashion choice has garnered attention at the event.
+- sources:
+  - [unverified] TODAY.com — https://www.today.com/popculture/taylor-swift-cma-awards-red-carpet-2026-rcna610126
+
 ## Taylor Swift Attends 2026 CMAs in Neon Yellow Gown
 
 - first seen: 2026-11-19 00:57 UTC | category: fashion | importance: 6
@@ -34,17 +66,6 @@ Stories: 120
 - summary: Taylor Swift made a stunning appearance at the 2026 CMAs, wearing a vibrant neon yellow gown that caught the attention of many. The event showcased her fashion choices alongside her musical presence.
 - sources:
   - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a74470165/taylor-swift-2026-yellow-cmas-dress/
-
-## Taylor Swift Appears at 2026 CMA Awards Before Performance
-
-- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 4
-- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
-- sources:
-  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
-  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
-  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
 
 ## Taylor Swift Stuns at CMA Awards in Unique Color After 10 Years
 
@@ -85,6 +106,18 @@ Stories: 120
 - summary: Taylor Swift attended the 2026 CMA Awards in a striking yellow gown from Oscar de la Renta's spring 2027 collection, marking her return to the ceremony after ten years.
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
+
+## Taylor Swift Appears at 2026 CMA Awards Before Performance
+
+- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 5
+- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
+- sources:
+  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
+  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
+  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
+  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
 
 ## 16 Artists Considered for Next Bond Theme Including Taylor Swift
 
@@ -225,10 +258,11 @@ Stories: 120
 ## Travis Kelce's Notable Performances at Arrowhead Stadium Featured
 
 - first seen: 2026-11-18 11:27 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: A highlight reel of Travis Kelce's significant moments while playing at Arrowhead Stadium has been compiled by ESPN, showcasing his achievements as a tight end for the Kansas City Chiefs.
 - sources:
   - [unverified] ESPN — https://www.espn.com/nfl/story/_/id/50513358/chiefs-travis-kelce-100-games-arrowhead-taylor-swift
+  - [unverified] Us Weekly — https://www.usmagazine.com/sports/news/travis-kelce-recalls-taylor-swift-attending-1st-chiefs-game/
   - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/chiefs-te-travis-kelce-lucky-175509835.html
 
 ## Taylor Swift Returns to CMA Awards After 13 Years
@@ -993,42 +1027,3 @@ Stories: 120
 - summary: Taylor Swift is among several artists, including Luke Combs and Chris Stapleton, added to the performer lineup for the 2026 CMA Awards.
 - sources:
   - [unverified] CelebrityAccess — https://celebrityaccess.com/2026/11/16/taylor-swift-luke-combs-chris-stapleton-and-more-added-to-2026-cma-awards-performer-lineup/
-
-## Taylor Swift's The Life of a Showgirl: The Encore Not Eligible for 2027 Grammys
-
-- first seen: 2026-11-16 11:47 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: E! News reports that Taylor Swift’s upcoming project, The Life of a Showgirl: The Encore, will not be eligible for the 2027 Grammy Awards. Details on the reasons behind this decision are yet to be clarified.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/why-taylor-swifts-em-showgirl-110000000.html
-  - [unverified] E! News — https://www.eonline.com/news/1438114/grammys-why-taylor-swifts-life-of-a-showgirl-the-encore-not-nominated
-  - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-2025-album-life-of-a-showgirl-nominated-2027-grammys-explainer-12253055
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMiaEFVX3lxTE55cVVfN29fZ3dfdE5WbVlIM1l4WTZQcVBUTFpjVzRjdEZGc2dMVTlHdlVQS1RoTHk3dmV0SnJzWXVTN1RnZEFJWTg1OVRQSnQ3ZEVJNFBzbVhNVWZGMjBVUEFid0VZTHlB?oc=5
-
-## Taylor Swift Set to Perform at CMA Awards After 13 Years
-
-- first seen: 2026-11-16 10:48 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift is confirmed to return to the CMA Awards stage for her first performance in 13 years, marking a significant moment for the artist and the awards event.
-- sources:
-  - [unverified] Full Access Magazine — https://www.fullaccessmagazine.com/2026/11/16/taylor-swift-cma-awards-2026-performance/
-  - [unverified] KTNN — https://www.ktnnonline.com/2026/11/16/taylor-swift-to-return-to-cma-awards-stage-for-first-performance-in-13-years/
-
-## Taylor Swift Misses Chiefs Game Amid Travis Kelce Injury Concerns
-
-- first seen: 2026-11-16 03:39 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Taylor Swift did not attend the recent Chiefs game, coinciding with concerns about Travis Kelce's injury. The situation raises questions, but details on their relationship remain unchanged for now.
-- sources:
-  - [unverified] Complex — https://www.complex.com/pop-culture/a/bernadette-giacomazzo/taylor-swift-dancer-travis-kelce-jason-kelce-dwts
-  - [unverified] InStyle — https://www.instyle.com/ice-spice-friendship-with-millie-bobby-brown-after-taylor-swift-travis-kelce-wedding-12259302
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMiiwFBVV95cUxPdXpzY3BGakRyZGxHR3lROFNRdk5tUkQwOEIyM0NqN2c5czU5Y0ZrZXJUdkY2X0NIbWpuV2xDVl9kSDFGelhKeTZJemtySC1JbFhLRDRqbmU2NlpiUDhBTFV4S3VmMWtEOXV3UDc4RVpMRzBHRnhEYVN6alRTN3gtdnVFV1F2MTQxVUNj?oc=5
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/taylor-swift-skips-chiefs-game-022154175.html
-
-## Travis Kelce Leaves Field Injured After Tackle
-
-- first seen: 2026-11-16 02:39 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce sustained an injury during a game, limping off the field following a brutal tackle. This incident raises concerns about his health and its impact on his relationship with Taylor Swift.
-- sources:
-  - [unverified] The Daily Beast — https://www.thedailybeast.com/travis-kelce-limps-off-field-after-brutal-tackle
