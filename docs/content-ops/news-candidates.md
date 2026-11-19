@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 117
+Stories: 112
 
 ## Taylor Swift's CMA Awards Performance Features Friends from Country Days
 
@@ -430,7 +430,7 @@ Stories: 117
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 26
+- verification_status: official | source_count: 27
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -446,6 +446,7 @@ Stories: 117
   - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
   - [unverified] FOX4KC.com — https://fox4kc.com/news/brittany-mahomes-joins-taylor-swift-at-cma-awards/
   - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
+  - [unverified] Los Angeles Times — https://www.latimes.com/entertainment-arts/music/story/2026-11-19/taylor-swift-returns-to-cmas-ella-langley-makes-history
   - [unverified] Page Six — https://pagesix.com/2026/11/19/style/taylor-swifts-third-cma-awards-2026-outfit-features-sequin-and-fringe-to-round/
   - [established] People — https://people.com/cma-awards-2026-full-recap-12263785
   - [established] Pitchfork — https://pitchfork.com/story/watch-taylor-swift-bring-our-song-medley-to-2026-cma-awards/
@@ -1003,43 +1004,3 @@ Stories: 117
 - summary: Taylor Swift has announced personal news in relation to the ongoing situation with Chiefs player Travis Kelce, who is currently injured. Further details about the announcement have not been disclosed in the snippet.
 - sources:
   - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-grammy-travis-kelce-injury-update/
-
-## Trump Critic Draws Comparison Between Swifties and MAGA Supporters
-
-- first seen: 2026-11-16 23:27 UTC | category: business | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: A critic of Donald Trump has made a controversial comparison between Taylor Swift fans and MAGA supporters in a recent article by The Daily Beast.
-- sources:
-  - [unverified] unknown — https://www.thedailybeast.com/obsessed/trump-nemesis-kathy-griffin-compares-swifties-to-maga-in-shocking-takedown
-
-## Kathy Griffin Criticizes Taylor Swift Fans' Humor
-
-- first seen: 2026-11-16 23:27 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Comedian Kathy Griffin has compared Taylor Swift fans to MAGA supporters, stating that she believes Swifties possess the 'worst sense of humor.' This comment has sparked discussion about the perceptions of fan communities.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/kathy-griffin-compares-taylor-swift-200747626.html
-
-## Ex-Dancer Suggests Travis Kelce for DWTS Amid One Concern
-
-- first seen: 2026-11-16 23:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A former dancer for Taylor Swift expressed interest in having NFL player Travis Kelce on 'Dancing with the Stars,' though there is a potential issue that needs addressing. Details on the concern were not provided in the report.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/articles/taylor-swift-ex-dancer-wants-220909937.html
-
-## Taylor Swift Receives Oscar Boost with Grammy Nominations Announced
-
-- first seen: 2026-11-16 23:27 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 0
-- summary: Taylor Swift, along with Charli XCX, received a boost for Oscar consideration as RAYE and Rosalia lead the 2027 Grammy Award nominations, according to The Playlist. Complete nomination details are available in the list.
-- sources:
-  - [unverified] unknown — https://theplaylist.net/raye-rosalia-2027-grammy-award-nominations-taylor-swift-charli-xcx-runway-20261116/
-
-## Taylor Swift Attends Chiefs Game, Fans Discuss Her Appearance
-
-- first seen: 2026-11-16 23:27 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift was present at a recent Chiefs game, leading fans to engage in discussions about the details of her appearance. The event has generated various opinions among her followers.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-chiefs-game-reunion/
