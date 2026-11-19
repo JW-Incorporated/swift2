@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "jurvetson (CC BY 2.0), via Openverse",
+  "mediaSource": "https://www.flickr.com/photos/44124348109@N01/53079631118",
+  "altText": [
+    "Taylor Swift photo: Taylor Swift Eras Tour"
+  ],
+  "scheduledAt": "2026-11-21T15:00:00Z",
+  "campaign": "heartbeat:event-news:cma-2026-performance-2026-11-18",
+  "photoId": "openverse-f6a09613-48d2-4498-87f6-be5915ddf294",
+  "media": [
+    "/social/library/photos/openverse-f6a09613-48d2-4498-87f6-be5915ddf294.jpg"
+  ],
+  "body": "OMG the CMAs on wednesday night 😭\n\nTaylor sang I Knew It, I Knew You and then turned it right into Our Song, from her very first album, on the stage of the 60th CMA Awards in Nashville.\n\nthirteen years since she last performed at the CMAs, and she walked back in holding the newest song and one of the oldest side by side. i am emotional about it, honestly.\n\nthe full performance is up on her own YouTube channel if you need to watch it as many times as i have.\n\nphoto: jurvetson (CC BY 2.0), via Openverse, from the Eras Tour\n\nhttps://www.longlivets.com/?utm_source=instagram&utm_medium=social&utm_campaign=news\n\n#taylorswift #cmaawards #swifties #longlive",
+  "why": "Instagram sibling for Taylor's I Knew It, I Knew You x Our Song performance at the 60th CMA Awards, 2026-11-18 (intake #7013). Sources: her own YouTube upload title; GMA/WSMV/Whiskey Riff for her last CMA performance being 2013. Free day 11-21 15:00Z, no displacement. No share hook forced; the rewatch line is the natural one.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Opens on the reaction, then the exact mashup and the 13-year gap since her last CMA performance, all sourced. The photo is a credited Eras Tour shot of Taylor at the mic, labelled honestly so nobody reads it as the CMA stage.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
