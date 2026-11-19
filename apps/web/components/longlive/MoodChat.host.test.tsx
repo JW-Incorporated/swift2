@@ -85,7 +85,7 @@ describe('MoodChat goes through the host apiFetch', () => {
     const realSetTimeout = globalThis.setTimeout;
     const timeouts: number[] = [];
     vi.stubGlobal('setTimeout', ((fn: () => void, ms?: number, ...rest: unknown[]) => {
-      if (ms === 8000) {
+      if (ms === 30_000) {
         timeouts.push(ms);
         return realSetTimeout(fn, 20);
       }
@@ -94,7 +94,7 @@ describe('MoodChat goes through the host apiFetch', () => {
     render(createElement(TestHostProvider, null, createElement(MoodChat)));
     send();
     await screen.findByText("That didn't go through. Try again in a moment?");
-    expect(timeouts).toEqual([8000]);
+    expect(timeouts).toEqual([30_000]);
     expect(screen.getByLabelText('How are you feeling?')).toHaveValue('happy');
   });
 });

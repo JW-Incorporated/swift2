@@ -6,7 +6,9 @@ import { Component, Suspense, lazy, useCallback, useState, type ComponentType, t
  * A code-split surface that survives its own chunk failing to load (offline
  * after first paint, a deploy that retired the chunk). The failure stays
  * inside this surface: an inline message with a retry that re-attempts the
- * import, while the rest of the reader keeps working. `next/dynamic` and a
+ * import, while the rest of the reader keeps working. Only a load failure is
+ * handled here; any other render error is rethrown to `app/error.tsx` so a
+ * bug is never reported as a download problem. `next/dynamic` and a
  * bare `React.lazy` both cache the rejected import, so every retry builds a
  * fresh lazy component.
  */
@@ -33,24 +35,39 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
   );
 }
 
-class LoadBoundary extends Component<{ onRetry: () => void; children: ReactNode }, { failed: boolean }> {
-  state = { failed: false };
+const importFailures = new WeakSet<object>();
+const LOAD_FAILURE_MESSAGE = /ChunkLoadError|Loading chunk|Failed to load chunk|dynamically imported module|error loading dynamically imported|Importing a module script failed/i;
 
-  static getDerivedStateFromError() {
-    return { failed: true };
+/** A chunk or import that failed to load, as opposed to a bug in the component once it rendered. */
+export function isLoadFailure(error: unknown): boolean {
+  if (typeof error !== 'object' || error === null) return false;
+  if (importFailures.has(error)) return true;
+  const { name, message } = error as { name?: unknown; message?: unknown };
+  return name === 'ChunkLoadError' || (typeof message === 'string' && LOAD_FAILURE_MESSAGE.test(message));
+}
+
+type BoundaryState = { error: unknown; caught: boolean };
+
+class LoadBoundary extends Component<{ onRetry: () => void; children: ReactNode }, BoundaryState> {
+  state: BoundaryState = { error: null, caught: false };
+
+  static getDerivedStateFromError(error: unknown): BoundaryState {
+    return { error, caught: true };
   }
 
   componentDidCatch(error: unknown) {
-    console.error(error);
+    if (isLoadFailure(error)) console.error(error);
   }
 
   retry = () => {
     this.props.onRetry();
-    this.setState({ failed: false });
+    this.setState({ error: null, caught: false });
   };
 
   render() {
-    return this.state.failed ? <LoadFailed onRetry={this.retry} /> : this.props.children;
+    if (!this.state.caught) return this.props.children;
+    if (!isLoadFailure(this.state.error)) throw this.state.error;
+    return <LoadFailed onRetry={this.retry} />;
   }
 }
 
@@ -62,7 +79,9 @@ export function lazyWithRetry<P extends object>(load: () => Promise<ComponentTyp
         (component) => ({ default: component }),
         (err: unknown) => {
           failed = true;
-          throw err;
+          const failure = typeof err === 'object' && err !== null ? err : new Error(String(err));
+          importFailures.add(failure);
+          throw failure;
         },
       ),
     );

@@ -1,15 +1,19 @@
-import type { CurrentItem, CurrentItemFact, KnowledgeSource } from '@swift2/shared';
+import type { CurrentItem, CurrentItemFact, CurrentItemStatus, KnowledgeSource } from '@swift2/shared';
 import { CURRENT_ITEM_STATUSES } from '@swift2/shared';
 
 /**
  * Read-time guard for the `/vault/live/[eraId]` payload. The server sanitises
  * these rows, but the reader dereferences them on first paint, so one row that
  * slips the contract must cost that row (or a field), never the page. A row is
- * dropped only when it cannot be shown honestly: no id, headline, date, or a
- * status the detail view has no label for. Everything else is defaulted.
+ * dropped only when it cannot be shown at all: no id, headline or date.
+ * Everything else is defaulted. A status this build does not know (one a
+ * later migration adds) keeps the row and reads as "reported, not confirmed",
+ * so a new status can never make stories vanish silently.
  * Hand-written on purpose: no schema library on the client path.
  */
 type Raw = Record<string, unknown>;
+
+const UNKNOWN_STATUS: CurrentItemStatus = 'reported';
 
 const isRecord = (value: unknown): value is Raw =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -34,7 +38,7 @@ function normaliseItem(raw: unknown): CurrentItem | null {
   if (typeof raw.id !== 'string' || !raw.id) return null;
   if (typeof raw.headline !== 'string' || !raw.headline.trim()) return null;
   if (typeof raw.observedOn !== 'string' || !raw.observedOn) return null;
-  if (!(CURRENT_ITEM_STATUSES as readonly unknown[]).includes(raw.status)) return null;
+  const status = (CURRENT_ITEM_STATUSES as readonly unknown[]).includes(raw.status) ? raw.status : UNKNOWN_STATUS;
 
   const embed = isRecord(raw.embed) && typeof raw.embed.videoId === 'string' ? raw.embed : undefined;
   const socialPost =
@@ -45,6 +49,7 @@ function normaliseItem(raw: unknown): CurrentItem | null {
 
   return {
     ...raw,
+    status,
     eraId: text(raw.eraId),
     summary: text(raw.summary),
     detail: text(raw.detail),

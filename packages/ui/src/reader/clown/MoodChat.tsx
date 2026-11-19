@@ -29,7 +29,7 @@ import { MOOD_STARTERS, visibleStarters, type MoodStarter } from './lib/mood-sta
 import { getEra } from '@swift2/experience';
 import { MoodSongCard } from './MoodSongCard';
 import { useHost } from '../../host/context';
-import { apiTimeoutFor } from '../../bridge/api-timeout';
+import { WEB_MOOD_TIMEOUT_MS } from '../../bridge/api-timeout';
 import { chatErrorMessage, withTimeout } from './lib/chat-request';
 
 /** The approved disclaimer (Block 3). Deliberately mentions neither therapy nor
@@ -65,7 +65,7 @@ export function MoodChat() {
     setBusy(true);
     setError(null);
     try {
-      const res = await withTimeout(apiTimeoutFor('POST', '/api/mood'), (signal) =>
+      const res = await withTimeout(WEB_MOOD_TIMEOUT_MS, (signal) =>
         apiFetch(
           {
             path: '/api/mood',

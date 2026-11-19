@@ -59,9 +59,22 @@ describe('normaliseCurrentItems', () => {
     ['a blank headline', row({ headline: '  ' })],
     ['a non-string headline', row({ headline: { text: 'x' } })],
     ['no date', without('observedOn')],
-    ['an unknown status', row({ status: 'trending' })],
   ])('drops a row that is %s', (_label, bad) => {
     expect(normaliseCurrentItems([bad])).toEqual([]);
+  });
+
+  it.each([
+    ['a status this build does not know', row({ id: 'new-status', status: 'developing' })],
+    ['no status', without('status')],
+    ['a non-string status', row({ id: 'odd-status', status: 3 })],
+  ])('keeps a row with %s and labels it reported', (_label, odd) => {
+    const items = normaliseCurrentItems([odd]);
+    expect(items).toHaveLength(1);
+    expect(items[0]!.status).toBe('reported');
+  });
+
+  it.each(['rumor', 'reported', 'confirmed', 'debunked', 'faded'])('leaves the known status %s alone', (status) => {
+    expect(normaliseCurrentItems([row({ status })])[0]!.status).toBe(status);
   });
 
   it('coerces wrong-typed fields the UI dereferences', () => {
@@ -142,19 +155,65 @@ describe('fetchLiveData resilience', () => {
     expect(await fetchLiveData(`resilience-body-${String(body)}`)).toEqual({ items: [], theories: [], signals: [] });
   });
 
-  it('gives up on a stalled request after the timeout', async () => {
+  const EMPTY = { items: [], theories: [], signals: [] };
+  const stall = (_url: string, init?: { signal?: AbortSignal }) =>
+    new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+    });
+
+  it('bounds each attempt at 20 s', () => {
+    expect(LIVE_FETCH_TIMEOUT_MS).toBe(20_000);
+  });
+
+  it('retries once after a timeout and serves the second answer', async () => {
     vi.useFakeTimers();
-    vi.stubGlobal(
-      'fetch',
-      vi.fn(
-        (_url: string, init?: { signal?: AbortSignal }) =>
-          new Promise((_resolve, reject) => {
-            init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
-          }),
-      ),
-    );
+    const fetchMock = vi
+      .fn()
+      .mockImplementationOnce(stall)
+      .mockResolvedValue({ ok: true, json: async () => ({ items: [row({ id: 'late' })] }) });
+    vi.stubGlobal('fetch', fetchMock);
+    const pending = fetchLiveData('resilience-retry');
+    await vi.advanceTimersByTimeAsync(LIVE_FETCH_TIMEOUT_MS - 1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    await vi.advanceTimersByTimeAsync(1);
+    expect((await pending).items.map((i) => i.id)).toEqual(['late']);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('falls back to the empty payload when the retry stalls too, and stops there', async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn(stall);
+    vi.stubGlobal('fetch', fetchMock);
     const pending = fetchLiveData('resilience-stall');
     await vi.advanceTimersByTimeAsync(LIVE_FETCH_TIMEOUT_MS);
-    expect(await pending).toEqual({ items: [], theories: [], signals: [] });
+    await vi.advanceTimersByTimeAsync(LIVE_FETCH_TIMEOUT_MS);
+    expect(await pending).toEqual(EMPTY);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('retries a response whose body stalls', async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi
+      .fn()
+      .mockImplementationOnce(async (_url: string, init?: { signal?: AbortSignal }) => ({
+        ok: true,
+        json: () => stall('', init),
+      }))
+      .mockResolvedValue({ ok: true, json: async () => ({ items: [row({ id: 'second' })] }) });
+    vi.stubGlobal('fetch', fetchMock);
+    const pending = fetchLiveData('resilience-body-stall');
+    await vi.advanceTimersByTimeAsync(LIVE_FETCH_TIMEOUT_MS);
+    expect((await pending).items.map((i) => i.id)).toEqual(['second']);
+  });
+
+  it.each([
+    ['a non-2xx response', () => Promise.resolve({ ok: false, json: async () => ({}) })],
+    ['a network error', () => Promise.reject(new TypeError('Failed to fetch'))],
+    ['malformed JSON', () => Promise.resolve({ ok: true, json: async () => { throw new SyntaxError('bad json'); } })],
+  ])('does not retry %s', async (label, respondWith) => {
+    const fetchMock = vi.fn(respondWith);
+    vi.stubGlobal('fetch', fetchMock);
+    expect(await fetchLiveData(`resilience-no-retry-${label}`)).toEqual(EMPTY);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

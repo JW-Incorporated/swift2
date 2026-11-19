@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { lazyWithRetry } from './lazy-with-retry';
+import { Component, type ReactNode } from 'react';
+import { isLoadFailure, lazyWithRetry } from './lazy-with-retry';
 
 function Merch({ label = 'Merch loaded' }: { label?: string }) {
   return <p>{label}</p>;
@@ -74,6 +75,45 @@ describe('lazyWithRetry', () => {
     expect(await screen.findByText('Merch loaded')).toBeInTheDocument();
     expect(load).toHaveBeenCalledTimes(3);
   });
+
+  it('rethrows a render error from the loaded component instead of calling it a download problem', async () => {
+    function Broken(): never {
+      throw new Error('merch render bug');
+    }
+    class Outer extends Component<{ children: ReactNode }, { message: string | null }> {
+      state = { message: null as string | null };
+      static getDerivedStateFromError(error: Error) {
+        return { message: error.message };
+      }
+      render() {
+        return this.state.message ? <p>page error: {this.state.message}</p> : this.props.children;
+      }
+    }
+    const Lazy = lazyWithRetry(async () => Broken);
+    render(
+      <Outer>
+        <Lazy />
+      </Outer>,
+    );
+    expect(await screen.findByText('page error: merch render bug')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Try again' })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    Object.assign(new Error('Loading chunk 42 failed.'), { name: 'ChunkLoadError' }),
+    new TypeError('Failed to fetch dynamically imported module: https://x.test/_next/static/chunks/a.js'),
+    new Error('Failed to load chunk /_next/static/chunks/a.js'),
+    new TypeError('error loading dynamically imported module'),
+  ])('isLoadFailure recognises %s', (error) => {
+    expect(isLoadFailure(error)).toBe(true);
+  });
+
+  it.each([new Error('merch render bug'), new TypeError("Cannot read properties of undefined (reading '0')"), 'nope', null])(
+    'isLoadFailure rejects %s',
+    (error) => {
+      expect(isLoadFailure(error)).toBe(false);
+    },
+  );
 
   it('re-attempts the import when the surface is left and re-entered after a failure', async () => {
     const load = vi.fn().mockRejectedValueOnce(new Error('ChunkLoadError')).mockResolvedValue(Merch);

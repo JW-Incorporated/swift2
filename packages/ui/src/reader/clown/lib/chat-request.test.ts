@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS, apiTimeoutFor } from '../../../bridge/api-timeout';
+import { API_TIMEOUT_MS, CLOWN_TIMEOUT_MS, WEB_MOOD_TIMEOUT_MS, apiTimeoutFor } from '../../../bridge/api-timeout';
 import { NETWORK_ERROR, RATE_LIMITED_ERROR, chatErrorMessage, withTimeout } from './chat-request';
 
 describe('chatErrorMessage', () => {
@@ -22,8 +22,10 @@ describe('withTimeout', () => {
 
   const never = () => new Promise<never>(() => {});
 
-  it('uses the bridge timeout values for the two chat endpoints', () => {
+  it('gives web Mood 30 s without changing the bridge values', () => {
+    expect(WEB_MOOD_TIMEOUT_MS).toBe(30_000);
     expect(apiTimeoutFor('POST', '/api/mood')).toBe(API_TIMEOUT_MS);
+    expect(API_TIMEOUT_MS).toBe(8000);
     expect(apiTimeoutFor('POST', '/api/clown')).toBe(CLOWN_TIMEOUT_MS);
   });
 
