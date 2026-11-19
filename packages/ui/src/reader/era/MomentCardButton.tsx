@@ -47,13 +47,13 @@ export function MomentMeta({
     <div className="flex items-baseline justify-between gap-3">
       <span
         className={cn(
-          'uppercase tracking-widest text-[color:var(--era-ink-soft)]',
+          'shrink-0 whitespace-nowrap uppercase tracking-widest text-[color:var(--era-ink-soft)]',
           size === 'compact' ? 'text-[10px]' : 'text-xs',
         )}
       >
         {item.dateLabel}
       </span>
-      <span className="flex shrink-0 items-center gap-2">
+      <span className="flex min-w-0 flex-wrap items-center justify-end gap-2">
         {item.significance && size === 'default' && (
           <SignificanceBadge significance={item.significance} />
         )}
