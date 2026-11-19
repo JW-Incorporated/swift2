@@ -5,7 +5,7 @@
   "lane": "merch",
   "createdAt": "2026-11-17T03:00:57.474Z",
   "deadline": "2026-11-20T03:00:57.474Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "name": "1989 Blue Seagull Sweat Short",
     "price": "55.00",
@@ -23,5 +23,6 @@
   "links": {
     "pr": null,
     "issue": null
-  }
+  },
+  "declinedReason": "The official store lists this item as out of stock, so there is nothing for a fan to act on and it fails the timely and notEmbarrassed floors."
 }
