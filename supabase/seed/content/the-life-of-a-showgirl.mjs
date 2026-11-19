@@ -97,7 +97,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.\n\nThe Encore isn\'t on the ballot, and that is the calendar again. The four new songs ("Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!") came out Sept. 25, 2026, about four weeks after this cycle\'s window closed on Aug. 28. The deluxe edition is unlikely to get its own Album of the Year shot next year either. The Recording Academy requires new recordings to make up at least 66 percent of an album, down from 75 percent, and four songs added to a finished record fall well short of that. The new tracks will be eligible individually at the 2028 Grammys in the song-level categories.',
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.\n\nThe Encore isn\'t on the ballot, and that is the calendar again. The four new songs ("Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!") came out Sept. 25, 2026, about four weeks after this cycle\'s window closed on Aug. 28. The deluxe edition is unlikely to get its own Album of the Year shot next year either. The Recording Academy requires new recordings to make up at least 66 percent of an album, down from 75 percent, and four songs added to a finished record fall well short of that. The new tracks will be eligible individually at the 2028 Grammys in the song-level categories.\n\nTaylor was also part of the announcement itself. She read out the nominees for Album of the Year and Song of the Year, two categories her own work is in, and the Recording Academy posted the clip to its GRAMMYs channel.',
         video: {
           youtubeId: 'hDU4GB1PTxc',
           title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -110,6 +110,18 @@ export default {
             publisher: 'Recording Academy',
             source_type: 'official',
             accessed_at: '2026-11-17',
+            reliability_score: 5,
+          },
+          {
+            // Content Shift (Vault Run 2026-11-19, intake #7014): enriched,
+            // not duplicated. oEmbed-verified this run (HTTP 200, author_name
+            // "GRAMMYS"); uploaded 2026-11-19, a re-post of the Nov. 16 reading.
+            outlet: 'GRAMMYs (YouTube)',
+            url: 'https://www.youtube.com/watch?v=iRqlxTEgNlY',
+            source_title: 'TAYLOR SWIFT announces nominees for ALBUM OF THE YEAR & SONG OF THE YEAR for the 69th GRAMMY AWARDS',
+            publisher: 'Recording Academy (official GRAMMYs YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-19',
             reliability_score: 5,
           },
           {
