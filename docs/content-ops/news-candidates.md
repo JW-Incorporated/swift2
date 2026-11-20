@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 102
+Stories: 99
 
 ## Taylor Swift Showcases Burgundy Wine Manicure for Winter
 
@@ -892,28 +892,3 @@ Stories: 102
 - summary: A museum exhibit dedicated to Taylor Swift is scheduled to open in Boston, showcasing her career and contributions to music. The exhibit aims to engage fans and provide insights into her life and work.
 - sources:
   - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/17/taylor-swift-boston-museum-tickets/92829798007/
-
-## Teresa Giudice Supports Taylor Swift's 'Life of a Showgirl'
-
-- first seen: 2026-11-17 20:12 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Teresa Giudice has come to the defense of Taylor Swift regarding her project 'Life of a Showgirl', showcasing her support for the artist.
-- sources:
-  - [unverified] Vulture — https://www.vulture.com/article/teresa-giudice-defends-taylor-swifts-life-of-a-showgirl.html
-
-## Taylor Swift's Song Featured in 'Toy Story 5' for Character Jessie
-
-- first seen: 2026-11-17 20:12 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's music has been selected to feature in 'Toy Story 5,' enhancing the character Jessie with a country vibe. This marks another collaboration between Swift and the animated franchise.
-- sources:
-  - [unverified] KGET.com — https://www.kget.com/community/ricks-reviews/taylor-swifts-tune-puts-country-in-toy-story-5s-jessie/
-
-## MFA Boston to Open Taylor Swift Exhibit in 2027
-
-- first seen: 2026-11-17 20:12 UTC | category: business | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: The Museum of Fine Arts in Boston has announced plans to launch an exhibit dedicated to Taylor Swift, set to open in 2027. This exhibit will highlight Swift's influence and contributions to the arts.
-- sources:
-  - [unverified] ARTnews.com — https://www.artnews.com/art-news/news/taylor-swifts-costumes-collection-new-exhibition-1234806510/
-  - [unverified] Axios — https://amp.axios.com/mfa-boston-taylor-swift-eras-collection-2027-0cb83363-6b4e-4133-9770-45d1a36a5e21.html
