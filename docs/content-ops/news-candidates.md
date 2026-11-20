@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 105
 
 ## Celebrities Who Grew Up on Farms Before Fame
 
@@ -948,19 +948,3 @@ Stories: 107
   - [unverified] Business Insider — https://www.businessinsider.com/most-popular-taylor-swift-songs-spotify-2026-11
   - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74429045/how-to-watch-2026-cma-awards/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/article/2026-cma-awards-how-to-watch-taylor-swifts-performance-live-start-time-nominees-and-more-112500231.html
-
-## Kathy Griffin Critiques Swifties and Taylor Swift
-
-- first seen: 2026-11-17 08:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kathy Griffin has made controversial remarks comparing Taylor Swift's fanbase, the Swifties, to MAGA supporters and labeled Taylor Swift as 'mediocre'.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/kathy-griffin-compares-swifties-maga-074652976.html
-
-## Jason Kelce Surprises NFL Fans During an Appearance
-
-- first seen: 2026-11-17 08:42 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: NFL fans expressed their disbelief after a surprise appearance by Jason Kelce, which has drawn a connection to Taylor Swift. The unexpected moment sparked discussions among fans about their relationship.
-- sources:
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/nfl-fans-taylor-swift-point-074406966.html
