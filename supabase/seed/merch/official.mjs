@@ -11,7 +11,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "4734125899861",
@@ -25,7 +25,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "4734125965397",
@@ -39,7 +39,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "4734125998165",
@@ -53,7 +53,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "4734127276117",
@@ -67,7 +67,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6121307766984",
@@ -81,7 +81,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6121307898056",
@@ -95,7 +95,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6240635879624",
@@ -109,7 +109,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6240636043464",
@@ -123,7 +123,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6240636109000",
@@ -137,7 +137,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6989217923272",
@@ -151,7 +151,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "6989217988808",
@@ -165,7 +165,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7009261420744",
@@ -179,7 +179,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7011967762632",
@@ -193,7 +193,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7143599309000",
@@ -207,7 +207,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318313861320",
@@ -221,7 +221,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318316024008",
@@ -235,7 +235,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318318121160",
@@ -249,7 +249,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318323003592",
@@ -263,7 +263,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318352560328",
@@ -277,7 +277,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318359572680",
@@ -291,7 +291,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7318363406536",
@@ -305,7 +305,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7422296424648",
@@ -319,7 +319,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7422296490184",
@@ -333,7 +333,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7422296588488",
@@ -347,7 +347,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7425769504968",
@@ -361,7 +361,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7425769570504",
@@ -375,7 +375,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7425769603272",
@@ -389,7 +389,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7425769636040",
@@ -403,7 +403,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7425769668808",
@@ -417,7 +417,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7425769701576",
@@ -431,7 +431,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7464445706440",
@@ -445,7 +445,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7465888776392",
@@ -459,7 +459,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7478354411720",
@@ -473,7 +473,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7480059232456",
@@ -487,7 +487,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7480059297992",
@@ -501,7 +501,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7480059330760",
@@ -515,7 +515,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7480059363528",
@@ -529,7 +529,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7505580622024",
@@ -543,7 +543,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7505604411592",
@@ -557,7 +557,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7513408405704",
@@ -571,7 +571,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7517066002632",
@@ -585,7 +585,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7546589708488",
@@ -599,7 +599,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7552665845960",
@@ -627,7 +627,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7570838126792",
@@ -641,7 +641,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7570838323400",
@@ -655,7 +655,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7570838388936",
@@ -669,7 +669,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7570988105928",
@@ -683,7 +683,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7572049592520",
@@ -697,7 +697,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7572049854664",
@@ -711,7 +711,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7573688058056",
@@ -725,7 +725,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7573688090824",
@@ -739,7 +739,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574741680328",
@@ -753,7 +753,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574937043144",
@@ -767,7 +767,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574937239752",
@@ -795,7 +795,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574938255560",
@@ -823,7 +823,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574941171912",
@@ -837,7 +837,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574941466824",
@@ -851,7 +851,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7574941565128",
@@ -865,7 +865,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7590753829064",
@@ -935,7 +935,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7590754025672",
@@ -949,7 +949,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7598036484296",
@@ -963,7 +963,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7598036517064",
@@ -977,7 +977,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7598036582600",
@@ -991,7 +991,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7609636126920",
@@ -1005,7 +1005,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7609656443080",
@@ -1019,7 +1019,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7609675645128",
@@ -1033,7 +1033,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7609701400776",
@@ -1047,7 +1047,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656274120",
@@ -1061,7 +1061,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656339656",
@@ -1075,7 +1075,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656372424",
@@ -1089,7 +1089,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656437960",
@@ -1117,7 +1117,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656503496",
@@ -1145,7 +1145,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656634568",
@@ -1215,7 +1215,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7611656831176",
@@ -1243,7 +1243,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7622509396168",
@@ -1257,7 +1257,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7622509461704",
@@ -1271,7 +1271,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622299336",
@@ -1285,7 +1285,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622397640",
@@ -1313,7 +1313,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622594248",
@@ -1327,7 +1327,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622725320",
@@ -1341,7 +1341,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622758088",
@@ -1355,7 +1355,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622790856",
@@ -1369,7 +1369,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622823624",
@@ -1383,7 +1383,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622889160",
@@ -1397,7 +1397,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7628622921928",
@@ -1411,7 +1411,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7634797330632",
@@ -1425,7 +1425,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7642848755912",
@@ -1439,7 +1439,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7643885633736",
@@ -1453,7 +1453,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7644668625096",
@@ -1467,7 +1467,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7644669640904",
@@ -1481,7 +1481,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7645754327240",
@@ -1509,7 +1509,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7705952321736",
@@ -1523,7 +1523,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7705952354504",
@@ -1537,7 +1537,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7705952387272",
@@ -1551,7 +1551,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7720399732936",
@@ -1565,7 +1565,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7727201845448",
@@ -1579,7 +1579,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734382657736",
@@ -1607,7 +1607,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734386294984",
@@ -1621,7 +1621,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734386491592",
@@ -1635,7 +1635,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734387278024",
@@ -1649,7 +1649,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734393897160",
@@ -1663,7 +1663,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734395142344",
@@ -1677,7 +1677,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734396190920",
@@ -1691,7 +1691,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734397862088",
@@ -1705,7 +1705,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734401106120",
@@ -1719,7 +1719,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734402646216",
@@ -1733,7 +1733,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7734404513992",
@@ -1747,7 +1747,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7742864752840",
@@ -1761,7 +1761,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7764540457160",
@@ -1775,7 +1775,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7767744676040",
@@ -1789,7 +1789,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7813571969224",
@@ -1803,7 +1803,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7824827089096",
@@ -1831,7 +1831,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7877868323016",
@@ -1845,7 +1845,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7877869600968",
@@ -1859,7 +1859,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878086426824",
@@ -1873,7 +1873,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878096552136",
@@ -1887,7 +1887,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878111330504",
@@ -1901,7 +1901,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878113296584",
@@ -1915,7 +1915,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878119522504",
@@ -1929,7 +1929,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878127321288",
@@ -1943,7 +1943,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878130696392",
@@ -1957,7 +1957,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7878151274696",
@@ -1971,7 +1971,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7881461268680",
@@ -1985,7 +1985,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7881462382792",
@@ -1999,7 +1999,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7881463136456",
@@ -2013,7 +2013,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7893387935944",
@@ -2027,7 +2027,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7893390000328",
@@ -2041,7 +2041,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7893390753992",
@@ -2055,7 +2055,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7893396652232",
@@ -2069,7 +2069,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7899485667528",
@@ -2083,7 +2083,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7912347533512",
@@ -2097,7 +2097,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7912355463368",
@@ -2111,7 +2111,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7912359919816",
@@ -2125,7 +2125,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7915425890504",
@@ -2139,7 +2139,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "7947344609480",
@@ -2153,7 +2153,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8017900011720",
@@ -2167,7 +2167,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8017900699848",
@@ -2181,7 +2181,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8017901912264",
@@ -2223,7 +2223,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8018006638792",
@@ -2237,7 +2237,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8018105893064",
@@ -2251,7 +2251,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8018106187976",
@@ -2265,7 +2265,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8018107007176",
@@ -2279,7 +2279,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8018107564232",
@@ -2293,7 +2293,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8018107990216",
@@ -2307,7 +2307,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8030082891976",
@@ -2321,7 +2321,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8030084497608",
@@ -2363,7 +2363,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8031735513288",
@@ -2391,7 +2391,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8037408997576",
@@ -2405,7 +2405,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8037413060808",
@@ -2419,7 +2419,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8037416861896",
@@ -2433,7 +2433,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8037432852680",
@@ -2447,7 +2447,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8037437505736",
@@ -2517,7 +2517,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8038636585160",
@@ -2531,7 +2531,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8038640910536",
@@ -2559,7 +2559,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8038675939528",
@@ -2601,7 +2601,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8040221638856",
@@ -2615,7 +2615,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8045837353160",
@@ -2629,7 +2629,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8047046492360",
@@ -2643,7 +2643,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-19T01:55:35.560Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8047049212104",
@@ -2671,7 +2671,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8051690373320",
@@ -2680,12 +2680,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/ttpd-florida-t-shirt",
     "price": "$40.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/Kf30LqGN5A4CRJbm7RwNqtJX6NezFk2e-1_1.png?v=1749674639",
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8051752075464",
@@ -2699,7 +2699,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-18T02:29:30.532Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8051758366920",
@@ -2713,7 +2713,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-18T02:29:30.532Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8077649576136",
@@ -2727,7 +2727,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8159817662664",
@@ -2741,7 +2741,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8159859146952",
@@ -2755,7 +2755,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8159860392136",
@@ -2769,7 +2769,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8159860949192",
@@ -2783,7 +2783,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8159874941128",
@@ -2797,7 +2797,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8161331937480",
@@ -2811,7 +2811,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8168327119048",
@@ -2825,7 +2825,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8168328921288",
@@ -2839,7 +2839,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8168329707720",
@@ -2853,7 +2853,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176422781128",
@@ -2867,7 +2867,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176423403720",
@@ -2881,7 +2881,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176424157384",
@@ -2895,7 +2895,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176424288456",
@@ -2909,7 +2909,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176424943816",
@@ -2923,7 +2923,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176425828552",
@@ -2937,7 +2937,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176427303112",
@@ -2951,7 +2951,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176428155080",
@@ -2965,7 +2965,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176428679368",
@@ -2979,7 +2979,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176431268040",
@@ -3007,7 +3007,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176435790024",
@@ -3021,7 +3021,7 @@ export const OFFICIAL = [
     "kind": "bag",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8176439427272",
@@ -3049,7 +3049,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8192758448328",
@@ -3063,7 +3063,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8192760053960",
@@ -3077,7 +3077,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8192761495752",
@@ -3091,7 +3091,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8192761987272",
@@ -3119,7 +3119,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8196463362248",
@@ -3133,7 +3133,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8196463591624",
@@ -3147,7 +3147,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8232089747656",
@@ -3161,7 +3161,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8232089780424",
@@ -3175,7 +3175,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8232089813192",
@@ -3189,7 +3189,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8232908718280",
@@ -3203,7 +3203,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8232909177032",
@@ -3217,7 +3217,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8232910553288",
@@ -3231,7 +3231,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8233867706568",
@@ -3245,7 +3245,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8233869639880",
@@ -3259,7 +3259,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8233870000328",
@@ -3273,7 +3273,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8233870295240",
@@ -3287,7 +3287,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234052387016",
@@ -3301,7 +3301,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234052452552",
@@ -3329,7 +3329,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234052583624",
@@ -3343,7 +3343,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234052911304",
@@ -3357,7 +3357,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234063888584",
@@ -3371,7 +3371,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234064904392",
@@ -3385,7 +3385,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234065690824",
@@ -3399,7 +3399,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234066641096",
@@ -3413,7 +3413,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234070081736",
@@ -3455,7 +3455,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234078011592",
@@ -3469,7 +3469,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234084008136",
@@ -3483,7 +3483,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234085515464",
@@ -3497,7 +3497,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234085875912",
@@ -3511,7 +3511,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-19T01:55:35.560Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234086727880",
@@ -3525,7 +3525,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234089414856",
@@ -3539,7 +3539,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234090627272",
@@ -3553,7 +3553,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234092363976",
@@ -3567,7 +3567,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234092429512",
@@ -3581,7 +3581,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234092658888",
@@ -3637,7 +3637,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234397696200",
@@ -3651,7 +3651,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234404446408",
@@ -3665,7 +3665,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234405134536",
@@ -3679,7 +3679,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234405724360",
@@ -3693,7 +3693,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8234406052040",
@@ -3707,7 +3707,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8235113119944",
@@ -3721,7 +3721,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8235118723272",
@@ -3735,7 +3735,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8235154538696",
@@ -3777,7 +3777,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236045402312",
@@ -3791,7 +3791,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236052218056",
@@ -3805,7 +3805,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236052480200",
@@ -3889,7 +3889,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236054937800",
@@ -3903,7 +3903,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236055036104",
@@ -4085,7 +4085,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236063555784",
@@ -4099,7 +4099,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8236254036168",
@@ -4225,7 +4225,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238942683336",
@@ -4239,7 +4239,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238942716104",
@@ -4253,7 +4253,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238942814408",
@@ -4267,7 +4267,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238942879944",
@@ -4281,7 +4281,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238942912712",
@@ -4295,7 +4295,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238944485576",
@@ -4309,7 +4309,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238944911560",
@@ -4323,7 +4323,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238945403080",
@@ -4337,7 +4337,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238945927368",
@@ -4351,7 +4351,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238946222280",
@@ -4365,7 +4365,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238946451656",
@@ -4379,7 +4379,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238946943176",
@@ -4393,7 +4393,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238947139784",
@@ -4407,7 +4407,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238947467464",
@@ -4421,7 +4421,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238947926216",
@@ -4435,7 +4435,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238948221128",
@@ -4449,7 +4449,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238948614344",
@@ -4463,7 +4463,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238949040328",
@@ -4477,7 +4477,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238950285512",
@@ -4491,7 +4491,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238950547656",
@@ -4505,7 +4505,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238951137480",
@@ -4514,12 +4514,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/sequins-are-forever-t-shirt-dress",
     "price": "$95.00",
-    "inStock": true,
+    "inStock": false,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/uqd3j84fyqp83tqh3d4d.webp?v=1760109863",
     "kind": "dress",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238951203016",
@@ -4533,7 +4533,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238951301320",
@@ -4547,7 +4547,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238951563464",
@@ -4561,7 +4561,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238951661768",
@@ -4575,7 +4575,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238952218824",
@@ -4603,7 +4603,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8238952612040",
@@ -4630,7 +4630,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239061434568",
@@ -4643,7 +4643,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239061795016",
@@ -4657,7 +4657,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239062089928",
@@ -4671,7 +4671,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239062286536",
@@ -4685,7 +4685,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239062450376",
@@ -4699,7 +4699,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239062515912",
@@ -4713,7 +4713,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239062614216",
@@ -4727,7 +4727,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239063040200",
@@ -4741,7 +4741,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239063531720",
@@ -4755,7 +4755,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239063630024",
@@ -4783,7 +4783,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8239848653000",
@@ -4797,7 +4797,7 @@ export const OFFICIAL = [
     "kind": "music",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8240029728968",
@@ -4825,7 +4825,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8240068526280",
@@ -4839,7 +4839,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8240654319816",
@@ -4853,7 +4853,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8242790760648",
@@ -4867,7 +4867,7 @@ export const OFFICIAL = [
     "kind": "shoes",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8245200683208",
@@ -4881,7 +4881,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8245685059784",
@@ -4895,7 +4895,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8245763375304",
@@ -4909,7 +4909,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269488357576",
@@ -4923,7 +4923,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269489733832",
@@ -4937,7 +4937,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269489799368",
@@ -5007,7 +5007,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269560709320",
@@ -5035,7 +5035,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269562118344",
@@ -5049,7 +5049,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269562380488",
@@ -5063,7 +5063,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269562642632",
@@ -5077,7 +5077,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269563461832",
@@ -5091,7 +5091,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269566378184",
@@ -5105,7 +5105,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269567787208",
@@ -5119,7 +5119,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269590397128",
@@ -5133,7 +5133,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269590888648",
@@ -5147,7 +5147,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269591314632",
@@ -5161,7 +5161,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269592559816",
@@ -5189,7 +5189,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593215176",
@@ -5203,7 +5203,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593346248",
@@ -5217,7 +5217,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593411784",
@@ -5245,7 +5245,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593608392",
@@ -5259,7 +5259,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593641160",
@@ -5273,7 +5273,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593706696",
@@ -5301,7 +5301,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593837768",
@@ -5315,7 +5315,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-17T02:59:25.504Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269593936072",
@@ -5357,7 +5357,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269594198216",
@@ -5371,7 +5371,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269594263752",
@@ -5399,7 +5399,7 @@ export const OFFICIAL = [
     "kind": "shoes",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269594689736",
@@ -5413,7 +5413,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269594919112",
@@ -5427,7 +5427,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269595082952",
@@ -5441,7 +5441,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269595246792",
@@ -5455,7 +5455,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8269595312328",
@@ -5469,7 +5469,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8272252960968",
@@ -5483,7 +5483,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317864673480",
@@ -5497,7 +5497,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317864804552",
@@ -5511,7 +5511,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317864968392",
@@ -5525,7 +5525,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317865165000",
@@ -5539,7 +5539,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317865394376",
@@ -5553,7 +5553,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317865558216",
@@ -5567,7 +5567,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317865754824",
@@ -5581,7 +5581,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317867720904",
@@ -5595,7 +5595,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317873422536",
@@ -5609,7 +5609,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317874995400",
@@ -5623,7 +5623,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317877354696",
@@ -5637,7 +5637,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317879091400",
@@ -5651,7 +5651,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317880041672",
@@ -5665,7 +5665,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8317881843912",
@@ -5679,7 +5679,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318246191304",
@@ -5693,7 +5693,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318246289608",
@@ -5707,7 +5707,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318246387912",
@@ -5721,7 +5721,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318246584520",
@@ -5735,7 +5735,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318246650056",
@@ -5749,7 +5749,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318247010504",
@@ -5763,7 +5763,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318250418376",
@@ -5777,7 +5777,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318251598024",
@@ -5791,7 +5791,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318255431880",
@@ -5800,12 +5800,12 @@ export const OFFICIAL = [
     "retailer": "store.taylorswift.com",
     "url": "https://store.taylorswift.com/products/reputation-newspaper-print-zip-crewneck",
     "price": "$80.00",
-    "inStock": false,
+    "inStock": true,
     "imageUrl": "https://cdn.shopify.com/s/files/1/0011/4651/9637/files/01_HOLIDAY26_Reputation_8385313362_LAYFLAT_001_R1.webp?v=1794585599",
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318255661256",
@@ -5819,7 +5819,7 @@ export const OFFICIAL = [
     "kind": "dress",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318368973000",
@@ -5833,7 +5833,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318369366216",
@@ -5847,7 +5847,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318369595592",
@@ -5861,7 +5861,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318369693896",
@@ -5875,7 +5875,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318369857736",
@@ -5889,7 +5889,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370185416",
@@ -5903,7 +5903,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370316488",
@@ -5917,7 +5917,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370349256",
@@ -5931,7 +5931,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370480328",
@@ -5945,7 +5945,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370742472",
@@ -5959,7 +5959,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370808008",
@@ -5973,7 +5973,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370873544",
@@ -5987,7 +5987,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318370939080",
@@ -6001,7 +6001,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371102920",
@@ -6015,7 +6015,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371135688",
@@ -6029,7 +6029,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371233992",
@@ -6043,7 +6043,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371332296",
@@ -6057,7 +6057,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371430600",
@@ -6071,7 +6071,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371594440",
@@ -6085,7 +6085,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371823816",
@@ -6099,7 +6099,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318371889352",
@@ -6113,7 +6113,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318372020424",
@@ -6127,7 +6127,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8318372053192",
@@ -6141,7 +6141,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319278547144",
@@ -6197,7 +6197,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319710265544",
@@ -6211,7 +6211,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319710593224",
@@ -6225,7 +6225,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319710855368",
@@ -6239,7 +6239,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319710920904",
@@ -6253,7 +6253,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319710953672",
@@ -6267,7 +6267,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319715311816",
@@ -6281,7 +6281,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319715410120",
@@ -6295,7 +6295,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319715442888",
@@ -6309,7 +6309,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319916081352",
@@ -6323,7 +6323,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319971721416",
@@ -6337,7 +6337,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319972049096",
@@ -6351,7 +6351,7 @@ export const OFFICIAL = [
     "kind": "jewelry",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319972114632",
@@ -6365,7 +6365,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319972409544",
@@ -6379,7 +6379,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319972638920",
@@ -6393,7 +6393,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8319972769992",
@@ -6407,7 +6407,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8320263389384",
@@ -6449,7 +6449,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8320746062024",
@@ -6463,7 +6463,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-08-30T14:21:23.757Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322196537544",
@@ -6477,7 +6477,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322197061832",
@@ -6491,7 +6491,7 @@ export const OFFICIAL = [
     "kind": "outerwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322197618888",
@@ -6505,7 +6505,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322198733000",
@@ -6519,7 +6519,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322199322824",
@@ -6533,7 +6533,7 @@ export const OFFICIAL = [
     "kind": "bottom",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322199847112",
@@ -6547,7 +6547,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322200076488",
@@ -6561,7 +6561,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322200338632",
@@ -6575,7 +6575,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322200862920",
@@ -6589,7 +6589,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322201485512",
@@ -6603,7 +6603,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322202468552",
@@ -6617,7 +6617,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322202894536",
@@ -6631,7 +6631,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322203386056",
@@ -6645,7 +6645,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-16T18:39:02.202Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322203549896",
@@ -6659,7 +6659,7 @@ export const OFFICIAL = [
     "kind": "collectible",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322204270792",
@@ -6673,7 +6673,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322204500168",
@@ -6687,7 +6687,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8322204893384",
@@ -6701,7 +6701,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323479568584",
@@ -6715,7 +6715,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323479634120",
@@ -6729,7 +6729,7 @@ export const OFFICIAL = [
     "kind": "hat",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323479797960",
@@ -6743,7 +6743,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323479896264",
@@ -6757,7 +6757,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323479994568",
@@ -6771,7 +6771,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323480092872",
@@ -6785,7 +6785,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323480355016",
@@ -6799,7 +6799,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323480453320",
@@ -6813,7 +6813,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323480617160",
@@ -6827,7 +6827,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323480879304",
@@ -6841,7 +6841,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323480977608",
@@ -6855,7 +6855,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481075912",
@@ -6869,7 +6869,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481174216",
@@ -6883,7 +6883,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481305288",
@@ -6897,7 +6897,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481403592",
@@ -6911,7 +6911,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481501896",
@@ -6925,7 +6925,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481632968",
@@ -6939,7 +6939,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323481993416",
@@ -6953,7 +6953,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323482091720",
@@ -6967,7 +6967,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323482321096",
@@ -6981,7 +6981,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323482517704",
@@ -6995,7 +6995,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323482779848",
@@ -7009,7 +7009,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323482910920",
@@ -7023,7 +7023,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323483173064",
@@ -7037,7 +7037,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323483238600",
@@ -7051,7 +7051,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323483893960",
@@ -7065,7 +7065,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323484025032",
@@ -7079,7 +7079,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323484221640",
@@ -7093,7 +7093,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323484680392",
@@ -7107,7 +7107,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323484844232",
@@ -7121,7 +7121,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323484942536",
@@ -7135,7 +7135,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323485204680",
@@ -7149,7 +7149,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323485434056",
@@ -7163,7 +7163,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323485532360",
@@ -7177,7 +7177,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323485696200",
@@ -7191,7 +7191,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323500245192",
@@ -7205,7 +7205,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323945201864",
@@ -7219,7 +7219,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323945496776",
@@ -7233,7 +7233,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323945693384",
@@ -7247,7 +7247,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323946086600",
@@ -7261,7 +7261,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8323946283208",
@@ -7275,7 +7275,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-20T01:49:18.261Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8324044030152",
@@ -7681,7 +7681,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8336058581192",
@@ -7695,7 +7695,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T23:59:31.647Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8336058613960",
@@ -7709,7 +7709,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8336058646728",
@@ -7723,7 +7723,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8343682744520",
@@ -7737,7 +7737,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8344180719816",
@@ -7751,7 +7751,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-06T01:21:06.994Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8344195399880",
@@ -7765,7 +7765,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-06T01:21:06.994Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8346225639624",
@@ -7779,7 +7779,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8346225770696",
@@ -7793,7 +7793,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8346225803464",
@@ -7807,7 +7807,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8346356777160",
@@ -7821,7 +7821,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-10T00:05:55.086Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8346356842696",
@@ -7835,7 +7835,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-10-10T00:05:55.086Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8348189130952",
@@ -7849,7 +7849,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8348821684424",
@@ -7863,7 +7863,7 @@ export const OFFICIAL = [
     "kind": "other",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8349705896136",
@@ -7877,7 +7877,7 @@ export const OFFICIAL = [
     "kind": "knitwear",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8350698275016",
@@ -7891,7 +7891,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8350698537160",
@@ -7905,7 +7905,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8350698733768",
@@ -7919,7 +7919,7 @@ export const OFFICIAL = [
     "kind": "top",
     "discoveredVia": "shopify-sync",
     "discoveredAt": "2026-11-14T00:56:26.895Z",
-    "verifiedAt": "2026-11-20T01:49:18.261Z"
+    "verifiedAt": "2026-11-20T17:01:39.437Z"
   },
   {
     "sourceId": "8350710366408",
