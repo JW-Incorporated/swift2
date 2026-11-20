@@ -171,14 +171,6 @@ Stories: 105
 - sources:
   - [unverified] E! News — https://www.eonline.com/news/1438244/taylor-swift-cma-awards-performance-debut-easter-eggs
 
-## Taylor Swift Performs at CMA Awards in Notable Dresses
-
-- first seen: 2026-11-19 16:22 UTC | category: fashion | importance: 7
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift made her return to the CMA stage after 13 years, showcasing familiar dresses backstage. Her performance highlighted a revival of her country music roots.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-2026-cma-awards-looks-country-era-easter-eggs-1239427206/
-
 ## Taylor Swift's Emmys Crime Scene Evidence Board Displayed at Paley Center
 
 - first seen: 2026-11-19 16:22 UTC | category: business | importance: 6
@@ -186,6 +178,14 @@ Stories: 105
 - summary: A crime scene evidence board featuring Taylor Swift and Mariska Hargitay is set to be displayed at the Paley Center for Media. This board was part of their pre-taped parody for the 'Law & Order: SVU' segment during the Primetime Emmys.
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/tv/news/taylor-swift-svu-crime-evidence-board-emmys-paley-center-1236952681/
+
+## Taylor Swift Performs at CMA Awards in Notable Dresses
+
+- first seen: 2026-11-19 16:22 UTC | category: fashion | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift made her return to the CMA stage after 13 years, showcasing familiar dresses backstage. Her performance highlighted a revival of her country music roots.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-2026-cma-awards-looks-country-era-easter-eggs-1239427206/
 
 ## Taylor Swift Attends CMAs as Ella Langley Sets Record
 
