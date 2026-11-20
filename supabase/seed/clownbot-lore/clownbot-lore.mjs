@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-18',
+  updatedOn: '2026-11-20',
   items: [
     {
       // Added 2026-11-18 (Vault Run, Rumor Desk). Read directly: the ABC News
@@ -80,7 +80,8 @@ export default {
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-14 (Vault Run): campaign widened to Golden Globe voters (press conference reported Nov. 13-14, HELLO!); still no nomination, status unchanged.
       // Rechecked 2026-11-18 (Vault Run): the song picked up Song of the Year and Best Song Written for Visual Media nominations at the Nov. 16 Grammy nominations; still no Oscar nomination, status unchanged.
-      lastCheckedOn: '2026-11-18',
+      // Rechecked 2026-11-20 (Vault Run): nothing from the Academy before the 15 Dec shortlist; status unchanged.
+      lastCheckedOn: '2026-11-20',
       headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
       detail:
         'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. In mid-November she took the campaign to Golden Globe voters as well, at a press conference where she called the film\'s take on kids and screens "a parent-to-parent decision." On 16 November the song also earned Grammy nominations for Song of the Year and Best Song Written for Visual Media. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
@@ -195,7 +196,8 @@ export default {
       // Rechecked 2026-11-08 (Vault Run): neither reputation TV nor debut TV has been announced or dated.
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
-      lastCheckedOn: '2026-11-18',
+      // Rechecked 2026-11-20 (Vault Run): her Nov. 18 CMA set opened in a dressing room of debut-era dresses and E! News (19 Nov) reports fans reading it as a debut re-release hint; still nothing announced or dated. Status unchanged.
+      lastCheckedOn: '2026-11-20',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -560,10 +562,11 @@ export default {
       status: 'confirmed',
       date: '2026-09-10',
       // Rechecked 2026-11-18 (Vault Run): she was added to the performer lineup in mid-November (Yahoo; GMA); the show is tonight, so the detail stays pre-show.
-      lastCheckedOn: '2026-11-18',
+      // Rechecked 2026-11-20 (Vault Run): the night happened; detail moved to post-show from GMA (read directly) and E! News' easter-egg piece (read directly). Mirrors the Vault moment showgirl-cma-awards-2026-night.
+      lastCheckedOn: '2026-11-20',
       headline: 'Going back to the CMAs — "I haven\'t yee\'d my last haw"',
       detail:
-        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year. One thing is settled ahead of the night: on 11 November 2026 a CMA source told E! News that Taylor will not perform in the show\'s Dolly Parton tribute. The report covered only the tribute stage. In mid-November the CMAs went further and added Taylor to the night\'s performer lineup, her first CMA Awards performance in 13 years.',
+        'After "I Knew It, I Knew You" — her Toy Story 5 single, the song that carried her back onto country radio — earned a Single of the Year nomination, Taylor confirmed on her 10 September 2026 Instagram Story ("LOOKS LIKE I HAVEN\'T YEE\'D MY LAST HAW THANK YOU CMA!!!" and, with a cowboy emoji, "See you there November 18") that she will attend the 60th CMA Awards at Nashville\'s Bridgestone Arena on 18 November. It is her first CMA Awards appearance in a decade — the last was 2016, when she presented Garth Brooks with Entertainer of the Year. One thing is settled ahead of the night: on 11 November 2026 a CMA source told E! News that Taylor will not perform in the show\'s Dolly Parton tribute. The report covered only the tribute stage. In mid-November the CMAs went further and added Taylor to the night\'s performer lineup. On the night she performed for the first time since 2013, pairing "I Knew It, I Knew You" with "Our Song" with Keith Urban on banjo, and she presented Brooks & Dunn with the Willie Nelson Lifetime Achievement Award. Single of the Year went to Ella Langley\'s "Choosin\' Texas". The performance opened in a dressing room hung with her own debut-era dresses, which fans read as a debut re-release hint. Nothing has been announced.',
       sources: [
         {
           name: 'E! News',
@@ -580,6 +583,14 @@ export default {
         {
           name: 'Just Jared',
           url: 'https://www.justjared.com/2026/09/10/taylor-swift-confirms-2026-cma-awards-appearance-after-10-year-absence/',
+        },
+        {
+          name: 'Good Morning America',
+          url: 'https://www.goodmorningamerica.com/culture/story/cma-awards-2026-taylor-swift-attends-performs-138221036',
+        },
+        {
+          name: 'E! News',
+          url: 'https://www.eonline.com/news/1438244/taylor-swift-cma-awards-performance-debut-easter-eggs',
         },
       ],
       prompts: [

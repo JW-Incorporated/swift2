@@ -1,0 +1,49 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "wikimedia-10747743",
+  "media": [
+    "/social/library/photos/wikimedia-10747743.jpg"
+  ],
+  "mediaCredit": "Swift,_Taylor_(2007).jpg: minds-eye\nderivative work: Sehome Bay (talk) (CC BY-SA 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Swift,_Taylor_(2007)_cropped_2.JPG",
+  "altText": [
+    "American country musician Taylor Swift performing live."
+  ],
+  "scheduledAt": "2026-11-20T23:00:00Z",
+  "campaign": "timeline:love-story:jake-gyllenhaal:2026-11-20",
+  "body": "three months. i keep coming back to how short this one was 🧣\n\nthe Jake Gyllenhaal chapter in our Blank Spaces timeline runs from october 2010 to early january 2011. they were seen together backstage at SNL that october, and by the first days of the new year it was over.\n\nand the timing!! Speak Now came out on october 25, 2010, so the whole chapter sits inside that album's first weeks out in the world.\n\nwhich chapter do you open first?\n\nphoto: minds-eye, derivative by Sehome Bay (CC BY-SA 2.0), via Wikimedia Commons\n\nhttps://www.longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=timeline\n\n#taylorswift #speaknow #swifties #longlive",
+  "why": "Instagram sibling of the Nov 20 Blank Spaces timeline beat, chapter: Jake Gyllenhaal. Facts from the lens entry rel-gyllenhaal and its sourcing comment (SNL backstage Oct 2010, split early Jan 2011) plus Speak Now's Oct 25 2010 release date. utm_campaign timeline per the calendar. No song attribution asserted.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Opens on the feeling about the chapter's length, then two sourced dates and the Speak Now overlap, in first person throughout. Stays on confirmed public history; the photo is a real credited live shot of Taylor, not from 2010.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-19T19:34:54.277Z",
+    "pr": 7010,
+    "message": "social-tree-approve run 44599559989",
+    "contentHash": "sha256:880a89798dcfffd798e7767901a5f449e9c3e63c9516755aa4f7e2fe99134ee8",
+    "mediaDigest": "sha256:140738eeba608018548b1817c40bdc27a9c9fd81069564c57dbaa117c16a8180",
+    "sig": "hmac-sha256:d46b5c288a698e8a3a3ef731e3bcd819f3ff11d913cf630dcdf04fac39e369c6"
+  },
+  "postedAt": "2026-11-20T23:27:27.783Z",
+  "platformPostId": "18157519876486160",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

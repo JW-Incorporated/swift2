@@ -97,7 +97,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.\n\nThe Encore isn\'t on the ballot, and that is the calendar again. The four new songs ("Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!") came out Sept. 25, 2026, about four weeks after this cycle\'s window closed on Aug. 28. The deluxe edition is unlikely to get its own Album of the Year shot next year either. The Recording Academy requires new recordings to make up at least 66 percent of an album, down from 75 percent, and four songs added to a finished record fall well short of that. The new tracks will be eligible individually at the 2028 Grammys in the song-level categories.',
+          'The 69th Grammy nominations were announced on Nov. 16, 2026, and the album that missed the previous cycle\'s eligibility window by five weeks came back into the race at full strength. Taylor earned five nominations: Album of the Year for The Life of a Showgirl, Record of the Year for "The Fate of Ophelia," Song of the Year and Best Song Written for Visual Media for "I Knew It, I Knew You," and Best Pop Duo/Group Performance for the title track with Sabrina Carpenter.\n\nIt is her eighth Album of the Year nomination, and Showgirl makes five studio albums in a row to land in the category, after folklore, evermore, Midnights and The Tortured Poets Department. Its Album of the Year competition is Phoebe Bridgers, Olivia Dean, Ella Langley, Bruno Mars, Raye, Olivia Rodrigo and Rosalía. The album did not make the Best Pop Vocal Album field.\n\n"I Knew It, I Knew You," written after she screened an early cut of Toy Story 5 and built around the cowgirl doll Jessie, is her ninth Song of the Year nomination, a run that started with "You Belong With Me" at the 2010 Grammys. She has never won the category. Jack Antonoff, who co-wrote and produced the song, picks up his own ninth nod there; the pair were nominated together before for "Anti-Hero" and "Fortnight." The 69th Grammy Awards air Feb. 7, 2027.\n\nThe Encore isn\'t on the ballot, and that is the calendar again. The four new songs ("Patient Zero," "Pink Clouding," "Babylon" and "Cleveland!") came out Sept. 25, 2026, about four weeks after this cycle\'s window closed on Aug. 28. The deluxe edition is unlikely to get its own Album of the Year shot next year either. The Recording Academy requires new recordings to make up at least 66 percent of an album, down from 75 percent, and four songs added to a finished record fall well short of that. The new tracks will be eligible individually at the 2028 Grammys in the song-level categories.\n\nTaylor was also part of the announcement itself. She read out the nominees for Album of the Year and Song of the Year, two categories her own work is in, and the Recording Academy posted the clip to its GRAMMYs channel.',
         video: {
           youtubeId: 'hDU4GB1PTxc',
           title: 'Taylor Swift - I Knew It, I Knew You (from Toy Story 5)',
@@ -110,6 +110,18 @@ export default {
             publisher: 'Recording Academy',
             source_type: 'official',
             accessed_at: '2026-11-17',
+            reliability_score: 5,
+          },
+          {
+            // Content Shift (Vault Run 2026-11-19, intake #7014): enriched,
+            // not duplicated. oEmbed-verified this run (HTTP 200, author_name
+            // "GRAMMYS"); uploaded 2026-11-19, a re-post of the Nov. 16 reading.
+            outlet: 'GRAMMYs (YouTube)',
+            url: 'https://www.youtube.com/watch?v=iRqlxTEgNlY',
+            source_title: 'TAYLOR SWIFT announces nominees for ALBUM OF THE YEAR & SONG OF THE YEAR for the 69th GRAMMY AWARDS',
+            publisher: 'Recording Academy (official GRAMMYs YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-19',
             reliability_score: 5,
           },
           {
@@ -1199,6 +1211,104 @@ export default {
             caption: 'Taylor in a Kansas City Chiefs tank in the Arrowhead suite for the Sept. 20, 2026 Chiefs-Colts win — the night she flashed her wedding ring for Kelce\'s first touchdown of the season.',
             kind: 'primary',
             focalPoint: '52% 24%',
+          },
+        ],
+      },
+    },
+    {
+      // Authored 2026-11-19 (Vault Run, Content Shift lane) from intake #7013
+      // (official upload, oEmbed-verified) and #7020. GMA read directly;
+      // Rolling Stone read via its Australian edition (rollingstone.com
+      // paywalls bots). The broadcast-booth wedding jokes are left out.
+      slug: 'showgirl-cma-awards-2026-night',
+      year: 2026,
+      month: 11,
+      day: 18,
+      category: 'music',
+      title: 'Back on the CMA stage: "I Knew It, I Knew You," "Our Song," and a toast to Brooks & Dunn',
+      snippet:
+        'At the 60th CMA Awards, Taylor performed for the first time in 13 years, pairing "I Knew It, I Knew You" with "Our Song," and presented Brooks & Dunn the Willie Nelson Lifetime Achievement Award. Single of the Year went to Ella Langley.',
+      sourceUrl: 'https://www.goodmorningamerica.com/culture/story/cma-awards-2026-taylor-swift-attends-performs-138221036',
+      thumbnailUrl: null,
+      video: {
+        youtubeId: 'LJC7mgjp5FQ',
+        title: 'Taylor Swift - I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)',
+      },
+      moment: {
+        context:
+          'On Nov. 18, 2026, Taylor came back to the CMA Awards stage in Nashville for the first time since 2013. Her slot paired "I Knew It, I Knew You," the Toy Story 5 song that brought her back to country radio, with "Our Song," the track she wrote in high school and last sang at the CMAs in 2007. Keith Urban played banjo beside her, and the number drew cameos from Brad Paisley, host Lainey Wilson, Jennifer Nettles, Kristian Bush and Little Big Town. The next morning her own channel posted the performance as "I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)."\n\nShe also handed out one of the night\'s honors, presenting Kix Brooks and Ronnie Dunn with the Willie Nelson Lifetime Achievement Award. She said the duo had "provided the world with eternal bangers" and still "approach their music with the mischief and excitement of little kids just discovering their love for this." She made it personal too: "They\'ve mentored and supported so many artists over the years, like me. Ronnie will provide you with sage advice and Kix will mercilessly tease you." And: "They don\'t take very much too seriously, except for all the important stuff: their families, their fans, and country music."\n\nThe one thing that didn\'t go her way was the award she came in nominated for. Single of the Year went to Ella Langley\'s "Choosin\' Texas," not "I Knew It, I Knew You." The same night in Hollywood, though, the song won Song — Animated Film at the Hollywood Music in Media Awards.\n\nThe night was dressed for the occasion, too. Taylor walked the red carpet solo in a bright yellow Oscar de la Renta gown from the label\'s spring/summer 2027 collection, with a dramatic high-low hem and ruffles. Then the performance opened in a backstage dressing room hung with her own early-career wardrobe: the butter-yellow ballgown from the 2007 CMA Awards, the year of her first win there; a floral halter dress from the 2006 ACM Awards, one of her first big red carpets; and the teal ballgown from the "Teardrops on My Guitar" video, which she also wore to the 2007 CMT Awards when "Tim McGraw" won Breakthrough Video of the Year. A Jessie doll sat on the couch, her blue guitar carried Toy Story\'s white clouds, and a tire-swing tree on stage read "Jessie was here."',
+        sources: [
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/cma-awards-2026-taylor-swift-attends-performs-138221036',
+            source_title: 'Taylor Swift performs at CMAs for 1st time in 13 years',
+            publisher: 'Good Morning America (ABC)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-19',
+            reliability_score: 4,
+            notes:
+              'By Katie Kindelan, Nov. 19, 2026; page text loaded directly. Primary for the medley, "Our Song" last at the CMAs in 2007, the cameo list and Keith Urban on banjo, the "mentored" quote, and Ella Langley\'s win.',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://au.rollingstone.com/music/music-news/taylor-swift-speech-cma-awards-brooks-and-dunn-103534/',
+            source_title: "'Eternal Bangers': See Taylor Swift's Speech Honoring Brooks & Dunn at 2026 CMA Awards",
+            publisher: 'Rolling Stone Australia',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-19',
+            reliability_score: 4,
+            notes:
+              'By CT Jones & Angie Martoccio, Nov. 19, 2026. Primary for the "eternal bangers," "mischief and excitement" and "important stuff" quotes. US original (intake #7020) and Billboard\'s write-up are paywalled to bots and were not read.',
+          },
+          {
+            outlet: 'Taylor Swift (YouTube)',
+            url: 'https://www.youtube.com/watch?v=LJC7mgjp5FQ',
+            source_title: 'Taylor Swift - I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-19',
+            reliability_score: 5,
+            notes: 'Official upload, published 2026-11-19. oEmbed-verified this run (HTTP 200, author_name "Taylor Swift"). The visual for this moment.',
+          },
+          {
+            // Content Shift (Vault Run 2026-11-20, intake #7018).
+            outlet: 'Elle',
+            url: 'https://www.elle.com/culture/celebrities/a74426453/taylor-swift-red-carpet-photos-cma-awards-2026/',
+            source_title: "Taylor Swift's Yellow CMA Awards Gown Has a Dramatic High-Low Hem and Ruffles",
+            publisher: 'Elle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-20',
+            reliability_score: 4,
+            notes:
+              'By Alyssa Bailey, Nov. 18, 2026; page text read directly. Primary for the yellow Oscar de la Renta SS27 gown, high-low hem, ruffles and the solo carpet walk. The pockets, the performance minidress and the hairstyle changes named in #7018 come from WWD and People, which block bots; not read, so cut.',
+          },
+          {
+            // Content Shift (Vault Run 2026-11-20, intake #7019).
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438244/taylor-swift-cma-awards-performance-debut-easter-eggs',
+            source_title: 'Taylor Swift CMA Awards Performance: Cracking Open All the Hidden Easter Eggs',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-20',
+            reliability_score: 4,
+            notes:
+              'By Olivia Evans, Nov. 19, 2026; page text read directly. Primary for the dressing-room dresses (2007 CMAs, 2006 ACMs, the teal "Teardrops" / 2007 CMT gown), the Jessie doll, the clouded guitar and the "Jessie was here" tree. The fan debut re-release read is left to the rumor layer, not this narrative.',
+          },
+        ],
+        rumors: [
+          {
+            // Rumor Desk 2026-11-20 (Vault Run) from intake #7019. Same open
+            // question as the Grammy Museum gown reading; this is the CMA data
+            // point, kept off the confirmed narrative above. No location.
+            claim:
+              'After her Nov. 18, 2026 CMA performance opened in a dressing room hung with debut-era dresses, fans read it as a hint at the long-promised re-release of her 2006 debut album, and some guessed the night\'s country guests could turn up on its vault tracks (per E! News). No debut re-release has been announced, titled or dated.',
+            reportedBy: 'E! News (Olivia Evans)',
+            reportedOn: '2026-11-19',
+            status: 'unconfirmed',
+            url: 'https://www.eonline.com/news/1438244/taylor-swift-cma-awards-performance-debut-easter-eggs',
+            note: 'A fan reading of staging, carried by an entertainment outlet, not a report of any plan, so it is held at tabloid tier. Taylor has said only that the debut will "re-emerge when the time is right" since buying her masters in May 2025. Resolves if the re-release is announced; fades if the thread goes quiet. E! itself notes she has long ties to the guest stars, which weakens the vault-track guess.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-11-20',
           },
         ],
       },
@@ -4166,12 +4276,18 @@ export default {
               'Speculation grew that Taylor could headline a major UK summer festival in 2027 after the festival\'s organiser, asked in mid-August 2026 whether Taylor was among next year\'s booked headliners, laughed and declined to confirm or deny — while cautioning that "pretty much 95%" of festival rumours turn out wrong.',
             reportedBy: 'NME',
             reportedOn: '2026-08-14',
-            status: 'unconfirmed',
+            status: 'debunked',
             url: 'https://www.nme.com/news/music/emily-eavis-confirms-glastonbury-2027-headliners-booked-as-she-responds-to-madonna-rumours-3962795',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            note: 'Forward-looking tour speculation. Held at region level (a country, no named festival or city) per the matrix, coarsened from the source. Resolves when the 2027 line-up is announced; fades if she is not on it. The organiser cautioned most such rumours are wrong. Re-checked 2026-10-24: line-up not announced yet. Still live.',
-            lastCheckedOn: '2026-10-24',
+            note: 'Forward-looking tour speculation, held at region level (a country, no named festival or city) per the matrix, coarsened from the source. The organiser cautioned most such rumours are wrong. Still live 2026-10-24. RESOLVED 2026-11-20 (Vault Run, Rumor Desk): the festival named its 2027 headliners on Nov. 18, 2026, and Taylor is not one of them.',
+            resolution: {
+              on: '2026-11-18',
+              url: 'https://www.musicweek.com/live/read/harry-styles-sam-fender-billie-eilish-cher-set-for-glastonbury-2027/095510',
+              outlet: 'Music Week',
+              note: 'The festival announced Sam Fender, Harry Styles and Billie Eilish as its three 2027 headliners, with Cher in the Sunday legends slot. Taylor is not on the bill, which settles the headline question the organiser declined to answer in August.',
+            },
+            lastCheckedOn: '2026-11-20',
           },
         ],
       },
@@ -4998,9 +5114,9 @@ export default {
             reportedOn: '2026-08-25',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-romantic-green-dress-005404690.html',
-            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan — tabloid tier. Points at the debut re-record specifically (distinct from the TS13 tips above). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Still live 2026-09-02 (Icon Sessions easter-egg cluster: PureWow, Yardbarker) and 2026-11-08; nothing announced.",
+            note: "Fan color-symbolism reading carried by entertainment outlets, not a report of any plan, so tabloid tier. Points at the debut re-record (distinct from the TS13 tips). Resolves if \"Taylor Swift (Taylor's Version)\" is announced; fades if quiet. No location. Still live 2026-09-02, 2026-11-08 and 2026-11-20 (a fresh CMA-night reading, see the CMA night moment); nothing announced.",
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-20',
           },
           // Rumor Desk 2026-08-29 (news-digest, first-seen 2026-08-28): a fresh,
           // post-wedding data point on the same next-record thread as the TS13
@@ -10285,11 +10401,11 @@ export default {
               'Awards writers began handicapping "I Knew It, I Knew You" as a genuine 2027 Best Original Song Oscar (and Grammy) contender — Billboard: it "could also be in line for an Oscar nomination for best original song," the first for both Taylor and Antonoff.',
             reportedBy: 'Billboard (Paul Grein)',
             reportedOn: '2026-06-10',
-            status: 'unconfirmed',
+            status: 'partially_confirmed',
             url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
-            note: 'A forward-looking prediction, not a nomination. Re-checked 2026-08-10, 2026-08-31 and 2026-10-08: still pending, not faded — the Academy\'s dates remain ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027), so no ruling exists yet. The 45d-quiet rule does not apply while a scheduled resolution is ahead. Re-checked 2026-11-02: still live; open FYC campaigning, no Academy ruling.',
+            note: 'A forward-looking prediction, not a nomination. The 45d-quiet rule does not apply while the Academy\'s dates are ahead (shortlist Dec. 15, 2026; nominations Jan. 21, 2027). Re-checked 2026-11-20: PARTIAL. The Grammy half landed: Song of the Year and Best Song Written for Visual Media nominations on Nov. 16, 2026 (ABC News full list). The Oscar half is still pending.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-20',
           },
           {
             // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
@@ -10326,9 +10442,9 @@ export default {
             reportedOn: '2026-10-01',
             status: 'partially_confirmed',
             url: 'https://theankler.com/taylor-swifts-oscar-campaign-hiding-in-plain-sight/',
-            note: 'Outlet analysis of intent, not on-record. Resolves at the Oscar shortlist (2026-12-15) and noms (2027-01-21). Tier capped at tabloid: theankler.com not allowlisted (RR5). 2026-11-02: PARTIAL. Taylor did a Q&A at a Nov. 1 FYC screening for guild voters (theankler.com/taylor-swift-wooing-oscar-voters-one-at-a-time; Showbiz411), so the push is real; the Patient Zero/VMA link is not.',
+            note: 'Outlet analysis of intent, not on-record. Resolves at the Oscar shortlist (2026-12-15) and noms (2027-01-21). Tier capped at tabloid (theankler.com not allowlisted, RR5). 2026-11-02: PARTIAL. Taylor did a Q&A at a Nov. 1 FYC screening for guild voters (The Ankler; Showbiz411), so the push is real; the Patient Zero/VMA link is not. Re-checked 2026-11-20: shortlist still pending.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-02',
+            lastCheckedOn: '2026-11-20',
           },
           // Added 2026-10-16 (Vault Run, Content Shift lane, intake #6003): the
           // two song-level October pre-nomination pieces, both pages loaded and
@@ -10352,11 +10468,17 @@ export default {
               '"I Knew It, I Knew You" made the predicted five for Best Country Song in Rolling Stone\'s 2027 Grammy forecast, alongside Kelsea Ballerini, Ella Langley, Megan Moroney and Kacey Musgraves — with Langley\'s "Choosin\' Texas" picked to win.',
             reportedBy: 'Rolling Stone (Marissa R. Moss)',
             reportedOn: '2026-10-16',
-            status: 'unconfirmed',
+            status: 'debunked',
             url: 'https://www.rollingstone.com/music/music-features/grammys-2027-best-country-song-predictions-nominees-1235643348/',
-            note: 'A pundit prediction, not a nomination. Resolves at the 69th Grammy nominations (Nov. 16, 2026). No location. Re-checked 2026-11-02: still pending. Grammy.com still lists the nominations for Monday, Nov. 16.',
+            note: 'A pundit prediction, not a nomination. No location. RESOLVED 2026-11-20 (Vault Run, Rumor Desk): the forecast missed. At the Nov. 16, 2026 nominations the song is not in the Best Country Song field; it was nominated for Song of the Year and Best Song Written for Visual Media instead.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-11-02',
+            resolution: {
+              on: '2026-11-16',
+              url: 'https://abcnews.com/GMA/Culture/grammy-nominations-2027-full-list/story?id=138113372',
+              outlet: 'ABC News',
+              note: 'The 69th Grammy Best Country Song nominees are "Beautiful Things," "Choosin\' Texas," "Dry Spell," "Hardwired" and "Phone, Keys, Wallet"; "I Knew It, I Knew You" is not among them.',
+            },
+            lastCheckedOn: '2026-11-20',
           },
         ],
       },
@@ -15043,6 +15165,7 @@ export default {
       month: 9,
       day: 2,
       category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       title: 'Travis finally recounts the wedding, on the New Heights season-five premiere',
       snippet:
         'For two months the most public couple alive had told no one the story of their own wedding. On the Sept. 2 season-five premiere of New Heights, Travis finally walked through it — building the whole account around Adam Sandler, who got ordained in New York State to officiate "in the very Sandman style."',
@@ -17597,7 +17720,7 @@ export default {
       category: 'music',
       title: '"I Knew It, I Knew You" picks up a Hollywood Music in Media nod',
       snippet:
-        "Taylor's Toy Story 5 song is up for Song — Animated Film at the 17th Hollywood Music in Media Awards, with the winners named Nov. 18.",
+        "Taylor's Toy Story 5 song, nominated Nov. 2, won Song — Animated Film at the 17th Hollywood Music in Media Awards on Nov. 18, the same night it lost CMA Single of the Year in Nashville.",
       sourceUrl: 'https://www.thewrap.com/industry-news/awards/hollywood-music-in-media-nominations-the-odyssey-taylor-swift/',
       thumbnailUrl: null,
       video: {
@@ -17606,7 +17729,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 2, 2026, the 17th annual Hollywood Music in Media Awards announced its nominees, and "I Knew It, I Knew You" was among them, in the Song — Animated Film category. Taylor wrote the Toy Story 5 end-credit song with Jack Antonoff.\n\nIt shares the category with four other animated-film songs: "Bottle Up" from Paw Patrol: The Dino Movie, performed by the Backstreet Boys; "BRB" from Forgotten Island, performed by H.E.R. and Liza Soberano; "Someone to Hold" from Steps, performed by JENNIE; and "The Better Part of Bravery" from Wildwood, performed by the Decemberists. The winners are announced Nov. 18 at the Avalon Hollywood. That is the same night as the CMA Awards in Nashville, where the song is up for Single of the Year. The Oscar race comes later: the Academy\'s Original Song shortlist is due Dec. 15.',
+          'On Nov. 2, 2026, the 17th annual Hollywood Music in Media Awards announced its nominees, and "I Knew It, I Knew You" was among them, in the Song — Animated Film category. Taylor wrote the Toy Story 5 end-credit song with Jack Antonoff.\n\nIt shares the category with four other animated-film songs: "Bottle Up" from Paw Patrol: The Dino Movie, performed by the Backstreet Boys; "BRB" from Forgotten Island, performed by H.E.R. and Liza Soberano; "Someone to Hold" from Steps, performed by JENNIE; and "The Better Part of Bravery" from Wildwood, performed by the Decemberists. The winners were announced Nov. 18 at the Avalon in Hollywood, and "I Knew It, I Knew You" took the category, credited to Taylor and Antonoff as writers and to Taylor as performer. The same night in Nashville the song lost CMA Single of the Year to Ella Langley\'s "Choosin\' Texas," while Taylor performed it on the CMA stage.\n\nThe HMMAs are a long way from the Oscars, but they are watched as an early signal: TheWrap notes that an HMMA song winner has gone on to win the Best Original Song Oscar five times in the last 12 years. The Academy\'s Original Song shortlist is due Dec. 15.',
         sources: [
           {
             outlet: 'TheWrap',
@@ -17618,6 +17741,29 @@ export default {
             reliability_score: 4,
             notes:
               'By Steve Pond, Nov. 2, 2026; loaded directly. Primary for the category name, the full slate of five, the 17th edition, and the Nov. 18 Avalon Hollywood ceremony. Intake #6549.',
+          },
+          {
+            // Content Shift (Vault Run 2026-11-19, intake #7021): the win.
+            // Page loaded directly this run; full winners list read.
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/industry-news/awards/taylor-swift-diane-warren-win-hollywood-music-in-media-awards/',
+            source_title: 'Hollywood Music in Media Awards Wins: Taylor Swift, Diane Warren',
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-19',
+            reliability_score: 4,
+            notes:
+              'Published Nov. 19, 2026. Primary for the Song — Animated Film win (written by Taylor Swift and Jack Antonoff, performed by Taylor Swift), the Avalon venue, and the five-of-12-years Oscar stat.',
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/cma-awards-2026-taylor-swift-attends-performs-138221036',
+            source_title: 'Taylor Swift performs at CMAs for 1st time in 13 years',
+            publisher: 'Good Morning America (ABC)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-19',
+            reliability_score: 4,
+            notes: 'By Katie Kindelan, Nov. 19, 2026; loaded directly. Cited only for Ella Langley winning CMA Single of the Year the same night.',
           },
           {
             outlet: 'Taylor Swift (YouTube)',

@@ -1,0 +1,28 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-18-but-you-tolerate-it-table-ornament-8236055757000",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-18T02:31:22.718Z",
+  "deadline": "2026-11-21T02:31:22.718Z",
+  "status": "declined",
+  "facts": {
+    "name": "But You Tolerate It Table Ornament",
+    "price": "25.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/but-you-tolerate-it-table-ornament",
+    "firstSeenAt": "2026-11-18T02:29:30.532Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44223339571.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/but-you-tolerate-it-table-ornament",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Marvelous Time Ruining Everything Tote\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  },
+  "declinedReason": "Listed as out of stock when selected, and its only media is a generic 30-item store-drop card led by a different product, so the post would show nothing a fan could actually buy."
+}
