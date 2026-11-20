@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-20-the-tortured-poets-department-collectors-edition-deluxe-cd-b-7720399732936",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-20T01:50:04.278Z",
+  "deadline": "2026-11-23T01:50:04.278Z",
+  "status": "open",
+  "facts": {
+    "name": "The Tortured Poets Department Collector's Edition Deluxe CD + Bonus Track 'The Albatross'",
+    "price": "17.99",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/the-tortured-poets-department-collectors-edition-deluxe-cd-bonus-track-the-albatross",
+    "firstSeenAt": "2026-11-20T01:49:18.261Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44656088543.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/the-tortured-poets-department-collectors-edition-deluxe-cd-bonus-track-the-albatross",
+  "altTextHint": "A Long Live store-drop card for 32 items newly available on the official store, led by \"Secret Gardens in My Mind Poplin Pants\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
