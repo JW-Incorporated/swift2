@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 109
+Stories: 108
 
 ## Taylor Swift's CMA Awards Performance Features Friends from Country Days
 
@@ -973,11 +973,3 @@ Stories: 109
 - sources:
   - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article318117311.html
   - [unverified] unknown — https://wsvn.com/entertainment/deco-drive/women-dominate-grammy-nominations/
-
-## Ice Spice Discusses Connection with Star at Taylor Swift's Wedding
-
-- first seen: 2026-11-17 02:22 UTC | category: relationship | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: Ice Spice shared details about her instant connection with a star during Taylor Swift's wedding, which she described as 'magical.' The revelation highlights the personal interactions that took place at the event.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ice-spice-reveals-star-she-014948276.html
