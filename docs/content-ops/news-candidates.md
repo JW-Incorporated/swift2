@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 104
+Stories: 103
 
 ## STAUD Announces 30% Off Sale Featuring Items Worn by Taylor Swift
 
@@ -931,11 +931,3 @@ Stories: 104
   - [unverified] Time Out Worldwide — https://www.timeout.com/boston/news/a-giant-taylor-swift-exhibition-is-taking-over-bostons-museum-of-fine-arts-next-year-111826
   - [unverified] WCVB — https://www.wcvb.com/article/taylor-swift-exhibition-coming-to-museum-of-fine-arts-in-boston-in-april-2027/74452371
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/boston-museum-fine-arts-announces-142003570.html
-
-## Taylor Swift's Grammy Quip May Have Been Intentional
-
-- first seen: 2026-11-17 16:12 UTC | category: music | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift's recent comment related to the Song of the Year Grammy is believed to have been deliberate, suggesting a potential strategic move or a well-thought-out statement. Further details on the context of the comment have not been revealed.
-- sources:
-  - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-mentions-grammy-losing-streak-song-of-the-year-1236383733/
