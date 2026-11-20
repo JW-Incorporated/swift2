@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 105
+Stories: 106
+
+## Exploring Fan Influence on Creators
+
+- first seen: 2026-11-20 13:17 UTC | category: music | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: A discussion on the increasing ability of fans to provide feedback to creators and how this may impact their influence. The potential effects of AI and social media policies on fan interactions with creators are also considered.
+- sources:
+  - [established] BBC News — Taylor Swift topic — https://www.bbc.co.uk/bitesize/articles/z4hbywx?at_medium=RSS&at_campaign=rss
 
 ## New Insect Species Named After Taylor Swift
 
