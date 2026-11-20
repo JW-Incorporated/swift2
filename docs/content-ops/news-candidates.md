@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 112
+Stories: 109
 
 ## Taylor Swift's CMA Awards Performance Features Friends from Country Days
 
@@ -43,14 +43,6 @@ Stories: 112
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-skipped-taylor-swifts-215839645.html
 
-## This Week's Notable Celebrity Cowboy Boot Moments
-
-- first seen: 2026-11-19 23:17 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift was among notable celebrities wearing standout cowboy boots, highlighted in recent appearances including the CMAs. The feature also mentions other celebrities from various events.
-- sources:
-  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/celebrity-cowboy-boot-moments-taylor-swift-diplo-1239428500/
-
 ## Taylor Swift: The Eras Collection Scheduled for April to August 2024
 
 - first seen: 2026-11-19 23:17 UTC | category: tour | importance: 7
@@ -58,6 +50,14 @@ Stories: 112
 - summary: The Eras Collection featuring Taylor Swift is set to take place next year from April 10 to August 15. This exhibition will showcase various aspects of the artist's career.
 - sources:
   - [unverified] Facebook — https://www.facebook.com/Boston25News/photos/taylor-swift-the-eras-collection-will-run-next-year-from-april-10-through-aug-15/1642543181240675/
+
+## This Week's Notable Celebrity Cowboy Boot Moments
+
+- first seen: 2026-11-19 23:17 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift was among notable celebrities wearing standout cowboy boots, highlighted in recent appearances including the CMAs. The feature also mentions other celebrities from various events.
+- sources:
+  - [established] WWD — Taylor Swift tag — https://wwd.com/footwear-news/shoe-trends/celebrity-cowboy-boot-moments-taylor-swift-diplo-1239428500/
 
 ## Report: GTA VI May Outsell Taylor Swift's Eras Tour in Opening Week
 
@@ -430,7 +430,7 @@ Stories: 112
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 27
+- verification_status: official | source_count: 28
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -445,6 +445,7 @@ Stories: 112
   - [unverified] Entertainment Weekly — https://ew.com/taylor-swift-performs-at-cma-awards-for-first-time-in-13-years-12262940
   - [unverified] Fox News — https://www.foxnews.com/entertainment/ella-langley-dominates-cma-awards-major-wins-taylor-swift-makes-stunning-return-stage
   - [unverified] FOX4KC.com — https://fox4kc.com/news/brittany-mahomes-joins-taylor-swift-at-cma-awards/
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-ditches-signature-makeup-cma-awards-2026-12258758
   - [unverified] KATU — https://katu.com/news/entertainment/ella-langley-sweeps-cma-awards-makes-history-taylor-swift-performs-over-a-decade-later?teaserSource=databricks
   - [unverified] Los Angeles Times — https://www.latimes.com/entertainment-arts/music/story/2026-11-19/taylor-swift-returns-to-cmas-ella-langley-makes-history
   - [unverified] Page Six — https://pagesix.com/2026/11/19/style/taylor-swifts-third-cma-awards-2026-outfit-features-sequin-and-fringe-to-round/
@@ -980,27 +981,3 @@ Stories: 112
 - summary: Ice Spice shared details about her instant connection with a star during Taylor Swift's wedding, which she described as 'magical.' The revelation highlights the personal interactions that took place at the event.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/ice-spice-reveals-star-she-014948276.html
-
-## Fans See Taylor Swift's Grammys Necklaces as Easter Eggs
-
-- first seen: 2026-11-17 00:27 UTC | category: fashion | importance: 6
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift's fans believe the necklaces she wore during her Grammy livestream have significant meaning, possibly hinting at future projects or themes. The speculation surrounding these accessories highlights the ongoing engagement between her and her fanbase.
-- sources:
-  - [established] People — https://people.com/taylor-swift-fans-are-convinced-her-necklaces-are-a-major-easter-egg-12259129
-
-## Hosts Share Reactions to 2027 Grammy Nominations
-
-- first seen: 2026-11-17 00:27 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The hosts of 'Popcast' discuss key takeaways from the recently announced 2027 Grammy nominations, highlighting different categories and their implications.
-- sources:
-  - [established] NYT — Taylor Swift spotlight — https://www.nytimes.com/2026/11/16/arts/music/popcast-grammy-nomination-takeaways.html
-
-## Taylor Swift Shares Personal News Amid Travis Kelce's Injury
-
-- first seen: 2026-11-17 00:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has announced personal news in relation to the ongoing situation with Chiefs player Travis Kelce, who is currently injured. Further details about the announcement have not been disclosed in the snippet.
-- sources:
-  - [unverified] Heavy.com — https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-grammy-travis-kelce-injury-update/
