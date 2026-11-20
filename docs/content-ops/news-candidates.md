@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 103
+Stories: 100
+
+## Taylor Swift's CMA Awards 2026 Rehearsal Dress Suggests Red Carpet Style
+
+- first seen: 2026-11-20 17:12 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's rehearsal dress for the CMA Awards 2026 gives a glimpse into her anticipated red carpet look. The dress has sparked interest among fans and fashion enthusiasts alike.
+- sources:
+  - [unverified] Page Six — https://pagesix.com/2026/11/20/style/taylor-swift-wears-sparkling-yellow-minidress-for-cma-awards-2026-performance-rehearsal/
 
 ## STAUD Announces 30% Off Sale Featuring Items Worn by Taylor Swift
 
@@ -893,41 +901,3 @@ Stories: 103
 - summary: Sugarland has shared a video featuring their cover of Taylor Swift's song 'Patient Zero'. The announcement comes from Dayton's New Country 103.9.
 - sources:
   - [unverified] Dayton’s New Country 103.9 — https://newcountry1039fm.iheart.com/content/2026-11-17-sugarland-shares-video-of-their-stunning-cover-of-taylor-swifts-patient-zero/
-
-## Taylor Swift Acknowledges Grammy Nominations in Song of the Year
-
-- first seen: 2026-11-17 17:12 UTC | category: music | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift humorously remarks on her previous nominations for Song of the Year at the Grammys, stating she's 'zero for eight' before receiving her ninth nomination.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/new-albums/articles/taylor-swift-jokes-shes-zero-153033320.html
-
-## Taylor Swift's Eras Archive Set to Arrive at MFA
-
-- first seen: 2026-11-17 17:12 UTC | category: business | importance: 6
-- verification_status: corroborated | source_count: 2
-- summary: The Museum of Fine Arts (MFA) will soon feature Taylor Swift's Eras archive, showcasing her artistic journey. This exhibit promises to highlight the various phases of Swift's career.
-- sources:
-  - [unverified] The Boston Globe — https://www.bostonglobe.com/2026/11/17/arts/taylor-swift-mfa-eras-collection-exhibit/
-  - [unverified] WBUR — https://www.wbur.org/news/2026/11/17/taylor-swift-eras-archive-mfa
-
-## Kelce and Swift's Wedding Gift Donated to Humane Foundation
-
-- first seen: 2026-11-17 17:12 UTC | category: business | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A wedding gift from Travis Kelce and Taylor Swift has been donated to the Hancock County Humane Foundation for cat care. This contribution highlights their support for local animal welfare initiatives.
-- sources:
-  - [unverified] WTOV — https://wtov9.com/news/local/early-july-celebrity-wedding-donation-boosts-hancock-county-humane-foundation-cat-care
-
-## Taylor Swift Exhibition to Open at Boston's Museum of Fine Arts Next Year
-
-- first seen: 2026-11-17 17:12 UTC | category: music | importance: 5
-- verification_status: corroborated | source_count: 6
-- summary: A new exhibition featuring Taylor Swift is set to debut at the Museum of Fine Arts in Boston next year, showcasing her impact on music and culture.
-- sources:
-  - [unverified] CBS News — https://www.cbsnews.com/boston/news/taylor-swift-eras-collection-mfa-boston/
-  - [unverified] NBC Boston — https://www.nbcboston.com/entertainment/entertainment-news/exclusive-taylor-swift-show-boston-eras/4050810/
-  - [unverified] The Business Journals — https://www.bizjournals.com/boston/news/2026/11/17/taylor-swift-museum-of-fine-arts.html
-  - [unverified] Time Out Worldwide — https://www.timeout.com/boston/news/a-giant-taylor-swift-exhibition-is-taking-over-bostons-museum-of-fine-arts-next-year-111826
-  - [unverified] WCVB — https://www.wcvb.com/article/taylor-swift-exhibition-coming-to-museum-of-fine-arts-in-boston-in-april-2027/74452371
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/boston-museum-fine-arts-announces-142003570.html
