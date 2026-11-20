@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 104
+
+## STAUD Announces 30% Off Sale Featuring Items Worn by Taylor Swift
+
+- first seen: 2026-11-20 15:17 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: STAUD is set to launch a sitewide sale offering 30% off starting November 23, featuring items worn by Taylor Swift. This promotional event highlights the brand's connection to the artist.
+- sources:
+  - [unverified] Yahoo — https://shopping.yahoo.com/style/clothing/articles/staud-worn-taylor-swift-offering-120047556.html
 
 ## The Atlantic Discusses Taylor Swift's Impact on Art Museums
 
@@ -931,27 +939,3 @@ Stories: 106
 - summary: Taylor Swift's recent comment related to the Song of the Year Grammy is believed to have been deliberate, suggesting a potential strategic move or a well-thought-out statement. Further details on the context of the comment have not been revealed.
 - sources:
   - [established] Billboard — https://www.billboard.com/music/awards/taylor-swift-mentions-grammy-losing-streak-song-of-the-year-1236383733/
-
-## Taylor Swift Reflects on Friendship Amid Recent Updates
-
-- first seen: 2026-11-17 15:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's recent comments on friendship resonate in light of updates regarding her relationships with Karlie Kloss and Blake Lively. This has sparked interest among fans about her views on personal connections.
-- sources:
-  - [unverified] Cinemablend — https://www.cinemablend.com/television/taylor-swift-discusses-friendship-amidst-karlie-kloss-blake-lively-updates
-
-## 2027 Grammy Nominations Announced
-
-- first seen: 2026-11-17 15:17 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The list of nominees for the 2027 Grammy Awards has been released by TODAY.com. Fans can now see which artists are in contention for music's prestigious honors.
-- sources:
-  - [unverified] TODAY.com — https://www.today.com/popculture/awards/grammy-nominations-2027-rcna608836
-
-## Taylor Swift Surprises Fans Post Chiefs-Falcons Game
-
-- first seen: 2026-11-17 14:19 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: After the Chiefs-Falcons game, Taylor Swift revealed a hidden surprise for her fans. Details about the surprise are not specified in the report.
-- sources:
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-hidden-surprise-fans-080856721.html
