@@ -27,6 +27,14 @@ so far".
 
 Stories: 105
 
+## New Insect Species Named After Taylor Swift
+
+- first seen: 2026-11-20 12:17 UTC | category: business | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A newly discovered group of insects has been named Swiftiephylus, honoring Taylor Swift. This naming highlights the cultural impact of the singer beyond music.
+- sources:
+  - [unverified] Science News Explores — https://www.snexplores.org/article/new-taylor-swift-insects
+
 ## Celebrities Who Grew Up on Farms Before Fame
 
 - first seen: 2026-11-20 06:22 UTC | category: business | importance: 3
@@ -433,10 +441,36 @@ Stories: 105
 - sources:
   - [established] WWD — Taylor Swift tag — https://wwd.com/pop-culture/celebrity-news/taylor-swift-cma-awards-2026-oscar-de-la-renta-pockets-1239426467/
 
+## Taylor Swift Appears at 2026 CMA Awards Before Performance
+
+- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
+- verification_status: corroborated | source_count: 18
+- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
+- sources:
+  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
+  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
+  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
+  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
+  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
+  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
+  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
+  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
+  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
+  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
+  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
+  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
+  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-cmas-wedding-joke-b3087867.html
+  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
+  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
+  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
+  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
+  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-personal-decision-wife-193005416.html
+
 ## Taylor Swift Attends 2026 CMAs
 
 - first seen: 2026-11-19 00:57 UTC | category: music | importance: 7
-- verification_status: official | source_count: 28
+- verification_status: official | source_count: 29
 - summary: Taylor Swift made an appearance at the 2026 Country Music Awards, showcasing her connection to her roots in country music.
 - sources:
   - [unverified] ABC7 Bay Area — https://abc7news.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
@@ -463,36 +497,11 @@ Stories: 105
   - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318141691.html
   - [established] The New York Times — https://www.nytimes.com/2026/11/19/arts/music/ella-langley-taylor-swift-cma-awards.html
   - [unverified] The Washington Post — https://www.washingtonpost.com/entertainment/music/2026/11/19/cma-awards-2026-complete-list-winners-best-worst-moments/
+  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/18/taylor-swift-cma-awards-keith-urban/92854264007/
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/cma-awards-photos-taylor-swift-ella-langley-kacey-musgraves-1236952762/
   - [established] Vogue — https://www.vogue.com/article/taylor-swift-2026-cmas
   - [unverified] WHDH — https://whdh.com/entertainment/taylor-swift-returns-to-the-cma-awards-stage-for-the-first-time-in-13-years-ella-langley-wins-big/
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/live/cma-awards-2026-live-updates-lainey-wilson-hosts-taylor-swift-returns-and-ella-langley-could-win-big-210112240.html
-
-## Taylor Swift Appears at 2026 CMA Awards Before Performance
-
-- first seen: 2026-11-19 00:57 UTC | category: sighting | importance: 6
-- verification_status: corroborated | source_count: 18
-- summary: Taylor Swift was spotted at the 2026 CMA Awards prior to her scheduled performance. The appearance comes as anticipation builds for her show at the event.
-- sources:
-  - [unverified] ABC11 News — https://abc11.com/story/taylor-swift-steps-2026-cma-awards-ahead-performance/20053089/
-  - [established] Billboard — https://www.billboard.com/music/awards/lainey-wilson-brad-paisley-taylor-swift-wedding-cma-awards-1236385272/
-  - [unverified] Cosmopolitan — https://www.cosmopolitan.com/entertainment/celebs/a70546948/watch-taylor-swift-cmas-performance/
-  - [established] Deadline — https://deadline.com/gallery/cma-2026-awards-red-carpet/
-  - [established] Elle — https://www.elle.com/culture/celebrities/a74469997/why-travis-kelce-missed-cma-awards-2026/
-  - [unverified] Fox News — https://www.foxnews.com/entertainment/cma-awards-2026-taylor-swift-lainey-wilson-ella-langley-dazzle-stars-hit-red-carpet
-  - [unverified] InStyle — https://www.instyle.com/taylor-swift-dolly-parton-tribute-cma-awards-2026-12263976
-  - [unverified] KMBC — https://www.kmbc.com/article/taylor-swift-brittany-mahomes-at-2026-cma-awards/74471915
-  - [unverified] Page Six — https://pagesix.com/2026/11/18/photos/cma-awards-2026-red-carpet-taylor-swift-lainey-wilson-and-more/
-  - [established] People — https://people.com/cma-awards-2026-live-updates-12263785
-  - [established] Rolling Stone — https://www.rollingstone.com/music/music-country/taylor-swift-cma-awards-performance-1235656541/
-  - [established] The Hollywood Reporter — https://www.hollywoodreporter.com/music/music-news/taylor-swift-2026-cma-awards-performance-our-song-1236758939/
-  - [unverified] The Independent — https://www.independent.co.uk/arts-entertainment/music/news/taylor-swift-cmas-wedding-joke-b3087867.html
-  - [established] The Kansas City Star — https://www.kansascity.com/news/local/article318148369.html
-  - [unverified] unknown — https://news.google.com/rss/articles/CBMijAFBVV95cUxOdEJzSXhtdHpIY1NjMU9Hd2dIdTVFOU9MWC02cjNiMnVsZnNsU2lxS0tKTUR6ZlZSenZKdFE4aXk5YzRSOEMxOGhPbEJtVHZwZmFPSTl2TFpxY2hPeFpwNFdvZTRPQ1JPZ2xHNjdNV0tfQkxoX2xnZi1rc3NQV2J5ZVVFNTRWMGJiVG5UNQ?oc=5
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-performs-i-knew-it-i-knew-you-our-song-cmas-1236952619/
-  - [established] WWD — https://wwd.com/pop-culture/celebrity-news/gallery/2026-cma-awards-red-carpet-style-photos-1239425833/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/music/articles/lainey-wilson-brad-paisley-rib-132159599.html
-  - [unverified] Yahoo Sports — https://sports.yahoo.com/articles/travis-kelce-personal-decision-wife-193005416.html
 
 ## Review of Taylor Swift's 'Cleveland!' Explores Audience Perspective
 
@@ -938,13 +947,3 @@ Stories: 105
 - summary: A new list has been published ranking the 25 best songs by Taylor Swift. This compilation provides insight into her most impactful tracks as recognized by fans and critics.
 - sources:
   - [unverified] Still Listening — https://www.stilllisteningmagazine.com/features/the-25-best-songs-by-taylor-swift-ranked
-
-## How to Watch Taylor Swift's Performance at the 2026 CMA Awards
-
-- first seen: 2026-11-17 11:32 UTC | category: music | importance: 7
-- verification_status: corroborated | source_count: 3
-- summary: Details on how to watch Taylor Swift's upcoming performance at the 2026 CMA Awards, including start time and nominees, have been released. Fans can look forward to her participation in this major country music event.
-- sources:
-  - [unverified] Business Insider — https://www.businessinsider.com/most-popular-taylor-swift-songs-spotify-2026-11
-  - [unverified] Country Living Magazine — https://www.countryliving.com/life/entertainment/a74429045/how-to-watch-2026-cma-awards/
-  - [unverified] Yahoo — https://www.yahoo.com/entertainment/tv/article/2026-cma-awards-how-to-watch-taylor-swifts-performance-live-start-time-nominees-and-more-112500231.html
