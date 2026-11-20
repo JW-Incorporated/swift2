@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-11-20-oSAbYDPZfR0",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-11-20T21:31:41.402Z",
+  "deadline": "2026-11-22T21:31:41.402Z",
+  "status": "open",
+  "facts": {
+    "channelName": "The Graham Norton Show",
+    "videoTitle": "The One Where Taylor Swift Crashed Her Car Twice | S25 - E8 | The Graham Norton Show",
+    "publishedAt": "2026-11-20T12:00:29+00:00",
+    "videoId": "oSAbYDPZfR0",
+    "url": "https://www.youtube.com/watch?v=oSAbYDPZfR0"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 7033
+  }
+}
