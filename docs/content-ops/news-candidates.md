@@ -27,6 +27,14 @@ so far".
 
 Stories: 108
 
+## Taylor Swift's CMA Awards Comeback Features Notable Cameos
+
+- first seen: 2026-11-20 03:27 UTC | category: tour | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's return to the CMA Awards included a series of significant cameos. Each appearance was noted for its relevance to her performance and overall presence at the event.
+- sources:
+  - [unverified] Happy Mag — https://happymag.tv/taylor-swift-cma-awards-cameos/
+
 ## Taylor Swift's CMA Awards Performance Features Friends from Country Days
 
 - first seen: 2026-11-19 23:17 UTC | category: music | importance: 7
@@ -964,12 +972,3 @@ Stories: 108
 - summary: Taylor Swift has achieved a record-breaking streak of Grammy nominations for Album of the Year, marking a significant milestone in her music career. The news highlights her continued recognition in the music industry.
 - sources:
   - [unverified] IMDb — https://www.imdb.com/news/ni66114774/?ref_=nmnw_art_perm
-
-## Taylor Swift Nominated for Grammy Award Alongside Beyoncé
-
-- first seen: 2026-11-17 03:22 UTC | category: music | importance: 8
-- verification_status: single_source | source_count: 1
-- summary: The Grammy Award nominations include notable music stars such as Taylor Swift and Beyoncé. These nominations highlight the achievements of women in the music industry.
-- sources:
-  - [established] The Kansas City Star — https://www.kansascity.com/sports/spt-columns-blogs/for-petes-sake/article318117311.html
-  - [unverified] unknown — https://wsvn.com/entertainment/deco-drive/women-dominate-grammy-nominations/
