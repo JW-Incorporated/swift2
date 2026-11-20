@@ -27,6 +27,14 @@ so far".
 
 Stories: 106
 
+## The Atlantic Discusses Taylor Swift's Impact on Art Museums
+
+- first seen: 2026-11-20 14:17 UTC | category: business | importance: 4
+- verification_status: rumor | source_count: 1
+- summary: The Atlantic publishes an article exploring the notion that art museums should not rely on Taylor Swift's popularity to attract visitors.
+- sources:
+  - [unverified] The Atlantic — https://www.theatlantic.com/culture/2026/11/taylor-swift-museum-boston/689520/
+
 ## Exploring Fan Influence on Creators
 
 - first seen: 2026-11-20 13:17 UTC | category: music | importance: 5
@@ -947,11 +955,3 @@ Stories: 106
 - summary: After the Chiefs-Falcons game, Taylor Swift revealed a hidden surprise for her fans. Details about the surprise are not specified in the report.
 - sources:
   - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-hidden-surprise-fans-080856721.html
-
-## Ranking the 25 Best Songs by Taylor Swift
-
-- first seen: 2026-11-17 13:32 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: A new list has been published ranking the 25 best songs by Taylor Swift. This compilation provides insight into her most impactful tracks as recognized by fans and critics.
-- sources:
-  - [unverified] Still Listening — https://www.stilllisteningmagazine.com/features/the-25-best-songs-by-taylor-swift-ranked
