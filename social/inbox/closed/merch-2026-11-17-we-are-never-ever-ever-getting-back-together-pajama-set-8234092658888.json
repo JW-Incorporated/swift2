@@ -1,24 +1,24 @@
 {
   "v": 1,
-  "id": "merch-2026-11-17-taylor-swift-the-eras-tour-acoustic-piano-hair-clip-8236053627080",
+  "id": "merch-2026-11-17-we-are-never-ever-ever-getting-back-together-pajama-set-8234092658888",
   "source": "merch-official-sync",
   "lane": "merch",
   "createdAt": "2026-11-17T03:00:57.474Z",
   "deadline": "2026-11-20T03:00:57.474Z",
-  "status": "open",
+  "status": "expired",
   "facts": {
-    "name": "Taylor Swift | The Eras Tour Acoustic Piano Hair Clip",
-    "price": "15.00",
+    "name": "We Are Never Ever Ever Getting Back Together Pajama Set",
+    "price": "75.00",
     "currency": "USD",
-    "availability": "out of stock",
-    "productUrl": "https://store.taylorswift.com/products/taylor-swift-the-eras-tour-acoustic-piano-hair-clip",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/we-are-never-ever-ever-getting-back-together-pajama-set",
     "firstSeenAt": "2026-11-17T02:59:25.504Z"
   },
   "media": [
     "/social/library/merch-drop-44006654598.png"
   ],
   "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
-  "mediaSource": "https://store.taylorswift.com/products/taylor-swift-the-eras-tour-acoustic-piano-hair-clip",
+  "mediaSource": "https://store.taylorswift.com/products/we-are-never-ever-ever-getting-back-together-pajama-set",
   "altTextHint": "A Long Live store-drop card for 24 items newly available on the official store, led by \"Taylor Swift | The Eras Tour Acoustic Piano Sweatpants\".",
   "links": {
     "pr": null,
