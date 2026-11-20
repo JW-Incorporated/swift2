@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 107
+
+## Travis Kelce Reflects on Taylor Swift's First Chiefs Game Experience
+
+- first seen: 2026-11-20 05:22 UTC | category: relationship | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce describes Taylor Swift's attendance at her first Kansas City Chiefs game as an experience that exceeded his expectations, highlighting their early romance.
+- sources:
+  - [unverified] InStyle — https://www.instyle.com/travis-kelce-reflects-taylor-swift-first-chiefs-game-early-romance-12264816
 
 ## Taylor Swift's CMA Awards Comeback Features Notable Cameos
 
