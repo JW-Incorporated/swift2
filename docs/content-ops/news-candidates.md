@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 101
+
+## Brittany Mahomes Spotted Out with Taylor Swift
+
+- first seen: 2026-11-20 21:42 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brittany Mahomes had an outing with Taylor Swift, leaving her without words. The event garnered attention among fans and observers.
+- sources:
+  - [unverified] Yahoo — https://www.yahoo.com/entertainment/celebrity/articles/patrick-mahomes-wife-brittany-mahomes-161123904.html
+
+## Taylor Swift's Quote on Future Wardrobe Choices
+
+- first seen: 2026-11-20 21:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift shares a humorous reflection on her future and fashion choices in a recent quote, addressing the possibility of not wearing sparkly dresses at age 40. The quote has garnered attention on various platforms.
+- sources:
+  - [unverified] Women.com — https://www.women.com/2320256/quote-of-the-day-taylor-swift-when-im-40-nobody-wants-to-see-me-in-sparkly-dress-write-songs-for-kids/
+
+## Brittany Mahomes Shows Baby Bump at CMAs with Taylor Swift
+
+- first seen: 2026-11-20 21:42 UTC | category: sighting | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Brittany Mahomes made an appearance on the red carpet at the CMA Awards, showcasing her baby bump alongside Taylor Swift. The event highlighted their attendance together at a major music awards show.
+- sources:
+  - [established] People — https://people.com/pregnant-brittany-mahomes-shows-off-her-baby-bump-on-the-red-carpet-12264691
 
 ## Taylor Swift Showcases Burgundy Wine Manicure for Winter
 
@@ -884,11 +908,3 @@ Stories: 99
 - summary: Taylor Swift is seen changing her makeup look from her iconic red lipstick to a new shade called 'Cinnamon Latte Lips,' as featured in Harper's BAZAAR.
 - sources:
   - [established] Harper's Bazaar — https://www.harpersbazaar.com/beauty/makeup/a74455988/taylor-swift-cinnamon-latte-lips/
-
-## Taylor Swift Museum Exhibit Set to Open in Boston
-
-- first seen: 2026-11-17 21:11 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: A museum exhibit dedicated to Taylor Swift is scheduled to open in Boston, showcasing her career and contributions to music. The exhibit aims to engage fans and provide insights into her life and work.
-- sources:
-  - [unverified] USA Today — https://www.usatoday.com/story/entertainment/music/2026/11/17/taylor-swift-boston-museum-tickets/92829798007/
