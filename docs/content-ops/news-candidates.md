@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 100
+Stories: 102
+
+## Travis Kelce Remembers Taylor Swift's First Game with the Chiefs
+
+- first seen: 2026-11-20 18:42 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce shares fond memories of Taylor Swift attending her first game as he recalls the experience.
+- sources:
+  - [unverified] Sports Illustrated — https://www.si.com/onsi/athlete-lifestyle/travis-kelce-gushes-recalling-taylor-swift-s-first-chiefs-game
+
+## Ella Langley Praises Taylor Swift's Supportive Nature at 2026 CMAs
+
+- first seen: 2026-11-20 18:42 UTC | category: relationship | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Ella Langley expressed her admiration for Taylor Swift, describing her as 'cool' and supportive after their interaction at the 2026 CMAs. This reflects Swift's positive influence and approachability in the country music scene.
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://ca.style.yahoo.com/ella-langley-gushes-over-cool-173353689.html
+
+## CMA Awards Highlights Include Taylor Swift's Attendance
+
+- first seen: 2026-11-20 18:42 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The CMA Awards featured several memorable moments, including Taylor Swift's participation. Ella Langley's historic achievement also caught attention during the event.
+- sources:
+  - [unverified] All Country News — https://www.allcountrynews.com/post/ella-langley-made-history-taylor-swift-came-home-and-we-re-still-talking-about-these-seven-cma-awa
 
 ## Taylor Swift's CMA Awards 2026 Rehearsal Dress Suggests Red Carpet Style
 
@@ -893,11 +917,3 @@ Stories: 100
 - summary: An upcoming exhibit will allow Taylor Swift fans to view costumes, instruments, and memorabilia spanning her two-decade career. This immersive experience is expected to be a significant attraction for her fans.
 - sources:
   - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/are-you-ready-for-it-taylor-swift-fans-will-soon-be-able-to-get-an-up-close-look/1640166504811676/
-
-## Sugarland Releases Cover Video of Taylor Swift's 'Patient Zero'
-
-- first seen: 2026-11-17 18:12 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Sugarland has shared a video featuring their cover of Taylor Swift's song 'Patient Zero'. The announcement comes from Dayton's New Country 103.9.
-- sources:
-  - [unverified] Dayton’s New Country 103.9 — https://newcountry1039fm.iheart.com/content/2026-11-17-sugarland-shares-video-of-their-stunning-cover-of-taylor-swifts-patient-zero/
