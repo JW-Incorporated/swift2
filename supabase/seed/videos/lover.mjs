@@ -974,5 +974,35 @@ export default {
         },
       ],
     },
+    // Content Shift (Vault Run 2026-11-20, intake #7033). The show's own
+    // channel posted this clip on 2026-11-20; its description dates the
+    // original broadcast to May 24, 2019 (series 25, episode 8), so it is
+    // placed in Lover by the broadcast date, not the upload date.
+    appearance({
+      slug: 'graham-norton-two-car-accidents-2019',
+      kind: 'interview',
+      title: 'The Graham Norton Show — the day she crashed twice with a reporter in the car',
+      releasedOn: '2019-05-24',
+      summary:
+        'Promoting "ME!" on Graham Norton\'s couch, Taylor tells the story of the 2012 Rolling Stone cover interview in Nashville when she got into two car accidents with the writer in the car: "One was my fault, one was not. One was an \'I\'m sorry,\' the second one was a \'you\'re welcome I saved your life.\'"',
+      youtubeId: 'oSAbYDPZfR0',
+      channel: 'The Graham Norton Show',
+      attribution: 'The Graham Norton Show — official YouTube channel',
+      tags: ['Music'],
+      sources: [
+        upload({
+          youtubeId: 'oSAbYDPZfR0',
+          title: 'The One Where Taylor Swift Crashed Her Car Twice | S25 - E8 | The Graham Norton Show',
+          channel: 'The Graham Norton Show',
+          note: "official upload on The Graham Norton Show's own channel, published 2026-11-20 — oEmbed-verified 2026-11-20 (HTTP 200, author_name matches); description gives the original TX date May 24, 2019",
+        }),
+        pressSource(
+          'https://khvhradio.iheart.com/content/2019-05-24-taylor-swift-recalls-the-time-she-got-in-two-accidents-in-one-day-watch',
+          'Taylor Swift Recalls Getting In Two Car Accidents In One Day: Watch',
+          'iHeartRadio (News Radio 830 KHVH)',
+          'By Katrina Nattress, May 24, 2019; page text read 2026-11-20. Primary for the quote and for the 2012 Rolling Stone cover-story setting in Nashville.',
+        ),
+      ],
+    }),
   ],
 };
