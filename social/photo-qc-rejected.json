@@ -3997,6 +3997,42 @@
       "sha256": "82446e4eb21d6a70e03ca8bb6494dca3c3360604fe8023f4ab2ae1d7f68b4349",
       "reason": "Wide stadium shot; performers small, crowd heads dominate foreground",
       "date": "2026-11-19"
+    },
+    {
+      "id": "press-df32814d5e7d",
+      "sha256": "c902a9337bf6b4d32158bbf048b6108cfc7ddf01277488827eee07e3af378bbb",
+      "reason": "Collage of three Christmas trees; no person pictured",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "press-8188a94e3d31",
+      "sha256": "0c740486043f5dea266b8ff902f4e57ede6798bec5f4b7f78c333c4d51823399",
+      "reason": "Two performers equally prominent on stage; no single clear subject",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "press-a26884ec5d14",
+      "sha256": "9c7ae85e456e7acccf040b040d82db2e598fde38a64e87eeadba80766572de37",
+      "reason": "Collage of three photos with an inset of a second person; not a single photo",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "press-4593207c1780",
+      "sha256": "8cde25bffbcd0982786714fcd91eec27f8ce7e2121641fee830deec288be414c",
+      "reason": "Two-photo collage with ABC/Disney logos; caption names a different person",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "press-6f802f3abf31",
+      "sha256": "48aab8e392a9ae07c6d633b9ffd875b587bced2ae7eb7293f023a818f4ab58e5",
+      "reason": "GTA ad billboard with street signs; no Taylor Swift pictured",
+      "date": "2026-11-20"
+    },
+    {
+      "id": "wikimedia-137560847",
+      "sha256": "eca70e79399565c45ded8182b983da89f7eaf8a1b5dd1d99180e9b21b78a8778",
+      "reason": "Wide stage shot; performer small, dancers and crowd dominate, blurry foreground",
+      "date": "2026-11-20"
     }
   ]
 }
