@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 107
+Stories: 108
+
+## Celebrities Who Grew Up on Farms Before Fame
+
+- first seen: 2026-11-20 06:22 UTC | category: business | importance: 3
+- verification_status: single_source | source_count: 1
+- summary: An article discusses 13 celebrities who had their beginnings on farms before achieving fame. The piece highlights the diverse backgrounds of these stars and their journeys to success.
+- sources:
+  - [established] People — https://people.com/celebrities-who-grew-up-on-farms-12261119
+
+## Taylor Swift Shares Full CMA Performance After 13 Years
+
+- first seen: 2026-11-20 06:22 UTC | category: music | importance: 7
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift has posted a full performance from the CMA Awards, marking her return after 13 years. The release showcases her anticipated comeback to the country music scene.
+- sources:
+  - [unverified] Happy Mag — https://happymag.tv/watch-taylor-swift-full-cma-performance-2026/
 
 ## Travis Kelce Reflects on Taylor Swift's First Chiefs Game Experience
 
@@ -956,11 +972,3 @@ Stories: 107
 - summary: A study has been conducted on Taylor Swift's extensive collection of lyrics, which totals 123,553, revealing hidden patterns within her songwriting. This analysis provides insight into her lyrical themes and styles.
 - sources:
   - [unverified] The Conversation — https://theconversation.com/taylor-swift-my-database-of-her-123-553-lyrics-reveals-hidden-patterns-293046
-
-## Kathy Griffin Critiques Taylor Swift's Music and Fanbase
-
-- first seen: 2026-11-17 05:42 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kathy Griffin made headlines with a harsh critique of Taylor Swift, calling her music mediocre and including comments about Swift's fans, often referred to as 'Swifties.' The remarks have sparked discussions among fans and the media.
-- sources:
-  - [unverified] AOL.com — https://www.aol.com/articles/kathy-griffin-roasts-taylor-swift-100450000.html
