@@ -27,6 +27,30 @@ so far".
 
 Stories: 102
 
+## Taylor Swift Showcases Burgundy Wine Manicure for Winter
+
+- first seen: 2026-11-20 19:42 UTC | category: fashion | importance: 5
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift has unveiled her Burgundy Wine manicure, highlighting it as a key winter nail color trend. This stylish choice is featured in an article by ELLE.
+- sources:
+  - [established] Elle — https://www.elle.com/beauty/makeup-skin-care/a74481600/taylor-swift-burgundy-wine-nails/
+
+## Fans Interpret Possible Hints of Taylor Swift's 13th Album
+
+- first seen: 2026-11-20 19:42 UTC | category: music | importance: 6
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's fans are speculating about potential clues regarding her anticipated 13th album. Decoding various hints has sparked excitement and discussion in the fan community.
+- sources:
+  - [unverified] IMDb — https://www.imdb.com/news/ni66120736/?ref_=nmnw_art_perm
+
+## Eras Tour Grosses $2B, Rivaled by New Grand Theft Auto
+
+- first seen: 2026-11-20 19:42 UTC | category: tour | importance: 7
+- verification_status: single_source | source_count: 1
+- summary: Taylor Swift's Eras Tour has reached a remarkable gross of $2 billion. However, this revenue was surpassed in just one day by the new Grand Theft Auto game.
+- sources:
+  - [established] People — https://people.com/gta-6-tops-taylor-swift-eras-tour-record-after-1-day-of-sales-12267905
+
 ## Travis Kelce Remembers Taylor Swift's First Game with the Chiefs
 
 - first seen: 2026-11-20 18:42 UTC | category: relationship | importance: 5
@@ -893,27 +917,3 @@ Stories: 102
 - sources:
   - [unverified] ARTnews.com — https://www.artnews.com/art-news/news/taylor-swifts-costumes-collection-new-exhibition-1234806510/
   - [unverified] Axios — https://amp.axios.com/mfa-boston-taylor-swift-eras-collection-2027-0cb83363-6b4e-4133-9770-45d1a36a5e21.html
-
-## MFA Boston Introduces Exclusive Taylor Swift 'Eras Collection'
-
-- first seen: 2026-11-17 19:13 UTC | category: business | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: The Museum of Fine Arts (MFA) Boston is set to debut an exclusive 'Eras Collection' featuring Taylor Swift, marking a historic milestone for the institution. This collection is a first for the 156-year-old museum.
-- sources:
-  - [unverified] Parade Magazine — https://parade.com/news/mfa-boston-debuting-exclusive-taylor-swift-eras-collection-a-historic-first-for-156-year-old-institution
-
-## Eras Tour Costume Exhibit to Open at Boston's MFA
-
-- first seen: 2026-11-17 19:13 UTC | category: business | importance: 6
-- verification_status: rumor | source_count: 1
-- summary: An exhibit showcasing costumes from Taylor Swift's Eras Tour is set to open at Boston's Museum of Fine Arts. This event highlights the artistic and cultural impact of Swift's tour through its visual elements.
-- sources:
-  - [unverified] Boston 25 News — https://www.boston25news.com/news/local/taylor-swift-exhibit-featuring-eras-tour-costumes-coming-bostons-mfa/NYDOZNW24NBLFOQZNVAHYPTZGI/
-
-## Taylor Swift Exhibit to Showcase Career Memorabilia
-
-- first seen: 2026-11-17 19:13 UTC | category: tour | importance: 7
-- verification_status: rumor | source_count: 1
-- summary: An upcoming exhibit will allow Taylor Swift fans to view costumes, instruments, and memorabilia spanning her two-decade career. This immersive experience is expected to be a significant attraction for her fans.
-- sources:
-  - [unverified] Facebook — https://www.facebook.com/Boston25News/posts/are-you-ready-for-it-taylor-swift-fans-will-soon-be-able-to-get-an-up-close-look/1640166504811676/
