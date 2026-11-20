@@ -25,7 +25,7 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 108
+Stories: 106
 
 ## Taylor Swift's CMA Awards Comeback Features Notable Cameos
 
@@ -956,19 +956,3 @@ Stories: 108
 - summary: Kathy Griffin made headlines with a harsh critique of Taylor Swift, calling her music mediocre and including comments about Swift's fans, often referred to as 'Swifties.' The remarks have sparked discussions among fans and the media.
 - sources:
   - [unverified] AOL.com — https://www.aol.com/articles/kathy-griffin-roasts-taylor-swift-100450000.html
-
-## Ice Spice and Millie Bobby Brown Bond at Taylor Swift's Wedding
-
-- first seen: 2026-11-17 03:46 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 0
-- summary: Ice Spice shared that she and Millie Bobby Brown developed a close bond resembling sisterhood after meeting at Taylor Swift's wedding.
-- sources:
-  - [unverified] unknown — https://www.imdb.com/news/ni66114797/?ref_=nmnw_art_perm
-
-## Taylor Swift Sets Record for Grammy Nominations in Album of the Year
-
-- first seen: 2026-11-17 03:46 UTC | category: music | importance: 8
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift has achieved a record-breaking streak of Grammy nominations for Album of the Year, marking a significant milestone in her music career. The news highlights her continued recognition in the music industry.
-- sources:
-  - [unverified] IMDb — https://www.imdb.com/news/ni66114774/?ref_=nmnw_art_perm
