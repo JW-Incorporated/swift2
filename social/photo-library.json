@@ -3382,6 +3382,20 @@
       "sha256": "09d801b1024e360732282e9399c26ea1244fd9ac3259f087a6d27a42e8d136fe"
     },
     {
+      "id": "press-47310d761a52",
+      "mediaPath": "/social/library/photos/press-47310d761a52.jpg",
+      "source": "https://www.usmagazine.com/shopping/news/taylor-swift-nike-training-sneakers-amazon/",
+      "alt": "Taylor Swift in the news: Taylor Swift's Nike Sneakers Are Under $100 on Amazon",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Us Weekly",
+      "width": 1858,
+      "height": 976,
+      "bytes": 242518,
+      "sha256": "0fe7083a09600e86ba54f65698b92562a84d5286fdc0a5ba82b1160f8f5452b8"
+    },
+    {
       "id": "press-4cbe59862818",
       "mediaPath": "/social/library/photos/press-4cbe59862818.jpg",
       "source": "https://zeenews.india.com/entertainment/hollywood/article-grammy-2027-taylor-swift-ties-grammy-record-for-consecutive-album-of-the-year-nominations-3162308",
@@ -3506,6 +3520,20 @@
       "height": 702,
       "bytes": 91545,
       "sha256": "f2b9af4f7ab2d19eeaa00acca85b8694452e8512fba37d71790dd527c85a509e"
+    },
+    {
+      "id": "press-8a51b9b63dd6",
+      "mediaPath": "/social/library/photos/press-8a51b9b63dd6.jpg",
+      "source": "https://www.manilatimes.net/2026/11/21/entertainment-lifestyle/show-times/taylor-swift-toy-story-song-a-welcome-break-from-personal-ballads/2475370",
+      "alt": "Taylor Swift in the news: Taylor Swift: 'Toy Story' song a welcome break from personal ballads",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via The Manila Times",
+      "width": 1200,
+      "height": 800,
+      "bytes": 73480,
+      "sha256": "a109eb184e6e399a8a632c477493de7104184a6f6f7f5e13c4491789a5a55f16"
     },
     {
       "id": "press-8da242d3fd5e",
