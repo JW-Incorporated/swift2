@@ -1423,7 +1423,7 @@ export default {
       thumbnailUrl: "https://news.ucr.edu/sites/default/files/2026-09/swiftiephylus-taylorae-option-1.jpeg",
       moment: {
         context:
-          'In a study published Sept. 9, 2026 in the journal Insect Systematics and Evolution, UC Riverside entomologists Sarah Schroeder, a doctoral student, and Christiane Weirauch formally described a dozen Australian plant-feeding insect species and placed four of them in a new genus they named Swiftiephylus — a blend of "Swiftie," the term for Taylor\'s fans, and "-phylus," the ending common to this group of plant bugs.\n\nThe four species carry Latin forms that nod to the artist and her albums: Swiftiephylus taylorae (for Taylor herself), S. amator ("lover"), S. intrepidus ("fearless"), and S. poetorum (a wink at The Tortured Poets Department). The insects feed on Australian she-oaks and are harmless to people, animals and the trees. Schroeder said she hoped attaching Taylor\'s name would draw attention to the insects themselves, and to insect conservation more broadly.',
+          'In a study published Sept. 9, 2026 in the journal Insect Systematics and Evolution, UC Riverside entomologists Sarah Schroeder, a doctoral student, and Christiane Weirauch formally described a dozen Australian plant-feeding insect species and placed four of them in a new genus they named Swiftiephylus — a blend of "Swiftie," the term for Taylor\'s fans, and "-phylus," the ending common to this group of plant bugs.\n\nThe four species carry Latin forms that nod to the artist and her albums: Swiftiephylus taylorae (for Taylor herself), S. amator ("lover"), S. intrepidus ("fearless"), and S. poetorum (a wink at The Tortured Poets Department). The insects feed on Australian she-oaks and are harmless to people, animals and the trees. Schroeder said she hoped attaching Taylor\'s name would draw attention to the insects themselves, and to insect conservation more broadly.\n\nThe bugs are about the size of a pinhead, and the dozen new species were sorted into five genera by comparing body shape, color and genes. Schroeder picked these four for the Swift genus because of their yellow bodies with red accents, a nod to Taylor\'s signature red lip, and her formal description of the genus says it honors "show-stopping talent, heart-wrenching lyrics, and the joy and comfort she has brought to many." Her case for the whole exercise: "You can\'t protect what you don\'t know is there."',
         sources: [
           {
             outlet: 'UCR News',
@@ -1451,6 +1451,17 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-09-15',
             reliability_score: 3,
+          },
+          // Content Shift (Vault Run 2026-11-21, intake #7040): the Nov. 20
+          // follow-up feature; enriched here instead of a duplicate moment.
+          {
+            outlet: 'Science News Explores',
+            url: 'https://www.snexplores.org/article/new-taylor-swift-insects',
+            source_title: 'Meet Swiftiephylus, a group of insects named after Taylor Swift',
+            publisher: 'Society for Science',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-21',
+            reliability_score: 4,
           },
         ],
         photos: [
