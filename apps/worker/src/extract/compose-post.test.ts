@@ -133,6 +133,32 @@ describe('composePost', () => {
       lead: 'Too short', body: BODY, paragraphs: PARAGRAPHS, gateReasons: ['lead is 9 characters; the minimum is 200'],
     });
   });
+  const TEASER = LEAD.replace('quiet Nashville recording room', 'quiet recording room');
+
+  it('publishes a rewrite whose only remaining gate reasons are lead-style, recording them as leadFlags', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const write = vi.fn<(s: unknown, i: { rewriteReasons?: readonly string[] }) => Promise<WriterResult>>(async () => ({ status: 'ok', draft: { ...attempt(), lead: TEASER } }));
+    const judgeFn = vi.fn<(s: unknown, i: JudgeInput) => Promise<typeof PASS>>(async () => PASS);
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(result).toMatchObject({ status: 'ok', lead: TEASER, writingScore: 4 });
+    expect(result.trace).toMatchObject({ rewrites: 1, leadFlags: ['lead_withholds_headline_news'] });
+    expect(write).toHaveBeenCalledTimes(2);
+    expect(write.mock.calls[1]![1].rewriteReasons).toEqual(['lead_withholds_headline_news']);
+    expect(judgeFn).toHaveBeenCalledTimes(1);
+    expect(warn).toHaveBeenCalledWith('news-worker: lead-style flags kept after rewrite: lead_withholds_headline_news');
+    warn.mockRestore();
+  });
+
+  it('still holds a rewrite that keeps a non-lead reason next to lead-style ones', async () => {
+    const write = vi.fn(async (): Promise<WriterResult> => ({ status: 'ok', draft: { ...attempt(voiced([0, 2, 7])), lead: TEASER } }));
+    const judgeFn = vi.fn();
+    const result = await composePost({ writer: store, judge: store, write, judgeFn }, INPUT);
+    expect(result).toMatchObject({ status: 'hold', reason: 'writing_quality:lead_withholds_headline_news' });
+    expect(result.trace.gateReasons).toEqual(expect.arrayContaining(['lead_withholds_headline_news', 'too_many_voice_sentences']));
+    expect(result.trace.leadFlags).toBeUndefined();
+    expect(judgeFn).not.toHaveBeenCalled();
+  });
+
   it('allows an outlet the facts are attributed to even when the legacy source has no name', async () => {
     const credited = [...SENTENCES];
     credited[0] = 'Variety reports the photos show Taylor outside Blackbird Studio in Nashville on Tuesday afternoon.';
