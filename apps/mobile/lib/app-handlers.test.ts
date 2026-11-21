@@ -60,6 +60,7 @@ describe('createAppHandlers', () => {
         'notifications.optOutPending',
         'notifications.onboardingOffered',
         'notifications.markOnboardingOffered',
+        'notifications.openSettings',
         'openExternal',
         'share',
         'storage.load',

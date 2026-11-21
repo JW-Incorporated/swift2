@@ -29,6 +29,7 @@ const REQUESTS: { [T in DomCommandType]: PayloadOf<T> } = {
   'notifications.optOutPending': {},
   'notifications.onboardingOffered': {},
   'notifications.markOnboardingOffered': {},
+  'notifications.openSettings': {},
   api: { req: { method: 'POST', path: '/api/mood', headers: { accept: 'application/json' }, body: '{"a":1}' } },
   apiRead: { streamId: 's1' },
   cancel: { targetId: 'a1' },
@@ -53,6 +54,7 @@ const RESULTS: { [T in Exclude<DomCommandType, 'cancel'>]: ResultOf<T> } = {
   'notifications.optOutPending': { pending: true },
   'notifications.onboardingOffered': { offered: true },
   'notifications.markOnboardingOffered': null,
+  'notifications.openSettings': null,
   api: { status: 201, headers: { 'content-type': 'application/json' }, body: '{"ok":true}' },
   apiRead: { chunk: 'hello', done: false },
 };

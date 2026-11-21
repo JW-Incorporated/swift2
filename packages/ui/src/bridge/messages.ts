@@ -45,6 +45,8 @@ export type DomCommandSpec = {
   /** Add-only (W6): the native one-time push-offer flag, shared with the native OnboardingScreen's SecureStore key. */
   'notifications.onboardingOffered': Spec<Record<string, never>, { offered: boolean }>;
   'notifications.markOnboardingOffered': Spec<Record<string, never>, null>;
+  /** Add-only: opens this app's page in the phone's Settings (RN `Linking.openSettings`), the way back from a real OS denial. */
+  'notifications.openSettings': Spec<Record<string, never>, null>;
   /**
    * `stream: true` (ClownChat only) answers at headers with an `ApiStreamHead`; the DOM then pulls the body
    * with `apiRead`. A non-2xx answers the buffered `ApiResponse` shape (no streamId). Add-only (W6-stream).
@@ -101,6 +103,8 @@ export type NativeEventSpec = {
   navigate: { path: WebPath; source: 'notification' | 'deeplink'; id?: string };
   /** Replay the reader state the previous epoch last reported (#5114): sent once, after the new epoch navigated. Add-only. */
   restore: { snap: ReaderSnap };
+  /** The app returned to the foreground (AppState -> active), e.g. back from the phone's Settings. A DOM that does not know it ignores it. Add-only. */
+  foreground: Record<string, never>;
 };
 
 export type EventSpec = DomEventSpec & NativeEventSpec;
@@ -166,6 +170,7 @@ const DOM_COMMANDS: Record<DomCommandType, true> = {
   'notifications.optOutPending': true,
   'notifications.onboardingOffered': true,
   'notifications.markOnboardingOffered': true,
+  'notifications.openSettings': true,
   api: true,
   apiRead: true,
   cancel: true,
@@ -180,6 +185,7 @@ const NATIVE_EVENTS: Record<NativeEventType, true> = {
   readyAck: true,
   navigate: true,
   restore: true,
+  foreground: true,
 };
 
 export const DOM_COMMAND_TYPES = Object.keys(DOM_COMMANDS) as readonly DomCommandType[];
