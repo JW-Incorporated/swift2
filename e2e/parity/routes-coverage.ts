@@ -83,7 +83,11 @@ export const COVERAGE_ROUTES: readonly AOnlyRoute[] = [
     root: 'main',
     sides: 'both',
     clip: PARITY_CLIP,
-    prepare: (page) => show(page, ERA_SECRET_CLIP),
+    prepare: async (page) => {
+      // #6807: a lone ?era= link keeps the feed hidden until the jump settles.
+      await expect(page.locator('[data-ll-section="fearless"]')).toBeVisible({ timeout: 20_000 });
+      await show(page, ERA_SECRET_CLIP);
+    },
   },
   {
     name: 'era-selector',

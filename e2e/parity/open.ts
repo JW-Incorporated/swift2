@@ -15,7 +15,8 @@ export async function openRoute(page: Page, side: Side, route: RouteLike, inset?
   });
   expect(await page.evaluate(() => document.fonts.check('16px "ParityFont"'))).toBe(true);
   const root = page.locator(route.root).first();
-  await expect(root).toBeVisible();
+  // #6807: a lone ?era= route keeps <main> hidden until hydration + jump + 1.5 s settle.
+  await expect(root).toBeVisible({ timeout: 20_000 });
   if (route.name === 'home') await expect(root.locator('li').first()).toBeVisible();
   else await expect(root.getByRole('heading').first()).toBeVisible();
   await hydrated(page, route);

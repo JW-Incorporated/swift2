@@ -41,6 +41,50 @@ export function shouldRunEraJump(input: {
   return true;
 }
 
+/**
+ * #6807: set on <html> by the web host's server render for a lone `?era=`
+ * deep link, so the current era's feed is never painted before the jump.
+ * EraStream clears it once the jump's scroll correction stops.
+ */
+export const ERA_JUMP_GATE_ATTR = 'data-ll-era-jump';
+
+/** `window` key holding the inline script's pre-hydration fallback timer. */
+export const ERA_JUMP_GATE_TIMER = '__llEraJumpGateTimer';
+
+export function clearEraJumpGate(): void {
+  if (typeof document === 'undefined') return;
+  document.documentElement.removeAttribute(ERA_JUMP_GATE_ATTR);
+  document.getElementById('main-content')?.removeAttribute('aria-busy');
+}
+
+/**
+ * Runs the deep link's open action; for an era jump, hands the gate to
+ * EraStream only once the action has dispatched. A throw releases the gate
+ * (nothing else would, with the fallback timer already gone) and rethrows.
+ */
+export function openWithEraJumpGate(action: () => void, isEraJump: boolean): void {
+  try {
+    action();
+  } catch (err) {
+    clearEraJumpGate();
+    throw err;
+  }
+  if (isEraJump) takeOverEraJumpGate();
+}
+
+/**
+ * The hydrated store is applying the `?era=` jump, so EraStream's own bounds
+ * (settle, 8 s deadline, gesture, unmount) now own the reveal: cancel the
+ * inline fallback that only exists for JS that never hydrates.
+ */
+export function takeOverEraJumpGate(): void {
+  if (typeof window === 'undefined') return;
+  const timers = window as unknown as Record<string, number | undefined>;
+  const id = timers[ERA_JUMP_GATE_TIMER];
+  if (id !== undefined) window.clearTimeout(id);
+  timers[ERA_JUMP_GATE_TIMER] = undefined;
+}
+
 export function jumpLandingScrollTop(input: {
   /** The target section's current top, in viewport coordinates
    * (`getBoundingClientRect().top`), before this correction. */

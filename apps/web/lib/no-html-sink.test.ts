@@ -47,12 +47,17 @@ describe('no user/content HTML sink (issue #1975)', () => {
   }
 
   it('has only the reviewed JSON-LD sinks', () => {
-    expect(hits).toHaveLength(2);
-    expect(hits.map((hit) => hit.file.replace(/\\/g, '/'))).toEqual(
-      expect.arrayContaining([
-        expect.stringMatching(/\/app\/layout\.tsx$/),
-        expect.stringMatching(/\/reader\/merch\/MerchCard\.tsx$/),
-      ]),
-    );
+    const perFile: Record<string, number> = {};
+    for (const hit of hits) {
+      const rel = hit.file.replace(/\\/g, '/').replace(/^.*?\/(app|components|reader)\//, '$1/');
+      perFile[rel] = (perFile[rel] ?? 0) + 1;
+    }
+    // Exactly one per reviewed file, so a second sink cannot hide behind an allowed one.
+    expect(perFile).toEqual({
+      'app/layout.tsx': 1,
+      // #6807 era-jump gate: a fixed script built from constants, no request input.
+      'app/page.tsx': 1,
+      'reader/merch/MerchCard.tsx': 1,
+    });
   });
 });

@@ -4,6 +4,7 @@ import { act, cleanup } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { HostProvider } from '@swift2/ui';
 import { useBackDismiss, waitForBackStackIdle } from '@swift2/ui/reader/lib/useBackDismiss';
+import { ERA_JUMP_GATE_ATTR, ERA_JUMP_GATE_TIMER } from '@swift2/ui/reader/lib/era-jump-landing';
 
 import { createWebAdapter, createWebRootAdapter } from '../host-adapter';
 import { CONTENT } from './content';
@@ -234,5 +235,36 @@ describe('?era deep link goes through the host (currentUrl)', () => {
     expect(root.clipboard).toBeDefined();
     expect(createWebAdapter(router).clipboard).toBeUndefined();
     expect(createWebAdapter(router).currentUrl).toBeUndefined();
+  });
+});
+
+describe('#6807 era-jump gate handoff in the store', () => {
+  const timers = window as unknown as Record<string, unknown>;
+  const gated = () => document.documentElement.hasAttribute(ERA_JUMP_GATE_ATTR);
+  beforeEach(() => {
+    vi.useFakeTimers();
+    document.documentElement.setAttribute(ERA_JUMP_GATE_ATTR, '');
+    timers[ERA_JUMP_GATE_TIMER] = window.setTimeout(() => {}, 12000);
+  });
+  afterEach(() => {
+    cleanup();
+    vi.useRealTimers();
+    document.documentElement.removeAttribute(ERA_JUMP_GATE_ATTR);
+    timers[ERA_JUMP_GATE_TIMER] = undefined;
+    window.history.replaceState(null, '', '/');
+  });
+
+  it('a valid ?era= jump takes over the gate: fallback cancelled, reveal left to EraStream', async () => {
+    window.history.replaceState(null, '', '/?era=debut');
+    await eraAfterMount(createWebRootAdapter(router), 'debut');
+    expect(timers[ERA_JUMP_GATE_TIMER]).toBeUndefined();
+    expect(gated()).toBe(true);
+  });
+
+  it.each(['/?lens=love-story', '/?era=nope', '/'])('%s is not an era jump: releases the gate at once', async (url) => {
+    window.history.replaceState(null, '', url);
+    mountItemProbe(createWebRootAdapter(router));
+    await settle();
+    expect(gated()).toBe(false);
   });
 });
