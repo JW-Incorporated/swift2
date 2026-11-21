@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-21-you-need-to-calm-down-pajama-set-and-eye-mask-8234071621832",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-21T01:36:48.106Z",
+  "deadline": "2026-11-24T01:36:48.106Z",
+  "status": "open",
+  "facts": {
+    "name": "You Need To Calm Down Pajama Set and Eye Mask",
+    "price": "85.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/you-need-to-calm-down-pajama-set-and-eye-mask",
+    "firstSeenAt": "2026-11-21T01:35:26.951Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44850830290.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/you-need-to-calm-down-pajama-set-and-eye-mask",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Taylor Swift | The Eras Tour Moss Piano Ornament\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
