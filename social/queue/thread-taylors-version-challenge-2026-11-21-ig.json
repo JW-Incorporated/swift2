@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_2011.jpg",
+  "altText": [
+    "Taylor Swift performing live \"Love Story\" in the American Leg on July."
+  ],
+  "scheduledAt": "2026-11-21T23:00:00Z",
+  "campaign": "thread:taylors-version:interactive-challenge:2026-11-hero",
+  "photoId": "wikimedia-15869843",
+  "media": [
+    "/social/library/photos/wikimedia-15869843.jpg"
+  ],
+  "body": "the very first line of Love Story (Taylor's Version) and my ear went OH. it's her. it's really her again 🥹\n\nthat's Taylor singing it from the balcony on the Speak Now tour in 2011, years before she took the song back.\n\nyour challenge tonight: open the Taylor's Version lens, find Fearless, and figure out where Love Story (Taylor's Version) was first heard before the album was even announced. the answer is so chaotic and i adore it.\n\nsend this to the friend who'll get it first.\n\nphoto: dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons\n\nhttps://www.longlivets.com/?lens=taylors-version&utm_source=instagram&utm_medium=social&utm_campaign=thread\n\n#taylorswift #taylorsversion #fearlesstaylorsversion #swifties #longlive",
+  "why": "Instagram sibling of the Nov 21 Taylor's Version hero. Different challenge from X: where Love Story (TV) was first heard. Answer in the lens: a December 2020 Match.com ad starring Ryan Reynolds, before the Feb 11 2021 Fearless (TV) announcement (rerecords.mjs rr-fearless). Share hook = who solves it first, grounded in the challenge.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Leads with the first-listen feeling, then a concrete phone-sized task whose answer (the Dec 2020 Match.com ad) is on the Fearless card. The Love Story balcony photo is the song the challenge is about.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
