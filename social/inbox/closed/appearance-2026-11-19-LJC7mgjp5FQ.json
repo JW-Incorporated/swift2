@@ -5,7 +5,7 @@
   "lane": "appearance",
   "createdAt": "2026-11-19T21:46:49.048Z",
   "deadline": "2026-11-21T21:46:49.048Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "channelName": "Taylor Swift",
     "videoTitle": "Taylor Swift - I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)",
@@ -17,5 +17,6 @@
   "links": {
     "pr": null,
     "issue": 7013
-  }
+  },
+  "declinedReason": "Not timely enough to queue: the CMA performance video was published Nov 19 and the earliest free slot is Nov 21 23:00Z, after the intent deadline, and the intent carries no performance media to post with."
 }
