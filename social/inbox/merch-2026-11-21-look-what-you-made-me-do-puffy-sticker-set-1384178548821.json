@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-21-look-what-you-made-me-do-puffy-sticker-set-1384178548821",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-21T01:36:48.106Z",
+  "deadline": "2026-11-24T01:36:48.106Z",
+  "status": "open",
+  "facts": {
+    "name": "Look What You Made Me Do® Puffy Sticker Set",
+    "price": "10.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/look-what-you-made-me-do-a-puffy-sticker-set",
+    "firstSeenAt": "2026-11-21T01:35:26.951Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44850830290.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/look-what-you-made-me-do-a-puffy-sticker-set",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Taylor Swift | The Eras Tour Moss Piano Ornament\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

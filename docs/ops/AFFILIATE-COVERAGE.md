@@ -107,6 +107,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Back To December Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Beautiful Tragic Love Affair Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Bex Strapless Slinky Maxi Dress With Split | meshki.us | none | uncovered | direct retailer URL | midnights.vault-midnights-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced | not listed in checked-in E0 Awin advertiser directory |
+| Big Reputation Album Beanie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Big Reputation Album Bomber Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Black and Red reputation Snake Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Blank Space Cake Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -132,6 +133,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Cowboy Like Me Work Jacket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Cruel Summer Fleece Onesie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Cruel Summer Throw Pillow | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Cruel Summer Throwback Belt Bag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Cry My Eyes Violet Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Crystal Slit Jean | area.nyc | none | uncovered | direct retailer URL | midnights.vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in | not listed in checked-in E0 Awin advertiser directory |
 | Custom Graduation Lei &#124; Giant Friendship Bracelet Necklace &#124; Senior 2027 (GRAD ERA) | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
@@ -224,6 +226,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | How The Kingdom Lights Shined Cream Tote Bag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | How The Kingdom Lights Shined Just For Me And You Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Almost Jumped In Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| I Ask The Traffic Lights Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Bet You Think About Me Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Can Do It With A Broken Heart T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | I Can Fix Him Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -251,9 +254,12 @@ The explanation column is required for every uncovered row. It reports only the 
 | Indy V Neck Rainbow Crystal Fringe Mini Dress | mewmews.com | none | uncovered | direct retailer URL | reputation.vault-reputation-the-cotton-candy-dress-for-delicate-shake-it-off | not listed in checked-in E0 Awin advertiser directory |
 | Invisible String, Folklore-inspired Sweatshirt | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Isabel Open Plunge With Thigh Slit Sequins Gown | alamourthelabel.com | none | awin-apply | direct retailer URL | lover.vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas |  |
+| Island Breeze & Lights Down Low Crochet Snake Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| It's a Cruel Summer Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's a Cruel Summer with You Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It’s A Love Story Castle Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's Been A Long Time Coming Cropped Longsleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| It's Been A Long Time Coming Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's Fearless Heart Hands Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | It's Too Late For You and Your White Horse Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Jack Leopards Hip Bag | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -277,7 +283,9 @@ The explanation column is required for every uncovered row. It reports only the 
 | Long Live All The Magic We Made Acoustic Piano Door Mat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Long Live All The Magic We Made Picture Frame | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Look At Me Baby Tweed Corset | shopakira.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-2024-vmas-red-carpet-a-tartan-dior-corset-and-cape | not listed in checked-in E0 Awin advertiser directory |
+| Look What You Made Me Do Bathtub Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Look What You Made Me Do Tombstone Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Look What You Made Me Do® Puffy Sticker Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Loubi54 Ombré Crystal Embellished Clutch | nordstrom.com | none | uncovered | direct retailer URL | tloas.vault-tloas-her-first-night-out-as-a-newlywed-a-lavender-minidress-and-a | not listed in checked-in E0 Awin advertiser directory |
 | Louise PM Earrings | louisvuitton.com | none | uncovered | direct retailer URL | tloas.vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb | not listed in checked-in E0 Awin advertiser directory |
 | Love You to the Moon and to Saturn Glass Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -285,6 +293,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Lover Album Cloud Rhinestone Earbud Case | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Album Cloud Tie-Dye Beanie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Album Cloud Tie-Dye Knit Gloves | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Lover Album Heart Crystal Bracelet | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover CD Deluxe Version 1 | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover CD Deluxe Version 2 | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover CD Deluxe Version 3 | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -294,7 +303,9 @@ The explanation column is required for every uncovered row. It reports only the 
 | Lover House Corduroy Pillow | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover House Knit Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Live From Paris Black Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Lover Live From Paris Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Standard Edition Physical CD | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Lover Tumbler | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Lover Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Low Slung Baggy Jean | agolde.com | none | awin-apply | direct retailer URL | tloas.vault-tloas-a-low-key-game-day-layer-for-the-colts-game |  |
 | Lux Velvet Shirt Dress | revolve.com | none | uncovered | direct retailer URL | folklore.vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se | not listed in checked-in E0 Awin advertiser directory |
@@ -392,7 +403,10 @@ The explanation column is required for every uncovered row. It reports only the 
 | Reputation Album Snake Cuff Bracelet | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Reputation Album Snake Ear Cuff | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Reputation Album Snake Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Reputation Album Snake Mug | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Crushed Velvet Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| reputation Journal | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Reputation Mockneck Cropped Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Reputation Multicolor Snake Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Newspaper Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Newspaper Print Zip Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -467,6 +481,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Speak Now Tour Hoodie (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now Tour T-Shirt (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Speak Now World Tour Balcony Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Stars All Aligned Bracelet Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Storm Inside a Teacup Porcelain Mug | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Strappy Houndstooth Tweed A-Line Dress | nordstrom.com | none | uncovered | direct retailer URL | ttpd.vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date | not listed in checked-in E0 Awin advertiser directory |
 | stretchy friendship bracelet • 'all too well' • charm bracelet | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
@@ -478,20 +493,30 @@ The explanation column is required for every uncovered row. It reports only the 
 | Taylor Inspired Bookmarks&#124;Life of a Bookgirl&#124;Tour&#124;Gifts&#124;Readers | www.etsy.com | none | uncovered | direct retailer URL | fanmade | not listed in checked-in E0 Awin advertiser directory |
 | Taylor Swift &#124; Patient Zero T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Guitar | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Acoustic Piano Cardigan | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Piano Hair Clip | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Piano Mini Backpack | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Piano Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Piano Woven Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Acoustic Piano Zip Up Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Cleaning Cart Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Collage Black Long Sleeve | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Cookie Tin | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Cosmetic Case | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Final Show T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Friendship Bracelet Garland | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Friendship Bracelet Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour I Beige Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Knit Beanie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Microphone Ornament Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Microphone Set Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Midnights Longsleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Moss Piano Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Mug | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Onesie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Photo Long Sleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Stage Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Sweater Dress | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Through LA Beige T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Through LA Black Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -507,6 +532,8 @@ The explanation column is required for every uncovered row. It reports only the 
 | Taylor Swift &#124; The Eras Tour Through Vancouver I White T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Through Vancouver II Black T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Eras Tour Tie Dye Tank Top | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Tote Bag with Zip Pouch | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Taylor Swift &#124; The Eras Tour Waffle Knit Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift &#124; The Red Tour Hoodie (From the Vault) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Album Boot Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Taylor Swift Album Heart Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -672,6 +699,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | Vintage Denim High-Waisted Jean Shorts | amazon.com | amazon | pending-signup | amazon tag + ascsubtag | speak-now.vault-speak-now-high-waisted-shorts-become-a-recurring-signature |  |
 | Viola Dress | moniquelhuillier.com | none | uncovered | direct retailer URL | tloas.vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep | not listed in checked-in E0 Awin advertiser directory |
 | We Are Never Ever Ever Getting Back Together Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| We Bless the Rains on Cornelia Street Tie Dye Tee | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | We Found Wonderland Quarter Zip Pullover | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Welcome To New York, It’s Been Waiting For You Striped Poplin Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Welcome To New York, It’s Been Waiting For You V-Neck Pullover | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -686,6 +714,8 @@ The explanation column is required for every uncovered row. It reports only the 
 | You Belong With Me Junior Jewels Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | You Can Call Me Honey If You Want Pink Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | You Don't Get To Tell Me About Sad Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| You Need To Calm Down Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| You Need To Calm Down Pajama Set and Eye Mask | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | You'll Always Know Me T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | You're On Your Own Kid Purple Crewneck Sweatshirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Zion Bomber Jacket - Red | thefrankieshop.com | none | uncovered | direct retailer URL | tloas.vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents | not listed in checked-in E0 Awin advertiser directory |
@@ -694,9 +724,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 680 |
+| total | 710 |
 | wrapped | 0 |
 | awin-apply | 7 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 567 |
+| direct-by-policy | 597 |
