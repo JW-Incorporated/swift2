@@ -10,9 +10,9 @@
  * — that file is the source of truth this was generated from.
  */
 
-import type { Community } from './communities';
+import type { CommunityRecord } from './communities';
 
-export const COMMUNITIES_DATA_B: Community[] = [
+export const COMMUNITIES_DATA_B: CommunityRecord[] = [
   {
     name: "Tales of Kaylor",
     platform: "Tumblr",
@@ -31,7 +31,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       method: "Fetched https://www.tumblr.com/tales-of-kaylor directly.",
       checkedAt: "2026-08-14",
     },
-    flags: ["Gaylor and Kaylor content speculates about Taylor Swifts real-life sexuality without her confirmation, some fans find this genre invasive, flag before recommending"],
+    curationNotes: ["Gaylor and Kaylor content speculates about Taylor Swifts real-life sexuality without her confirmation, some fans find this genre invasive, flag before recommending"],
     recommendedIn: [],
   },
   {
@@ -53,7 +53,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://fanlore.org/wiki/Taylor_Swift",
     },
-    flags: ["Work count (8,000-plus) is from March 2025 per the citing source, not independently re-verified live"],
+    curationNotes: ["Work count (8,000-plus) is from March 2025 per the citing source, not independently re-verified live"],
     recommendedIn: [],
   },
   {
@@ -75,7 +75,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://www.philstar.com/the-freeman/cebu-entertainment/2023/04/28/2262265/how-pinoy-swiftie-lobbied-ph-stop-taylor-swifts-eras-tour",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://www.philstar.com/the-freeman/cebu-entertainment/2023/04/28/2262265/how-pinoy-swiftie-lobbied-ph-stop-taylor-swifts-eras-tour"],
   },
   {
@@ -98,7 +98,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: ["https://spitfirenews.com/p/gaylor-subreddit-taylor-swift-gay", "https://en.wikipedia.org/wiki/Gaylor_conspiracy_theory"],
     },
-    flags: ["Reported to have gone private in Aug 2025 per Wikipedia; could not confirm current open/closed status. Do not present as guaranteed-joinable without re-checking."],
+    curationNotes: ["Reported to have gone private in Aug 2025 per Wikipedia; could not confirm current open/closed status. Do not present as guaranteed-joinable without re-checking."],
     recommendedIn: ["https://spitfirenews.com/p/gaylor-subreddit-taylor-swift-gay", "https://en.wikipedia.org/wiki/Gaylor_conspiracy_theory"],
   },
   {
@@ -110,7 +110,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
     onlineCount: 1115,
     activityLevel: "Medium",
     activityEvidence: "approximate_presence_count 1115 of 16565 members (6.7%) via invite API",
-    description: "A solid mid-size general Swiftie hangout holding the short 'swifties' vanity. Good option for fans who want something smaller than the mega-servers but still consistently active.",
+    description: "A solid mid-size general Swiftie hangout with the short 'swifties' invite link. Good option for fans who want something smaller than the mega-servers but still consistently active.",
     backstory: "No public founding story surfaced in search results -- we could not verify when it started or any notable moments, only that it is live, moderately active, and has held its vanity long enough to keep it.",
     niche: "general",
     joinRequirements: "Unknown (not visible via invite API without joining)",
@@ -121,7 +121,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["Name is generic -- easy to confuse with the separate server Swifties Heart also in this list; these are two different guilds."],
+    curationNotes: ["Name is generic -- easy to confuse with the separate server Swifties Heart also in this list; these are two different guilds."],
     recommendedIn: ["https://discord.com/invite/swifties"],
   },
   {
@@ -142,7 +142,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       method: "Fetched https://steamcommunity.com/groups/tswiftfans directly.",
       checkedAt: "2026-08-14",
     },
-    flags: ["Formal announcement posts are dated (Nov 2025); ongoing life of the group is mainly visible through its live chat room and online member count rather than fresh discussion posts"],
+    curationNotes: ["Formal announcement posts are dated (Nov 2025); ongoing life of the group is mainly visible through its live chat room and online member count rather than fresh discussion posts"],
     recommendedIn: [],
   },
   {
@@ -164,7 +164,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://www.facebook.com/groups/959997728506267/",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: [],
   },
   {
@@ -187,7 +187,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["Utility/alert server, not really a discussion community -- flag this distinction to users expecting a hangout."],
+    curationNotes: ["Utility/alert server, not really a discussion community -- flag this distinction to users expecting a hangout."],
     recommendedIn: ["https://discord.com/invite/merchbot"],
   },
   {
@@ -208,7 +208,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       method: "Fetched https://www.wattpad.com/stories/taylorswift/hot?locale=en_US directly.",
       checkedAt: "2026-08-14",
     },
-    flags: ["Some stories contain mature and adult themes and warnings; not curated or age-gated by fandom moderators"],
+    curationNotes: ["Some stories contain mature and adult themes and warnings; not curated or age-gated by fandom moderators"],
     recommendedIn: [],
   },
   {
@@ -220,7 +220,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
     onlineCount: 341,
     activityLevel: "High",
     activityEvidence: "approximate_presence_count 341 of 2706 members (12.6%) via invite API",
-    description: "A smaller, tight-knit server built around collectible era and aesthetic tags and Easter-egg theorizing -- its own description name-checks both lyric theories and era obsession. The guild's self-description is in Portuguese, so it leans toward a Brazilian and Portuguese-speaking crowd, though it welcomes English speakers.",
+    description: "A smaller, tight-knit server built around collectible era and aesthetic tags and Easter-egg theorizing -- its own description name-checks both lyric theories and era obsession. The server's own description is in Portuguese, so it leans toward a Brazilian and Portuguese-speaking crowd, though it welcomes English speakers.",
     backstory: "Holds the short, highly-contested 'swiftie' vanity, which takes sustained community investment to keep -- a decent signal of an actively engaged, not-dormant server despite its smaller size.",
     niche: "theories",
     joinRequirements: "High verification_level (4) on the guild -- likely phone-verification required",
@@ -231,7 +231,7 @@ export const COMMUNITIES_DATA_B: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["Primary language in the server's own description is Portuguese -- flag for English-only users."],
+    curationNotes: ["Primary language in the server's own description is Portuguese -- flag for English-only users."],
     recommendedIn: ["https://top.gg/discord/servers/721089405000564736"],
   },
 ];

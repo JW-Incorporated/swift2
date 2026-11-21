@@ -29,20 +29,21 @@ describe('COMMUNITIES', () => {
     }
   });
 
-  it('carries flags through as a real (possibly empty) array on every entry', () => {
+  it('carries beforeYouJoin and curationNotes as real (possibly empty) arrays on every entry', () => {
     for (const c of COMMUNITIES) {
-      expect(Array.isArray(c.flags)).toBe(true);
+      expect(Array.isArray(c.beforeYouJoin)).toBe(true);
+      expect(Array.isArray(c.curationNotes)).toBe(true);
     }
   });
 
-  it('surfaces the impersonator-spinoff warning on Taylor Swift\'s Vault', () => {
+  it("surfaces the look-alike-group warning on Taylor Swift's Vault", () => {
     const vault = COMMUNITIES.find((c) => c.name === "Taylor Swift's Vault");
-    expect(vault?.flags.some((f) => /spinoff|spin-off|impersonat/i.test(f))).toBe(true);
+    expect(vault?.beforeYouJoin.some((f) => /Vault 2\.0/.test(f))).toBe(true);
   });
 
   it('surfaces the reportedly-private warning on r/GaylorSwift', () => {
     const gaylor = COMMUNITIES.find((c) => c.name === 'r/GaylorSwift');
-    expect(gaylor?.flags.some((f) => /private/i.test(f))).toBe(true);
+    expect(gaylor?.beforeYouJoin.some((f) => /private/i.test(f))).toBe(true);
   });
 });
 
