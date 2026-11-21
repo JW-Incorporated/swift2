@@ -1016,7 +1016,7 @@ export default {
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
-          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nThe full Sept. 24 look was a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she\'d worn since, put this one last at No. 23 — not as an insult, but because it was the baseline: "an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions."\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else\'s arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.',
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. He had floated the invitation on that same show days earlier — "I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead" — and she took him up on it, watching Kansas City rout Chicago 41–10 from Travis\'s family suite beside his mother, Donna. When he caught a three-yard touchdown in the third quarter, Fox cameras found her jumping in the glass-enclosed box; Patrick Mahomes said afterward he\'d felt "a little pressure" to get Kelce into the end zone with her watching. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it.\n\nThe full Sept. 24 look was a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she\'d worn since, put this one last at No. 23 — not as an insult, but because it was the baseline: "an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions."\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else\'s arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.\n\nTwo days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.\n\nThe cultural footprint was immediate. Fox\'s broadcast of the 41–10 game drew 24.3 million viewers — the most-watched program of the weekend and its strongest NFL Sunday-afternoon audience among female viewers all season — while Fanatics reported Travis\'s No. 87 jersey sales spiking nearly 400% that same day, vaulting him from 19th into the league\'s top five sellers. His Instagram following jumped by roughly 325,000 in a week, a bigger bump than his Super Bowl win the previous February had produced. A late-summer flirtation traceable to a viral friendship-bracelet aside had, in one afternoon, become the most-watched relationship in American sports.\n\nThree years later, ahead of his 100th game at Arrowhead, Travis looked back on that afternoon in a November 2026 ESPN sit-down. The suite she first sat in beside his mom has turned into an attraction of its own: "Once they figured out that that was my suite, it\'s a game-day experience that has gone far beyond my imagination," he said, crediting Chiefs fans for making it "so hospitable for everybody, not even just my family." His summary came with a laugh: "I\'m a lucky man." And on the stadium itself: "It\'s a part of my heart, playing in that stadium."',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
@@ -1048,6 +1048,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-15',
             reliability_score: 4,
+          },
+          // Content Shift (Vault Run 2026-11-21, intake #7059): Travis's
+          // Nov. 2026 ESPN reflection on this game. ESPN's own page would not
+          // load from the run environment; quotes taken from two outlets that
+          // relay the ESPN interview verbatim.
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/travis-kelce-gushes-recalling-taylor-swift-s-first-chiefs-game',
+            source_title: "Travis Kelce Gushes Recalling Taylor Swift's First Chiefs Game",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Sports',
+            url: 'https://sports.yahoo.com/articles/chiefs-te-travis-kelce-lucky-175509835.html',
+            source_title: "Chiefs TE Travis Kelce's 'lucky' confession about Arrowhead Stadium suite hubbub since hosting Taylor Swift",
+            publisher: 'Yahoo Sports (via ClutchPoints)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-21',
+            reliability_score: 3,
           },
         ],
         photos: [
