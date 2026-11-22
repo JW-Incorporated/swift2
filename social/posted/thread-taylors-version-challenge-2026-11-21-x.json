@@ -42,5 +42,8 @@
     "contentHash": "sha256:5da0afe0f878561d676b288409d89c117a3737283d1142cdbd75b2e1e68dae50",
     "mediaDigest": "sha256:93b08b4f2553aa85a66b8c8f8f0af0503e36313d9e4d79a67619aa4ac47e473b",
     "sig": "hmac-sha256:b93874f3dd64b5bb14b49cbc8ec8174738f04150f8898fb78cce5cc7eae36610"
-  }
+  },
+  "postedAt": "2026-11-22T00:22:22.242Z",
+  "platformPostId": "2124297457756406269",
+  "url": "https://x.com/longlivetscom/status/2124297457756406269"
 }
