@@ -1,0 +1,36 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoEra": "speak-now",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53108899367).jpg",
+  "altText": [
+    "Wider view of Taylor Swift in a full-skirted sparkling gown with a blue acoustic guitar, performing Speak Now at the Eras Tour in Inglewood, 2023, under purple lights."
+  ],
+  "scheduledAt": "2026-11-23T23:00:00Z",
+  "campaign": "thread:fashion:origin-story:2026-11-makegood",
+  "photoId": "speaknow-inglewood-2023-4",
+  "media": [
+    "/social/library/photos/taylor-speaknow-inglewood-2023-4.jpg"
+  ],
+  "body": "in 2011 i wanted to live inside a Speak Now ballgown. that tour was a costume change for every song, and the purple title-track gown is still the image the era lives in. then the ballgown came back for Eras and i melted all over again 💜 https://www.longlivets.com/?lens=fashion&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "why": "November make-good for the Runway thread hero killed with PR #6804; calendar reuses the Speak Now tour gowns subject. Fact from supabase/seed/lenses/runway-looks.mjs look-speak-now. Photo taken from the speak-now era pool (photoEra) instead of the beat's Red-era GMA pick, because the calendar names era speak-now and a Red GMA photo would not earn its place on a gown post. Share hook: which gown is yours. X written first, as its own post.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Opens on the fairytale pull of the Speak Now ballgowns, then the sourced fact from the Runway lens: a costume change per song on the 2011-2012 tour, the purple title-track gown as the era's image. The Eras Speak Now gown photo is the callback the post turns on.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}

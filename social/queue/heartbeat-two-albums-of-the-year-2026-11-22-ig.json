@@ -1,0 +1,35 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114086406).jpg",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "scheduledAt": "2026-11-22T23:00:00Z",
+  "campaign": "heartbeat:event-news:two-albums-of-the-year-lux-art-of-loving:2026-11-22",
+  "photoId": "wikimedia-22985343",
+  "media": [
+    "/social/library/photos/wikimedia-22985343.jpg"
+  ],
+  "body": "my heart when Taylor gets to just be a fan of someone else's record 🥹\n\nawards season for \"I Knew It, I Knew You,\" her song for Toy Story 5, put her at a press conference for Golden Globe voters, and she used it to shout out two albums: Rosalía's LUX and Olivia Dean's The Art of Loving.\n\nshe called LUX conceptual, ambitious, expansive and perfect, and compared The Art of Loving to a warm hug. her point was that both land because people made them.\n\nsend this to the friend who had either one on repeat this year.\n\nphoto: Paolo Villanueva (CC BY 2.0), via Wikimedia Commons, Taylor on Good Morning America in 2012\n\nhttps://www.longlivets.com/?item=vault-tloas-campaigning-for-i-knew-it-i-knew-you-taylor-names-her-two-al&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n#taylorswift #rosalia #oliviadean #swifties #longlive",
+  "why": "Instagram sibling. Nov 22 news reserve: no confirmed event from the last 48h in events.uncovered[] (the four intake items are a celebrity backlash, a prop exhibit dated Nov 19, a lipstick and a manicure trend). 11-19 already took the 1989 fallback, so per the calendar this takes standby pool #2; Michigan Senate was dropped because the subject is a sitting politician and the post could not stay clear of politics, so this is the calendar's named alternate (Taylor names her two albums of the year). Source: seed record vault-tloas-campaigning-for-i-knew-it-i-knew-you-taylor-names-her-two-al (HELLO!). Campaign family is heartbeat:event-news (not era-deep-cut) because the Showgirl era pool holds only official-video stills, which check-drafts rejects as photos; this uses the beat's own handed photo (Taylor on Good Morning America, 2012) instead.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Feel first (Taylor being a fan of someone else's record), then the checkable detail off the Nov 13 moment record: LUX and The Art of Loving, named at a Golden Globe voters' press conference. The photo is a real credited shot of Taylor mid-interview, related in spirit, not from the event.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
