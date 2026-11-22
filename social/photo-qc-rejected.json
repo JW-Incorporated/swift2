@@ -4063,6 +4063,42 @@
       "sha256": "e9e08ab024d6023d46af3661ebdbf1821e27b4c30b360371d551024c9ed6114b",
       "reason": "Performer is small in a dark, large stage frame; mostly empty space",
       "date": "2026-11-21"
+    },
+    {
+      "id": "press-cdc187fab23e",
+      "sha256": "e005d0e1e3e34f6bdcdb9f8572dc3c383cdeea378ef987f93c1cc2177120c472",
+      "reason": "Two women embracing plus a man behind; no single dominant subject",
+      "date": "2026-11-22"
+    },
+    {
+      "id": "press-3248f94bb049",
+      "sha256": "0a590980361c4bbd3a9f610dedba30a9fb93dacdab63257bfc190057e652c2c8",
+      "reason": "Two-photo collage, heavily retouched; not a single-subject photo",
+      "date": "2026-11-22"
+    },
+    {
+      "id": "press-f6bff8e34b6e",
+      "sha256": "195f13e085b6d7052c4611f591c8d08558c351974b13794bdfa9b2fe91275e5f",
+      "reason": "Victoria's Secret sponsor wall with repeated logos dominates the backdrop",
+      "date": "2026-11-22"
+    },
+    {
+      "id": "press-e11735d5e462",
+      "sha256": "e3365f97744a9023b363c8436fd7237ab5c3223d9e49deb2ac20887970afd338",
+      "reason": "Two women equally prominent; not a single-subject shot",
+      "date": "2026-11-22"
+    },
+    {
+      "id": "press-81290d92c8e6",
+      "sha256": "3c9767f5a2849ee691be348de7e8033ffd4c1b27db0e84387c0976dcdd61424a",
+      "reason": "Split collage with GTA-style illustration of two other people; graphic, not a pure photo",
+      "date": "2026-11-22"
+    },
+    {
+      "id": "press-04f610d6dfba",
+      "sha256": "514b6f64a184baf44086fe0353d9f051c5204fa65a8631b7edeb06ac070eacf2",
+      "reason": "Side-by-side collage of two women; not a single prominent subject",
+      "date": "2026-11-22"
     }
   ]
 }
