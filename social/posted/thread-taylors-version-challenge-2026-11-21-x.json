@@ -1,0 +1,49 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "dephisticate at https://www.flickr.com/photos/dephisticate (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_2011.jpg",
+  "altText": [
+    "Taylor Swift performing live \"Love Story\" in the American Leg on July."
+  ],
+  "scheduledAt": "2026-11-21T23:00:00Z",
+  "campaign": "thread:taylors-version:interactive-challenge:2026-11-hero",
+  "photoId": "wikimedia-15869843",
+  "media": [
+    "/social/library/photos/wikimedia-15869843.jpg"
+  ],
+  "body": "my ear still snags on the first line of Love Story (Taylor's Version). same balcony song, grown-up Taylor, i melt every time!! one-minute challenge: open the Taylor's Version lens and find which re-record has the biggest vault. no googling 💛 https://www.longlivets.com/?lens=taylors-version&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "why": "Nov 21 Taylor's Version thread hero (interactive-challenge). X written first; its challenge (biggest vault) differs from IG's. Answer is in the lens: Red (Taylor's Version), 9 vault tracks (supabase/seed/lenses/rerecords.mjs rr-red). Photo is Taylor singing Love Story from the balcony on the Speak Now tour.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Executes the hero slot's challenge angle: the snag moment first, then one findable task whose answer (Red, 9 vault tracks) is in the lens. The balcony photo is Love Story itself, so the image carries the feeling line.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-21T18:02:04.867Z",
+    "pr": 7053,
+    "message": "social-tree-approve run 44933137461",
+    "contentHash": "sha256:5da0afe0f878561d676b288409d89c117a3737283d1142cdbd75b2e1e68dae50",
+    "mediaDigest": "sha256:93b08b4f2553aa85a66b8c8f8f0af0503e36313d9e4d79a67619aa4ac47e473b",
+    "sig": "hmac-sha256:b93874f3dd64b5bb14b49cbc8ec8174738f04150f8898fb78cce5cc7eae36610"
+  },
+  "postedAt": "2026-11-22T00:22:22.242Z",
+  "platformPostId": "2124297457756406269",
+  "url": "https://x.com/longlivetscom/status/2124297457756406269"
+}

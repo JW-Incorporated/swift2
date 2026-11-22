@@ -4033,6 +4033,36 @@
       "sha256": "eca70e79399565c45ded8182b983da89f7eaf8a1b5dd1d99180e9b21b78a8778",
       "reason": "Wide stage shot; performer small, dancers and crowd dominate, blurry foreground",
       "date": "2026-11-20"
+    },
+    {
+      "id": "press-6cb0bd2f317b",
+      "sha256": "79727cbb9cf04f75e77951aabccb5bd2236feb3783c02e6659d510e91f41da45",
+      "reason": "Four-person collage; other people share the frame, not a single subject",
+      "date": "2026-11-21"
+    },
+    {
+      "id": "press-fda5e498d3de",
+      "sha256": "03bcb2e72e624488bc4b488b02571a3d065379125514b9ad09b320a30927f4e3",
+      "reason": "Sponsor-wall backdrop (Santander, Catalunya logos) is prominent behind subject",
+      "date": "2026-11-21"
+    },
+    {
+      "id": "wikimedia-137560682",
+      "sha256": "922d7825beb3c9d9ba5d453c8f4a00815503d3bb3508c8d1bbe60eb42e96a348",
+      "reason": "Stadium wide shot; performer is small in frame amid large venue",
+      "date": "2026-11-21"
+    },
+    {
+      "id": "wikimedia-137560781",
+      "sha256": "0299641bbded387e9675c985b25d09d77c191392cfa3b7040d50056c78c105d9",
+      "reason": "Wide stage panorama; performer small, other people and heads in foreground",
+      "date": "2026-11-21"
+    },
+    {
+      "id": "wikimedia-137560837",
+      "sha256": "e9e08ab024d6023d46af3661ebdbf1821e27b4c30b360371d551024c9ed6114b",
+      "reason": "Performer is small in a dark, large stage frame; mostly empty space",
+      "date": "2026-11-21"
     }
   ]
 }
