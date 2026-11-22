@@ -4043,11 +4043,11 @@ export default {
               'Critics and fans near-unanimously read "Actually Romantic" as Taylor\'s answer to Charli XCX\'s 2024 "Sympathy Is a Knife," built from the "Boring Barbie" opening line, the title\'s echo of Brat\'s "Everything Is Romantic," and the two artists\' overlapping history. Taylor has never named a subject, and Charli, asked directly, declined to confirm it.',
             reportedBy: 'Variety',
             reportedOn: '2025-10-03',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://variety.com/2025/music/news/taylor-swift-charli-xcx-feud-actually-romantic-timeline-showgirl-1236538041/',
-            note: 'Public song-symbolism speculation (explicitly allowed by the redlines), labeled as critic/fan interpretation — Taylor has never confirmed a subject and Charli declined to comment (Vanity Fair, October 2025). Resolves only on an on-record confirmation or denial. No location. Re-checked 2026-10-22: still no on-record word from either artist.',
+            note: 'Public song-symbolism speculation (allowed by the redlines), labeled as critic/fan interpretation. Taylor never confirmed a subject; Charli declined to comment (Vanity Fair, Oct 2025). No location. Re-checked 2026-10-22 and 2026-11-22: faded. More than a year on, neither artist has confirmed or denied it on the record; 2026 coverage only reads Charli\'s social posts.',
             sourceTier: 'established',
-            lastCheckedOn: '2026-10-22',
+            lastCheckedOn: '2026-11-22',
           },
         ],
       },
@@ -5040,7 +5040,10 @@ export default {
             // standalone record; fan timelines now put a possible TS13 in 2027
             // and nothing is titled, dated, or confirmed. Banner stays
             // (confidence reputable_reporting); this records that someone looked.
-            accessed_at: '2026-10-04',
+            // Rumor Desk re-check 2026-11-22 (Vault Run): still no album 13
+            // announced, titled or dated; the Nov. 18 CMA performance and the
+            // Nov. 16 Grammy nominations came and went without one. Banner stays.
+            accessed_at: '2026-11-22',
             reliability_score: 4,
           },
         ],
