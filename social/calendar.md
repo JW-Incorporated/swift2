@@ -114,6 +114,53 @@ per-platform cap, which is the cheaper of the two by a wide margin.
 
 ---
 
+## 🟢 BINDING FROM 2026-11-23 — news takes the next slot, and the timeline yields too
+
+**Marjorie's ask [#7083](https://github.com/JW-Incorporated/swift2/issues/7083),
+answered the same day.** Taylor performed at the CMA Awards on **11-18**. The
+11-19 beat below is the reserve written for that performance — *"this is the beat
+the fortnight is built around"* — and the 11-19 run drafted its **named fallback**
+instead (`heartbeat-f1-2016-only-concert-2026-11-19`). 11-20 was the timeline
+beat, which strategy §1(e2) called "never displaced". The performance shipped on
+**11-21** (`event-cma-2026-performance-2026-11-21`): three days late, outside its
+own 48h window, behind two beats whose subjects had no deadline at all. Strategy
+§1(e2) is amended in the same PR as this file. The operative version for every
+beat below:
+
+- **On every beat, the news goes first.** A confirmed, sourced moment dated
+  inside the last 48h that nothing shipped or queued covers (`events.uncovered[]`
+  **or** that day's `new-on-site` sheet) is drafted **that day**, as
+  `news:<event-slug>` with `utm_campaign = news`, *instead of* the planned
+  subject. A reserve's named fallback is the **no-news branch** — what the day
+  takes when no moment arrived, never a claim that outranks one.
+- **Where the displaced beat goes — named for this window, so nobody re-derives
+  it:** displaced on **11-24** → **11-25**'s reserve, replacing its fallback;
+  on **11-26** or **11-27** → **11-29**'s reserve; on **11-28** or **11-29** →
+  the 11-30 run's calendar as a named make-good. This replaces §1(e2)'s old
+  "slides to the next free day", which was unexecutable — every day here carries
+  a beat, so a *free* day never exists.
+- **The timeline beat is the half of #7083 Tree could not finish.** 11-20 is the
+  worked example: the CMA performance was missed on 11-19, the next slot was
+  11-20, and 11-20 was a `timeline:` beat that
+  `docs/agents/runner-prompts/tree-event-draft.md` step 5 forbids the event run
+  from taking — with `tree-daily-draft.md` step 4.5 telling the 11:00Z run to
+  leave an off-reserve moment to the event run, and a sync test pinning both.
+  All three are outside this desk's mutation rights, so the ask is filed to
+  Marjorie. **Meanwhile, for the beats below: 11-27 is this week's timeline
+  minimum, and if a confirmed moment is uncovered that day the chapter goes to
+  11-29 and the moment takes 11-27** — that is this calendar assigning its own
+  slot, not a drafter overriding one, and the weekly minimum is still met.
+- **The gates do not move.** A news draft still clears `timely` ≥4, `total` ≥21,
+  the voice judge's floors and `check-drafts`. Two failed passes and the day takes
+  its planned subject as written — the branch, not a preference. Sourcing is
+  unchanged (invariant 13): verified against the Vault or the intake record before
+  a word is written, #36 blocklist applies, guardrail 4 confirmed-only applies.
+- **Record the chain in `why`**, e.g. *"takes 11-27 timeline; timeline → 11-29
+  reserve, displacing the two-albums fallback"*. A daily run may not edit this
+  file, so that `why` is the record until the 11-30 run reconciles it.
+
+---
+
 ## Ledger
 
 | State | Value |
