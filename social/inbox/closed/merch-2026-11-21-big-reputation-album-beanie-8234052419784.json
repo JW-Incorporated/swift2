@@ -1,0 +1,28 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-21-big-reputation-album-beanie-8234052419784",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-21T01:36:48.106Z",
+  "deadline": "2026-11-24T01:36:48.106Z",
+  "status": "declined",
+  "facts": {
+    "name": "Big Reputation Album Beanie",
+    "price": "35.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/big-reputation-album-beanie",
+    "firstSeenAt": "2026-11-21T01:35:26.951Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44850830290.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/big-reputation-album-beanie",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Taylor Swift | The Eras Tour Moss Piano Ornament\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  },
+  "declinedReason": "Out of stock on the store, and a beanie reads the same next month (timely below 4), so it has no claim on a calendar slot."
+}

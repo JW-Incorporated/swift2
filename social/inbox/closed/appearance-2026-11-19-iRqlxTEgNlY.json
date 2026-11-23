@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "id": "appearance-2026-11-19-iRqlxTEgNlY",
+  "source": "appearance-discovery",
+  "lane": "appearance",
+  "createdAt": "2026-11-19T21:46:49.048Z",
+  "deadline": "2026-11-21T21:46:49.048Z",
+  "status": "expired",
+  "facts": {
+    "channelName": "GRAMMYs",
+    "videoTitle": "TAYLOR SWIFT announces nominees for ALBUM OF THE YEAR & SONG OF THE YEAR for the 69th GRAMMY AWARDS",
+    "publishedAt": "2026-11-19T19:44:09+00:00",
+    "videoId": "iRqlxTEgNlY",
+    "url": "https://www.youtube.com/watch?v=iRqlxTEgNlY"
+  },
+  "media": [],
+  "links": {
+    "pr": null,
+    "issue": 7014
+  }
+}
