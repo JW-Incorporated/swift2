@@ -1,0 +1,54 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-23",
+  "windowDays": 7,
+  "since": "2026-11-16T00:00:00.000Z",
+  "count": 3,
+  "media": [
+    "https://assets3.cbsnewsstatic.com/hub/i/r/2026/11/17/21d2da74-3720-4de4-8c73-bcc20ba2ad89/thumbnail/1200x630/453e348295241212cf549ce56236055e/03-taylor-swift-the-fate-of-ophelia-1.jpg",
+    "https://www.youtube.com/watch?v=LJC7mgjp5FQ",
+    "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+  ],
+  "moments": [
+    {
+      "id": "vault-tloas-the-mfa-boston-announces-taylor-swift-the-eras-collection-it",
+      "eraId": "tloas",
+      "title": "The MFA Boston announces \"Taylor Swift: The Eras Collection,\" its first show for a musician",
+      "year": 2026,
+      "month": 11,
+      "day": 17,
+      "category": "business",
+      "significance": "notable",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-the-mfa-boston-announces-taylor-swift-the-eras-collection-it",
+      "mediaKind": "photo",
+      "media": "https://assets3.cbsnewsstatic.com/hub/i/r/2026/11/17/21d2da74-3720-4de4-8c73-bcc20ba2ad89/thumbnail/1200x630/453e348295241212cf549ce56236055e/03-taylor-swift-the-fate-of-ophelia-1.jpg"
+    },
+    {
+      "id": "vault-tloas-back-on-the-cma-stage-i-knew-it-i-knew-you-our-song-and-a-to",
+      "eraId": "tloas",
+      "title": "Back on the CMA stage: \"I Knew It, I Knew You,\" \"Our Song,\" and a toast to Brooks & Dunn",
+      "year": 2026,
+      "month": 11,
+      "day": 18,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-back-on-the-cma-stage-i-knew-it-i-knew-you-our-song-and-a-to",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=LJC7mgjp5FQ"
+    },
+    {
+      "id": "vault-tloas-five-nods-for-the-2027-grammys-and-a-fifth-straight-album-up",
+      "eraId": "tloas",
+      "title": "Five nods for the 2027 Grammys, and a fifth straight album up for Album of the Year",
+      "year": 2026,
+      "month": 11,
+      "day": 16,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-five-nods-for-the-2027-grammys-and-a-fifth-straight-album-up",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=hDU4GB1PTxc"
+    }
+  ]
+}
