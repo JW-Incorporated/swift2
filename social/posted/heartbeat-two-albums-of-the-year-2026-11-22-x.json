@@ -1,0 +1,49 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114086406).jpg",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "scheduledAt": "2026-11-22T23:00:00Z",
+  "campaign": "heartbeat:event-news:two-albums-of-the-year-lux-art-of-loving:2026-11-22",
+  "photoId": "wikimedia-22985343",
+  "media": [
+    "/social/library/photos/wikimedia-22985343.jpg"
+  ],
+  "body": "Rosalía and Olivia Dean, Taylor sees you 🥹 asked what makes music move us, she pointed straight at LUX and The Art of Loving. humans wrote those records, which is exactly why they hit. my whole heart is full rn https://www.longlivets.com/?item=vault-tloas-campaigning-for-i-knew-it-i-knew-you-taylor-names-her-two-al&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "why": "Nov 22 news reserve: no confirmed event from the last 48h in events.uncovered[] (the four intake items are a celebrity backlash, a prop exhibit dated Nov 19, a lipstick and a manicure trend). 11-19 already took the 1989 fallback, so per the calendar this takes standby pool #2; Michigan Senate was dropped because the subject is a sitting politician and the post could not stay clear of politics, so this is the calendar's named alternate (Taylor names her two albums of the year). Source: seed record vault-tloas-campaigning-for-i-knew-it-i-knew-you-taylor-names-her-two-al (HELLO!). X written first, as its own post. Campaign family is heartbeat:event-news (not era-deep-cut) because the Showgirl era pool holds only official-video stills, which check-drafts rejects as photos; this uses the beat's own handed photo (Taylor on Good Morning America, 2012) instead.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Feel first (Taylor being a fan of someone else's record), then the checkable detail off the Nov 13 moment record: LUX and The Art of Loving, named at a Golden Globe voters' press conference. The photo is a real credited shot of Taylor mid-interview, related in spirit, not from the event.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-22T18:31:54.921Z",
+    "pr": 7071,
+    "message": "social-tree-approve run 45055457382",
+    "contentHash": "sha256:44c4fe907559bb846ce15d4c1d6b77130322d056e615a7a5b8f798852b51d9c6",
+    "mediaDigest": "sha256:0b610e59e90f20482e9bcec0f0ee4b6096cad6493fd95661308de56c40d07942",
+    "sig": "hmac-sha256:ecf927a3f5566621fa2bce49b75a9f85bbe21858eb3dce05bff1534219ab6f3b"
+  },
+  "postedAt": "2026-11-23T00:17:12.682Z",
+  "platformPostId": "2124658548475113505",
+  "url": "https://x.com/longlivetscom/status/2124658548475113505"
+}
