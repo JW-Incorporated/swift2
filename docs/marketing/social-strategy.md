@@ -1287,15 +1287,84 @@ the readout window) only makes the same arithmetic worse.
   thing to watch, and this section states the trigger rather than scheduling a
   date it cannot keep.
 
-**No new calendar experiment this fortnight, deliberately.** S2 allows ~1 in 4
-slots on a labelled experiment, and the honest reading of the paragraph above is
-that **no on-platform format experiment is measurable at reach ≤1** — format,
-hook shape and post time all read identically through a one-impression
-instrument. Inventing one would manufacture a result, which is worse than an
-unused allowance. The lever that moves the only number gating every other
-measurement is distribution — growth-plan §6's outward-reach engine, which has
-never run — and that is a growth goal (Marjorie's) and a human-lane job (§1(f)),
-not a caption variant. The slot allowance resumes with the reach trigger above.
+**Experiment 02 — the posting hour, read as a step off zero. OPEN 2026-11-23
+(Tree, answering Marjorie's ask
+[#7084](https://github.com/JW-Incorporated/swift2/issues/7084)).** This replaces
+*"No new calendar experiment this fortnight, deliberately"*, which stood here for
+three fortnights on the argument that no on-platform experiment is measurable at
+reach ≤1. That argument was right about *comparative* levers and wrong about this
+one, and three numbers from the week to 2026-11-23 are what changed:
+
+- **Supply is no longer the excuse.** 12 posts shipped — 6 Instagram, 6 X —
+  against 2 the week before, 0 failed (`weekly-scorecard.mjs`, 2026-11-23). The
+  lane ran at full rate for the first time in a month.
+- **Every measured Instagram post still reached 0 accounts.** Every campaign row
+  of the trailing-7-day table reads `reach 0 · saves 0 · shares 0 · likes 0/0`.
+  These are real zeros from posts with insights on file, not missing data.
+- **The one variable held constant across all 12 is the hour.** §2's slot grammar
+  puts every beat at `23:00Z`, so every zero-reach post went out at the same time
+  of day. A variable never varied cannot be ruled out, and this is the cheapest
+  one in the desk's control — it costs no caption quality and no slot.
+
+**Why this is readable where Experiment 01 was not.** Experiment 01 asked for a
+*difference of means* between tagged and control at reach ≤1; a separation
+smaller than one impression is a coin flip with a label on it. This asks whether
+reach ever leaves **0**, and 0 → any positive integer is readable with certainty
+at any sample size. So the ≥10-median trigger above gates **comparative**
+experiments and not a step-off-zero test — that is the only narrowing this change
+makes, and the trigger stands for everything else.
+
+- **Arms.** Variant **11-24, 11-26, 11-28** ship their pair at `16:00Z` (11am ET
+  / 8am PT / 4pm UK). Control **11-25, 11-27, 11-29** stay at `23:00Z` (6pm ET /
+  3pm PT). Alternating, so day-of-week does not line up with the arm. 11-23 is
+  already drafted and is not touched. 2 of the fortnight's 13 beats carry a
+  variant hour, inside S2's ~1-in-4 allowance.
+- **Held constant:** subject, the feeling-first caption shape, the default
+  mid-tail tag block, the media standard, the pairing rule, every gate. The hour
+  is the only thing that moves, and `check-drafts.mjs` enforces no hour (only
+  that an IG+X pair is within 5 minutes of each other), so a variant beat is not
+  a planning bug against §2 — it is a time-boxed exception to §2's slot table,
+  open until the 11-30 readout.
+- **`experiment` object**, written verbatim on each variant queue item:
+  `{ "hypothesis": "every one of the 12 posts in the week to 2026-11-23 went out
+  at 23:00Z and every measured one reached 0 accounts; the hour is the one
+  variable never varied", "variant": "hour-16z", "metric":
+  "instagram reach per post, read as 0 vs non-zero" }`. Control items carry no
+  `experiment` object.
+- **Metric, primary:** Instagram reach per post from
+  `social/metrics/posts/2026-11/`, variant vs control, read as 0 vs non-zero —
+  never as a mean. **Secondary:** Instagram follower delta, flat at +0 for eight
+  weeks, so any movement is readable too.
+- **Readout — the 11-30 run, with all four outcomes committed in advance** so the
+  result cannot be narrated after the fact:
+  1. *Any variant post > 0 while every control is 0* → the hour is a live lever;
+     the next calendar moves the default slot and the experiment repeats once at
+     the new hour to confirm.
+  2. *All six at 0* → the hour is not the lever, and a reach of zero across 12
+     then 18 posts is not a caption or format problem. It is distribution or the
+     instrument, which is growth-plan §6's outward-reach engine and a growth goal
+     (Marjorie's), not a slot this desk should keep spending. **This desk then
+     runs no further on-platform experiment until reach reads non-zero once.**
+  3. *Any control > 0 while every variant is 0* → `23:00Z` stays the default, and
+     the week-to-11-23 zeros were at least partly a collection-timing artifact;
+     the whole reach series is re-read before any further experiment is designed.
+  4. *Both arms > 0* → reach was never actually zero at read time; re-baseline
+     before concluding anything about the hour.
+
+**Site pageviews per post — the half of #7084 that cannot be run, and why.**
+Marjorie offered Instagram reach *or* site pageviews per post. Per-post pageviews
+do not exist as a number today: Vercel's UTM dimensions are HTTP 402 on this
+account, so per-campaign visits come from the first-party counter, which keys on
+`usage_daily` scope `utm-visit:<family>` — the **campaign family** (`thread`,
+`heartbeat`, `timeline`, `news`), one row per family per UTC day
+(`scripts/marjorie/lib/growth-campaign-visits.mjs`, `apps/web/lib/
+campaign-visit.ts`). Rule 6a sets `utm_campaign` to that family verbatim, so
+every beat in a family shares one bucket and the finest readable grain is
+~14-16 traceable pageviews a week across four buckets. An arm of three posts
+cannot be separated inside that. Making it readable means a per-item UTM
+parameter plus a counter that records it — app and script paths this desk may not
+edit — and it is worth filing on its own merits, because it would turn the one
+metric that is not zero into a per-post instrument.
 
 ### The monthly self-review
 

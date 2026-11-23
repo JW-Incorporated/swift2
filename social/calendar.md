@@ -133,7 +133,7 @@ per-platform cap, which is the cheaper of the two by a wide margin.
 | **📰 News reserves — 2 per week, 4 in the window** | **11-19 + 11-22** (week of 11-16), **11-25 + 11-29** (week of 11-23). Each carries a named fallback on its own line, and **the fallback is ALWAYS drafted** (PR #6321) — a reserve beat is never left empty for a run that may not fire. Never drafted a day early. 11-19 is the one that matters: see the CMA block below. |
 | **📰 News floor — 0 of 16 for the second week running** | Marjorie's audit: the site caught all 16 site-fronted moments inside 48h; social caught none. **This week the cause is not the dispatcher** — the three real news drafts (Sherry Lansing award, CMA announcement, Taylor's two albums of the year) were all written and all three were stopped by the judge. The mechanism works; the captions did not clear. Two of those three subjects are re-placed below as ordinary beats (11-24, standby pool) rather than left to a reserve that may not catch them twice. 0 of 16 stands as a miss, named, for the second time. |
 | **🎤 CMA Awards — the fortnight's one unmissable event** | Taylor performs at the **2026 CMA Awards, Wednesday 2026-11-18**, airing live on ABC and Disney+ (per intake [#6840](https://github.com/JW-Incorporated/swift2/issues/6840); **verify the date, network and whether the performance actually happened against the Vault and the site before a word of copy** — I have not sourced it myself and this file asserts nothing). It is Marjorie's bet 1 and the biggest fan moment of the month. **Two beats, deliberately:** 11-18 is the pre-show (23:00Z is 6pm ET, about two hours out — anticipation, which needs no footage and no source beyond the confirmed booking), and 11-19 is the reserve that catches the performance itself. If she does not perform, 11-19 takes its named fallback and 11-18's pre-show is simply a night a fan spent excited, which is still true. |
-| 🧪 **Experiment — none this fortnight, for the third fortnight** | Same reason, unchanged: this week's trailing-7-day reach across 2 posts was **0**. A zero-impression instrument cannot resolve a caption, format or time lever, and Marjorie's own note says an experiment needs "a metric `social.byCampaign` can read". The comparison returns as a clean 3-vs-3 the first week trailing-7-day median IG reach is **≥10** (strategy §3). Running an arm into a lane that posted twice in seven days would be measuring the outage. |
+| 🧪 **Experiment 02 — OPEN, the posting hour** (Marjorie's ask [#7084](https://github.com/JW-Incorporated/swift2/issues/7084), 2026-11-23; replaces this row's "none this fortnight, for the third fortnight") | The row here used to decline on reach being 0 across 2 posts — measuring the outage. Supply is no longer the excuse: **12 posts shipped this week, 0 failed, and every measured Instagram post still reached 0 accounts.** The one variable held constant across all 12 is the hour — every beat is `23:00Z` by §2's slot grammar. **Variant `16:00Z` on 11-24, 11-26, 11-28; control `23:00Z` on 11-25, 11-27, 11-29** (alternating, so day-of-week does not track the arm; 11-23 is already drafted and untouched). Everything else held: subject, feeling-first shape, tag block, media standard, pairing, every gate. Readable because the question is **0 vs non-zero**, not a difference of means — which is why §3's ≥10-median trigger gates comparative experiments only. Full design, the verbatim `experiment` object, and all four pre-committed readouts: strategy §3. |
 | Openers — computed from the real posted bodies, 11-03 → 11-09 | **12 distinct 6-word openers across 12 items — a clean sweep** against the ≥12-per-14-days target ✅. The number is this clean only because 8 of the 14 days shipped nothing, so read it as "no evidence of reuse", not as a win. First-word tally is flat (no word twice). `okay`/`ok` are hard-gated as of PR #6535 and did not appear. **Off the menu this fortnight, on top of the code gates:** any bare date-stamp or *"<n> years ago"* opener, opening on a quoted song title, and — new, and the whole point of this plan — **any first sentence whose subject is a fact rather than a feeling.** |
 | Media mix, last 14 days | **12 photo / 12 media-carrying = 100%**, target ≥70% ✅. Zero era tiles, zero undeclared media, zero `site-screen` posts, zero text-only X posts. The gate is holding. |
 | **Photo supply — healthy, with one thin bucket worth naming** | **307 never-used** in a 519-photo library, **no era exhausted**. 176 of the 307 are outside Instagram's 0.8–1.91 aspect window and can never ship, so the real usable pool is ~131. **The thin bucket is the current era:** `the-life-of-a-showgirl` has **7 never-used of 7 total**, and `tortured-poets` **5 of 5** — the two newest eras are the two smallest, and this fortnight's CMA and Sherry Lansing beats are both Showgirl-themed. Naming it per the 2026-10-01 standing priority: **Showgirl photos are the library's binding constraint**, tracked for content on [#6644](https://github.com/JW-Incorporated/swift2/issues/6644). Uncredited photos are welcome and are expected to be the bulk of it. No beat below is blocked today. |
@@ -171,6 +171,45 @@ Two more off the same sheet if all three go:
 `vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo`
 (the second is Travis on record, which clears guardrail 4's confirmed-only
 test — it is him saying it, not an anonymous source).
+
+---
+
+## 🧪 Experiment 02 — the posting hour, on six beats
+
+**Marjorie's ask [#7084](https://github.com/JW-Incorporated/swift2/issues/7084),
+answered 2026-11-23. Design and the four pre-committed readouts: strategy §3.**
+12 posts shipped this week and every measured Instagram post reached **0
+accounts**. Supply was not the problem. The one variable never varied is the
+hour: every beat in this file says `23:00Z`.
+
+| Beat | Hour | Arm |
+|---|---|---|
+| 11-24 · Sherry Lansing | **`16:00Z`** | variant |
+| 11-25 · news reserve #3 | `23:00Z` | control |
+| 11-26 · End Game hero | **`16:00Z`** | variant |
+| 11-27 · timeline | `23:00Z` | control |
+| 11-28 · Michigan Senate | **`16:00Z`** | variant |
+| 11-29 · news reserve #4 | `23:00Z` | control |
+
+- **The hour is the ONLY thing that moves.** Same subjects, same feeling-first
+  shape, same mid-tail tag block, same media standard, same gates. A variant beat
+  keeps both halves of its pair on the **same** `scheduledAt` (inside
+  `check-drafts`'s 5-minute pairing window) — `16:00Z` on the IG item *and* the X
+  item, never one of each.
+- **On a variant beat, write this `experiment` object on both queue items,
+  verbatim:**
+  `{"hypothesis": "every one of the 12 posts in the week to 2026-11-23 went out at 23:00Z and every measured one reached 0 accounts; the hour is the one variable never varied", "variant": "hour-16z", "metric": "instagram reach per post, read as 0 vs non-zero"}`
+  Control beats carry **no** `experiment` object at all.
+- **A news displacement does not cancel the arm.** If a confirmed moment takes a
+  variant day, the news pair ships at that day's experiment hour and keeps the
+  `experiment` object; the arm is the hour, not the subject.
+- **`16:00Z` is a time-boxed exception to §2's slot table**, open until the 11-30
+  readout — not a planning bug. `check-drafts.mjs` enforces no hour.
+- **Why not pageviews per post, the other metric Marjorie offered:** it does not
+  exist as a number. The first-party counter keys on `utm-visit:<family>` — the
+  campaign family, not the item — so every `thread:` beat shares one bucket of
+  ~14-16 traceable pageviews a week. Three posts cannot be separated inside it.
+  Reason and the fix it would need: strategy §3.
 
 ---
 
