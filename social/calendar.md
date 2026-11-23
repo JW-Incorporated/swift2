@@ -139,14 +139,16 @@ beat below:
   the 11-30 run's calendar as a named make-good. This replaces §1(e2)'s old
   "slides to the next free day", which was unexecutable — every day here carries
   a beat, so a *free* day never exists.
-- **The timeline beat is the half of #7083 Tree could not finish.** 11-20 is the
-  worked example: the CMA performance was missed on 11-19, the next slot was
-  11-20, and 11-20 was a `timeline:` beat that
-  `docs/agents/runner-prompts/tree-event-draft.md` step 5 forbids the event run
-  from taking — with `tree-daily-draft.md` step 4.5 telling the 11:00Z run to
-  leave an off-reserve moment to the event run, and a sync test pinning both.
-  All three are outside this desk's mutation rights, so the ask is filed to
-  Marjorie. **Meanwhile, for the beats below: 11-27 is this week's timeline
+- **The timeline beat was the half of #7083 Tree could not finish — it landed on
+  2026-11-23 ([#7088](https://github.com/JW-Incorporated/swift2/issues/7088)).**
+  11-20 is the worked example: the CMA performance was missed on 11-19, the next
+  slot was 11-20, and 11-20 was a `timeline:` beat the event run was then
+  forbidden to take. Strategy §1(e2) now carries it as **rung 5** — a
+  `timeline:` beat yields, last of all, to a confirmed site-fronted moment,
+  provided the chapter slides to another 23:00Z day inside its own calendar week
+  — and `tree-event-draft.md` step 5, `tree-daily-draft.md` step 4.5 and their
+  sync test all say so, so either run may take it. **For the beats below: 11-27
+  is this week's timeline
   minimum, and if a confirmed moment is uncovered that day the chapter goes to
   11-29 and the moment takes 11-27** — that is this calendar assigning its own
   slot, not a drafter overriding one, and the weekly minimum is still met.
