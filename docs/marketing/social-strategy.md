@@ -551,6 +551,37 @@ event that arrives takes it or displaces a beat like any other. A reserve may
 never be left empty in anticipation of a run that may not fire; a slot held open
 for news that does not arrive is just a gap with a reason attached.
 
+**Order of precedence on a beat — the news first, the planned subject second
+(added 2026-11-23, Tree, answering Marjorie's ask
+[#7083](https://github.com/JW-Incorporated/swift2/issues/7083)).** The paragraph
+above has been read the wrong way round, and it cost the biggest fan moment of
+the month its 48 hours. Taylor performed at the CMA Awards on **2026-11-18**. The
+week-of-11-16 calendar reserved **11-19** for exactly that performance and said
+so in the beat — *"this is the beat the fortnight is built around"*. The 11-19
+run drafted the reserve's **named fallback** instead
+(`heartbeat-f1-2016-only-concert-2026-11-19-{ig,x}`, now in `social/posted/`);
+11-20 was §1(c)'s timeline beat, which this section called "never displaced"; and
+the performance finally shipped on **11-21**
+(`event-cma-2026-performance-2026-11-21-{ig,x}`) — three days after the event,
+outside its own 48h window, behind two beats whose subjects had no deadline at
+all. So, one order, on every beat including a reserve:
+
+1. **A confirmed, sourced, uncovered moment from the last 48h, if there is one**
+   — drafted *here, today*, as `news:<event-slug>`.
+2. **The beat's planned subject — or a reserve's named fallback — if there is
+   not.**
+
+The fallback is the **no-news branch**, never a co-equal claim on the day. "A
+reserve beat always drafts its named fallback" was written on 2026-10-26 against
+a dark day and means *a reserve day is never empty*; it does not mean the stand-in
+outranks the thing it is standing in for. An evergreen subject loses nothing by
+waiting a day — a moment missed by 48h is gone for good. §2's slot section
+already said it this way ("a reserve is still the one beat written `news:`-first,
+with the planned subject as its fallback rather than the other way round"); the
+two sections now agree. If the moment cannot clear its gates (`timely` ≥4,
+`total` ≥21, the voice judge's floors, `check-drafts`) on its second pass, the
+day takes its planned subject as written — that is the branch, not a preference.
+
 **Yield order, when news lands off-reserve.** News may take the next
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
 
@@ -581,12 +612,52 @@ own month, and **a moment missed by 48h is gone for good.**
 one beat per calendar week, so displacing it does not move a beat, it deletes a
 week of a permanent series; it slides inside its own week instead.
 
-The displaced beat slides to the next free day where that is possible; a
-window-bound thread hero takes its make-good, and is dropped only if no beat is
-left in the month. The news item records the displacement in its `why` ("takes
-10-08 heartbeat; heartbeat → 10-09") because the event run may not edit
-`social/calendar.md`; the next weekly run reconciles the calendar to what
-actually shipped.
+**…and that is the rule Marjorie's ask
+[#7083](https://github.com/JW-Incorporated/swift2/issues/7083) is asking to
+change, which this desk cannot finish alone (2026-11-23, Tree).** The paragraph
+above is why the CMA performance waited: the moment was missed on 11-19, the next
+slot was 11-20, and 11-20 was a `timeline:` beat the event run is forbidden to
+take. The premise — "displacing it deletes a week of a permanent series" — holds
+only when the chapter has nowhere to slide, and the cascade below is what makes
+sliding executable. §1(c)'s minimum is a minimum on the **series**, not on a
+particular day: a chapter that lands Friday instead of Thursday still satisfies
+it, and on 11-20 the chapter could have gone to 11-22, where a reserve was about
+to spend the day on a 2016 deep cut instead. **The intended rule is a rung 5** —
+the timeline beat yields, last of all, to a confirmed site-fronted moment only,
+after every heartbeat, mood, launch and thread beat in the week has.
+
+It is written here as intent and **not as a rung, because the operative copy is
+not in this file**: `docs/agents/runner-prompts/tree-event-draft.md` step 5
+excludes `timeline:` beats, `tree-daily-draft.md` step 4.5 tells the 11:00Z run to
+leave an off-reserve uncovered moment to the event run rather than draft it, and
+`scripts/social/tree-drafter-workflows.test.ts` pins both to the sentence above so
+the two can never drift (the #6731 fix). All three are outside Tree's mutation
+rights. Editing only this file would make CI red and change no drafter's
+behaviour, so rung 5 lands when that prompt-and-test change does; the ask is filed
+to Marjorie the same day. Until then the sentence above is the rule in force, and
+the operative half of #7083 that **is** Tree's — news before a reserve's fallback,
+and the cascade — is above and below.
+
+**The cascade — where a displaced beat actually goes.** "Slides to the next free
+day" was unexecutable: every day of a Tree calendar carries a beat, so a *free*
+day never exists, and a drafter reading that sentence had no instruction at all.
+Nearest first:
+
+1. **The week's next news-reserve day**, replacing that reserve's named fallback.
+   A reserve is the calendar's deliberate slack — it already ships one of two
+   subjects, so a displaced beat landing there costs a stand-in nobody was
+   promised.
+2. **The week's next rung-1 or rung-2 beat** (`heartbeat:`, `mood:`), which
+   cascades in turn.
+3. **A named make-good in the next calendar**, recorded in the ledger — a thread
+   hero anywhere in its own month (§1(b)), a timeline chapter as the following
+   week's chapter. A window-bound hero is dropped only if no beat is left in the
+   month.
+
+The news item records the whole chain in its `why` ("takes 11-20 timeline;
+timeline → 11-22 reserve, displacing the F1-2016 fallback") because the drafting
+run may not edit `social/calendar.md`; the next weekly run reconciles the calendar
+to what actually shipped.
 
 **News-capable by default — any day, not a fixed news day (added 2026-11-09,
 Tree, answering ask [#6726](https://github.com/JW-Incorporated/swift2/issues/6726)).**
