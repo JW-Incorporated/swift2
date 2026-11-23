@@ -1058,6 +1058,16 @@ not an exception. For every pair:
 
 - The X post is **written first, as its own post**: one idea, the link. It is
   never the IG caption truncated.
+- **The X half may not open on the Instagram half's opening clause** (added
+  2026-11-23, Tree, from a pair that shipped). The two first sentences are
+  *different sentences* — not the same words with different punctuation — and
+  differ in at least their first three words. **Evidence:** the 11-20 pair went
+  out as Instagram *"three months. i keep coming back…"* and X *"three months!!
+  that's the entire jake…"*. Both halves cleared `check-drafts`'s 20%-different
+  test (the bodies really are different), both cleared the voice judge's four
+  floors, and both shipped — because the rule being broken had never been
+  written down anywhere. No checker enforces this yet, so the calendar restates
+  it on every beat until one does.
 - IG can breathe: 3-6 short paragraphs, the story, credit line, then the link.
 - `check-drafts.mjs` fails the pair if the two bodies are less than 20%
   different — still good, checker-enforced practice (a near-clone sibling
