@@ -1,6 +1,6 @@
 // Bots v2 W8: the deterministic pre-compute Tree's daily run reads instead of searching.
 import { describe, expect, it } from 'vitest';
-import { BACKLOG_SKIP_AT, activeRules, buildDraftInputs, filledBeats, hiddenCluesFacts, parseCalendarBeats, parsePhotoHints, parseRedraftNotes, recentRejections, summarizeInputs, uncoveredEvents } from './lib/draft-inputs.mjs';
+import { BACKLOG_SKIP_AT, activeRules, buildDraftInputs, filledBeats, hiddenCluesFacts, parseCalendarBeats, parsePhotoHints, parseRedraftNotes, parseScheduledEvents, recentRejections, summarizeInputs, uncoveredEvents } from './lib/draft-inputs.mjs';
 import { assignBeatPhotos, buildPhotoLedger, eraAvailability, eraTagsOf, photoIdOf } from './lib/photo-ledger.mjs';
 
 const photo = (id: string, tags: string[] = ['eras-tour'], credit = 'Real Person (CC BY 2.0)') => ({
@@ -249,5 +249,79 @@ describe('re-draft notes', () => {
     const social = [entry('q', { why: 'Re-draft for ask #11 (Mood).' }), entry('r', { why: 'ask #110 is another' })];
     expect(parseRedraftNotes(md, '2026-10-01', social)[0].alreadyDrafted).toBe(true);
     expect(parseRedraftNotes(md, '2026-10-01', [entry('r', { why: 'ask #110 is another' })])[0].alreadyDrafted).toBe(false);
+  });
+});
+
+// Issue #7012: a pre-announced event is surfaced by `uncoveredEvents` only while its
+// ANNOUNCEMENT intake issue is inside the 48h window, so Taylor's 2026-11-18 CMA Awards
+// performance (sourced by intake #6840, filed 2026-11-13) left `events.uncovered[]` empty
+// on the day it happened; the 11-19 news reserve shipped its fallback and the performance
+// posted on 11-21, three days late.
+describe('scheduled events pre-announced in the calendar', () => {
+  const CMA = 'SCHEDULED EVENT 2026-11-18 #6840: Taylor performs at the 60th CMA Awards, live on ABC';
+  const md = [
+    '## 2026-11-18 (Wed) — pre-show',
+    `- **${CMA}**`,
+    'SCHEDULED EVENT 2026-12-13 #6900: a future booking',
+    'SCHEDULED EVENT 2026-11-18: no intake issue',
+    'prose about a SCHEDULED EVENT 2026-11-18 #6840: mid-line',
+  ].join('\n');
+
+  it('reads the fixed one-line syntax and drops lines with no sourcing intake issue', () => {
+    expect(parseScheduledEvents(md)).toEqual([
+      { date: '2026-11-18', intake: 6840, headline: 'Taylor performs at the 60th CMA Awards, live on ABC' },
+      { date: '2026-12-13', intake: 6900, headline: 'a future booking' },
+    ]);
+    expect(parseScheduledEvents(undefined)).toEqual([]);
+  });
+
+  it('surfaces an event on the day it happens even though its intake issue is days old', () => {
+    const now = Date.parse('2026-11-18T11:00:00Z');
+    const scheduled = parseScheduledEvents(md);
+    const out = uncoveredEvents([], [], now, { scheduled });
+    expect(out.uncovered).toEqual([
+      {
+        number: 6840,
+        headline: 'Taylor performs at the 60th CMA Awards, live on ABC',
+        createdAt: '2026-11-18T00:00:00Z',
+        source: 'calendar-scheduled',
+        scheduledFor: '2026-11-18',
+        covered: false,
+      },
+    ]);
+    expect(out.considered).toBe(1);
+  });
+
+  it('never surfaces a future-dated booking, and lets a passed one fall out after the window', () => {
+    const scheduled = parseScheduledEvents(md);
+    expect(uncoveredEvents([], [], Date.parse('2026-11-17T23:00:00Z'), { scheduled }).uncovered).toEqual([]);
+    expect(uncoveredEvents([], [], Date.parse('2026-11-19T11:00:00Z'), { scheduled }).uncovered.map((e: { number: number }) => e.number)).toEqual([6840]);
+    expect(uncoveredEvents([], [], Date.parse('2026-11-22T11:00:00Z'), { scheduled }).uncovered).toEqual([]);
+  });
+
+  it('drops a scheduled event a posted item already covers, and sorts the rest ahead of fresh intake', () => {
+    const now = Date.parse('2026-11-18T11:00:00Z');
+    const scheduled = parseScheduledEvents(md);
+    const social = [entry('p', { body: 'Taylor performs at the 60th CMA Awards tonight', campaign: 'news', why: 'w' })];
+    expect(uncoveredEvents([], social, now, { scheduled }).uncovered).toEqual([]);
+
+    const issues = [{ number: 7001, title: 'intake: Dior designer confirmed for the wedding dress', createdAt: '2026-11-18T09:00:00Z' }];
+    expect(uncoveredEvents(issues, [], now, { scheduled }).uncovered.map((e: { number: number }) => e.number)).toEqual([6840, 7001]);
+  });
+
+  it('lists it once when the booking issue is itself inside the window', () => {
+    const now = Date.parse('2026-11-18T11:00:00Z');
+    const issues = [{ number: 6840, title: 'intake: Taylor Swift to perform at the CMAs', createdAt: '2026-11-17T20:00:00Z' }];
+    const out = uncoveredEvents(issues, [], now, { scheduled: parseScheduledEvents(md) });
+    expect(out.uncovered.map((e: { number: number }) => e.number)).toEqual([6840]);
+    expect(out.considered).toBe(1);
+  });
+
+  it('reaches the model through buildDraftInputs and names itself in the summary', () => {
+    const inputs = buildDraftInputs({
+      now: '2026-11-18T11:00:00Z', library: LIB, calendarMd: md, lessonsMd: '', posted: [], queue: [], openDrafts: [], closedPrs: [], intents: [], intakeIssues: [],
+    });
+    expect(inputs.events.uncovered.map((e: { number: number }) => e.number)).toEqual([6840]);
+    expect(summarizeInputs(inputs)).toContain('scheduled event 2026-11-18 (intake #6840), nothing covers it:');
   });
 });

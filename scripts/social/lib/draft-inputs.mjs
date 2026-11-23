@@ -66,6 +66,29 @@ export function parsePhotoHints(markdown) {
   return hints;
 }
 
+/**
+ * Pre-announced, dated events Tree wrote into social/calendar.md: one line anywhere in
+ * the file, `SCHEDULED EVENT <YYYY-MM-DD> #<intake>: <headline>` (a leading `> `, `- ` or
+ * bold is fine), where `#<intake>` is the intake issue that SOURCED the booking. The
+ * intake number is required — this lane never surfaces an event nothing sourced.
+ *
+ * Why this exists (issue #7012): `uncoveredEvents` windows an intake issue on its own
+ * `createdAt`, so a pre-announced event is surfaced on the day it was ANNOUNCED and has
+ * aged out by the day it HAPPENS. Taylor's 2026-11-18 CMA Awards performance was sourced
+ * by intake #6840 on 2026-11-13; on 11-18 and 11-19 `events.uncovered[]` was empty, the
+ * 11-19 news reserve shipped its named fallback, and the performance posted on 11-21,
+ * three days late. A dated line keyed on the OCCURRENCE date closes that gap.
+ */
+export function parseScheduledEvents(markdown) {
+  const events = [];
+  for (const line of String(markdown ?? '').split('\n')) {
+    const m = /^\s*(?:[>*-]\s*)*\**SCHEDULED EVENT\**\s+(\d{4}-\d{2}-\d{2})\s+#(\d+)\s*:\s*(.+?)\s*\**\s*$/i.exec(line);
+    if (!m) continue;
+    events.push({ date: m[1], intake: Number(m[2]), headline: m[3].replace(/\s*\*+$/, '').slice(0, 140) });
+  }
+  return events;
+}
+
 /** Which items already cover `day` (UTC): grouped by campaign with their platforms. */
 export function filledBeats(items, day) {
   const byCampaign = new Map();
@@ -97,17 +120,51 @@ export function recentRejections(closedPrs, nowMs, days = 14) {
   return out;
 }
 
-/** Intake issues from the last 48h that no posted/queued/open-PR social item already covers. */
-export function uncoveredEvents(intakeIssues, socialItems, nowMs, hours = EVENT_WINDOW_HOURS) {
+/**
+ * Time-sensitive events no posted/queued/open-PR social item covers yet, from two sources:
+ *
+ * - **Intake issues** filed in the last `hours` (their own `createdAt`) — the reactive lane.
+ * - **`scheduled`** (`parseScheduledEvents` over the calendar) — a pre-announced event whose
+ *   OCCURRENCE date has arrived, which the intake lane alone cannot see (#7012). These sort
+ *   FIRST: a dated, pre-announced event carries a deadline the day's rotation does not.
+ *
+ * A scheduled event is in-window from its own day through the whole-day boundary `hours`
+ * before now, day-granular, so a 48h window covers today and the two prior UTC days.
+ * Day granularity errs WIDE on purpose — the bug this fixes was an event falling out of a
+ * window, never one lingering in it. A future-dated event is never surfaced: anticipation
+ * is the calendar's own beat, not an uncovered moment.
+ *
+ * A scheduled event is dropped when its own sourcing intake issue is itself in-window (the
+ * booking announcement landed inside `hours`), so the two halves never list it twice.
+ */
+export function uncoveredEvents(intakeIssues, socialItems, nowMs, { hours = EVENT_WINDOW_HOURS, scheduled = [] } = {}) {
+  const coveredBy = (text) => socialItems.some(({ data }) => textMatches(`${data?.body ?? ''} ${data?.campaign ?? ''} ${data?.why ?? ''}`, keywordsOf(text)));
   const events = (intakeIssues ?? [])
     .filter((i) => /^intake:/i.test(i.title ?? '') && Date.parse(i.createdAt) >= nowMs - hours * 3_600_000)
-    .map((issue) => {
-      const keywords = keywordsOf(issue.title);
-      const covered = socialItems.some(({ data }) => textMatches(`${data?.body ?? ''} ${data?.campaign ?? ''} ${data?.why ?? ''}`, keywords));
-      return { number: issue.number, headline: String(issue.title).replace(/^intake:\s*/i, '').slice(0, 140), createdAt: issue.createdAt, covered };
-    })
+    .map((issue) => ({
+      number: issue.number,
+      headline: String(issue.title).replace(/^intake:\s*/i, '').slice(0, 140),
+      createdAt: issue.createdAt,
+      source: 'intake',
+      covered: coveredBy(issue.title),
+    }))
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
-  return { uncovered: events.filter((e) => !e.covered).slice(0, EVENTS_MAX), considered: events.length };
+  const today = utcDay(nowMs);
+  const earliestDay = utcDay(nowMs - hours * 3_600_000);
+  const seen = new Set(events.map((e) => e.number));
+  const due = (scheduled ?? [])
+    .filter((e) => e.date <= today && e.date >= earliestDay && !seen.has(e.intake))
+    .map((e) => ({
+      number: e.intake,
+      headline: e.headline,
+      createdAt: `${e.date}T00:00:00Z`,
+      source: 'calendar-scheduled',
+      scheduledFor: e.date,
+      covered: coveredBy(e.headline),
+    }))
+    .sort((a, b) => (a.scheduledFor < b.scheduledFor ? 1 : a.scheduledFor > b.scheduledFor ? -1 : 0));
+  const all = [...due, ...events];
+  return { uncovered: all.filter((e) => !e.covered).slice(0, EVENTS_MAX), considered: all.length };
 }
 
 /** Fast-lane intents from social/inbox/: which are open, which have already passed their deadline. */
@@ -223,7 +280,7 @@ export function buildDraftInputs(d) {
     ...(hiddenClues ? { lenses: { 'hidden-clues': hiddenClues } } : {}),
     rules: activeRules(d.lessonsMd),
     rejections: recentRejections(d.closedPrs, nowMs),
-    events: { status: d.eventStatus ?? null, ...uncoveredEvents(d.intakeIssues, social, nowMs) },
+    events: { status: d.eventStatus ?? null, ...uncoveredEvents(d.intakeIssues, social, nowMs, { scheduled: parseScheduledEvents(d.calendarMd) }) },
     inbox: inboxSummary(d.intents, nowMs),
     warnings: d.warnings ?? [],
   };
@@ -238,6 +295,7 @@ export function summarizeInputs(inputs) {
     ...(inputs.newOnSite ? [`  new on site (${inputs.newOnSite.date}): ${inputs.newOnSite.count} moment(s) with media — use these first`] : []),
     ...inputs.beats.map((b) => `  ${beatLine(b)}`),
     ...inputs.redrafts.map((r) => `  re-draft ask #${r.ask} by ${r.by}: ${r.alreadyDrafted ? 'already drafted' : r.items.slice(0, 80)}`),
+    ...inputs.events.uncovered.filter((e) => e.source === 'calendar-scheduled').map((e) => `  scheduled event ${e.scheduledFor} (intake #${e.number}), nothing covers it: ${e.headline.slice(0, 80)}`),
     `  photos: ${inputs.photos.neverUsed}/${inputs.photos.library} drawable (never used AND Instagram-sized; ${inputs.photos.neverUsedButNotInstagramSized} more never-used are outside IG's 0.8-1.91 aspect window); held by open PRs: ${inputs.photos.heldInOpenPrs.join(', ') || 'none'}; era-exhausted: ${exhausted.join(', ') || 'none'}`,
     ...(inputs.lenses?.['hidden-clues']
       ? [`  hidden-clues lens: ${inputs.lenses['hidden-clues'].clues} clues (${inputs.lenses['hidden-clues'].confirmed} confirmed), earliest plant ${inputs.lenses['hidden-clues'].earliestPlant}, densest era ${inputs.lenses['hidden-clues'].densestEra.eraId} (${inputs.lenses['hidden-clues'].densestEra.clues}) — from ${inputs.lenses['hidden-clues'].sources.join(', ')}`]
