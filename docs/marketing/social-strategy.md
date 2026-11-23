@@ -592,11 +592,20 @@ unfilled beat inside 48h, displacing in exactly this order, nearest first:
    deferral recorded in the calendar ledger, never a closed arc,
 4. a thread window's hero (§1(b)) — **a site-fronted moment only**; the hero
    takes a same-month make-good that does **not** spend §1(b)'s one-per-month
-   engine-failure allowance.
+   engine-failure allowance,
+5. the week's `timeline:` beat (§1(c)) — **a site-fronted moment only, and the
+   last rung of all**, taken only when no `heartbeat:`, `mood:`, launch-arc or
+   thread-hero beat inside 48h can carry the moment. The chapter is not deleted,
+   it slides: it takes another 23:00Z day inside its **own calendar week**, and
+   if no day that week can take it the rung is unavailable and the beat stands.
 
 **Rungs 3 and 4 were added 2026-11-09 (Tree, answering Marjorie's ask
-[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)), superseding the
-"that is the whole list as of 2026-10-09" wording this paragraph used to carry**
+[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)), and rung 5 on
+2026-11-23 (ask [#7083](https://github.com/JW-Incorporated/swift2/issues/7083) /
+[#7087](https://github.com/JW-Incorporated/swift2/issues/7087), landed with the
+drafting prompts and their test in
+[#7088](https://github.com/JW-Incorporated/swift2/issues/7088)), each superseding
+a "that is the whole list" wording this paragraph used to carry**
 — along with its clause that "a thread window's single beat is never written as
 a news reserve's named fallback", which is withdrawn: any beat may now be the
 fallback behind an arriving moment (see *News-capable by default*, below). The
@@ -608,35 +617,37 @@ never expires** (§1(a) makes exactly this argument when an arc collides with
 news slack — "the arc waits"), a thread hero can be re-placed anywhere in its
 own month, and **a moment missed by 48h is gone for good.**
 
-**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum. It is
-one beat per calendar week, so displacing it does not move a beat, it deletes a
-week of a permanent series; it slides inside its own week instead.
+**Still never displaced:** another `news:`/`heartbeat:event-news:` pair, and a
+beat that is already posted. §1(c)'s weekly Blank Spaces timeline minimum **is no
+longer on that list** — it is rung 5, displaceable last of all by a confirmed
+site-fronted moment, on the one condition that the chapter slides to another
+23:00Z day inside its own calendar week. §1(c)'s minimum is a minimum on the
+**series**, not on a particular day: a chapter that lands Saturday instead of
+Thursday still satisfies it, and only a chapter with nowhere to land that week
+would be a deleted week of a permanent series — which is exactly why that case
+leaves the beat standing instead.
 
-**…and that is the rule Marjorie's ask
-[#7083](https://github.com/JW-Incorporated/swift2/issues/7083) is asking to
-change, which this desk cannot finish alone (2026-11-23, Tree).** The paragraph
-above is why the CMA performance waited: the moment was missed on 11-19, the next
-slot was 11-20, and 11-20 was a `timeline:` beat the event run is forbidden to
-take. The premise — "displacing it deletes a week of a permanent series" — holds
-only when the chapter has nowhere to slide, and the cascade below is what makes
-sliding executable. §1(c)'s minimum is a minimum on the **series**, not on a
-particular day: a chapter that lands Friday instead of Thursday still satisfies
-it, and on 11-20 the chapter could have gone to 11-22, where a reserve was about
-to spend the day on a 2016 deep cut instead. **The intended rule is a rung 5** —
-the timeline beat yields, last of all, to a confirmed site-fronted moment only,
-after every heartbeat, mood, launch and thread beat in the week has.
+**Why rung 5 exists (2026-11-23, ask #7083/#7087, landed in #7088).** The CMA
+performance of 11-18 is the case: the moment was missed on 11-19, the next slot
+was 11-20, 11-20 was a `timeline:` beat the event run was then forbidden to take,
+and the performance finally shipped on 11-21 — three days late, behind two beats
+whose subjects had no deadline at all. The old premise, "displacing it deletes a
+week of a permanent series", holds only when the chapter has nowhere to slide, and
+the cascade below is what makes sliding executable: on 11-20 the chapter could
+have gone to 11-22, where a reserve was about to spend the day on a 2016 deep cut.
+So the timeline beat yields, last of all, to a confirmed site-fronted moment only,
+after every heartbeat, mood, launch and thread beat in the week has — and the
+chapter keeps its week.
 
-It is written here as intent and **not as a rung, because the operative copy is
-not in this file**: `docs/agents/runner-prompts/tree-event-draft.md` step 5
-excludes `timeline:` beats, `tree-daily-draft.md` step 4.5 tells the 11:00Z run to
-leave an off-reserve uncovered moment to the event run rather than draft it, and
-`scripts/social/tree-drafter-workflows.test.ts` pins both to the sentence above so
-the two can never drift (the #6731 fix). All three are outside Tree's mutation
-rights. Editing only this file would make CI red and change no drafter's
-behaviour, so rung 5 lands when that prompt-and-test change does; the ask is filed
-to Marjorie the same day. Until then the sentence above is the rule in force, and
-the operative half of #7083 that **is** Tree's — news before a reserve's fallback,
-and the cascade — is above and below.
+**The operative copy is not in this file, and now matches it.**
+`docs/agents/runner-prompts/tree-event-draft.md` step 5 carries rung 5 with the
+same-week slide as its condition, `tree-daily-draft.md` step 4.5 lets the 11:00Z
+run itself give a `timeline:` beat to a confirmed site-fronted moment on the same
+terms rather than leaving it to an event run that may not fire, and
+`scripts/social/tree-drafter-workflows.test.ts` pins all three to the rungs above
+so they can never drift (the #6731 fix, extended). Those files are outside Tree's
+mutation rights, which is why this half of #7083 was filed to Marjorie and landed
+by the ops-fixer rather than by this desk.
 
 **The cascade — where a displaced beat actually goes.** "Slides to the next free
 day" was unexecutable: every day of a Tree calendar carries a beat, so a *free*
@@ -650,9 +661,12 @@ Nearest first:
 2. **The week's next rung-1 or rung-2 beat** (`heartbeat:`, `mood:`), which
    cascades in turn.
 3. **A named make-good in the next calendar**, recorded in the ledger — a thread
-   hero anywhere in its own month (§1(b)), a timeline chapter as the following
-   week's chapter. A window-bound hero is dropped only if no beat is left in the
-   month.
+   hero anywhere in its own month (§1(b)). A window-bound hero is dropped only if
+   no beat is left in the month. **A displaced timeline chapter never reaches this
+   rung:** rungs 1-2 must land it on another 23:00Z day inside its own calendar
+   week, and if they cannot, rung 5 is simply unavailable and the chapter keeps
+   its day (pushing it to the following week would skip a week of the series,
+   which is the one thing §1(c) forbids).
 
 The news item records the whole chain in its `why` ("takes 11-20 timeline;
 timeline → 11-22 reserve, displacing the F1-2016 fallback") because the drafting
