@@ -567,7 +567,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | the "in the trees" Edition Deluxe Cassette | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | the "in the trees" edition deluxe cd | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | the “in the trees" Edition Deluxe CD (Clean) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| the "in the trees" Edition Deluxe Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| the “in the trees” Edition Deluxe Vinyl | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Afternoon Train Folklore Album Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Fate of Ophelia Beach Towel | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Fate of Ophelia Cropped Polo | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
