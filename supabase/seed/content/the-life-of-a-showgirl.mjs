@@ -16694,6 +16694,18 @@ export default {
               'The official lyric video for "Cleveland!," posted to Taylor\'s YouTube the day The Life of a Showgirl: The Encore arrived.',
             kind: 'primary',
           },
+          {
+            url: 'https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-cleveland-lyric-video.jpg',
+            // 1280x720 curl-verified 200 image/jpeg, downloaded and viewed: a
+            // split frame from the lyric video — Taylor's passenger-seat selfie
+            // beside Travis driving in a blue striped shirt and gold chain, the
+            // exact clips the sources describe. Unwatermarked.
+            focalPoint: '50% 35%',
+            credit: 'Just Jared (frame from the official "Cleveland!" lyric video)',
+            caption:
+              'Frames from the home footage: Taylor filming from the passenger seat, Travis at the wheel in a blue striped shirt and gold chain.',
+            kind: 'primary',
+          },
         ],
         sources: [
           {
