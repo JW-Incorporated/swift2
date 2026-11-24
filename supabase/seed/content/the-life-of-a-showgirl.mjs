@@ -5134,9 +5134,9 @@ export default {
             reportedOn: '2026-04-07',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
-            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location. Re-checked 2026-11-08: nothing announced; still live.',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — tabloid tier. Resolves the day a new album is announced, fades if the signs go dark. No location. Re-checked 2026-11-08 and 2026-11-24: nothing announced; the thread keeps drawing fresh readings, so still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
           {
             claim:
@@ -5145,9 +5145,9 @@ export default {
             reportedOn: '2026-07-21',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
-            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location. Re-checked 2026-11-08: no album announced; still live.',
+            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location. Re-checked 2026-11-08: no album announced; still live. Re-checked 2026-11-24: still nothing announced; still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
           // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
           // distinct next-project thread from the TS13 tips above — this one
@@ -5189,9 +5189,9 @@ export default {
             reportedOn: '2026-08-28',
             status: 'unconfirmed',
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
-            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
+            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle and Cosmopolitan. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location. Still live at 2026-11-24.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
           // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #4893): a distinct
           // thread from the TS13 / debut-TV tips above — the revived "lost
@@ -5206,11 +5206,11 @@ export default {
               'A fan theory resurfaced in late September 2026: that Taylor recorded a shelved pop album called "Karma" around 2016, dropped for Reputation during the Kardashian-West feud, and is teasing a "Karma" or Reputation (TV) release. Fans cite a "KARMA"/"MISSING" wall in "The Man" video, a Spotify montage that skips "Karma," and "Reputation" seemingly edited from her 2026 VMAs montage. Never confirmed.',
             reportedBy: 'Yahoo Entertainment',
             reportedOn: '2026-09-30',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.yahoo.com/entertainment/music/articles/fans-think-taylor-swift-lost-192409707.html',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location. Re-checked 2026-11-08: still quiet.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to citable clues; outlets reporting a fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). No location. Re-checked 2026-11-24 (web search): no coverage since early October, no "Karma" album or Reputation (TV) announced. Reported in September, never confirmed or denied: faded.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
         ],
       },
@@ -5528,7 +5528,7 @@ export default {
             reportedOn: '2026-06-29',
             status: 'partially_confirmed',
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
-            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published. Re-checked 2026-11-04: still no published guest list. The only new wedding material since is the late-October leaked photos and renderings, which this desk does not use as sourcing, so nothing changes here.',
+            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published. Re-checked 2026-11-04 and 2026-11-24: still no published guest list; late-October leaked material is not used as sourcing, and later coverage (Paisley at the CMAs) confirms single guests only.',
             sourceTier: 'tabloid',
             // Lifecycle re-checks: 2026-08-10 no complete guest list published;
             // 2026-08-31 re-checked (news digest + web search) — still none.
@@ -5537,7 +5537,7 @@ export default {
             // (several rumored names verified by arrival photos), so a `faded`
             // terminal state would understate what is actually on the record.
             // The roster as a whole was never published.
-            lastCheckedOn: '2026-11-04',
+            lastCheckedOn: '2026-11-24',
           },
           {
             claim:
@@ -16556,11 +16556,11 @@ export default {
               'In early October 2026 fans noticed the phrase "that\'s what friends are for" used three times in one week across Taylor-linked posts — her "Patient Zero" Instagram caption, Cara Delevingne\'s post about the shoot, and SNL\'s post about her cameo — and tied it to Dionne Warwick\'s 1985 single of the same name, theorizing an upcoming song or collaboration. Neither Taylor nor her team has confirmed it.',
             reportedBy: 'IBTimes UK',
             reportedOn: '2026-10-05',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.ibtimes.co.uk/taylor-swift-fans-phrase-next-song-theory-1823795',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real pattern of public posts, not a blind item — tabloid tier. Corroborated by Bustle (Oct 2026). Resolves if a matching song or collaboration surfaces; fades if it leads nowhere. No location. Re-checked 2026-11-06: still live, nothing announced.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real pattern of public posts, not a blind item — tabloid tier. Corroborated by Bustle (Oct 2026). No location. Re-checked 2026-11-24 (web search): no matching song or collaboration and no new reporting since early October. Reported in October, never confirmed or denied: faded.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-06',
+            lastCheckedOn: '2026-11-24',
           },
         ],
       },
