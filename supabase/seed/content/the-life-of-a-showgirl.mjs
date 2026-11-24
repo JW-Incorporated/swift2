@@ -264,7 +264,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Spanish singer Bad Gyal sat down with Marta Fort on the Fort Night Show, streamed by Argentina’s Blender, and was asked whose collaboration she would refuse even for “three million euros or three million dollars.” She named Taylor: “I’d never do it.” She added that she didn’t think Taylor would be interested in her either.\n\nThen she got specific about the music, pointing to the memes: “a rotten hard-boiled egg,” “a dry chicken with no spices. No salt, no oil. Just bland.” She stopped there: “I could make it more personal, but I’d rather not start beef with anyone.” Taylor hasn’t responded.',
+          'Spanish singer Bad Gyal sat down with Marta Fort on the Fort Night Show, streamed by Argentina’s Blender, and was asked whose collaboration she would refuse even for “three million euros or three million dollars.” She named Taylor: “I’d never do it.” She added that she didn’t think Taylor would be interested in her either.\n\nThen she got specific about the music, pointing to the memes: “a rotten hard-boiled egg,” “a dry chicken with no spices. No salt, no oil. Just bland.” She stopped there: “I could make it more personal, but I’d rather not start beef with anyone.” Taylor hasn’t responded.\n\nWeeks later she went back over it on Carter Gregory’s YouTube show. She said she thought she was only repeating memes everyone had already seen (“So, I didn’t thought it was a big deal”), called singling out another woman in music a mistake, and admitted the fan response caught her off guard: “I’m not gonna lie, it was tough for me too.”',
         sources: [
           {
             outlet: 'Complex',
@@ -285,6 +285,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-10-22',
             reliability_score: 2,
+          },
+          {
+            // Content Shift (Vault Run 2026-11-24, intake #7043): the follow-up.
+            outlet: 'Complex',
+            url: 'https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-comments-clarification',
+            source_title: "Bad Gyal Says Reaction to Her Saying She Would Never Work With Taylor Swift Was 'Tough for Me'",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-24',
+            reliability_score: 3,
+            notes:
+              'By Alex Ocho, Nov. 17, 2026; page text read directly. Primary for the Carter Gregory YouTube appearance, the memes explanation, the "mistake" of singling out another woman and the "tough for me too" quote. The show\'s air date is not given, so none is stated.',
           },
         ],
         // Photo: the interview has no free-licensed still, so like the Marx
@@ -1220,6 +1232,7 @@ export default {
       // (official upload, oEmbed-verified) and #7020. GMA read directly;
       // Rolling Stone read via its Australian edition (rollingstone.com
       // paywalls bots). The broadcast-booth wedding jokes are left out.
+      // 2026-11-24 (intake #7120): the Wilson/Paisley stage joke added from E!.
       slug: 'showgirl-cma-awards-2026-night',
       year: 2026,
       month: 11,
@@ -1236,7 +1249,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 18, 2026, Taylor came back to the CMA Awards stage in Nashville for the first time since 2013. Her slot paired "I Knew It, I Knew You," the Toy Story 5 song that brought her back to country radio, with "Our Song," the track she wrote in high school and last sang at the CMAs in 2007. Keith Urban played banjo beside her, and the number drew cameos from Brad Paisley, host Lainey Wilson, Jennifer Nettles, Kristian Bush and Little Big Town. The next morning her own channel posted the performance as "I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)."\n\nShe also handed out one of the night\'s honors, presenting Kix Brooks and Ronnie Dunn with the Willie Nelson Lifetime Achievement Award. She said the duo had "provided the world with eternal bangers" and still "approach their music with the mischief and excitement of little kids just discovering their love for this." She made it personal too: "They\'ve mentored and supported so many artists over the years, like me. Ronnie will provide you with sage advice and Kix will mercilessly tease you." And: "They don\'t take very much too seriously, except for all the important stuff: their families, their fans, and country music."\n\nThe one thing that didn\'t go her way was the award she came in nominated for. Single of the Year went to Ella Langley\'s "Choosin\' Texas," not "I Knew It, I Knew You." Langley, who had been the one dethroned when "Patient Zero" took over No. 1 on the Hot 100 in October, accepted alongside Miranda Lambert, the song\'s co-writer and producer, and called herself a longtime fan of the artist she beat: "I\'m a fan of how hard she works. I\'m a fan of how hard she fights for her artistry." The same night in Hollywood, though, the song won Song — Animated Film at the Hollywood Music in Media Awards.\n\nThe night was dressed for the occasion, too. Taylor walked the red carpet solo in a bright yellow Oscar de la Renta gown from the label\'s spring/summer 2027 collection, with a dramatic high-low hem and ruffles. Then the performance opened in a backstage dressing room hung with her own early-career wardrobe: the butter-yellow ballgown from the 2007 CMA Awards, the year of her first win there; a floral halter dress from the 2006 ACM Awards, one of her first big red carpets; and the teal ballgown from the "Teardrops on My Guitar" video, which she also wore to the 2007 CMT Awards when "Tim McGraw" won Breakthrough Video of the Year. A Jessie doll sat on the couch, her blue guitar carried Toy Story\'s white clouds, and a tire-swing tree on stage read "Jessie was here."',
+          'On Nov. 18, 2026, Taylor came back to the CMA Awards stage in Nashville for the first time since 2013. Her slot paired "I Knew It, I Knew You," the Toy Story 5 song that brought her back to country radio, with "Our Song," the track she wrote in high school and last sang at the CMAs in 2007. Keith Urban played banjo beside her, and the number drew cameos from Brad Paisley, host Lainey Wilson, Jennifer Nettles, Kristian Bush and Little Big Town. The next morning her own channel posted the performance as "I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)."\n\nShe also handed out one of the night\'s honors, presenting Kix Brooks and Ronnie Dunn with the Willie Nelson Lifetime Achievement Award. She said the duo had "provided the world with eternal bangers" and still "approach their music with the mischief and excitement of little kids just discovering their love for this." She made it personal too: "They\'ve mentored and supported so many artists over the years, like me. Ronnie will provide you with sage advice and Kix will mercilessly tease you." And: "They don\'t take very much too seriously, except for all the important stuff: their families, their fans, and country music."\n\nThe one thing that didn\'t go her way was the award she came in nominated for. Single of the Year went to Ella Langley\'s "Choosin\' Texas," not "I Knew It, I Knew You." Langley, who had been the one dethroned when "Patient Zero" took over No. 1 on the Hot 100 in October, accepted alongside Miranda Lambert, the song\'s co-writer and producer, and called herself a longtime fan of the artist she beat: "I\'m a fan of how hard she works. I\'m a fan of how hard she fights for her artistry." The same night in Hollywood, though, the song won Song — Animated Film at the Hollywood Music in Media Awards.\n\nThe night was dressed for the occasion, too. Taylor walked the red carpet solo in a bright yellow Oscar de la Renta gown from the label\'s spring/summer 2027 collection, with a dramatic high-low hem and ruffles. Then the performance opened in a backstage dressing room hung with her own early-career wardrobe: the butter-yellow ballgown from the 2007 CMA Awards, the year of her first win there; a floral halter dress from the 2006 ACM Awards, one of her first big red carpets; and the teal ballgown from the "Teardrops on My Guitar" video, which she also wore to the 2007 CMT Awards when "Tim McGraw" won Breakthrough Video of the Year. A Jessie doll sat on the couch, her blue guitar carried Toy Story\'s white clouds, and a tire-swing tree on stage read "Jessie was here."\n\nThe room had a wedding joke waiting for her, too. Host Lainey Wilson, married herself in May, said she\'d never forget what her husband told her when they went looking for a wedding venue, then sang it with Brad Paisley to the tune of Lynn Anderson\'s "Rose Garden": "I beg your pardon, but I never promised you Madison Square Garden." Taylor buried her face in Brittany Mahomes\' shoulder laughing, then mouthed "That was good" back at the stage. Paisley, one of the guests at her July 3 wedding, kept the bit going: "Remember me?" he asked, as she nodded along. "I ate all the shrimp."',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -1305,6 +1318,18 @@ export default {
             reliability_score: 4,
             notes:
               'By Maya Georgi & Angie Martoccio, Nov. 18, 2026; page text read directly. Primary for the Single of the Year result, Miranda Lambert as co-writer and producer accepting with Langley, and Langley\'s "fan of how hard she works" quote.',
+          },
+          {
+            // Content Shift (Vault Run 2026-11-24, intake #7120).
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438173/cma-awards-2026-taylor-swift-reacts-to-travis-kelce-wedding-joke',
+            source_title: 'See Taylor Swift Crack Up at CMAs Joke About Travis Kelce Wedding at Madison Square Garden',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-24',
+            reliability_score: 4,
+            notes:
+              'By Gabrielle Chung, Nov. 19, 2026; page text read directly. Primary for Lainey Wilson\'s venue setup line, the "Madison Square Garden" lyric sung with Brad Paisley, Taylor laughing into Brittany Mahomes\' shoulder and mouthing "That was good," and Paisley\'s "Remember me?" / "I ate all the shrimp." E! dates the Lynn Anderson song to 1999; it is from 1970, so the year is left out.',
           },
         ],
         rumors: [
