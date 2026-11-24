@@ -111,7 +111,7 @@ import { checkJudge, judgeEnforcement } from './lib/judge-rubric.mjs';
 import { checkImageReuse } from './lib/image-reuse.mjs';
 import { buildLedger, fingerprintMedia, readLedger } from './lib/image-ledger.mjs';
 import { fingerprintEngineMissing } from './lib/image-fingerprint.mjs';
-import { creditsMatch, samePhotoPaths } from './lib/photo-library.mjs';
+import { creditsMatch, samePhotoPaths, VIDEO_THUMBNAIL_CREDIT_RE } from './lib/photo-library.mjs';
 import { isLfsPointerBuffer } from './lib/lfs-pointer.mjs';
 import { ALLOWED_MEDIA_EXTENSIONS, IG_MAX_ASPECT_RATIO, IG_MIN_ASPECT_RATIO } from './lib/photo-dimensions.mjs';
 import { loadStrategyParams, KNOWN_MEDIA_KINDS } from './lib/strategy-params.mjs';
@@ -163,7 +163,9 @@ const PHOTO_PREFIX = '/social/library/photos/';
 // Either signal alone is a hard fail — the two are deliberately redundant so
 // a thumbnail declared "photo" without an incriminating credit string (or a
 // future non-thumbnail file nobody vetted) still can't launder through.
-const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
+// VIDEO_THUMBNAIL_CREDIT_RE itself lives in lib/photo-library.mjs (#7111) so
+// the drafting POOL (lib/photo-ledger.mjs) can drop library entries this gate
+// would always refuse, instead of handing Tree a pick that can never ship.
 // The durable credited-photo inventory replaces the hand-maintained five-file
 // allowlist. Every entry carries the exact source and credit a draft may use.
 const PHOTO_LIBRARY = JSON.parse(readFileSync(path.join(ROOT, 'social', 'photo-library.json'), 'utf8')).photos;

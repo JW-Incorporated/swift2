@@ -16,6 +16,38 @@ export function isUnknownCredit(credit) {
   return typeof credit !== 'string' || credit.trim() === '' || /\bunknown\b/i.test(credit);
 }
 
+/**
+ * A rehosted video thumbnail can never be `mediaKind: "photo"` (#3584 ruling,
+ * docs/decisions.md 2026-09-05): `check-drafts.mjs` hard-fails any photo tile
+ * whose `mediaCredit`/`mediaSource` matches this. It lives HERE, not in the
+ * checker, so the POOL applies the same test the GATE does — see
+ * `isUnshippablePhotoEntry` below (#7111).
+ */
+export const VIDEO_THUMBNAIL_CREDIT_RE = /thumbnail|youtube|video/i;
+
+/**
+ * True when a library entry can never pass the gate above, so no draft built
+ * from it can ever ship. `photo-ledger.mjs`'s `toPick` maps `credit` ->
+ * `mediaCredit` and `source` -> `mediaSource`, so testing the entry's own
+ * fields is the checker's test applied one step earlier.
+ *
+ * Why the pool needs it (#7111): the 147 official-video stills imported under
+ * the 2026-10-07 "frames yes" decision carry credit "Taylor Swift (official
+ * video)" and a youtube.com watch URL, which this regex matches. They were
+ * valid, never-used library entries, so the ledger ranked them into
+ * `eligible` — and for `the-life-of-a-showgirl` (all 7 entries are stills)
+ * they were the ONLY candidates, so every current-era beat drew a photo
+ * check-drafts then refused. Offering an unshippable pick burns a drafting
+ * brief; reporting the era exhausted defers the beat instead (L001).
+ *
+ * This does NOT decide whether official-video stills may ship — that is the
+ * open founder-level collision between #3584 and "frames yes". It only stops
+ * the pool from offering what the gate, as it stands today, always refuses.
+ */
+export function isUnshippablePhotoEntry(entry) {
+  return VIDEO_THUMBNAIL_CREDIT_RE.test(`${entry?.credit ?? ''} ${entry?.source ?? ''}`);
+}
+
 /** A draft's `mediaCredit` matches its library entry's `credit`: identical, or both unknown (the draft then omits it). */
 export function creditsMatch(draftCredit, libraryCredit) {
   return draftCredit === libraryCredit || (isUnknownCredit(draftCredit) && isUnknownCredit(libraryCredit));
