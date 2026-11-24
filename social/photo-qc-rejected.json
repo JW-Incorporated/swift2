@@ -4099,6 +4099,24 @@
       "sha256": "514b6f64a184baf44086fe0353d9f051c5204fa65a8631b7edeb06ac070eacf2",
       "reason": "Side-by-side collage of two women; not a single prominent subject",
       "date": "2026-11-22"
+    },
+    {
+      "id": "press-6226ee4a94c1",
+      "sha256": "5bf137a93bb199f375594be39c597af5b87f7c72a7debde0d5fbfe3ce952c514",
+      "reason": "Two people share the frame; a man is equally dominant, not a single subject.",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "press-763c15cc6ef7",
+      "sha256": "0376b2aed52a3bcaf00bdd4c95b7312c33377a314c7eceda32f57b2f99045aae",
+      "reason": "Side-by-side collage of two women; no single main subject",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "press-1417524f1bb3",
+      "sha256": "dbc1571580adcc7a7f59d4cf32cc6fa6518819d7487714731448cd9b6b48b846",
+      "reason": "Two-photo collage of two shots; another man visible; not a single subject",
+      "date": "2026-11-24"
     }
   ]
 }
