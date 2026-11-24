@@ -7,6 +7,12 @@ import { JUDGE_MODEL, bodyHash, checkJudge } from './lib/judge-rubric.mjs';
 
 const ok = { onVoice: 4, specific: 5, formula: 4, notEmbarrassed: 4, onVoice_reason: 'warm', specific_reason: 'dated', formula_reason: 'clean', notEmbarrassed_reason: 'proud' };
 const draft = { platform: 'x', body: 'speak now was all hers 🤍', critique: { v: 1, total: 20 } };
+const currentEraDraft = {
+  platform: 'x',
+  body: 'i knew it, i knew you is on the toy story 5 soundtrack and i am not ok 🧸',
+  why: 'Fact from the site: "I Knew It, I Knew You" is her Toy Story 5 song, CMA Single of the Year nominee.',
+  critique: { v: 1, total: 20 },
+};
 const now = () => new Date('2026-11-08T11:00:00Z');
 
 describe('judgeCaption', () => {
@@ -21,6 +27,20 @@ describe('judgeCaption', () => {
     expect(seen?.model).toBe(JUDGE_MODEL);
     expect(seen?.schema).toBeTruthy();
     expect(seen?.user).toContain('speak now was all hers');
+  });
+
+  it('sends today\'s date and the draft why so a post-cutoff fact is checkable, not fabrication (#7080)', async () => {
+    let user = '';
+    const claude = async (req: { user: string }) => {
+      user = req.user;
+      return { status: 'ok', data: ok };
+    };
+    const r = await judgeCaption(currentEraDraft, { claude, now: () => new Date('2026-11-23T04:00:00Z') });
+    expect(r.status).toBe('ok');
+    expect(user).toContain('TODAY (UTC): 2026-11-23');
+    expect(user).toContain('CMA Single of the Year nominee');
+    expect(user).toContain('<reference>');
+    expect(user.match(/<\/?reference>/g)).toEqual(['<reference>', '</reference>']);
   });
 
   it('reports an unavailable call and an invalid score object without throwing', async () => {

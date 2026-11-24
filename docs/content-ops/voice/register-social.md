@@ -35,6 +35,11 @@ These are hard-checked by `scripts/social/check-drafts.mjs`:
 An independent judge (a separate `claude-opus-5-5` call, never the drafter) also
 scores each caption 1-5 on onVoice, specific, formula and notEmbarrassed, and
 all four must be 4 or higher (`scripts/social/judge-drafts.mjs`).
+The judge is given today's UTC date and the draft's own `why` in a separate,
+untrusted `<reference>` block, so a song, award or event newer than its training
+is checked against the drafter's sources instead of scored as made up (#7080);
+only the caption is scored, and a claim with no basis in either block still
+fails `specific`.
 
 ## What the audit found to stop doing
 

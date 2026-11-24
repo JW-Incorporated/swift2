@@ -156,28 +156,56 @@ describe('routine-tree-event-draft.yml', () => {
   // #6731: step 5 carried a frozen copy of §1(e2)'s yield order (capped at
   // `mood:`, "that is the whole list") after the strategy added rungs 3-4 on
   // 2026-11-09, so the event run declined beats the strategy lets it take.
-  it('step 5 carries all four of social-strategy §1(e2)\'s yield rungs, site-fronted on 3 and 4', () => {
+  // #7088 extends the same pin to rung 5 (2026-11-23, ask #7083/#7087): a
+  // `timeline:` beat yields last of all to a confirmed site-fronted moment, so
+  // news no longer waits a day behind an evergreen chapter (the CMA case).
+  it('step 5 carries all five of social-strategy §1(e2)\'s yield rungs, site-fronted on 3, 4 and 5', () => {
     const prompt = read('docs/agents/runner-prompts/tree-event-draft.md');
     const strategy = read('docs/marketing/social-strategy.md');
-    // The strategy still has four rungs and still protects only the timeline minimum.
+    // The strategy has five rungs, the timeline beat last of all.
     expect(strategy).toContain("3. a launch arc's day 0 / +2 / +4 (§1(a)) — **a site-fronted moment only**");
     expect(strategy).toContain("4. a thread window's hero (§1(b)) — **a site-fronted moment only**");
-    expect(strategy).toContain("**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum.");
+    expect(strategy).toContain("5. the week's `timeline:` beat (§1(c)) — **a site-fronted moment only, and the");
+    expect(strategy).toContain('last rung of all**');
     // ...and so does the prompt.
     expect(prompt).toContain("a launch arc's day 0 / +2 / +4 (`campaign` starts `launch:`, §1(a)) — **a site-fronted moment only**");
     expect(prompt).toContain("a thread window's hero (`campaign` starts `thread:`, §1(b)");
     expect(prompt).toContain('**a site-fronted moment only**; the hero takes a same-month make-good');
     expect(prompt).toContain('does **not** spend §1(b)\'s one-per-month engine-failure allowance');
+    expect(prompt).toContain("the week's `timeline:` beat (`campaign` starts `timeline:`, §1(c)) — **a site-fronted moment only, and the last rung of all**");
     expect(prompt).toContain('newOnSite.moments[]');
-    // The withdrawn wording: a closed list at mood, and a blanket ban on thread/launch beats.
+    // Rung 5's condition is the same-week slide, in both files — never a dropped chapter.
+    for (const text of [prompt, strategy]) expect(text).toContain('own calendar week');
+    expect(prompt).toContain('this rung is not available');
+    expect(strategy).toContain('the rung is unavailable and the beat stands');
+    // The withdrawn wording: a closed list at mood, a blanket ban on thread/launch
+    // beats, and (now) the timeline beat as an absolute exclusion.
     expect(prompt).not.toContain('**That is the whole list.**');
     expect(prompt).not.toContain('Never displace a thread beat (`thread:`)');
+    expect(prompt).not.toContain("**Never displace:** a `timeline:` beat");
+    expect(strategy).not.toContain("**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum.");
     // What the strategy still protects must survive in the prompt's exclusions.
-    expect(prompt).toContain("a `timeline:` beat (§1(c)'s weekly Blank Spaces minimum");
     expect(prompt).toContain('another `news:`/`heartbeat:event-news:` pair');
     expect(prompt).toContain('a beat that is already posted');
-    // The strategy's residual note must not still claim the prompt is out of sync.
+    // The strategy's residual note must not still claim the prompts are out of sync.
     expect(strategy).not.toContain('so the same-day **event** run still will');
+    expect(strategy).not.toContain('**not as a rung, because the operative copy is');
+  });
+
+  // #7088: the 11:00Z run used to hand every off-reserve moment to the event
+  // run, which on 2026-10-25 never fired. Rung 5 is drafted by whichever run
+  // gets there first, so the daily prompt carries it too.
+  it('the daily run may itself give a timeline: beat to a confirmed site-fronted moment (rung 5)', () => {
+    const daily = read('docs/agents/runner-prompts/tree-daily-draft.md');
+    expect(daily).toContain('**A `timeline:` beat yields to a confirmed news moment — last of all (rung 5');
+    expect(daily).toContain('site-fronted');
+    expect(daily).toContain('as `news:<event-slug>`');
+    // The chapter slides inside its own week; it is never dropped or pushed off the week.
+    expect(daily).toContain('SAME calendar week');
+    expect(daily).toContain('do not take the beat');
+    expect(daily).toContain('A chapter is slid, never dropped.');
+    // The withdrawn wording: off-reserve moments are no longer always the event run's.
+    expect(daily).toContain('except for a `timeline:` beat, which this run may itself give');
   });
 });
 

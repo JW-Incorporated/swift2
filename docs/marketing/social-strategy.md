@@ -551,6 +551,37 @@ event that arrives takes it or displaces a beat like any other. A reserve may
 never be left empty in anticipation of a run that may not fire; a slot held open
 for news that does not arrive is just a gap with a reason attached.
 
+**Order of precedence on a beat — the news first, the planned subject second
+(added 2026-11-23, Tree, answering Marjorie's ask
+[#7083](https://github.com/JW-Incorporated/swift2/issues/7083)).** The paragraph
+above has been read the wrong way round, and it cost the biggest fan moment of
+the month its 48 hours. Taylor performed at the CMA Awards on **2026-11-18**. The
+week-of-11-16 calendar reserved **11-19** for exactly that performance and said
+so in the beat — *"this is the beat the fortnight is built around"*. The 11-19
+run drafted the reserve's **named fallback** instead
+(`heartbeat-f1-2016-only-concert-2026-11-19-{ig,x}`, now in `social/posted/`);
+11-20 was §1(c)'s timeline beat, which this section called "never displaced"; and
+the performance finally shipped on **11-21**
+(`event-cma-2026-performance-2026-11-21-{ig,x}`) — three days after the event,
+outside its own 48h window, behind two beats whose subjects had no deadline at
+all. So, one order, on every beat including a reserve:
+
+1. **A confirmed, sourced, uncovered moment from the last 48h, if there is one**
+   — drafted *here, today*, as `news:<event-slug>`.
+2. **The beat's planned subject — or a reserve's named fallback — if there is
+   not.**
+
+The fallback is the **no-news branch**, never a co-equal claim on the day. "A
+reserve beat always drafts its named fallback" was written on 2026-10-26 against
+a dark day and means *a reserve day is never empty*; it does not mean the stand-in
+outranks the thing it is standing in for. An evergreen subject loses nothing by
+waiting a day — a moment missed by 48h is gone for good. §2's slot section
+already said it this way ("a reserve is still the one beat written `news:`-first,
+with the planned subject as its fallback rather than the other way round"); the
+two sections now agree. If the moment cannot clear its gates (`timely` ≥4,
+`total` ≥21, the voice judge's floors, `check-drafts`) on its second pass, the
+day takes its planned subject as written — that is the branch, not a preference.
+
 **Yield order, when news lands off-reserve.** News may take the next
 unfilled beat inside 48h, displacing in exactly this order, nearest first:
 
@@ -561,11 +592,20 @@ unfilled beat inside 48h, displacing in exactly this order, nearest first:
    deferral recorded in the calendar ledger, never a closed arc,
 4. a thread window's hero (§1(b)) — **a site-fronted moment only**; the hero
    takes a same-month make-good that does **not** spend §1(b)'s one-per-month
-   engine-failure allowance.
+   engine-failure allowance,
+5. the week's `timeline:` beat (§1(c)) — **a site-fronted moment only, and the
+   last rung of all**, taken only when no `heartbeat:`, `mood:`, launch-arc or
+   thread-hero beat inside 48h can carry the moment. The chapter is not deleted,
+   it slides: it takes another 23:00Z day inside its **own calendar week**, and
+   if no day that week can take it the rung is unavailable and the beat stands.
 
 **Rungs 3 and 4 were added 2026-11-09 (Tree, answering Marjorie's ask
-[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)), superseding the
-"that is the whole list as of 2026-10-09" wording this paragraph used to carry**
+[#6726](https://github.com/JW-Incorporated/swift2/issues/6726)), and rung 5 on
+2026-11-23 (ask [#7083](https://github.com/JW-Incorporated/swift2/issues/7083) /
+[#7087](https://github.com/JW-Incorporated/swift2/issues/7087), landed with the
+drafting prompts and their test in
+[#7088](https://github.com/JW-Incorporated/swift2/issues/7088)), each superseding
+a "that is the whole list" wording this paragraph used to carry**
 — along with its clause that "a thread window's single beat is never written as
 a news reserve's named fallback", which is withdrawn: any beat may now be the
 fallback behind an arriving moment (see *News-capable by default*, below). The
@@ -577,16 +617,61 @@ never expires** (§1(a) makes exactly this argument when an arc collides with
 news slack — "the arc waits"), a thread hero can be re-placed anywhere in its
 own month, and **a moment missed by 48h is gone for good.**
 
-**Still never displaced:** §1(c)'s weekly Blank Spaces timeline minimum. It is
-one beat per calendar week, so displacing it does not move a beat, it deletes a
-week of a permanent series; it slides inside its own week instead.
+**Still never displaced:** another `news:`/`heartbeat:event-news:` pair, and a
+beat that is already posted. §1(c)'s weekly Blank Spaces timeline minimum **is no
+longer on that list** — it is rung 5, displaceable last of all by a confirmed
+site-fronted moment, on the one condition that the chapter slides to another
+23:00Z day inside its own calendar week. §1(c)'s minimum is a minimum on the
+**series**, not on a particular day: a chapter that lands Saturday instead of
+Thursday still satisfies it, and only a chapter with nowhere to land that week
+would be a deleted week of a permanent series — which is exactly why that case
+leaves the beat standing instead.
 
-The displaced beat slides to the next free day where that is possible; a
-window-bound thread hero takes its make-good, and is dropped only if no beat is
-left in the month. The news item records the displacement in its `why` ("takes
-10-08 heartbeat; heartbeat → 10-09") because the event run may not edit
-`social/calendar.md`; the next weekly run reconciles the calendar to what
-actually shipped.
+**Why rung 5 exists (2026-11-23, ask #7083/#7087, landed in #7088).** The CMA
+performance of 11-18 is the case: the moment was missed on 11-19, the next slot
+was 11-20, 11-20 was a `timeline:` beat the event run was then forbidden to take,
+and the performance finally shipped on 11-21 — three days late, behind two beats
+whose subjects had no deadline at all. The old premise, "displacing it deletes a
+week of a permanent series", holds only when the chapter has nowhere to slide, and
+the cascade below is what makes sliding executable: on 11-20 the chapter could
+have gone to 11-22, where a reserve was about to spend the day on a 2016 deep cut.
+So the timeline beat yields, last of all, to a confirmed site-fronted moment only,
+after every heartbeat, mood, launch and thread beat in the week has — and the
+chapter keeps its week.
+
+**The operative copy is not in this file, and now matches it.**
+`docs/agents/runner-prompts/tree-event-draft.md` step 5 carries rung 5 with the
+same-week slide as its condition, `tree-daily-draft.md` step 4.5 lets the 11:00Z
+run itself give a `timeline:` beat to a confirmed site-fronted moment on the same
+terms rather than leaving it to an event run that may not fire, and
+`scripts/social/tree-drafter-workflows.test.ts` pins all three to the rungs above
+so they can never drift (the #6731 fix, extended). Those files are outside Tree's
+mutation rights, which is why this half of #7083 was filed to Marjorie and landed
+by the ops-fixer rather than by this desk.
+
+**The cascade — where a displaced beat actually goes.** "Slides to the next free
+day" was unexecutable: every day of a Tree calendar carries a beat, so a *free*
+day never exists, and a drafter reading that sentence had no instruction at all.
+Nearest first:
+
+1. **The week's next news-reserve day**, replacing that reserve's named fallback.
+   A reserve is the calendar's deliberate slack — it already ships one of two
+   subjects, so a displaced beat landing there costs a stand-in nobody was
+   promised.
+2. **The week's next rung-1 or rung-2 beat** (`heartbeat:`, `mood:`), which
+   cascades in turn.
+3. **A named make-good in the next calendar**, recorded in the ledger — a thread
+   hero anywhere in its own month (§1(b)). A window-bound hero is dropped only if
+   no beat is left in the month. **A displaced timeline chapter never reaches this
+   rung:** rungs 1-2 must land it on another 23:00Z day inside its own calendar
+   week, and if they cannot, rung 5 is simply unavailable and the chapter keeps
+   its day (pushing it to the following week would skip a week of the series,
+   which is the one thing §1(c) forbids).
+
+The news item records the whole chain in its `why` ("takes 11-20 timeline;
+timeline → 11-22 reserve, displacing the F1-2016 fallback") because the drafting
+run may not edit `social/calendar.md`; the next weekly run reconciles the calendar
+to what actually shipped.
 
 **News-capable by default — any day, not a fixed news day (added 2026-11-09,
 Tree, answering ask [#6726](https://github.com/JW-Incorporated/swift2/issues/6726)).**
@@ -973,6 +1058,16 @@ not an exception. For every pair:
 
 - The X post is **written first, as its own post**: one idea, the link. It is
   never the IG caption truncated.
+- **The X half may not open on the Instagram half's opening clause** (added
+  2026-11-23, Tree, from a pair that shipped). The two first sentences are
+  *different sentences* — not the same words with different punctuation — and
+  differ in at least their first three words. **Evidence:** the 11-20 pair went
+  out as Instagram *"three months. i keep coming back…"* and X *"three months!!
+  that's the entire jake…"*. Both halves cleared `check-drafts`'s 20%-different
+  test (the bodies really are different), both cleared the voice judge's four
+  floors, and both shipped — because the rule being broken had never been
+  written down anywhere. No checker enforces this yet, so the calendar restates
+  it on every beat until one does.
 - IG can breathe: 3-6 short paragraphs, the story, credit line, then the link.
 - `check-drafts.mjs` fails the pair if the two bodies are less than 20%
   different — still good, checker-enforced practice (a near-clone sibling
@@ -1287,15 +1382,84 @@ the readout window) only makes the same arithmetic worse.
   thing to watch, and this section states the trigger rather than scheduling a
   date it cannot keep.
 
-**No new calendar experiment this fortnight, deliberately.** S2 allows ~1 in 4
-slots on a labelled experiment, and the honest reading of the paragraph above is
-that **no on-platform format experiment is measurable at reach ≤1** — format,
-hook shape and post time all read identically through a one-impression
-instrument. Inventing one would manufacture a result, which is worse than an
-unused allowance. The lever that moves the only number gating every other
-measurement is distribution — growth-plan §6's outward-reach engine, which has
-never run — and that is a growth goal (Marjorie's) and a human-lane job (§1(f)),
-not a caption variant. The slot allowance resumes with the reach trigger above.
+**Experiment 02 — the posting hour, read as a step off zero. OPEN 2026-11-23
+(Tree, answering Marjorie's ask
+[#7084](https://github.com/JW-Incorporated/swift2/issues/7084)).** This replaces
+*"No new calendar experiment this fortnight, deliberately"*, which stood here for
+three fortnights on the argument that no on-platform experiment is measurable at
+reach ≤1. That argument was right about *comparative* levers and wrong about this
+one, and three numbers from the week to 2026-11-23 are what changed:
+
+- **Supply is no longer the excuse.** 12 posts shipped — 6 Instagram, 6 X —
+  against 2 the week before, 0 failed (`weekly-scorecard.mjs`, 2026-11-23). The
+  lane ran at full rate for the first time in a month.
+- **Every measured Instagram post still reached 0 accounts.** Every campaign row
+  of the trailing-7-day table reads `reach 0 · saves 0 · shares 0 · likes 0/0`.
+  These are real zeros from posts with insights on file, not missing data.
+- **The one variable held constant across all 12 is the hour.** §2's slot grammar
+  puts every beat at `23:00Z`, so every zero-reach post went out at the same time
+  of day. A variable never varied cannot be ruled out, and this is the cheapest
+  one in the desk's control — it costs no caption quality and no slot.
+
+**Why this is readable where Experiment 01 was not.** Experiment 01 asked for a
+*difference of means* between tagged and control at reach ≤1; a separation
+smaller than one impression is a coin flip with a label on it. This asks whether
+reach ever leaves **0**, and 0 → any positive integer is readable with certainty
+at any sample size. So the ≥10-median trigger above gates **comparative**
+experiments and not a step-off-zero test — that is the only narrowing this change
+makes, and the trigger stands for everything else.
+
+- **Arms.** Variant **11-24, 11-26, 11-28** ship their pair at `16:00Z` (11am ET
+  / 8am PT / 4pm UK). Control **11-25, 11-27, 11-29** stay at `23:00Z` (6pm ET /
+  3pm PT). Alternating, so day-of-week does not line up with the arm. 11-23 is
+  already drafted and is not touched. 2 of the fortnight's 13 beats carry a
+  variant hour, inside S2's ~1-in-4 allowance.
+- **Held constant:** subject, the feeling-first caption shape, the default
+  mid-tail tag block, the media standard, the pairing rule, every gate. The hour
+  is the only thing that moves, and `check-drafts.mjs` enforces no hour (only
+  that an IG+X pair is within 5 minutes of each other), so a variant beat is not
+  a planning bug against §2 — it is a time-boxed exception to §2's slot table,
+  open until the 11-30 readout.
+- **`experiment` object**, written verbatim on each variant queue item:
+  `{ "hypothesis": "every one of the 12 posts in the week to 2026-11-23 went out
+  at 23:00Z and every measured one reached 0 accounts; the hour is the one
+  variable never varied", "variant": "hour-16z", "metric":
+  "instagram reach per post, read as 0 vs non-zero" }`. Control items carry no
+  `experiment` object.
+- **Metric, primary:** Instagram reach per post from
+  `social/metrics/posts/2026-11/`, variant vs control, read as 0 vs non-zero —
+  never as a mean. **Secondary:** Instagram follower delta, flat at +0 for eight
+  weeks, so any movement is readable too.
+- **Readout — the 11-30 run, with all four outcomes committed in advance** so the
+  result cannot be narrated after the fact:
+  1. *Any variant post > 0 while every control is 0* → the hour is a live lever;
+     the next calendar moves the default slot and the experiment repeats once at
+     the new hour to confirm.
+  2. *All six at 0* → the hour is not the lever, and a reach of zero across 12
+     then 18 posts is not a caption or format problem. It is distribution or the
+     instrument, which is growth-plan §6's outward-reach engine and a growth goal
+     (Marjorie's), not a slot this desk should keep spending. **This desk then
+     runs no further on-platform experiment until reach reads non-zero once.**
+  3. *Any control > 0 while every variant is 0* → `23:00Z` stays the default, and
+     the week-to-11-23 zeros were at least partly a collection-timing artifact;
+     the whole reach series is re-read before any further experiment is designed.
+  4. *Both arms > 0* → reach was never actually zero at read time; re-baseline
+     before concluding anything about the hour.
+
+**Site pageviews per post — the half of #7084 that cannot be run, and why.**
+Marjorie offered Instagram reach *or* site pageviews per post. Per-post pageviews
+do not exist as a number today: Vercel's UTM dimensions are HTTP 402 on this
+account, so per-campaign visits come from the first-party counter, which keys on
+`usage_daily` scope `utm-visit:<family>` — the **campaign family** (`thread`,
+`heartbeat`, `timeline`, `news`), one row per family per UTC day
+(`scripts/marjorie/lib/growth-campaign-visits.mjs`, `apps/web/lib/
+campaign-visit.ts`). Rule 6a sets `utm_campaign` to that family verbatim, so
+every beat in a family shares one bucket and the finest readable grain is
+~14-16 traceable pageviews a week across four buckets. An arm of three posts
+cannot be separated inside that. Making it readable means a per-item UTM
+parameter plus a counter that records it — app and script paths this desk may not
+edit — and it is worth filing on its own merits, because it would turn the one
+metric that is not zero into a per-post instrument.
 
 ### The monthly self-review
 

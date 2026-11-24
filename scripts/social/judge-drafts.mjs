@@ -28,7 +28,9 @@
 // (listing them via --judged-out); the sign step runs with ONLY SOCIAL_JUDGE_KEY and adds an
 // HMAC `sig` to exactly those records. A record already in a draft is never trusted without a
 // verifying sig, so a self-written critique.judge is overwritten, not skipped. The judge scores
-// the caption `body` only, not altText, why or media.
+// the caption `body` only (never altText or media); the draft's `why` travels with it as an
+// untrusted <reference> block, with today's date, so a fact newer than the model's own knowledge
+// is checkable instead of read as fabrication (#7080).
 //
 // Exit 0 when every draft ended up with a valid judge record (a low score is
 // recorded, not an error: the approval gate decides). Exit 1 when any call
@@ -59,14 +61,19 @@ const MODEL_PATTERN = /^[a-z0-9.-]+$/;
 export const MISSING_TOKEN =
   'CLAUDE_CODE_OAUTH_TOKEN is not set. judge-drafts.mjs only runs inside .github/workflows/social-draft-judge.yml, which judges every tree/draft PR and rewrites a caption under 4 on its own. A routine agent shell never has this token: routine-template.yml passes it to claude-code-action as an input, not into the environment. Do not call this from a drafting run - score by hand against the anchors in scripts/social/lib/judge-rubric.mjs instead (social/lessons.md L003).';
 
-/** One caption through the judge. `claude` is injectable for tests. Returns `{ status: 'ok', scores, reasons } | { status, reason }`. */
-export async function judgeCaption({ platform, body }, { claude = callClaude, model = JUDGE_MODEL } = {}) {
+/**
+ * One caption through the judge. `claude` is injectable for tests. The draft's
+ * `why` travels with it as the untrusted <reference> block, and `now` dates the
+ * message, so a real post-cutoff fact is not read as fabrication (#7080).
+ * Returns `{ status: 'ok', scores, reasons } | { status, reason }`.
+ */
+export async function judgeCaption({ platform, body, why }, { claude = callClaude, model = JUDGE_MODEL, now = () => new Date() } = {}) {
   const response = await claude({
     caller: 'social-draft-judge',
     priority: 'P1',
     model,
     system: `${JUDGE_SYSTEM_PROMPT}\nReturn only JSON matching the required schema.`,
-    user: buildJudgeUserMessage({ platform, body }),
+    user: buildJudgeUserMessage({ platform, body, why, now: now() }),
     schema: JUDGE_SCHEMA,
   });
   if (response.status !== 'ok') return { status: response.status, reason: response.reason ?? 'unknown' };
@@ -105,7 +112,7 @@ export async function judgeItem(item, { claude, model = JUDGE_MODEL, now = () =>
     return { item, outcome: { status: 'invalid', reason: 'draft has no critique object or body' } };
   }
   if (alreadyJudged(item, model, { key, file })) return { item, outcome: { status: 'skipped', reason: 'already judged' } };
-  const result = await judgeCaption(item, { claude, model });
+  const result = await judgeCaption(item, { claude, model, now });
   if (result.status !== 'ok') return { item, outcome: result };
   const judge = buildJudgeRecord({ model, scores: result.scores, body: item.body, at: now().toISOString() });
   return { item: { ...item, critique: { ...item.critique, judge } }, outcome: result };

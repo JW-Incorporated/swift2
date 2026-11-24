@@ -1,0 +1,50 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoEra": "speak-now",
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_(53108899367).jpg",
+  "altText": [
+    "Wider view of Taylor Swift in a full-skirted sparkling gown with a blue acoustic guitar, performing Speak Now at the Eras Tour in Inglewood, 2023, under purple lights."
+  ],
+  "scheduledAt": "2026-11-23T23:00:00Z",
+  "campaign": "thread:fashion:origin-story:2026-11-makegood",
+  "photoId": "speaknow-inglewood-2023-4-ig45",
+  "media": [
+    "/social/library/photos/taylor-speaknow-inglewood-2023-4-ig45.jpg"
+  ],
+  "body": "the Speak Now ballgowns were the entire dream for me back in 2011 ✨\n\nthe Speak Now World Tour (2011-2012) was staged with a costume change for every song, built around sweeping ballgowns. the purple gown for the title track is still the picture the whole era lives in.\n\nso when the Speak Now set came back on the Eras Tour in this huge sparkling gown with a blue guitar, i felt every bit of it again.\n\nwhich gown is yours? the whole Runway lens is on Long Live, era by era.\n\nphoto: Paolo Villanueva (CC BY 2.0), via Wikimedia Commons, Speak Now set of the Eras Tour, Inglewood 2023\n\nhttps://www.longlivets.com/?lens=fashion&utm_source=instagram&utm_medium=social&utm_campaign=thread\n\n#taylorswift #speaknow #erastour #swifties #longlive",
+  "why": "Instagram sibling. November make-good for the Runway thread hero killed with PR #6804; calendar reuses the Speak Now tour gowns subject. Fact from supabase/seed/lenses/runway-looks.mjs look-speak-now. Photo taken from the speak-now era pool (photoEra) instead of the beat's Red-era GMA pick, because the calendar names era speak-now and a Red GMA photo would not earn its place on a gown post. Share hook: which gown is yours.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Opens on the fairytale pull of the Speak Now ballgowns, then the sourced fact from the Runway lens: a costume change per song on the 2011-2012 tour, the purple title-track gown as the era's image. The Eras Speak Now gown photo is the callback the post turns on.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-22T18:31:54.921Z",
+    "pr": 7071,
+    "message": "social-tree-approve run 45055457382",
+    "contentHash": "sha256:fd369d4211f97695f25925570334fa8e0a5edb8d23d1d28d1b3aab3e881acaa9",
+    "mediaDigest": "sha256:d985c06d098912ca377a763007b04279928513646051ff1d325ba9d8cce57342",
+    "sig": "hmac-sha256:c991b6f70515d44a632dc8447b2199702607c2340ae3a3db4da75b945d2cea57"
+  },
+  "postedAt": "2026-11-24T00:08:28.291Z",
+  "platformPostId": "18382309636243157",
+  "url": "https://www.instagram.com/longlivetscom/"
+}
