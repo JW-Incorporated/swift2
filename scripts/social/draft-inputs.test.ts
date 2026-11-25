@@ -60,6 +60,45 @@ describe('photo ledger', () => {
     expect(eraAvailability(LIB, ledger, ['a-red-1']).red.next.photoId).toBe('a-red-2');
     expect(eraTagsOf(LIB[2])).toEqual([]);
   });
+
+  // #7111: the official-video stills imported under the 2026-10-07 "frames yes"
+  // decision carry credit "Taylor Swift (official video)" + a youtube.com watch
+  // URL, which is exactly what check-drafts.mjs's VIDEO_THUMBNAIL_CREDIT_RE
+  // hard-fails. They were valid, never-used entries, so the pool ranked them
+  // first and every Showgirl beat drew a photo the gate then refused.
+  const still = (id: string, era: string) => ({
+    id,
+    mediaPath: `/social/library/photos/${id}.jpg`,
+    credit: 'Taylor Swift (official video)',
+    source: `https://www.youtube.com/watch?v=${id}`,
+    alt: `alt ${id}`,
+    tags: ['official-video', era],
+  });
+
+  it('never offers a library entry check-drafts would refuse as a rehosted video thumbnail', () => {
+    const lib = [...LIB, still('official-video-aaa-maxres1', 'red'), still('official-video-bbb-maxres2', 'red')];
+    const ledger = buildPhotoLedger(lib);
+    expect(ledger.eligible.map((e: { id: string }) => e.id)).toEqual(LIB.map((e) => e.id));
+    expect(ledger.total).toBe(LIB.length);
+    // Not merely ranked last: a themed beat for an era that HAS stills still picks a real photo.
+    expect(eraAvailability(lib, ledger).red.next.photoId).toBe('a-red-1');
+    expect(assignBeatPhotos([{ date: 'd1', hintId: 'official-video-aaa-maxres1' }], ledger).at(0).photo.photoId).not.toMatch(/^official-video-/);
+  });
+
+  it('reports an era whose whole inventory is unshippable stills as exhausted, so the beat defers', () => {
+    const showgirl = [still('official-video-ccc-maxres1', 'the-life-of-a-showgirl'), still('official-video-ccc-maxres2', 'the-life-of-a-showgirl')];
+    const lib = [...LIB, ...showgirl];
+    const eras = eraAvailability(lib, buildPhotoLedger(lib));
+    // The era key is still listed (a themed beat reads `exhausted`, not `undefined`), and `total` counts only shippable photos.
+    expect(eras['the-life-of-a-showgirl']).toEqual({ total: 0, unused: 0, exhausted: true, next: null });
+  });
+
+  it('still attributes a stills entry that HAS been used, so nothing is double-counted', () => {
+    const lib = [...LIB, still('official-video-ddd-maxres1', 'red')];
+    const ledger = buildPhotoLedger(lib, { posted: [entry('p', item('x', 'official-video-ddd-maxres1', 'c1'))] });
+    expect(ledger.used.get('official-video-ddd-maxres1')).toEqual([{ kind: 'posted', ref: 'p' }]);
+    expect(ledger.byId.get('official-video-ddd-maxres1')).toBeDefined();
+  });
 });
 
 const CALENDAR = `# Social calendar

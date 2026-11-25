@@ -36,7 +36,7 @@
 // LORE_UPDATED_ON, surfaced to the reader per the "staleness is shown, never
 // hidden" rule (docs/content-ops/clownbot-rumor-refresh.md).
 export default {
-  updatedOn: '2026-11-22',
+  updatedOn: '2026-11-24',
   items: [
     {
       // Added 2026-11-18 (Vault Run, Rumor Desk). Read directly: the ABC News
@@ -82,7 +82,8 @@ export default {
       // Rechecked 2026-11-18 (Vault Run): the song picked up Song of the Year and Best Song Written for Visual Media nominations at the Nov. 16 Grammy nominations; still no Oscar nomination, status unchanged.
       // Rechecked 2026-11-20 (Vault Run): nothing from the Academy before the 15 Dec shortlist; status unchanged.
       // Rechecked 2026-11-22 (Vault Run): nothing in the Nov. 18-22 news digest touches the Oscar race; the 15 Dec shortlist is still ahead, status unchanged.
-      lastCheckedOn: '2026-11-22',
+      // Rechecked 2026-11-24 (Vault Run): web searches and the Nov. 18-24 news digest show no announcement or resolution; status unchanged.
+      lastCheckedOn: '2026-11-24',
       headline: 'The Oscar campaign for "I Knew It, I Knew You" goes public',
       detail:
         'On 1 November 2026 Taylor did a Q&A with director Andrew Stanton at a for-your-consideration Toy Story 5 screening in New York for guild and Critics Choice voters, then stayed to meet more than 200 people. The next day the song picked up a Hollywood Music in Media nomination (Song — Animated Film; winners 18 Nov). Taylor has four Golden Globe nods and two Oscar shortlistings, but she has never been nominated for an Oscar. In mid-November she took the campaign to Golden Globe voters as well, at a press conference where she called the film\'s take on kids and screens "a parent-to-parent decision." On 16 November the song also earned Grammy nominations for Song of the Year and Best Song Written for Visual Media. The Academy\'s Original Song shortlist lands 15 December. Nothing is decided yet.',
@@ -199,7 +200,8 @@ export default {
       // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
       // Rechecked 2026-11-20 (Vault Run): her Nov. 18 CMA set opened in a dressing room of debut-era dresses and E! News (19 Nov) reports fans reading it as a debut re-release hint; still nothing announced or dated. Status unchanged.
       // Rechecked 2026-11-22 (Vault Run): a web search and the Nov. 18-22 news digest show no announcement of either re-record; status unchanged.
-      lastCheckedOn: '2026-11-22',
+      // Rechecked 2026-11-24 (Vault Run): web searches and the Nov. 18-24 news digest show no announcement or resolution; status unchanged.
+      lastCheckedOn: '2026-11-24',
       headline: "Reputation (Taylor's Version) and the debut re-record: still unreleased",
       detail:
         'Alongside the masters announcement Taylor said she has not re-recorded even a quarter of reputation, and that those two albums could re-emerge "when the time is right" — not from sadness, but "a celebration now." Neither has been released or dated: the debut album turned 20 on 24 October 2026 with no re-record, deluxe, or announcement. This is the fandom\'s longest-running open question and its most reliable source of clowning.',
@@ -294,7 +296,8 @@ export default {
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-18 (Vault Run): her mid-November "human beings are still winning at this" remark to Golden Globe voters (The Comeback via Yahoo, Nov. 15) praised human-made records but did not address the promo videos; still neither confirmed nor denied.
       // Rechecked 2026-11-22 (Vault Run): nothing in the Nov. 18-22 news digest revisits the promo-video AI question; status unchanged.
-      lastCheckedOn: '2026-11-22',
+      // Rechecked 2026-11-24 (Vault Run): web searches and the Nov. 18-24 news digest show no announcement or resolution; status unchanged.
+      lastCheckedOn: '2026-11-24',
       headline: '#SwiftiesAgainstAI: the orange-door videos and the generative-AI accusations',
       detail:
         "Fans spotted artefacts in the orange-door promo videos — a bartender's finger blending into a napkin, gym equipment whose handles did not line up — and accused her team of using generative AI. The hashtag #SwiftiesAgainstAI came largely from inside the fandom, not from detractors. Reported widely; her team has neither confirmed nor denied it. Status stays `reported`, not `confirmed`: the accusation is documented, the AI use is not.",
@@ -333,7 +336,8 @@ export default {
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
       // Rechecked 2026-11-22 (Vault Run): nothing official connects the green TS images to a release; no debut re-release or TS13 announced as of the Nov. 18-22 cycle.
-      lastCheckedOn: '2026-11-22',
+      // Rechecked 2026-11-24 (Vault Run): web searches and the Nov. 18-24 news digest show no announcement or resolution; status unchanged.
+      lastCheckedOn: '2026-11-24',
       headline: 'The green “TS” clue: debut, Reputation, TS13 — or a skyscraper trolling',
       detail:
         'The Empire State Building posted itself lit green with “WhaTS happening?” while a separate green TS logo circulated online. Coverage documented fans splitting among a debut anniversary release, reputation vault tracks, and TS13. Nothing from Taylor or her team connects either image to a release, so the clue remains fandom interpretation, not an announcement.',
@@ -367,7 +371,8 @@ export default {
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
       // Rechecked 2026-11-22 (Vault Run): a web search finds no TS13 title, color system or release plan announced; status unchanged.
-      lastCheckedOn: '2026-11-22',
+      // Rechecked 2026-11-24 (Vault Run): web searches and the Nov. 18-24 news digest show no announcement or resolution; status unchanged.
+      lastCheckedOn: '2026-11-24',
       headline: 'The lilac TS13 cipher is back in circulation',
       detail:
         'Fans have linked a run of lavender styling to the lilac thirteenth-floor button in the “Bejeweled” video and argued that it sketches a TS13 palette. The visual details and the fan theory are documented; an album title, color system, and release plan are not confirmed.',
@@ -410,7 +415,8 @@ export default {
       // Rechecked 2026-11-10 (Vault Run): nothing in the Nov. 7-10 news digest changes this; status unchanged.
       // Rechecked 2026-11-18 (Vault Run): nothing in the Nov. 15-18 news digest touches this; status unchanged.
       // Rechecked 2026-11-22 (Vault Run): still no album announced; a web search finds no TS13 announcement and the Nov. 18-22 digest adds no new insider claim. Status unchanged.
-      lastCheckedOn: '2026-11-22',
+      // Rechecked 2026-11-24 (Vault Run): web searches and the Nov. 18-24 news digest show no announcement or resolution; status unchanged.
+      lastCheckedOn: '2026-11-24',
       headline: 'Reportedly "writing new music" since the wedding — still unannounced',
       detail:
         'A Page Six insider said Taylor had been "pouring herself into writing new music" and was "incredibly inspired creatively" in the weeks after her July wedding, with songwriting "her main focus." On 25 Sept 2026 she did release new songs, the four on "The Life of a Showgirl: The Encore" (led by "Patient Zero"). But she said she wrote those in 2025, shortly after the original album, in Sweden with Max Martin and Shellback, so they predate the wedding and don\'t prove the tip. On 2 Nov 2026 a Daily Mail insider (via Cosmopolitan) went further, saying she has "enough material to fill her next two albums". That is another anonymous tip, not an announcement. No next-era (TS13) album, title, or timeline has been announced. Status stays `reported`.',

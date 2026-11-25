@@ -9,7 +9,7 @@
 // is exactly the "re-used picture" the owner rejected). The model could only
 // find the truth by diffing every open PR, a turn-burning loop. Here the
 // ledger is posted + queued + open-PR drafts, and the pick is handed over.
-import { canonicalPhotoId, isUnknownCredit, validatePhotoEntry } from './photo-library.mjs';
+import { canonicalPhotoId, isUnknownCredit, isUnshippablePhotoEntry, validatePhotoEntry } from './photo-library.mjs';
 
 /** Tags that describe a venue/format/year rather than an era. */
 const NON_ERA_TAGS = new Set(['eras-tour', 'fan-photo', 'concert', 'inglewood', 'minneapolis', 'arlington', 'acoustic', '2007', '2009']);
@@ -50,7 +50,11 @@ export function buildPhotoLedger(library, { posted = [], queue = [], openDrafts 
       used.get(id).push({ kind, ref });
     }
   }
-  const valid = library.filter((entry) => validatePhotoEntry(entry).length === 0);
+  // Valid AND actually shippable: an entry check-drafts can never accept (a
+  // rehosted-video-thumbnail credit/source — the official-video stills, #7111)
+  // is not a candidate at all. It stays in `byId`, and `used` is still computed
+  // over the whole library, so attribution and variant lookups are unaffected.
+  const valid = library.filter((entry) => validatePhotoEntry(entry).length === 0 && !isUnshippablePhotoEntry(entry));
   const unused = valid.filter((entry) => !used.has(canonicalPhotoId(entry)));
   const eligible = igUsable ? unused.filter((entry) => igUsable.has(entry.id)) : unused;
   // An original outside the IG window whose variant is drawable is not blocked — the variant stands in for it.
@@ -102,17 +106,23 @@ export function assignBeatPhotos(beats, ledger) {
 }
 
 /**
- * Per era tag in the library: how many photos exist / are still unused, and
- * the next one for a THEMED beat (`photoEra` required there), skipping ids
+ * Per era tag in the library: how many SHIPPABLE photos exist / are still
+ * unused, and the next one for a THEMED beat (`photoEra` required there), skipping ids
  * already handed to a calendar beat. `exhausted: true` = the beat cannot be
  * drafted without repeating a tile — defer it (L001), never reuse.
+ *
+ * `total` counts only entries a draft could ship, so an era whose whole
+ * inventory is unshippable (`the-life-of-a-showgirl`, all 7 entries
+ * official-video stills) reports `total: 0, exhausted: true` rather than
+ * "7 exist, 0 unused" — the era key itself is still listed, so a themed beat
+ * for it defers instead of reading `undefined` (#7111).
  */
 export function eraAvailability(library, ledger, assignedIds = []) {
   const eras = new Map();
   for (const entry of library) for (const tag of eraTagsOf(entry)) eras.set(tag, true);
   const out = {};
   for (const tag of [...eras.keys()].sort()) {
-    const all = library.filter((entry) => !entry.variantOf && eraTagsOf(entry).includes(tag));
+    const all = library.filter((entry) => !entry.variantOf && !isUnshippablePhotoEntry(entry) && eraTagsOf(entry).includes(tag));
     const free = ledger.eligible.filter((entry) => eraTagsOf(entry).includes(tag) && !assignedIds.includes(entry.id));
     const [next] = rankForBeat(free);
     out[tag] = { total: all.length, unused: free.length, exhausted: free.length === 0, next: next ? toPick(next, ledger.byId) : null };

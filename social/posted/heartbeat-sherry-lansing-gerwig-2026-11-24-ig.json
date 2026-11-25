@@ -1,0 +1,54 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114084607).jpg",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "photoId": "wikimedia-22985418",
+  "media": [
+    "/social/library/photos/wikimedia-22985418.jpg"
+  ],
+  "scheduledAt": "2026-11-24T16:00:00Z",
+  "campaign": "heartbeat:event-news:sherry-lansing-award-gerwig:2026-11-24",
+  "body": "GRETA GERWIG is going to hand taylor an award and i need a minute 🥹\n\nshe's this year's Sherry Lansing Leadership Award honoree, at THR's Women in Entertainment breakfast in LA (it usually lands in early December). and the two of them are friends, which makes the handoff so much sweeter.\n\nthe line i keep rereading is Sherry Lansing's own: \"She has paved the way for women in music, demonstrating what is possible when a woman takes ownership of her work, her career and her future.\"\n\nownership!! this photo is her on GMA in 2012, launch week for Red, an album she went back and made hers as Red (Taylor's Version). that word made me tear up a little.\n\nsend this to the friend who cried through every re-record with you 💛\n\nphoto: Paolo Villanueva (CC BY 2.0), via Wikimedia Commons, GMA 2012\n\nhttps://www.longlivets.com/?item=vault-tloas-taylor-gets-the-2026-sherry-lansing-leadership-award-with-gr&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n#taylorswift #swifties #red #longlive",
+  "why": "Instagram sibling. Calendar beat 11-24 16:00Z experiment variant; the 11-11 IG middle read as a recap (PR #6815), so this one stays first person around one quoted line from Lansing. Source: seed moment showgirl-sherry-lansing-leadership-award (supabase/seed/content/the-life-of-a-showgirl.mjs), citing Billboard and THR, Nov. 11, 2026; award announced, gala not yet held (usually early December, date unannounced). Quotes copied exactly from that record. Photo is the pre-computed alternate (wikimedia-22985418, Taylor at GMA, Red launch week, 2012); the beat's first pick wikimedia-22985355 failed the same-picture check. The calendar asked for a current-era photo, but the Showgirl pool's next pick is an official-video thumbnail the checker rightly refuses; the Red photo earns its place through the ownership line, Red being an album she later remade as Taylor's Version.",
+  "experiment": {
+    "hypothesis": "every one of the 12 posts in the week to 2026-11-23 went out at 23:00Z and every measured one reached 0 accounts; the hour is the one variable never varied",
+    "variant": "hour-16z",
+    "metric": "instagram reach per post, read as 0 vs non-zero"
+  },
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 22,
+    "rationale": "Opens on the Greta Gerwig feeling, quotes Sherry Lansing exactly from the sourced record and reacts to the one word that matters, ownership. Stays in first person instead of recapping; the share hook grows out of the re-record history.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-23T22:39:13.687Z",
+    "pr": 7108,
+    "message": "social-tree-approve run 45281523184",
+    "contentHash": "sha256:3182bd27880a5609fd5c0f2012a04d8d25c1be6d1b90d1e164f40892c288da4a",
+    "mediaDigest": "sha256:034990f430f1deb2ebfb1db4d0bd09ad56dd83711ac01428626bde2eec704ea7",
+    "sig": "hmac-sha256:c09bcb7b2aa97ed0540f866de903a2f7e8ad4f8fed6944e5fd0302d989eb99cf"
+  },
+  "postedAt": "2026-11-25T00:00:43.828Z",
+  "platformPostId": "17997423555022918",
+  "url": "https://www.instagram.com/longlivetscom/"
+}

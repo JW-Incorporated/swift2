@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-21-taylor-swift-the-eras-tour-cleaning-cart-ornament-8236255019208",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-21T01:36:48.106Z",
+  "deadline": "2026-11-24T01:36:48.106Z",
+  "status": "expired",
+  "facts": {
+    "name": "Taylor Swift | The Eras Tour Cleaning Cart Ornament",
+    "price": "25.00",
+    "currency": "USD",
+    "availability": "out of stock",
+    "productUrl": "https://store.taylorswift.com/products/taylor-swift-the-eras-tour-cleaning-cart-ornament",
+    "firstSeenAt": "2026-11-21T01:35:26.951Z"
+  },
+  "media": [
+    "/social/library/merch-drop-44850830290.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/taylor-swift-the-eras-tour-cleaning-cart-ornament",
+  "altTextHint": "A Long Live store-drop card for 30 items newly available on the official store, led by \"Taylor Swift | The Eras Tour Moss Piano Ornament\".",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}

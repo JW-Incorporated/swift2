@@ -264,7 +264,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Spanish singer Bad Gyal sat down with Marta Fort on the Fort Night Show, streamed by Argentina’s Blender, and was asked whose collaboration she would refuse even for “three million euros or three million dollars.” She named Taylor: “I’d never do it.” She added that she didn’t think Taylor would be interested in her either.\n\nThen she got specific about the music, pointing to the memes: “a rotten hard-boiled egg,” “a dry chicken with no spices. No salt, no oil. Just bland.” She stopped there: “I could make it more personal, but I’d rather not start beef with anyone.” Taylor hasn’t responded.',
+          'Spanish singer Bad Gyal sat down with Marta Fort on the Fort Night Show, streamed by Argentina’s Blender, and was asked whose collaboration she would refuse even for “three million euros or three million dollars.” She named Taylor: “I’d never do it.” She added that she didn’t think Taylor would be interested in her either.\n\nThen she got specific about the music, pointing to the memes: “a rotten hard-boiled egg,” “a dry chicken with no spices. No salt, no oil. Just bland.” She stopped there: “I could make it more personal, but I’d rather not start beef with anyone.” Taylor hasn’t responded.\n\nWeeks later she went back over it on Carter Gregory’s YouTube show. She said she thought she was only repeating memes everyone had already seen (“So, I didn’t thought it was a big deal”), called singling out another woman in music a mistake, and admitted the fan response caught her off guard: “I’m not gonna lie, it was tough for me too.”',
         sources: [
           {
             outlet: 'Complex',
@@ -285,6 +285,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-10-22',
             reliability_score: 2,
+          },
+          {
+            // Content Shift (Vault Run 2026-11-24, intake #7043): the follow-up.
+            outlet: 'Complex',
+            url: 'https://www.complex.com/music/a/alex-ocho/bad-gyal-taylor-swift-comments-clarification',
+            source_title: "Bad Gyal Says Reaction to Her Saying She Would Never Work With Taylor Swift Was 'Tough for Me'",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-24',
+            reliability_score: 3,
+            notes:
+              'By Alex Ocho, Nov. 17, 2026; page text read directly. Primary for the Carter Gregory YouTube appearance, the memes explanation, the "mistake" of singling out another woman and the "tough for me too" quote. The show\'s air date is not given, so none is stated.',
           },
         ],
         // Photo: the interview has no free-licensed still, so like the Marx
@@ -1220,6 +1232,7 @@ export default {
       // (official upload, oEmbed-verified) and #7020. GMA read directly;
       // Rolling Stone read via its Australian edition (rollingstone.com
       // paywalls bots). The broadcast-booth wedding jokes are left out.
+      // 2026-11-24 (intake #7120): the Wilson/Paisley stage joke added from E!.
       slug: 'showgirl-cma-awards-2026-night',
       year: 2026,
       month: 11,
@@ -1236,7 +1249,7 @@ export default {
       },
       moment: {
         context:
-          'On Nov. 18, 2026, Taylor came back to the CMA Awards stage in Nashville for the first time since 2013. Her slot paired "I Knew It, I Knew You," the Toy Story 5 song that brought her back to country radio, with "Our Song," the track she wrote in high school and last sang at the CMAs in 2007. Keith Urban played banjo beside her, and the number drew cameos from Brad Paisley, host Lainey Wilson, Jennifer Nettles, Kristian Bush and Little Big Town. The next morning her own channel posted the performance as "I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)."\n\nShe also handed out one of the night\'s honors, presenting Kix Brooks and Ronnie Dunn with the Willie Nelson Lifetime Achievement Award. She said the duo had "provided the world with eternal bangers" and still "approach their music with the mischief and excitement of little kids just discovering their love for this." She made it personal too: "They\'ve mentored and supported so many artists over the years, like me. Ronnie will provide you with sage advice and Kix will mercilessly tease you." And: "They don\'t take very much too seriously, except for all the important stuff: their families, their fans, and country music."\n\nThe one thing that didn\'t go her way was the award she came in nominated for. Single of the Year went to Ella Langley\'s "Choosin\' Texas," not "I Knew It, I Knew You." Langley, who had been the one dethroned when "Patient Zero" took over No. 1 on the Hot 100 in October, accepted alongside Miranda Lambert, the song\'s co-writer and producer, and called herself a longtime fan of the artist she beat: "I\'m a fan of how hard she works. I\'m a fan of how hard she fights for her artistry." The same night in Hollywood, though, the song won Song — Animated Film at the Hollywood Music in Media Awards.\n\nThe night was dressed for the occasion, too. Taylor walked the red carpet solo in a bright yellow Oscar de la Renta gown from the label\'s spring/summer 2027 collection, with a dramatic high-low hem and ruffles. Then the performance opened in a backstage dressing room hung with her own early-career wardrobe: the butter-yellow ballgown from the 2007 CMA Awards, the year of her first win there; a floral halter dress from the 2006 ACM Awards, one of her first big red carpets; and the teal ballgown from the "Teardrops on My Guitar" video, which she also wore to the 2007 CMT Awards when "Tim McGraw" won Breakthrough Video of the Year. A Jessie doll sat on the couch, her blue guitar carried Toy Story\'s white clouds, and a tire-swing tree on stage read "Jessie was here."',
+          'On Nov. 18, 2026, Taylor came back to the CMA Awards stage in Nashville for the first time since 2013. Her slot paired "I Knew It, I Knew You," the Toy Story 5 song that brought her back to country radio, with "Our Song," the track she wrote in high school and last sang at the CMAs in 2007. Keith Urban played banjo beside her, and the number drew cameos from Brad Paisley, host Lainey Wilson, Jennifer Nettles, Kristian Bush and Little Big Town. The next morning her own channel posted the performance as "I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)."\n\nShe also handed out one of the night\'s honors, presenting Kix Brooks and Ronnie Dunn with the Willie Nelson Lifetime Achievement Award. She said the duo had "provided the world with eternal bangers" and still "approach their music with the mischief and excitement of little kids just discovering their love for this." She made it personal too: "They\'ve mentored and supported so many artists over the years, like me. Ronnie will provide you with sage advice and Kix will mercilessly tease you." And: "They don\'t take very much too seriously, except for all the important stuff: their families, their fans, and country music."\n\nThe one thing that didn\'t go her way was the award she came in nominated for. Single of the Year went to Ella Langley\'s "Choosin\' Texas," not "I Knew It, I Knew You." Langley, who had been the one dethroned when "Patient Zero" took over No. 1 on the Hot 100 in October, accepted alongside Miranda Lambert, the song\'s co-writer and producer, and called herself a longtime fan of the artist she beat: "I\'m a fan of how hard she works. I\'m a fan of how hard she fights for her artistry." The same night in Hollywood, though, the song won Song — Animated Film at the Hollywood Music in Media Awards.\n\nThe night was dressed for the occasion, too. Taylor walked the red carpet solo in a bright yellow Oscar de la Renta gown from the label\'s spring/summer 2027 collection, with a dramatic high-low hem and ruffles. Then the performance opened in a backstage dressing room hung with her own early-career wardrobe: the butter-yellow ballgown from the 2007 CMA Awards, the year of her first win there; a floral halter dress from the 2006 ACM Awards, one of her first big red carpets; and the teal ballgown from the "Teardrops on My Guitar" video, which she also wore to the 2007 CMT Awards when "Tim McGraw" won Breakthrough Video of the Year. A Jessie doll sat on the couch, her blue guitar carried Toy Story\'s white clouds, and a tire-swing tree on stage read "Jessie was here."\n\nThe room had a wedding joke waiting for her, too. Host Lainey Wilson, married herself in May, said she\'d never forget what her husband told her when they went looking for a wedding venue, then sang it with Brad Paisley to the tune of Lynn Anderson\'s "Rose Garden": "I beg your pardon, but I never promised you Madison Square Garden." Taylor buried her face in Brittany Mahomes\' shoulder laughing, then mouthed "That was good" back at the stage. Paisley, one of the guests at her July 3 wedding, kept the bit going: "Remember me?" he asked, as she nodded along. "I ate all the shrimp."',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -1305,6 +1318,18 @@ export default {
             reliability_score: 4,
             notes:
               'By Maya Georgi & Angie Martoccio, Nov. 18, 2026; page text read directly. Primary for the Single of the Year result, Miranda Lambert as co-writer and producer accepting with Langley, and Langley\'s "fan of how hard she works" quote.',
+          },
+          {
+            // Content Shift (Vault Run 2026-11-24, intake #7120).
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1438173/cma-awards-2026-taylor-swift-reacts-to-travis-kelce-wedding-joke',
+            source_title: 'See Taylor Swift Crack Up at CMAs Joke About Travis Kelce Wedding at Madison Square Garden',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-24',
+            reliability_score: 4,
+            notes:
+              'By Gabrielle Chung, Nov. 19, 2026; page text read directly. Primary for Lainey Wilson\'s venue setup line, the "Madison Square Garden" lyric sung with Brad Paisley, Taylor laughing into Brittany Mahomes\' shoulder and mouthing "That was good," and Paisley\'s "Remember me?" / "I ate all the shrimp." E! dates the Lynn Anderson song to 1999; it is from 1970, so the year is left out.',
           },
         ],
         rumors: [
@@ -5109,9 +5134,9 @@ export default {
             reportedOn: '2026-04-07',
             status: 'unconfirmed',
             url: 'https://www.aol.com/articles/source-speaks-taylor-swift-plans-131746555.html',
-            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — carried at tabloid tier. Resolves the day a new album is announced, and fades if the signs go dark. No location. Re-checked 2026-11-08: nothing announced; still live.',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines), sourced to an anonymous Us Weekly tip — tabloid tier. Resolves the day a new album is announced, fades if the signs go dark. No location. Re-checked 2026-11-08 and 2026-11-24: nothing announced; the thread keeps drawing fresh readings, so still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
           {
             claim:
@@ -5120,9 +5145,9 @@ export default {
             reportedOn: '2026-07-21',
             status: 'unconfirmed',
             url: 'https://www.yahoo.com/entertainment/music/articles/evidence-taylor-swift-next-album-185356681.html',
-            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location. Re-checked 2026-11-08: no album announced; still live.',
+            note: 'Tiers kept straight: the studio sighting is a documented fact, the number-13 numerology is pure fan reading. Forward-looking, unannounced-music speculation (allowed by the redlines). Resolves on an album announcement, fades if the signs go quiet. No location. Re-checked 2026-11-08: no album announced; still live. Re-checked 2026-11-24: still nothing announced; still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
           // Rumor Desk 2026-08-25 (news-digest, first-seen 2026-08-25): a
           // distinct next-project thread from the TS13 tips above — this one
@@ -5164,9 +5189,9 @@ export default {
             reportedOn: '2026-08-28',
             status: 'unconfirmed',
             url: 'https://www.contactmusic.com/story/467/3598464/taylor-swift-writing-new-music-as-she-and-travis-kelce-settle-into-married-life-amid-fresh-ts-teaser-sightings',
-            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle, Cosmopolitan and others. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location.',
+            note: 'Forward-looking unannounced-music speculation (allowed by the redlines). Cluster originates with a Page Six item (Aug 27, 2026) calling Taylor "incredibly inspired creatively," picked up by Bustle and Cosmopolitan. Post-wedding thread, distinct from the April Us Weekly and July Electric Lady tips. Tabloid tier; no album No. 13 announced. Fades if quiet. No location. Still live at 2026-11-24.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
           // Rumor Desk 2026-10-10 (Vault Run lane 4, intake #4893): a distinct
           // thread from the TS13 / debut-TV tips above — the revived "lost
@@ -5181,11 +5206,11 @@ export default {
               'A fan theory resurfaced in late September 2026: that Taylor recorded a shelved pop album called "Karma" around 2016, dropped for Reputation during the Kardashian-West feud, and is teasing a "Karma" or Reputation (TV) release. Fans cite a "KARMA"/"MISSING" wall in "The Man" video, a Spotify montage that skips "Karma," and "Reputation" seemingly edited from her 2026 VMAs montage. Never confirmed.',
             reportedBy: 'Yahoo Entertainment',
             reportedOn: '2026-09-30',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.yahoo.com/entertainment/music/articles/fans-think-taylor-swift-lost-192409707.html',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to specific citable clues, not pure vibes. Carried by established outlets reporting the fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). Resolves if a "Karma" album or Reputation (TV) is announced; fades if the clues go quiet. No location. Re-checked 2026-11-08: still quiet.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), anchored to citable clues; outlets reporting a fan theory — tabloid tier. Corroborated by Geo.tv (Oct 2026). No location. Re-checked 2026-11-24 (web search): no coverage since early October, no "Karma" album or Reputation (TV) announced. Reported in September, never confirmed or denied: faded.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-08',
+            lastCheckedOn: '2026-11-24',
           },
         ],
       },
@@ -5503,7 +5528,7 @@ export default {
             reportedOn: '2026-06-29',
             status: 'partially_confirmed',
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
-            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published. Re-checked 2026-11-04: still no published guest list. The only new wedding material since is the late-October leaked photos and renderings, which this desk does not use as sourcing, so nothing changes here.',
+            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published. Re-checked 2026-11-04 and 2026-11-24: still no published guest list; late-October leaked material is not used as sourcing, and later coverage (Paisley at the CMAs) confirms single guests only.',
             sourceTier: 'tabloid',
             // Lifecycle re-checks: 2026-08-10 no complete guest list published;
             // 2026-08-31 re-checked (news digest + web search) — still none.
@@ -5512,7 +5537,7 @@ export default {
             // (several rumored names verified by arrival photos), so a `faded`
             // terminal state would understate what is actually on the record.
             // The roster as a whole was never published.
-            lastCheckedOn: '2026-11-04',
+            lastCheckedOn: '2026-11-24',
           },
           {
             claim:
@@ -16531,11 +16556,11 @@ export default {
               'In early October 2026 fans noticed the phrase "that\'s what friends are for" used three times in one week across Taylor-linked posts — her "Patient Zero" Instagram caption, Cara Delevingne\'s post about the shoot, and SNL\'s post about her cameo — and tied it to Dionne Warwick\'s 1985 single of the same name, theorizing an upcoming song or collaboration. Neither Taylor nor her team has confirmed it.',
             reportedBy: 'IBTimes UK',
             reportedOn: '2026-10-05',
-            status: 'unconfirmed',
+            status: 'faded',
             url: 'https://www.ibtimes.co.uk/taylor-swift-fans-phrase-next-song-theory-1823795',
-            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real pattern of public posts, not a blind item — tabloid tier. Corroborated by Bustle (Oct 2026). Resolves if a matching song or collaboration surfaces; fades if it leads nowhere. No location. Re-checked 2026-11-06: still live, nothing announced.',
+            note: 'Easter-egg / unannounced-music speculation (allowed by the redlines), built on a real pattern of public posts, not a blind item — tabloid tier. Corroborated by Bustle (Oct 2026). No location. Re-checked 2026-11-24 (web search): no matching song or collaboration and no new reporting since early October. Reported in October, never confirmed or denied: faded.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-11-06',
+            lastCheckedOn: '2026-11-24',
           },
         ],
       },
@@ -16647,7 +16672,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.\n\nThe Kelce family answered in public within days. On the Sept. 30 episode of New Heights, Travis said "Cleveland is rocking right now!" and thanked Taylor for giving the city "a little more life," while Jason called it "incredible" and said he and his wife, Kylie, had been playing it a lot at home (PinkNews).',
+          'When The Life of a Showgirl: The Encore arrived on Friday, Sept. 25, 2026, one of its four new songs came with an unusually personal visual. The lyric video for "Cleveland!" — posted to Taylor\'s official YouTube — is stitched together from home footage of a road trip she and Travis Kelce took through Cleveland Heights, Ohio, the suburb where he grew up. E! News and Just Jared both walked through the clips: Kelce at the wheel in a blue striped shirt, black cap and gold chain, a big grin on his face; a highway sign pointing them toward Cleveland; Taylor turning the camera on herself in the passenger seat; a shopping strip and a tree-lined neighborhood; and a return to Cleveland Heights High School, which Kelce attended.\n\nThe song itself maps the trip — Taylor sings about her love taking her to Cleveland and showing her "The Heights," and by the final chorus the city has led her to wearing white. A lyric-by-lyric read of the song in Sports Illustrated finds a wink at the New Heights podcast and a nod to the porch of the house where Kelce grew up, and notes that the chorus shifts to refer to their marriage. The video closes on the image that matches that line: a woman, seemingly Taylor, in a white dress and roller skates decorated with 13 hearts, her favorite number. The footage is city-level and self-published — Cleveland Heights is named, but no addresses or venues — and it belongs to the current era because that is when the video dropped, even though the trip it documents came earlier.\n\nThe Kelce family answered in public within days. On the Sept. 30 episode of New Heights, Travis said "Cleveland is rocking right now!" and thanked Taylor for giving the city "a little more life," while Jason called it "incredible" and said he and his wife, Kylie, had been playing it a lot at home (PinkNews).',
         // No `video` field on purpose (same reasoning as
         // 'patient-zero-released-spotify-records' above): the official lyric-video
         // frame is used as a plain credited photo and the video is cited as a
@@ -16667,6 +16692,18 @@ export default {
             credit: 'Taylor Swift (official "Cleveland!" lyric video, YouTube)',
             caption:
               'The official lyric video for "Cleveland!," posted to Taylor\'s YouTube the day The Life of a Showgirl: The Encore arrived.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.justjared.com/wp-content/uploads/2026/09/taylor-swift-cleveland-lyric-video.jpg',
+            // 1280x720 curl-verified 200 image/jpeg, downloaded and viewed: a
+            // split frame from the lyric video — Taylor's passenger-seat selfie
+            // beside Travis driving in a blue striped shirt and gold chain, the
+            // exact clips the sources describe. Unwatermarked.
+            focalPoint: '50% 35%',
+            credit: 'Just Jared (frame from the official "Cleveland!" lyric video)',
+            caption:
+              'Frames from the home footage: Taylor filming from the passenger seat, Travis at the wheel in a blue striped shirt and gold chain.',
             kind: 'primary',
           },
         ],
@@ -16703,6 +16740,17 @@ export default {
             reliability_score: 3,
             notes:
               'Fetched 2026-10-26. Independently describes the home footage of Travis driving Taylor into the city, road signs, a passenger-seat selfie, drone shots and two people roller-skating, and places the song on The Encore.',
+          },
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/every-travis-kelce-reference-in-taylor-swift-s-new-song-cleveland',
+            source_title: "Every Travis Kelce Reference in Taylor Swift's New Song 'Cleveland!'",
+            publisher: 'Sports Illustrated',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-24',
+            reliability_score: 4,
+            notes:
+              'Fetched 2026-11-24 (Sept. 25, 2026, Maggie MacKenzie). Lyrics-only read of the song: the New Heights nod, the porch of the childhood home, and the chorus referencing the marriage. Does not describe the lyric video.',
           },
           {
             outlet: 'PinkNews',

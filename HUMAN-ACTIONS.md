@@ -2,9 +2,18 @@
 
 <!-- ha-format: 2 -->
 
-> **16 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #153 🟡 [DECIDE] Close or route Tree's 9 stuck draft PRs (stale-PR budget over for 26+ days) (~5 min)
+<!-- ha filed=2026-11-24 -->
+
+**Why:** The work-ownership check has flagged too many stale PRs every day since 2026-10-29 (26 days straight) — 8 are Tree's own daily-draft/expire PRs from Oct 9-20 that never merged or closed, plus Tree's weekly-plan PR. Marjorie cannot close another desk's PRs herself.
+**Steps:**
+1. Open each PR and either merge it (if still worth posting) or close it: #5443, #5495, #5998, #6027, #6057, #6094, #6112, #6141, #6744.
+2. Decide: `close-all` — close every PR above as expired; `route` — send to Tree's desk to find why they never auto-closed.
+**Worked if:** `node scripts/check-work-ownership.mjs` shows stalePr at or under its budget (9).
 
 ## #152 🔴 [BLOCKING] Give every story on the site its own web address Google can find (~5 min)
 <!-- ha filed=2026-11-14 -->
