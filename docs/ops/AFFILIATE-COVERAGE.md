@@ -36,7 +36,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | 1989 (Taylor's Version) Keychain | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Knit Hat | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Off White Photo T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| 1989 (Taylor’s Version) Open Knit Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| 1989 (Taylor’s Version) Open Knit Sweater (Free with $175+ Spend) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Paper Airplane Ornament | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Patch Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | 1989 (Taylor's Version) Photo Coasters | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -649,7 +649,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | The Tortured Poets Department Collector's Edition Deluxe CD + Bonus Track "The Manuscript" | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Crewneck Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Earrings | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| The Tortured Poets Department Gray Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| The Tortured Poets Department Gray Hoodie (Free with $100+ Spend) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Gray Photo Long Sleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Journal | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Mug | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
