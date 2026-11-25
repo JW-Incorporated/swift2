@@ -1,0 +1,40 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-25",
+  "windowDays": 7,
+  "since": "2026-11-18T00:00:00.000Z",
+  "count": 2,
+  "media": [
+    "https://www.youtube.com/watch?v=GkD20ajVxnY",
+    "https://www.youtube.com/watch?v=LJC7mgjp5FQ"
+  ],
+  "moments": [
+    {
+      "id": "vault-debut-big-machine-opens-for-business-with-a-15-year-old-on-the-ros",
+      "eraId": "debut",
+      "title": "Big Machine opens for business, with a 15-year-old on the roster",
+      "year": 2005,
+      "month": 9,
+      "day": 1,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-debut-big-machine-opens-for-business-with-a-15-year-old-on-the-ros",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=GkD20ajVxnY"
+    },
+    {
+      "id": "vault-tloas-back-on-the-cma-stage-i-knew-it-i-knew-you-our-song-and-a-to",
+      "eraId": "tloas",
+      "title": "Back on the CMA stage: \"I Knew It, I Knew You,\" \"Our Song,\" and a toast to Brooks & Dunn",
+      "year": 2026,
+      "month": 11,
+      "day": 18,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-back-on-the-cma-stage-i-knew-it-i-knew-you-our-song-and-a-to",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=LJC7mgjp5FQ"
+    }
+  ]
+}
