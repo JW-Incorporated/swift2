@@ -2064,6 +2064,61 @@ export default {
       },
     },
     {
+      // Authored 2026-11-25 (Vault Run, Content Shift lane) from experience
+      // ticket #6116 (Debut 2005 gap). Both sources read directly this run.
+      // "First artist" is left out on purpose: sources disagree on whether
+      // Taylor or Jack Ingram/Danielle Peck signed first.
+      slug: 'big-machine-opens-2005',
+      year: 2005,
+      month: 9,
+      day: 1,
+      category: 'business',
+      title: 'Big Machine opens for business, with a 15-year-old on the roster',
+      snippet:
+        'Sept. 1, 2005: a day after Scott Borchetta and Toby Keith announced their new labels on a Nashville stage, Big Machine opened, with Taylor on its roster beside Danielle Peck and Jack Ingram. Her first single was still nine months away.',
+      sourceUrl: 'https://musicrow.com/2015/09/borchetta-holds-90-percent-of-big-machine-at-10-year-anniversary/',
+      thumbnailUrl: null,
+      video: { youtubeId: 'GkD20ajVxnY', title: 'Taylor Swift - Tim McGraw' },
+      moment: {
+        context:
+          'The Bluebird night ended with an offer from a label that didn\'t exist yet. On Aug. 31, 2005, that label got a start date. Scott Borchetta and Toby Keith took the stage at Nashville\'s Global Cafe to announce two new labels at once, Keith\'s Show Dog and Borchetta\'s Big Machine, and both opened the next day, sharing a promotion team and office staff. Big Machine\'s roster at the time included Danielle Peck, Jack Ingram and the teenager Borchetta had heard at the Bluebird.\n\nKeith\'s part in her story often gets overstated. He put money into Big Machine and stayed on as an investor, but Taylor was signed to Big Machine, never to Show Dog, and the two labels formally split in 2006, shortly after her first single.\n\n"I made sure that when Big Machine opened we had records out," Borchetta said, looking back ten years later. Hers wasn\'t one of them yet. "Tim McGraw" went to country radio in June 2006, and the album followed that October.',
+        sources: [
+          {
+            outlet: 'MusicRow',
+            url: 'https://musicrow.com/2015/09/borchetta-holds-90-percent-of-big-machine-at-10-year-anniversary/',
+            source_title: 'Borchetta Holds 90 Percent Of Big Machine At 10 Year Anniversary',
+            publisher: 'MusicRow',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-25',
+            reliability_score: 4,
+            notes:
+              'By Eric T. Parker, Sept. 1, 2015; page text read directly. Primary for the Aug. 31, 2005 Global Cafe announcement, the next-day launch, the shared promotion/admin staff, the roster "which at the time included Danielle Peck, Taylor Swift, and Jack Ingram," the Borchetta quote, and the June 2006 single / October 2006 album dates.',
+          },
+          {
+            outlet: 'Saving Country Music',
+            url: 'https://savingcountrymusic.com/did-toby-keith-really-help-launch-taylor-swifts-career/',
+            source_title: "Did Toby Keith Really Help Launch Taylor Swift's Career?",
+            publisher: 'Saving Country Music',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-25',
+            reliability_score: 3,
+            notes:
+              'By Trigger, Feb. 9, 2024; page text read directly. Primary for Keith as a financial backer of Big Machine, "Taylor Swift was never signed to Show Dog," the 2006 split shortly after her first single, and Keith keeping his stake.',
+          },
+          {
+            outlet: 'Taylor Swift (YouTube)',
+            url: 'https://www.youtube.com/watch?v=GkD20ajVxnY',
+            source_title: 'Taylor Swift - Tim McGraw',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-25',
+            reliability_score: 5,
+            notes: 'oEmbed-verified this run (HTTP 200, author_name "Taylor Swift"). Her first release on Big Machine, and the visual for this moment: no freely licensed photo of the 2005 launch exists on Commons.',
+          },
+        ],
+      },
+    },
+    {
       slug: 'acm-2007-hi-im-taylor',
       year: 2007,
       month: 5,
