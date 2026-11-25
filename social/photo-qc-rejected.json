@@ -4117,6 +4117,30 @@
       "sha256": "dbc1571580adcc7a7f59d4cf32cc6fa6518819d7487714731448cd9b6b48b846",
       "reason": "Two-photo collage of two shots; another man visible; not a single subject",
       "date": "2026-11-24"
+    },
+    {
+      "id": "press-a03a622ae3af",
+      "sha256": "e6eee3d0c16f563f27bb0ec1ae672ea7c6e49adcb520e6d7634b0033b7584553",
+      "reason": "Two-person side-by-side collage; other person equally dominant",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "press-95465cdee59c",
+      "sha256": "dab4ab85685177e7ffbed217a1eb2563eb40ff44e95287ecf8c1b8a97802cfb5",
+      "reason": "Shows a man; caption is a Taylor Swift post, so it doesn't fit.",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "press-c545e9d4b0dd",
+      "sha256": "13d7c0c0a8b821b45c57ba41490903812dc3c980be8ba98fb071b92747214576",
+      "reason": "Man pictured; caption headline is about Taylor Swift, so poor fit for post",
+      "date": "2026-11-25"
+    },
+    {
+      "id": "press-3bd2ca064180",
+      "sha256": "dc73c237d9955a7f19b7d819cc72f2499e2ad94c8652ef5c6fd9fdc205656b11",
+      "reason": "Red-carpet backdrop with repeated Songwriters Hall of Fame logos behind her",
+      "date": "2026-11-25"
     }
   ]
 }
