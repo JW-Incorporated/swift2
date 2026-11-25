@@ -32,5 +32,16 @@
     ],
     "revision": 1
   },
-  "photoEra": "press-photo"
+  "photoEra": "press-photo",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-25T20:31:05.760Z",
+    "pr": 7144,
+    "message": "social-tree-approve run 45695555710",
+    "contentHash": "sha256:6256cb153815ccebe639b2c1069915610cdff14f5e7fdc644b265efcf500e190",
+    "mediaDigest": "sha256:fbfb251fdd55198243085d4af987649d0ef60a747a642bfe1655fba1f51bfe87",
+    "sig": "hmac-sha256:c8443aa08d50bc26e6699961fd6e65eb5b76906654357fef196dc57c2445d2d3"
+  }
 }
