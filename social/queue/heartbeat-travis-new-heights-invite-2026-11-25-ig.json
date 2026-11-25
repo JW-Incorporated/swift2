@@ -1,0 +1,36 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "via SPORTbible",
+  "mediaSource": "https://www.sportbible.com/nba/taylor-swift-new-york-knicks-fake-fan-tyler-kolek-miles-mcbride-447499-20261107",
+  "altText": [
+    "Taylor Swift in the news: Taylor Swift issued 'would be the greatest performance ever' verdict amid ‘fake’ New York Knicks fan drama"
+  ],
+  "photoId": "press-04ac931fd121",
+  "media": [
+    "/social/library/photos/press-04ac931fd121.jpg"
+  ],
+  "scheduledAt": "2026-11-25T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:travis-new-heights-invite:2026-11-25",
+  "body": "nobody asked for a Taylor-designed tailgate stage and now it's all i want 😂\n\non the nov. 11 episode of New Heights, Jason said the problem with most tailgates is there's no stage, then asked, \"Do you know anybody who knows anything about stages?\"\n\nTravis: \"Yeah, I actually do. I'll see what my wife can cook up.\"\n\nit was a joke on a podcast, not an announcement, and Taylor hasn't said a word about it. but the woman behind the Eras Tour, getting volunteered for a tailgate whose last stage hosted sumo wrestling and hobby-horse events? my brain is already building it.\n\nwhich friend are you dragging to this imaginary tailgate 💛\n\nphoto: via SPORTbible\n\nhttps://www.longlivets.com/?item=vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo&utm_source=instagram&utm_medium=social&utm_campaign=heartbeat\n\n#taylorswift #swifties #newheights #longlive",
+  "why": "Calendar 11-25 NEWS RESERVE #1: events.uncovered[] empty and neither new-on-site moment is an uncovered 48h event (the CMA performance shipped 11-21; the Big Machine moment is 2006 history), so the named fallback is drafted exactly as written. Source: seed moment showgirl-new-heights-tailgate-stage-joke (supabase/seed/content/the-life-of-a-showgirl.mjs), Travis on his own show, New Heights ep. 211, Nov. 11, 2026, via Complex and ClutchPoints/Yahoo; quotes copied exactly from that record, which also says it was a joke, not a plan, and Taylor has said nothing. Photo: the beat pick wikimedia-22985355 failed the same-picture check and this themed family needs photoEra; the-life-of-a-showgirl pool is exhausted, so this is the press-photo pool next pick, a current close-up of Taylor (checked by eye), the nearest thing to a Showgirl-era photo.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Opens on the joy of an unrequested gift, then the full sourced exchange and the honest caveat that it was a joke. The share hook comes from the post itself; The photo is a current close-up of Taylor, loosely tied to the story.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "photoEra": "press-photo"
+}

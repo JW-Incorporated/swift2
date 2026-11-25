@@ -1,0 +1,40 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114093506).jpg",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "photoId": "wikimedia-22985591",
+  "media": [
+    "/social/library/photos/wikimedia-22985591.jpg"
+  ],
+  "scheduledAt": "2026-11-26T16:00:00Z",
+  "campaign": "thread:the-proposal:behind-the-data:2026-11-hero",
+  "experiment": {
+    "hypothesis": "every one of the 12 posts in the week to 2026-11-23 went out at 23:00Z and every measured one reached 0 accounts; the hour is the one variable never varied",
+    "variant": "hour-16z",
+    "metric": "instagram reach per post, read as 0 vs non-zero"
+  },
+  "body": "i counted every entry in our End Game thread this week and got a little teary 🧡\n\n37 dated, sourced moments. 15 of them are from 2026 alone, more than any other year.\n\n2023 has 3. 2024 has 6. 2025 has 13. watching that number climb year after year feels like watching the story get fuller in real time.\n\nfeeling very grateful today, for this one especially 💛\n\nphoto: Paolo Villanueva (CC BY 2.0), via Wikimedia Commons, GMA 2012\n\nhttps://www.longlivets.com/?lens=the-proposal&utm_source=instagram&utm_medium=social&utm_campaign=thread\n\n#taylorswift #swifties #travisandtaylor #longlive",
+  "why": "Calendar 11-26 End Game thread hero, behind-the-data angle, 16:00Z variant carrying the 11-24 experiment verbatim. Counts made this run off the seed (every supabase/seed/content/*.mjs record whose threadIds includes the-proposal): 37 moments; by year 2023:3, 2024:6, 2025:13, 2026:15; earliest is the friendship-bracelet record (midnights.mjs, July 2023, Travis on New Heights); newest is showgirl-new-heights-tailgate-stage-joke, Nov. 11, 2026 (\"my wife\"). X carries the first/newest entries, IG the counts. Thanksgiving warmth without making it about the holiday. Photo is the pre-computed pick (GMA 2012); loosely related. No natural share hook fit the count honestly; none forced.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Leads with the feeling of counting the thread, then real per-year counts off the seed that justify it. Thanksgiving warmth without making it about the holiday; the photo is a credited Taylor portrait.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  }
+}
