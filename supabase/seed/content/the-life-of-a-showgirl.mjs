@@ -1144,6 +1144,7 @@ export default {
       slug: 'chiefs-colts-2026-husband-touchdown',
       // End Game thread opt-in (#6842, Vault Run 2026-11-18).
       threadIds: ['the-proposal'],
+      relatedIds: ['moment:vault-tloas-taylor-returns-to-arrowhead-for-the-chiefs-season-opener-wit'],
       year: 2026,
       month: 9,
       day: 20,
@@ -15741,7 +15742,10 @@ export default {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
       // End Game thread opt-in (#6842, Vault Run 2026-11-18).
       threadIds: ['the-proposal'],
-      relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
+      relatedIds: [
+        'moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-',
+        'moment:vault-tloas-thats-my-husband-a-wedding-ring-salute-for-kelces-first-td-o',
+      ],
       year: 2026,
       month: 9,
       day: 14,
