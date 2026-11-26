@@ -4374,6 +4374,8 @@ export default {
       // first half of the pattern lives on that TTPD-era page.
       relatedIds: [
         'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+        // Cross-link: the next Arrowhead suite sighting of the same season, the Nov 23, 2025 overtime win.
+        'moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter',
       ],
       moment: {
         context:
@@ -8480,7 +8482,11 @@ export default {
       category: 'sighting',
       // Cross-link (candidate #1041): the game-day outfit she wore to this same
       // Nov 23, 2025 Colts game.
-      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
+      relatedIds: [
+        'moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game',
+        // Cross-link: the Oct 12, 2025 Arrowhead suite sighting that opened her season at Chiefs games.
+        'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
+      ],
       title: 'Back in the suite window for an overtime nail-biter',
       snippet:
         'After weeks of slipping into Arrowhead unphotographed, she was visible celebrating the Colts game from the suite — playfully shaking her dad by the shoulders as Butker\'s kick won it 23-20 in OT.',
@@ -15317,10 +15323,14 @@ export default {
       // winners list (seven WINNER marks, four losses, Dolby/Ludacris) and
       // iHeart's own speech write-up (Sarah Tate, Mar. 27, 2026: Alysa Liu
       // presenting, every quote below). Cut: the nomination count (sources
-      // disagree, nine vs. eleven listed categories) and the Kelce seating
-      // detail (one outlet only; relationship facts need two). Photo already
+      // disagree, nine vs. eleven listed categories). The Kelce seating detail,
+      // cut here at first for one outlet, was restored in the second pass. Photo already
       // in the corpus; re-downloaded and viewed this run.
       slug: 'showgirl-iheartradio-2026-artist-of-the-year',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-26 second pass): the
+      // Kelce detail cut this morning for having one outlet now has three
+      // (iHeart's own write-up, TODAY via NBC LA, Page Six via AOL), all read.
+      threadIds: ['the-proposal'],
       year: 2026,
       month: 3,
       day: 26,
@@ -15332,7 +15342,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The 2026 iHeartRadio Music Awards were held on Thursday, March 26, at the Dolby Theatre in Los Angeles, with Ludacris hosting. Taylor was in the room, and she won seven awards: Artist of the Year, Album of the Year and Pop Album of the Year for The Life of a Showgirl, and Pop Song of the Year for "The Fate of Ophelia." The fan-voted categories gave her three more: Best Lyrics and Best Music Video for "Ophelia," and Favorite Tour Style for the Eras Tour. She lost Song of the Year to Alex Warren\'s "Ordinary" and Pop Artist of the Year to Sabrina Carpenter.\n\nOlympic gold medalist Alysa Liu handed her Artist of the Year, and Taylor used the speech to talk about where it started. "I didn\'t think I was an artist when I first started doing this, it was a hobby," she said, describing "thousands of hours working at my craft, practicing making mistakes through trial and error ... all completely unobserved."\n\nThen she turned it to the audience. "If I had one hope for you, I would say that I hope that you can get to nurture your hobby and your passion just between you and that craft, and you give yourself time. Give yourself time to make mistakes, give yourself time to hone your craft." Her reason: "I\'m a firm believer that anything you feed your mind, it will internalize. Anything you feed the internet, it will attempt to kill, and I don\'t want that for your dreams." She closed by thanking fans "for allowing me to turn my hobby into a love, into a passion, into a dream, into a career."\n\nTwo months later the American Music Awards went the other way: she led their nominations with eight and won none.',
+          'The 2026 iHeartRadio Music Awards were held on Thursday, March 26, at the Dolby Theatre in Los Angeles, with Ludacris hosting. Taylor was in the room, and she won seven awards: Artist of the Year, Album of the Year and Pop Album of the Year for The Life of a Showgirl, and Pop Song of the Year for "The Fate of Ophelia." The fan-voted categories gave her three more: Best Lyrics and Best Music Video for "Ophelia," and Favorite Tour Style for the Eras Tour. She lost Song of the Year to Alex Warren\'s "Ordinary" and Pop Artist of the Year to Sabrina Carpenter.\n\nIt was also the first awards show she and Travis Kelce attended together. They arrived separately and didn\'t walk the red carpet together, but he sat beside her in the front row, and when Pop Album of the Year was announced she kissed him before heading up to the stage.\n\nOlympic gold medalist Alysa Liu handed her Artist of the Year, and Taylor used the speech to talk about where it started. "I didn\'t think I was an artist when I first started doing this, it was a hobby," she said, describing "thousands of hours working at my craft, practicing making mistakes through trial and error ... all completely unobserved."\n\nThen she turned it to the audience. "If I had one hope for you, I would say that I hope that you can get to nurture your hobby and your passion just between you and that craft, and you give yourself time. Give yourself time to make mistakes, give yourself time to hone your craft." Her reason: "I\'m a firm believer that anything you feed your mind, it will internalize. Anything you feed the internet, it will attempt to kill, and I don\'t want that for your dreams." She closed by thanking fans "for allowing me to turn my hobby into a love, into a passion, into a dream, into a career."\n\nTwo months later the American Music Awards went the other way: she led their nominations with eight and won none.',
         sources: [
           {
             outlet: 'iHeartRadio',
@@ -15353,6 +15363,26 @@ export default {
             accessed_at: '2026-11-26',
             reliability_score: 5,
             notes: 'Read in full this run. Primary for the seven categories marked WINNER, the Song of the Year and Pop Artist losses, the Dolby Theatre and Ludacris.',
+          },
+          {
+            outlet: 'TODAY (via NBC Los Angeles)',
+            url: 'https://www.nbclosangeles.com/entertainment/entertainment-news/taylor-swift-travis-kelce-2026-iheartradio-music-awards/3867410/',
+            source_title: 'Taylor Swift and Travis Kelce at the 2026 iHeartRadio Music Awards',
+            publisher: 'NBCUniversal',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-26',
+            reliability_score: 4,
+            notes: 'By Ariana Brockington, TODAY, Mar. 27, 2026; read this run. For: arrived separately, Kelce beside her in the first row, the kiss after Pop Album of the Year, first award show attended together.',
+          },
+          {
+            outlet: 'Page Six (via AOL)',
+            url: 'https://www.aol.com/lifestyle/taylor-swift-travis-kelce-awards-011820556.html',
+            source_title: 'Taylor Swift and Travis Kelce make their awards show debut at iHeartRadio Music Awards 2026',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-26',
+            reliability_score: 3,
+            notes: 'By Jolie Zenna, Mar. 27, 2026; read this run. Independent second source for: no joint red carpet, by her side in the audience, the kiss before she took the stage, awards-show debut as a couple.',
           },
         ],
         // Re-downloaded and viewed 2026-11-26: HTTP 200, image/jpeg, 1000x667.
