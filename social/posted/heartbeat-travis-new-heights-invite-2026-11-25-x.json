@@ -1,0 +1,50 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "via SPORTbible",
+  "mediaSource": "https://www.sportbible.com/nba/taylor-swift-new-york-knicks-fake-fan-tyler-kolek-miles-mcbride-447499-20261107",
+  "altText": [
+    "Taylor Swift in the news: Taylor Swift issued 'would be the greatest performance ever' verdict amid ‘fake’ New York Knicks fan drama"
+  ],
+  "photoId": "press-04ac931fd121",
+  "media": [
+    "/social/library/photos/press-04ac931fd121.jpg"
+  ],
+  "scheduledAt": "2026-11-25T23:00:00Z",
+  "campaign": "heartbeat:era-deep-cut:travis-new-heights-invite:2026-11-25",
+  "body": "the way Travis just volunteered his wife for stage duty 😂 Jason asked on New Heights if anyone knew \"anything about stages\" for their tailgate and Travis went \"I'll see what my wife can cook up.\" sir. she built the Eras Tour. (joke, not a plan) https://www.longlivets.com/?item=vault-tloas-ill-see-what-my-wife-can-cook-up-travis-volunteers-taylor-fo&utm_source=x&utm_medium=social&utm_campaign=heartbeat",
+  "why": "Calendar 11-25 NEWS RESERVE #1: events.uncovered[] empty and neither new-on-site moment is an uncovered 48h event (the CMA performance shipped 11-21; the Big Machine moment is 2006 history), so the named fallback is drafted exactly as written. Source: seed moment showgirl-new-heights-tailgate-stage-joke (supabase/seed/content/the-life-of-a-showgirl.mjs), Travis on his own show, New Heights ep. 211, Nov. 11, 2026, via Complex and ClutchPoints/Yahoo; quotes copied exactly from that record, which also says it was a joke, not a plan, and Taylor has said nothing. Photo: the beat pick wikimedia-22985355 failed the same-picture check and this themed family needs photoEra; the-life-of-a-showgirl pool is exhausted, so this is the press-photo pool next pick, a current close-up of Taylor (checked by eye), the nearest thing to a Showgirl-era photo.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Delight first, then the exact quote from Travis on his own show, with the Eras Tour punchline and an honest joke-not-plan flag. The photo is a current close-up of Taylor, loosely tied to the story.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "photoEra": "press-photo",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-25T20:31:05.760Z",
+    "pr": 7144,
+    "message": "social-tree-approve run 45695555710",
+    "contentHash": "sha256:b1252d17bd1212f2af5753096d20ff51f5559ec7e2ae60fafbfba38a9c3711bc",
+    "mediaDigest": "sha256:fbfb251fdd55198243085d4af987649d0ef60a747a642bfe1655fba1f51bfe87",
+    "sig": "hmac-sha256:28d28fea5df6bb02a9f1904a7740d594361ef4edf2e87886c912f4b3bd90d258"
+  },
+  "postedAt": "2026-11-26T00:17:38.175Z",
+  "platformPostId": "2125745822197584349",
+  "url": "https://x.com/longlivetscom/status/2125745822197584349"
+}
