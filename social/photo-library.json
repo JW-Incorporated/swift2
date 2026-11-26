@@ -3466,6 +3466,20 @@
       "sha256": "405ba1af5cda3c8be42e1734ff81d1da12813d6dba9ecf6c760f10a03296e19f"
     },
     {
+      "id": "press-69bc0350b4b2",
+      "mediaPath": "/social/library/photos/press-69bc0350b4b2.jpg",
+      "source": "https://www.vulture.com/article/taylor-swift-vanity-fair-article-reaction.html",
+      "alt": "Taylor Swift in the news: Now’s a Good Time to Say Something Nice About Taylor Swift",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Vulture",
+      "width": 1200,
+      "height": 630,
+      "bytes": 69524,
+      "sha256": "bdb98b3df4fb906e6a49f997550f4bfdaa5989c997916a3fa9cffae711c995cc"
+    },
+    {
       "id": "press-6a7543bd5c98",
       "mediaPath": "/social/library/photos/press-6a7543bd5c98.jpg",
       "source": "https://www.usmagazine.com/sports/news/is-taylor-swift-at-the-chiefs-game-against-denver-broncos/",
@@ -3632,6 +3646,20 @@
       "height": 675,
       "bytes": 119609,
       "sha256": "59ccada55130c78faac539c973734d829450f3ea2973abb274e6ce14942a26b6"
+    },
+    {
+      "id": "press-c477ae5b0fb8",
+      "mediaPath": "/social/library/photos/press-c477ae5b0fb8.jpg",
+      "source": "https://www.rollingstone.com/music/music-news/taylor-swift-ugg-memes-1235664209/",
+      "alt": "Taylor Swift in the news: Taylor Swift Ugg Revelation Sparks Internet Memes",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Rolling Stone",
+      "width": 1800,
+      "height": 1014,
+      "bytes": 132174,
+      "sha256": "8b9735aefb12bbab252eec6f38f7d0d839226582208d515e5b3851eb8ab61093"
     },
     {
       "id": "press-c52ab1258aa2",
