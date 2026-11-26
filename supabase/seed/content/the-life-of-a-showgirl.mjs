@@ -15299,6 +15299,136 @@ export default {
         ],
       },
     },
+    {
+      // Content Shift (Vault Run 2026-11-26), experience #6843 (Nils: Showgirl
+      // Jan-May 2026 is thin). The night was only a clause inside the
+      // "Elizabeth Taylor" radio item. Read directly this run: iHeart's
+      // winners list (seven WINNER marks, four losses, Dolby/Ludacris) and
+      // iHeart's own speech write-up (Sarah Tate, Mar. 27, 2026: Alysa Liu
+      // presenting, every quote below). Cut: the nomination count (sources
+      // disagree, nine vs. eleven listed categories) and the Kelce seating
+      // detail (one outlet only; relationship facts need two). Photo already
+      // in the corpus; re-downloaded and viewed this run.
+      slug: 'showgirl-iheartradio-2026-artist-of-the-year',
+      year: 2026,
+      month: 3,
+      day: 26,
+      category: 'music',
+      title: 'Seven iHeartRadio awards, and a speech about protecting your hobby from the internet',
+      snippet:
+        'Taylor won Artist of the Year and six more at the 2026 iHeartRadio Music Awards, and told fans to give their passions time "completely unobserved."',
+      sourceUrl: 'https://news.iheart.com/featured/iheartradio-music-awards/content/2026-03-27-taylor-swift-urges-fans-to-nurture-your-hobby-with-artist-of-the-year-win/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2026 iHeartRadio Music Awards were held on Thursday, March 26, at the Dolby Theatre in Los Angeles, with Ludacris hosting. Taylor was in the room, and she won seven awards: Artist of the Year, Album of the Year and Pop Album of the Year for The Life of a Showgirl, and Pop Song of the Year for "The Fate of Ophelia." The fan-voted categories gave her three more: Best Lyrics and Best Music Video for "Ophelia," and Favorite Tour Style for the Eras Tour. She lost Song of the Year to Alex Warren\'s "Ordinary" and Pop Artist of the Year to Sabrina Carpenter.\n\nOlympic gold medalist Alysa Liu handed her Artist of the Year, and Taylor used the speech to talk about where it started. "I didn\'t think I was an artist when I first started doing this, it was a hobby," she said, describing "thousands of hours working at my craft, practicing making mistakes through trial and error ... all completely unobserved."\n\nThen she turned it to the audience. "If I had one hope for you, I would say that I hope that you can get to nurture your hobby and your passion just between you and that craft, and you give yourself time. Give yourself time to make mistakes, give yourself time to hone your craft." Her reason: "I\'m a firm believer that anything you feed your mind, it will internalize. Anything you feed the internet, it will attempt to kill, and I don\'t want that for your dreams." She closed by thanking fans "for allowing me to turn my hobby into a love, into a passion, into a dream, into a career."\n\nTwo months later the American Music Awards went the other way: she led their nominations with eight and won none.',
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://news.iheart.com/featured/iheartradio-music-awards/content/2026-03-27-taylor-swift-urges-fans-to-nurture-your-hobby-with-artist-of-the-year-win/',
+            source_title: "Taylor Swift Urges Fans To 'Nurture Your Hobby' With Artist Of The Year Win",
+            publisher: 'iHeartMedia',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'By Sarah Tate, Mar. 27, 2026; read in full. Primary for her attendance, Alysa Liu presenting, and every speech quote.',
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2026-03-25-2026-iheartradio-music-awards-see-the-complete-list-of-winners-revealed/',
+            source_title: '2026 iHeartRadio Music Awards: See The Complete List Of Winners',
+            publisher: 'iHeartMedia',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'Read in full this run. Primary for the seven categories marked WINNER, the Song of the Year and Pop Artist losses, the Dolby Theatre and Ludacris.',
+          },
+        ],
+        // Re-downloaded and viewed 2026-11-26: HTTP 200, image/jpeg, 1000x667.
+        // Taylor on the iHeartRadio/FOX step-and-repeat. Same image the
+        // corpus already uses on the NYT songwriters item.
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2026/04/tay.jpg',
+            focalPoint: '50% 38%',
+            credit: 'Phillip Faraone/Getty Images for iHeartRadio, via Variety',
+            caption: 'Taylor arriving at the 2026 iHeartRadio Music Awards at the Dolby Theatre, March 26, 2026.',
+            kind: 'sighting',
+          },
+        ],
+      },
+    },
+    {
+      // Content Shift (Vault Run 2026-11-26), experience #6843 (Nils: Showgirl
+      // May 2026 had zero items). Read directly this run: the AMAs' own
+      // nominations release (Apr. 14, 2026: the eight categories, the
+      // leader line, date/venue/host/network) and winners release (5/25/26:
+      // every winner in her eight categories), plus ABC Audio (Andrea
+      // Dresdale, May 22, 2026) citing People for her not attending. Cut:
+      // "second straight shutout" and her career AMA total (only seen in
+      // search snippets, never read). Redlines: clean; a televised awards
+      // show at a named venue, and she was not there.
+      slug: 'showgirl-amas-2026-eight-nominations-no-wins',
+      year: 2026,
+      month: 5,
+      day: 25,
+      category: 'music',
+      title: 'Eight nominations, the most of anyone, and no wins at the 2026 AMAs',
+      snippet:
+        'Taylor led the 52nd American Music Awards with eight nominations for Showgirl, "The Fate of Ophelia" and "Elizabeth Taylor," skipped the May 25 show in Las Vegas, and went home with nothing.',
+      sourceUrl: 'https://www.theamas.com/2026/05/winners-announced-for-the-52nd-american-music-awards/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When the 52nd American Music Awards nominations came out on April 14, 2026, Taylor was at the top of the list with eight, one more than Morgan Wallen, Olivia Dean, Sabrina Carpenter and Sombr, who had seven each. Showgirl was up for Album of the Year and Best Pop Album. "The Fate of Ophelia" was up for Song of the Year, Best Pop Song and Best Music Video, and "Elizabeth Taylor" got a Song of the Summer nod. She was also nominated for Artist of the Year and Best Female Pop Artist.\n\nThe show aired live on CBS on Memorial Day, Monday, May 25, from the MGM Grand Garden Arena in Las Vegas, with Queen Latifah hosting. Taylor wasn\'t there: word that the lead nominee would skip it came three days earlier, via People, so anyone hoping for an announcement during the broadcast was out of luck.\n\nShe didn\'t win any of the eight. BTS took Artist of the Year and Song of the Summer (for "SWIM"). Sabrina Carpenter\'s Man\'s Best Friend won both Album of the Year and Best Pop Album, and Carpenter also won Best Female Pop Artist. HUNTR/X\'s "Golden" won Song of the Year and Best Pop Song, and KATSEYE\'s "Gnarly" won Best Music Video.\n\nIt was the same spring Showgirl had no Grammy shot at all, because the album came out after the eligibility window. It got that shot six months later, when it was nominated for the 2027 Grammys.',
+        video: {
+          youtubeId: 'ko70cExuzZM',
+          title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)',
+        },
+        sources: [
+          {
+            outlet: 'American Music Awards',
+            url: 'https://www.theamas.com/2026/05/winners-announced-for-the-52nd-american-music-awards/',
+            source_title: 'Winners Announced for the 52nd American Music Awards',
+            publisher: 'American Music Awards (dick clark productions)',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'Read in full this run. Dated 5/25/26. Primary for every winner in her eight categories and the "led nominations with eight" line.',
+          },
+          {
+            outlet: 'American Music Awards',
+            url: 'https://www.theamas.com/2026/04/52nd-american-music-awards-nominations-revealed/',
+            source_title: '52nd American Music Awards Nominations Revealed',
+            publisher: 'American Music Awards (dick clark productions)',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'Read in full this run. Dated April 14, 2026. Primary for the eight categories, the seven-each runners-up, and the May 25 CBS/MGM Grand/Queen Latifah details.',
+          },
+          {
+            outlet: 'ABC Audio',
+            url: 'https://www.hits1053sanantonio.com/news/leading-nominee-taylor-swift-is-skipping-american-music-awards/7SY5ZYEQW47JZKVQ2PIN4VOOKQ/',
+            source_title: 'Leading nominee Taylor Swift is skipping the American Music Awards',
+            publisher: 'ABC Audio (syndicated)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-26',
+            reliability_score: 4,
+            notes: 'By Andrea Dresdale, May 22, 2026; read in full. Attributes her non-attendance to People. No reason given, so none is stated.',
+          },
+          {
+            outlet: 'YouTube',
+            url: 'https://www.youtube.com/watch?v=ko70cExuzZM',
+            source_title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'oEmbed-verified this run: HTTP 200, author_name "Taylor Swift". The Best Music Video nominee itself.',
+          },
+        ],
+      },
+    },
     // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
     // verifiable milestone behind that ticket. Placed by real-world date (the
     // June 2026 country-radio impact week), not by the ticket's "this week"
