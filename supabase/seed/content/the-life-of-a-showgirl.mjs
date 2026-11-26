@@ -4374,6 +4374,8 @@ export default {
       // first half of the pattern lives on that TTPD-era page.
       relatedIds: [
         'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+        // Cross-link: the next Arrowhead suite sighting of the same season, the Nov 23, 2025 overtime win.
+        'moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter',
       ],
       moment: {
         context:
@@ -8480,7 +8482,11 @@ export default {
       category: 'sighting',
       // Cross-link (candidate #1041): the game-day outfit she wore to this same
       // Nov 23, 2025 Colts game.
-      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
+      relatedIds: [
+        'moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game',
+        // Cross-link: the Oct 12, 2025 Arrowhead suite sighting that opened her season at Chiefs games.
+        'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
+      ],
       title: 'Back in the suite window for an overtime nail-biter',
       snippet:
         'After weeks of slipping into Arrowhead unphotographed, she was visible celebrating the Colts game from the suite — playfully shaking her dad by the shoulders as Butker\'s kick won it 23-20 in OT.',
