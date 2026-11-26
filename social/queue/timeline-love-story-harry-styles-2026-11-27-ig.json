@@ -1,0 +1,36 @@
+{
+  "platform": "instagram",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "red-inglewood-2023-2-ig45",
+  "media": [
+    "/social/library/photos/taylor-red-inglewood-2023-2-ig45.jpg"
+  ],
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_1.jpg",
+  "altText": [
+    "Taylor Swift in a sequined red top and black shorts performing 'I Knew You Were Trouble' in the Red set of the Eras Tour, Inglewood 2023, with pink smoke behind her."
+  ],
+  "scheduledAt": "2026-11-27T23:00:00Z",
+  "campaign": "timeline:love-story:harry-styles:2026-11-27",
+  "body": "a winter romance right in the middle of the Red era, and i cannot get over how short it was ❤️\n\nthe Harry Styles chapter of our Blank Spaces timeline starts in early december 2012, when they were first photographed together, and ends on january 7, 2013, the day the breakup was reported during a trip to the British Virgin Islands.\n\nRed had come out on october 22, only weeks before. and this is how i picture the Red era now: sequins and pink smoke in the Red set of the Eras Tour, Inglewood 2023.\n\nphoto: Paolo Villanueva (CC BY 2.0), via Wikimedia Commons\n\nhttps://www.longlivets.com/?lens=love-story&utm_source=instagram&utm_medium=social&utm_campaign=timeline\n\n#taylorswift #red #swifties #longlive",
+  "why": "Instagram sibling. Nov 27 Blank Spaces timeline beat, chapter: Harry Styles (supabase/seed/lenses/relationships.mjs rel-styles: first photographed together early Dec 2012, breakup reported Jan 7 2013 on a British Virgin Islands trip) plus Red release Oct 22 2012. Photo: Red-era library pick (Eras Tour Inglewood 2023); the pre-computed GMA pick failed check-drafts as a same-picture match. The lens-order chapter after Jake Gyllenhaal is Conor Kennedy (rel-kennedy); passed over because its own sourcing centres on him still being in high school and on his family, which sits against the family/minors blocklist line. utm_campaign timeline; no song attribution asserted.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 19,
+    "rationale": "Leads with the feeling of a winter romance inside the Red era, then the lens dates and the Red release. The Eras Tour Red-set photo ties the chapter to the era it lived in, with a real credited shot of Taylor.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "photoEra": "red"
+}
