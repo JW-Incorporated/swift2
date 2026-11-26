@@ -1,0 +1,51 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "mediaCredit": "Paolo Villanueva from New York, USA (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Taylor_Swift_GMA_(8114093506).jpg",
+  "altText": [
+    "Taylor Swift on Good Morning America for the launching of her Red Album.\nFeel free to use these photos as long as you credit to either of these sites.\npaolopv.com\n\nflickr.com/paolov/sets"
+  ],
+  "photoId": "wikimedia-22985591",
+  "media": [
+    "/social/library/photos/wikimedia-22985591.jpg"
+  ],
+  "scheduledAt": "2026-11-26T16:00:00Z",
+  "campaign": "thread:the-proposal:behind-the-data:2026-11-hero",
+  "experiment": {
+    "hypothesis": "every one of the 12 posts in the week to 2026-11-23 went out at 23:00Z and every measured one reached 0 accounts; the hour is the one variable never varied",
+    "variant": "hour-16z",
+    "metric": "instagram reach per post, read as 0 vs non-zero"
+  },
+  "body": "so emotional about how this all started 🧡 the very first entry in our End Game thread is july 2023: a friendship bracelet with his number on it that Travis never got to give Taylor. the newest, from nov. 11 this year, is him calling her \"my wife.\" https://www.longlivets.com/?lens=the-proposal&utm_source=x&utm_medium=social&utm_campaign=thread",
+  "why": "Calendar 11-26 End Game thread hero, behind-the-data angle, 16:00Z variant carrying the 11-24 experiment verbatim. Counts made this run off the seed (every supabase/seed/content/*.mjs record whose threadIds includes the-proposal): 37 moments; by year 2023:3, 2024:6, 2025:13, 2026:15; earliest is the friendship-bracelet record (midnights.mjs, July 2023, Travis on New Heights); newest is showgirl-new-heights-tailgate-stage-joke, Nov. 11, 2026 (\"my wife\"). X carries the first/newest entries, IG the counts. Thanksgiving warmth without making it about the holiday. Photo is the pre-computed pick (GMA 2012); loosely related.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 5,
+      "onVoice": 4,
+      "specific": 5,
+      "mediaEarnsItsPlace": 3,
+      "notEmbarrassed": 4
+    },
+    "total": 21,
+    "rationale": "Feeling first, then the thread's first and newest sourced entries as bookends: the bracelet he never handed over, and \"my wife\". Different statistic from the IG half; the photo is a credited Taylor portrait.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-25T20:31:05.760Z",
+    "pr": 7144,
+    "message": "social-tree-approve run 45695555710",
+    "contentHash": "sha256:c7ddde28e8353240a78a37d40d5b33e5365dd601eb6f25758045e859690293b6",
+    "mediaDigest": "sha256:e67be2ac95f7a15f806e77b13c2456ded2d49909e74f6e93b0be86f2a1a6e9a7",
+    "sig": "hmac-sha256:dc4443c756b55bbf187d2c56e436fa9e328cca4fcc1684297a3d147cfc6f8052"
+  }
+}
