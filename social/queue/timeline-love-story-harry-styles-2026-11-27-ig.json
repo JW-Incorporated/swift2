@@ -32,5 +32,16 @@
     ],
     "revision": 1
   },
-  "photoEra": "red"
+  "photoEra": "red",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-26T20:08:43.452Z",
+    "pr": 7161,
+    "message": "social-tree-approve run 45888770168",
+    "contentHash": "sha256:728ef8bab0d4319103fe3a5bf0739ccdae72f3993bbf4b589d1492c324ddcca5",
+    "mediaDigest": "sha256:7b5009a135fda3814fd151fcf3beb476086db9c3d58880ca7d0c498cd13aea05",
+    "sig": "hmac-sha256:84fe99499fcd06ba486abfae8133ed8a369b41f02b53b96c2c3a2c329d3a120b"
+  }
 }
