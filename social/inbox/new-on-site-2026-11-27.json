@@ -1,0 +1,68 @@
+{
+  "v": 1,
+  "kind": "new-on-site",
+  "date": "2026-11-27",
+  "windowDays": 7,
+  "since": "2026-11-20T00:00:00.000Z",
+  "count": 4,
+  "media": [
+    "https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853109384226%29.jpg",
+    "https://variety.com/wp-content/uploads/2026/04/tay.jpg",
+    "https://www.youtube.com/watch?v=GkD20ajVxnY",
+    "https://www.youtube.com/watch?v=ko70cExuzZM"
+  ],
+  "moments": [
+    {
+      "id": "vault-debut-big-machine-opens-for-business-with-a-15-year-old-on-the-ros",
+      "eraId": "debut",
+      "title": "Big Machine opens for business, with a 15-year-old on the roster",
+      "year": 2005,
+      "month": 9,
+      "day": 1,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-debut-big-machine-opens-for-business-with-a-15-year-old-on-the-ros",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=GkD20ajVxnY"
+    },
+    {
+      "id": "vault-tloas-eight-nominations-the-most-of-anyone-and-no-wins-at-the-2026",
+      "eraId": "tloas",
+      "title": "Eight nominations, the most of anyone, and no wins at the 2026 AMAs",
+      "year": 2026,
+      "month": 5,
+      "day": 25,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-eight-nominations-the-most-of-anyone-and-no-wins-at-the-2026",
+      "mediaKind": "video",
+      "media": "https://www.youtube.com/watch?v=ko70cExuzZM"
+    },
+    {
+      "id": "vault-tloas-hey-its-taylor-swift-taylor-files-to-trademark-her-voice-and",
+      "eraId": "tloas",
+      "title": "\"Hey, it's Taylor Swift\": Taylor files to trademark her voice and an Eras Tour stage photo",
+      "year": 2026,
+      "month": 4,
+      "day": 24,
+      "category": "business",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-hey-its-taylor-swift-taylor-files-to-trademark-her-voice-and",
+      "mediaKind": "photo",
+      "media": "https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853109384226%29.jpg"
+    },
+    {
+      "id": "vault-tloas-seven-iheartradio-awards-and-a-speech-about-protecting-your-",
+      "eraId": "tloas",
+      "title": "Seven iHeartRadio awards, and a speech about protecting your hobby from the internet",
+      "year": 2026,
+      "month": 3,
+      "day": 26,
+      "category": "music",
+      "significance": "routine",
+      "deepLink": "https://longlivets.com/?item=vault-tloas-seven-iheartradio-awards-and-a-speech-about-protecting-your-",
+      "mediaKind": "photo",
+      "media": "https://variety.com/wp-content/uploads/2026/04/tay.jpg"
+    }
+  ]
+}
