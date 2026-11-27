@@ -19,6 +19,7 @@ import {
 import type { ContentItem, ContentTag } from '@swift2/experience';
 import type { CardTier } from '@swift2/experience';
 import { TIER_BODY } from '../lib/card-chrome';
+import { ERA_IMAGE_PLACEHOLDER_STYLE, hideFailedImage } from '../lib/image-fallback';
 import { cn } from '../lib/utils';
 
 // Split out of EraSection.tsx (PLAN.md P3 step 15 — "EraSection.tsx must come
@@ -180,7 +181,7 @@ export function MomentCardButton({
               16/9 across the full 2-column track is roughly 500px of picture,
               against ~270px for the half-width media card. */}
         {hero && (
-          <div className="relative aspect-[16/9] w-full overflow-hidden">
+          <div className="relative aspect-[16/9] w-full overflow-hidden" style={ERA_IMAGE_PLACEHOLDER_STYLE}>
             <Image
               src={hero.url}
               alt=""
@@ -190,6 +191,7 @@ export function MomentCardButton({
               style={{ objectPosition: focalPointOf(hero) }}
               {...loadAttrs}
               onLoad={autoFocalPoint(hero)}
+              onError={hideFailedImage}
             />
             <div
               aria-hidden
@@ -221,7 +223,7 @@ export function MomentCardButton({
     return (
       <button onClick={onOpen} className={TIER_BODY.chip}>
         {hero && (
-          <div className="relative aspect-[16/10] w-full overflow-hidden">
+          <div className="relative aspect-[16/10] w-full overflow-hidden" style={ERA_IMAGE_PLACEHOLDER_STYLE}>
             <Image
               src={hero.url}
               alt=""
@@ -231,6 +233,7 @@ export function MomentCardButton({
               style={{ objectPosition: focalPointOf(hero) }}
               {...loadAttrs}
               onLoad={autoFocalPoint(hero)}
+              onError={hideFailedImage}
             />
           </div>
         )}
@@ -270,7 +273,7 @@ export function MomentCardButton({
   return (
     <button onClick={onOpen} className={TIER_BODY.media}>
       {hero && (
-        <div className="relative aspect-[16/10] w-full overflow-hidden">
+        <div className="relative aspect-[16/10] w-full overflow-hidden" style={ERA_IMAGE_PLACEHOLDER_STYLE}>
           <Image
             src={hero.url}
             alt=""
@@ -280,6 +283,7 @@ export function MomentCardButton({
             style={{ objectPosition: focalPointOf(hero) }}
             {...loadAttrs}
             onLoad={autoFocalPoint(hero)}
+            onError={hideFailedImage}
           />
           <div
             aria-hidden

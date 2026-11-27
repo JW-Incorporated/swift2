@@ -93,7 +93,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const inAppPlatform = inAppPlatformFromUserAgent(hdrs.get('user-agent'));
 
   return (
-    <html lang="en" className="bg-bg" {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}>
+    <html lang="en" className="bg-bg" suppressHydrationWarning {...(inAppPlatform ? { 'data-app': inAppPlatform } : {})}>
       <head>
         {fontManifest.preload.filter((href) => ABOVE_FOLD_FONT.test(href)).map((href) => (
           <link
