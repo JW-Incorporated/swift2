@@ -4177,6 +4177,102 @@
       "sha256": "cb6b7c78399d9eee29a996c06c1fb7fe54aadc5c6761e584723a14960687da2e",
       "reason": "Multi-photo collage; a man in a beanie dominates, not a single subject",
       "date": "2026-11-26"
+    },
+    {
+      "id": "openverse-8d05f348-bffe-488b-9ed4-38ee1b469b4e",
+      "sha256": "cd2473d4cacf4bfc8b6112edc0ea892ca59b80ac2a02127dd7abebfbf7c40b7f",
+      "reason": "Merchandise flat-lay of album art, CDs and boxes; not a single person photo",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "press-aa79673ceb7d",
+      "sha256": "90e738f17f304764ba95b93a904c2f4500a14c097e774c2d4f66c0730299095f",
+      "reason": "Suite behind glass; woman small, other people dominate the frame",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-b0994268-ee63-4f2c-ae6f-75ce3155ccc9",
+      "sha256": "bd44504a44bb9f70ad50147c76c157a98135cfbce5cac0df7300ff551ebd0cd1",
+      "reason": "Photo of a chocolate box; no person shown",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "press-686fca2524b0",
+      "sha256": "7dc04f52798c5c4cd9c098eb77b5104c43cc80f77dc8e4a45a45a758ca2969b2",
+      "reason": "Embrace with a football player dominant; crowd and cameras; not a single subject",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "press-843198bd567f",
+      "sha256": "abca35d570ff73b1b2745caf91795cb2d218f6bf8610040e7e83a61ca12a0a4a",
+      "reason": "Man in fur coat is dominant; several other people; no single clear subject",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-89bfef08-973c-4b53-b985-ced41cb24dff",
+      "sha256": "fcb675e67f65703a22f5e9f223688de0ae5156dc0d0a4b008f93dbf274b81762",
+      "reason": "Candid, soft; another person's hair in foreground; caption names a man, not Taylor",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-9dc3dabf-28eb-4f72-b471-23e1d8a0c737",
+      "sha256": "8ddd14ab1df8ba7adc7de0924de2a5f942545203f6786c58af13bf6790296da7",
+      "reason": "Object photo: lip-shaped chocolate in a hand, no person pictured",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "press-46f3ac164b3d",
+      "sha256": "b3aadb1ad56ce4ae4df9697206a57fae6124302ffe685d7e2ea8ba434bcba4ce",
+      "reason": "Two people equally prominent; man dominates frame, not a single subject",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "press-6c12a57e647f",
+      "sha256": "f00a19e14e12783ab43fbed6d4fbb60fa438aed3555bcf76d5bd92010c4bcceb",
+      "reason": "Collage of several people and photos; no single main subject",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-52e926fc-91ec-4dde-99eb-497b8b25f75e",
+      "sha256": "87f77b6885dbc85e883d99b7a96523a7c99866afd22a459f1ff5b3f891c086b7",
+      "reason": "Street performer at a Christmas tree; subject small, tree dominates scene",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-d9db04f7-1514-43e6-a7c8-a2ffb8c7577d",
+      "sha256": "129cacda56a275928aaea191ce7913f57201cf25eaba598af4031d0422c767f8",
+      "reason": "Street performer dwarfed by huge Christmas tree and buildings; scene dominates.",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-dd6435d7-7456-4413-ba64-02de475db0dc",
+      "sha256": "dc11669493d4309274d0292180a2054e878e16d52d8067e130c3c880b3262a0a",
+      "reason": "Album cover art with title text and border, not a standalone photo",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-374d06fe-d84d-41dd-81cc-1db9fb9661a9",
+      "sha256": "4f5c66a30fef93f8a3b605712efdc2ff14f82dd493b3f368f6063e516b7d4731",
+      "reason": "Wall with doorbell and tiny stickers; no person prominent",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-aed9bd91-ab32-4b81-b240-41aaac690d97",
+      "sha256": "8685a67242306eac2f8b167d776b5daf49acbd74b3927a6ba51dc838d04ff9ee",
+      "reason": "Album cover art with title text and border, not a standalone photograph",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-9b855d3d-c9e3-44e3-9431-1c24630e4f63",
+      "sha256": "b0e822899ad83d9db7be65d0d8f2a7d932b83de3054169edbf25a9597f2af108",
+      "reason": "Outdoor crowd/venue panorama; no prominent single subject",
+      "date": "2026-11-27"
+    },
+    {
+      "id": "openverse-cb0c6914-0fcf-40a4-b7de-974c6185a728",
+      "sha256": "f3c1e5d3ed4b01ac254f25be9135f08534da54f008727305a90993406e97e043",
+      "reason": "Distant night cityscape; performer tiny on a video screen",
+      "date": "2026-11-27"
     }
   ]
 }

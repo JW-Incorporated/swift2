@@ -3186,6 +3186,20 @@
       "sha256": "32b3ae81324389d4588edd94a50e58fe902d96d378891326a32f277d640f219c"
     },
     {
+      "id": "openverse-e51314e1-fffc-49f0-bdb3-d883fe6d377c",
+      "mediaPath": "/social/library/photos/openverse-e51314e1-fffc-49f0-bdb3-d883fe6d377c.jpg",
+      "credit": "Czar Hey (CC BY-SA 2.0), via Openverse",
+      "source": "https://www.flickr.com/photos/161174688@N08/54203113123",
+      "alt": "Taylor Swift photo: It's Christmas But Can We Sing Taylor Swift (3)",
+      "tags": [
+        "fan-photo"
+      ],
+      "width": 683,
+      "height": 1024,
+      "bytes": 124016,
+      "sha256": "4b3e22d0ba3e68c4d0e740b0a37ec879abc70351ac1ec2085b7a8adc39765001"
+    },
+    {
       "id": "openverse-e9f293ea-3dc8-473d-bcad-0e8e4991c874",
       "mediaPath": "/social/library/photos/openverse-e9f293ea-3dc8-473d-bcad-0e8e4991c874.jpg",
       "credit": "Paolo Villanueva (CC BY 2.0), via Openverse",
@@ -3410,6 +3424,20 @@
       "sha256": "bd23ac1383f122134cd15bb42900028f7a04a09c5f4db5b43799a6c1ea984844"
     },
     {
+      "id": "press-4d4e6c23b638",
+      "mediaPath": "/social/library/photos/press-4d4e6c23b638.jpg",
+      "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/taylor-swift-news-resurfaces-before-bills-thanksgiving-showdown/",
+      "alt": "Taylor Swift in the news: Taylor Swift News Resurfaces Before Chiefs-Bills Thanksgiving Showdown",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Heavy.",
+      "width": 1214,
+      "height": 686,
+      "bytes": 99596,
+      "sha256": "c7c9fdd5f6a3bc764147b70b8cfec7614a568af2500af9e7c2184be36a414cba"
+    },
+    {
       "id": "press-53e23eae36ff",
       "mediaPath": "/social/library/photos/press-53e23eae36ff.jpg",
       "source": "https://heavy.com/sports/nfl/kansas-city-chiefs/travis-kelce-taylor-swift-cma-message/",
@@ -3450,6 +3478,20 @@
       "height": 900,
       "bytes": 128011,
       "sha256": "604e039e695316d78b058f884ae46ac37737011c3e5e895b0acf4e627bb8e882"
+    },
+    {
+      "id": "press-63519364550f",
+      "mediaPath": "/social/library/photos/press-63519364550f.jpg",
+      "source": "https://www.democratandchronicle.com/story/sports/football/nfl/bills/2026/11/26/taylor-swift-bills-chiefs-thanksgiving-game-today/92973993007/",
+      "alt": "Taylor Swift in the news: Is Taylor Swift at Bills vs. Chiefs Thanksgiving game today?",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Rochester Democrat and Chronicle",
+      "width": 1998,
+      "height": 1123,
+      "bytes": 165339,
+      "sha256": "4373b947f870811805c9ce9389c9a4dc742eccac6735d733b54d11d1446f372d"
     },
     {
       "id": "press-67c28d554411",
@@ -3506,6 +3548,20 @@
       "height": 1125,
       "bytes": 104144,
       "sha256": "be5b0a58635eb2db3caf68845cbea53a0be94d21efa632c56dea855ff1b02ea4"
+    },
+    {
+      "id": "press-7e95938fbe52",
+      "mediaPath": "/social/library/photos/press-7e95938fbe52.jpg",
+      "source": "https://www.vcstar.com/story/sports/nfl/chiefs/2026/11/26/is-taylor-swift-attending-chiefs-bills-thanksgiving-game/92917520007/",
+      "alt": "Taylor Swift in the news: Is Taylor Swift at Chiefs vs Bills? Update for Week 12 game",
+      "tags": [
+        "press-photo"
+      ],
+      "credit": "via Ventura County Star",
+      "width": 2048,
+      "height": 1152,
+      "bytes": 310316,
+      "sha256": "98ef2d6bb3f6fdc9d01523336fb548799f77f4e3da05f9d479a376b39eb2788a"
     },
     {
       "id": "press-874fcba42ef6",
