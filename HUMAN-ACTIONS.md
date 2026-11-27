@@ -2,9 +2,20 @@
 
 <!-- ha-format: 2 -->
 
-> **17 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
+> **18 open.** Closed items are in `HUMAN-ACTIONS-DONE.md` — you never need it.
 > To close one: reply `done` (or `skip <why>`) to its card in the project's human-action channel.
 > Anything else you reply is forwarded to a thread on the card.
+
+## #154 🔴 [BLOCKING] Give SOCIAL_POSTER_PAT "Issues: Read and write" on swift2 (~3 min)
+<!-- ha filed=2026-11-27 -->
+<!-- ha verify: workflow-green routine-marjorie-ops.yml -->
+
+**Why:** The 7-day auto-defer lane has posted nothing since at least Nov 26: `gh issue comment` fails on every run under this token, so silent chase HAs are never closed. Every other fix is in; only the token's permission is left.
+**Steps:**
+1. Open https://github.com/settings/tokens — find the token used for SOCIAL_POSTER_PAT (identity `sffan15-sys`).
+2. If it is under "Fine-grained tokens": click it, go to Repository permissions, set `Issues` to "Read and write", Save.
+3. If it is instead a "classic" token with the `repo` scope, change nothing — reply here saying so, since then the cause is something else.
+**Worked if:** The next `routine-marjorie-ops` run's `auto-defer` job is green (it is red today, on purpose).
 
 ## #153 🟡 [DECIDE] Close or route Tree's 9 stuck draft PRs (stale-PR budget over for 26+ days) (~5 min)
 <!-- ha filed=2026-11-24 -->
