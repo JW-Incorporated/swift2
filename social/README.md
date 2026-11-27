@@ -129,9 +129,16 @@ posted image (`hash`, optional `crops`, `file` = media path, `post` = the
 `social/posted/` record, `postId`, `platform`, `campaign`, `postedAt`), keyed by
 a perceptual fingerprint (`lib/image-fingerprint.mjs`: 64-bit dHash of the whole
 picture plus centre crops at 1:1, 4:5 and 1.91:1, via `sharp`). Two images are
-the same picture at Hamming distance <= 6 of 64 (resize, re-encode and rename
-measure 0-3; the closest distinct pair among the 50 posted images is 8; near-flat
-images only match at 0). Padded `-ig45`/`-ig191` variants are matched through
+the same picture at Hamming distance <= 6 of 64 whole-vs-whole (resize,
+re-encode and rename measure 0-3; the closest distinct pair among the 50 posted
+images is 8; near-flat images only match at 0), or <= **3** when the hit is a
+CROP comparison (one side's centre crop against the other's whole picture). The
+crop bound is tighter because a crop comparison is speculative and a crop hash
+discards the context that makes the whole-picture hash discriminating: measured
+over the 569-photo library (#7186), a genuine centre crop scores 0-3 against
+its original in 115 of 120 cases, while four pairs of plainly different
+photographs scored 5-6 on a crop comparison (whole-vs-whole 11-16) - one of them
+wrongly blocked a Tree draft. Padded `-ig45`/`-ig191` variants are matched through
 the library's `variantOf` links. The only sanctioned repeat is the other half of
 the SAME campaign. Enforced three ways: `check-drafts` (hard finding naming the
 earlier post; also queue-vs-queue across campaigns), `validate:social` (ledger

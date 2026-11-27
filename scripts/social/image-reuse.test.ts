@@ -5,7 +5,7 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { afterEach, describe, expect, it } from 'vitest';
 // @ts-expect-error -- plain .mjs without type declarations
-import { IMAGE_MATCH_MAX_BITS, fingerprintDistance, fingerprintImage, fingerprintsMatch } from './lib/image-fingerprint.mjs';
+import { IMAGE_MATCH_MAX_BITS, fingerprintDistance, fingerprintDistances, fingerprintImage, fingerprintsMatch } from './lib/image-fingerprint.mjs';
 // @ts-expect-error -- plain .mjs without type declarations
 import { buildLedger, validateLedgerEntries } from './lib/image-ledger.mjs';
 // @ts-expect-error -- plain .mjs without type declarations
@@ -59,6 +59,29 @@ describe('image fingerprint', () => {
   it('returns null for undecodable bytes', async () => {
     expect(await fingerprintImage(Buffer.from('not an image'))).toBeNull();
   });
+
+  // #7186: a crop comparison only carries signal at 0-3 bits, so its 4-6 band
+  // must not match. Fingerprints measured from the real library objects.
+  describe('crop comparisons are judged on a tighter bound (#7186)', () => {
+    const wikimedia22985355 = { hash: '191d1d2d0d0d0d0d', crops: ['1a1e36460e0e2686', '3b3f27c60e052507', '191d052d0d0d0d0d'] };
+    const evermoreArlingtonIg45 = { hash: '034b0d1d0d0f0f0f', crops: ['4b4d0d0d0d0f0f0f', '0d0d1d1d0d0d0d0f'] };
+    // The same photograph from two sources, one of them re-cropped: crop distance 1.
+    const folkloreInglewood = { hash: '965b582d4dcc0e67', crops: ['5b4a792d4dcd8c26', '2c2bd80d4d4ccd4d'] };
+    const folkloreInglewoodRecrop = { hash: '96537a0d4d8c0f47', crops: ['1b4a792d4dcd8c26', '965b782d4dcc0e67', '2c4bd80d4d4ccd4d'] };
+
+    it('does not call two different photographs the same picture on a 6-bit crop hit', () => {
+      const { whole, crop } = fingerprintDistances(wikimedia22985355, evermoreArlingtonIg45);
+      expect(whole).toBe(13);
+      expect(crop).toBe(6);
+      expect(fingerprintsMatch(wikimedia22985355, evermoreArlingtonIg45)).toBe(false);
+      expect(fingerprintsMatch(evermoreArlingtonIg45, wikimedia22985355)).toBe(false);
+    });
+
+    it('still catches a genuine re-crop of the same photograph', () => {
+      expect(fingerprintDistances(folkloreInglewood, folkloreInglewoodRecrop).crop).toBeLessThanOrEqual(3);
+      expect(fingerprintsMatch(folkloreInglewood, folkloreInglewoodRecrop)).toBe(true);
+    });
+  });
 });
 
 describe('image reuse check', () => {
@@ -93,6 +116,30 @@ describe('image reuse check', () => {
     const ledger = await setup();
     const item = { platform: 'x', campaign: 'new-campaign', media: ['/social/library/photos/different.png'] };
     expect((await checkImageReuse('new-x.json', item, { ledger, fingerprintOf })).findings).toEqual([]);
+  });
+
+  // #7186: the draft check-drafts wrongly blocked - a real photograph against
+  // the real ledger entry its crop hash collided with.
+  it('passes a photo whose only ledger hit is a 6-bit crop collision (#7186)', async () => {
+    const ledger = [
+      {
+        hash: '034b0d1d0d0f0f0f',
+        crops: ['4b4d0d0d0d0f0f0f', '0d0d1d1d0d0d0d0f'],
+        file: '/social/library/photos/taylor-evermore-arlington-2023-2-ig45.jpg',
+        post: '2026-11-06-easter-eggs-willow-string-ig.json',
+        postId: 'IG999',
+        platform: 'instagram',
+        campaign: 'easter-eggs-willow-string',
+        postedAt: '2026-11-06T12:00:00Z',
+      },
+    ];
+    const media = '/social/library/photos/wikimedia-22985355.jpg';
+    const fingerprintReal = async (mediaPath: string) =>
+      mediaPath === media ? { hash: '191d1d2d0d0d0d0d', crops: ['1a1e36460e0e2686', '3b3f27c60e052507', '191d052d0d0d0d0d'] } : null;
+    const item = { platform: 'instagram', campaign: 'timeline-2026-11-27', media: [media] };
+    const { findings, unreadable } = await checkImageReuse('new-ig.json', item, { ledger, fingerprintOf: fingerprintReal });
+    expect(findings).toEqual([]);
+    expect(unreadable).toEqual([]);
   });
 
   it('allows the same picture across the two halves of ONE campaign', async () => {
