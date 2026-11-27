@@ -17216,6 +17216,72 @@ export default {
       },
     },
     {
+      // Authored 2026-11-27 (Vault Run, Content Shift lane) for experience
+      // #6843 (thin Showgirl spring: April had one item). The U.S. filings the
+      // Oct. 6 item below builds on, placed by their filing date (Fri. Apr. 24,
+      // 2026, per Variety). Business/IP facts only, no redline. Two
+      // independent outlets, both read directly this run: AP (via PBS
+      // NewsHour, Maria Sherman) and Variety (Todd Spangler). Fortune ran the
+      // AP copy, so it is not counted as a second source. Gerben's reading of
+      // what the marks are for is attributed, not asserted; Taylor's side did
+      // not comment.
+      slug: 'showgirl-voice-trademark-filings-us',
+      year: 2026,
+      month: 4,
+      day: 24,
+      category: 'business',
+      title: '"Hey, it\'s Taylor Swift": Taylor files to trademark her voice and an Eras Tour stage photo',
+      snippet:
+        'Her company filed two sound marks of her own voice and one stage photograph with the U.S. trademark office, a move a trademark lawyer read as armor against AI imitations.',
+      sourceUrl: 'https://www.pbs.org/newshour/arts/taylor-swift-files-new-trademark-applications-one-expert-says-it-is-to-curb-ai-threats',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On Friday, April 24, 2026, Taylor\'s company TAS Rights Management filed three applications with the U.S. Patent and Trademark Office. Two are sound marks: short recordings of Taylor saying "Hey, it\'s Taylor Swift" and "Hey, it\'s Taylor." The third is a visual mark, a photograph of her on a pink stage holding a pink guitar with a black strap, in a multicolored iridescent bodysuit and silver boots. That is the Lover-set look from the Eras Tour.\n\nThe filings surfaced on April 27, when trademark attorney Josh Gerben wrote about them on his blog. He said the marks look "specifically designed to protect Taylor from threats posed by artificial intelligence." His argument was that right-of-publicity law already covers some misuse of a celebrity\'s likeness, but a registered mark could let her go after imitations that are merely "confusingly similar," not just exact copies. There was a recent precedent: Matthew McConaughey\'s lawyers secured similar trademarks in 2025. Neither Taylor\'s representatives nor Rebecca Liebowitz, the Venable partner listed as attorney on the filings, answered the AP\'s request for comment.\n\nNone of the three marks was registered at filing. The applications were waiting to be assigned to an examining attorney. In October her company took the same voice and image marks to the UK, the EU and Australia, all claiming this April 24 filing date as their priority date.',
+        sources: [
+          {
+            outlet: 'AP (via PBS NewsHour)',
+            url: 'https://www.pbs.org/newshour/arts/taylor-swift-files-new-trademark-applications-one-expert-says-it-is-to-curb-ai-threats',
+            source_title: 'Taylor Swift files new trademark applications. One expert says it is to curb AI threats',
+            publisher: 'PBS NewsHour (Associated Press)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-27',
+            reliability_score: 4,
+            notes:
+              'Maria Sherman, AP, Apr. 28, 2026. Filed "Friday" on behalf of TAS Rights Management; the two sound marks and the stage-photo description; Gerben\'s blog quote; Rebecca Liebowitz (Venable) as attorney; requests for comment not returned.',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-trademark-voice-likeness-ai-misuse-1236731401/',
+            source_title: 'Taylor Swift Files to Trademark Her Voice and Likeness, Apparently to Protect Against AI Misuse',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-27',
+            reliability_score: 4,
+            notes:
+              'Todd Spangler, Apr. 28, 2026 (read via Variety Australia\'s syndicated copy). Independent confirmation of the Friday, April 24 filing date, the three applications and the McConaughey precedent.',
+          },
+        ],
+        // Visual (charter step 3b): the filed image lives only in the USPTO
+        // record, so this is a clearly labeled reference. Wikimedia Commons,
+        // upload.wikimedia.org original 798x1063: curl 200 image/jpeg this run,
+        // downloaded and vision-confirmed as Taylor at SoFi Stadium, Aug. 2023,
+        // with a pink acoustic guitar on a black strap, a sequined iridescent
+        // bodysuit, silver boots and a pink stage, the same look the filing
+        // describes. CC BY 2.0, credited. Not used elsewhere in the corpus.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853109384226%29.jpg',
+            focalPoint: '50% 35%',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'For reference: the Eras Tour Lover-set look the trademarked stage photo shows (pink guitar, iridescent bodysuit, silver boots), here at SoFi Stadium, August 2023. This is not the filed image.',
+            kind: 'reference',
+          },
+        ],
+      },
+    },
+    {
       // Authored 2026-10-16 (Vault Run, Content Shift lane) from intake #6004.
       // Business/IP facts only — no privacy redline (no location, health,
       // security or private individuals). Placed by the real-world date of the
