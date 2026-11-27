@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { getEra } from '@swift2/experience';
+import { accentFgFor } from '../lib/theme';
 import { useProgressActions } from '../store';
 import type { EggNode } from '@swift2/experience';
 import { linksFor } from './ClueWebShared';
@@ -54,10 +55,9 @@ export function NodeRow({
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span
             className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-            style={{
-              backgroundColor: `color-mix(in srgb, ${era.theme.accent} 14%, transparent)`,
-              color: era.theme.accent,
-            }}
+            // #7136: a trail mixes eras, so the pill is the node's era, not the
+            // page's — solid accent fill + accentFgFor clears AA on every theme.
+            style={{ backgroundColor: era.theme.accent, color: accentFgFor(era.theme) }}
           >
             {era.shortName} · {node.year}
           </span>

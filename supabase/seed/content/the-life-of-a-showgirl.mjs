@@ -1144,6 +1144,7 @@ export default {
       slug: 'chiefs-colts-2026-husband-touchdown',
       // End Game thread opt-in (#6842, Vault Run 2026-11-18).
       threadIds: ['the-proposal'],
+      relatedIds: ['moment:vault-tloas-taylor-returns-to-arrowhead-for-the-chiefs-season-opener-wit'],
       year: 2026,
       month: 9,
       day: 20,
@@ -1250,6 +1251,16 @@ export default {
       moment: {
         context:
           'On Nov. 18, 2026, Taylor came back to the CMA Awards stage in Nashville for the first time since 2013. Her slot paired "I Knew It, I Knew You," the Toy Story 5 song that brought her back to country radio, with "Our Song," the track she wrote in high school and last sang at the CMAs in 2007. Keith Urban played banjo beside her, and the number drew cameos from Brad Paisley, host Lainey Wilson, Jennifer Nettles, Kristian Bush and Little Big Town. The next morning her own channel posted the performance as "I Knew It, I Knew You x Our Song (Live From The 60th CMA Awards)."\n\nShe also handed out one of the night\'s honors, presenting Kix Brooks and Ronnie Dunn with the Willie Nelson Lifetime Achievement Award. She said the duo had "provided the world with eternal bangers" and still "approach their music with the mischief and excitement of little kids just discovering their love for this." She made it personal too: "They\'ve mentored and supported so many artists over the years, like me. Ronnie will provide you with sage advice and Kix will mercilessly tease you." And: "They don\'t take very much too seriously, except for all the important stuff: their families, their fans, and country music."\n\nThe one thing that didn\'t go her way was the award she came in nominated for. Single of the Year went to Ella Langley\'s "Choosin\' Texas," not "I Knew It, I Knew You." Langley, who had been the one dethroned when "Patient Zero" took over No. 1 on the Hot 100 in October, accepted alongside Miranda Lambert, the song\'s co-writer and producer, and called herself a longtime fan of the artist she beat: "I\'m a fan of how hard she works. I\'m a fan of how hard she fights for her artistry." The same night in Hollywood, though, the song won Song — Animated Film at the Hollywood Music in Media Awards.\n\nThe night was dressed for the occasion, too. Taylor walked the red carpet solo in a bright yellow Oscar de la Renta gown from the label\'s spring/summer 2027 collection, with a dramatic high-low hem and ruffles. Then the performance opened in a backstage dressing room hung with her own early-career wardrobe: the butter-yellow ballgown from the 2007 CMA Awards, the year of her first win there; a floral halter dress from the 2006 ACM Awards, one of her first big red carpets; and the teal ballgown from the "Teardrops on My Guitar" video, which she also wore to the 2007 CMT Awards when "Tim McGraw" won Breakthrough Video of the Year. A Jessie doll sat on the couch, her blue guitar carried Toy Story\'s white clouds, and a tire-swing tree on stage read "Jessie was here."\n\nThe room had a wedding joke waiting for her, too. Host Lainey Wilson, married herself in May, said she\'d never forget what her husband told her when they went looking for a wedding venue, then sang it with Brad Paisley to the tune of Lynn Anderson\'s "Rose Garden": "I beg your pardon, but I never promised you Madison Square Garden." Taylor buried her face in Brittany Mahomes\' shoulder laughing, then mouthed "That was good" back at the stage. Paisley, one of the guests at her July 3 wedding, kept the bit going: "Remember me?" he asked, as she nodded along. "I ate all the shrimp."',
+        photos: [
+          {
+            url: 'https://cdn.abcotvs.com/dip/images/20053709_111826-ap-taylor-swift-cmas-img.jpg?w=1600',
+            focalPoint: '55% 22%',
+            credit: 'AP, via ABC7',
+            caption:
+              'Performing "I Knew It, I Knew You" at the 60th CMA Awards on a stage dressed as a Toy Story backyard: the "Jessie was here" tree, a tire swing and a guitar covered in Toy Story clouds.',
+            kind: 'primary',
+          },
+        ],
         sources: [
           {
             outlet: 'Good Morning America',
@@ -4363,6 +4374,8 @@ export default {
       // first half of the pattern lives on that TTPD-era page.
       relatedIds: [
         'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+        // Cross-link: the next Arrowhead suite sighting of the same season, the Nov 23, 2025 overtime win.
+        'moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter',
       ],
       moment: {
         context:
@@ -8469,7 +8482,11 @@ export default {
       category: 'sighting',
       // Cross-link (candidate #1041): the game-day outfit she wore to this same
       // Nov 23, 2025 Colts game.
-      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
+      relatedIds: [
+        'moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game',
+        // Cross-link: the Oct 12, 2025 Arrowhead suite sighting that opened her season at Chiefs games.
+        'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
+      ],
       title: 'Back in the suite window for an overtime nail-biter',
       snippet:
         'After weeks of slipping into Arrowhead unphotographed, she was visible celebrating the Colts game from the suite — playfully shaking her dad by the shoulders as Butker\'s kick won it 23-20 in OT.',
@@ -15299,6 +15316,160 @@ export default {
         ],
       },
     },
+    {
+      // Content Shift (Vault Run 2026-11-26), experience #6843 (Nils: Showgirl
+      // Jan-May 2026 is thin). The night was only a clause inside the
+      // "Elizabeth Taylor" radio item. Read directly this run: iHeart's
+      // winners list (seven WINNER marks, four losses, Dolby/Ludacris) and
+      // iHeart's own speech write-up (Sarah Tate, Mar. 27, 2026: Alysa Liu
+      // presenting, every quote below). Cut: the nomination count (sources
+      // disagree, nine vs. eleven listed categories). The Kelce seating detail,
+      // cut here at first for one outlet, was restored in the second pass. Photo already
+      // in the corpus; re-downloaded and viewed this run.
+      slug: 'showgirl-iheartradio-2026-artist-of-the-year',
+      // End Game thread opt-in (#6843, Vault Run 2026-11-26 second pass): the
+      // Kelce detail cut this morning for having one outlet now has three
+      // (iHeart's own write-up, TODAY via NBC LA, Page Six via AOL), all read.
+      threadIds: ['the-proposal'],
+      year: 2026,
+      month: 3,
+      day: 26,
+      category: 'music',
+      title: 'Seven iHeartRadio awards, and a speech about protecting your hobby from the internet',
+      snippet:
+        'Taylor won Artist of the Year and six more at the 2026 iHeartRadio Music Awards, and told fans to give their passions time "completely unobserved."',
+      sourceUrl: 'https://news.iheart.com/featured/iheartradio-music-awards/content/2026-03-27-taylor-swift-urges-fans-to-nurture-your-hobby-with-artist-of-the-year-win/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2026 iHeartRadio Music Awards were held on Thursday, March 26, at the Dolby Theatre in Los Angeles, with Ludacris hosting. Taylor was in the room, and she won seven awards: Artist of the Year, Album of the Year and Pop Album of the Year for The Life of a Showgirl, and Pop Song of the Year for "The Fate of Ophelia." The fan-voted categories gave her three more: Best Lyrics and Best Music Video for "Ophelia," and Favorite Tour Style for the Eras Tour. She lost Song of the Year to Alex Warren\'s "Ordinary" and Pop Artist of the Year to Sabrina Carpenter.\n\nIt was also the first awards show she and Travis Kelce attended together. They arrived separately and didn\'t walk the red carpet together, but he sat beside her in the front row, and when Pop Album of the Year was announced she kissed him before heading up to the stage.\n\nOlympic gold medalist Alysa Liu handed her Artist of the Year, and Taylor used the speech to talk about where it started. "I didn\'t think I was an artist when I first started doing this, it was a hobby," she said, describing "thousands of hours working at my craft, practicing making mistakes through trial and error ... all completely unobserved."\n\nThen she turned it to the audience. "If I had one hope for you, I would say that I hope that you can get to nurture your hobby and your passion just between you and that craft, and you give yourself time. Give yourself time to make mistakes, give yourself time to hone your craft." Her reason: "I\'m a firm believer that anything you feed your mind, it will internalize. Anything you feed the internet, it will attempt to kill, and I don\'t want that for your dreams." She closed by thanking fans "for allowing me to turn my hobby into a love, into a passion, into a dream, into a career."\n\nTwo months later the American Music Awards went the other way: she led their nominations with eight and won none.',
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://news.iheart.com/featured/iheartradio-music-awards/content/2026-03-27-taylor-swift-urges-fans-to-nurture-your-hobby-with-artist-of-the-year-win/',
+            source_title: "Taylor Swift Urges Fans To 'Nurture Your Hobby' With Artist Of The Year Win",
+            publisher: 'iHeartMedia',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'By Sarah Tate, Mar. 27, 2026; read in full. Primary for her attendance, Alysa Liu presenting, and every speech quote.',
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2026-03-25-2026-iheartradio-music-awards-see-the-complete-list-of-winners-revealed/',
+            source_title: '2026 iHeartRadio Music Awards: See The Complete List Of Winners',
+            publisher: 'iHeartMedia',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'Read in full this run. Primary for the seven categories marked WINNER, the Song of the Year and Pop Artist losses, the Dolby Theatre and Ludacris.',
+          },
+          {
+            outlet: 'TODAY (via NBC Los Angeles)',
+            url: 'https://www.nbclosangeles.com/entertainment/entertainment-news/taylor-swift-travis-kelce-2026-iheartradio-music-awards/3867410/',
+            source_title: 'Taylor Swift and Travis Kelce at the 2026 iHeartRadio Music Awards',
+            publisher: 'NBCUniversal',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-26',
+            reliability_score: 4,
+            notes: 'By Ariana Brockington, TODAY, Mar. 27, 2026; read this run. For: arrived separately, Kelce beside her in the first row, the kiss after Pop Album of the Year, first award show attended together.',
+          },
+          {
+            outlet: 'Page Six (via AOL)',
+            url: 'https://www.aol.com/lifestyle/taylor-swift-travis-kelce-awards-011820556.html',
+            source_title: 'Taylor Swift and Travis Kelce make their awards show debut at iHeartRadio Music Awards 2026',
+            publisher: 'Page Six',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-26',
+            reliability_score: 3,
+            notes: 'By Jolie Zenna, Mar. 27, 2026; read this run. Independent second source for: no joint red carpet, by her side in the audience, the kiss before she took the stage, awards-show debut as a couple.',
+          },
+        ],
+        // Re-downloaded and viewed 2026-11-26: HTTP 200, image/jpeg, 1000x667.
+        // Taylor on the iHeartRadio/FOX step-and-repeat. Same image the
+        // corpus already uses on the NYT songwriters item.
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2026/04/tay.jpg',
+            focalPoint: '50% 38%',
+            credit: 'Phillip Faraone/Getty Images for iHeartRadio, via Variety',
+            caption: 'Taylor arriving at the 2026 iHeartRadio Music Awards at the Dolby Theatre, March 26, 2026.',
+            kind: 'sighting',
+          },
+        ],
+      },
+    },
+    {
+      // Content Shift (Vault Run 2026-11-26), experience #6843 (Nils: Showgirl
+      // May 2026 had zero items). Read directly this run: the AMAs' own
+      // nominations release (Apr. 14, 2026: the eight categories, the
+      // leader line, date/venue/host/network) and winners release (5/25/26:
+      // every winner in her eight categories), plus ABC Audio (Andrea
+      // Dresdale, May 22, 2026) citing People for her not attending. Cut:
+      // "second straight shutout" and her career AMA total (only seen in
+      // search snippets, never read). Redlines: clean; a televised awards
+      // show at a named venue, and she was not there.
+      slug: 'showgirl-amas-2026-eight-nominations-no-wins',
+      year: 2026,
+      month: 5,
+      day: 25,
+      category: 'music',
+      title: 'Eight nominations, the most of anyone, and no wins at the 2026 AMAs',
+      snippet:
+        'Taylor led the 52nd American Music Awards with eight nominations for Showgirl, "The Fate of Ophelia" and "Elizabeth Taylor," skipped the May 25 show in Las Vegas, and went home with nothing.',
+      sourceUrl: 'https://www.theamas.com/2026/05/winners-announced-for-the-52nd-american-music-awards/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'When the 52nd American Music Awards nominations came out on April 14, 2026, Taylor was at the top of the list with eight, one more than Morgan Wallen, Olivia Dean, Sabrina Carpenter and Sombr, who had seven each. Showgirl was up for Album of the Year and Best Pop Album. "The Fate of Ophelia" was up for Song of the Year, Best Pop Song and Best Music Video, and "Elizabeth Taylor" got a Song of the Summer nod. She was also nominated for Artist of the Year and Best Female Pop Artist.\n\nThe show aired live on CBS on Memorial Day, Monday, May 25, from the MGM Grand Garden Arena in Las Vegas, with Queen Latifah hosting. Taylor wasn\'t there: word that the lead nominee would skip it came three days earlier, via People, so anyone hoping for an announcement during the broadcast was out of luck.\n\nShe didn\'t win any of the eight. BTS took Artist of the Year and Song of the Summer (for "SWIM"). Sabrina Carpenter\'s Man\'s Best Friend won both Album of the Year and Best Pop Album, and Carpenter also won Best Female Pop Artist. HUNTR/X\'s "Golden" won Song of the Year and Best Pop Song, and KATSEYE\'s "Gnarly" won Best Music Video.\n\nIt was the same spring Showgirl had no Grammy shot at all, because the album came out after the eligibility window. It got that shot six months later, when it was nominated for the 2027 Grammys.',
+        video: {
+          youtubeId: 'ko70cExuzZM',
+          title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)',
+        },
+        sources: [
+          {
+            outlet: 'American Music Awards',
+            url: 'https://www.theamas.com/2026/05/winners-announced-for-the-52nd-american-music-awards/',
+            source_title: 'Winners Announced for the 52nd American Music Awards',
+            publisher: 'American Music Awards (dick clark productions)',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'Read in full this run. Dated 5/25/26. Primary for every winner in her eight categories and the "led nominations with eight" line.',
+          },
+          {
+            outlet: 'American Music Awards',
+            url: 'https://www.theamas.com/2026/04/52nd-american-music-awards-nominations-revealed/',
+            source_title: '52nd American Music Awards Nominations Revealed',
+            publisher: 'American Music Awards (dick clark productions)',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'Read in full this run. Dated April 14, 2026. Primary for the eight categories, the seven-each runners-up, and the May 25 CBS/MGM Grand/Queen Latifah details.',
+          },
+          {
+            outlet: 'ABC Audio',
+            url: 'https://www.hits1053sanantonio.com/news/leading-nominee-taylor-swift-is-skipping-american-music-awards/7SY5ZYEQW47JZKVQ2PIN4VOOKQ/',
+            source_title: 'Leading nominee Taylor Swift is skipping the American Music Awards',
+            publisher: 'ABC Audio (syndicated)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-26',
+            reliability_score: 4,
+            notes: 'By Andrea Dresdale, May 22, 2026; read in full. Attributes her non-attendance to People. No reason given, so none is stated.',
+          },
+          {
+            outlet: 'YouTube',
+            url: 'https://www.youtube.com/watch?v=ko70cExuzZM',
+            source_title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)',
+            publisher: 'Taylor Swift (official YouTube channel)',
+            source_type: 'official',
+            accessed_at: '2026-11-26',
+            reliability_score: 5,
+            notes: 'oEmbed-verified this run: HTTP 200, author_name "Taylor Swift". The Best Music Video nominee itself.',
+          },
+        ],
+      },
+    },
     // Content Shift (Vault Run 2026-09-04): intake #3694 context — the durable,
     // verifiable milestone behind that ticket. Placed by real-world date (the
     // June 2026 country-radio impact week), not by the ticket's "this week"
@@ -15601,7 +15772,10 @@ export default {
       slug: 'showgirl-chiefs-broncos-2026-opener-tom-cruise',
       // End Game thread opt-in (#6842, Vault Run 2026-11-18).
       threadIds: ['the-proposal'],
-      relatedIds: ['moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-'],
+      relatedIds: [
+        'moment:vault-tloas-tom-cruise-says-taylor-was-schooling-him-on-football-at-the-',
+        'moment:vault-tloas-thats-my-husband-a-wedding-ring-salute-for-kelces-first-td-o',
+      ],
       year: 2026,
       month: 9,
       day: 14,

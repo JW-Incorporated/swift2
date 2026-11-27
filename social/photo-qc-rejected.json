@@ -4141,6 +4141,42 @@
       "sha256": "dc73c237d9955a7f19b7d819cc72f2499e2ad94c8652ef5c6fd9fdc205656b11",
       "reason": "Red-carpet backdrop with repeated Songwriters Hall of Fame logos behind her",
       "date": "2026-11-25"
+    },
+    {
+      "id": "press-d43866094b29",
+      "sha256": "454fc3f309c463f11fbc509f811a0099ad96393d3fe5d35bf77861aed49a904d",
+      "reason": "Financial Review logo and Opinion label overlay the photo; reject.",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "press-3c681aec5273",
+      "sha256": "eb0d47eb12bf940a095662da845c20d3867dbe7e61bbe7e7df45ec73d4240bc8",
+      "reason": "Two people equally prominent; a man on right competes for focus.",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "press-fa61dafbff98",
+      "sha256": "743718941f6dfab2f648579fb8e63ba06e33f9cbb9960a93ca271e4462521c38",
+      "reason": "Video screenshot with TMZ watermark; a different man dominates, inset is small",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "press-e1357717830c",
+      "sha256": "b81364f2829955e78eb352364e7221edc8289235ad01a199630795de7c9d7bd4",
+      "reason": "TMZ-style collage with second person inset; not a single-subject photo",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "press-90c26b5bf766",
+      "sha256": "5d89e187fb5f4f33dd3c95354f07ffe2061447fad8fac917698173bedb679c23",
+      "reason": "Sequin dress on stage, not a black knit as the caption says",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "press-cedbb93c1ac2",
+      "sha256": "cb6b7c78399d9eee29a996c06c1fb7fe54aadc5c6761e584723a14960687da2e",
+      "reason": "Multi-photo collage; a man in a beanie dominates, not a single subject",
+      "date": "2026-11-26"
     }
   ]
 }

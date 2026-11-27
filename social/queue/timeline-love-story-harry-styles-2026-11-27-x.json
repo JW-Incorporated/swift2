@@ -1,0 +1,47 @@
+{
+  "platform": "x",
+  "lane": "calendar",
+  "mediaKind": "photo",
+  "photoId": "red-inglewood-2023-2",
+  "media": [
+    "/social/library/photos/taylor-red-inglewood-2023-2.jpg"
+  ],
+  "mediaCredit": "Paolo Villanueva (CC BY 2.0), via Wikimedia Commons",
+  "mediaSource": "https://commons.wikimedia.org/wiki/File:Eras_Tour_-_Inglewood,_California_-_Red_act_1.jpg",
+  "altText": [
+    "Taylor Swift in a sequined red top and black shorts performing 'I Knew You Were Trouble' in the Red set of the Eras Tour, Inglewood 2023, with pink smoke behind her."
+  ],
+  "scheduledAt": "2026-11-27T23:00:00Z",
+  "campaign": "timeline:love-story:harry-styles:2026-11-27",
+  "body": "i am still a little stunned by how fast this one went 🥹 the Harry Styles chapter of our Blank Spaces timeline opens in early december 2012 and closes january 7, 2013. about five weeks, and Red had only been out since october 22! https://www.longlivets.com/?lens=love-story&utm_source=x&utm_medium=social&utm_campaign=timeline",
+  "why": "Nov 27 Blank Spaces timeline beat, chapter: Harry Styles (supabase/seed/lenses/relationships.mjs rel-styles: first photographed together early Dec 2012, breakup reported Jan 7 2013 on a British Virgin Islands trip) plus Red release Oct 22 2012. Photo: Red-era library pick (Eras Tour Inglewood 2023); the pre-computed GMA pick failed check-drafts as a same-picture match. The lens-order chapter after Jake Gyllenhaal is Conor Kennedy (rel-kennedy); passed over because its own sourcing centres on him still being in high school and on his family, which sits against the family/minors blocklist line. utm_campaign timeline; no song attribution asserted.",
+  "critique": {
+    "v": 1,
+    "scores": {
+      "onStrategy": 4,
+      "onVoice": 4,
+      "specific": 4,
+      "mediaEarnsItsPlace": 4,
+      "notEmbarrassed": 4
+    },
+    "total": 20,
+    "rationale": "Opens on the feeling of how fast the chapter went, then the lens dates and the Red release as the one checkable frame. Confirmed public history only, first person throughout, and the Eras Tour Red-set photo keeps Taylor in that era.",
+    "rulesChecked": [
+      "L003",
+      "L002"
+    ],
+    "revision": 1
+  },
+  "photoEra": "red",
+  "approval": {
+    "v": 4,
+    "kind": "tree-auto",
+    "by": "tree:auto",
+    "at": "2026-11-26T20:08:43.452Z",
+    "pr": 7161,
+    "message": "social-tree-approve run 45888770168",
+    "contentHash": "sha256:4050abb80ed682c48ccc2a4964661e5f4b1129764d97b834fe2c678a367c2328",
+    "mediaDigest": "sha256:882720324f2282898931c8ad2c3be0a79853c4a02522d74d4f1fcaf867517acb",
+    "sig": "hmac-sha256:52fbe6ad7a70e6c0ea6f86e595468baa2e9777f992ad75619b260c6ac8e49c75"
+  }
+}
