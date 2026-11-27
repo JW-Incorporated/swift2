@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
 import {
   CHANGELOG_ARCHIVE_FILE,
@@ -373,6 +373,17 @@ describe('strategy-doc CLI (main() executed with a mocked gh/git)', () => {
   });
 
   describe('open-pr', () => {
+    // main() rotates the Changelog against the clock, so these fixtures' fixed dates only
+    // stay inside the retention window under a pinned one. Unpinned, the 2026-10 lines aged
+    // out as the real date drifted and broke this block on 2026-11-27 (#7171).
+    const PINNED = '2026-11-16';
+    beforeEach(() => {
+      vi.useFakeTimers({ toFake: ['Date'] });
+      vi.setSystemTime(new Date(`${PINNED}T00:00:00Z`));
+    });
+    afterEach(() => {
+      vi.useRealTimers();
+    });
     const NEWER = '- **2026-10-02** (Joey) — "stop X"';
     const setup = (proposal: string) => {
       const root = tmp();
@@ -430,6 +441,15 @@ describe('strategy-doc CLI (main() executed with a mocked gh/git)', () => {
       expect(await main(args, { exec, env: {}, root })).toBe(0);
       expect(exec).toHaveBeenCalledWith('git', ['add', STRATEGY_FILE]);
       expect(existsSync(path.join(root, CHANGELOG_ARCHIVE_FILE))).toBe(false);
+    });
+    it('runs on a pinned clock whose window still holds the fixtures’ dates (#7171)', () => {
+      // Guards the bug class, not one case: drop the pin (or move it far enough) and these
+      // fixed fixture dates age out of CHANGELOG_KEEP_WEEKS, so the block fails on a date.
+      const today = new Date().toISOString().slice(0, 10);
+      expect(today).toBe(PINNED);
+      const oldest = '2026-10-01';
+      const weeksOld = (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${oldest}T00:00:00Z`)) / (7 * 86_400_000);
+      expect(weeksOld).toBeLessThan(CHANGELOG_KEEP_WEEKS);
     });
     it('fails (exit 1) on a missing proposal or a malformed one', async () => {
       quiet();
