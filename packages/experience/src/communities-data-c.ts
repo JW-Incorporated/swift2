@@ -10,9 +10,9 @@
  * — that file is the source of truth this was generated from.
  */
 
-import type { Community } from './communities';
+import type { CommunityRecord } from './communities';
 
-export const COMMUNITIES_DATA_C: Community[] = [
+export const COMMUNITIES_DATA_C: CommunityRecord[] = [
   {
     name: "ｓｗｉｆｔｃｏｒｄ",
     platform: "Discord",
@@ -33,7 +33,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://discord.com/invite/swiftcord"],
   },
   {
@@ -55,7 +55,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://www.facebook.com/groups/1404884973507150/",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: [],
   },
   {
@@ -78,7 +78,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["Invite code originally found in search (nVmJbsFEsn) is a random, non-vanity code -- use the vanity URL above, which we confirmed is stable."],
+    curationNotes: ["Invite code originally found in search (nVmJbsFEsn) is a random, non-vanity code -- use the vanity URL above, which we confirmed is stable."],
     recommendedIn: ["https://discord.com/invite/nVmJbsFEsn"],
   },
   {
@@ -99,7 +99,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       method: "Fetched https://www.tumblr.com/taylorswiftdaily directly; could not confirm an exact recent timestamp within the fetched view.",
       checkedAt: "2026-08-14",
     },
-    flags: ["Exact posting recency could not be pinned down precisely, treat activity_level here as a lower-confidence estimate"],
+    curationNotes: ["Exact posting recency could not be pinned down precisely, treat activity_level here as a lower-confidence estimate"],
     recommendedIn: [],
   },
   {
@@ -122,7 +122,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://discord.com/invite/xfw4mAJR6j", "https://discord.com/invite/tsnotifs"],
   },
   {
@@ -144,7 +144,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://kaylorfanfiction.tumblr.com/timeline",
     },
-    flags: ["Same real-person-shipping sensitivity as the Kaylor and Gaylor theory community above", "Could not confirm current (last-60-day) posting activity on the AO3 tag itself"],
+    curationNotes: ["Same real-person-shipping sensitivity as the Kaylor and Gaylor theory community above", "Could not confirm current (last-60-day) posting activity on the AO3 tag itself"],
     recommendedIn: [],
   },
   {
@@ -165,7 +165,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       method: "Fetched https://similarworlds.com/music/taylor-swift directly.",
       checkedAt: "2026-08-14",
     },
-    flags: ["Hosted on a general discussion and relationships site, not a Swift-specific platform, expect non-fandom content nearby"],
+    curationNotes: ["Hosted on a general discussion and relationships site, not a Swift-specific platform, expect non-fandom content nearby"],
     recommendedIn: [],
   },
   {
@@ -187,7 +187,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://m.facebook.com/groups/1220925938596348/",
     },
-    flags: ["Weakest-evidence entry in this file -- could not confirm the group is live/active beyond its appearance in a search result listing"],
+    curationNotes: ["Weakest-evidence entry in this file -- could not confirm the group is live/active beyond its appearance in a search result listing"],
     recommendedIn: [],
   },
   {
@@ -209,7 +209,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "HTTP 406 (bot-block signature, not 404) — exists but could not be independently re-confirmed 2026-08-14",
     },
-    flags: ["Activity has visibly declined; admins have noted personal circumstances limiting updates, worth knowing before pointing fans somewhere quiet"],
+    curationNotes: ["Activity has visibly declined; admins have noted personal circumstances limiting updates, worth knowing before pointing fans somewhere quiet"],
     recommendedIn: ["https://forums.feedspot.com/taylor_swift_forums/"],
   },
   {
@@ -232,7 +232,7 @@ export const COMMUNITIES_DATA_C: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["No vanity URL on this guild -- the invite code is a plain random string and carries real risk of expiring or being regenerated. Check before publishing and re-verify periodically.", "Lowest presence ratio of the verified set (3.7%) -- treat activity_level as a soft signal, not a guarantee."],
+    curationNotes: ["No vanity URL on this guild -- the invite code is a plain random string and carries real risk of expiring or being regenerated. Check before publishing and re-verify periodically.", "Lowest presence ratio of the verified set (3.7%) -- treat activity_level as a soft signal, not a guarantee."],
     recommendedIn: ["https://discord.com/invite/zaSXCfpzcF"],
   },
 ];

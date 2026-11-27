@@ -10,9 +10,9 @@
  * — that file is the source of truth this was generated from.
  */
 
-import type { Community } from './communities';
+import type { CommunityRecord } from './communities';
 
-export const COMMUNITIES_DATA_A: Community[] = [
+export const COMMUNITIES_DATA_A: CommunityRecord[] = [
   {
     name: "r/TaylorSwift (official Discord)",
     platform: "Discord",
@@ -33,7 +33,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://discord.com/invite/taylorswift", "https://disboard.org/servers/tag/taylor-swift"],
   },
   {
@@ -56,7 +56,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: ["https://thehiveindex.com/communities/r-taylorswift/", "https://au.rollingstone.com/music/music-news/taylor-swift-fandom-gaylor-report-exclusive-46481/", "https://www.yahoo.com/entertainment/taylor-swift-subreddit-became-crash-053108842.html"],
     },
-    flags: ["Reported member counts vary wildly by source and date (200k, 460k, 1.8M and 3.8M all appeared across different secondary sites during this research); none recorded as fact.", "Reportedly bans pro-Gaylor and sexuality-discussion posts per Rolling Stone AU."],
+    curationNotes: ["Reported member counts vary wildly by source and date (200k, 460k, 1.8M and 3.8M all appeared across different secondary sites during this research); none recorded as fact.", "Reportedly bans pro-Gaylor and sexuality-discussion posts per Rolling Stone AU."],
     recommendedIn: ["https://thehiveindex.com/communities/r-taylorswift/", "https://au.rollingstone.com/music/music-news/taylor-swift-fandom-gaylor-report-exclusive-46481/", "https://www.yahoo.com/entertainment/taylor-swift-subreddit-became-crash-053108842.html"],
   },
   {
@@ -77,7 +77,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       method: "Fetched https://atrl.net/forums/topic/502599-taylor-swift (thread overview) and page 2335 (last page) directly; confirmed live posting activity and thread metadata.",
       checkedAt: "2026-08-14",
     },
-    flags: ["ATRL is a general pop-culture forum, not Swift-exclusive, this is one very large thread within it, and forum-wide tone is blunter and snarkier than fan-only spaces"],
+    curationNotes: ["ATRL is a general pop-culture forum, not Swift-exclusive, this is one very large thread within it, and forum-wide tone is blunter and snarkier than fan-only spaces"],
     recommendedIn: [],
   },
   {
@@ -89,7 +89,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
     onlineCount: 15867,
     activityLevel: "High",
     activityEvidence: "approximate_presence_count 15867 of 144217 members (11.0%) via invite API",
-    description: "The single biggest Taylor Swift server we could verify, and it is upfront that it is fan-run, not official. High raw numbers and a healthy presence ratio, so this is not just a dead number farm.",
+    description: "The single biggest Taylor Swift server we could verify, and it is upfront that it is fan-run, not official. Lots of members, and a healthy share of them online at any time, so it is not just a big number.",
     backstory: "Guild description literally reads 'WE ARE NOT AFFILIATED WITH TAYLOR SWIFT' -- a good sign of an honest, non-scammy fan operation rather than an impersonation server. Its long-form vanity URL confirms an active, stable community rather than a throwaway.",
     niche: "general",
     joinRequirements: "Unknown (not visible via invite API without joining)",
@@ -100,7 +100,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["Invite code found in search (qfxP85uSYb) is a random, non-vanity code and could be rotated or revoked -- use the vanity URL above instead, which we confirmed is stable."],
+    curationNotes: ["Invite code found in search (qfxP85uSYb) is a random, non-vanity code and could be rotated or revoked -- use the vanity URL above instead, which we confirmed is stable."],
     recommendedIn: ["https://discord.com/invite/qfxP85uSYb"],
   },
   {
@@ -122,7 +122,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: "https://www.bustle.com/entertainment/taylor-swift-eras-tour-helped-us-heal",
     },
-    flags: ["A second group calling itself Taylor Swifts Vault 2.0 also exists on Facebook (facebook.com/groups/taylorswiftsvault2/); a post in the original group titled a lot of confusion over whose verified and whose not suggests fans have had trouble telling legitimate admins/spinoffs from impersonators. Unconfirmed beyond that snippet -- flagging so fans double-check they have joined the group they intend to."],
+    curationNotes: ["A second group calling itself Taylor Swifts Vault 2.0 also exists on Facebook (facebook.com/groups/taylorswiftsvault2/); a post in the original group titled a lot of confusion over whose verified and whose not suggests fans have had trouble telling legitimate admins/spinoffs from impersonators. Unconfirmed beyond that snippet -- flagging so fans double-check they have joined the group they intend to."],
     recommendedIn: ["https://www.bustle.com/entertainment/taylor-swift-eras-tour-helped-us-heal"],
   },
   {
@@ -145,7 +145,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       evidenceUrl: "https://taylorswiftswitzerland.ch/index.php/wiki/taylor-conncect/",
       orchestratorRecheck: "HTTP 406 (bot-block signature, not 404) — exists but could not be independently re-confirmed 2026-08-14",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://forums.feedspot.com/taylor_swift_forums/"],
   },
   {
@@ -168,7 +168,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       evidenceUrl: ["https://gummysearch.com/r/SwiftlyNeutral/", "https://theneedledrop.com/opinion/miniseries-review-taylor-swifts-the-end-of-an-era/"],
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://gummysearch.com/r/SwiftlyNeutral/", "https://theneedledrop.com/opinion/miniseries-review-taylor-swifts-the-end-of-an-era/"],
   },
   {
@@ -191,7 +191,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: ["High verification_level (4) on the guild suggests phone-verification is required to join -- worth knowing before recommending to a casual fan."],
+    curationNotes: ["High verification_level (4) on the guild suggests phone-verification is required to join -- worth knowing before recommending to a casual fan."],
     recommendedIn: ["https://discord.com/invite/swiftieswanttickets"],
   },
   {
@@ -203,7 +203,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
     onlineCount: 4201,
     activityLevel: "High",
     activityEvidence: "approximate_presence_count 4201 of 37792 members (11.1%) via invite API",
-    description: "A general-purpose Taylor Swift fan hub that punches above its member count on activity -- one of the highest presence ratios of any server we verified. Good middle-ground pick if the biggest servers feel too chaotic.",
+    description: "A general-purpose Taylor Swift fan hub that punches above its member count on activity -- one of the highest shares of members online of any server we checked. Good middle-ground pick if the biggest servers feel too chaotic.",
     backstory: "Holds the short, one-word vanity 'taylor' -- Discord only grants that to servers with sustained boost levels, so this has been actively maintained and funded by its community for a while. No specific founding date could be verified.",
     niche: "general",
     joinRequirements: "Unknown (not visible via invite API without joining)",
@@ -214,7 +214,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       checkedAt: "2026-08-14",
       orchestratorRecheck: "invite API re-verified by orchestrator 2026-08-14, 0% count drift",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://discord.com/invite/taylor", "https://disboard.org/servers/tag/taylor"],
   },
   {
@@ -235,7 +235,7 @@ export const COMMUNITIES_DATA_A: Community[] = [
       method: "Fetched https://buzzjack.com/forums/Taylor-Swift-f177.html directly.",
       checkedAt: "2026-08-14",
     },
-    flags: [],
+    curationNotes: [],
     recommendedIn: ["https://forums.feedspot.com/taylor_swift_forums/"],
   },
 ];
