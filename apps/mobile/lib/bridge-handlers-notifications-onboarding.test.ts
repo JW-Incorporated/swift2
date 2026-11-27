@@ -54,3 +54,18 @@ describe('notifications.onboardingOffered / markOnboardingOffered', () => {
     expect(none.markOnboardingOffered).toBeUndefined();
   });
 });
+
+describe('notifications.openSettings', () => {
+  it('opens the phone Settings and answers null', async () => {
+    const openSettings = vi.fn().mockResolvedValue(undefined);
+    const h = createHandlers({ ...base, openSettings } as never);
+    expect(await h['notifications.openSettings']({}, ctx)).toEqual({ ok: true, value: null });
+    expect(openSettings).toHaveBeenCalledTimes(1);
+  });
+
+  it('a rejected open or a missing dep answers a fixed failure', async () => {
+    const h = createHandlers({ ...base, openSettings: vi.fn().mockRejectedValue(new Error('secret')) } as never);
+    expect(await h['notifications.openSettings']({}, ctx)).toEqual(FAILED);
+    expect(await createHandlers(base as never)['notifications.openSettings']({}, ctx)).toEqual(FAILED);
+  });
+});

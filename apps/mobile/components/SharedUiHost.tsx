@@ -19,7 +19,7 @@ import { eraColors } from '../lib/theme';
 import { sharedUiDomProps } from '../lib/shared-ui-dom-props';
 import { resetNativeTheme, setNativeTheme } from '../lib/native-theme-store';
 import { createAppHandlersFor, createLiveApiDeps } from '../lib/app-handlers';
-import { createBackHandler, createContentVersionEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
+import { createBackHandler, createContentVersionEmitter, createForegroundEmitter, createInsetsEmitter } from '../lib/bridge-handlers-ui';
 import { createBridgeHost, type BridgeHost } from '../lib/bridge-host';
 import { newBridgeToken } from '../lib/bridge-token';
 import { createProbePublisher } from '../lib/probe-publisher';
@@ -187,6 +187,15 @@ export function SharedUiHost({
     const host = hostRef.current;
     if (testPage !== false || !session || !host) return;
     const sub = BackHandler.addEventListener('hardwareBackPress', createBackHandler(host, () => BackHandler.exitApp()));
+    return () => sub.remove();
+  }, [testPage, session]);
+
+  // Foreground: the WebView may not fire visibilitychange on return from the phone's Settings, so tell the DOM.
+  useEffect(() => {
+    const host = hostRef.current;
+    if (testPage !== false || !session || !host) return;
+    const update = createForegroundEmitter(AppState.currentState, () => void host.emit('foreground', {}));
+    const sub = AppState.addEventListener('change', update);
     return () => sub.remove();
   }, [testPage, session]);
 

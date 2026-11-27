@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { cadenceFor, createNotificationHostDeps, type NotificationPorts } from './notification-host-deps';
+import { cadenceFor, createNotificationHostDeps, toPermission, type NotificationPorts } from './notification-host-deps';
 
 const ports = (over: Partial<NotificationPorts> = {}): NotificationPorts => ({
   getPermission: vi.fn().mockResolvedValue('undetermined'),
@@ -25,6 +25,31 @@ describe('notification host deps', () => {
     const denied = ports({ getPermission: vi.fn().mockResolvedValue('denied') });
     expect(await createNotificationHostDeps(denied).request()).toBe('denied');
     expect(denied.requestPermission).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    [{ status: 'granted', canAskAgain: true }, 'granted'],
+    [{ status: 'granted', canAskAgain: false }, 'granted'],
+    [{ status: 'denied', canAskAgain: true }, 'undetermined'],
+    [{ status: 'denied', canAskAgain: false }, 'denied'],
+    [{ status: 'denied' }, 'denied'],
+    [{ status: 'undetermined', canAskAgain: true }, 'undetermined'],
+    [{ status: 'undetermined', canAskAgain: false }, 'undetermined'],
+  ] as const)('toPermission maps %o to %s', (r, want) => {
+    expect(toPermission(r)).toBe(want);
+  });
+
+  it('a dismissed-once Android prompt (denied, can ask again) is asked again on request', async () => {
+    const p = ports({ getPermission: vi.fn().mockResolvedValue(toPermission({ status: 'denied', canAskAgain: true })) });
+    expect(await createNotificationHostDeps(p).request()).toBe('granted');
+    expect(p.requestPermission).toHaveBeenCalledTimes(1);
+  });
+
+  it('openSettings passes through to the port and is absent without one', async () => {
+    const openSettings = vi.fn().mockResolvedValue(undefined);
+    await createNotificationHostDeps(ports({ openSettings })).openSettings!();
+    expect(openSettings).toHaveBeenCalledTimes(1);
+    expect(createNotificationHostDeps(ports()).openSettings).toBeUndefined();
   });
 
   it('register delegates and propagates failure', async () => {

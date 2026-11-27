@@ -56,6 +56,7 @@ const RESULT_FITS: Record<DomCommandType, (v: unknown) => boolean> = {
   'notifications.updatePrefs': isNull,
   'notifications.unregister': isNull,
   'notifications.markOnboardingOffered': isNull,
+  'notifications.openSettings': isNull,
   'notifications.status': (v) => STATUSES.includes(v),
   'notifications.request': (v) => STATUSES.includes(v),
   'notifications.getPrefs': isDevicePrefsResponse,

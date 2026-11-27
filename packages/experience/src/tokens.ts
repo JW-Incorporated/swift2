@@ -24,6 +24,8 @@ export const ERA_TOKENS = {
   inkSoft: '#9a9a9a',
   line: '#2a2a2a',
   accent: '#e8e8e8',
+  /** Text on a solid `accent` fill (packages/ui `accentFgFor`'s default); pages outside the era shell need it too. */
+  accentFg: '#000000',
   accent2: '#8a8a8a',
   glow: 'rgba(255, 255, 255, 0.12)',
 } as const;
@@ -78,6 +80,7 @@ export const ERA_CSS_VAR_NAMES: Record<keyof EraTokens, string> = {
   inkSoft: '--era-ink-soft',
   line: '--era-line',
   accent: '--era-accent',
+  accentFg: '--era-accent-fg',
   accent2: '--era-accent-2',
   glow: '--era-glow',
 };

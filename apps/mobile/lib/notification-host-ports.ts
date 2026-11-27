@@ -2,16 +2,16 @@
 // tests (they inject fake ports). SharedUiHost spreads createExpoNotificationHandlers() over the unwired map.
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import { Linking } from 'react-native';
 import { hasOnboardingBeenOffered, markOnboardingOffered } from './onboarding-state';
 import { fetchDevicePrefs, saveDevicePrefs } from './prefs-client';
 import { clearRegisteredToken, isExplicitlyUnregistered, isOptOutPending, requestPushRegistration } from './push-registration';
 import { createHandlers } from './bridge-handlers-notifications';
-import { createNotificationHostDeps, type NotificationPorts, type Permission } from './notification-host-deps';
+import { createNotificationHostDeps, toPermission, type NotificationPorts, type Permission } from './notification-host-deps';
 
 const permission = async (): Promise<Permission> => {
   if (!Device.isDevice) return 'unsupported';
-  const { status } = await Notifications.getPermissionsAsync();
-  return status === 'granted' ? 'granted' : status === 'denied' ? 'denied' : 'undetermined';
+  return toPermission(await Notifications.getPermissionsAsync());
 };
 
 export const expoNotificationPorts: NotificationPorts = {
@@ -33,6 +33,7 @@ export const expoNotificationPorts: NotificationPorts = {
   optOutPending: isOptOutPending,
   onboardingOffered: hasOnboardingBeenOffered,
   markOnboardingOffered,
+  openSettings: () => Linking.openSettings(),
 };
 
 export const createExpoNotificationDeps = () => createNotificationHostDeps(expoNotificationPorts);

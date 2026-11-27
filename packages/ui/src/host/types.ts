@@ -145,6 +145,8 @@ export type HostNotifications = {
   /** App-only one-time push-offer flag, persisted natively; absent = no offer is ever shown. */
   onboardingOffered?(): Promise<boolean>;
   markOnboardingOffered?(): Promise<void>;
+  /** App-only: opens this app's page in the phone's Settings (after a real OS denial); absent = no settings action is offered. */
+  openSettings?(): Promise<void>;
 };
 
 /** Which host runs the shared UI. `app` = the native app on an OS the host could not name. */
@@ -173,6 +175,8 @@ export interface HostAdapter {
    * back). The handler returns true when it consumed the event. Returns an unsubscribe.
    */
   onBack(handler: () => boolean): Unsubscribe;
+  /** The app: fires when the app returns to the foreground (the WebView may not see visibilitychange). Web omits it. */
+  onForeground?(handler: () => void): Unsubscribe;
   /** Transport for `/api/*` (X1). Same shape as WP0.3b's `ApiFetch`. */
   apiFetch: ApiFetch;
   /**
@@ -196,8 +200,8 @@ export interface HostAdapter {
   haptic?: (kind: HapticKind) => void;
   /** The surface theme colour changed (web adapter omits it: the theme-color meta tag is the web mechanism). */
   theme?: (theme: ThemeChange) => void;
-  /** @later WP2.5 */
-  openExternal?: (url: string) => void;
+  /** The app: opens the url outside the app; resolves false when it was refused or could not open (e.g. no mail app). */
+  openExternal?: (url: string) => void | Promise<boolean>;
   /** Where "Submit a link" happens: `inline` (default, the web form) or `external` (the app: a Turnstile token cannot be minted in its null-origin WebView, so the entry opens the website's form via `openExternal`). */
   submitLink?: 'inline' | 'external';
   /** @later WP2.12 */

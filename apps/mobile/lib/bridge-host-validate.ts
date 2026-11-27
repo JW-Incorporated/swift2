@@ -174,6 +174,7 @@ export function validateCommand(type: DomCommandType, p: JsonValue): JsonValue |
     case 'notifications.optOutPending':
     case 'notifications.onboardingOffered':
     case 'notifications.markOnboardingOffered':
+    case 'notifications.openSettings':
       return {};
     default: {
       // A new command must be handled above: this fails typecheck until it is (never a silent {}).

@@ -16,6 +16,16 @@ import type { NotificationHandlerDeps } from './bridge-handlers-notifications';
 
 export type Permission = 'granted' | 'denied' | 'undetermined' | 'unsupported';
 
+/**
+ * expo-notifications permission response -> bridge permission. Android reports `denied` with `canAskAgain: true`
+ * after one dismissal of the system prompt: that can still be asked, so it is `undetermined`, never a dead end.
+ */
+export function toPermission(r: { status: string; canAskAgain?: boolean }): Permission {
+  if (r.status === 'granted') return 'granted';
+  if (r.status === 'denied') return r.canAskAgain === true ? 'undetermined' : 'denied';
+  return 'undetermined';
+}
+
 export interface NotificationPorts {
   getPermission(): Promise<Permission>;
   /** Shows the OS prompt when undecided; resolves the resulting permission. */
@@ -35,6 +45,8 @@ export interface NotificationPorts {
   /** The persisted one-time push-offer flag (the native OnboardingScreen's key). */
   onboardingOffered?(): Promise<boolean>;
   markOnboardingOffered?(): Promise<void>;
+  /** Opens this app's page in the phone's Settings. */
+  openSettings?(): Promise<void>;
 }
 
 export function cadenceFor(category: NotificationPref['category'], on: boolean): NotificationCadence {
@@ -59,6 +71,7 @@ export function createNotificationHostDeps(ports: NotificationPorts): Notificati
     optOutPending: ports.optOutPending && (() => ports.optOutPending!()),
     onboardingOffered: ports.onboardingOffered && (() => ports.onboardingOffered!()),
     markOnboardingOffered: ports.markOnboardingOffered && (() => ports.markOnboardingOffered!()),
+    openSettings: ports.openSettings && (() => ports.openSettings!()),
     updatePrefs: async (prefs) => {
       const list: NotificationPref[] = [];
       for (const [category, on] of Object.entries(prefs)) {

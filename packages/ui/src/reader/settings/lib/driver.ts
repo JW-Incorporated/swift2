@@ -22,6 +22,8 @@ export type SettingsDriver = {
   savePrefs(body: { settings?: object; prefs?: object[] }): Promise<unknown>;
   /** Shown instead of the web "blocked in your browser" copy; the web driver omits it. */
   deniedHint?: string;
+  /** App only: opens the phone's Settings for this app after a real denial; false when it could not. Absent (the web) = no settings action. */
+  openSettings?(): Promise<boolean>;
   /** Re-read the permission when the page returns to the foreground (the app: the user may have changed it in phone Settings). */
   refreshOnForeground?: boolean;
 };
@@ -53,6 +55,10 @@ export function fromWebPush(webPush: HostWebPush, vapidPublicKey: string | null)
 
 export const APP_DENIED_HINT =
   'Notifications are turned off for Long Live. Open your phone Settings, then Notifications, to allow them.';
+
+/** Shown when "Open Settings" could not open the phone's Settings (failed or unsupported on this device). */
+export const SETTINGS_OPEN_FAILED =
+  'Couldn’t open Settings from here. Open your phone’s Settings › Notifications › Long Live to allow them.';
 
 /** App path: everything goes through host.notifications (the native side owns the device id and token). */
 export function fromNotifications(n: HostNotifications): SettingsDriver {
@@ -105,6 +111,7 @@ export function fromNotifications(n: HostNotifications): SettingsDriver {
       }
     },
     deniedHint: APP_DENIED_HINT,
+    openSettings: n.openSettings ? () => n.openSettings!().then(() => true, () => false) : undefined,
     refreshOnForeground: true,
   };
 }

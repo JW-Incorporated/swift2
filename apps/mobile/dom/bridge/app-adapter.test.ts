@@ -282,6 +282,7 @@ describe('createAppAdapter', () => {
       onBack: () => () => {},
     });
     await expect(a.share?.({ text: 'x' })).rejects.toThrow('share failed');
+    await expect(a.share?.({ text: 'x' })).rejects.not.toMatchObject({ name: 'AbortError' });
   });
   it('Link renders an anchor; external adds target and rel', () => {
     const { adapter } = setup();
