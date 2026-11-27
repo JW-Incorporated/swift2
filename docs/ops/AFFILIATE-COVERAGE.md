@@ -407,7 +407,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | reputation Crushed Velvet Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Journal | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | Reputation Mockneck Cropped Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| Reputation Multicolor Snake Ring | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| Reputation Multicolor Snake Ring (Free with $100+ Spend) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Newspaper Pajama Set | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Newspaper Print Zip Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | reputation Off-the-Shoulder Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -634,7 +634,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | The Tortured Poets Department Beige Sweatpants | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Black Crewneck | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Black Hoodie | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
-| The Tortured Poets Department Black Jacket & 2 Patch Set Bundle | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| The Tortured Poets Department Black Jacket & 2 Patch Set Bundle (Free with $175+ Spend) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Black Photo T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Black Shorts | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Book Mug | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -649,6 +649,7 @@ The explanation column is required for every uncovered row. It reports only the 
 | The Tortured Poets Department Collector's Edition Deluxe CD + Bonus Track "The Manuscript" | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Crewneck Sweater | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Earrings | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
+| The Tortured Poets Department Fleece Blanket | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Gray Hoodie (Free with $100+ Spend) | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Gray Photo Long Sleeve T-Shirt | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
 | The Tortured Poets Department Journal | store.taylorswift.com | none | direct-by-policy | direct retailer URL | official |  |
@@ -724,9 +725,9 @@ The explanation column is required for every uncovered row. It reports only the 
 
 | status | count |
 | --- | ---: |
-| total | 710 |
+| total | 711 |
 | wrapped | 0 |
 | awin-apply | 7 |
 | pending-signup | 8 |
 | uncovered | 98 |
-| direct-by-policy | 597 |
+| direct-by-policy | 598 |
