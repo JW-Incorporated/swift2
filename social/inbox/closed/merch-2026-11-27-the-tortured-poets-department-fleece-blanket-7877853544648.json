@@ -5,7 +5,7 @@
   "lane": "merch",
   "createdAt": "2026-11-27T18:17:03.400Z",
   "deadline": "2026-11-30T18:17:03.400Z",
-  "status": "open",
+  "status": "declined",
   "facts": {
     "name": "The Tortured Poets Department Fleece Blanket",
     "price": "15.00",
@@ -23,5 +23,6 @@
   "links": {
     "pr": null,
     "issue": null
-  }
+  },
+  "declinedReason": "A store listing for a TTPD fleece blanket with only name, price and stock as facts reads the same next week (timely 3, under the 4 floor) and has no Taylor photo to carry it, so it would be filler."
 }
