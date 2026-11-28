@@ -17,6 +17,7 @@ import { pathToFileURL } from 'node:url';
 import { buildIngestResult } from '../community/fb-export-ingest.mjs';
 import { gh } from '../lib/gh.mjs';
 import { runMain } from '../lib/cli.mjs';
+import { failureReason, redactReason } from '../lib/failure-reason.mjs';
 import { FB_GROUPS_CHECKLIST } from './fb-groups-checklist.mjs';
 import { extensionCollect } from './fb-export-launch.mjs';
 import { runActivityIfDue, runActivityPass } from './fb-activity-pass.mjs';
@@ -136,30 +137,11 @@ export async function ingestOne(
   }
 }
 
-const ERROR_LINE = /^(\w*Error|Error)\b|:\s*Error\b|^error:/i;
-
 // The child's last stderr line that looks like an error message (else the last non-empty line),
 // <=200 chars, secrets redacted, so a failed child reports WHY instead of a stack frame.
-export function failureReason(error, fallback) {
-  const lines = String(error?.stderr ?? '')
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
-  const last = lines.findLast((line) => ERROR_LINE.test(line)) ?? lines.at(-1);
-  return last ? redactReason(last).slice(0, 200) : fallback;
-}
-
-export function redactReason(text) {
-  return String(text)
-    .replace(/[a-z][a-z0-9+.-]*:\/\/[^\s/@]*:[^\s/@]*@\S+/gi, '[redacted-url]')
-    .replace(/\beyJ[\w-]{10,}(?:\.[\w-]+){0,2}/g, '[redacted]')
-    .replace(/\b(?:sb_secret_|sk-|ghp_|github_pat_|xox[a-z]-)[\w-]+/gi, '[redacted]')
-    .replace(
-      /((?:key|token|secret|password|passwd|authorization|bearer)\w*\s*[=:]\s*)\S+/gi,
-      '$1[redacted]',
-    )
-    .replace(/\b[A-Za-z0-9_-]{32,}\b/g, '[redacted]');
-}
+// Both live in scripts/lib/failure-reason.mjs since #7175 (the marjorie auto-defer lane
+// needs the same redactor); re-exported here so this module's callers are unchanged.
+export { failureReason, redactReason };
 
 const REQUIRED_ENV_KEYS = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
 export const ENV_MISSING_SUMMARY =

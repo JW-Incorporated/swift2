@@ -4,6 +4,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { actionMarker } from './chase-action.mjs';
 import { closeHumanAction, laToday } from '../ha-close.mjs';
+import { failureDetail } from '../../lib/failure-reason.mjs';
 
 export const AUTO_DEFER_MS = 7 * 24 * 60 * 60 * 1000;
 export const AUTO_DEFER_MESSAGE = 'auto-7d';
@@ -83,6 +84,7 @@ async function freshIssue(repo, number, exec) {
 /** Applies the GitHub half per item, then closes the HAs as skip in one auto-merged PR. */
 export async function applyAutoDefers(repo, candidates, { exec, now = Date.now(), readFileImpl = readFile, writeFileImpl = writeFile, author = process.env.AUTO_DEFER_AUTHOR, fetchIssue = (number) => freshIssue(repo, number, exec) }) {
   const applied = [];
+  const failed = [];
   for (const planned of candidates) {
     try {
       const fresh = autoDeferState(await fetchIssue(planned.issue), planned.ha, author);
@@ -95,10 +97,18 @@ export async function applyAutoDefers(repo, candidates, { exec, now = Date.now()
       if (!item.labeled) await exec('gh', ['issue', 'edit', String(item.issue), '--repo', repo, '--add-label', 'deferred']);
       applied.push(item);
     } catch (error) {
-      console.log(`::warning::auto-defer HA #${planned.ha} failed: ${String(error?.message || error).slice(0, 200)}`);
+      // #7175: this used to slice `error.message`, which starts with the whole
+      // `gh ... --body <the comment>` argv, so the 200-char cap cut the stderr off
+      // entirely and every failure read as the comment body. stderr first now.
+      const reason = failureDetail(error);
+      failed.push({ ha: planned.ha, issue: planned.issue, reason });
+      console.log(`::warning::auto-defer HA #${planned.ha} failed: ${reason}`);
     }
   }
-  if (!applied.length) return { status: 'none' };
+  // A planned item that a fresh read skipped is a normal quiet day (`none`); one
+  // that threw is not. All of them throwing means the lane is broken, and the
+  // caller exits 1 on `failed` rather than reporting success having done nothing.
+  if (!applied.length) return { status: failed.length ? 'failed' : 'none', failed };
   const branch = `${AUTO_DEFER_BRANCH}${applied.map((item) => item.ha).sort((a, b) => a - b).join('-')}`;
   await exec('git', ['checkout', '--detach', 'origin/main']);
   await exec('git', ['checkout', '-b', branch]);
@@ -120,5 +130,5 @@ export async function applyAutoDefers(repo, candidates, { exec, now = Date.now()
   if (!/\/pull\/\d+$/.test(url)) throw new Error('auto-defer: PR creation was not confirmed');
   await exec('gh', ['pr', 'merge', branch, '--repo', repo, '--squash', '--auto', '--delete-branch']);
   await exec('git', ['checkout', '--detach', 'origin/main']);
-  return { status: 'auto-deferred', branch, ha: applied.map((item) => item.ha) };
+  return { status: 'auto-deferred', branch, ha: applied.map((item) => item.ha), failed };
 }

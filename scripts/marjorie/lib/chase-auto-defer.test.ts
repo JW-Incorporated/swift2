@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { applyAutoDefers, planAutoDefers, AUTO_DEFER_NOTE } from './chase-auto-defer.mjs';
-import { runAutoDefer } from './chase-auto-defer-run.mjs';
+import { AUTO_DEFER_STAGES, autoDeferFailureLine, runAutoDefer } from './chase-auto-defer-run.mjs';
 import { actionMarker } from './chase-action.mjs';
 
 const NOW = Date.parse('2026-10-13T12:00:00Z');
@@ -157,5 +157,123 @@ describe('runAutoDefer entrypoint', () => {
     expect(out.status).toBe('auto-deferred');
     expect(h.calls.filter((c) => c[1] === 'issue' && c[2] === 'comment')).toHaveLength(1);
     expect(h.files['HUMAN-ACTIONS.md']).not.toContain('## #109');
+  });
+});
+
+// #7175: the 2026-11-27 07:45 failure logged only "auto-defer: safe failure" — no
+// stage, no error class, no reason — so it could not be diagnosed from the job log.
+describe('auto-defer failure reporting', () => {
+  const state = (openActions: string) => ({ issues: [issue(4324)], openActions, doneActions: DONE, pendingHaPrs: [], now: NOW });
+  const due = openMd(block(109, 4324, '2026-10-06'));
+
+  const run = (over: Record<string, unknown>) => {
+    const h = harness({ 'HUMAN-ACTIONS.md': due, 'HUMAN-ACTIONS-DONE.md': DONE });
+    return runAutoDefer('o/r', {
+      exec: h.exec, fetchState: async () => state(due), readFileImpl: h.readFileImpl,
+      writeFileImpl: h.writeFileImpl, fetchIssue: async (n: number) => issue(n), ...over,
+    });
+  };
+
+  it.each([
+    ['git-fetch', ['fetch', 'origin', 'main']],
+    ['git-checkout', ['checkout', '--detach', 'origin/main']],
+  ])('names the %s stage', async (stage, args) => {
+    const h = harness({ 'HUMAN-ACTIONS.md': due, 'HUMAN-ACTIONS-DONE.md': DONE });
+    const exec = async (cmd: string, a: string[]) => {
+      if (cmd === 'git' && a.join(' ') === args.join(' ')) throw new Error('git exploded');
+      return h.exec(cmd, a);
+    };
+    const error = await run({ exec }).catch((e) => e);
+    expect(error.autoDeferStage).toBe(stage);
+    expect(autoDeferFailureLine(error)).toBe(`auto-defer: ${stage} failed (Error): git exploded`);
+  });
+
+  it('names the fetch-state stage and keeps the error class', async () => {
+    const error = await run({ fetchState: async () => { throw new TypeError('dispatch chase: invalid history'); } }).catch((e) => e);
+    expect(error.autoDeferStage).toBe('fetch-state');
+    expect(autoDeferFailureLine(error)).toBe('auto-defer: fetch-state failed (TypeError): dispatch chase: invalid history');
+  });
+
+  it('names the plan stage when the snapshot is malformed', async () => {
+    const error = await run({ fetchState: async () => ({ ...state(due), pendingHaPrs: null }) }).catch((e) => e);
+    expect(error.autoDeferStage).toBe('plan');
+    expect(autoDeferFailureLine(error)).toMatch(/^auto-defer: plan failed \(TypeError\): \S/);
+  });
+
+  it('names the apply stage for a failure after the per-item loop', async () => {
+    const h = harness({ 'HUMAN-ACTIONS.md': due, 'HUMAN-ACTIONS-DONE.md': DONE });
+    const exec = async (cmd: string, a: string[]) => {
+      if (cmd === 'git' && a[0] === 'push') throw Object.assign(new Error('Command failed: git push -u origin x'), { stderr: 'remote: Permission denied\nfatal: unable to access' });
+      return h.exec(cmd, a);
+    };
+    const error = await run({ exec }).catch((e) => e);
+    expect(error.autoDeferStage).toBe('apply');
+    expect(autoDeferFailureLine(error)).toContain('fatal: unable to access');
+  });
+
+  it('prefers stderr over the argv-prefixed message, so the reason survives the cap', () => {
+    const body = 'Auto-deferred: no founder reply to the chase (HA #133) in 7 days, '.repeat(4);
+    const error = Object.assign(new Error(`Command failed: gh issue comment 5537 --repo o/r --body ${body}`), {
+      autoDeferStage: 'apply',
+      stderr: 'gh: Resource not accessible by personal access token (HTTP 403)',
+    });
+    const line = autoDeferFailureLine(error);
+    expect(line).toBe('auto-defer: apply failed (Error): gh: Resource not accessible by personal access token (HTTP 403)');
+    expect(line).not.toContain('Auto-deferred: no founder reply');
+  });
+
+  it('redacts a token that reached stderr', () => {
+    const error = Object.assign(new Error('nope'), { autoDeferStage: 'git-fetch', stderr: 'fatal: could not read https://x-access-token:ghp_AbCdEfGhIjKlMnOpQrStUvWxYz0123@github.com/o/r' });
+    const line = autoDeferFailureLine(error);
+    expect(line).not.toContain('ghp_AbCdEfGhIjKlMnOpQrStUvWxYz0123');
+    expect(line).toContain('[redacted');
+  });
+
+  it('reports a stage even when a non-Error was thrown', async () => {
+    const error = await run({ fetchState: async () => { throw 'plain string'; } }).catch((e) => e);
+    expect(autoDeferFailureLine(error)).toBe('auto-defer: fetch-state failed (Error): plain string');
+  });
+
+  it('falls back to `unknown` rather than crashing on an untagged error', () => {
+    expect(autoDeferFailureLine(new Error('loose'))).toBe('auto-defer: unknown failed (Error): loose');
+    expect(AUTO_DEFER_STAGES).toEqual(['git-fetch', 'git-checkout', 'fetch-state', 'plan', 'apply']);
+  });
+});
+
+// #7175: every due item failing used to return `none` and exit 0, so a `gh issue
+// comment` that 403'd on every run for days reported the job green.
+describe('applyAutoDefers failure status', () => {
+  const files = () => ({ 'HUMAN-ACTIONS.md': openMd(block(109, 4324, '2026-10-06'), block(110, 4720, '2026-10-06')), 'HUMAN-ACTIONS-DONE.md': DONE });
+  const cand = (ha: number, number: number) => ({ ha, issue: number, commented: false, labeled: false });
+
+  it('reports `failed` with the redacted reason when every item errors', async () => {
+    const h = harness(files());
+    const exec = async (cmd: string, a: string[]) => {
+      if (a[0] === 'issue' && a[1] === 'comment') throw Object.assign(new Error('Command failed: gh issue comment'), { stderr: 'gh: Resource not accessible by personal access token (HTTP 403)' });
+      return h.exec(cmd, a);
+    };
+    const out = await applyAutoDefers('o/r', [cand(109, 4324), cand(110, 4720)], { ...h, exec, now: NOW, fetchIssue: async (n: number) => issue(n) });
+    expect(out.status).toBe('failed');
+    expect(out.failed).toEqual([
+      { ha: 109, issue: 4324, reason: 'gh: Resource not accessible by personal access token (HTTP 403)' },
+      { ha: 110, issue: 4720, reason: 'gh: Resource not accessible by personal access token (HTTP 403)' },
+    ]);
+    expect(h.files['HUMAN-ACTIONS.md']).toContain('## #109');
+  });
+
+  it('still reports `none` when every item was skipped rather than failing', async () => {
+    const h = harness(files());
+    const out = await applyAutoDefers('o/r', [cand(109, 4324)], { ...h, now: NOW, fetchIssue: async (n: number) => issue(n, ['founder-decision']) });
+    expect(out).toMatchObject({ status: 'none', failed: [] });
+  });
+
+  it('carries the partial failures alongside a successful apply', async () => {
+    const h = harness(files());
+    const exec = async (cmd: string, a: string[]) => {
+      if (a[0] === 'issue' && a[1] === 'comment' && a[2] === '4324') throw Object.assign(new Error('x'), { stderr: 'Error: boom' });
+      return h.exec(cmd, a);
+    };
+    const out = await applyAutoDefers('o/r', [cand(109, 4324), cand(110, 4720)], { ...h, exec, now: NOW, fetchIssue: async (n: number) => issue(n) });
+    expect(out).toMatchObject({ status: 'auto-deferred', ha: [110], failed: [{ ha: 109, issue: 4324, reason: 'Error: boom' }] });
   });
 });
