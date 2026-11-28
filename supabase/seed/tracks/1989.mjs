@@ -885,6 +885,56 @@ export default {
       themes: ['surveillance', 'protecting love', 'us versus the lens'],
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Know_Places',
       sources: [wiki('I Know Places', 'I_Know_Places', 'song article: background'), ALBUM],
+      dossier: {
+        whyItMatters: [
+          'It started as a phone voice memo: Taylor sang the chorus over a piano and sent it to Ryan Tedder, one of several song ideas she brought him, and the two built it out in the studio. The memo itself shipped as a bonus on the Target deluxe edition of 1989, so fans can hear the song before it was a song.',
+          'Bustle’s Christine DiStasio called it the most vulnerable song on 1989, more exposed than “Out of the Woods” or “Clean,” because it is about the predator-and-prey relationship between a celebrity and the public’s appetite for her private life.',
+        ],
+        meaning: {
+          confirmed: [
+            'Written by Taylor and Ryan Tedder, with Tedder and Noel Zancanella on production, it was recorded at Conway Recording Studios in Los Angeles and runs 3:15 as track 12 of the standard album.',
+            'The re-recording on 1989 (Taylor’s Version), released October 27, 2023, was produced again with Tedder and Zancanella.',
+          ],
+          supported: [
+            'Taylor has tied the song to the media scrutiny around her while she was making 1989: a partner who worries about the attention, and her answer that she knows places they can hide. The hunters-and-foxes imagery casts the photographers as the pursuers.',
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'A fixed part of the set, staged as a chase with masked dancers and moving doors.',
+          },
+          {
+            date: 'November 20, 2018',
+            event: 'Reputation Stadium Tour, Tokyo Dome',
+            note: 'A surprise song on the first Tokyo night.',
+          },
+          {
+            date: 'August 8, 2023',
+            event: 'The Eras Tour, SoFi Stadium',
+            note: 'A surprise song at the fifth Los Angeles show.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:out-of-the-woods',
+            label: 'Out of the Woods',
+            why: 'Its closest sibling on 1989: the same love under the same scrutiny, and the song critics most often compare it with.',
+          },
+          {
+            relatedId: 'song:clean',
+            label: 'Clean',
+            why: 'Bustle ranked I Know Places as more vulnerable than both Clean and Out of the Woods.',
+          },
+        ],
+        sources: [
+          { name: 'I Know Places — Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Know_Places' },
+          { name: 'Stereogum — Taylor breaks down her Antonoff and Tedder collaborations (GRAMMY Pro, Oct. 10, 2015)', url: 'https://stereogum.com/1836642/watch-taylor-swift-break-down-her-jack-antonoff-ryan-tedder-collaborations-in-another-grammy-pro-session/video' },
+          { name: 'Bustle — "I Know Places" is the most vulnerable song on 1989 (Nov. 7, 2014)', url: 'https://www.bustle.com/articles/48095-taylor-swifts-i-know-places-lyrics-make-it-the-most-vulnerable-song-on-1989' },
+          { name: '1989 (album) — Wikipedia (deluxe-edition voice memos)', url: 'https://en.wikipedia.org/wiki/1989_(album)' },
+        ],
+      },
     },
     {
       slug: 'clean',
@@ -976,6 +1026,61 @@ export default {
         ),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          'For nearly four months it was a CD-only bonus on the Target-exclusive deluxe edition of 1989. On February 17, 2015 it became the first of the three deluxe songs released to iTunes, which Taylor announced on Twitter as out "LIKE RIGHT NOW."',
+          'Her most direct borrowing from Alice in Wonderland: falling down the rabbit hole stands in for falling in love fast and losing your bearings together.',
+        ],
+        meaning: {
+          confirmed: [
+            'Written by Taylor with Max Martin and Shellback and produced by Martin and Shellback, it is an electropop track of about four minutes, track 14 of the deluxe edition.',
+            'With 1989 (Taylor’s Version) on October 27, 2023, Taylor shared her handwritten first drafts of Wonderland and New Romantics. The Wonderland draft had an early verse in which the couple dance down hallways and call each other king and queen. It was later reworked into a quieter account of the two parting ways.',
+            'The re-recording, produced by Taylor and Christopher Rowe, came out on 1989 (Taylor’s Version) the same day.',
+          ],
+          supported: [
+            'The A.V. Club and Business Insider have both listed it among Taylor’s most underrated songs.',
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'Played on some dates, sometimes on acoustic guitar.',
+          },
+          {
+            date: '2018',
+            event: 'Reputation Stadium Tour, Houston',
+            note: 'A surprise song at the Houston stop.',
+          },
+          {
+            date: '2024',
+            event: 'The Eras Tour, Milan and Vancouver',
+            note: 'Mashed up with “The 1” in Milan and with “Haunted” in Vancouver.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:new-romantics',
+            label: 'New Romantics',
+            why: 'The other deluxe-edition bonus song whose first draft Taylor shared with the re-recording.',
+          },
+          {
+            relatedId: 'song:the-1',
+            label: 'the 1',
+            why: 'Its Eras Tour mashup partner in Milan.',
+          },
+          {
+            relatedId: 'song:haunted',
+            label: 'Haunted',
+            why: 'Its Eras Tour mashup partner in Vancouver.',
+          },
+        ],
+        sources: [
+          { name: 'Wonderland (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Wonderland_(Taylor_Swift_song)' },
+          { name: 'The Verge — 1989 bonus songs reach iTunes (Feb. 18, 2015)', url: 'https://www.theverge.com/2015/2/18/8058393/taylor-swift-1989-bonus-songs-itunes' },
+          { name: 'E! News — Taylor reveals original lyrics for New Romantics and Wonderland (Oct. 27, 2023)', url: 'https://www.eonline.com/news/1388829/taylor-swift-reveals-original-lyrics-for-1989s-new-romantics-and-wonderland' },
+        ],
+      },
     },
     {
       slug: 'you-are-in-love',
@@ -1056,6 +1161,63 @@ export default {
         wiki('New Romantics (song)', 'New_Romantics_(song)', 'song article: single promotion'),
         ALBUM,
       ],
+      dossier: {
+        whyItMatters: [
+          'Left off the standard album and first heard only on the Target-exclusive deluxe CD, it reached iTunes in early 2015 with the other bonus songs. In February 2016 it became the seventh and final single from 1989, sent to US pop radio on February 23. It peaked at No. 46 on the Hot 100.',
+          'Critics took the fans’ side. Rob Sheffield of Rolling Stone ranked it the second-best song of 2014, and Rolling Stone’s list of the best songs of the 2010s called its bonus-track status “one of pop’s greatest crimes,” describing it as the album’s actual thesis.',
+        ],
+        meaning: {
+          confirmed: [
+            'Written by Taylor with Max Martin and Shellback, who produced it. It was recorded at MXM Studios in Stockholm and Conway Recording Studios in Los Angeles.',
+            'The video, directed by Jonas Åkerlund, is cut from 1989 World Tour concert and backstage footage, with Taylor talking to fans over it. It premiered as an Apple Music exclusive on April 6, 2016 and went free on YouTube and Vevo a week later.',
+            'The handwritten first draft Taylor shared with 1989 (Taylor’s Version) on October 27, 2023 shows the bridge began with a different image. A discarded verse used the phrase “anti-hero,” which she would reuse as the title of a Midnights single eight years later.',
+          ],
+          supported: [
+            'The title nods to the New Romantic movement of late-1970s and 1980s British pop, in keeping with the album’s Eighties synth-pop palette.',
+            'Not everyone agreed: The Washington Post’s Chris Richards called it one of the album’s weakest lyrical moments when 1989 came out.',
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'On the main set list; footage from the tour later became its music video.',
+          },
+          {
+            date: 'October 22, 2016',
+            event: 'Formula 1 United States Grand Prix, Circuit of the Americas',
+            note: 'Part of her headline set at the race weekend in Austin.',
+          },
+          {
+            date: 'August 9, 2023',
+            event: 'The Eras Tour, SoFi Stadium',
+            note: 'The acoustic surprise song on the night she announced 1989 (Taylor’s Version).',
+          },
+          {
+            date: 'May 19, 2024',
+            event: 'The Eras Tour, Friends Arena, Stockholm',
+            note: 'A guitar medley with “Message in a Bottle” and “How You Get the Girl,” dedicated to Max Martin in his hometown.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:anti-hero',
+            label: 'Anti-Hero',
+            why: 'The phrase sat in a discarded New Romantics verse years before it became a Midnights title.',
+          },
+          {
+            relatedId: 'song:wonderland',
+            label: 'Wonderland',
+            why: 'Its fellow deluxe-edition bonus song, whose first draft was shared alongside it.',
+          },
+        ],
+        sources: [
+          { name: 'New Romantics (song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
+          { name: 'Rolling Stone — the 100 best songs of the 2010s: New Romantics', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
+          { name: 'The Verge — 1989 bonus songs reach iTunes (Feb. 18, 2015)', url: 'https://www.theverge.com/2015/2/18/8058393/taylor-swift-1989-bonus-songs-itunes' },
+          { name: 'E! News — Taylor reveals original lyrics for New Romantics and Wonderland (Oct. 27, 2023)', url: 'https://www.eonline.com/news/1388829/taylor-swift-reveals-original-lyrics-for-1989s-new-romantics-and-wonderland' },
+        ],
+      },
     },
     {
       slug: 'slut',

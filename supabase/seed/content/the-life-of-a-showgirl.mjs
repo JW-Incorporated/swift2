@@ -5800,7 +5800,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/a/a8/Maren_Morris_2019_by_Glenn_Francis_%28cropped%29.jpg',
       moment: {
         context:
-          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was country singer Maren Morris, and in early August she became one of the few to describe the couple\'s self-written vows on the record. Speaking to People, she kept the private lines private but named what the exchange revealed — "a closer look into their love for each other and their sense of humor" — and called witnessing it "an honor."\n\nHer account restores the lighter register the fuller guest reports had left out: those dwelt on how long and how emotional the vows ran; Morris caught the jokes the two wrote into them. Any figures on the vows\' length trace to reporting around her comments, not to Morris.',
+          'Among the roughly 1,000 guests at Madison Square Garden on July 3 was country singer Maren Morris, and in early August she became one of the few to describe the couple\'s self-written vows on the record. Speaking to People, she kept the private lines private but named what the exchange revealed — "a closer look into their love for each other and their sense of humor" — and called witnessing it "an honor."\n\nHer account restores the lighter register the fuller guest reports had left out: those dwelt on how long and how emotional the vows ran; Morris caught the jokes the two wrote into them. Billboard\'s July 4 roundup of guest accounts points the same way: ABC\'s George Stephanopoulos called the vows "serious and silly," and guests said the couple read their self-written vows to each other from "little books." Any figures on the vows\' length trace to reporting around her comments, not to Morris.',
         // Intake #1780 (2026-08-04): re-authored after being held from the
         // 2026-08-04 Vault Run (#1784). It was held because, dated back then as
         // the newest TLOAS item, it rendered as a hero directly ahead of the
@@ -5822,6 +5822,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-08-04',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://ca.billboard.com/music/music-news/taylor-swift-travis-kelce-wedding-vows-1236287859/',
+            source_title: "Taylor Swift & Travis Kelce's Wedding Vows: What Guests Have Revealed",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-11-28',
+            reliability_score: 4,
           },
           {
             outlet: 'TMZ',
@@ -18335,10 +18344,10 @@ export default {
             reportedOn: '2026-11-09',
             status: 'unconfirmed',
             url: 'https://ca.style.yahoo.com/taylor-swift-karlie-kloss-gotten-213357508.html',
-            note: 'A single anonymous source; neither Taylor nor Kloss has addressed it, and neither has ever said publicly what caused the falling-out. Adjudicable: either one confirming or denying a reconciliation settles it. Read in full via the OK! syndication (Taylor Camp, Nov. 12, 2026), which links the Page Six original.',
+            note: 'A single anonymous source; neither Taylor nor Kloss has addressed it, and neither has ever said publicly what caused the falling-out. Adjudicable: either one confirming or denying a reconciliation settles it. Read in full via the OK! syndication (Taylor Camp, Nov. 12, 2026), which links the Page Six original. Re-checked 2026-11-28: no new reporting, and no statement from either side.',
             sourceTier: 'tabloid',
             locationSpecificity: 'region',
-            lastCheckedOn: '2026-11-14',
+            lastCheckedOn: '2026-11-28',
           },
         ],
       },
