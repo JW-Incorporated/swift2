@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "id": "merch-2026-11-27-the-tortured-poets-department-fleece-blanket-7877853544648",
+  "source": "merch-official-sync",
+  "lane": "merch",
+  "createdAt": "2026-11-27T18:17:03.400Z",
+  "deadline": "2026-11-30T18:17:03.400Z",
+  "status": "open",
+  "facts": {
+    "name": "The Tortured Poets Department Fleece Blanket",
+    "price": "15.00",
+    "currency": "USD",
+    "availability": "in stock",
+    "productUrl": "https://store.taylorswift.com/products/the-tortured-poets-department-fleece-blanket",
+    "firstSeenAt": "2026-11-27T18:16:16.079Z"
+  },
+  "media": [
+    "/social/library/merch-drop-46047833434.png"
+  ],
+  "mediaCredit": "Long Live merch-drop card, rendered from the official store listing",
+  "mediaSource": "https://store.taylorswift.com/products/the-tortured-poets-department-fleece-blanket",
+  "altTextHint": "A Long Live store-drop card naming \"The Tortured Poets Department Fleece Blanket\" as newly available on the official store.",
+  "links": {
+    "pr": null,
+    "issue": null
+  }
+}
