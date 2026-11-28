@@ -5,7 +5,7 @@
 // caller can hold the item with quality_hold_reason 'writer_deferred'; a
 // genuine API failure throws.
 
-import { splitSentences } from '@swift2/shared';
+import { leadRewriteInstruction, splitSentences } from '@swift2/shared';
 import { stripFences } from './prompt-fence';
 import { WRITER_SYSTEM_PROMPT, WRITE_POST_TOOL } from './writer-prompt';
 import type { ContextPack } from './context-pack';
@@ -86,7 +86,7 @@ export function buildUserMessage(input: WriterInput): string {
     lines.push(
       '',
       'YOUR PREVIOUS DRAFT WAS REJECTED. Fix every reason below, change nothing else about the rules:',
-      ...input.rewriteReasons.map((r) => `- ${r}`),
+      ...input.rewriteReasons.map((r) => `- ${leadRewriteInstruction(r, input.headline) ?? r}`),
     );
   }
   return lines.join('\n');

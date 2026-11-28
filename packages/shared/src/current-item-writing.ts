@@ -9,6 +9,7 @@
 // and the "Cut on sight" list in docs/content-ops/editorial-voice-and-pipeline.md.
 
 import { allowedOutlets, unknownAttributions } from './current-item-attribution.ts';
+import { leadStyleReasons } from './current-item-lead.ts';
 import { voiceCitationReasons } from './current-item-voice.ts';
 import rules from './voice/rules.json' with { type: 'json' };
 
@@ -39,6 +40,8 @@ export interface WritingInput {
 export interface WritingOptions {
   /** Skip the citation checks (eval harness, backfill comparison of legacy rows). */
   legacy?: boolean;
+  /** Run the lead "state the news" checks (current-item-lead.ts). Defaults to `!legacy`, so the read-time gate never hides published rows over them. */
+  leadStyle?: boolean;
 }
 
 export type WritingResult = { ok: true } | { ok: false; reasons: string[] };
@@ -252,6 +255,7 @@ export function evaluateCurrentItemWriting(
 
   if (body.trim().split(/\s+/).filter(Boolean).length < t.bodyMinWords) reasons.push('body_too_short');
   if (lead.length < t.leadMinChars || lead.length > t.leadMaxChars) reasons.push('lead_length');
+  if (options.leadStyle ?? !options.legacy) reasons.push(...leadStyleReasons(headline, splitSentences(lead)));
   if (countDistinctEntities(body) < t.minDistinctEntities && !hasDate(body)) {
     reasons.push('thin_substance');
   }

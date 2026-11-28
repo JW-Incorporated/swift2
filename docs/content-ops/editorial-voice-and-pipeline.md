@@ -232,6 +232,21 @@ The News/Current worker no longer writes its own prose. Pass A (Haiku) extracts 
 
 **Fan-voice sentences** (decisions 2026-11-03 amendment 3, owner 2026-11-04): every fact needs a source, but not every sentence needs a fact. A body sentence with empty `refs` is an opinion or reaction line ("Honestly, this is the most Taylor thing she's done all year."). At most `MAX_VOICE_SENTENCES` (2) per post, every paragraph keeps at least one cited sentence, and a voice line must be warm and assert nothing checkable (the gate fails `too_many_voice_sentences` and `voice_sentence_has_fact`; the judge scores grounding on factual sentences only and fails voice for opinion that mocks a real person).
 
+### News lead: state the news
+
+The lead (`summary`) is no longer a teaser (2026-11-18). Sentence 1 states the news the headline carries, in fresh words, with the concrete who, what, name, title or number. Sentence 2 adds one piece of context or why it matters, built a different way each time (a consequence, a tie to her history, what comes next, a contrast). Warm, never breathless. No outlet names, no hedge words (the lead carries reported status with "is said to", "is set to" or "<who> says"), no em dashes, no question opener.
+
+The worker's writing gate (`packages/shared/src/current-item-lead.ts`, run by `evaluateCurrentItemWriting` on new drafts and backfill rewrites, never on the read-time legacy path) rejects:
+
+- `lead_withholds_headline_news`: sentence 1 names none of the headline's anchors. Anchors are its numbers and its capitalized words plus its first word, minus Taylor, Swift, stopwords and generic story words ("award", "gala", "women", "pop"). Matching is case-insensitive on whole words (plural and possessive fold), spelled-out numbers and ordinals match digits ("thirteen" = 13, "tenth" = 10; "one" and "first" do not count), and a few places alias (U.K./Britain, Los Angeles/LA, New York/NYC, U.S./America);
+- `lead_for_fans_who_opener`: any sentence opening "For fans who...", "For Swifties keeping score...", "For anyone who...", "For Showgirl-era fans...";
+- `lead_gush:<phrase>`: "too good to ignore", "half the fun", "worth a closer look", "worth replaying", "worth knowing";
+- `lead_em_dash` and `lead_question_opener` (question openers were allowed about one post in five before; they are now banned).
+
+These reasons are soft on the rewrite: the first draft that trips one gets the usual single rewrite, with a plain instruction per reason (for withheld news it names the headline's own names and numbers). If only lead-style reasons remain after the rewrite, the draft still goes to the judge and publishes on a pass, recorded in `trace.leadFlags` and a `news-worker: lead-style flags kept after rewrite` log line. Any other gate reason holds as before.
+
+The three good/bad pairs in the writer prompt are `LEAD_EXAMPLES` in `apps/worker/src/extract/writer-prompt.ts`; a test proves each good lead passes the gate. Measure the live feed with `npx tsx scripts/news/eval-writing.mjs --lead-style`.
+
 ## Pipeline: Claude drafts → Codex reviews → human spot-checks
 
 Mirrors the company's existing dual-AI operating model

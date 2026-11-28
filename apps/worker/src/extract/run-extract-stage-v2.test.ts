@@ -523,7 +523,7 @@ describe('runExtractStage shadow mode', () => {
 
   it('records a held draft with its gate reasons and a floor rejection', async () => {
     vi.stubEnv('NEWS_WRITER_V2', 'shadow');
-    mocks.writePost.mockResolvedValue(draft('Too short a lead.'));
+    mocks.writePost.mockResolvedValue(draft('Too short a Nashville lead.'));
     await run();
     await run(ITEM, THIN_SOURCES);
     const [held, floor] = readFileSync(file, 'utf8').trim().split('\n').map((l) => JSON.parse(l));

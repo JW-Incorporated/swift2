@@ -87,6 +87,16 @@ describe('writePost', () => {
     expect(vi.mocked(claude).mock.calls[0]?.[0].user).toContain('- body repeats the lead');
   });
 
+  it('turns a lead-style rewrite reason into a plain instruction naming the headline words', async () => {
+    vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
+    const claude = claudeReturning(goodData());
+    const usage = await ExtractUsageStore.create(db());
+    await writePost(usage, { ...input, headline: 'Taylor and Travis Kelce wed at Madison Square Garden', rewriteReasons: ['lead_withholds_headline_news'] }, claude);
+    const user = vi.mocked(claude).mock.calls[0]?.[0].user ?? '';
+    expect(user).toContain('name at least one of: Travis Kelce, Madison Square Garden.');
+    expect(user).not.toContain('- lead_withholds_headline_news');
+  });
+
   it('builds the body from the structure: sentences joined by a space, paragraphs by a blank line', async () => {
     vi.stubEnv('CLAUDE_CODE_OAUTH_TOKEN', 'test-token');
     const usage = await ExtractUsageStore.create(db());

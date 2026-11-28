@@ -7,6 +7,23 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-11-18 (amends 2026-11-03 "News post quality engine") — The news lead states the news
+
+**Decision (reversible).** The lead (`summary`) stops being a teaser. Sentence 1 states the headline's news with a concrete name, title or number; sentence 2 adds one piece of context. The writer prompt's "lead is a teaser / names no specifics / name at most one thing" rules and its question-opener shape are removed. The writing gate adds deterministic lead checks (`current-item-lead.ts`: withheld-news, "For fans who..." openers, gushing closers, em dash, question opener) for new drafts and backfill rewrites only; the read-time gate (legacy mode) does not run them, so no published row is hidden.
+- **Superseded on this point:** the 2026-11-03 engine entry's lead definition ("the hook and why it matters", decision 1 below) and the 2026-11-03 judge amendment's rubric note "lead teaser plus body detail is not repetition". The lead now carries the news; the body adds the detail.
+- **Question openers are now banned.** They were a deliberate choice before (the writer prompt's opener shape 2, roughly one post in five); `lead_question_opener` rejects them.
+- **Soft on the rewrite.** A lead-style reason triggers the usual one rewrite with a plain instruction (for withheld news, naming the headline's own names and numbers). If only lead-style reasons remain after it, the draft still goes to the judge and publishes on a pass, with the reasons in `trace.leadFlags` and a `news-worker: lead-style flags kept after rewrite` log line. Any other reason holds exactly as before.
+
+**Unchanged.** No hedge words in the lead (`leadMaxHedges: 0`); no outlet names; headline/lead overlap below 0.7; the Opus judge prompt and its calibration gate are not touched. Its wording "The lead is a hook" stays because any judge prompt edit requires the paid `calibrate-judge.mjs` run; the judge does not score the headline, and its non-repetition rule already expects the body to restate the lead's facts.
+
+**Why.** Measured on the live feed 2026-11-18: summaries withheld the news the headline already gave and nearly all closed on "For fans who..." / "For Swifties who...".
+
+**Reversal.** Revert the commit.
+
+Approved by: owner request (2026-11-18 brief); PR review pending.
+
+---
+
 ## 2026-11-11 — YouTube feed fetches fall back to the uploads-playlist feed; appearance-discovery stops failing on a YouTube outage
 
 **Decision (Claude, reversible):** after a YouTube channel feed's retries end in
