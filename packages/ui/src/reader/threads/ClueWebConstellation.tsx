@@ -121,7 +121,7 @@ export function ConstellationView({
               key={n.id}
               onClick={() => setActive(active === n.id ? null : n.id)}
               onMouseEnter={() => setHovered(n.id)}
-              className="pointer-events-auto absolute z-10 -translate-x-1/2 rounded-full px-2 py-0.5 text-[10px] font-medium shadow-sm transition"
+              className="pointer-events-auto absolute z-10 flex min-h-6 -translate-x-1/2 items-center rounded-full px-2 py-0.5 text-[10px] font-medium shadow-sm transition"
               style={{
                 left: `${n.x}%`,
                 // Unlike the SVG <circle>, this label is positioned via CSS
